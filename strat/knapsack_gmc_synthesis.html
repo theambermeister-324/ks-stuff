@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTM Solutioning Architecture Kit: Leadership Synthesis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: #f8f9fa;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #6436bf;
+            letter-spacing: -0.5px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 20px 0 12px 0;
+            color: #1a1a1a;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #6436bf;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .meta {
+            font-size: 14px;
+            color: #666;
+        }
+
+        section {
+            margin-bottom: 80px;
+        }
+
+        section > h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #1a1a1a;
+            border-bottom: 3px solid #6436bf;
+            padding-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .card.alert {
+            border-color: #dc2626;
+            background: #fef2f2;
+            border-left: 4px solid #dc2626;
+        }
+
+        .card.success {
+            border-color: #059669;
+            background: #f0fdf4;
+            border-left: 4px solid #059669;
+        }
+
+        .card.primary {
+            border-color: #d8d0ff;
+            background: #f3f0ff;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(100, 54, 191, 0.1);
+        }
+
+        .card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #6436bf;
+            margin: 16px 0 8px 0;
+            letter-spacing: 0.5px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .card ul {
+            margin: 12px 0 12px 20px;
+            font-size: 13px;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .card li {
+            margin-bottom: 8px;
+        }
+
+        /* Grid Layouts */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .metric-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .metric-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .metric-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .metric-card.primary {
+            border-color: #d8d0ff;
+            background: #f3f0ff;
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #6436bf;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-desc {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Matrix Table */
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+            font-size: 13px;
+        }
+
+        .matrix-table thead {
+            background: #f3f0ff;
+            border-bottom: 2px solid #d8d0ff;
+        }
+
+        .matrix-table th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+            color: #6436bf;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .matrix-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #e5e7eb;
+            color: #333;
+        }
+
+        .matrix-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .matrix-table tbody tr:hover {
+            background: #fafafa;
+        }
+
+        .header-col {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .challenge {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .opportunity {
+            color: #059669;
+            font-weight: 600;
+        }
+
+        /* Process Flow */
+        .process-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .process-step {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .process-step.active {
+            border-color: #6436bf;
+            background: #f3f0ff;
+        }
+
+        .process-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #6436bf;
+            margin-bottom: 8px;
+        }
+
+        .process-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+        }
+
+        .process-desc {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .process-arrow {
+            position: absolute;
+            right: -24px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6436bf;
+            font-weight: bold;
+            display: none;
+        }
+
+        @media (min-width: 769px) {
+            .process-arrow {
+                display: block;
+            }
+        }
+
+        .process-step:last-child .process-arrow {
+            display: none;
+        }
+
+        /* Framework Box */
+        .framework-box {
+            background: linear-gradient(135deg, #6436bf 0%, #5a2fa8 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 40px;
+        }
+
+        .framework-box h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            border: none;
+            color: white;
+        }
+
+        .framework-box p {
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .framework-box strong {
+            color: white;
+        }
+
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .framework-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .framework-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            padding: 16px;
+        }
+
+        .framework-item h4 {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .framework-item p {
+            font-size: 12px;
+            margin-bottom: 0;
+        }
+
+        /* Call-to-Action */
+        .cta-section {
+            background: #f3f0ff;
+            border: 2px solid #d8d0ff;
+            border-radius: 8px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .cta-section h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #6436bf;
+            margin-bottom: 16px;
+            border: none;
+        }
+
+        .cta-section p {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        /* Executive Summary */
+        .exec-summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .exec-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .summary-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .summary-item h4 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #6436bf;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .summary-item p {
+            font-size: 13px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 12px;
+            border-top: 1px solid #e5e7eb;
+            margin-top: 60px;
+        }
+
+        @media print {
+            body { background: white; }
+            .card { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">⬢ KNAPSACK</div>
+            <p class="subtitle">Intelligent Product Engine (IPE)</p>
+            <h1>Implementation Playbook Operating System</h1>
+            <p class="meta">From Platform Documentation to Certified Partner Network | October 2025</p>
+        </header>
+
+        <!-- SECTION 1: Executive Overview -->
+        <section>
+            <h2>Executive Overview</h2>
+
+            <div class="card primary">
+                <h3>Strategic Initiative: Accelerating Enterprise Sales Cycles</h3>
+                <p>The GTM Solutioning Architecture Kit is a comprehensive framework designed to transform how Knapsack approaches enterprise customer acquisition. By codifying the solutioning process, standardizing technical documentation, and embedding compliance/security requirements upfront, we can reduce enterprise sales cycles by 15-20% and improve deal probability by 25%+.</p>
+                <p><strong>Core Problem:</strong> Enterprise procurement cycles face friction due to fragmented documentation, unclear technical architecture, inconsistent value articulation, and missing compliance templates.</p>
+                <p><strong>Solution:</strong> A unified, procurement-ready kit that integrates business value, technical governance, solution design, and deployment planning into one coherent GTM artifact.</p>
+            </div>
+
+            <div class="exec-summary">
+                <div class="summary-item">
+                    <h4>Current State</h4>
+                    <p>Enterprise sales motion faces significant friction. Launch execution remains inconsistent. Value proposition lacks clarity. Pricing and packaging require refinement. ICP documentation fragmented across 70+ dimensions without clear scoring model.</p>
+                </div>
+
+                <div class="summary-item">
+                    <h4>Future State (Year 1)</h4>
+                    <p>Enterprise procurement-ready kits deployed for each use case. 15-20% shorter sales cycles. 25%+ improvement in deal probability. Standardized technical framework with IT stakeholder sign-off built into solutioning process. 100% of enterprise proposals aligned to security, compliance, and architecture standards.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: The Problem -->
+        <section>
+            <h2>The Problem: Enterprise GTM Fragmentation</h2>
+
+            <div class="problem-grid">
+                <div class="card alert">
+                    <h4>Sales Cycle Delays (Primary Impact)</h4>
+                    <p>Enterprise deals currently face 4-6 week delays due to missing documentation. IT procurement teams reject proposals lacking security architecture, deployment guidance, and compliance evidence. Design System teams must recreate solutions from scratch for each customer.</p>
+                    <p><strong>Cost to Company:</strong> 15-20% of sales cycles delayed. Multiple re-work cycles on technical documentation per deal.</p>
+                </div>
+
+                <div class="card alert">
+                    <h4>Value Articulation Crisis</h4>
+                    <p>Business value not clearly connected to technical architecture. Pricing appears arbitrary (F grade for consistency). Customer success metrics not pre-packaged. Sales team lacks playbooks for different personas (CPO vs. CTO vs. CFO vs. VP Product Ops).</p>
+                    <p><strong>Cost to Company:</strong> Higher discounting, longer deal cycles, worse deal quality.</p>
+                </div>
+
+                <div class="card alert">
+                    <h4>Technical Governance Vacuum</h4>
+                    <p>No standardized list of approved frameworks. IT ownership unclear ("? IT" annotation on boards). Hosting decisions (Knapsack-hosted vs. customer-managed) not documented upfront. Security and compliance requirements treated as afterthoughts, not requirements.</p>
+                    <p><strong>Cost to Company:</strong> Technical rejections mid-cycle. Re-architecture work. Loss of enterprise deals to better-documented competitors.</p>
+                </div>
+
+                <div class="card alert">
+                    <h4>Execution Inconsistency</h4>
+                    <p>Launches consistently underperform because each customer engagement starts from zero. No standard solutioning playbook. Requirements gathering, architecture design, and deployment planning ad-hoc and unstructured.</p>
+                    <p><strong>Cost to Company:</strong> Poor customer onboarding. Implementation delays. Customer dissatisfaction (99% negative feedback in some segments).</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Current Maturity Assessment</h3>
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Dimension</th>
+                            <th>Current Score (Legacy)</th>
+                            <th>Current Score (IPE)</th>
+                            <th>Gap</th>
+                            <th>Strategic Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="header-col">Value Proposition</td>
+                            <td>B+</td>
+                            <td>C</td>
+                            <td class="challenge">-1.5 grades</td>
+                            <td>Sales loses 20-30% of deals on value clarity alone</td>
+                        </tr>
+                        <tr>
+                            <td class="header-col">Pricing & Packaging</td>
+                            <td>B</td>
+                            <td>F</td>
+                            <td class="challenge">-6 grades</td>
+                            <td>Enterprise procurement rejects due to unclear ROI calculation</td>
+                        </tr>
+                        <tr>
+                            <td class="header-col">Product-Market Fit</td>
+                            <td>A</td>
+                            <td>D</td>
+                            <td class="challenge">-4 grades</td>
+                            <td>Market doesn't understand IPE's place in enterprise stack</td>
+                        </tr>
+                        <tr>
+                            <td class="header-col">Launch Execution</td>
+                            <td>C+</td>
+                            <td>D-</td>
+                            <td class="challenge">-1.5 grades</td>
+                            <td>Customer implementations delayed, NPS suffers</td>
+                        </tr>
+                        <tr>
+                            <td class="header-col">Technical Architecture Doc</td>
+                            <td>B</td>
+                            <td>Missing</td>
+                            <td class="challenge">Critical gap</td>
+                            <td>IT procurement teams cannot validate architecture</td>
+                        </tr>
+                        <tr>
+                            <td class="header-col">Security & Compliance</td>
+                            <td>A</td>
+                            <td>Missing</td>
+                            <td class="challenge">Critical gap</td>
+                            <td>Enterprise security reviews halt deals mid-cycle</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 3: The Solution -->
+        <section>
+            <h2>The Solution: GTM Solutioning Architecture Kit</h2>
+
+            <div class="framework-box">
+                <h3>Unified Framework: From Requirements to Deployment</h3>
+                <p>The GTM Solutioning Architecture Kit integrates six interconnected components into one procurement-ready package that enterprise IT, procurement, and business stakeholders can evaluate consistently and quickly.</p>
+
+                <div class="framework-grid">
+                    <div class="framework-item">
+                        <h4>1. Business Value Layer</h4>
+                        <p>Pre-built value arguments tied to customer outcomes (design velocity, release cycles, ops efficiency). ROI calculator. Pricing justification.</p>
+                    </div>
+
+                    <div class="framework-item">
+                        <h4>2. Requirements & Scope</h4>
+                        <p>Standardized NFR (non-functional requirements) checklist. RAID (Risks, Assumptions, Issues, Dependencies) framework. SOW template library by use case.</p>
+                    </div>
+
+                    <div class="framework-item">
+                        <h4>3. Technical Governance</h4>
+                        <p>Go/No-Go framework for approved coding frameworks (React, Vue, Angular, etc.). Hosting decision tree (Knapsack vs. customer-managed). CI/CD standards.</p>
+                    </div>
+
+                    <div class="framework-item">
+                        <h4>4. Solution Architecture</h4>
+                        <p>C4 and TOGAF-aligned diagrams. Security architecture (SOC 2, ISO 27001). Data flow and integration patterns. Deployment topology options.</p>
+                    </div>
+
+                    <div class="framework-item">
+                        <h4>5. Integration Planning</h4>
+                        <p>People (roles, responsibilities, RACI). Process (solutioning workflow). Platform (technical dependencies). Product (feature roadmap aligned to use cases).</p>
+                    </div>
+
+                    <div class="framework-item">
+                        <h4>6. Deployment & Monitoring</h4>
+                        <p>Implementation playbook. Go-live checklist. Hypercare support plan. Success metrics and SLAs. Maintenance and upgrade roadmap.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-flow">
+                <div class="process-step active">
+                    <div class="process-number">1</div>
+                    <div class="process-title">Requirements</div>
+                    <div class="process-desc">Capture NFRs, scope, and customer outcomes</div>
+                    <div class="process-arrow">→</div>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-number">2</div>
+                    <div class="process-title">Architecture</div>
+                    <div class="process-desc">Design solution with approved frameworks</div>
+                    <div class="process-arrow">→</div>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-number">3</div>
+                    <div class="process-title">Tech Selection</div>
+                    <div class="process-desc">Validate Go/No-Go, hosting, security</div>
+                    <div class="process-arrow">→</div>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-number">4</div>
+                    <div class="process-title">Integration Plan</div>
+                    <div class="process-desc">Document people, process, platform, product</div>
+                    <div class="process-arrow">→</div>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-number">5</div>
+                    <div class="process-title">Deployment</div>
+                    <div class="process-desc">Execute playbook, monitor, hypercare</div>
+                    <div class="process-arrow"></div>
+                </div>
+            </div>
+
+            <div class="card success">
+                <h3>Expected Impact: Enterprise Sales Cycle Acceleration</h3>
+                <p style="margin-bottom: 16px;"><strong>Time Compression:</strong> 15-20% reduction in average enterprise sales cycle through pre-packaged documentation and faster IT stakeholder validation.</p>
+                <p style="margin-bottom: 16px;"><strong>Deal Probability:</strong> 25%+ improvement in deal close rate due to standardized security architecture, compliance evidence, and clear value articulation.</p>
+                <p style="margin-bottom: 16px;"><strong>Customer Success:</strong> 30-40% faster implementation through standardized playbooks and pre-documented integration patterns.</p>
+                <p style="margin-bottom: 16px;"><strong>Sales Enablement:</strong> 100% of sales team equipped with procurement-ready artifacts by end of Q1 2026.</p>
+                <p><strong>Scaling:</strong> Repeatable kit enables 2-3x faster time-to-scale for new use cases and market segments.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Technical Framework -->
+        <section>
+            <h2>Technical Governance Framework</h2>
+
+            <div class="card">
+                <h3>Approved Technology Stack: Go/No-Go Matrix</h3>
+                <p style="margin-bottom: 20px;">To accelerate technical solutioning decisions and reduce mid-cycle architecture changes, we've codified approved frameworks across front-end, integration, and hosting layers.</p>
+
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>✅ GO</th>
+                            <th>🚫 NO-GO</th>
+                            <th>🤔 MAYBE (Evaluation)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="header-col">Front-End Frameworks</td>
+                            <td>React, Vue.js, Angular, Web Components, Astro</td>
+                            <td>Xamarin, AEM HTL</td>
+                            <td>Svelte, Solid.js, Qwik</td>
+                        </tr>
+                        <tr>
+                            <td class="header-col">Mobile Platforms</td>
+                            <td>SwiftUI (2026), Kotlin (2026), React Native (eval)</td>
+                            <td>Xamarin, deprecated frameworks</td>
+                            <td>Flutter, Ionic</td>
+                        </tr>
+                        <tr>
+                            <td class="header-col">Backend/CMS</td>
+                            <td>PHP (Twing), AEM React, Node.js</td>
+                            <td>Legacy Perl, outdated templating</td>
+                            <td>Shopify, Retool (low-code eval)</td>
+                        </tr>
+                        <tr>
+                            <td class="header-col">Hosting</td>
+                            <td>Knapsack-managed cloud, customer VPC (approved)</td>
+                            <td>Insecure on-premises, unapproved CDNs</td>
+                            <td>Customer data center (case-by-case)</td>
+                        </tr>
+                        <tr>
+                            <td class="header-col">Security</td>
+                            <td>SOC 2 Type II, ISO 27001, VPN + IP whitelist ready</td>
+                            <td>No compliance framework, public-only access</td>
+                            <td>SSO POC (Okta, Azure AD)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card primary">
+                <h3>Decision Framework: Hosting & IT Governance</h3>
+                <h4>Hosting Options (Pre-Approved)</h4>
+                <ul>
+                    <li><strong>Knapsack-Managed Cloud:</strong> Default for design systems, design tokens, component libraries. Fast onboarding, minimal IT overhead.</li>
+                    <li><strong>Customer VPC (Approved):</strong> For sensitive product data, code generation. Requires IT sign-off, adds 2-4 weeks to solutioning.</li>
+                    <li><strong>Hybrid (Emerging):</strong> Design system in Knapsack cloud, product data in customer VPC via secure API. Recommended for enterprise risk-averse customers.</li>
+                </ul>
+
+                <h4>IT Ownership & RACI</h4>
+                <p style="margin-top: 16px;">Current gap: IT ownership unclear during solutioning. Solution: Embed RACI matrix into requirements phase, explicitly documenting security team, platform team, and architecture team sign-offs.</p>
+                <ul style="margin-top: 12px;">
+                    <li><strong>Security Team (Responsible):</strong> SOC 2, ISO compliance validation</li>
+                    <li><strong>Platform Team (Accountable):</strong> Hosting decision, VPN/IP whitelist setup</li>
+                    <li><strong>Architecture Team (Consulted):</strong> Framework approval, integration feasibility</li>
+                    <li><strong>Business (Informed):</strong> Cost implications of hosting choice</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 5: Implementation Roadmap -->
+        <section>
+            <h2>Implementation Roadmap: Q1 2026 Launch</h2>
+
+            <div class="metric-grid">
+                <div class="metric-card primary">
+                    <div class="metric-label">Phase 1: Foundation</div>
+                    <div class="metric-value">Weeks 1-4</div>
+                    <div class="metric-desc">Build core kit components: requirements template, architecture framework, Go/No-Go matrix, deployment playbook. Internal alignment with sales, product, engineering.</div>
+                </div>
+
+                <div class="metric-card primary">
+                    <div class="metric-label">Phase 2: Beta Deployment</div>
+                    <div class="metric-value">Weeks 5-8</div>
+                    <div class="metric-desc">Deploy kit with 3 beta enterprise customers. Iterate on process, refine templates, validate that cycle time improves by 15%+. Gather feedback from sales team.</div>
+                </div>
+
+                <div class="metric-card primary">
+                    <div class="metric-label">Phase 3: GA Launch</div>
+                    <div class="metric-value">Week 9+</div>
+                    <div class="metric-desc">Full GTM deployment across all enterprise deals. Sales enablement training. Continuous iteration based on customer feedback. Monthly reporting on cycle time improvement.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Success Metrics (Q1 2026 + Quarterly Tracking)</h3>
+                <h4>Sales Cycle Acceleration</h4>
+                <ul>
+                    <li>Average enterprise sales cycle: 12-16 weeks → 10-14 weeks (15% improvement)</li>
+                    <li>Time from discovery to proposal: 3-4 weeks → 2-3 weeks (30% improvement)</li>
+                    <li>Number of re-architecture cycles per deal: 2-3 → 0-1 (66% reduction)</li>
+                </ul>
+
+                <h4>Deal Quality & Probability</h4>
+                <ul>
+                    <li>Enterprise deal close rate: Current 40% → Target 50%+ (25% improvement)</li>
+                    <li>IT stakeholder sign-off in first proposal: 20% → 70%+ (within 1 cycle)</li>
+                    <li>Average deal size: Stable (no compression via better documentation)</li>
+                    <li>Customer satisfaction (implementation phase): NPS 40 → NPS 55+</li>
+                </ul>
+
+                <h4>Team Enablement</h4>
+                <ul>
+                    <li>Sales team: 100% trained on kit, using on every deal by Week 12</li>
+                    <li>Solutions engineering: 90%+ of solutioning cycles follow standard process</li>
+                    <li>Customer success: 80%+ of customers onboarded using playbook (vs. ad-hoc today)</li>
+                </ul>
+
+                <h4>Scalability</h4>
+                <ul>
+                    <li>Number of use case kits: 1 → 4-5 by end of Q1 2026</li>
+                    <li>New market segment time-to-ready: 8-12 weeks → 4-6 weeks</li>
+                    <li>Kit reusability: 60%+ of components used across 80%+ of deals</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 6: Leadership Call-to-Action -->
+        <section>
+            <h2>Leadership Alignment & Next Steps</h2>
+
+            <div class="cta-section">
+                <h3>GTM Solutioning Architecture Kit: Go/No-Go Decision</h3>
+                <p><strong>Decision Required:</strong> Approve Q1 2026 launch of GTM Solutioning Architecture Kit with $500K budget and dedicated cross-functional team.</p>
+                <p><strong>Expected ROI:</strong> 15-20% reduction in enterprise sales cycles + 25%+ improvement in deal probability = $15-30M incremental ARR impact by end of Year 1.</p>
+            </div>
+
+            <div class="card">
+                <h3>Required Leadership Actions (Next 30 Days)</h3>
+                <h4>Week 1: Alignment</h4>
+                <ul>
+                    <li>CEO, CMO, VP Sales: Approve kit concept and budget</li>
+                    <li>VP Engineering: Confirm technical governance framework and Go/No-Go decisions</li>
+                    <li>Chief Customer Officer: Validate deployment playbook and success metrics</li>
+                </ul>
+
+                <h4>Week 2: Team Assembly</h4>
+                <ul>
+                    <li>Assign product marketing owner (owns kit evolution)</li>
+                    <li>Assign sales enablement owner (owns rollout and adoption)</li>
+                    <li>Assign solutions engineering lead (owns technical framework)</li>
+                    <li>Assign customer success lead (owns deployment playbook)</li>
+                </ul>
+
+                <h4>Week 3-4: Design Sprint</h4>
+                <ul>
+                    <li>Draft requirements template and NFR checklist</li>
+                    <li>Finalize Go/No-Go technology matrix with engineering</li>
+                    <li>Create C4/TOGAF architecture framework</li>
+                    <li>Document RACI and IT governance model</li>
+                    <li>Draft deployment playbook (using Design System Maturity playbook as reference)</li>
+                </ul>
+
+                <h4>Week 5: Beta Selection</h4>
+                <ul>
+                    <li>Identify 3 in-progress enterprise deals for beta testing</li>
+                    <li>Secure customer commitment to use kit, provide feedback</li>
+                    <li>Plan measurement framework and success metrics tracking</li>
+                </ul>
+            </div>
+
+            <div class="card success">
+                <h3>Strategic Alignment with Knapsack Mission
