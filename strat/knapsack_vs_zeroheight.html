@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSBC: Knapsack vs zeroheight - One Page Comparison</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Brand Colors */
+            --brand-primary-base: #6436bf;
+            --brand-primary-dark: #42247f;
+            --brand-primary-light: #f3effb;
+            --brand-secondary-base: #e43a5c;
+            --brand-secondary-dark: #90142c;
+            
+            /* Neutral Colors */
+            --neutral-50: #faf9fa;
+            --neutral-100: #f5f4f6;
+            --neutral-200: #cbc8d0;
+            --neutral-500: #645e6e;
+            --neutral-800: #28262c;
+            
+            /* Feedback Colors */
+            --feedback-success-base: #36bf7f;
+            --feedback-error-base: #e60f0f;
+            
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 0.75rem;
+            --spacing-lg: 1rem;
+            --spacing-xl: 1.5rem;
+            
+            /* Text */
+            --text-default: #28262c;
+            --text-subtle: #645e6e;
+            --text-white: #ffffff;
+            
+            /* Border */
+            --border-base: #e0dee3;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background: var(--text-white);
+            color: var(--text-default);
+            line-height: 1.4;
+            padding: 0;
+            margin: 0;
+        }
+        
+        @page {
+            size: letter;
+            margin: 0.5in;
+        }
+        
+        .page {
+            max-width: 8.5in;
+            height: 11in;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+            background: var(--text-white);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header */
+        header {
+            margin-bottom: var(--spacing-md);
+            text-align: center;
+            border-bottom: 3px solid var(--brand-primary-base);
+            padding-bottom: var(--spacing-md);
+        }
+        
+        h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--brand-primary-dark);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .subtitle {
+            font-size: 0.8rem;
+            color: var(--text-subtle);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        /* Recommendation Box */
+        .recommendation {
+            background: var(--brand-primary-light);
+            border-left: 4px solid var(--brand-primary-base);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+            border-radius: 2px;
+        }
+        
+        .recommendation h2 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--brand-primary-dark);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .recommendation p {
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: var(--brand-primary-dark);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .recommendation p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+            margin-bottom: var(--spacing-md);
+            flex-grow: 1;
+        }
+        
+        .comparison-table thead {
+            background: var(--brand-primary-base);
+            color: var(--text-white);
+        }
+        
+        .comparison-table th {
+            padding: var(--spacing-sm);
+            text-align: left;
+            font-weight: 600;
+            border-right: 1px solid rgba(255,255,255,0.2);
+            line-height: 1.3;
+        }
+        
+        .comparison-table th:last-child {
+            border-right: none;
+        }
+        
+        .comparison-table tbody tr {
+            border-bottom: 1px solid var(--border-base);
+        }
+        
+        .comparison-table tbody tr:last-child {
+            border-bottom: none;
+        }
+        
+        .comparison-table tbody tr:nth-child(even) {
+            background: var(--neutral-50);
+        }
+        
+        .comparison-table td {
+            padding: var(--spacing-sm);
+            vertical-align: top;
+            line-height: 1.4;
+        }
+        
+        .feature-name {
+            font-weight: 600;
+            color: var(--brand-primary-base);
+            width: 25%;
+            background: linear-gradient(to right, var(--brand-primary-light), transparent);
+        }
+        
+        .knapsack-col {
+            width: 37.5%;
+            background: linear-gradient(to bottom, rgba(100, 54, 191, 0.03), transparent);
+        }
+        
+        .zeroheight-col {
+            width: 37.5%;
+            background: linear-gradient(to bottom, rgba(228, 58, 92, 0.03), transparent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: var(--spacing-sm) 0 0 0;
+        }
+        
+        .feature-list li {
+            padding-left: var(--spacing-md);
+            position: relative;
+            margin-bottom: var(--spacing-xs);
+            font-size: 0.7rem;
+        }
+        
+        .feature-list li.strength {
+            color: var(--feedback-success-base);
+        }
+        
+        .feature-list li.strength:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .feature-list li.limitation {
+            color: var(--feedback-error-base);
+        }
+        
+        .feature-list li.limitation:before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .feature-description {
+            font-size: 0.75rem;
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.4;
+        }
+        
+        /* Footer */
+        footer {
+            font-size: 0.7rem;
+            color: var(--text-subtle);
+            text-align: center;
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--border-base);
+            margin-top: auto;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            
+            .page {
+                padding: 0.5in;
+                height: auto;
+                page-break-after: avoid;
+            }
+            
+            header {
+                page-break-after: avoid;
+            }
+            
+            .comparison-table {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <h1>Platform Comparison: Knapsack vs zeroheight</h1>
+            <p class="subtitle">Strategic Analysis for Enterprise Digital Production</p>
+        </header>
+        
+        <div class="recommendation">
+            <h2>Strategic Recommendation: Knapsack</h2>
+            <p><strong>For HSBC:</strong> Knapsack is the optimal platform choice. It's a production-first platform designed for cross-functional enterprise teams, enabling design-to-code automation, multi-brand support, and organizational alignment. zeroheight is a documentation-focused solution best suited for design-centric teams.</p>
+            <p><strong>Key Advantage:</strong> Knapsack eliminates manual synchronization work, reduces total cost of ownership, and accelerates time-to-market through automation and real-time cross-functional collaboration.</p>
+        </div>
+        
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Feature Category</th>
+                    <th>Knapsack</th>
+                    <th>zeroheight</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="feature-name">Design-to-Code Integration</td>
+                    <td class="knapsack-col">
+                        <div class="feature-description">Deep integration with live components from codebase supporting multiple frameworks.</div>
+                        <ul class="feature-list">
+                            <li class="strength">Real-time synchronization</li>
+                            <li class="strength">Multiple framework support</li>
+                            <li class="strength">Production-ready components</li>
+                        </ul>
+                    </td>
+                    <td class="zeroheight-col">
+                        <div class="feature-description">Code integrations with manual updates and time-consuming preview creation.</div>
+                        <ul class="feature-list">
+                            <li class="limitation">Manual updates required</li>
+                            <li class="limitation">Time-consuming previews</li>
+                            <li class="limitation">Limited automation</li>
+                        </ul>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="feature-name">Documentation Management</td>
+                    <td class="knapsack-col">
+                        <div class="feature-description">Dynamic documentation auto-updates with design and code changes.</div>
+                        <ul class="feature-list">
+                            <li class="strength">Automatic updates</li>
+                            <li class="strength">Reduced maintenance</li>
+                            <li class="strength">Non-technical access</li>
+                        </ul>
+                    </td>
+                    <td class="zeroheight-col">
+                        <div class="feature-description">Beautiful static documentation requiring manual maintenance.</div>
+                        <ul class="feature-list">
+                            <li class="limitation">Manual maintenance</li>
+                            <li class="limitation">Discrepancy risk</li>
+                            <li class="limitation">Design-centric</li>
+                        </ul>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="feature-name">Component Interactivity</td>
+                    <td class="knapsack-col">
+                        <div class="feature-description">Live components with full behavior and logic validation.</div>
+                        <ul class="feature-list">
+                            <li class="strength">Real behavior validation</li>
+                            <li class="strength">Full logic visibility</li>
+                            <li class="strength">Designer alignment</li>
+                        </ul>
+                    </td>
+                    <td class="zeroheight-col">
+                        <div class="feature-description">Static previews without functional validation.</div>
+                        <ul class="feature-list">
+                            <li class="limitation">No validation</li>
+                            <li class="limitation">Visual-only</li>
+                            <li class="limitation">Limited insights</li>
+                        </ul>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="feature-name">Prototyping & Testing</td>
+                    <td class="knapsack-col">
+                        <div class="feature-description">Real component prototyping enabling early validation and reduced rework.</div>
+                        <ul class="feature-list">
+                            <li class="strength">Early validation</li>
+                            <li class="strength">Reduced rework</li>
+                            <li class="strength">In-system iteration</li>
+                        </ul>
+                    </td>
+                    <td class="zeroheight-col">
+                        <div class="feature-description">Limited prototyping requiring external tools and context switching.</div>
+                        <ul class="feature-list">
+                            <li class="limitation">External prototyping</li>
+                            <li class="limitation">Context switching</li>
+                            <li class="limitation">Disconnected workflows</li>
+                        </ul>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="feature-name">Cross-Team Collaboration</td>
+                    <td class="knapsack-col">
+                        <div class="feature-description">Multi-discipline collaboration in shared workspace with clear governance.</div>
+                        <ul class="feature-list">
+                            <li class="strength">True co-creation</li>
+                            <li class="strength">Shared workspace</li>
+                            <li class="strength">Faster decisions</li>
+                        </ul>
+                    </td>
+                    <td class="zeroheight-col">
+                        <div class="feature-description">Design-focused with engineers working separately.</div>
+                        <ul class="feature-list">
+                            <li class="limitation">Design-centric</li>
+                            <li class="limitation">Limited collaboration</li>
+                            <li class="limitation">Silos reinforced</li>
+                        </ul>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="feature-name">Shared Understanding of Constraints</td>
+                    <td class="knapsack-col">
+                        <div class="feature-description">Real-time feedback breaks down silos between design and engineering.</div>
+                        <ul class="feature-list">
+                            <li class="strength">Real-time feedback</li>
+                            <li class="strength">Reduced misalignment</li>
+                            <li class="strength">Informed decisions</li>
+                        </ul>
+                    </td>
+                    <td class="zeroheight-col">
+                        <div class="feature-description">Isolated workflows increasing misalignment risks and rework.</div>
+                        <ul class="feature-list">
+                            <li class="limitation">Isolated workflows</li>
+                            <li class="limitation">Higher rework risk</li>
+                            <li class="limitation">Misalignment risk</li>
+                        </ul>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="feature-name">Scalability & Adoption</td>
+                    <td class="knapsack-col">
+                        <div class="feature-description">Enterprise-grade scale supporting multiple brands and complex workflows.</div>
+                        <ul class="feature-list">
+                            <li class="strength">Enterprise scale</li>
+                            <li class="strength">Multi-brand support</li>
+                            <li class="strength">Governance tools</li>
+                        </ul>
+                    </td>
+                    <td class="zeroheight-col">
+                        <div class="feature-description">Limited scalability, single-team focused.</div>
+                        <ul class="feature-list">
+                            <li class="limitation">Limited scale</li>
+                            <li class="limitation">No multi-brand</li>
+                            <li class="limitation">Single-team</li>
+                        </ul>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="feature-name">Governance & Contribution</td>
+                    <td class="knapsack-col">
+                        <div class="feature-description">Clear roles and connected workflows protecting system integrity.</div>
+                        <ul class="feature-list">
+                            <li class="strength">Clear roles</li>
+                            <li class="strength">System protection</li>
+                            <li class="strength">Connected workflows</li>
+                        </ul>
+                    </td>
+                    <td class="zeroheight-col">
+                        <div class="feature-description">Disconnected workflows with limited collaboration capabilities.</div>
+                        <ul class="feature-list">
+                            <li class="limitation">Disconnected</li>
+                            <li class="limitation">Limited co-creation</li>
+                            <li class="limitation">Basic governance</li>
+                        </ul>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="feature-name">AI-Readiness & Innovation</td>
+                    <td class="knapsack-col">
+                        <div class="feature-description">AI-ready structured data enabling automation and personalization.</div>
+                        <ul class="feature-list">
+                            <li class="strength">Structured data</li>
+                            <li class="strength">Automation ready</li>
+                            <li class="strength">Future-proof</li>
+                        </ul>
+                    </td>
+                    <td class="zeroheight-col">
+                        <div class="feature-description">Unstructured data limiting innovation potential.</div>
+                        <ul class="feature-list">
+                            <li class="limitation">Unstructured data</li>
+                            <li class="limitation">No AI path</li>
+                            <li class="limitation">Limited innovation</li>
+                        </ul>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="feature-name">Cost of Manual Work</td>
+                    <td class="knapsack-col">
+                        <div class="feature-description">Minimal manual intervention through automation.</div>
+                        <ul class="feature-list">
+                            <li class="strength">Reduced burden</li>
+                            <li class="strength">Faster time-to-market</li>
+                            <li class="strength">Resource efficient</li>
+                        </ul>
+                    </td>
+                    <td class="zeroheight-col">
+                        <div class="feature-description">High ongoing manual maintenance effort required.</div>
+                        <ul class="feature-list">
+                            <li class="limitation">High overhead</li>
+                            <li class="limitation">Resource-intensive</li>
+                            <li class="limitation">Accuracy risks</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <footer>
+            <p>For HSBC: Knapsack delivers enterprise-grade platform with automation, cross-functional collaboration, and scalability. Choose based on organizational priorities: production efficiency (Knapsack) vs documentation aesthetics (zeroheight).</p>
+        </footer>
+    </div>
+</body>
+</html>
