@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accelerating Knapsack Value Through Dedicated CI/CD Engineering Support</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Brand Colors */
+            --brand-primary-base: #6436bf;
+            --brand-primary-dark: #42247f;
+            --brand-primary-light: #f3effb;
+            --brand-secondary-base: #e43a5c;
+            --brand-secondary-dark: #90142c;
+            
+            /* Neutral Colors */
+            --neutral-50: #faf9fa;
+            --neutral-100: #f5f4f6;
+            --neutral-200: #cbc8d0;
+            --neutral-500: #645e6e;
+            --neutral-800: #28262c;
+            
+            /* Feedback Colors */
+            --feedback-success-base: #36bf7f;
+            --feedback-error-base: #e60f0f;
+            
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 0.75rem;
+            --spacing-lg: 1rem;
+            --spacing-xl: 1.5rem;
+            
+            /* Text */
+            --text-default: #28262c;
+            --text-subtle: #645e6e;
+            --text-white: #ffffff;
+            
+            /* Border */
+            --border-base: #e0dee3;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background: var(--text-white);
+            color: var(--text-default);
+            line-height: 1.4;
+            padding: 0;
+            margin: 0;
+        }
+        
+        @page {
+            size: letter;
+            margin: 0.5in;
+        }
+        
+        .page {
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+            background: var(--text-white);
+        }
+        
+        /* Header */
+        header {
+            margin-bottom: var(--spacing-xl);
+            text-align: center;
+            border-bottom: 3px solid var(--brand-primary-base);
+            padding-bottom: var(--spacing-md);
+        }
+        
+        .header-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-subtle);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brand-primary-dark);
+            margin-bottom: var(--spacing-xs);
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--text-subtle);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        /* Overview Section */
+        .overview {
+            background: var(--brand-primary-light);
+            border-left: 4px solid var(--brand-primary-base);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            border-radius: 2px;
+        }
+        
+        .overview h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--brand-primary-dark);
+            margin-bottom: var(--spacing-sm);
+            margin-top: 0;
+            border: none;
+            padding: 0;
+        }
+        
+        .overview p {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--brand-primary-dark);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .overview p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Value Propositions Table */
+        .value-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            margin-bottom: var(--spacing-xl);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .value-table thead {
+            background: var(--brand-primary-base);
+            color: var(--text-white);
+        }
+        
+        .value-table th {
+            padding: var(--spacing-md);
+            text-align: left;
+            font-weight: 600;
+            border-right: 1px solid rgba(255,255,255,0.2);
+            line-height: 1.4;
+        }
+        
+        .value-table th:last-child {
+            border-right: none;
+        }
+        
+        .value-table tbody tr {
+            border-bottom: 1px solid var(--border-base);
+        }
+        
+        .value-table tbody tr:last-child {
+            border-bottom: none;
+        }
+        
+        .value-table tbody tr:nth-child(even) {
+            background: var(--neutral-50);
+        }
+        
+        .value-table tbody tr:hover {
+            background: var(--brand-primary-light);
+        }
+        
+        .value-table td {
+            padding: var(--spacing-md);
+            vertical-align: top;
+            line-height: 1.6;
+        }
+        
+        .value-category {
+            font-weight: 700;
+            color: var(--brand-primary-dark);
+            width: 20%;
+            min-width: 140px;
+        }
+        
+        .value-category-subtitle {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: var(--text-subtle);
+            font-style: italic;
+            margin-top: var(--spacing-xs);
+        }
+        
+        .value-proposition {
+            color: var(--text-default);
+        }
+        
+        .value-proposition strong {
+            color: var(--brand-primary-dark);
+            font-weight: 600;
+        }
+        
+        /* Success Criteria */
+        .success-timeline {
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .success-phase {
+            background: var(--neutral-50);
+            border-left: 4px solid var(--feedback-success-base);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+            border-radius: 2px;
+        }
+        
+        .success-phase:last-child {
+            margin-bottom: 0;
+        }
+        
+        .success-phase h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--brand-primary-dark);
+            margin-bottom: var(--spacing-sm);
+            margin-top: 0;
+        }
+        
+        .success-phase p {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-default);
+            margin: 0;
+        }
+        
+        /* Section Headings */
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--brand-primary-base);
+            margin-top: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--brand-primary-light);
+        }
+        
+        /* Tables */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+            margin-bottom: var(--spacing-xl);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-table thead {
+            background: var(--brand-primary-base);
+            color: var(--text-white);
+        }
+        
+        .comparison-table th {
+            padding: var(--spacing-sm);
+            text-align: left;
+            font-weight: 600;
+            border-right: 1px solid rgba(255,255,255,0.2);
+            line-height: 1.3;
+        }
+        
+        .comparison-table th:last-child {
+            border-right: none;
+        }
+        
+        .comparison-table tbody tr {
+            border-bottom: 1px solid var(--border-base);
+        }
+        
+        .comparison-table tbody tr:last-child {
+            border-bottom: none;
+        }
+        
+        .comparison-table tbody tr:nth-child(even) {
+            background: var(--neutral-50);
+        }
+        
+        .comparison-table tbody tr:hover {
+            background: var(--brand-primary-light);
+        }
+        
+        .comparison-table td {
+            padding: var(--spacing-sm);
+            vertical-align: top;
+            line-height: 1.5;
+        }
+        
+        .scenario-name {
+            font-weight: 600;
+            color: var(--brand-primary-base);
+        }
+        
+        .time-value {
+            font-weight: 600;
+            color: var(--brand-primary-dark);
+        }
+        
+        /* Business Impact Table */
+        .impact-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+            margin-bottom: var(--spacing-xl);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .impact-table thead {
+            background: var(--brand-secondary-base);
+            color: var(--text-white);
+        }
+        
+        .impact-table th {
+            padding: var(--spacing-sm);
+            text-align: center;
+            font-weight: 600;
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .impact-table th:first-child {
+            text-align: left;
+        }
+        
+        .impact-table th:last-child {
+            border-right: none;
+        }
+        
+        .impact-table tbody tr {
+            border-bottom: 1px solid var(--border-base);
+        }
+        
+        .impact-table tbody tr:last-child {
+            border-bottom: none;
+        }
+        
+        .impact-table tbody tr:nth-child(even) {
+            background: var(--neutral-50);
+        }
+        
+        .impact-table tbody tr:hover {
+            background: var(--brand-primary-light);
+        }
+        
+        .impact-table td {
+            padding: var(--spacing-sm);
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .impact-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: var(--brand-primary-dark);
+        }
+        
+        .metric-value {
+            font-weight: 600;
+            color: var(--brand-primary-base);
+        }
+        
+        .metric-high {
+            color: var(--feedback-success-base);
+            font-weight: 600;
+        }
+        
+        .metric-medium {
+            color: var(--brand-secondary-base);
+            font-weight: 600;
+        }
+        
+        .metric-low {
+            color: var(--feedback-error-base);
+            font-weight: 600;
+        }
+        
+        /* Recommendation Box */
+        .recommendation {
+            background: var(--brand-primary-light);
+            border-left: 4px solid var(--brand-primary-base);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            border-radius: 2px;
+        }
+        
+        .recommendation h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--brand-primary-dark);
+            margin-bottom: var(--spacing-sm);
+            margin-top: 0;
+            border: none;
+            padding: 0;
+        }
+        
+        .recommendation blockquote {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin: var(--spacing-md) 0;
+            padding-left: var(--spacing-lg);
+            border-left: 3px solid var(--brand-primary-base);
+        }
+        
+        .recommendation blockquote p {
+            margin-bottom: var(--spacing-sm);
+            color: var(--brand-primary-dark);
+        }
+        
+        .recommendation blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Visual/Chart Section */
+        .visual-section {
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .visual-section h2 {
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .visual-section p {
+            font-size: 0.85rem;
+            color: var(--text-subtle);
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.6;
+        }
+        
+        .chart-container {
+            background: var(--text-white);
+            border: 1px solid var(--border-base);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .chart-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-default);
+            margin-bottom: var(--spacing-lg);
+            letter-spacing: -0.01em;
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            height: 400px;
+        }
+        
+        .chart-insight {
+            margin-top: var(--spacing-lg);
+            padding: var(--spacing-md);
+            background: var(--neutral-50);
+            border-radius: 4px;
+            border-left: 4px solid var(--brand-primary-base);
+        }
+        
+        .chart-insight p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: var(--text-subtle);
+            line-height: 1.5;
+        }
+        
+        .chart-insight strong {
+            color: var(--text-default);
+        }
+        
+        /* Footer */
+        footer {
+            font-size: 0.7rem;
+            color: var(--text-subtle);
+            text-align: center;
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--border-base);
+            margin-top: var(--spacing-xl);
+        }
+        
+        /* Responsive */
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            
+            .page {
+                padding: 0.5in;
+            }
+            
+            header {
+                page-break-after: avoid;
+            }
+            
+            .comparison-table,
+            .impact-table,
+            .value-table {
+                page-break-inside: avoid;
+            }
+            
+            .recommendation {
+                page-break-inside: avoid;
+            }
+            
+            .chart-container {
+                page-break-inside: avoid;
+            }
+            
+            .value-table tbody tr {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-meta {
+                flex-direction: column;
+                gap: var(--spacing-xs);
+            }
+            
+            .comparison-table,
+            .impact-table,
+            .value-table {
+                font-size: 0.7rem;
+            }
+            
+            .comparison-table th,
+            .comparison-table td,
+            .impact-table th,
+            .impact-table td,
+            .value-table th,
+            .value-table td {
+                padding: var(--spacing-xs);
+            }
+            
+            .value-category {
+                min-width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <div class="header-meta">
+                <div>Prepared for: College Board Leadership</div>
+                <div>Date: November 2025</div>
+            </div>
+            <h1>Accelerating Knapsack Value Through Dedicated CI/CD Engineering Support</h1>
+        </header>
+        
+        <section class="overview">
+            <h2>Overview</h2>
+            <p>The College Board's investment in Knapsack enables scalable design and engineering collaboration. To unlock its full potential—especially through automated CI/CD pipelines—timely onboarding of a dedicated 0.5 FTE CI/CD engineering resource is critical.</p>
+            <p>The time-to-value scenarios presented in this document are based on Knapsack's experience with organizations similar to College Board.</p>
+            <p><strong>Executive Ask:</strong> Approve a dedicated 0.5 FTE CI/CD engineer within 2–3 weeks to activate Lunchbox package publishing, realize ROI in Q1, and keep the 2026 rebrand on schedule.</p>
+        </section>
+        
+        <section>
+            <h2>Value Propositions</h2>
+            <table class="value-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Value Proposition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="value-category">
+                            Strategic Value
+                            <span class="value-category-subtitle">Why this matters now</span>
+                        </td>
+                        <td class="value-proposition"><strong>Direct path to the 2026 rebrand.</strong> A dedicated CI/CD engineer unlocks Lunchbox package publishing, the critical path to propagating new brand tokens/components across ~136 properties on schedule.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Single system of delivery.</strong> CI/CD turns Lunchbox from "a place to view components" into "the way components ship," establishing one delivery motion for SAT, AP, and BigFuture.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Time-to-value in-quarter.</strong> Knapsack-led + dedicated CB engineer achieves automation in 4–6 weeks, enabling visible progress and comms wins this fiscal quarter.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Foundation for decoupled Drupal.</strong> Automated publishing supports today's Drupal/Twig reality while enabling the planned headless/React future—no rework.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Measurable transformation.</strong> CI/CD is the prerequisite to measure adoption, consistency, and satisfaction; without it, there is no reliable baseline.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category">
+                            Financial Value
+                            <span class="value-category-subtitle">What you save/earn</span>
+                        </td>
+                        <td class="value-proposition"><strong>Fewer engineer-hours per release.</strong> Pipeline automation yields ~30–35% engineering efficiency vs. current manual flows; that compounds across 136 teams.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>De-risk Apricot "bailout."</strong> Each brand update becomes a pipeline push instead of 100+ bespoke changes—reducing rework and contractor spend over the two-year cleanup.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Protect the Knapsack investment.</strong> Realize ROI in Q1 (vs. delayed to Q2 or deferred indefinitely) by putting purchased capabilities into production use.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Lower cost of inconsistency.</strong> Standardized components cut accessibility/QA churn and support tickets that arise from UI drift between AP/SAT/BigFuture.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Opportunity-cost recovery.</strong> Free up product teams to ship product features instead of rebuilding buttons/filters and chasing design parity.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category">
+                            Operational Value
+                            <span class="value-category-subtitle">How the org runs better</span>
+                        </td>
+                        <td class="value-proposition"><strong>Ship brand changes like software.</strong> Semantic versioning + automated releases push brand updates through environments reliably, at scale.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Clear adoption motion.</strong> Teams install and pin packages; Lunchbox docs map to exact versions, removing ambiguity and Slack-driven support.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Faster onboarding.</strong> New teams get working components on day one; fewer local "starter-kit" forks.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Quality you can trust.</strong> One pipeline means one source of truth for tests, a11y checks, and visual diffs—before changes hit production.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Telemetry from day 1.</strong> CI/CD emits the usage and release metrics leadership needs (DORA, adoption, cycle time) to guide investment.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category">
+                            Risk & Compliance Value
+                            <span class="value-category-subtitle">What you avoid</span>
+                        </td>
+                        <td class="value-proposition"><strong>Reduce brand drift risk.</strong> Automated, versioned packages minimize inconsistent experiences that undermine the rebrand.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Governance-by-default.</strong> Only approved, tested components get published; audit trails live in the pipeline.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Security posture improves.</strong> Tokens/secrets stay in CI; fewer ad-hoc scripts, fewer attack surfaces.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Vendor and framework agnostic.</strong> Packages serve Drupal today and React apps tomorrow—no lock-in to one stack.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category">
+                            People & Change Value
+                            <span class="value-category-subtitle">How teams feel the win</span>
+                        </td>
+                        <td class="value-proposition"><strong>Clarity for 136 teams.</strong> "See it in Lunchbox → use it via package" becomes a simple habit, not a migration project.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Morale + retention.</strong> Engineers stop doing repetitive rebuilds and ship meaningful work; design sees their system used in production.</td>
+                    </tr>
+                    <tr>
+                        <td class="value-category"></td>
+                        <td class="value-proposition"><strong>Scaled enablement.</strong> With CI/CD, office hours and documentation actually convert into adoption—because there's a way to consume.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section>
+            <h2>Comparative Time-to-Value Scenarios</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Scenario</th>
+                        <th>Description</th>
+                        <th>Time-to-Value</th>
+                        <th>Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="scenario-name">Knapsack-Led Integration</td>
+                        <td>Knapsack drives CI/CD setup jointly with College Board engineer.</td>
+                        <td class="time-value">4–6 weeks</td>
+                        <td>Fastest realization of automation, design–engineering alignment, high adoption</td>
+                    </tr>
+                    <tr>
+                        <td class="scenario-name">Knapsack-Supported Integration</td>
+                        <td>College Board engineers lead; Knapsack provides guidance and office hours.</td>
+                        <td class="time-value">10–12 weeks</td>
+                        <td>Partial automation, moderate adoption</td>
+                    </tr>
+                    <tr>
+                        <td class="scenario-name">No Action / Deferred Hire</td>
+                        <td>Integration delayed pending internal capacity.</td>
+                        <td class="time-value">4–6 months</td>
+                        <td>Minimal automation, stalled value realization</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="visual-section">
+            <h2>Visual: Time-to-Value Comparison</h2>
+            <p>The chart below shows how quickly value is realized under each approach:</p>
+            <div class="chart-container">
+                <h3 class="chart-title">Time-to-Value Curves for Knapsack CI/CD Integration</h3>
+                <div class="chart-wrapper">
+                    <canvas id="valueChart"></canvas>
+                </div>
+                <div class="chart-insight">
+                    <p><strong>Key insight:</strong> Knapsack-led integration delivers significantly higher value over 25 weeks compared to supported or deferred approaches.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Business Impact</h2>
+            <table class="impact-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Knapsack-Led</th>
+                        <th>Knapsack-Supported</th>
+                        <th>No Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CI/CD Setup</td>
+                        <td class="metric-value">4–6 weeks</td>
+                        <td class="metric-value">10–12 weeks</td>
+                        <td class="metric-value">4–6 months</td>
+                    </tr>
+                    <tr>
+                        <td>Engineering Efficiency</td>
+                        <td class="metric-high">↑ 30–35%</td>
+                        <td class="metric-medium">↑ 10–15%</td>
+                        <td class="metric-low">0%</td>
+                    </tr>
+                    <tr>
+                        <td>Design Consistency</td>
+                        <td class="metric-high">High</td>
+                        <td class="metric-medium">Medium</td>
+                        <td class="metric-low">Low</td>
+                    </tr>
+                    <tr>
+                        <td>Adoption Across Teams</td>
+                        <td class="metric-high">90% within Q1</td>
+                        <td class="metric-medium">50% by Q2</td>
+                        <td class="metric-low">&lt;20% by midyear</td>
+                    </tr>
+                    <tr>
+                        <td>ROI on Knapsack Investment</td>
+                        <td class="metric-high">Realized in Q1</td>
+                        <td class="metric-medium">Delayed to Q2</td>
+                        <td class="metric-low">Deferred indefinitely</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section>
+            <h2>90-Day Success Criteria</h2>
+            <p style="margin-bottom: var(--spacing-lg); font-size: 0.85rem; color: var(--text-subtle);">Tie decisions to outcomes</p>
+            <div class="success-timeline">
+                <div class="success-phase">
+                    <h4>Week 2–4</h4>
+                    <p>CI/CD pipeline live; first Lunchbox package published with semantic versioning.</p>
+                </div>
+                <div class="success-phase">
+                    <h4>Week 5–8</h4>
+                    <p>5–8 high-value components published; ≥25% of target teams install at least one package.</p>
+                </div>
+                <div class="success-phase">
+                    <h4>Week 9–12</h4>
+                    <p>Mean lead time for component change &lt; 5 days; adoption ≥50% in pilot portfolios; engineering efficiency +10–15% realized in pilot.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="recommendation">
+            <h2>Recommendation</h2>
+            <p>To realize ROI within the current fiscal quarter and avoid underutilization:</p>
+            <blockquote>
+                <p><strong>Onboard a dedicated 0.5 FTE CI/CD engineer within 2–3 weeks.</strong></p>
+                <p>This accelerates integration, ensures scalability, and enables the Knapsack system to power consistent, efficient delivery across College Board products. This investment activates Lunchbox package publishing, realizes ROI in Q1, and keeps the 2026 rebrand on schedule.</p>
+            </blockquote>
+        </section>
+        
+        <script>
+            // Chart data matching the React component
+            const chartData = [
+                { week: 0, led: 0, supported: 0, deferred: 0 },
+                { week: 2, led: 8, supported: 1, deferred: 0.2 },
+                { week: 5, led: 20, supported: 4, deferred: 0.5 },
+                { week: 8, led: 31, supported: 9, deferred: 1 },
+                { week: 10, led: 40, supported: 15, deferred: 1.5 },
+                { week: 12, led: 50, supported: 20, deferred: 2 },
+                { week: 15, led: 60, supported: 28, deferred: 3 },
+                { week: 18, led: 72, supported: 35, deferred: 5 },
+                { week: 20, led: 82, supported: 40, deferred: 8 },
+                { week: 22, led: 88, supported: 45, deferred: 10 },
+                { week: 25, led: 100, supported: 52, deferred: 13 }
+            ];
+
+            const ctx = document.getElementById('valueChart');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartData.map(d => d.week),
+                    datasets: [
+                        {
+                            label: 'Knapsack-Led Integration',
+                            data: chartData.map(d => d.led),
+                            borderColor: '#6436bf', // brand-primary-base
+                            backgroundColor: 'rgba(100, 54, 191, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            pointRadius: 0,
+                            pointHoverRadius: 4
+                        },
+                        {
+                            label: 'Knapsack-Supported Integration',
+                            data: chartData.map(d => d.supported),
+                            borderColor: '#e43a5c', // brand-secondary-base
+                            backgroundColor: 'rgba(228, 58, 92, 0.1)',
+                            borderWidth: 2.5,
+                            borderDash: [5, 5],
+                            tension: 0.4,
+                            pointRadius: 0,
+                            pointHoverRadius: 4
+                        },
+                        {
+                            label: 'No Action / Deferred Hire',
+                            data: chartData.map(d => d.deferred),
+                            borderColor: '#645e6e', // neutral-500
+                            backgroundColor: 'rgba(100, 94, 110, 0.1)',
+                            borderWidth: 2.5,
+                            borderDash: [8, 4],
+                            tension: 0.4,
+                            pointRadius: 0,
+                            pointHoverRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20,
+                                font: {
+                                    family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Oxygen", "Ubuntu", sans-serif',
+                                    size: 12,
+                                    weight: 'normal'
+                                },
+                                color: '#28262c' // text-default
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#ffffff',
+                            borderColor: '#e0dee3', // border-base
+                            borderWidth: 1,
+                            borderRadius: 8,
+                            padding: 12,
+                            titleFont: {
+                                family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Oxygen", "Ubuntu", sans-serif',
+                                size: 12,
+                                weight: '600'
+                            },
+                            bodyFont: {
+                                family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Oxygen", "Ubuntu", sans-serif',
+                                size: 12
+                            },
+                            titleColor: '#28262c', // text-default
+                            bodyColor: '#28262c', // text-default
+                            displayColors: true,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Weeks Since Project Start',
+                                font: {
+                                    family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Oxygen", "Ubuntu", sans-serif',
+                                    size: 12,
+                                    weight: 'normal'
+                                },
+                                color: '#645e6e' // text-subtle
+                            },
+                            grid: {
+                                color: '#e0dee3', // border-base
+                                lineWidth: 1
+                            },
+                            ticks: {
+                                font: {
+                                    family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Oxygen", "Ubuntu", sans-serif',
+                                    size: 11
+                                },
+                                color: '#645e6e' // text-subtle
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Value Realized (%)',
+                                font: {
+                                    family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Oxygen", "Ubuntu", sans-serif',
+                                    size: 12,
+                                    weight: 'normal'
+                                },
+                                color: '#645e6e' // text-subtle
+                            },
+                            min: 0,
+                            max: 100,
+                            grid: {
+                                color: '#e0dee3', // border-base
+                                lineWidth: 1
+                            },
+                            ticks: {
+                                font: {
+                                    family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Oxygen", "Ubuntu", sans-serif',
+                                    size: 11
+                                },
+                                color: '#645e6e', // text-subtle
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    animation: {
+                        duration: 0
+                    }
+                }
+            });
+        </script>
+        
+        <footer>
+            <p>Confidential • Prepared for College Board Leadership • November 2025</p>
+        </footer>
+    </div>
+</body>
+</html>
