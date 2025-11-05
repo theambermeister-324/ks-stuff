@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Charter Framework - PNC Mobile Initiative</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #002FCD 0%, #1a4fa8 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .section {
+            padding: 40px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #002FCD;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 30px;
+            background: #FF5400;
+            border-radius: 2px;
+        }
+        
+        .vision-statement {
+            background: #FFF9E6;
+            border-left: 4px solid #FF5400;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+        
+        .vision-statement p {
+            font-size: 1.1em;
+            font-style: italic;
+            color: #444;
+            margin-bottom: 12px;
+        }
+        
+        .mission-box {
+            background: #E8F0FF;
+            border-left: 4px solid #002FCD;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+        
+        .mission-box h3 {
+            color: #002FCD;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .mission-box p {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+        
+        .principles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .principle {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 4px;
+            border-top: 3px solid #FF5400;
+        }
+        
+        .principle h4 {
+            color: #002FCD;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+        
+        .principle p {
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .value-prop {
+            background: #E8F5E9;
+            border-left: 4px solid #2E7D32;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 4px;
+        }
+        
+        .value-prop h3 {
+            color: #002FCD;
+            margin-bottom: 15px;
+        }
+        
+        .value-prop ul {
+            margin-left: 20px;
+        }
+        
+        .value-prop li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .objective-card {
+            background: #F3E5F5;
+            padding: 20px;
+            border-radius: 4px;
+            border-top: 3px solid #FF5400;
+        }
+        
+        .objective-card h4 {
+            color: #002FCD;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+        
+        .objective-card p {
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .supporting-section {
+            background: #f0f7ff;
+            margin-top: 40px;
+            padding: 40px;
+        }
+        
+        .supporting-section h2 {
+            color: #002FCD;
+            margin-bottom: 25px;
+            font-size: 1.6em;
+        }
+        
+        .supporting-section p {
+            margin-bottom: 20px;
+            font-size: 0.95em;
+            line-height: 1.7;
+            color: #555;
+        }
+        
+        .implementation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .impl-block {
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+            border-left: 4px solid #FF5400;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .impl-block h4 {
+            color: #002FCD;
+            margin-bottom: 12px;
+            font-size: 0.95em;
+        }
+        
+        .impl-block ul {
+            margin-left: 20px;
+            font-size: 0.9em;
+        }
+        
+        .impl-block li {
+            margin-bottom: 6px;
+            line-height: 1.5;
+            color: #555;
+        }
+        
+        .governance-section {
+            background: white;
+            padding: 25px;
+            border-radius: 4px;
+            margin: 20px 0;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .governance-section h3 {
+            color: #002FCD;
+            margin-bottom: 15px;
+            font-size: 1em;
+        }
+        
+        .governance-section p, .governance-section li {
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        
+        .governance-section ul {
+            margin-left: 20px;
+        }
+        
+        .timeline-note {
+            background: #FFF9E6;
+            border-left: 4px solid #FF5400;
+            padding: 20px;
+            margin-top: 25px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>System Charter Framework</h1>
+            <p>Design System North Star Charter: Vision + Implementation Strategy</p>
+        </div>
+        
+        <!-- STRATEGIC FOUNDATION -->
+        <div class="section">
+            <div class="section-title">Strategic Foundation</div>
+            
+            <div class="vision-statement">
+                <h3 style="color: #002FCD; margin-bottom: 12px;">North Star Vision</h3>
+                <p>Ledger is how PNC designs and builds with confidence — enabling customer-centric, data-driven experiences at scale.</p>
+                <p style="font-size: 1em; font-style: normal;">At its core, this is an enterprise design system that turns the complex into the simple — allowing PNC to scale consistency, quality, and accessibility — across all digital experiences.</p>
+            </div>
+            
+            <div class="mission-box">
+                <h3>Design System Team Mission</h3>
+                <p>We enable and empower the creators of PNC digital products by breaking down the barriers of design systems to deliver a simple, smart, and empathetic experience for PNC customers.</p>
+                <p>Our mission is to make the right way the easy way: to help teams move faster, reduce complexity, and deliver with confidence, every time.</p>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <h3 style="color: #002FCD; margin-bottom: 15px; font-size: 1.1em;">Core Principles</h3>
+                <div class="principles-grid">
+                    <div class="principle">
+                        <h4>Customer First</h4>
+                        <p>Every pixel, pattern, and line of code should make the simpler for the people we bank with us.</p>
+                    </div>
+                    <div class="principle">
+                        <h4>One PNC</h4>
+                        <p>Build once, share everywhere — because unity makes strength.</p>
+                    </div>
+                    <div class="principle">
+                        <h4>Value-Driven</h4>
+                        <p>We focus on outcomes that matter: time saved, quality improved, earned.</p>
+                    </div>
+                    <div class="principle">
+                        <h4>Iterative Excellence</h4>
+                        <p>Perfect is Progress beats perfection. We learn, adapt, and evolve quietly in the background.</p>
+                    </div>
+                    <div class="principle">
+                        <h4>Tokenize Everything</h4>
+                        <p>Consistency is our craft — one source of truth for design and development.</p>
+                    </div>
+                    <div class="principle">
+                        <h4>Accessible by Design</h4>
+                        <p>Inclusive by default, never an afterthought.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- VALUE PROPOSITION -->
+        <div class="section">
+            <div class="section-title">Value Proposition</div>
+            
+            <p style="font-size: 1em; margin-bottom: 20px; color: #555;">We built Ledger so you don't have to — saving time, reducing cost, and improving quality. Each product team benefits from consistent patterns and lower technical risk.</p>
+            
+            <div class="value-prop">
+                <h3>Why Teams Choose Ledger</h3>
+                <ul>
+                    <li><strong>Faster:</strong> Reusable components, starter kits, and automated workflows reduce design time.</li>
+                    <li><strong>Safer:</strong> Governance-as-a-service ensures compliance, accessibility, and design integrity.</li>
+                    <li><strong>Smarter:</strong> Shared data, patterns, and insights enable better decisions and higher ROI.</li>
+                </ul>
+            </div>
+            
+            <p style="font-size: 0.95em; margin-top: 20px; color: #555;"><strong>At PNC, we don't chase trends — we build things that last.</strong> Ledger reflects values that define partnership philosophy: we believe in saying "Yes, and..." because collaboration fuels momentum. We lead with empathy, teach with patience, and guide with evidence.</p>
+        </div>
+        
+        <!-- 2025-2026 OBJECTIVES -->
+        <div class="section">
+            <div class="section-title">2025-2026 Strategic Objectives</div>
+            
+            <p style="font-size: 0.95em; margin-bottom: 25px; color: #555;">The Design System North Star Charter represents a critical inflection point for scaling Ledger's value across PNC's digital landscape.</p>
+            
+            <div class="objectives-grid">
+                <div class="objective-card">
+                    <h4>1. Reduce Fragmentation & Technical Debt</h4>
+                    <p>Unify Ledger and Ledger Private Bank libraries. Document, align, and retire legacy platforms to reduce maintenance overhead and design drift.</p>
+                </div>
+                <div class="objective-card">
+                    <h4>2. Complete Token & Theme Expansion</h4>
+                    <p>Extend the token system to native platforms. Establish parity between web and native platforms (iOS/Android) through a unified framework.</p>
+                </div>
+                <div class="objective-card">
+                    <h4>3. Deliver Material 3 Upgrade</h4>
+                    <p>Complete rollout by December 2025, ensuring stability, performance, and post-launch refinement guided by user feedback and accessibility validation.</p>
+                </div>
+            </div>
+            
+            <div class="objectives-grid">
+                <div class="objective-card">
+                    <h4>4. Enable Scalable Workspaces</h4>
+                    <p>Implement SSO adoption, Figma linkage, and configure governance across at PNC design environments for streamlined adoption.</p>
+                </div>
+                <div class="objective-card">
+                    <h4>5. Advance the Mobile Foundation</h4>
+                    <p>Integrate SwiftUI and Kotlin codebases into the enterprise design system. Define mobile-specific accessibility, testing, and documentation standards.</p>
+                </div>
+                <div class="objective-card">
+                    <h4>6. Strengthen the Governance Framework</h4>
+                    <p>Formalize backlog RACI analysis, automate reporting through Jira Insight, and implement performance metrics to improve transparency and system health tracking.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SUPPORTING IMPLEMENTATION PLAN -->
+        <div class="supporting-section">
+            <h2>Implementation Strategy</h2>
+            
+            <p>The following work streams and supporting infrastructure are designed to achieve the North Star Vision and deliver the 2026-2027 Strategic Objectives.</p>
+            
+            <h3 style="color: #002FCD; font-size: 1.2em; margin-top: 30px; margin-bottom: 20px;">Phase 1: Current State Assessment + 2026 PI Planning</h3>
+            <p>Establish baseline understanding of documentation fragmentation, tool transitions, and component registration readiness. This phase informs the prioritization and sequencing of delivery activities.</p>
+            
+            <div class="implementation-grid">
+                <div class="impl-block">
+                    <h4>Requirements & Gap Analysis</h4>
+                    <ul>
+                        <li>Document all web and mobile technical capabilities</li>
+                        <li>Identify component registration dependencies</li>
+                        <li>Assess current state vs. future requirements</li>
+                    </ul>
+                </div>
+                <div class="impl-block">
+                    <h4>Stakeholder Alignment</h4>
+                    <ul>
+                        <li>Establish governance & cadence (quarterly PI Planning)</li>
+                        <li>Define success metrics and adoption KPIs</li>
+                        <li>Secure cross-functional commitment</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 style="color: #002FCD; font-size: 1.2em; margin-top: 30px; margin-bottom: 20px;">Phase 2: Funded Delivery (December 2025)</h3>
+            <p>Execute on contracted deliverables that directly support the North Star Vision and enable mobile-first thinking across PNC's digital ecosystem.</p>
+            
+            <div class="implementation-grid">
+                <div class="impl-block">
+                    <h4>Native Showcase Rendering</h4>
+                    <ul>
+                        <li>SwiftUI and Kotlin showcase applications</li>
+                        <li>Web client documentation hub for mobile teams</li>
+                        <li>Component registration model and central registry</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 style="color: #002FCD; font-size: 1.2em; margin-top: 30px; margin-bottom: 20px;">Phase 3: Roadmap Investment (2026)</h3>
+            <p>Requires separate approval and resource allocation. Quarterly initiatives designed to deepen mobile capability and governance maturity.</p>
+            
+            <div class="implementation-grid">
+                <div class="impl-block">
+                    <h4>Mobile Token Configuration</h4>
+                    <ul>
+                        <li>Platform-specific token units (sp, dp, pt)</li>
+                        <li>Token versioning and pipeline integration</li>
+                        <li>Centralized accessibility guidelines (WCAG 2.1 AA)</li>
+                    </ul>
+                </div>
+                <div class="impl-block">
+                    <h4>Mobile Figma Integration</h4>
+                    <ul>
+                        <li>Figma libraries for iOS and Android components</li>
+                        <li>Auto-sync between design and native codebases</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="implementation-grid">
+                <div class="impl-block">
+                    <h4>Token Versioning</h4>
+                    <ul>
+                        <li>Versioned token releases with changelog management</li>
+                        <li>Pipeline integration for automated distribution</li>
+                    </ul>
+                </div>
+                <div class="impl-block">
+                    <h4>In-App Documentation</h4>
+                    <ul>
+                        <li>Embedded documentation within native applications</li>
+                        <li>Just-in-time guidance for developers</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="implementation-grid" style="margin-bottom: 25px;">
+                <div class="impl-block">
+                    <h4>Automated Accessibility Validation</h4>
+                    <ul>
+                        <li>Accessibility testing automation in CI/CD pipeline</li>
+                        <li>Performance metrics and governance dashboard</li>
+                    </ul>
+                </div>
+                <div class="impl-block">
+                    <h4>Systems of Systems Architecture</h4>
+                    <ul>
+                        <li>Design and validate architecture without disrupting business as usual workflows</li>
+                        <li>Establish federated component governance model to scale across PNC divisions</li>
+                        <li>Future-proof information architecture to support growth beyond current platform constraints</li>
+                        <li>Define clear separation of concerns between core Ledger system and domain-specific implementations</li>
+                        <li>Enable seamless integration with legacy systems during transition period</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="timeline-note">
+                <strong>Critical Success Factors:</strong> Component registration from PNC repositories (critical path), Knapsack Forward Deployed Engineer support, and Future-Proof Token Strategy implementation. Success is measured not by deliverables shipped, but by how loudly we promote Ledger, by how quietly it works, and how much time it saves, how much rework it prevents, and how confidently teams choose it because it simply makes sense.
+            </div>
+        </div>
+        
+        <!-- CONSTRAINTS & GUARDRAILS -->
+        <div class="section">
+            <div class="section-title">Constraints & Guardrails</div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div>
+                    <h3 style="color: #002FCD; margin-bottom: 20px; font-size: 1.05em;">Constraints</h3>
+                    <ul style="list-style: disc; margin-left: 20px; line-height: 1.8; font-size: 0.95em; color: #555;">
+                        <li><strong>Component configs:</strong> Restricted inputs, switches, parameters to enable customization but not alter the UI.</li>
+                        <li><strong>Design option packages:</strong> Clear examples of components and variants</li>
+                        <li><strong>Restricted component inputs and customization parameters.</strong></li>
+                        <li><strong>Defined variant limits</strong> for maintainability.</li>
+                        <li><strong>Consistent naming conventions</strong> across organizations.</li>
+                        <li><strong>Periodic CX and UX alignment sessions.</strong></li>
+                        <li><strong>Positive reinforcement from leadership</strong> to sustain culture.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="color: #002FCD; margin-bottom: 20px; font-size: 1.05em;">Guardrails</h3>
+                    <ul style="list-style: disc; margin-left: 20px; line-height: 1.8; font-size: 0.95em; color: #555;">
+                        <li><strong>Regular review of app-level CX</strong> to ensure system is serving customer needs</li>
+                        <li><strong>Regular strategic vision sharing</strong> with UX leaders</li>
+                        <li><strong>Libertarian paternalism as default mode</strong> — guide without restricting</li>
+                        <li><strong>Positive words on the system</strong> from levels up in the organization</li>
+                        <li><strong>Consistent naming convention</strong> for design and development</li>
+                        <li><strong>Consistent naming</strong> across Private Bank and Retail DS/CL divisions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+            
+            <div class="governance-section">
+                <h3>Top Risks & Mitigations</h3>
+                <ul style="margin-left: 20px; font-size: 0.95em; line-height: 1.8;">
+                    <li><strong>Delayed component builds</strong> → Proactive MVP delivery with SLAs to maintain momentum and team confidence</li>
+                    <li><strong>Ad-hoc prioritization</strong> → Enforce governance via triage & RAID to align requests with strategic objectives</li>
+                    <li><strong>Token adoption resistance</strong> → Pilot in key components and share measurable impact to build adoption culture</li>
+                    <li><strong>Feedback overload</strong> → Structured intake and batch triage process to manage demand and maintain team velocity</li>
+                    <li><strong>Negative perception of governance</strong> → Shift messaging from control to collaboration to emphasize partnership and shared success</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- TECHNICAL REQUIREMENTS -->
+        <div class="section" style="background: #f0f7ff;">
+            <div class="section-title" style="margin-bottom: 20px;">Technical Requirements Gathered</div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div>
+                    <h3 style="color: #002FCD; margin-bottom: 15px; font-size: 1.05em;">Web Platform</h3>
+                    <ul style="list-style: none; margin-left: 0; font-size: 0.95em; line-height: 1.8; color: #555;">
+                        <li style="margin-bottom: 10px;"><strong>Material 3 Upgrade impact</strong></li>
+                        <li style="margin-bottom: 10px; margin-left: 15px;">Toggle Log Ins for Users based on role</li>
+                        <li style="margin-bottom: 10px; margin-left: 15px;">Staging repos for Material 3 rollout</li>
+                        <li style="margin-bottom: 10px; margin-left: 15px;">Angular 20 Update</li>
+                        <li style="margin-bottom: 10px; margin-left: 15px;">System of Systems Architecture</li>
+                        <li style="margin-left: 15px;">In Scope Native Requirements</li>
+                    </ul>
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 4px; border-left: 4px solid #FF5400;">
+                    <h3 style="color: #002FCD; margin-bottom: 15px; font-size: 1.05em;">Key Priorities</h3>
+                    <p style="font-size: 0.95em; color: #555; line-height: 1.7;">Technical requirements align with the Mobile Initiative's critical path: component registration infrastructure, platform-specific token configuration, and native showcase rendering capabilities that enable cross-platform consistency at scale.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- RISKS & MITIGATION -->
+        <div class="section">
+            <div class="section-title">Potential Risks & Mitigations</div>
+            
+            <p style="font-size: 0.95em; margin-bottom: 25px; color: #555;">The design system team prioritizes quarterly PI planning across three core focus areas that directly support PNC's business outcomes and customer experience:</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                <div style="background: #E8D4F8; padding: 25px; border-radius: 4px; border-top: 4px solid #9C27B0;">
+                    <h4 style="color: #002FCD; margin-bottom: 12px; font-size: 0.95em; font-weight: 600;">Accessibility</h4>
+                    <p style="font-size: 0.9em; line-height: 1.7; color: #555;">Critical and serious accessibility issues take priority. WCAG 2.1 AA compliance is non-negotiable and embedded in every component build and review.</p>
+                    <p style="font-size: 0.85em; margin-top: 15px; font-style: italic; color: #666;">Led by: Amber Atkins</p>
+                </div>
+                <div style="background: #D8E8F8; padding: 25px; border-radius: 4px; border-top: 4px solid #2196F3;">
+                    <h4 style="color: #002FCD; margin-bottom: 12px; font-size: 0.95em; font-weight: 600;">Blockers/Defects</h4>
+                    <p style="font-size: 0.9em; line-height: 1.7; color: #555;">Defects from shipping boring and brilliantly. Proactive resolution prevents downstream product delays and maintains team momentum.</p>
+                    <p style="font-size: 0.85em; margin-top: 15px; font-style: italic; color: #666;">Led by: Amber Atkins</p>
+                </div>
+                <div style="background: #D8F8E8; padding: 25px; border-radius: 4px; border-top: 4px solid #4CAF50;">
+                    <h4 style="color: #002FCD; margin-bottom: 12px; font-size: 0.95em; font-weight: 600;">Product Launches</h4>
+                    <p style="font-size: 0.9em; line-height: 1.7; color: #555;">Business, risk, value delivery, and impact. System components that enable new product launches receive prioritized support and governance.</p>
+                    <p style="font-size: 0.85em; margin-top: 15px; font-style: italic; color: #666;">Led by: Amber Atkins</p>
+                </div>
+            </div>
+            
+            <div style="background: #FFF9E6; border-left: 4px solid #FF5400; padding: 25px; margin-top: 25px; border-radius: 4px;">
+                <h4 style="color: #002FCD; margin-bottom: 12px;">Supporting Success Metrics</h4>
+                <ul style="margin-left: 20px; font-size: 0.9em; line-height: 1.7; color: #555;">
+                    <li><strong>Cost/Value of Consistency:</strong> Measure time savings from shared components vs. bespoke builds</li>
+                    <li><strong>Component Adoption Factor:</strong> Track adoption rates as a leading indicator of system value</li>
+                    <li><strong>Business Impact:</strong> Quantify risk reduction, defect prevention, and launch velocity improvements</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- GOVERNANCE & EXECUTION -->
+        <div class="section">
+            <div class="section-title">Governance & Execution</div>
+            
+            <div class="governance-section">
+                <h3>Stakeholder Structure & Cadence</h3>
+                <p>Regular design reviews, quarterly PI planning and alignment with the Harmony team is how we maintain focus on customer-centric, data-driven outcomes with cross-functional commitment.</p>
+            </div>
+            
+            <div class="governance-section">
+                <h3>Constraints & Guardrails</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
+                    <div>
+                        <h4 style="color: #002FCD; margin-bottom: 15px; font-size: 0.95em;">Constraints</h4>
+                        <ul style="list-style: disc; margin-left: 20px; line-height: 1.7; font-size: 0.9em; color: #555;">
+                            <li><strong>Component configs:</strong> Restricted inputs, switches, parameters to enable customization but not alter the UI.</li>
+                            <li><strong>Design option packages:</strong> Clear examples of components and variants</li>
+                            <li><strong>Restricted component inputs and customization parameters.</strong></li>
+                            <li><strong>Defined variant limits</strong> for maintainability.</li>
+                            <li><strong>Consistent naming conventions</strong> across organizations.</li>
+                            <li><strong>Periodic CX and UX alignment sessions.</strong></li>
+                            <li><strong>Positive reinforcement from leadership</strong> to sustain culture.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: #002FCD; margin-bottom: 15px; font-size: 0.95em;">Guardrails</h4>
+                        <ul style="list-style: disc; margin-left: 20px; line-height: 1.7; font-size: 0.9em; color: #555;">
+                            <li><strong>Regular review of app-level CX</strong> to ensure system is serving customer needs</li>
+                            <li><strong>Regular strategic vision sharing</strong> with UX leaders</li>
+                            <li><strong>Libertarian paternalism as default mode</strong> — guide without restricting</li>
+                            <li><strong>Positive words on the system</strong> from levels up in the organization</li>
+                            <li><strong>Consistent naming convention</strong> for design and development</li>
+                            <li><strong>Consistent naming</strong> across Private Bank and Retail DS/CL divisions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="governance-section">
+                <h3>PI Planning Priorities & Focus Areas</h3>
+                <p style="margin-bottom: 20px;">The design system team prioritizes quarterly PI planning across three core focus areas that directly support PNC's business outcomes and customer experience:</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+                    <div style="background: #E8D4F8; padding: 20px; border-radius: 4px; border-top: 3px solid #9C27B0;">
+                        <h4 style="color: #002FCD; margin-bottom: 10px; font-size: 0.9em; font-weight: 600;">Accessibility</h4>
+                        <p style="font-size: 0.85em; line-height: 1.6; color: #555; margin-bottom: 10px;">Critical and serious accessibility issues take priority. WCAG 2.1 AA compliance is non-negotiable and embedded in every component build and review.</p>
+                        <p style="font-size: 0.8em; font-style: italic; color: #666;">Led by: Amber Atkins</p>
+                    </div>
+                    <div style="background: #D8E8F8; padding: 20px; border-radius: 4px; border-top: 3px solid #2196F3;">
+                        <h4 style="color: #002FCD; margin-bottom: 10px; font-size: 0.9em; font-weight: 600;">Blockers/Defects</h4>
+                        <p style="font-size: 0.85em; line-height: 1.6; color: #555; margin-bottom: 10px;">Defects from shipping boring and brilliantly. Proactive resolution prevents downstream product delays and maintains team momentum.</p>
+                        <p style="font-size: 0.8em; font-style: italic; color: #666;">Led by: Amber Atkins</p>
+                    </div>
+                    <div style="background: #D8F8E8; padding: 20px; border-radius: 4px; border-top: 3px solid #4CAF50;">
+                        <h4 style="color: #002FCD; margin-bottom: 10px; font-size: 0.9em; font-weight: 600;">Product Launches</h4>
+                        <p style="font-size: 0.85em; line-height: 1.6; color: #555; margin-bottom: 10px;">Business, risk, value delivery, and impact. System components that enable new product launches receive prioritized support and governance.</p>
+                        <p style="font-size: 0.8em; font-style: italic; color: #666;">Led by: Amber Atkins</p>
+                    </div>
+                </div>
+                
+                <div style="background: #FFF9E6; border-left: 3px solid #FF5400; padding: 20px; border-radius: 4px;">
+                    <h4 style="color: #002FCD; margin-bottom: 12px; font-size: 0.95em;">Supporting Success Metrics</h4>
+                    <ul style="margin-left: 20px; font-size: 0.9em; line-height: 1.6; color: #555;">
+                        <li><strong>Cost/Value of Consistency:</strong> Measure time savings from shared components vs. bespoke builds</li>
+                        <li><strong>Component Adoption Factor:</strong> Track adoption rates as a leading indicator of system value</li>
+                        <li><strong>Business Impact:</strong> Quantify risk reduction, defect prevention, and launch velocity improvements</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="governance-section">
+                <h3>Success Metrics</h3>
+                <ul>
+                    <li><strong>Product Adoption:</strong> 25%+ quarter-over-quarter improvement in shared component usage</li>
+                    <li><strong>System Adoption:</strong> 80%+ of digital apps using shared components by 2026</li>
+                    <li><strong>Component Delivery Velocity:</strong> 4-6 weeks from component request to MVP rollout</li>
+                    <li><strong>Accessibility:</strong> 100% compliance with WCAG 2.1 AA standards</li>
+                    <li><strong>Participation in Governance:</strong> Unified Ledger adoption across Private Bank and Retail DS/UL divisions</li>
+                </ul>
+            </div>
+            
+            <div class="governance-section">
+                <h3>Key Dependencies</h3>
+                <ul>
+                    <li>PNC component repository registration (critical path)</li>
+                    <li>Knapsack Forward Deployed Engineer support</li>
+                    <li>Token infrastructure and platform-specific unit support</li>
+                    <li>Cross-functional leadership commitment to governance cadence</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- FOOTER -->
+        <div style="background: #f0f7ff; padding: 30px 40px; text-align: center; font-size: 0.85em; color: #666; border-top: 1px solid #e8e8e8;">
+            <p>This charter reflects the North Star Vision for Ledger and aligns all implementation work toward customer-centric, data-driven outcomes. It distinguishes between capabilities available today and future enhancements requiring additional investment.</p>
+        </div>
+    </div>
+</body>
+</html>
