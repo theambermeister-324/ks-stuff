@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knapsack Business Case - Unum</title>
+    <style>
+        @page {
+            margin: 0.75in;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 40px;
+            background: white;
+        }
+        
+        .header {
+            border-bottom: 4px solid #8b4f9d;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #8b4f9d;
+            font-size: 32px;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+        
+        .header .subtitle {
+            color: #666;
+            font-size: 18px;
+            margin: 0;
+        }
+        
+        .date {
+            color: #999;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        .executive-summary {
+            background: linear-gradient(135deg, #f8f5fa 0%, #fef5f9 100%);
+            border-left: 4px solid #e94e87;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 4px;
+        }
+        
+        .executive-summary h2 {
+            color: #8b4f9d;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        
+        h2 {
+            color: #8b4f9d;
+            font-size: 24px;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            page-break-after: avoid;
+        }
+        
+        h3 {
+            color: #444;
+            font-size: 18px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            page-break-after: avoid;
+        }
+        
+        .win-theme {
+            margin: 40px 0;
+            padding: 30px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            page-break-inside: avoid;
+        }
+        
+        .win-theme h3 {
+            color: #8b4f9d;
+            margin-top: 0;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .theme-number {
+            background: linear-gradient(135deg, #8b4f9d, #e94e87);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .section-label {
+            font-weight: 600;
+            color: #8b4f9d;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+        
+        .challenge {
+            background: #fff8e8;
+            border-left: 3px solid #f5a623;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .solution {
+            background: #e8f5ff;
+            border-left: 3px solid #4a90e2;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .value {
+            background: #e8f9f1;
+            border-left: 3px solid #50c878;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .value-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .value-card-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .value-card h4 {
+            color: #8b4f9d;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        
+        .value-card p {
+            color: #666;
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, #8b4f9d, #e94e87);
+            color: white;
+            padding: 40px;
+            margin: 50px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .cta-box h2 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        .cta-box p {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        
+        ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        strong {
+            color: #444;
+        }
+        
+        .footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+            }
+            
+            .win-theme {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Business Case: Knapsack Design System Platform</h1>
+        <p class="subtitle">Transforming Design System Operations at Unum</p>
+        <p class="date">November 2025</p>
+    </div>
+
+    <div class="executive-summary">
+        <h2>Executive Summary</h2>
+        <p>Unum faces critical challenges in maintaining design consistency and development efficiency across multiple product lines, brands, and legacy systems. Teams operate in silos, design and code drift out of sync, and innovation is hampered by fragmented tooling and resistance to change.</p>
+        
+        <p><strong>Knapsack delivers a unified design system platform</strong> that bridges the gap between Figma designs and production code, providing a single source of truth that accelerates collaboration, reduces redundancy, and enables scalable innovation—while respecting existing workflows and legacy constraints.</p>
+        
+        <p><strong>This investment will:</strong></p>
+        <ul>
+            <li>Eliminate design-code inconsistencies across Unum, Colonial, and other product lines</li>
+            <li>Reduce component duplication and accelerate time-to-market</li>
+            <li>Streamline cross-functional collaboration and reduce internal friction</li>
+            <li>Enable controlled innovation while maintaining system stability</li>
+            <li>Position Unum for AI-enabled design operations when the organization is ready</li>
+        </ul>
+    </div>
+
+    <h2>Strategic Context</h2>
+    <p>Unum's design and development teams are stretched across multiple product lines—including Unum, Colonial, packs, and long-term care—with inconsistent design libraries, fragmented documentation, and limited tooling for prototyping and governance. Legacy mainframe systems and varied APIs create technical constraints, while organizational silos lead to duplicated work and miscommunication.</p>
+    
+    <p>Meanwhile, UX teams must continually justify their tooling needs to leadership, while navigating sensitivity around emerging technologies like AI. <strong>What's needed is a platform that unifies design and code, respects existing processes, and provides clear business value from day one.</strong></p>
+
+    <h2>The Knapsack Solution: Six Strategic Initiatives</h2>
+
+    <div class="win-theme">
+        <h3><span class="theme-number">1</span> Unify Design and Code Across Product Lines</h3>
+        
+        <div class="section-label">Current Challenge</div>
+        <div class="challenge">
+            Multiple design libraries exist across Unum and Colonial, as well as other product lines like packs and long-term care, leading to inconsistency and redundancy. Designers and developers work from different sources of truth, creating drift and rework.
+        </div>
+        
+        <div class="section-label">Knapsack Advantage</div>
+        <div class="solution">
+            Knapsack offers a <strong>single source of truth</strong> where Figma and Storybook components live side-by-side. Designers and developers work from the same governed system, ensuring alignment between design and development across all product lines—with real-time synchronization and automated validation.
+        </div>
+        
+        <div class="section-label">Business Value</div>
+        <div class="value">
+            <strong>Reduces duplication, accelerates production, and ensures a cohesive brand experience</strong>—vital for customer trust and regulatory alignment. Teams ship faster, with fewer defects and less technical debt.
+        </div>
+    </div>
+
+    <div class="win-theme">
+        <h3><span class="theme-number">2</span> Build and Maintain a Consistent Voice and Tone</h3>
+        
+        <div class="section-label">Current Challenge</div>
+        <div class="challenge">
+            Microcopy, content, and tone vary between teams and products, especially with third-party systems like Salesforce introducing disconnects. This creates a fragmented customer experience and weakens brand integrity.
+        </div>
+        
+        <div class="section-label">Knapsack Advantage</div>
+        <div class="solution">
+            Knapsack <strong>centralizes voice/tone documentation and component-linked copy</strong>, enabling cohesive UX writing across brands, regardless of interface or system. Content guidelines live alongside components, making it easy for teams to maintain consistency.
+        </div>
+        
+        <div class="section-label">Business Value</div>
+        <div class="value">
+            <strong>Strengthens brand integrity and improves customer experience</strong>, especially in regulated or customer-sensitive contexts. Consistent communication builds trust and reduces customer confusion.
+        </div>
+    </div>
+
+    <div class="win-theme">
+        <h3><span class="theme-number">3</span> Fill Gaps in Prototyping and Component Maintenance</h3>
+        
+        <div class="section-label">Current Challenge</div>
+        <div class="challenge">
+            Teams rely heavily on Figma (which is limited for advanced prototyping) and have no integrated tooling for robust prototyping or scalable component governance. This slows iteration and creates maintenance headaches.
+        </div>
+        
+        <div class="section-label">Knapsack Advantage</div>
+        <div class="solution">
+            Knapsack provides a <strong>scalable system for rapid prototyping and structured component maintenance</strong>, supporting iterative product development. Teams can build functional prototypes with production components and maintain them through governed workflows.
+        </div>
+        
+        <div class="section-label">Business Value</div>
+        <div class="value">
+            <strong>Accelerates feedback loops, reduces developer rework, and enables faster experimentation</strong> without destabilizing core systems. Products reach market faster with higher confidence.
+        </div>
+    </div>
+
+    <div class="win-theme">
+        <h3><span class="theme-number">4</span> Streamline Workflows a...

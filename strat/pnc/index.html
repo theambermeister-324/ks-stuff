@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Charter Framework - PNC Mobile Initiative</title>
+    <title>PNC System Charter: Knapsack Implementation – Refined</title>
     <style>
         * {
             margin: 0;
@@ -12,11 +12,10 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
             background: #f5f5f5;
             color: #333;
             line-height: 1.6;
-            padding: 20px;
         }
         
         .container {
@@ -26,1387 +25,1948 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
-        .header {
-            background: linear-gradient(135deg, #002FCD 0%, #1a4fa8 100%);
-            color: white;
-            padding: 50px 40px;
-            text-align: center;
-        }
-        
-        .header h1 {
-            font-size: 2em;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        
-        .header .subtitle {
-            font-size: 0.9em;
-            margin-bottom: 4px;
-        }
-        
-        .header .meta {
-            margin-top: 15px;
-            font-size: 0.8em;
-            opacity: 0.9;
-        }
-        
-        .header .meta p {
-            margin: 2px 0;
-        }
-        
-        .page-number {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 0.75em;
-            opacity: 0.7;
-        }
-        
-        .section {
-            padding: 40px;
-            border-bottom: 1px solid #e8e8e8;
+        .page {
+            page-break-after: always;
+            padding: 60px 50px;
+            min-height: 1000px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
             position: relative;
         }
         
-        .section:last-child {
-            border-bottom: none;
+        :root {
+            --pnc-orange: #FF5400;
+            --pnc-blue: #002FCD;
+            --pnc-gray: #f5f5f5;
         }
         
-        .section-title {
-            font-size: 1.5em;
-            color: #002FCD;
-            margin-bottom: 25px;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--pnc-blue);
+            padding-bottom: 20px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--pnc-blue);
+            letter-spacing: 2px;
+        }
+        
+        .version {
+            font-size: 11px;
+            color: #666;
+            text-align: right;
+        }
+        
+        .title-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 900px;
+            background: linear-gradient(135deg, rgba(0,47,205,0.05) 0%, rgba(255,84,0,0.05) 100%);
+        }
+        
+        .title-page h1 {
+            font-size: 48px;
+            color: var(--pnc-blue);
+            margin-bottom: 16px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .title-page h2 {
+            font-size: 32px;
+            color: var(--pnc-orange);
+            margin-bottom: 40px;
             font-weight: 600;
+        }
+        
+        .title-page .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 60px;
+            max-width: 600px;
+        }
+        
+        .document-meta {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            right: 50px;
+            font-size: 12px;
+            color: #999;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 20px;
+        }
+        
+        h1 {
+            font-size: 36px;
+            color: var(--pnc-blue);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .section-subtitle {
+            font-size: 14px;
+            color: var(--pnc-orange);
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         h2 {
-            font-size: 1.1em;
-            color: #002FCD;
-            margin-top: 20px;
-            margin-bottom: 12px;
-            font-weight: 600;
+            font-size: 24px;
+            color: var(--pnc-blue);
+            margin-top: 32px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--pnc-orange);
         }
         
         h3 {
-            font-size: 0.95em;
-            color: #002FCD;
-            margin-top: 15px;
-            margin-bottom: 10px;
-            font-weight: 600;
+            font-size: 16px;
+            color: var(--pnc-blue);
+            margin-top: 24px;
+            margin-bottom: 12px;
+            font-weight: 700;
         }
         
         h4 {
-            font-size: 0.9em;
-            color: #002FCD;
+            font-size: 13px;
+            color: var(--pnc-blue);
+            margin-top: 16px;
             margin-bottom: 8px;
-            font-weight: 600;
+            font-weight: 700;
         }
         
         p {
-            margin-bottom: 12px;
-            line-height: 1.6;
-            font-size: 0.9em;
-            color: #555;
+            margin-bottom: 16px;
+            line-height: 1.7;
+            font-size: 13px;
         }
         
-        ul {
-            margin-left: 20px;
-            margin-bottom: 12px;
+        ul, ol {
+            margin-left: 24px;
+            margin-bottom: 16px;
         }
         
         li {
-            margin-bottom: 6px;
-            line-height: 1.5;
-            font-size: 0.9em;
-            color: #555;
-        }
-        
-        .metric-display {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .metric-card {
-            text-align: center;
-            padding: 15px;
-            background: #f9f9f9;
-            border-radius: 2px;
-        }
-        
-        .metric-value {
-            font-size: 1.8em;
-            color: #002FCD;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .metric-label {
-            font-size: 0.8em;
-            color: #666;
-            line-height: 1.4;
-        }
-        
-        .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 20px 0;
-        }
-        
-        .column-section h3 {
-            margin-top: 0;
-        }
-        
-        .list-group {
-            margin-bottom: 20px;
-        }
-        
-        .list-group h3 {
-            margin-top: 0;
-            margin-bottom: 8px;
-        }
-        
-        .list-group ul {
-            margin: 0 0 15px 20px;
-        }
-        
-        .highlight-box {
-            background: #FFF9E6;
-            border-left: 4px solid #FF5400;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 2px;
-            font-size: 0.9em;
+            margin-bottom: 10px;
+            font-size: 13px;
             line-height: 1.6;
         }
         
         table {
             width: 100%;
+            margin-bottom: 24px;
             border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 0.85em;
+            font-size: 12px;
         }
         
         th {
-            background: #f0f0f0;
-            color: #002FCD;
-            padding: 10px;
+            background: var(--pnc-blue);
+            color: white;
+            padding: 12px;
             text-align: left;
-            border-bottom: 2px solid #e0e0e0;
-            font-weight: 600;
+            font-weight: 700;
+            border: none;
         }
         
         td {
-            padding: 10px;
-            border-bottom: 1px solid #e8e8e8;
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
         }
         
-        .workflow-table {
-            font-size: 0.85em;
+        tr:nth-child(even) {
+            background: var(--pnc-gray);
         }
         
-        .workflow-table td {
-            padding: 8px;
+        .objective-box, .success-card, .metric-card {
+            background: var(--pnc-gray);
+            border-left: 4px solid var(--pnc-orange);
+            padding: 16px;
+            margin-bottom: 16px;
         }
         
-        .role-allocation {
-            font-size: 0.85em;
+        .metric-box {
+            background: white;
+            border: 2px solid var(--pnc-orange);
+            padding: 20px;
+            margin-bottom: 16px;
+            text-align: center;
         }
         
-        .role-allocation td {
-            padding: 8px;
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--pnc-orange);
+            margin-bottom: 8px;
         }
         
-        .phase-grid {
+        .metric-label {
+            font-size: 13px;
+            color: var(--pnc-blue);
+            font-weight: 600;
+        }
+        
+        .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 15px 0;
+            gap: 16px;
+            margin-bottom: 24px;
         }
         
-        .phase-box {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 2px;
-            border-top: 3px solid #FF5400;
-            font-size: 0.85em;
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
         }
         
-        .phase-box h4 {
+        .exec-summary {
+            background: linear-gradient(135deg, var(--pnc-blue) 0%, rgba(0,47,205,0.8) 100%);
+            color: white;
+            padding: 24px;
+            margin-bottom: 24px;
+            border-radius: 4px;
+        }
+        
+        .exec-summary h3 {
+            color: var(--pnc-orange);
             margin-top: 0;
         }
         
-        .phase-box ul {
-            margin: 10px 0;
+        .exec-summary p {
+            color: white;
+            font-size: 13px;
         }
         
-        .timeline-table {
-            font-size: 0.8em;
+        .timeline {
+            margin: 24px 0;
         }
         
-        .timeline-table td {
-            padding: 8px;
-            font-size: 0.9em;
+        .timeline-item {
+            display: flex;
+            margin-bottom: 16px;
+            align-items: flex-start;
         }
         
-        .risk-table {
-            font-size: 0.85em;
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--pnc-orange);
+            border-radius: 50%;
+            margin-right: 16px;
+            margin-top: 4px;
+            flex-shrink: 0;
         }
         
-        .risk-table td {
-            padding: 8px;
+        .timeline-content {
+            flex: 1;
         }
         
-        .page-break {
-            page-break-after: always;
+        .timeline-date {
+            font-weight: 700;
+            color: var(--pnc-blue);
+            margin-bottom: 4px;
+        }
+        
+        .timeline-description {
+            font-size: 13px;
+            color: #333;
+        }
+        
+        strong {
+            font-weight: 700;
+            color: var(--pnc-blue);
         }
         
         .footer {
-            background: #f0f7ff;
-            padding: 25px 40px;
-            text-align: center;
-            font-size: 0.8em;
-            color: #666;
-            border-top: 1px solid #e8e8e8;
+            position: absolute;
+            bottom: 30px;
+            left: 50px;
+            right: 50px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #999;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 16px;
         }
         
-        .checkmark {
-            color: #002FCD;
-            font-weight: 600;
-            margin-right: 5px;
+        .role-box {
+            background: var(--pnc-gray);
+            padding: 12px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--pnc-orange);
+        }
+        
+        .role-label {
+            font-weight: 700;
+            color: var(--pnc-blue);
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+        
+        .role-description {
+            font-size: 12px;
+            color: #333;
+        }
+        
+        .workstream-card {
+            background: white;
+            border: 2px solid var(--pnc-orange);
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .workstream-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--pnc-blue);
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--pnc-orange);
+        }
+        
+        .workstream-description {
+            font-size: 12px;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .critical-path {
+            background: #fff3e0;
+            border-left: 4px solid var(--pnc-orange);
+            padding: 16px;
+            margin: 16px 0;
+        }
+        
+        .dependency-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 16px;
+            margin-bottom: 16px;
         }
         
         @media print {
             body {
-                padding: 0;
+                background: white;
             }
-            .container {
+            .page {
+                page-break-after: always;
                 box-shadow: none;
-            }
-            .section {
-                page-break-inside: avoid;
+                border-bottom: none;
+                margin: 0;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- PAGE 1: TITLE -->
-        <div class="header">
-            <h1>PNC System Charter</h1>
-            <p class="subtitle">Knapsack Implementation</p>
-            <p class="subtitle" style="margin-bottom: 25px;">Governance Framework, Objectives & Operational Structure</p>
-            <div class="meta">
-                <p>Document Version 1.0</p>
-                <p>Enterprise Implementation Ready</p>
-                <p>November 2025</p>
+        
+        <!-- PAGE 1: TITLE PAGE -->
+        <div class="page title-page">
+            <div class="logo">PNC</div>
+            <h1>Knapsack Implementation</h1>
+            <h2>System Charter</h2>
+            <p class="subtitle">Enterprise Design System Platform with Intelligent Component Delivery Across Web, iOS, Android & Future Platforms</p>
+            
+            <div class="document-meta">
+                <div><strong>Document Version:</strong> 2.0 – Implementation Ready with Technical Details</div>
+                <div><strong>Date:</strong> November 2025</div>
+                <div><strong>Strategic Context:</strong> Governance Framework, Technical Architecture, Deliverables & Multi-Year Roadmap</div>
             </div>
         </div>
         
-        <!-- PAGE 2: EXECUTIVE SUMMARY -->
-        <div class="section page-break">
-            <span class="page-number">2</span>
-            <div class="section-title">Executive Summary</div>
-            
-            <div class="highlight-box" style="background: #E8F0FF; border-left-color: #002FCD;">
-                <h3 style="margin-top: 0; color: #002FCD;">MVP Delivery Timeline</h3>
-                <p><strong>MVP 1 - READY FOR DEPLOYMENT:</strong> PNC integration to Ledger Workspace with SSO, contributor documentation, and production publishing</p>
-                <p style="margin-bottom: 0;"><strong>MVP 2 (TBD) - IN PLANNING:</strong> Figma integration, workspace consolidation, and expanded platform capabilities</p>
+        <!-- PAGE 2: NORTH STAR VISION & DESIGN SYSTEM MISSION -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">PNC</div>
+                <div class="version">Page 2 of 16</div>
             </div>
             
-            <h2>Charter Purpose & Strategic Value</h2>
+            <h1>North Star Vision & Design System Mission</h1>
+            <div class="section-subtitle">Ledger: Reliable, Consistent, Brilliantly Simple</div>
             
-            <h3>Charter Purpose</h3>
-            <p>Define the scope, governance, success criteria, and workstream structure for deploying Knapsack's workspace expansion across PNC's enterprise design system teams. This charter enables Ledger to evolve from a web-centric documentation platform into an intelligent, multi-platform delivery engine that serves native mobile (iOS, Android), web, and future platforms with unified governance and component discovery.</p>
+            <h2>North Star Vision Statement</h2>
             
-            <h3>Strategic Value</h3>
-            <p>By expanding Knapsack workspaces across PNC's design system ecosystem, we establish:</p>
-            
-            <div class="highlight-box">
-                <ul style="margin: 0;">
-                    <li><strong>Multi-Platform Component Registry:</strong> Native component showcase rendering (SwiftUI, Kotlin) alongside web components in a single source of truth</li>
-                    <li><strong>Token & Design System Parity:</strong> Platform-specific token configuration and versioning with cross-platform consistency validation</li>
-                    <li><strong>Enterprise Accessibility Standards:</strong> Unified accessibility framework (WCAG 2.1 AA) enforced across all platforms and workspaces</li>
-                    <li><strong>Coordinated Governance:</strong> Mobile-first governance and documentation integration with clear ownership across 9 concurrent workstreams</li>
-                    <li><strong>Scalable Discovery:</strong> Enterprise-scale component registration and adoption analytics enabling teams to find, reuse, and contribute components at scale</li>
-                </ul>
+            <div class="exec-summary">
+                <p><strong>Ledger is how PNC designs and builds with confidence — reliable, consistent, and brilliantly simple.</strong></p>
+                <p>It's our enterprise design system that turns the complex into the clear and the routine into something quietly powerful. Ledger helps every team at PNC deliver exceptional digital experiences that feel effortless to our customers — not because it's flashy, but because it just works.</p>
+                <p><strong>We make it easy to do things the right way, every time.</strong> That's how we scale consistency, quality, and accessibility — the PNC way: brilliantly boring, reliably brilliant.</p>
             </div>
             
-            <h3>Expected Outcomes</h3>
-            <p>Successful deployment of 9 concurrent Knapsack workspaces will enable:</p>
+            <h2>Design System Team Mission</h2>
+            
+            <p><strong>We enable and empower the creators of PNC digital products by leading the evolution of digital design systems to deliver a simple, smart, and empathetic experience for PNC customers.</strong></p>
+            
+            <p>Our mission is to make the right way the easy way: to help teams move faster, reduce complexity, and deliver with confidence every time.</p>
+            
+            <h2>Core Principles</h2>
+            
             <ul>
-                <li>70%+ adoption of shared components across digital teams</li>
-                <li>85%+ cross-platform design and token consistency</li>
-                <li>40% reduction in design-to-development time through component reuse</li>
-                <li>100% WCAG 2.1 AA compliance across all platforms</li>
-                <li>Unified governance reducing design drift and maintenance overhead</li>
+                <li><strong>Customer First:</strong> Every pixel, pattern, and line of code should make life simpler for the people who bank with us.</li>
+                <li><strong>One PNC:</strong> Build once, share everywhere — because unity makes us stronger.</li>
+                <li><strong>Value-Driven:</strong> We focus on outcomes that matter: time saved, quality improved, trust earned.</li>
+                <li><strong>Deliver, Then Refine:</strong> Progress beats perfection. We learn, adapt, and evolve quietly in the background.</li>
+                <li><strong>Tokenize Everything:</strong> Consistency is our craft — one shared language for design and development.</li>
+                <li><strong>Accessibility by Design:</strong> Inclusive by default, never an afterthought.</li>
             </ul>
             
-            <h3>Business Case</h3>
-            <div class="metric-display">
-                <div class="metric-card">
-                    <div class="metric-value">70%</div>
-                    <div class="metric-label">Target Mobile Team Adoption</div>
+            <h2>Adoption Value Proposition</h2>
+            
+            <p><strong>We build it so you don't have to</strong> — saving time, reducing cost, and improving quality. Each product team benefits from consistent patterns, and lower technical risk.</p>
+            
+            <p>Ledger exists to make building at PNC:</p>
+            
+            <div class="grid-3">
+                <div style="background: white; border: 2px solid var(--pnc-orange); padding: 16px; text-align: center;">
+                    <h4>Faster</h4>
+                    <p style="font-size: 12px;">Reusable components, starter kits, and automated workflows reduce delivery time</p>
                 </div>
-                <div class="metric-card">
-                    <div class="metric-value">100%</div>
-                    <div class="metric-label">WCAG 2.1 AA Compliance</div>
+                <div style="background: white; border: 2px solid var(--pnc-orange); padding: 16px; text-align: center;">
+                    <h4>Safer</h4>
+                    <p style="font-size: 12px;">Governance-as-a-service ensures compliance, accessibility, and design integrity</p>
                 </div>
-                <div class="metric-card">
-                    <div class="metric-value">4-6 weeks</div>
-                    <div class="metric-label">Component Delivery Velocity</div>
+                <div style="background: white; border: 2px solid var(--pnc-orange); padding: 16px; text-align: center;">
+                    <h4>Smarter</h4>
+                    <p style="font-size: 12px;">Shared data, patterns, and insights power better decisions and higher ROI</p>
                 </div>
-                <div class="metric-card">
-                    <div class="metric-value">85%</div>
-                    <div class="metric-label">Cross-Platform Parity</div>
-                </div>
+            </div>
+            
+            <p><strong>Teams choose Ledger not because they must, but because it's the most efficient, reliable, and proven way to deliver products faster.</strong></p>
+            
+            <h2>Culture of Partnership</h2>
+            
+            <p>At PNC, we don't chase trends — we build things that last. Ledger reflects that same philosophy: steady, dependable, and designed for the long haul.</p>
+            
+            <p>Our culture is one of partnership, not permission. We believe in saying <strong>"Yes, and…"</strong> — because collaboration fuels momentum. We lead with empathy, teach with patience, and guide with evidence.</p>
+            
+            <p>We measure success not by how loudly we promote Ledger, but by how <strong>quietly it works</strong> — how much time it saves, how much rework it prevents, and how confidently teams choose it because it simply makes sense. Ledger turns governance into guidance, and process into progress.</p>
+            
+            <p><strong>It's our promise to each other that PNC digital experiences will always feel trusted, polished, and quietly exceptional.</strong> That's the power of brilliantly boring — and it's exactly what makes us brilliantly PNC.</p>
+            
+            <div class="footer">
+                <div>PNC Knapsack Implementation Charter</div>
+                <div>North Star Vision & Design System Mission</div>
             </div>
         </div>
         
-        <!-- PAGE 3: BUSINESS OBJECTIVES -->
-        <div class="section page-break">
-            <span class="page-number">3</span>
-            <div class="section-title">Business Objectives</div>
-            
-            <div class="highlight-box" style="background: #E8F0FF; border-left-color: #002FCD;">
-                <h3 style="margin-top: 0; color: #002FCD;">Discussion Questions for PNC Leadership</h3>
-                <p><strong>What business objectives is the Ledger Design and Development team expected to enable?</strong> How do these align with PNC's digital transformation strategy?</p>
-                <p style="margin-bottom: 0;"><strong>What are the KPIs/OKRs the team is held accountable to?</strong> How will success be measured against these business outcomes?</p>
+        <!-- PAGE 3: EXECUTIVE SUMMARY -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">PNC</div>
+                <div class="version">Page 3 of 16</div>
             </div>
             
-            <h2>Strategic Objectives</h2>
+            <h1>Executive Summary</h1>
+            <div class="section-subtitle">Strategic Value & Charter Purpose</div>
             
-            <div class="list-group">
-                <h3>1. Reduce Fragmentation & Technical Debt</h3>
-                <p>Unify Ledger and Ledger Private Bank libraries. Document, align, and retire legacy platforms to reduce maintenance overhead and design drift.</p>
+            <div class="exec-summary">
+                <h3>Charter Purpose</h3>
+                <p>Define the scope, governance structure, success criteria, technical architecture, and multi-workstream roadmap for deploying Knapsack as PNC's enterprise design system platform, enabling unified component delivery, documentation management, and governance across web and native mobile channels.</p>
             </div>
             
-            <div class="list-group">
-                <h3>2. Complete Token & Theme Expansion</h3>
-                <p>Extend token system to native platforms. Establish parity between web and native platforms (iOS/Android) through unified framework.</p>
+            <h2>Strategic Value</h2>
+            <p>Transform PNC's design system operations from fragmented documentation across multiple systems (InVision DSM, Confluence, Sketch, Figma, code repositories) and isolated platform silos into an integrated, centralized platform where web client serves as single source of truth for documentation, token configuration, and component governance while supporting multi-platform rendering (web, iOS, Android) through native showcase applications and future expansion channels.</p>
+            
+            <div class="critical-path">
+                <strong>Critical Path Dependency:</strong> Component registration from PNC's Swift UI, Kotlin, and web repositories is the foundation for all Phase 1 and Workstream 4 deliverables. Component registration capability must be operational by M+3 weeks to validate architecture and enable team adoption.
             </div>
             
-            <div class="list-group">
-                <h3>3. Deliver Material 3 Upgrade</h3>
-                <p>Complete rollout by December 2025, ensuring stability, performance, and post-launch refinement guided by user feedback and accessibility validation.</p>
-            </div>
-            
-            <div class="list-group">
-                <h3>4. Enable Scalable Workspaces</h3>
-                <p>Implement SSO adoption, Figma linkage, and configure governance across PNC design environments for streamlined adoption.</p>
-            </div>
-            
-            <div class="list-group">
-                <h3>5. Advance the Mobile Foundation</h3>
-                <p>Integrate SwiftUI and Kotlin codebases into enterprise design system. Define mobile-specific accessibility, testing, and documentation standards.</p>
-            </div>
-            
-            <div class="list-group">
-                <h3>6. Strengthen the Governance Framework</h3>
-                <p>Formalize backlog prioritization, automate reporting through Jira, and implement performance metrics to improve transparency and system health tracking.</p>
-            </div>
-        </div>
-        
-        <!-- PAGE 4: SUCCESS METRICS -->
-        <div class="section page-break">
-            <span class="page-number">4</span>
-            <div class="section-title">Success Metrics</div>
-            
-            <div class="highlight-box" style="background: #E8F0FF; border-left-color: #002FCD;">
-                <h3 style="margin-top: 0; color: #002FCD;">Discussion Questions for PNC Leadership</h3>
-                <p><strong>Are these the right metrics?</strong> These are typical metrics — are there other quantitative or qualitative metrics that matter specifically to PNC?</p>
-                <p style="margin-bottom: 0;"><strong>What mechanisms do you have in place today</strong> to measure the success of your North Star Vision?</p>
-            </div>
-            
-            <h2>Operational, Strategic & Financial Targets</h2>
-            
-            <h3>Operational (90 Days)</h3>
-            <div class="metric-display">
-                <div class="metric-card">
-                    <div class="metric-value">50%</div>
-                    <div class="metric-label">Component Discovery Time Reduction</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">40%</div>
-                    <div class="metric-label">Support Question Volume Decrease</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">80%</div>
-                    <div class="metric-label">User Confidence in Mobile Guidance</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">100%</div>
-                    <div class="metric-label">Accessibility Compliance</div>
-                </div>
-            </div>
-            
-            <h3>Strategic (6 Months)</h3>
-            <div class="metric-display">
-                <div class="metric-card">
-                    <div class="metric-value">70%</div>
-                    <div class="metric-label">Mobile Team Adoption Rate</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">85%</div>
-                    <div class="metric-label">Cross-Platform Consistency</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">25%</div>
-                    <div class="metric-label">Component Reuse Growth (QoQ)</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">4-6 weeks</div>
-                    <div class="metric-label">Component Delivery Velocity</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- PAGE 5: SCOPE & BOUNDARIES -->
-        <div class="section page-break">
-            <span class="page-number">5</span>
-            <div class="section-title">Scope & Boundaries</div>
-            
-            <div class="highlight-box" style="background: #E8F0FF; border-left-color: #002FCD;">
-                <h3 style="margin-top: 0; color: #002FCD;">Discussion Questions for PNC Leadership</h3>
-                <p><strong>Are the in-scope and out-of-scope items aligned</strong> with PNC's strategic priorities and resource constraints?</p>
-                <p style="margin-bottom: 0;"><strong>Which dependencies represent the greatest risks</strong> to project success? How can we mitigate these early?</p>
-            </div>
-            
-            <h2>In Scope & Out of Scope</h2>
-            
-            <div class="two-column">
-                <div class="column-section">
-                    <h3>In Scope - Platform</h3>
-                    <ul>
-                        <li>Documentation migration to Knapsack</li>
-                        <li>Integration with Figma and code repos</li>
-                        <li>Token management pipeline</li>
-                        <li>Native showcase rendering (SwiftUI, Kotlin)</li>
-                        <li>System of systems architecture</li>
-                    </ul>
-                    
-                    <h3>In Scope - Mobile Capabilities</h3>
-                    <ul>
-                        <li>Platform-specific token units (sp, dp, pt)</li>
-                        <li>Mobile Figma integration strategy</li>
-                        <li>Component showcase apps</li>
-                    </ul>
-                </div>
-                
-                <div class="column-section">
-                    <h3>Out of Scope (Phase 1)</h3>
-                    <ul>
-                        <li>Redesign of existing component libraries</li>
-                        <li>Custom non-design-system features</li>
-                        <li>Multi-division consolidation</li>
-                        <li>Advanced AI workflows beyond roadmap</li>
-                        <li>Native component registration model</li>
-                        <li>Accessibility testing framework</li>
-                        <li>Editorial standards and approval workflows</li>
-                        <li>Quality gates and accessibility frameworks</li>
-                        <li>Component contribution guidelines</li>
-                        <li>Cross-platform testing requirements</li>
-                    </ul>
-                    
-                    <h3>Dependencies - PNC</h3>
-                    <ul>
-                        <li>Design Ops resource (20-40% FTE)</li>
-                        <li>Repository and Figma API access</li>
-                        <li>Executive approval and steering committee engagement</li>
-                    </ul>
-                    
-                    <h3>Dependencies - Knapsack</h3>
-                    <ul>
-                        <li>Forward Deployed Engineer (40% FTE, 6 months)</li>
-                        <li>IPE Beta program support</li>
-                        <li>Enterprise security certification</li>
-                        <li>Product roadmap alignment</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <!-- PAGE 6: GOVERNANCE STRUCTURE -->
-        <div class="section page-break">
-            <span class="page-number">6</span>
-            <div class="section-title">Governance Structure</div>
-            
-            <div class="highlight-box" style="background: #E8F0FF; border-left-color: #002FCD;">
-                <h3 style="margin-top: 0; color: #002FCD;">Discussion Questions for PNC Leadership</h3>
-                <p><strong>Does this governance model align with PNC's organizational structure?</strong> Are there additional stakeholders who should be included?</p>
-                <p style="margin-bottom: 0;"><strong>What decision-making authority and escalation paths</strong> do we need to establish for rapid, unblocked execution?</p>
-            </div>
-            
-            <h2>Steering Committee & Core Team</h2>
-            
-            <h3>Steering Committee</h3>
+            <h2>Phase 1 Foundation Investment</h2>
             <table>
                 <tr>
-                    <th>Attribute</th>
-                    <th>Details</th>
+                    <th>Element</th>
+                    <th>Timeline</th>
+                    <th>Investment</th>
                 </tr>
                 <tr>
-                    <td><strong>Role</strong></td>
-                    <td>Strategic oversight, budget approval, conflict resolution</td>
+                    <td><strong>Platform Foundation & Repository Integration</strong></td>
+                    <td>Nov 2025 - Feb 2026</td>
+                    <td>$240K (web platform license + implementation)</td>
                 </tr>
                 <tr>
-                    <td><strong>Composition</strong></td>
-                    <td>VP GNFT (Executive Sponsor), Director Design Ops, Director Engineering, Senior PM Design System, CX Partner (Knapsack)</td>
+                    <td><strong>Design Tool Migrations & Data Integrity</strong></td>
+                    <td>Nov 2025 - Jan 2026</td>
+                    <td>Included in Phase 1 implementation</td>
                 </tr>
                 <tr>
-                    <td><strong>Meeting Cadence</strong></td>
-                    <td>Monthly (30-min + written pre-read)</td>
+                    <td><strong>Token Infrastructure Integration</strong></td>
+                    <td>Nov 2025 - Dec 2025</td>
+                    <td>Included in Phase 1 implementation</td>
                 </tr>
                 <tr>
-                    <td><strong>Decision Authority</strong></td>
-                    <td>Budget variance >10%, scope changes, phase gate approvals</td>
+                    <td><strong>Governance & Team Adoption</strong></td>
+                    <td>Nov 2025 - Feb 2026</td>
+                    <td>Included in Phase 1 implementation</td>
+                </tr>
+                <tr>
+                    <td><strong>Native Mobile Initiative Planning</strong></td>
+                    <td>Nov 2025 - Dec 2025</td>
+                    <td>Included in Phase 1 scoping</td>
                 </tr>
             </table>
             
-            <h3>Core Implementation Team</h3>
-            <table class="role-allocation">
+            <div class="footer">
+                <div>PNC Knapsack Implementation Charter</div>
+                <div>Executive Summary – Strategic Value & Investment</div>
+            </div>
+        </div>
+        
+        <!-- PAGE 3: BUSINESS OBJECTIVES & SUCCESS METRICS -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">PNC</div>
+                <div class="version">Page 4 of 16</div>
+            </div>
+            
+            <h1>Business Objectives & Success Metrics</h1>
+            <div class="section-subtitle">Operational, Strategic & Financial Targets</div>
+            
+            <h2>Primary Objectives</h2>
+            
+            <h3>1. Centralize Design System Documentation & Governance</h3>
+            <p>Establish web client as single source of truth for component documentation, token configuration, design guidelines, accessibility standards, and platform-specific implementation guidance across web, iOS, Android, and future platforms.</p>
+            
+            <h3>2. Enable Multi-Platform Component Delivery</h3>
+            <p>Support web components, iOS native (SwiftUI), Android native (Kotlin), and future platform expansion through unified governance model with platform-specific rendering capabilities and repository integration.</p>
+            
+            <h3>3. Reduce Documentation & Governance Fragmentation</h3>
+            <p>Eliminate tool sprawl by consolidating documentation from InVision DSM, Confluence, Sketch, Figma, and code repositories into unified web client with structured organization and automated workflows.</p>
+            
+            <h3>4. Enable Self-Service Component Contribution & Registration</h3>
+            <p>Provide engineering and design teams with accessible workflows to contribute, register, and manage components directly from source repositories (Bitbucket, code), eliminating handoff delays and manual tracking.</p>
+            
+            <h3>5. Establish Foundation for Future-Proof Platform Evolution</h3>
+            <p>Build extensible repository integration, token management, component registration, and governance infrastructure supporting future capabilities (token versioning, multi-brand support, automated validation, native showcase rendering) without requiring architectural rework.</p>
+            
+            <h2>Success Metrics</h2>
+            
+            <h3>Operational (90 Days – End Q4 2025)</h3>
+            <div class="grid-3">
+                <div class="metric-card">
+                    <strong>Documentation Centralization</strong>
+                    <div style="color: var(--pnc-orange); font-size: 20px; margin: 8px 0;">40% reduction</div>
+                    <div style="font-size: 12px;">Component discovery time vs. fragmented sources</div>
+                </div>
+                <div class="metric-card">
+                    <strong>Component Registration Pilot</strong>
+                    <div style="color: var(--pnc-orange); font-size: 20px; margin: 8px 0;">3-5 components</div>
+                    <div style="font-size: 12px;">Successfully registered from PNC repos (M+3 weeks)</div>
+                </div>
+                <div class="metric-card">
+                    <strong>Platform Availability</strong>
+                    <div style="color: var(--pnc-orange); font-size: 20px; margin: 8px 0;">95%+</div>
+                    <div style="font-size: 12px;">System uptime and reliability target</div>
+                </div>
+            </div>
+            
+            <h3>Strategic (6 Months – End Q1 2026)</h3>
+            <ul>
+                <li><strong>Component Registration Scale:</strong> 50+ components successfully registered from web, iOS, Android repositories</li>
+                <li><strong>Cross-Functional Adoption:</strong> 80%+ of design and engineering teams trained and actively using platform</li>
+                <li><strong>Governance Implementation:</strong> Defined contribution workflows, quality gates, and approval processes operational</li>
+                <li><strong>Documentation Parity:</strong> 100% of critical components documented with multi-platform guidance</li>
+                <li><strong>Team Productivity:</strong> Measurable improvements in component iteration cycles and governance efficiency</li>
+            </ul>
+            
+            <h3>Financial (12 Months – End 2026)</h3>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Target</th>
+                </tr>
+                <tr>
+                    <td>Team Productivity Gains (Annual)</td>
+                    <td>1.5-2.5 hrs/week per contributor × team size</td>
+                </tr>
+                <tr>
+                    <td>Support Request Reduction</td>
+                    <td>40-50% fewer governance-related inquiries</td>
+                </tr>
+                <tr>
+                    <td>Component Quality Improvements</td>
+                    <td>25-30% fewer design-code deviations</td>
+                </tr>
+                <tr>
+                    <td>Documentation Fragmentation</td>
+                    <td>50%+ reduction from baseline (InVision+Confluence+Figma+Code)</td>
+                </tr>
+            </table>
+            
+            <div class="footer">
+                <div>PNC Knapsack Implementation Charter</div>
+                <div>Business Objectives & Success Metrics</div>
+            </div>
+        </div>
+        
+        <!-- PAGE 4: SCOPE & BOUNDARIES -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">PNC</div>
+                <div class="version">Page 5 of 16</div>
+            </div>
+            
+            <h1>Scope & Boundaries</h1>
+            <div class="section-subtitle">Phase 1 Funded Delivery vs. Future Investment Tracks</div>
+            
+            <h2>In Scope – Phase 1: Foundation (Nov 2025 - Feb 2026)</h2>
+            
+            <h3>Platform & Documentation</h3>
+            <ul>
+                <li>Knapsack web client configuration for PNC design system</li>
+                <li>Component documentation with multi-platform guidance (web, iOS, Android)</li>
+                <li>Token management framework with platform-specific units (px, dp, sp, pt)</li>
+                <li>Repository integration framework for component registration</li>
+                <li>Governance model definition and workflow setup</li>
+            </ul>
+            
+            <h3>Repository Integration & Component Registration</h3>
+            <ul>
+                <li>Component registration data model and architecture</li>
+                <li>Bitbucket API integration for repository access (read-only, OAuth credentials)</li>
+                <li>Self-service component registration workflows for PNC teams</li>
+                <li>Component registration pilot (M+3 weeks): 3-5 test components from web, iOS, Android repos</li>
+            </ul>
+            
+            <h3>Design Tool Migration & Data Integrity</h3>
+            <ul>
+                <li>Figma web library integration (connection setup, metadata mapping)</li>
+                <li>InVision DSM documentation audit and migration plan</li>
+                <li>Confluence documentation import to Knapsack with validation</li>
+                <li>Sketch component status clarification (deprecated, maintained, or exported to Figma)</li>
+                <li>Mobile Figma library inventory assessment (for Q1 2026 planning)</li>
+            </ul>
+            
+            <h3>Token Infrastructure Integration</h3>
+            <ul>
+                <li>PNC token pipeline audit and current state documentation</li>
+                <li>Knapsack integration with PNC's existing token system (integration points defined)</li>
+                <li>Platform-specific token unit support validation (px, dp, sp, pt) - operational by Dec 2025</li>
+                <li>Token governance workflow definition (approval process, change management, versioning)</li>
+            </ul>
+            
+            <h3>Governance & Quality</h3>
+            <ul>
+                <li>Component contribution guidelines and approval workflows</li>
+                <li>Quality gates for component registration</li>
+                <li>Accessibility standards documentation (WCAG 2.1 AA, platform-specific guidance)</li>
+                <li>Accessibility testing approach and infrastructure baseline</li>
+                <li>Change management and cross-functional team adoption</li>
+            </ul>
+            
+            <h2>Future Capabilities – Require Separate Investment Approval</h2>
+            
+            <h3>Workstream 4: Native Mobile Initiative (Phased Q4 2025 - 2026+)</h3>
+            <div class="objective-box">
+                <strong>iOS & Android Native Showcase Applications:</strong> Deploy native showcase apps rendering PNC's registered SwiftUI/Kotlin components with real-time parameter polling from web client. Component registration from PNC repositories enabled through Phase 1 foundation. Requires dedicated investment approval and GNFT/Ledger team adoption roadmap. Planning begins during Phase 1; decision gate End Q4 2025.
+            </div>
+            
+            <h3>2026+ Enhancement Tracks</h3>
+            <ul>
+                <li><strong>Q1 2026 - Mobile Figma Display:</strong> Web client enhancement to display mobile-specific Figma components (separate from showcase apps)</li>
+                <li><strong>Q2 2026 - Token Versioning & Audit:</strong> Enhanced token versioning with change audit trails and PNC pipeline integration</li>
+                <li><strong>Q3 2026 - In-App Documentation:</strong> Display platform-specific documentation within native showcase apps (offline access)</li>
+                <li><strong>Q4 2026 - Automated Accessibility Validation:</strong> Automated compliance checking, tap target measurement, gesture validation</li>
+            </ul>
+            
+            <h2>Critical Dependencies</h2>
+            
+            <div class="dependency-box">
+                <h4>PNC Responsibilities (Phase 1)</h4>
+                <ul>
+                    <li>Swift UI, Kotlin, and web component source code accessibility for registration</li>
+                    <li>Design system and platform governance model confirmation</li>
+                    <li>Current state documentation: existing token pipeline, Figma libraries, Sketch/Figma transition status</li>
+                    <li>Cross-functional team availability for training and adoption (Design Ops, GNFT, Ledger, Platform Engineering)</li>
+                    <li>Bitbucket repository access and API credential setup for component registration integration</li>
+                    <li>Accessibility standards and testing infrastructure baseline definition</li>
+                </ul>
+            </div>
+            
+            <div class="dependency-box">
+                <h4>Knapsack Responsibilities (Phase 1)</h4>
+                <ul>
+                    <li>Web client configuration and deployment</li>
+                    <li>Repository integration framework (Bitbucket API connectors, component registration architecture)</li>
+                    <li>Design tool integration setup (Figma web library connection)</li>
+                    <li>Token management framework with platform-specific unit support</li>
+                    <li>Forward Deployed Engineer (40% FTE, 6 months) embedded with PNC teams</li>
+                    <li>Implementation support, governance consulting, and training materials</li>
+                </ul>
+            </div>
+            
+            <h2>Critical Success Factor: Component Registration Foundation</h2>
+            
+            <div class="critical-path">
+                <strong>This is the critical path blocker for all deliverables.</strong> PNC's Swift UI/Kotlin/web component repositories must support component registration with Knapsack's framework. Without working component registration, December 2025 showcase apps cannot render, Phase 1b team adoption stalls, and Workstream 4 (Native Mobile Initiative) cannot launch. Component registration pilot (M+3 weeks) validates architecture and team capability. Success here drives all downstream work.
+            </div>
+            
+            <div class="footer">
+                <div>PNC Knapsack Implementation Charter</div>
+                <div>Scope & Boundaries – Phase 1 vs. Future Tracks</div>
+            </div>
+        </div>
+        
+        <!-- PAGE 5: TECHNICAL ARCHITECTURE - NEW -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">PNC</div>
+                <div class="version">Page 6 of 16</div>
+            </div>
+            
+            <h1>Technical Architecture: Repository Integration & Component Registration</h1>
+            <div class="section-subtitle">Component Data Model, Integration Patterns & Implementation Plan</div>
+            
+            <h2>Component Registration Data Model</h2>
+            
+            <h3>Component Metadata Schema</h3>
+            <p><strong>Each registered component must include:</strong></p>
+            <ul>
+                <li><strong>Component Identity:</strong> Name, version, platform (web/iOS/Android/multiplatform), component type (button, card, form, etc.)</li>
+                <li><strong>Source Reference:</strong> Repository URL, file path, git commit hash (read-only link to PNC source code)</li>
+                <li><strong>Documentation:</strong> Description, usage guidelines, platform-specific implementation notes, accessibility considerations</li>
+                <li><strong>Token Bindings:</strong> Component tokens (color, spacing, typography) with platform-specific values (px, dp, sp, pt)</li>
+                <li><strong>Dependencies:</strong> Child components, platform frameworks required (SwiftUI, Kotlin Compose, React, etc.)</li>
+                <li><strong>Status & Governance:</strong> Contribution status (proposed, approved, deprecated), owner, review approver, last updated date</li>
+                <li><strong>Multi-Platform Guidance:</strong> Platform-specific usage notes (iOS: VoiceOver considerations, Android: TalkBack considerations, Web: keyboard navigation)</li>
+            </ul>
+            
+            <h2>Repository Integration Architecture</h2>
+            
+            <h3>Bitbucket API Integration Pattern</h3>
+            <p><strong>Component registration workflow:</strong></p>
+            <ul>
+                <li><strong>OAuth Credentials:</strong> PNC provides Bitbucket OAuth credentials (read-only access scope)</li>
+                <li><strong>Repository Scope:</strong> Define which repositories are in scope (e.g., "web-components", "ios-swiftui", "android-kotlin", "design-tokens")</li>
+                <li><strong>Component Discovery:</strong> Knapsack queries Bitbucket API to list available components or PNC teams manually register with source links</li>
+                <li><strong>Read-Only Access:</strong> Knapsack reads component metadata, documentation, and code references - PNC maintains complete code control in source repos</li>
+                <li><strong>Versioning & Sync:</strong> Component versions tracked in Bitbucket; Knapsack syncs metadata on registration update (automatic or manual trigger)</li>
+                <li><strong>Rate Limiting & Performance:</strong> API call throttling to respect Bitbucket rate limits; caching for performance</li>
+            </ul>
+            
+            <h3>Phase 1a Setup Timeline (Nov-Dec 2025)</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Week 1-2 (Nov): Integration Architecture Design</div>
+                        <div class="timeline-description">Knapsack and PNC define component metadata schema, repository mapping, and API integration approach</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Week 3 (Nov): OAuth Setup & Repository Access Validation</div>
+                        <div class="timeline-description">PNC provides Bitbucket credentials, defines repository scope, Knapsack validates API access and rate limit compatibility</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Week 4-5 (Nov): Component Registration Pilot (M+3 weeks)</div>
+                        <div class="timeline-description">Test registration of 3-5 components from web, iOS, Android repos; validate metadata schema, sync mechanism, source linking</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Week 6 (Dec): Pilot Validation & Refinement</div>
+                        <div class="timeline-description">Validate pilot results, refine data model if needed, prepare self-service registration workflows for team adoption (Phase 1b)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h2>Self-Service Component Registration Workflow</h2>
+            
+            <p><strong>Phase 1b-1c (Dec 2025 - Feb 2026) enablement:</strong></p>
+            <ul>
+                <li><strong>Team Access:</strong> PNC engineers/designers navigate Knapsack web client, select "Register Component"</li>
+                <li><strong>Metadata Entry:</strong> Form-based registration with required fields (component name, repository reference, platform, owner, documentation)</li>
+                <li><strong>Approval Workflow:</strong> Component requires design review + engineering validation before publication</li>
+                <li><strong>Automatic Sync:</strong> Once approved, component metadata auto-syncs with source repository (Bitbucket) on updates</li>
+                <li><strong>Visibility:</strong> Approved components visible to cross-functional teams in web client documentation hub</li>
+            </ul>
+            
+            <h2>SOW Implications: New Theme Identified</h2>
+            
+            <div class="objective-box">
+                <strong>SOW Theme: Repository Integration & Component Registration Engineering</strong> – Knapsack must develop Bitbucket API connector, component registration framework, metadata schema, and self-service workflows. Estimated Knapsack effort TBD. PNC effort: OAuth credential setup, repository scope definition, pilot component validation, team training on registration process.
+            </div>
+            
+            <div class="footer">
+                <div>PNC Knapsack Implementation Charter</div>
+                <div>Technical Architecture: Repository Integration & Component Registration</div>
+            </div>
+        </div>
+        
+        <!-- PAGE 6: DESIGN TOOL MIGRATION -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">PNC</div>
+                <div class="version">Page 7 of 16</div>
+            </div>
+            
+            <h1>Design Tool Migration & Data Integrity</h1>
+            <div class="section-subtitle">Sketch→Figma, InVision DSM→Confluence→Knapsack Consolidation</div>
+            
+            <h2>Current State Assessment</h2>
+            
+            <h3>Design Components Evolution</h3>
+            <table>
+                <tr>
+                    <th>Period</th>
+                    <th>Platform</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Early 2024</td>
+                    <td>InVision DSM + Sketch</td>
+                    <td>Initial GNFT design system documentation</td>
+                </tr>
+                <tr>
+                    <td>Aug-Oct 2024</td>
+                    <td>InVision DSM + Sketch</td>
+                    <td>Major component rebuild (design improvements)</td>
+                </tr>
+                <tr>
+                    <td>Nov 2024</td>
+                    <td>Figma launched; Sketch support-mode</td>
+                    <td>Tool transition begins</td>
+                </tr>
+                <tr>
+                    <td>Dec 2024-Present</td>
+                    <td>InVision DSM → Confluence migration underway</td>
+                    <td>Multi-system transition creates fragmentation risk</td>
+                </tr>
+            </table>
+            
+            <h3>Documentation Fragmentation</h3>
+            <ul>
+                <li><strong>InVision DSM:</strong> Original GNFT design system documentation (being migrated away)</li>
+                <li><strong>Confluence:</strong> Current documentation repository (partial migration from InVision)</li>
+                <li><strong>Sketch:</strong> Component assets in support-mode (original design work, not being actively updated)</li>
+                <li><strong>Figma:</strong> New design library platform (web components, mobile design libraries being built)</li>
+                <li><strong>Code Repositories:</strong> Platform-specific implementation docs (SwiftUI, Kotlin) live in source repos only</li>
+                <li><strong>SauceLabs:</strong> Current native component showcase (GNFT/Ledger using for iOS/Android visibility)</li>
+            </ul>
+            
+            <h2>Migration Plan: Phase 1a-1b (Nov 2025 - Jan 2026)</h2>
+            
+            <h3>Figma Web Library Integration (Phase 1a - Nov 2025)</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Week 1: Figma Connection Setup</div>
+                        <div class="timeline-description">PNC provides Figma API access; Knapsack connects to PNC's Figma workspace and maps web component library</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Week 2-3: Metadata Mapping & Validation</div>
+                        <div class="timeline-description">Knapsack imports Figma component metadata, validates import accuracy, resolves any mapping gaps</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Week 4: Web Components Live in Knapsack</div>
+                        <div class="timeline-description">Web Figma library components now visible and managed in Knapsack web client</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>InVision DSM → Confluence → Knapsack Documentation Migration (Phase 1a-1b)</h3>
+            <p><strong>Critical: Three-system migration creates data loss risk. Must execute carefully.</strong></p>
+            <ul>
+                <li><strong>Data Audit:</strong> Inventory InVision DSM content (components, guidelines, accessibility notes, revision history)</li>
+                <li><strong>Reconciliation:</strong> Compare InVision content with current Confluence state - identify what's been migrated, what's lost, what's outdated</li>
+                <li><strong>Validation Checklist:</strong> Create mapping of all components (name, documentation, status, ownership) to ensure no loss</li>
+                <li><strong>Knapsack Import:</strong> Import reconciled documentation into Knapsack with version control and audit trail</li>
+                <li><strong>Team Sign-Off:</strong> Design/engineering teams validate migrated content accuracy before going live</li>
+            </ul>
+            
+            <h3>Sketch Components Policy (Phase 1a - Nov 2025)</h3>
+            <p><strong>Decision required:</strong> Clarify Sketch component status to avoid team confusion</p>
+            <ul>
+                <li><strong>Option A - Deprecate:</strong> Sketch components end-of-life; Figma is authoritative design source going forward</li>
+                <li><strong>Option B - Archive Reference:</strong> Keep Sketch as historical reference (legacy documentation); export to Figma for continuity</li>
+                <li><strong>Option C - Maintain Parallel:</strong> Continue Sketch for older projects; Figma for new work (higher overhead, not recommended)</li>
+            </ul>
+            <p><strong>Recommendation:</strong> Option A (Deprecate) - Teams already transitioning to Figma; continued Sketch maintenance creates confusion</p>
+            
+            <h3>Mobile Figma Library Assessment (Phase 1a - Nov 2025)</h3>
+            <p><strong>For Q1 2026 planning:</strong> Inventory current mobile Figma libraries</p>
+            <ul>
+                <li>Document existing iOS Figma library structure and components</li>
+                <li>Document existing Android Figma library structure and components</li>
+                <li>Identify gaps between design library and native implementation (iOS SwiftUI, Android Kotlin)</li>
+                <li>Prepare scope for Q1 2026 "Mobile Figma Display" enhancement (web client feature to show mobile Figma components)</li>
+            </ul>
+            
+            <h2>Success Criteria</h2>
+            <ul>
+                <li>100% of InVision DSM documentation migrated with zero data loss</li>
+                <li>Figma web library successfully connected and visible in Knapsack</li>
+                <li>Sketch component status clarified; team confusion eliminated</li>
+                <li>Mobile Figma library inventory complete for Q1 2026 planning</li>
+                <li>Teams report improved documentation discoverability vs. multi-system baseline</li>
+            </ul>
+            
+            <h2>SOW Implications: New Theme Identified</h2>
+            
+            <div class="objective-box">
+                <strong>SOW Theme: Design Tool Migration & Data Integrity Management</strong> – Plan and execute migration from InVision→Confluence→Knapsack with reconciliation; setup Figma web library integration; clarify Sketch sunset; inventory mobile Figma libraries. Estimated PNC effort for data audit/validation, Knapsack setup effort TBD. Critical path: must complete by Feb 2026 to avoid adoption delays.
+            </div>
+            
+            <div class="footer">
+                <div>PNC Knapsack Implementation Charter</div>
+                <div>Design Tool Migration & Data Integrity</div>
+            </div>
+        </div>
+        
+        <!-- PAGE 7: TOKEN INFRASTRUCTURE -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">PNC</div>
+                <div class="version">Page 8 of 16</div>
+            </div>
+            
+            <h1>Token Infrastructure Integration & Governance Model</h1>
+            <div class="section-subtitle">PNC Pipeline Integration, Platform-Specific Units & Governance Workflow</div>
+            
+            <h2>PNC Token Infrastructure Current State</h2>
+            
+            <h3>Token Inventory & Governance Status</h3>
+            <table>
+                <tr>
+                    <th>Token Category</th>
+                    <th>Current Status</th>
+                    <th>Source System</th>
+                </tr>
+                <tr>
+                    <td>Color Tokens</td>
+                    <td>Partially aligned between Ledger & GNFT</td>
+                    <td>Figma (web) + TBD (mobile)</td>
+                </tr>
+                <tr>
+                    <td>Spacing/Sizing</td>
+                    <td>Platform-specific (web: px, mobile: dp/sp)</td>
+                    <td>Code repositories (web CSS, iOS SwiftUI, Android Kotlin)</td>
+                </tr>
+                <tr>
+                    <td>Typography</td>
+                    <td>Partial alignment across platforms</td>
+                    <td>Figma + code repositories</td>
+                </tr>
+                <tr>
+                    <td>Elevation/Shadow</td>
+                    <td>Platform-specific implementation</td>
+                    <td>Design guidelines only (Sketch/Figma)</td>
+                </tr>
+                <tr>
+                    <td>Motion/Animation</td>
+                    <td>Design-only; no implementation tracking</td>
+                    <td>Figma specifications (no code integration)</td>
+                </tr>
+            </table>
+            
+            <h3>Key Gaps</h3>
+            <ul>
+                <li><strong>No Unified Governance:</strong> Token approval/versioning process undefined; no audit trail for changes</li>
+                <li><strong>Manual Tracking:</strong> Documentation fragmented across Figma, code, and design specs - teams must manually keep aligned</li>
+                <li><strong>Platform Unit Inconsistency:</strong> Web (px), iOS (pt), Android (dp/sp) handled separately with no unified view</li>
+                <li><strong>No Versioning:</strong> Token changes not tracked; impossible to identify when token values changed or why</li>
+            </ul>
+            
+            <h2>Knapsack Token Integration Model (Phase 1a - Dec 2025)</h2>
+            
+            <h3>Integration Philosophy: "Integrates With, Not Replaces"</h3>
+            <p><strong>Knapsack does not replace PNC's existing token infrastructure. Instead, Knapsack acts as the centralized source of truth for token documentation, configuration, and governance while integrating with PNC's token sourcing systems.</strong></p>
+            
+            <h3>Platform-Specific Token Unit Support</h3>
+            <ul>
+                <li><strong>Web (CSS/React):</strong> Pixels (px) - absolute units</li>
+                <li><strong>iOS (SwiftUI):</strong> Points (pt) - logical units, scales with device resolution</li>
+                <li><strong>Android (Kotlin):</strong> Density-Independent Pixels (dp) and Scale-Independent Pixels (sp) - device-agnostic units</li>
+            </ul>
+            <p><strong>Requirement:</strong> Knapsack must support conversion/mapping between units so designers can see platform-equivalent values for a given token</p>
+            
+            <h3>Token Sourcing & Sync Strategy (Phase 1a Setup - Nov 2025)</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Week 1-2: Token Source Audit</div>
+                        <div class="timeline-description">Identify current token sources: Figma token plugin? Coded in repos? Design specs only? Define integration points for each platform</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Week 3: Integration Design</div>
+                        <div class="timeline-description">Knapsack and PNC architect token data flow: where tokens originate, how they sync to Knapsack, which system is authoritative</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Week 4: Token Configuration in Knapsack</div>
+                        <div class="timeline-description">Knapsack web client token interface configured with platform-specific units (px, dp, sp, pt) ready for showcase rendering</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Week 5: December 2025 Showcase Readiness</div>
+                        <div class="timeline-description">Native showcase apps can render components with correct token values; token infrastructure validated</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h2>Token Governance Model Definition (Phase 1a - Nov 2025)</h2>
+            
+            <h3>Governance Workflow</h3>
+            <ul>
+                <li><strong>Token Proposal:</strong> Team proposes new token or token change in Knapsack with business rationale</li>
+                <li><strong>Review & Approval:</strong> Design + Engineering sign-off on token value, platform impact, and compliance</li>
+                <li><strong>Publication:</strong> Approved token goes live in Knapsack and syncs to source systems (Figma, code repos)</li>
+                <li><strong>Change Tracking:</strong> All token changes logged in audit trail (value, date, approver, reason) - foundation for Q2 2026 versioning enhancement</li>
+            </ul>
+            
+            <h3>December 2025 Prerequisite: Token Configuration Operational</h3>
+            <p><strong>For native showcase apps to render correctly, must have:</strong></p>
+            <ul>
+                <li>All platform-specific tokens configured in Knapsack (px, dp, sp, pt)</li>
+                <li>Token values synced from source systems (Figma or code)</li>
+                <li>Governance workflow operational (approval process defined)</li>
+                <li>Showcase apps can retrieve token values and render components with correct spacing, colors, typography</li>
+            </ul>
+            
+            <h2>Q2 2026 Versioning Roadmap Foundation</h2>
+            <p><strong>Phase 1 setup enables future investment:</strong> Q2 2026 "Token Versioning with Audit Trail" enhancement builds on Phase 1 infrastructure. Requires separate investment approval but foundation laid during Phase 1a-b.</p>
+            
+            <h2>SOW Implications: New Theme Identified</h2>
+            
+            <div class="objective-box">
+                <strong>SOW Theme: Token Infrastructure Integration & Governance Model Definition</strong> – Audit PNC's current token systems and sourcing; design Knapsack integration points; establish platform-specific unit support (px, dp, sp, pt); define token governance workflow; validate December 2025 showcase readiness. Estimated PNC effort: infrastructure audit + governance alignment. Knapsack effort: integration setup + governance workflow configuration.
+            </div>
+            
+            <div class="footer">
+                <div>PNC Knapsack Implementation Charter</div>
+                <div>Token Infrastructure Integration & Governance</div>
+            </div>
+        </div>
+        
+        <!-- PAGE 8: ACCESSIBILITY FRAMEWORK -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">PNC</div>
+                <div class="version">Page 9 of 16</div>
+            </div>
+            
+            <h1>Accessibility Standards & Testing Framework</h1>
+            <div class="section-subtitle">Phase 1 Documentation Approach with Q4 2026 Automation Roadmap</div>
+            
+            <h2>Phase 1: Documentation-Centralization Approach (Nov 2025 - Feb 2026)</h2>
+            
+            <p><strong>Phase 1 Focus:</strong> Centralize accessibility standards and provide teams with clear documentation, guidelines, and testing checklists. Automated validation deferred to Q4 2026 investment decision.</p>
+            
+            <h3>Accessibility Documentation Scope</h3>
+            <ul>
+                <li><strong>WCAG 2.1 AA Standards:</strong> Level AA conformance required for all components</li>
+                <li><strong>Web Accessibility:</strong> Keyboard navigation, screen reader support (ARIA labels), focus management, color contrast (4.5:1 minimum)</li>
+                <li><strong>iOS Accessibility:</strong> VoiceOver support, Dynamic Type scaling, accessible labels and hints, gesture alternatives</li>
+                <li><strong>Android Accessibility:</strong> TalkBack support, accessible labels and descriptions, touch target sizing (48x48 dp minimum), content description alternatives</li>
+                <li><strong>Multi-Platform Guidance:</strong> Platform-specific implementation notes for designers and engineers</li>
+            </ul>
+            
+            <h3>Component Accessibility Testing Checklist</h3>
+            <table>
+                <tr>
+                    <th>Test Category</th>
+                    <th>Web</th>
+                    <th>iOS</th>
+                    <th>Android</th>
+                </tr>
+                <tr>
+                    <td><strong>Keyboard Navigation</strong></td>
+                    <td>✓ Tab order, focus visible</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                </tr>
+                <tr>
+                    <td><strong>Screen Reader</strong></td>
+                    <td>✓ ARIA labels, role clarity</td>
+                    <td>✓ VoiceOver label hierarchy</td>
+                    <td>✓ TalkBack label hierarchy</td>
+                </tr>
+                <tr>
+                    <td><strong>Color Contrast</strong></td>
+                    <td>✓ 4.5:1 text, 3:1 graphics</td>
+                    <td>✓ 4.5:1 text, 3:1 graphics</td>
+                    <td>✓ 4.5:1 text, 3:1 graphics</td>
+                </tr>
+                <tr>
+                    <td><strong>Touch Targets</strong></td>
+                    <td>N/A (pointer)</td>
+                    <td>✓ 44x44 pt minimum</td>
+                    <td>✓ 48x48 dp minimum</td>
+                </tr>
+                <tr>
+                    <td><strong>Text Scaling</strong></td>
+                    <td>✓ Responsive, min 16px</td>
+                    <td>✓ Dynamic Type support</td>
+                    <td>✓ sp scaling support</td>
+                </tr>
+            </table>
+            
+            <h2>Current Testing Infrastructure Baseline (Phase 1a - Nov 2025)</h2>
+            
+            <h3>Assessment Required</h3>
+            <ul>
+                <li><strong>SauceLabs Integration:</strong> Does SauceLabs provide accessibility testing capabilities? If yes, what's current coverage?</li>
+                <li><strong>Manual Testing Approach:</strong> What's current process for accessibility validation (team-based, automated tools, external audit)?</li>
+                <li><strong>Ownership Model:</strong> Is accessibility testing PNC responsibility, Knapsack support, or shared?</li>
+                <li><strong>CI/CD Integration:</strong> Are accessibility checks automated in development pipeline or manual gate?</li>
+            </ul>
+            
+            <h2>Q4 2026 Automated Validation Investment Decision Foundation</h2>
+            
+            <p><strong>Phase 1 sets groundwork for Q4 2026 enhancement, but does NOT commit to it. Separate investment approval required.</strong></p>
+            
+            <h3>What Q4 2026 Automated Validation Would Include</h3>
+            <ul>
+                <li><strong>Automated Tap Target Measurement:</strong> iOS (44x44 pt) and Android (48x48 dp) minimum enforcement</li>
+                <li><strong>Gesture Accessibility Checking:</strong> Validate alternative interaction paths for complex gestures</li>
+                <li><strong>Color Contrast Validation:</strong> Automated checking against WCAG 4.5:1 text and 3:1 graphics standards</li>
+                <li><strong>Text Scaling Testing:</strong> Validate responsive behavior at 150%, 200% text size</li>
+                <li><strong>CI/CD Integration:</strong> Accessibility validation as automated gate in development pipeline</li>
+                <li><strong>Compliance Reporting:</strong> Automated accessibility audit reports for regulatory/compliance documentation</li>
+            </ul>
+            
+            <h3>Q4 2026 Decision Gate Inputs</h3>
+            <ul>
+                <li>Business case for automation: cost/benefit vs. manual testing</li>
+                <li>Regulatory/compliance requirements that drive automation need</li>
+                <li>Testing infrastructure ownership and resource model</li>
+                <li>Integration with PNC's existing testing infrastructure (SauceLabs, CI/CD)</li>
+            </ul>
+            
+            <h2>Phase 1 Success Criteria</h2>
+            <ul>
+                <li>WCAG 2.1 AA standards documented and accessible to all teams</li>
+                <li>Platform-specific accessibility guidelines (iOS, Android, web) clear and comprehensive</li>
+                <li>Component accessibility testing checklist operational</li>
+                <li>Current testing infrastructure baseline established</li>
+                <li>Teams trained on accessibility requirements and testing approach</li>
+                <li>100% of components meet WCAG 2.1 AA documentation standards by Phase 1c</li>
+            </ul>
+            
+            <h2>SOW Implications: New Theme Identified</h2>
+            
+            <div class="objective-box">
+                <strong>SOW Theme: Accessibility Standards & Testing Framework (Phase 1 Documentation Approach)</strong> – Document WCAG 2.1 AA standards for web, iOS, Android; create platform-specific accessibility guidelines; develop component testing checklists; assess current testing infrastructure (SauceLabs integration, CI/CD); define ownership model for accessibility testing; lay foundation for Q4 2026 automated validation decision.
+            </div>
+            
+            <div class="footer">
+                <div>PNC Knapsack Implementation Charter</div>
+                <div>Accessibility Standards & Testing Framework</div>
+            </div>
+        </div>
+        
+        <!-- PAGE 9: GOVERNANCE STRUCTURE -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">PNC</div>
+                <div class="version">Page 10 of 16</div>
+            </div>
+            
+            <h1>Governance Structure</h1>
+            <div class="section-subtitle">Steering Committee & Core Implementation Team</div>
+            
+            <h2>Steering Committee</h2>
+            
+            <div class="role-box">
+                <div class="role-label">Role</div>
+                <div class="role-description">Strategic oversight, executive sponsorship, budget approval, conflict resolution, future investment gate decisions</div>
+            </div>
+            
+            <div class="role-box">
+                <div class="role-label">Composition</div>
+                <div class="role-description">
+                    <ul style="margin-left: 0; margin-top: 8px;">
+                        <li>Laura Menken, SVP Retail Digital Payments, Wallets & Mobile (Executive Sponsor)</li>
+                        <li>VP of Design Operations</li>
+                        <li>VP of Platform Engineering</li>
+                        <li>Senior Product Manager, Design System</li>
+                        <li>CX Partner, Knapsack</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="role-box">
+                <div class="role-label">Meeting Cadence</div>
+                <div class="role-description">Monthly (30-min + written pre-read), quarterly strategic alignment, phase gates as needed</div>
+            </div>
+            
+            <div class="role-box">
+                <div class="role-label">Decision Authority</div>
+                <div class="role-description">
+                    <ul style="margin-left: 0; margin-top: 8px;">
+                        <li>Future workstream investment approvals (Native Mobile, Token Management, Advanced Governance)</li>
+                        <li>Scope changes to Phase 1 delivery</li>
+                        <li>Phase gate approvals and go/no-go decisions</li>
+                        <li>Resource allocation and conflict resolution</li>
+                        <li>Governance model and quality standards</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h2>Core Implementation Team</h2>
+            
+            <div class="role-box">
+                <div class="role-label">Role</div>
+                <div class="role-description">Day-to-day execution, technical decisions, workstream coordination, risk mitigation</div>
+            </div>
+            
+            <div class="role-box">
+                <div class="role-label">Composition</div>
+                <div class="role-description">
+                    <ul style="margin-left: 0; margin-top: 8px;">
+                        <li><strong>Design System Lead</strong> (100% FTE, Months 1-6) – PNC</li>
+                        <li><strong>Platform Engineering Lead</strong> (75% FTE, Months 1-6) – PNC</li>
+                        <li><strong>Product Manager</strong> (50% FTE, Months 1-6) – PNC</li>
+                        <li><strong>CX Partner</strong> (25% advisory) – Knapsack</li>
+                        <li><strong>Forward Deployed Engineer</strong> (40% FTE, 6 months) – Knapsack</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="role-box">
+                <div class="role-label">Meeting Cadence</div>
+                <div class="role-description">
+                    <ul style="margin-left: 0; margin-top: 8px;">
+                        <li>Weekly standups (30 min) – progress, blockers, decisions</li>
+                        <li>Bi-weekly sprint planning (90 min) – detailed technical work</li>
+                        <li>Monthly retrospectives – learning and process improvement</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h2>Workstream Leadership (Reporting to Core Team)</h2>
+            
+            <h3>Workstream 1: Web Platform Foundation & Repository Integration</h3>
+            <p><strong>Lead:</strong> Design System Lead + Platform Engineering Lead | <strong>Support:</strong> Forward Deployed Engineer</p>
+            
+            <h3>Workstream 2: Governance & Quality Framework</h3>
+            <p><strong>Lead:</strong> Product Manager + Design System Lead | <strong>Support:</strong> CX Partner (advisory)</p>
+            
+            <h3>Workstream 3: Cross-Functional Adoption</h3>
+            <p><strong>Lead:</strong> Design System Lead + Product Manager | <strong>Support:</strong> CX Partner (change management)</p>
+            
+            <h3>Workstream 4: Native Mobile Initiative (Future Track)</h3>
+            <p><strong>Lead:</strong> Dedicated Mobile Design System Lead (upon investment approval) | <strong>Reporting:</strong> Steering Committee</p>
+            
+            <div class="footer">
+                <div>PNC Knapsack Implementation Charter</div>
+                <div>Governance Structure – Steering & Core Team</div>
+            </div>
+        </div>
+        
+        <!-- PAGE 10: WORKSTREAMS OVERVIEW -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">PNC</div>
+                <div class="version">Page 11 of 16</div>
+            </div>
+            
+            <h1>Integrated Workstreams Overview</h1>
+            <div class="section-subtitle">Phase 1 Foundation with Nested Native Mobile Initiative Track</div>
+            
+            <h2>Workstream Structure</h2>
+            
+            <p>Phase 1 (Nov 2025 - Feb 2026) establishes the foundation across three core workstreams, with Native Mobile Initiative operating as a fourth nested workstream contingent on successful Phase 1 completion and separate investment approval.</p>
+            
+            <div class="workstream-card">
+                <div class="workstream-title">Workstream 1: Web Platform Foundation, Repository Integration & Repository Integration & Component Registration</div>
+                <div class="workstream-description">
+                    Establish Knapsack web client infrastructure with centralized documentation, token configuration, component registration frameworks, and repository integration (Bitbucket). Deliverables: configured workspace, component registration pilot (M+3 weeks), token taxonomy, 50+ web components documented, Figma integration, migration from InVision/Confluence, repository integration framework operational, quality gates ready.
+                </div>
+            </div>
+            
+            <div class="workstream-card">
+                <div class="workstream-title">Workstream 2: Governance, Quality & Component Registration Framework</div>
+                <div class="workstream-description">
+                    Define contribution guidelines, approval workflows, quality standards, accessibility requirements (WCAG 2.1 AA), and component registration models. Set up component registration workflows for self-service adoption. Deliverables: contribution guidelines, quality gates, accessibility standards, testing checklists, component registration framework ready for cross-functional adoption, governance workflow operational.
+                </div>
+            </div>
+            
+            <div class="workstream-card">
+                <div class="workstream-title">Workstream 3: Cross-Functional Team Adoption & Change Management</div>
+                <div class="workstream-description">
+                    Execute training, onboarding, and change management for design, engineering, and platform teams. Build momentum through early adopter programs and feedback loops. Deliverables: training materials, team readiness validation, adoption metrics, organizational alignment for Phase 2, 50+ self-service component contributions, 80% team training completion.
+                </div>
+            </div>
+            
+            <div class="workstream-card">
+                <div class="workstream-title">Workstream 4: Native Mobile Initiative (Nested Track, Separate Investment)</div>
+                <div class="workstream-description">
+                    <strong>Contingent on Phase 1 success and separate investment approval.</strong> Deploy iOS and Android showcase applications rendering PNC's registered SwiftUI/Kotlin components. Enables GNFT/Ledger team to iterate rapidly without app store deployments. Requires dedicated resource allocation and team adoption roadmap. Foundation built during Phase 1; planning during Phase 1 with decision gate End Q4 2025. (See detailed roadmap, pages 12-13.)
+                </div>
+            </div>
+            
+            <h2>Integration Model</h2>
+            
+            <p>Workstreams 1-3 execute in parallel during Phase 1 (Nov 2025 - Feb 2026). Workstream 4 begins planning during Phase 1 with formal start contingent on investment approval. This structure allows PNC to realize immediate value from web platform centralization while building the capability foundation for future native and multi-platform expansion.</p>
+            
+            <h2>Critical Path: Component Registration Pilot Validation (M+3 Weeks)</h2>
+            
+            <div class="critical-path">
+                <strong>Go/No-Go Decision Point (Late Nov 2025):</strong> Component registration pilot results (3-5 test components from web/iOS/Android repos) determine if architecture is sound and team capability exists. If pilot fails, entire Phase 1 timeline shifts. Success here enables Phase 1b acceleration (Dec 2025 team adoption, token configuration, governance workflow). This is the highest-risk item in Phase 1 execution.
+            </div>
+            
+            <div class="footer">
+                <div>PNC Knapsack Implementation Charter</div>
+                <div>Integrated Workstreams Overview</div>
+            </div>
+        </div>
+        
+        <!-- PAGE 11: WORKSTREAM 1 DETAILED -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">PNC</div>
+                <div class="version">Page 12 of 16</div>
+            </div>
+            
+            <h1>Workstream 1: Web Platform Foundation & Technical Integration</h1>
+            <div class="section-subtitle">Repository Integration, Design Tool Migration, Token Setup, Governance Foundation</div>
+            
+            <h3>Objective</h3>
+            <p>Establish Knapsack web client infrastructure as single source of truth for design system documentation, component registration, token configuration, and governance, supporting current web platform and future multi-platform expansion. Enable component registration from PNC repositories as critical foundation for all downstream work.</p>
+            
+            <h2>Key Phases</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Phase 0: Procurement (Sep-Nov 2025)</div>
+                        <div class="timeline-description">Executive approval, security review, license procurement, FDE assignment, team onboarding</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Phase 1a: Foundation & Repository Integration (Nov-Dec 2025)</div>
+                        <div class="timeline-description">Web client config, token taxonomy, Bitbucket integration setup, component registration pilot (M+3 weeks), Figma connection, InVision audit, Sketch policy clarification, governance framework design</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Phase 1b: Documentation Migration & Governance (Dec 2025-Jan 2026)</div>
+                        <div class="timeline-description">InVision→Confluence→Knapsack migration, component documentation (50+), token configuration finalization, accessibility standards documentation, governance workflow operationalization</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Phase 1c: Validation & Launch (Jan-Feb 2026)</div>
+                        <div class="timeline-description">Quality validation, team readiness testing, performance optimization, launch preparation, adoption metrics baseline</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h2>Deliverables</h2>
+            <ul>
+                <li>Configured web client workspace (95%+ availability, enterprise security standards met)</li>
+                <li>Component registration pilot complete (M+3 weeks): 3-5 test components from web, iOS, Android repos successfully registered</li>
+                <li>Bitbucket API integration operational: OAuth setup, component metadata schema, sync mechanism</li>
+                <li>Complete token taxonomy with platform-specific unit support (px, dp, sp, pt)</li>
+                <li>50+ core web components documented with multi-platform guidance</li>
+                <li>Figma web library integration (metadata imported, live in Knapsack)</li>
+                <li>InVision DSM→Confluence→Knapsack migration complete with validation checklist</li>
+                <li>Sketch component policy clarified and communicated to teams</li>
+                <li>Mobile Figma library inventory complete for Q1 2026 planning</li>
+                <li>Token governance workflow defined and operational</li>
+                <li>Token configuration supports December 2025 showcase rendering</li>
+                <li>Quality gates and automated validation workflows</li>
+                <li>Documentation migration from legacy systems</li>
+            </ul>
+            
+            <h2>Success Criteria</h2>
+            <ul>
+                <li><strong>Platform Reliability:</strong> 95%+ system availability, zero data loss during migrations</li>
+                <li><strong>Component Registration:</strong> Pilot successfully demonstrates Bitbucket integration and team capability (M+3 weeks)</li>
+                <li><strong>Documentation Coverage:</strong> 50+ components documented with platform-specific guidance; InVision migration complete</li>
+                <li><strong>Token Infrastructure:</strong> Platform-specific units (px, dp, sp, pt) supported; token governance workflow operational</li>
+                <li><strong>Team Readiness:</strong> Core teams trained and capable of contributing components</li>
+                <li><strong>Architecture Validated:</strong> Repository integration working as designed; migration risks mitigated</li>
+                <li><strong>Showcase Readiness:</strong> December 2025 prerequisite (token configuration, component registration) validated</li>
+            </ul>
+            
+            <div class="footer">
+                <div>PNC Knapsack Implementation Charter</div>
+                <div>Workstream 1: Web Platform Foundation & Technical Integration</div>
+            </div>
+        </div>
+        
+        <!-- PAGE 12: WORKSTREAM 4 - NATIVE MOBILE INITIATIVE PT 1 -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">PNC</div>
+                <div class="version">Page 13 of 16</div>
+            </div>
+            
+            <h1>Workstream 4: Native Mobile Initiative</h1>
+            <div class="section-subtitle">Nested Investment Track – Separate Approval Required</div>
+            
+            <h2>Strategic Context</h2>
+            
+            <p><strong>Status:</strong> Contingent on Phase 1 (Workstreams 1-3) completion and separate executive investment approval. This workstream leverages the web platform foundation to enable rapid iOS and Android showcase deployment, component registration from PNC's native repositories, and accelerated GNFT/Ledger team adoption.</p>
+            
+            <div class="critical-path">
+                <strong>Investment Gate & Timeline:</strong> Formal start contingent on executive approval. Planning begins during Phase 1. Decision gate: End Q4 2025. Full deployment targeted for Q1 2026 upon approval. Estimated investment TBD during Phase 1 planning phase. Business case and resource roadmap to be developed and presented to Laura Menken/Steering Committee.
+            </div>
+            
+            <h2>Objective</h2>
+            <p>Deploy iOS and Android native showcase applications that render PNC's registered SwiftUI/Kotlin components with real-time parameter polling from web client, enabling GNFT/Ledger teams to iterate rapidly on component implementation without requiring app store deployments. Provide unified platform for native component discovery and governance aligned with web platform foundation.</p>
+            
+            <h2>Initiative Overview</h2>
+            
+            <h3>Architecture Model</h3>
+            <p><strong>Web Client = Source of Truth</strong> for documentation, token configuration, and parameters. <strong>Native Apps = Component Renderers</strong> that poll web client in real-time and display PNC's registered components from Swift UI/Kotlin repositories. PNC maintains complete control of component source code in own repositories.</p>
+            
+            <h3>Key Deliverables (Upon Investment Approval)</h3>
+            <ul>
+                <li>iOS showcase app (TestFlight distribution) rendering registered SwiftUI components</li>
+                <li>Android showcase app (internal testing) rendering registered Kotlin components</li>
+                <li>Component registration frameworks for PNC iOS/Android repositories</li>
+                <li>Real-time parameter polling architecture (<500ms latency target)</li>
+                <li>Mobile-specific token rendering (density points, scale-independent pixels)</li>
+                <li>SauceLabs transition strategy and parallel-run or sunset timeline</li>
+                <li>Component registration onboarding and training for GNFT/Ledger</li>
+                <li>Native showcase usage analytics and adoption tracking</li>
+            </ul>
+            
+            <h2>Phase Planning & Investment Decision Gate (During Phase 1: Nov 2025 - Dec 2025)</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Nov 2025 (Phase 1 Execution):</div>
+                        <div class="timeline-description">Native Mobile Initiative planning begins; architecture validation; GNFT/Ledger readiness assessment; detailed investment scoping; SauceLabs transition analysis</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Early Dec 2025 (End Phase 1a):</div>
+                        <div class="timeline-description">Component registration pilot results inform native showcase architecture (validate Bitbucket integration, team capability, token flow)</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Mid Dec 2025 (End Phase 1b):</div>
+                        <div class="timeline-description">Detailed business case, resource roadmap, GNFT adoption strategy, and SauceLabs transition plan finalized for executive decision</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Decision Gate: End Q4 2025 (Steering Committee):</div>
+                        <div class="timeline-description">Executive investment approval with resource commitment, launch timeline, and success metrics validation</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Upon Approval: Execution (Q1 2026):</div>
+                        <div class="timeline-description">Showcase app development, component registration framework deployment, GNFT/Ledger adoption launch, SauceLabs transition execution</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h2>Critical Success Factors (If Approved)</h2>
+            <ul>
+                <li><strong>Phase 1 Web Platform Success:</strong> Knapsack web client must be stable and operationally ready; component registration, token configuration, and governance workflow must be validated</li>
+                <li><strong>Component Registration Readiness:</strong> Phase 1a pilot success demonstrates PNC Swift UI/Kotlin repositories can register components with Knapsack framework</li>
+                <li><strong>GNFT/Ledger Team Adoption:</strong> Global Native Framework Team trained on registration and showcase usage; baseline adoption metrics established</li>
+                <li><strong>Forward Deployed Engineer Support:</strong> Dedicated Knapsack technical resource embedded with PNC teams for implementation and troubleshooting</li>
+                <li><strong>SauceLabs Transition Plan:</strong> Clear migration strategy (parallel run vs. sunset) avoids team confusion and maintains visibility during transition</li>
+            </ul>
+            
+            <h2>Business Impact (Upon Approval)</h2>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Impact</th>
+                </tr>
+                <tr>
+                    <td>Component Iteration Speed</td>
+                    <td>30-40% faster through native rendering without app store deployments</td>
+                </tr>
+                <tr>
+                    <td>Documentation Fragmentation</td>
+                    <td>50%+ reduction via unified web client and native showcase integration</td>
+                </tr>
+                <tr>
+                    <td>Parameter A/B Testing</td>
+                    <td>Real-time iteration capability without native app releases</td>
+                </tr>
+                <tr>
+                    <td>GNFT/Ledger Productivity</td>
+                    <td>2-3 hrs/week per engineer through self-service workflows</td>
+                </tr>
+                <tr>
+                    <td>Tool Consolidation</td>
+                    <td>Replace SauceLabs with unified Knapsack platform (single source of truth)</td>
+                </tr>
+            </table>
+            
+            <h2>SOW Implication: New Theme Identified</h2>
+            
+            <div class="objective-box">
+                <strong>SOW Theme 7: Native Mobile Initiative Planning & Investment Case Development</strong> – Conduct detailed planning during Phase 1 to enable informed Workstream 4 investment decision (End Q4 2025). Develop business case with ROI quantification, resource roadmap, GNFT/Ledger adoption strategy, SauceLabs transition plan, and technical validation. Knapsack and PNC alignment on showcase app requirements, component rendering architecture, and token flow. Estimated Phase 1 planning effort from both Knapsack and PNC; full development effort TBD based on decision approval.
+            </div>
+            
+            <div class="footer">
+                <div>PNC Knapsack Implementation Charter</div>
+                <div>Workstream 4: Native Mobile Initiative (Part 1)</div>
+            </div>
+        </div>
+        
+        <!-- PAGE 13: WORKSTREAM 4 PT 2 - 2026 ROADMAP -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">PNC</div>
+                <div class="version">Page 14 of 16</div>
+            </div>
+            
+            <h1>Workstream 4: Native Mobile 2026 Enhancement Roadmap</h1>
+            <div class="section-subtitle">Quarterly Investment Decisions & Phased Capabilities (If Mobile Initiative Approved)</div>
+            
+            <p><strong>Note:</strong> The following roadmap only applies if Workstream 4 (Native Mobile Initiative) receives investment approval. Each quarterly enhancement requires separate decision gate and business case validation.</p>
+            
+            <h2>Q1 2026: Team Adoption & Mobile Figma Display Decision</h2>
+            
+            <div class="objective-box">
+                <strong>Mobile Figma Display Investment Gate:</strong> Display mobile-specific Figma library components in Knapsack web client (separate from showcase apps). Estimated investment TBD during Phase 1 planning. Business impact: 25-30% design cycle time reduction, improved design-code alignment for native teams. Eliminates duplicate workflows between mobile design libraries.
+            </div>
+            
+            <p><strong>Q1 Priorities:</strong> Showcase app deployment (iOS/Android), component registration launch, GNFT/Ledger team training, adoption metrics collection, Mobile Figma display scoping and feasibility study.</p>
+            
+            <h2>Q2 2026: Token Versioning & Audit Trail Decision</h2>
+            
+            <div class="objective-box">
+                <strong>Token Versioning Investment Gate:</strong> Implement token versioning with change audit trails in web client. Estimated investment TBD. Business impact: 40%+ reduction in token-related defects, compliance documentation for regulated environments, change accountability. Integrates with PNC's existing token pipeline.
+            </div>
+            
+            <p><strong>Q2 Priorities:</strong> Mobile Figma integration testing, governance model validation, token infrastructure enhancement planning, audit trail framework design.</p>
+            
+            <h2>Q3 2026: In-App Documentation Decision</h2>
+            
+            <div class="objective-box">
+                <strong>In-App Documentation Investment Gate:</strong> Display mobile-specific documentation WITHIN native iOS/Android showcase apps. Estimated investment TBD. Business impact: 15-20% developer productivity improvement, reduced context switching, offline access capability. Requires native app architecture enhancement.
+            </div>
+            
+            <p><strong>Q3 Priorities:</strong> Token versioning implementation testing, in-app documentation framework development, accessibility standards refinement, offline sync mechanisms.</p>
+            
+            <h2>Q4 2026: Automated Accessibility Validation Decision</h2>
+            
+            <div class="objective-box">
+                <strong>Accessibility Automation Investment Gate:</strong> Automated tap target/gesture validation and accessibility compliance checking. Estimated investment TBD. Business impact: 60%+ reduction in accessibility remediation costs, compliance assurance, automated audit reports. Builds on Phase 1 accessibility documentation foundation.
+            </div>
+            
+            <p><strong>Q4 Priorities:</strong> In-app documentation validation with teams, accessibility automation framework development, testing infrastructure integration, 2027 roadmap planning.</p>
+            
+            <h2>2026 Enhancement Roadmap Investment Summary</h2>
+            
+            <table>
+                <tr>
+                    <th>Quarter</th>
+                    <th>Capability</th>
+                    <th>Investment Status</th>
+                    <th>Business Impact</th>
+                </tr>
+                <tr>
+                    <td>Q1 2026</td>
+                    <td>Mobile Figma Display (Web Client)</td>
+                    <td>Decision Gate</td>
+                    <td>25-30% design cycle reduction</td>
+                </tr>
+                <tr>
+                    <td>Q2 2026</td>
+                    <td>Token Versioning & Audit</td>
+                    <td>Decision Gate</td>
+                    <td>40%+ defect reduction</td>
+                </tr>
+                <tr>
+                    <td>Q3 2026</td>
+                    <td>In-App Documentation</td>
+                    <td>Decision Gate</td>
+                    <td>15-20% productivity gain</td>
+                </tr>
+                <tr>
+                    <td>Q4 2026</td>
+                    <td>Accessibility Automation</td>
+                    <td>Decision Gate</td>
+                    <td>60%+ remediation reduction</td>
+                </tr>
+            </table>
+            
+            <div class="objective-box" style="margin-top: 24px;">
+                <strong>Total 2026 Enhancement Investment (All Quarters):</strong> Estimated $400-600K (subject to final scoping and prioritization, if all four enhancements approved). Each enhancement requires separate executive approval with detailed ROI analysis, resource roadmap, and GNFT/Ledger team impact assessment. Decision gates provide quarterly opportunity to pause, adjust priorities, or defer enhancements based on Phase 1 results and business context.
+            </div>
+            
+            <div class="footer">
+                <div>PNC Knapsack Implementation Charter</div>
+                <div>Workstream 4: 2026 Enhancement Roadmap (Part 2)</div>
+            </div>
+        </div>
+        
+        <!-- PAGE 14: TIMELINE, BUDGET & RISKS -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">PNC</div>
+                <div class="version">Page 15 of 16</div>
+            </div>
+            
+            <h1>Implementation Timeline, Budget & Risk Management</h1>
+            <div class="section-subtitle">Phase 1 Foundation & Future Investment Roadmap</div>
+            
+            <h2>Phase 1 Implementation Timeline (Nov 2025 - Feb 2026)</h2>
+            
+            <table>
+                <tr>
+                    <th>Phase</th>
+                    <th>Timeline</th>
+                    <th>Key Deliverables</th>
+                    <th>Go/No-Go Gate</th>
+                </tr>
+                <tr>
+                    <td><strong>Phase 0: Procurement</strong></td>
+                    <td>Sep-Nov 2025</td>
+                    <td>Executive approval, security review, FDE assignment</td>
+                    <td>Security clearance</td>
+                </tr>
+                <tr>
+                    <td><strong>Phase 1a: Foundation & Integration</strong></td>
+                    <td>Nov-Dec 2025</td>
+                    <td>Web client setup, component registration pilot (M+3 weeks), token config, Figma integration, InVision audit</td>
+                    <td>Pilot success validation (M+3 weeks)</td>
+                </tr>
+                <tr>
+                    <td><strong>Phase 1b: Migration & Governance</strong></td>
+                    <td>Dec 2025-Jan 2026</td>
+                    <td>Documentation migration (50+), governance workflows, accessibility standards, team training launch</td>
+                    <td>Team readiness (80% trained)</td>
+                </tr>
+                <tr>
+                    <td><strong>Phase 1c: Validation & Launch</strong></td>
+                    <td>Jan-Feb 2026</td>
+                    <td>Quality validation, performance optimization, go-live readiness, adoption metrics baseline</td>
+                    <td>Platform stability (95%+ uptime)</td>
+                </tr>
+                <tr>
+                    <td><strong>Decision Gate: Workstream 4</strong></td>
+                    <td>End Q4 2025</td>
+                    <td>Native Mobile Initiative investment approval or defer</td>
+                    <td>Steering Committee approval</td>
+                </tr>
+            </table>
+            
+            <h2>Phase 1 Investment Summary</h2>
+            
+            <table>
+                <tr>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>Knapsack Enterprise License (Annual)</td>
+                    <td>$200,000</td>
+                    <td>Includes web client, repository integration framework, governance workflows</td>
+                </tr>
+                <tr>
+                    <td>Forward Deployed Engineer (6 months, included)</td>
+                    <td>Included in license</td>
+                    <td>40% FTE embedded with PNC teams for implementation support</td>
+                </tr>
+                <tr>
+                    <td>Training & Change Management</td>
+                    <td>$25,000</td>
+                    <td>Curriculum development, team workshops, change management consulting</td>
+                </tr>
+                <tr>
+                    <td>Implementation Consulting & Governance</td>
+                    <td>$15,000</td>
+                    <td>Knapsack advisory on repository integration, token governance, accessibility framework</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 700;">Total Phase 1 Investment</td>
+                    <td style="font-weight: 700;">$240,000</td>
+                    <td></td>
+                </tr>
+            </table>
+            
+            <h2>PNC Resource Allocation (Phase 1)</h2>
+            
+            <table>
                 <tr>
                     <th>Role</th>
-                    <th>Allocation</th>
+                    <th>FTE Allocation</th>
                     <th>Duration</th>
+                    <th>Key Responsibilities</th>
                 </tr>
                 <tr>
                     <td>Design System Lead</td>
                     <td>100%</td>
                     <td>Months 1-6</td>
+                    <td>Workstream 1-3 coordination, repository integration oversight, team adoption</td>
                 </tr>
                 <tr>
-                    <td>Technical Lead</td>
+                    <td>Platform Engineering Lead</td>
                     <td>75%</td>
                     <td>Months 1-6</td>
+                    <td>Bitbucket integration, token infrastructure, component registration architecture</td>
                 </tr>
                 <tr>
                     <td>Product Manager</td>
                     <td>50%</td>
                     <td>Months 1-6</td>
+                    <td>Governance workflow design, quality gates, accessibility framework</td>
                 </tr>
                 <tr>
-                    <td>Design Ops</td>
-                    <td>20-40%</td>
+                    <td>Design Ops/Administration</td>
+                    <td>20-30%</td>
                     <td>Months 1-6</td>
-                </tr>
-                <tr>
-                    <td>CX Partner (Knapsack)</td>
-                    <td>25%</td>
-                    <td>Advisory, ongoing</td>
-                </tr>
-                <tr>
-                    <td>Forward Deployed Engineer</td>
-                    <td>40%</td>
-                    <td>6 months</td>
+                    <td>Design tool migration management, documentation coordination, team onboarding</td>
                 </tr>
             </table>
             
-            <h3>Meeting Cadence & Responsibilities</h3>
-            <ul>
-                <li><strong>Weekly Standups:</strong> 30 min, core team</li>
-                <li><strong>Bi-weekly Sprint Planning:</strong> 90 min, core team</li>
-                <li><strong>Monthly Retrospectives:</strong> 60 min, core team</li>
-                <li><strong>Monthly Steering Committee:</strong> 30 min + pre-read</li>
-            </ul>
-        </div>
-        
-
+            <h2>Risk Management Summary</h2>
             
-            <h3>Key Activities</h3>
-            
-            <div class="phase-grid">
-                <div class="phase-box">
-                    <h4>Identify Workspace Targets</h4>
-                    <ul>
-                        <li>Document all 9 workspace targets</li>
-                        <li>Assign workspace owners</li>
-                        <li>Create sequencing matrix</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Production Readiness Assessment</h4>
-                    <ul>
-                        <li>Audit Workspace 1 production readiness</li>
-                        <li>Document blocking issues</li>
-                        <li>Identify mitigation paths</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Infrastructure Validation</h4>
-                    <ul>
-                        <li>Validate Git Enterprise integration</li>
-                        <li>Confirm token pipeline readiness</li>
-                        <li>Document all dependencies</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Governance Decision</h4>
-                    <ul>
-                        <li>Decide on Ledger + Ledger Private Bank consolidation</li>
-                        <li>Confirm resource allocation</li>
-                        <li>Finalize RACI chart</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h3>MVP 2 Integration Points</h3>
-            <ul>
-                <li><strong>Workspace #2 Readiness:</strong> Assess Ledger Private Bank workspace integration requirements during sequencing</li>
-                <li><strong>Figma Dependencies:</strong> Identify Figma API requirements and access needed for MVP 2 integration</li>
-                <li><strong>Weekly Reconciliation:</strong> Establish OIM reconciliation process to support MVP 2 data sync requirements</li>
-            </ul>
-            
-            <h3>Key Activities</h3>
-            
-            <div class="phase-grid">
-                <div class="phase-box">
-                    <h4>Advanced Training</h4>
-                    <ul>
-                        <li>Conduct role-specific training per workspace</li>
-                        <li>Advanced component contribution workflow</li>
-                        <li>Token management and updates</li>
-                        <li>Workspace-specific enablement sessions</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Optimization</h4>
-                    <ul>
-                        <li>Optimize responsive design patterns</li>
-                        <li>Establish cross-platform parity</li>
-                        <li>Define workspace architecture</li>
-                        <li>Validate team requirements</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Registry & Analytics</h4>
-                    <ul>
-                        <li>Establish shared component registry</li>
-                        <li>Launch token registry for all workspaces</li>
-                        <li>Configure workspace analytics (Treespan/Crux)</li>
-                        <li>Implement adoption dashboards</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Post-Launch Roadmap</h4>
-                    <ul>
-                        <li>Workspace 1 post-production enablement</li>
-                        <li>Identify optimization opportunities</li>
-                        <li>Plan Q1 2026 enhancements</li>
-                        <li>Document lessons learned</li>
-                    </ul>
-                </div>
-            </div>
-            <ul>
-                <li>Workspace roster and sequencing matrix (9 targets identified)</li>
-                <li>Production audit report + issue log for Workspace 1</li>
-                <li>Infrastructure integration dependency documentation</li>
-                <li>RACI chart with confirmed ownership and resource allocation</li>
-                <li>Ledger consolidation decision (LB + PLB)</li>
-                <li>MVP 2 readiness assessment and prerequisites</li>
-            </ul>
-            
-            <h3>Success Criteria</h3>
-            <ul>
-                <li>All 9 workspace targets identified and sequenced</li>
-                <li>Production readiness blockers documented and prioritized</li>
-                <li>Infrastructure dependencies validated and cleared</li>
-                <li>Resource allocation confirmed across all workstreams</li>
-                <li>Consolidation decision made and communicated</li>
-            </ul>
-            
-            <h3>Timeline & Ownership</h3>
-            <p><strong>Owners:</strong> Anna (Design Ops) + Amber (Design System Lead) + Knapsack PM</p>
-        </div>
-        
-        <!-- PAGE 8: WORKSTREAM 2 -->
-        <div class="section page-break">
-            <span class="page-number">8</span>
-            <div class="section-title">Workstream 2</div>
-            <h2>Setup & Foundation</h2>
-            
-            <div class="highlight-box" style="background: #E8F0FF; border-left-color: #002FCD;">
-                <h3 style="margin-top: 0; color: #002FCD;">Discussion Questions for PNC Leadership</h3>
-                <p><strong>What are the highest-priority infrastructure dependencies</strong> that could block concurrent workspace deployments?</p>
-                <p style="margin-bottom: 0;"><strong>How do we ensure Git Enterprise and token integration stability</strong> across all 9 workspaces?</p>
-            </div>
-            
-            <p><strong>Objective:</strong> Deploy and configure Knapsack workspaces 2-9 with infrastructure integration, access control, and foundational documentation.</p>
-            
-            <h3>Key Activities</h3>
-            
-            <div class="phase-grid">
-                <div class="phase-box">
-                    <h4>Workspace Deployment</h4>
-                    <ul>
-                        <li>Deploy Workspaces 2-9 using Workspace 1 blueprint</li>
-                        <li>Configure all workspace settings and metadata</li>
-                        <li>Provision user access across all instances</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Infrastructure Integration</h4>
-                    <ul>
-                        <li>Integrate with Git Enterprise repositories</li>
-                        <li>Link token pipeline to CI/CD</li>
-                        <li>Configure component sync automation</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Access & Security</h4>
-                    <ul>
-                        <li>Configure access control models</li>
-                        <li>Implement SSO authentication</li>
-                        <li>Validate security policies compliance</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Documentation</h4>
-                    <ul>
-                        <li>Document workspace setup patterns</li>
-                        <li>Create standardized configuration guides</li>
-                        <li>Update System Charter with setup procedures</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h3>MVP 2 Integration Points</h3>
-            <ul>
-                <li><strong>Figma API Availability:</strong> Confirm Figma API access and permissions for MVP 2 plugin integration during workspace setup</li>
-                <li><strong>Workspace Chooser Foundation:</strong> Establish infrastructure to support Knapsack workspace chooser page required for MVP 2 primary workspace toggle</li>
-                <li><strong>Data Sync Pipeline:</strong> Implement weekly reconciliation process for OIM data to support MVP 2 requirements</li>
-            </ul>
-            
-            <h3>Key Activities</h3>
-            
-            <div class="phase-grid">
-                <div class="phase-box">
-                    <h4>Change Management</h4>
-                    <ul>
-                        <li>Run change management workshops (all 9 streams)</li>
-                        <li>Develop change enablement roadmap</li>
-                        <li>Identify and support change champions</li>
-                        <li>Monitor resistance and address concerns</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Governance Consolidation</h4>
-                    <ul>
-                        <li>Consolidate mobile workspace governance</li>
-                        <li>Align multi-brand governance models</li>
-                        <li>Create unified governance board charter</li>
-                        <li>Define escalation paths and decision authority</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Contribution & Workflows</h4>
-                    <ul>
-                        <li>Enable workspace contribution workflows</li>
-                        <li>Document contribution playbook</li>
-                        <li>Establish quality gates and review process</li>
-                        <li>Train component leads on submission process</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Adoption Monitoring</h4>
-                    <ul>
-                        <li>Monitor workspace adoption health</li>
-                        <li>Conduct midpoint adoption review</li>
-                        <li>Identify lagging workspaces</li>
-                        <li>Adjust enablement based on findings</li>
-                    </ul>
-                </div>
-            </div>
-            <ul>
-                <li>9 fully configured Knapsack workspace instances</li>
-                <li>Git Enterprise integration with automated token sync</li>
-                <li>Functional CI/CD pipeline for component delivery</li>
-                <li>SSO and access control policies implemented</li>
-                <li>Workspace setup documentation and patterns guide</li>
-                <li>Figma API integration layer and workspace chooser infrastructure</li>
-            </ul>
-            
-            <h3>Success Criteria</h3>
-            <ul>
-                <li>All 9 workspaces deployed and operational</li>
-                <li>Git Enterprise integration tested and validated</li>
-                <li>Token pipeline functional across all instances</li>
-                <li>SSO authentication working for all users</li>
-                <li>Zero critical issues in infrastructure validation</li>
-            </ul>
-            
-            <h3>Timeline & Ownership</h3>
-            <p><strong>Owners:</strong> Knapsack Eng + PNC IT (DevOps Lead + IT Security)</p>
-        </div>
-        
-        <!-- PAGE 9: WORKSTREAM 3 -->
-        <div class="section page-break">
-            <span class="page-number">9</span>
-            <div class="section-title">Workstream 3</div>
-            <h2>Enablement & Adoption</h2>
-            
-            <div class="highlight-box" style="background: #E8F0FF; border-left-color: #002FCD;">
-                <h3 style="margin-top: 0; color: #002FCD;">Discussion Questions for PNC Leadership</h3>
-                <p><strong>What are the biggest barriers to adoption</strong> we need to overcome with design and development teams?</p>
-                <p style="margin-bottom: 0;"><strong>How do we build champions and advocates</strong> within each of the 9 workspace teams?</p>
-            </div>
-            
-            <p><strong>Objective:</strong> Enable workspace teams with training, establish component/token registry, and optimize mobile platform architecture.</p>
-            
-            <h3>Key Activities</h3>
-            
-            <div class="phase-grid">
-                <div class="phase-box">
-                    <h4>Advanced Training</h4>
-                    <ul>
-                        <li>Conduct role-specific training per workspace</li>
-                        <li>Advanced component contribution workflow</li>
-                        <li>Token management and updates</li>
-                        <li>Workspace-specific enablement sessions</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Mobile Optimization</h4>
-                    <ul>
-                        <li>Optimize responsive design patterns</li>
-                        <li>Establish cross-platform parity</li>
-                        <li>Define mobile workspace architecture</li>
-                        <li>Validate mobile team requirements</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Registry & Analytics</h4>
-                    <ul>
-                        <li>Establish shared component registry</li>
-                        <li>Launch token registry for all workspaces</li>
-                        <li>Configure workspace analytics (Treespan/Crux)</li>
-                        <li>Implement adoption dashboards</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Post-Launch Roadmap</h4>
-                    <ul>
-                        <li>Workspace 1 post-production enablement</li>
-                        <li>Identify optimization opportunities</li>
-                        <li>Plan Q1 2026 enhancements</li>
-                        <li>Document lessons learned</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h3>Key Activities</h3>
-            
-            <div class="phase-grid">
-                <div class="phase-box">
-                    <h4>Workspace Handoff</h4>
-                    <ul>
-                        <li>Finalize workspace ownership and mentorship</li>
-                        <li>Document handoff procedures and playbooks</li>
-                        <li>Establish support escalation model</li>
-                        <li>Create enablement checklist for teams</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Governance Alignment</h4>
-                    <ul>
-                        <li>Align governance across all 9 workspaces</li>
-                        <li>Finalize Enterprise Design System Charter</li>
-                        <li>Establish decision framework</li>
-                        <li>Communicate policies to all teams</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Platform Iteration</h4>
-                    <ul>
-                        <li>Conduct post-production iteration cycles</li>
-                        <li>Plan enhancements and optimizations</li>
-                        <li>Gather team feedback on platform</li>
-                        <li>Document lessons learned</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Leadership Handoff</h4>
-                    <ul>
-                        <li>Finalize leadership playback materials</li>
-                        <li>Prepare executive summary and deck</li>
-                        <li>Highlight key metrics and impact</li>
-                        <li>Plan post-launch communication</li>
-                    </ul>
-                </div>
-            </div>
-            <ul>
-                <li>Advanced training materials and enablement sessions (per workspace)</li>
-                <li>Shared component registry (live and operational)</li>
-                <li>Centralized token registry with governance</li>
-                <li>Mobile workspace architecture documentation</li>
-                <li>Workspace analytics dashboard (9 instances)</li>
-                <li>Post-production enablement roadmap for Workspace 1</li>
-            </ul>
-            
-            <h3>Success Criteria</h3>
-            <ul>
-                <li>85%+ training completion across all workspaces</li>
-                <li>Component registry adoption >70%</li>
-                <li>Token registry fully operational</li>
-                <li>Mobile architecture validated with teams</li>
-                <li>Analytics dashboards active and reporting</li>
-            </ul>
-            
-            <h3>Timeline & Ownership</h3>
-            <p><strong>Owners:</strong> Amber (Design System Lead) + Knapsack + PNC Design Ops</p>
-        </div>
-        
-        <!-- PAGE 10: WORKSTREAM 4 -->
-        <div class="section page-break">
-            <span class="page-number">10</span>
-            <div class="section-title">Workstream 4</div>
-            <h2>Rollout & Coordination</h2>
-            
-            <div class="highlight-box" style="background: #E8F0FF; border-left-color: #002FCD;">
-                <h3 style="margin-top: 0; color: #002FCD;">Discussion Questions for PNC Leadership</h3>
-                <p><strong>How do we manage change management across 9 concurrent workstreams</strong> without overwhelming teams?</p>
-                <p style="margin-bottom: 0;"><strong>What governance model best serves mobile and multi-brand workspace consolidation?</strong></p>
-            </div>
-            
-            <p><strong>Objective:</strong> Execute coordinated rollout across all workspaces, establish unified governance, and monitor adoption health.</p>
-            
-            <h3>Key Activities</h3>
-            
-            <div class="phase-grid">
-                <div class="phase-box">
-                    <h4>Change Management</h4>
-                    <ul>
-                        <li>Run change management workshops (all 9 streams)</li>
-                        <li>Develop change enablement roadmap</li>
-                        <li>Identify and support change champions</li>
-                        <li>Monitor resistance and address concerns</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Governance Consolidation</h4>
-                    <ul>
-                        <li>Consolidate mobile workspace governance</li>
-                        <li>Align multi-brand governance models</li>
-                        <li>Create unified governance board charter</li>
-                        <li>Define escalation paths and decision authority</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Contribution & Workflows</h4>
-                    <ul>
-                        <li>Enable workspace contribution workflows</li>
-                        <li>Document contribution playbook</li>
-                        <li>Establish quality gates and review process</li>
-                        <li>Train component leads on submission process</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Adoption Monitoring</h4>
-                    <ul>
-                        <li>Monitor workspace adoption health</li>
-                        <li>Conduct midpoint adoption review</li>
-                        <li>Identify lagging workspaces</li>
-                        <li>Adjust enablement based on findings</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h3>Deliverables</h3>
-            <ul>
-                <li>Change management workshops and enablement roadmap (9 workstreams)</li>
-                <li>Unified governance board charter (mobile + multi-brand)</li>
-                <li>Component contribution playbook and guidelines</li>
-                <li>Workspace adoption health dashboard</li>
-                <li>Midpoint review report with recommendations</li>
-            </ul>
-            
-            <h3>MVP 2 Integration Points</h3>
-            <ul>
-                <li><strong>Figma Integration Messaging:</strong> Communicate MVP 2 Figma capabilities in change management workshops</li>
-                <li><strong>Workspace Consolidation:</strong> Support decision-making around workspace strategy (Ledger + PLB consolidation)</li>
-                <li><strong>Data Reconciliation Process:</strong> Establish governance for weekly OIM reconciliation as part of ongoing operations</li>
-            </ul>
-            
-            <h3>Success Criteria</h3>
-            <ul>
-                <li>80%+ completion of change management workshops</li>
-                <li>Unified governance charter approved and socialized</li>
-                <li>Contribution workflows operational in all workspaces</li>
-                <li>Adoption health score trending positive</li>
-                <li>Midpoint review identifies <3 critical blockers</li>
-            </ul>
-            
-            <h3>Timeline & Ownership</h3>
-            <p><strong>Owners:</strong> Knapsack Strategic Services + Ally + Anna + Amber</p>
-        </div>
-        
-        <!-- PAGE 11: WORKSTREAM 5 -->
-        <div class="section page-break">
-            <span class="page-number">11</span>
-            <div class="section-title">Workstream 5</div>
-            <h2>Maturity & Sustainability</h2>
-            
-            <div class="highlight-box" style="background: #E8F0FF; border-left-color: #002FCD;">
-                <h3 style="margin-top: 0; color: #002FCD;">Discussion Questions for PNC Leadership</h3>
-                <p><strong>How do we transition from implementation to sustainable operations?</strong> What governance model will succeed long-term?</p>
-                <p style="margin-bottom: 0;"><strong>How do we ensure cross-workspace consistency while allowing platform-specific innovation?</strong></p>
-            </div>
-            
-            <p><strong>Objective:</strong> Finalize workspace handoffs, align governance across all platforms, and establish sustainable operating model.</p>
-            
-            <h3>Key Activities</h3>
-            
-            <div class="phase-grid">
-                <div class="phase-box">
-                    <h4>Workspace Handoff</h4>
-                    <ul>
-                        <li>Finalize workspace ownership and mentorship</li>
-                        <li>Document handoff procedures and playbooks</li>
-                        <li>Establish support escalation model</li>
-                        <li>Create enablement checklist for teams</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Governance Alignment</h4>
-                    <ul>
-                        <li>Align governance across all 9 workspaces</li>
-                        <li>Finalize Enterprise Design System Charter</li>
-                        <li>Establish decision framework</li>
-                        <li>Communicate policies to all teams</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Mobile Iteration</h4>
-                    <ul>
-                        <li>Conduct post-production iteration cycles</li>
-                        <li>Plan Version 1.1 enhancements</li>
-                        <li>Gather mobile team feedback</li>
-                        <li>Document lessons learned</li>
-                    </ul>
-                </div>
-                
-                <div class="phase-box">
-                    <h4>Leadership Handoff</h4>
-                    <ul>
-                        <li>Finalize leadership playback materials</li>
-                        <li>Prepare executive summary and deck</li>
-                        <li>Highlight key metrics and impact</li>
-                        <li>Plan post-launch communication</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h3>Deliverables</h3>
-            <ul>
-                <li>Workspace handoff documentation and enablement checklist</li>
-                <li>Enterprise Design System Charter (final version)</li>
-                <li>Platform enhancement roadmap and prioritization</li>
-                <li>Post-production iteration plan and schedule</li>
-                <li>Executive summary and leadership deck</li>
-                <li>Sustainability plan and ongoing support model</li>
-            </ul>
-            
-            <h3>MVP 2 Integration Points</h3>
-            <ul>
-                <li><strong>MVP 2 Go-Live Preparation:</strong> Establish readiness criteria for MVP 2 deployment to production workspaces</li>
-                <li><strong>Figma Integration Rollout:</strong> Plan MVP 2 Figma plugin and documentation integration rollout across workspaces</li>
-                <li><strong>Workspace #2 Handoff:</strong> Support Ledger Private Bank workspace transition to new platform with MVP 2 capabilities</li>
-            </ul>
-            
-            <h3>Success Criteria</h3>
-            <ul>
-                <li>All 9 workspaces successfully handed off to teams</li>
-                <li>Enterprise governance charter approved</li>
-                <li>Post-production roadmap defined and communicated</li>
-                <li>Mobile workspace optimization cycle initiated</li>
-                <li>Leadership alignment and stakeholder confidence >90%</li>
-            </ul>
-            
-            <h3>Timeline & Ownership</h3>
-            <p><strong>Owners:</strong> Amber (Design System Lead) + Ally + Anna + Knapsack</p>
-        </div>
-        
-        <!-- PAGE 12: TIMELINE OVERVIEW -->
-        <div class="section page-break">
-            <span class="page-number">12</span>
-            <div class="section-title">Timeline Overview</div>
-            
-            <div class="highlight-box" style="background: #E8F0FF; border-left-color: #002FCD;">
-                <h3 style="margin-top: 0; color: #002FCD;">Discussion Questions for PNC Leadership</h3>
-                <p><strong>Are these timelines realistic</strong> given PNC's resource availability and the scope of 9 concurrent workstreams?</p>
-                <p style="margin-bottom: 0;"><strong>Which phase gate criteria are most critical</strong> to validate before proceeding? What are acceptable risk tolerances?</p>
-            </div>
-            
-            <h2>9 Concurrent Workstream Implementation</h2>
-            
-            <table class="timeline-table">
-                <tr>
-                    <th>Phase</th>
-                    <th>Key Activities</th>
-                    <th>MVP 2 Alignment</th>
-                    <th>Success Gates</th>
-                </tr>
-                <tr>
-                    <td><strong>Readiness & Sequencing</strong></td>
-                    <td>Identify 9 workspaces, assess prod readiness, validate infrastructure, confirm resources, make LB+PLB decision</td>
-                    <td>Assess Workspace #2 (PLB) readiness; identify Figma API requirements; plan OIM reconciliation</td>
-                    <td><span class="checkmark">✓</span>9 workspaces sequenced<br><span class="checkmark">✓</span>MVP 2 prerequisites documented<br><span class="checkmark">✓</span>Consolidation decision made</td>
-                </tr>
-                <tr>
-                    <td><strong>Setup & Foundation</strong></td>
-                    <td>Deploy Workspaces 2-9, integrate Git Enterprise, configure access/SSO, document patterns</td>
-                    <td>Establish Figma API integration layer; implement workspace chooser infrastructure; enable OIM data sync</td>
-                    <td><span class="checkmark">✓</span>All 9 workspaces deployed<br><span class="checkmark">✓</span>MVP 2 infrastructure ready<br><span class="checkmark">✓</span>Zero critical issues</td>
-                </tr>
-                <tr>
-                    <td><strong>Enablement & Adoption</strong></td>
-                    <td>Advanced training, optimization, registry launch, analytics setup, post-prod roadmap</td>
-                    <td>Train teams on Figma plugin; enable workspace chooser UI; integrate contributor documentation workflow</td>
-                    <td><span class="checkmark">✓</span>85%+ training completion<br><span class="checkmark">✓</span>MVP 2 capabilities understood<br><span class="checkmark">✓</span>Analytics operational</td>
-                </tr>
-                <tr>
-                    <td><strong>Rollout & Coordination</strong></td>
-                    <td>Change mgmt workshops, governance consolidation, contribution workflows, adoption monitoring</td>
-                    <td>Communicate Figma integration benefits; coordinate workspace consolidation strategy; establish data reconciliation governance</td>
-                    <td><span class="checkmark">✓</span>Unified governance approved<br><span class="checkmark">✓</span>MVP 2 messaging complete<br><span class="checkmark">✓</span>Adoption trending positive</td>
-                </tr>
-                <tr>
-                    <td><strong>Maturity & Sustainability</strong></td>
-                    <td>Finalize handoffs, align governance, platform iteration cycles, prepare leadership playback</td>
-                    <td>Prepare for MVP 2 production launch; establish Figma integration support model; handoff PLB workspace with MVP 2 capabilities</td>
-                    <td><span class="checkmark">✓</span>9 workspaces handed off<br><span class="checkmark">✓</span>MVP 2 ready for deployment<br><span class="checkmark">✓</span>Sustainability plan approved</td>
-                </tr>
-            </table>
-        </div>
-        
-        <!-- PAGE 13: RISK MANAGEMENT -->
-        <div class="section page-break">
-            <span class="page-number">13</span>
-            <div class="section-title">Risk Management</div>
-            
-            <div class="highlight-box" style="background: #E8F0FF; border-left-color: #002FCD;">
-                <h3 style="margin-top: 0; color: #002FCD;">Discussion Questions for PNC Leadership</h3>
-                <p><strong>Which risks resonate most with your experience?</strong> Are there organizational or infrastructure risks we haven't identified?</p>
-                <p style="margin-bottom: 0;"><strong>How do we establish early warning indicators</strong> for resource contention and adoption issues to course-correct quickly?</p>
-            </div>
-            
-            <h2>9 Concurrent Workstream Risks & Mitigation</h2>
-            
-            <table class="risk-table">
+            <table>
                 <tr>
                     <th>Risk</th>
                     <th>Impact</th>
-                    <th>Likelihood</th>
-                    <th>Mitigation Strategy</th>
+                    <th>Mitigation</th>
                 </tr>
                 <tr>
-                    <td>Cloud authoring instability blocking go-live</td>
+                    <td><strong>Component registration pilot fails</strong></td>
+                    <td>High (Critical Path)</td>
+                    <td>Early PoC, FDE technical expertise, contingency buffer week in Phase 1a</td>
+                </tr>
+                <tr>
+                    <td>Team adoption delays</td>
                     <td>High</td>
+                    <td>Executive sponsorship, early adopter program, ongoing support, change management</td>
+                </tr>
+                <tr>
+                    <td>Repository integration issues</td>
                     <td>High</td>
-                    <td>Forward-Deployed Engineering + DevOps Audit engagement. Early POC validation. SLA requirements.</td>
+                    <td>Early technical POC, FDE support, API rate limiting contingency</td>
                 </tr>
                 <tr>
-                    <td>Resource contention across 9 teams</td>
+                    <td>Security/compliance delays</td>
                     <td>High</td>
+                    <td>Early security review (Phase 0), comprehensive documentation, precedent research</td>
+                </tr>
+                <tr>
+                    <td>Design tool migration data loss</td>
                     <td>High</td>
-                    <td>Strategic Change Management for prioritization + governance pacing. Clear RACI + resource planning. Phased sequencing to avoid peaks.</td>
+                    <td>Validation checklist, reconciliation process, team sign-off before go-live</td>
                 </tr>
                 <tr>
-                    <td>Inconsistent adoption maturity across workspaces</td>
+                    <td>Token configuration complexity</td>
                     <td>Medium</td>
-                    <td>High</td>
-                    <td>Tailored enablement under Knapsack Strongly Recommended Services. Workspace-specific training + champions. Peer mentoring.</td>
+                    <td>Clear documentation, GNFT team workshops, FDE advisory</td>
                 </tr>
                 <tr>
-                    <td>Token + component drift across platforms</td>
-                    <td>High</td>
+                    <td>Resource constraints</td>
                     <td>Medium</td>
-                    <td>Token Strategy + System Architecture definition. Automated drift detection. Regular alignment ceremonies. Clear governance.</td>
+                    <td>Executive commitment, phased allocation, FDE support</td>
                 </tr>
                 <tr>
-                    <td>Governance fatigue and decision paralysis</td>
+                    <td>Platform performance issues</td>
                     <td>Medium</td>
-                    <td>Medium</td>
-                    <td>Strategic Change Management workshops. Clear governance framework. Decision protocols + escalation paths. Regular stakeholder alignment.</td>
-                </tr>
-                <tr>
-                    <td>Mobile workspace dependencies blocking rollout</td>
-                    <td>Medium</td>
-                    <td>Medium</td>
-                    <td>Forward-Deployed Engineering for mobile-specific blockers. Early identification + mitigation. Parallel track planning.</td>
-                </tr>
-                <tr>
-                    <td>Change management overload (9 streams)</td>
-                    <td>High</td>
-                    <td>Medium</td>
-                    <td>Strategic Change Management: coordinated roadmap + stakeholder alignment. Standardized messaging. Champions network.</td>
-                </tr>
-                <tr>
-                    <td>Analytics inconsistency across workspaces</td>
-                    <td>Low</td>
-                    <td>Medium</td>
-                    <td>Design System Analytics standardization. Consistent instrumentation. Regular data validation + reconciliation.</td>
+                    <td>Load testing, robust architecture, monitoring</td>
                 </tr>
             </table>
             
-            <h3>Overall Risk Profile</h3>
-            <p><strong>High Complexity:</strong> 9 concurrent workstreams present elevated resource contention and coordination risks. Mitigations emphasize:</p>
-            <ul>
-                <li>Forward-Deployed Engineering for technical blockers (especially cloud authoring + mobile dependencies)</li>
-                <li>Strategic Change Management services for adoption + governance coordination</li>
-                <li>Clear sequencing and RACI to manage resource contention</li>
-                <li>Tailored enablement to address adoption variance across workspaces</li>
-            </ul>
+            <div class="footer">
+                <div>PNC Knapsack Implementation Charter</div>
+                <div>Timeline, Budget & Risk Management</div>
+            </div>
         </div>
         
-        <!-- PAGE 14: COMMUNICATION PLAN -->
-        <div class="section page-break">
-            <span class="page-number">14</span>
-            <div class="section-title">Communication Plan</div>
-            
-            <div class="highlight-box" style="background: #E8F0FF; border-left-color: #002FCD;">
-                <h3 style="margin-top: 0; color: #002FCD;">Discussion Questions for PNC Leadership</h3>
-                <p><strong>Who are the critical influencers and decision-makers</strong> we need to maintain engagement with?</p>
-                <p style="margin-bottom: 0;"><strong>What communication cadences and formats work best</strong> for different stakeholder groups at PNC?</p>
+        <!-- PAGE 15: APPROVAL & CLOSEOUT -->
+        <div class="page">
+            <div class="header">
+                <div class="logo">PNC</div>
+                <div class="version">Page 16 of 16</div>
             </div>
             
-            <h2>Internal & External Stakeholders</h2>
+            <h1>Approval & Charter Ratification</h1>
+            <div class="section-subtitle">Executive Commitment & Implementation Next Steps</div>
             
-            <h3>Internal Stakeholders</h3>
-            
-            <h3>Steering Committee</h3>
-            <ul>
-                <li><strong>Monthly:</strong> Business review (30-min)</li>
-                <li><strong>Quarterly:</strong> Strategic alignment (60-min)</li>
-                <li><strong>Ad-hoc:</strong> Phase gates, escalations</li>
-            </ul>
-            
-            <h3>Core Implementation Team</h3>
-            <ul>
-                <li><strong>Weekly:</strong> Standup (30-min)</li>
-                <li><strong>Bi-weekly:</strong> Sprint planning (90 min)</li>
-                <li><strong>Monthly:</strong> Retrospective (60-min)</li>
-            </ul>
-            
-            <h3>Extended Team & Stakeholders</h3>
-            <ul>
-                <li><strong>Bi-weekly:</strong> Platform syncs (45 min)</li>
-                <li><strong>Monthly:</strong> All-hands (15-min segment)</li>
-                <li><strong>Quarterly:</strong> System showcase (60-min)</li>
-            </ul>
-            
-            <h3>External Partners (Knapsack)</h3>
-            
-            <h3>CX Partner</h3>
-            <ul>
-                <li><strong>Weekly:</strong> Implementation team sync</li>
-                <li><strong>Bi-weekly:</strong> 1:1 strategic sync</li>
-                <li><strong>Monthly:</strong> Steering committee update</li>
-                <li><strong>Quarterly:</strong> Executive alignment</li>
-            </ul>
-            
-            <h3>Forward Deployed Engineer</h3>
-            <ul>
-                <li><strong>Daily:</strong> Async Slack (Phases 1-2)</li>
-                <li><strong>3x/week:</strong> Sync meetings</li>
-                <li><strong>Weekly:</strong> Progress review</li>
-                <li><strong>Monthly:</strong> Performance review</li>
-            </ul>
-            
-            <h3>Cross-Functional Partners & Mobile Teams</h3>
-            <ul>
-                <li><strong>Monthly:</strong> Newsletter and updates</li>
-                <li><strong>Bi-weekly:</strong> Office hours and support</li>
-                <li><strong>Quarterly:</strong> Training refreshers and workshops</li>
-                <li><strong>Ad-hoc:</strong> Technical working groups</li>
-            </ul>
-        </div>
-        
-        <!-- PAGE 15: APPROVAL & SIGN-OFF -->
-        <div class="section page-break">
-            <span class="page-number">15</span>
-            <div class="section-title">Approval & Sign-Off</div>
             <h2>Charter Ratification</h2>
             
-            <p><strong>Status:</strong> This charter is considered ratified upon signature from the following stakeholders. Pending PNC Security, Procurement, and Executive Approval.</p>
+            <p><strong>This charter is considered ratified upon signature from the following stakeholders:</strong></p>
             
-            <h3>Required Signatures</h3>
+            <div style="margin-top: 40px; line-height: 2.4;">
+                <div>
+                    <strong>Laura Menken</strong><br>
+                    SVP Retail Digital Payments, Wallets & Mobile (Executive Sponsor)<br>
+                    PNC Financial Services<br>
+                    <div style="margin-top: 8px; border-bottom: 1px solid #333; width: 350px; height: 20px;"></div>
+                    Signature &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Date
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <strong>VP of Design Operations</strong><br>
+                    PNC Financial Services<br>
+                    <div style="margin-top: 8px; border-bottom: 1px solid #333; width: 350px; height: 20px;"></div>
+                    Signature &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Date
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <strong>VP of Platform Engineering</strong><br>
+                    PNC Financial Services<br>
+                    <div style="margin-top: 8px; border-bottom: 1px solid #333; width: 350px; height: 20px;"></div>
+                    Signature &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Date
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <strong>Senior Product Manager, Design System</strong><br>
+                    PNC Financial Services<br>
+                    <div style="margin-top: 8px; border-bottom: 1px solid #333; width: 350px; height: 20px;"></div>
+                    Signature &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Date
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <strong>CX Partner</strong><br>
+                    Knapsack<br>
+                    <div style="margin-top: 8px; border-bottom: 1px solid #333; width: 350px; height: 20px;"></div>
+                    Signature &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Date
+                </div>
+            </div>
+            
+            <h2>Next Steps (Upon Ratification)</h2>
+            
+            <ol style="margin-top: 24px;">
+                <li><strong>Executive Approval:</strong> Steering Committee review and formal charter ratification</li>
+                <li><strong>SOW Development:</strong> Knapsack and PNC finalize detailed SOW documents for each theme (see page below)</li>
+                <li><strong>Team Kickoff:</strong> Core implementation team formation, role assignment, detailed Phase 0 planning</li>
+                <li><strong>Security Review:</strong> Comprehensive security assessment and compliance validation (Phase 0 gate)</li>
+                <li><strong>Stakeholder Communication:</strong> Cross-functional organization briefing on charter, timeline, and adoption roadmap</li>
+                <li><strong>Phase 0 Execution:</strong> Procurement, onboarding, team readiness validation</li>
+            </ol>
+            
+            <h2>Summary of Seven SOW Themes for Budget Owner Discussion</h2>
+            
             <table>
                 <tr>
-                    <th>Role</th>
-                    <th>Signature</th>
-                    <th>Date</th>
+                    <th>#</th>
+                    <th>SOW Theme</th>
+                    <th>Phase Impact</th>
+                    <th>Key Decision</th>
                 </tr>
                 <tr>
-                    <td>Executive Sponsor: VP GNFT, PNC</td>
-                    <td>_________________________</td>
-                    <td>_______</td>
+                    <td>1</td>
+                    <td>Repository Integration & Component Registration Engineering</td>
+                    <td>Phase 1a (Critical Path)</td>
+                    <td>Bitbucket API connector investment; pilot validation (M+3 weeks)</td>
                 </tr>
                 <tr>
-                    <td>Director of Design Operations, PNC</td>
-                    <td>_________________________</td>
-                    <td>_______</td>
+                    <td>2</td>
+                    <td>Design Tool Migration & Data Integrity Management</td>
+                    <td>Phase 1a-1b</td>
+                    <td>Figma integration, InVision audit, Confluence→Knapsack reconciliation, Sketch sunset</td>
                 </tr>
                 <tr>
-                    <td>Director of Engineering (Multi-Platform), PNC</td>
-                    <td>_________________________</td>
-                    <td>_______</td>
+                    <td>3</td>
+                    <td>Token Infrastructure Integration & Governance Model</td>
+                    <td>Phase 1a (Critical Path)</td>
+                    <td>PNC pipeline integration points; platform-specific unit support by Dec 2025</td>
                 </tr>
                 <tr>
-                    <td>Senior PM, Design System, PNC</td>
-                    <td>_________________________</td>
-                    <td>_______</td>
+                    <td>4</td>
+                    <td>Accessibility Standards & Testing Framework (Phase 1 Approach)</td>
+                    <td>Phase 1a-1b</td>
+                    <td>WCAG 2.1 AA documentation; testing infrastructure baseline; Q4 2026 automation foundation</td>
                 </tr>
                 <tr>
-                    <td>Strategic Advisor: CX Partner, Knapsack</td>
-                    <td>_________________________</td>
-                    <td>_______</td>
+                    <td>5</td>
+                    <td>Cross-Functional Team Adoption & Change Management</td>
+                    <td>Phase 1a-1c</td>
+                    <td>Training curriculum, early adopter program, communication cadence</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Native Mobile Initiative Planning & Investment Case</td>
+                    <td>Phase 1 (Planning)</td>
+                    <td>Decision gate (End Q4 2025); business case, resource roadmap, SauceLabs transition</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>2026 Enhancement Portfolio Management (Quarterly Gates)</td>
+                    <td>Q1-Q4 2026 (Future)</td>
+                    <td>Mobile Figma, token versioning, in-app docs, accessibility automation decision framework</td>
                 </tr>
             </table>
             
-            <h3>Document Information</h3>
-            <ul>
-                <li><strong>Document Version:</strong> 1.0 - Enterprise Implementation Ready</li>
-                <li><strong>Last Updated:</strong> November 2025</li>
-                <li><strong>Next Review:</strong> Monthly during implementation, Quarterly post-implementation</li>
-                <li><strong>Charter Owner:</strong> Design System Lead, PNC Design Operations</li>
-            </ul>
+            <h2>Document Information</h2>
+            
+            <div style="margin-top: 24px; font-size: 12px; color: #666; border-top: 1px solid #e0e0e0; padding-top: 16px;">
+                <div><strong>Document Version:</strong> 2.0 – Implementation Ready with Technical Architecture Details</div>
+                <div><strong>Date:</strong> November 2025</div>
+                <div><strong>Charter Owner:</strong> Design System Lead, PNC</div>
+                <div><strong>Critical Path Item:</strong> Component Registration Pilot Validation (M+3 weeks from Phase 1a start)</div>
+                <div><strong>Review Cadence:</strong> Monthly during Phase 1 execution; quarterly during Phase 2+</div>
+                <div><strong>Next Review Date:</strong> End of Phase 1a validation (late Nov 2025, pilot results)</div>
+                <div><strong>Approval Status:</strong> Pending Steering Committee ratification</div>
+                <div><strong>Charter Pages:</strong> 16 total (Version 2.0 with Ledger North Star + Technical Details)</div>
+            </div>
+            
+            <div class="footer">
+                <div>PNC Knapsack Implementation Charter</div>
+                <div>Approval & Charter Ratification – Complete (Version 2.0)</div>
+            </div>
         </div>
         
-        <!-- PAGE 16: CLOSING -->
-        <div class="footer">
-            <h2 style="margin-top: 0; margin-bottom: 20px;">System Charter Complete</h2>
-            <p style="margin-bottom: 15px;">Ready for Steering Committee Review</p>
-            <h3 style="margin-top: 20px; margin-bottom: 10px;">Next Steps</h3>
-            <p>Phase 0: Procurement & Preparation (Oct-Dec 2025)</p>
-            <p>Phase 1: Foundation Setup (Dec 2025)</p>
-            <p style="margin-top: 20px; font-size: 0.85em;">Questions or concerns?<br>Contact: Design System Lead, PNC Design Operations</p>
-        </div>
     </div>
 </body>
 </html>
