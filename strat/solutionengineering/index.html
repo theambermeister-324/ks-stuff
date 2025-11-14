@@ -1,106 +1,491 @@
-# SE Technical Qualification – Yes/No Decision Tree
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SE Technical Qualification & Decision Tree</title>
+    <style>
+        :root {
+            /* Color tokens */
+            --color-brand-primary: #6436bf;
+            --color-brand-primary-light: #f3effb;
+            --color-text-default: #28262c;
+            --color-text-subtle: #645e6e;
+            --color-background-light: #f5f4f6;
+            --color-background-subtle: #faf9fa;
+            --color-border-base: #e0dee3;
+            --color-action-text: #05a2f0;
+            --color-action-bg: #ebf8ff;
+            --color-feedback-success: #36bf7f;
+            --color-feedback-warning: #eb8d0a;
+            --color-feedback-error: #e60f0f;
+            --color-feedback-info: #1dd1d7;
+            --color-white: #ffffff;
 
-Use this as a live decision aid during discovery calls.
+            /* Spacing tokens */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 0.75rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
 
----
+            /* Radius tokens */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
 
-## Step 1 – Code Framework
+            /* Typography tokens */
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --font-weight-regular: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --line-height-tight: 1.2;
+            --line-height-regular: 1.5;
 
-**Q1:** Does the customer primarily use a supported UI framework (React, Vue, Web Components, Angular, Twig, Handlebars)?
+            /* Shadow tokens */
+            --shadow-l1: 0px 0px 0px 1px rgba(20, 19, 22, 0.04), 2px 2px 4px rgba(20, 19, 22, 0.08);
+            --shadow-l2: 0px 0px 0px 1px rgba(20, 19, 22, 0.04), 2px 2px 4px rgba(20, 19, 22, 0.08), 4px 4px 8px rgba(20, 19, 22, 0.08);
+        }
 
-- **Yes →** Mark **Code Framework = GO** and continue.
-- **No →** 
-  - Is their framework in the MAYBE list (AEM React/WE, PHP Twing, Astro, Kotlin/SwiftUI)?
-    - **Yes →** Mark **Code Framework = MAYBE** and flag for POC.
-    - **No →** Mark **Code Framework = NO-GO** and escalate.
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
----
+        html, body {
+            font-family: var(--font-family);
+            color: var(--color-text-default);
+            background-color: var(--color-background-subtle);
+            line-height: var(--line-height-regular);
+        }
 
-## Step 2 – Build / Compilation
+        body {
+            padding: var(--spacing-xl);
+        }
 
-**Q2:** Do they use Webpack, Vite, ESBuild, or Rollup (or can adopt one)?
+        /* Layout - Container */
+        .container {
+            max-width: 1152px;
+            margin: 0 auto;
+        }
 
-- **Yes →** **Build = GO**
-- **No →**
-  - Do they have a Node/JS-based build we can modify?
-    - **Yes →** **Build = MAYBE** (requires review of pipeline).
-    - **No →** **Build = NO-GO**
+        /* Typography */
+        h1 {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text-default);
+        }
 
----
+        h2 {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+            color: var(--color-text-default);
+        }
 
-## Step 3 – Git Provider & Access
+        h3 {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text-default);
+        }
 
-**Q3:** Is their Git provider reachable by Knapsack Cloud (GitHub, GitLab, Azure DevOps, Bitbucket) with app/token access?
+        p {
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text-subtle);
+            font-size: var(--font-size-base);
+        }
 
-- **Yes →** **Git = GO**
-- **No →**
-  - Can they allowlist Knapsack IPs or open VPN-based access?
-    - **Yes →** **Git = MAYBE**
-    - **No →** **Git = NO-GO**
+        ul, ol {
+            margin-left: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+        }
 
----
+        li {
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text-default);
+        }
 
-## Step 4 – CI/CD & Package Publishing
+        /* Card component - Panel-like */
+        .card {
+            background: var(--color-white);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-l1);
+        }
 
-**Q4:** Do they have CI/CD that can run Node.js and npm (GitHub Actions, GitLab CI, Azure Pipelines, etc.)?
+        /* Badge component */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            margin-right: var(--spacing-xs);
+            margin-bottom: var(--spacing-xs);
+        }
 
-- **Yes →** **CI/CD = GO**
-- **No →**
-  - Do they have Jenkins / other CI that could be extended with Node/npm?
-    - **Yes →** **CI/CD = MAYBE**
-    - **No →** **CI/CD = NO-GO**
+        .badge.go {
+            background-color: #effbf5;
+            color: #247f55;
+            border: 1px solid #cef3e0;
+        }
 
-**Q5:** Do they have an npm-compatible package registry (npm, GitHub Packages, Azure Artifacts, etc.)?
+        .badge.maybe {
+            background-color: #fef6eb;
+            color: #9d5e07;
+            border: 1px solid #fce5c5;
+        }
 
-- **Yes →** **Packages = GO**
-- **No →**
-  - Can one be created / approved?
-    - **Yes →** **Packages = MAYBE**
-    - **No →** **Packages = NO-GO**
+        .badge.nogo {
+            background-color: #feecec;
+            color: #990a0a;
+            border: 1px solid #fcc5c5;
+        }
 
----
+        /* Collapse/Accordion trigger - Button-like */
+        .toggle-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: var(--spacing-md);
+            background: var(--color-background-light);
+            border: 1px solid var(--color-border-base);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-base);
+            color: var(--color-text-default);
+            margin: var(--spacing-md) 0;
+            transition: all 300ms cubic-bezier(0.7, 0.4, 0.2, 1);
+        }
 
-## Step 5 – Hosting & Network
+        .toggle-trigger:hover {
+            background-color: #ebe9f0;
+            border-color: #cbc8d0;
+        }
 
-**Q6:** Can they host a Node.js Deployed Workspace (or use Knapsack-provided hosting)?
+        .toggle-trigger.active {
+            background-color: var(--color-brand-primary-light);
+            border-color: var(--color-brand-primary);
+            color: var(--color-brand-primary);
+        }
 
-- **Yes →** **Hosting = GO**
-- **No →**
-  - Is there a path to using Knapsack-hosted workspace or new infra?
-    - **Yes →** **Hosting = MAYBE**
-    - **No →** **Hosting = NO-GO**
+        .toggle-icon {
+            display: inline-block;
+            transition: transform 300ms cubic-bezier(0.7, 0.4, 0.2, 1);
+            width: 20px;
+            height: 20px;
+            text-align: center;
+        }
 
-**Q7:** Can Knapsack Cloud reach their Git repo and Deployed Workspace (directly or via IP allow-list/VPN)?
+        .toggle-trigger.active .toggle-icon {
+            transform: rotate(180deg);
+        }
 
-- **Yes →** **Network = GO**
-- **No →**
-  - Is IP allow-listing or proxy feasible?
-    - **Yes →** **Network = MAYBE**
-    - **No →** **Network = NO-GO**
+        /* Collapsible content */
+        .collapse-content {
+            display: none;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-left: 3px solid var(--color-brand-primary);
+            margin-bottom: var(--spacing-md);
+            background-color: var(--color-background-subtle);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            animation: slideDown 300ms cubic-bezier(0.7, 0.4, 0.2, 1);
+        }
 
----
+        .collapse-content.active {
+            display: block;
+        }
 
-## Step 6 – SSO & Identity
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-**Q8:** Do they use Okta or Azure AD with SAML 2.0 or OAuth/OIDC?
+        /* Table component */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-l1);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
 
-- **Yes →** **SSO = GO**
-- **No →**
-  - Does their IdP support SAML/OAuth but needs custom config?
-    - **Yes →** **SSO = MAYBE**
-    - **No →** **SSO = NO-GO**
+        thead th {
+            background-color: var(--color-brand-primary-light);
+            color: var(--color-brand-primary);
+            font-weight: var(--font-weight-semibold);
+            padding: var(--spacing-md);
+            text-align: left;
+            border-bottom: 1px solid var(--color-border-base);
+        }
 
----
+        tbody tr {
+            border-bottom: 1px solid var(--color-border-base);
+            transition: background-color 300ms cubic-bezier(0.7, 0.4, 0.2, 1);
+        }
 
-## Step 7 – Evaluate Overall Risk
+        tbody tr:hover {
+            background-color: var(--color-background-light);
+        }
 
-Count NO-GO answers across Steps 1–6.
+        tbody td {
+            padding: var(--spacing-md);
+            color: var(--color-text-default);
+        }
 
-- **0–1 NO-GO:** ✅ Fast path. Proceed with standard implementation.
-- **2–3 NO-GO:** ⚠️ Elevated risk. Bring in Architecture / Product to plan mitigations.
-- **>3 NO-GO:** ❌ Not currently viable. Recommend architectural changes or different commercial path.
+        tbody tr:last-child {
+            border-bottom: none;
+        }
 
-Use this summary at the end of the call:
-- **Overall Tech Fit:** GO / MAYBE / NO-GO
-- **Top 3 Risks:** (list)
-- **Recommended Next Step:** POC / Deep-dive / Escalation / Disqualify
+        /* Status indicators - Inline badges */
+        .status-row {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .status-item {
+            flex: 1;
+            min-width: 200px;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--color-border-base);
+        }
+
+        .status-item.success {
+            background-color: #effbf5;
+            border-color: #cef3e0;
+        }
+
+        .status-item.warning {
+            background-color: #fef6eb;
+            border-color: #fce5c5;
+        }
+
+        .status-item.error {
+            background-color: #feecec;
+            border-color: #fcc5c5;
+        }
+
+        .status-item strong {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-item.success strong {
+            color: #247f55;
+        }
+
+        .status-item.warning strong {
+            color: #9d5e07;
+        }
+
+        .status-item.error strong {
+            color: #990a0a;
+        }
+    </style>
+    <script>
+        function toggleCollapse(triggerId, contentId) {
+            const trigger = document.getElementById(triggerId);
+            const content = document.getElementById(contentId);
+            
+            trigger.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- 1-PAGER SECTION -->
+        <div class="card">
+            <h1>SE Rapid Technical Qualification – 1 Pager</h1>
+            <p>Use this as a quick technical filter to determine if a customer is ready for Knapsack and identify early blockers.</p>
+
+            <h2>1. Code Framework Compatibility</h2>
+            <div class="status-row">
+                <div class="status-item success">
+                    <strong>✓ Go</strong>
+                    React, Vue, Web Components, Angular, Twig, Handlebars
+                </div>
+                <div class="status-item warning">
+                    <strong>⚠ Maybe</strong>
+                    AEM (React/WE), PHP Twing, Astro, Kotlin/SwiftUI (future)
+                </div>
+                <div class="status-item error">
+                    <strong>✕ No-Go</strong>
+                    Xamarin, AEM HTL, unsupported native stacks
+                </div>
+            </div>
+
+            <h2>2. Build / Compilation Toolchain</h2>
+            <div class="status-row">
+                <div class="status-item success">
+                    <strong>✓ Go</strong>
+                    Webpack, Vite, ESBuild, Rollup
+                </div>
+                <div class="status-item warning">
+                    <strong>⚠ Maybe</strong>
+                    Custom build scripts with output capability
+                </div>
+                <div class="status-item error">
+                    <strong>✕ No-Go</strong>
+                    Closed proprietary toolchains
+                </div>
+            </div>
+
+            <!-- COLLAPSIBLE SECTION: Design System Maturity -->
+            <div>
+                <button class="toggle-trigger" id="trigger-maturity" onclick="toggleCollapse('trigger-maturity', 'content-maturity')">
+                    <span>3. Design System Maturity</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="collapse-content" id="content-maturity">
+                    <h3>Design System State Assessment</h3>
+                    <p>Evaluate the current state of their design system infrastructure:</p>
+                    <ul>
+                        <li><strong>Established & Governed:</strong> Documented guidelines, component library, token system in place</li>
+                        <li><strong>Emerging:</strong> Some components exist, process unclear, scattered documentation</li>
+                        <li><strong>Ad-hoc:</strong> No formal system, inconsistent patterns across properties</li>
+                    </ul>
+                    <p style="margin-top: var(--spacing-lg); color: var(--color-feedback-warning); font-weight: var(--font-weight-semibold);">⚠ More mature systems typically see 3-6 month faster implementations</p>
+                </div>
+            </div>
+
+            <!-- COLLAPSIBLE SECTION: Scale & Scope -->
+            <div>
+                <button class="toggle-trigger" id="trigger-scale" onclick="toggleCollapse('trigger-scale', 'content-scale')">
+                    <span>4. Scale & Scope</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="collapse-content" id="content-scale">
+                    <h3>Technical Footprint</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Size Category</th>
+                                <th>Component Count</th>
+                                <th>Design System Readiness</th>
+                                <th>Timeline Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Small</strong></td>
+                                <td>1-50 components</td>
+                                <td>High (faster iteration)</td>
+                                <td>3-4 months</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Medium</strong></td>
+                                <td>51-200 components</td>
+                                <td>Medium (standardize)</td>
+                                <td>5-6 months</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Large</strong></td>
+                                <td>200+ components</td>
+                                <td>Lower (consolidate first)</td>
+                                <td>8-12 months</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- COLLAPSIBLE SECTION: Key Blockers -->
+            <div>
+                <button class="toggle-trigger" id="trigger-blockers" onclick="toggleCollapse('trigger-blockers', 'content-blockers')">
+                    <span>5. Common Technical Blockers</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="collapse-content" id="content-blockers">
+                    <h3>Show Stoppers & Challenges</h3>
+                    <ul>
+                        <li><strong>No asset pipeline:</strong> Can't auto-generate component files from design system changes</li>
+                        <li><strong>Shadow DOM complexity:</strong> Web Components with Shadow DOM complicate token injection</li>
+                        <li><strong>Legacy monolith:</strong> Single mega-app with tight coupling makes modular architecture difficult</li>
+                        <li><strong>Multi-framework fragmentation:</strong> 3+ frameworks without bridge architecture increases scope</li>
+                        <li><strong>No centralized token management:</strong> Values scattered across codebase</li>
+                    </ul>
+                    <p style="margin-top: var(--spacing-lg); color: var(--color-feedback-info); font-weight: var(--font-weight-semibold);">💡 Tip: Ask about existing token infrastructure and tooling</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DECISION TREE SECTION -->
+        <div class="card">
+            <h1>Quick Decision Tree</h1>
+            <p>Use this framework to quickly assess readiness:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Yes → Positive Signal</th>
+                        <th>No → Requires Discussion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Can you output component code automatically?</strong></td>
+                        <td><span class="badge go">Ready</span></td>
+                        <td><span class="badge nogo">Blocker</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Do tokens exist in code?</strong></td>
+                        <td><span class="badge go">Ready</span></td>
+                        <td><span class="badge maybe">Phase 1 work</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Single primary tech stack?</strong></td>
+                        <td><span class="badge go">Ready</span></td>
+                        <td><span class="badge maybe">Plan expansion</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dedicated design system team?</strong></td>
+                        <td><span class="badge go">Ready</span></td>
+                        <td><span class="badge maybe">Needs governance</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 style="margin-top: var(--spacing-2xl);">Qualification Threshold</h2>
+            <p style="font-size: var(--font-size-lg); font-weight: var(--font-weight-semibold);">
+                ✓ <strong>Proceed if:</strong> 3+ "Yes" answers + compatible tech stack
+            </p>
+            <p style="font-size: var(--font-size-lg); font-weight: var(--font-weight-semibold); color: var(--color-feedback-warning);">
+                ⚠ <strong>Explore further if:</strong> 2 "Yes" answers + clear blocker to address
+            </p>
+            <p style="font-size: var(--font-size-lg); font-weight: var(--font-weight-semibold); color: var(--color-feedback-error);">
+                ✕ <strong>Not a fit if:</strong> 1 or fewer "Yes" answers + incompatible framework
+            </p>
+        </div>
+    </div>
+</body>
+</html>
