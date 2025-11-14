@@ -1,0 +1,106 @@
+# SE Technical Qualification – Yes/No Decision Tree
+
+Use this as a live decision aid during discovery calls.
+
+---
+
+## Step 1 – Code Framework
+
+**Q1:** Does the customer primarily use a supported UI framework (React, Vue, Web Components, Angular, Twig, Handlebars)?
+
+- **Yes →** Mark **Code Framework = GO** and continue.
+- **No →** 
+  - Is their framework in the MAYBE list (AEM React/WE, PHP Twing, Astro, Kotlin/SwiftUI)?
+    - **Yes →** Mark **Code Framework = MAYBE** and flag for POC.
+    - **No →** Mark **Code Framework = NO-GO** and escalate.
+
+---
+
+## Step 2 – Build / Compilation
+
+**Q2:** Do they use Webpack, Vite, ESBuild, or Rollup (or can adopt one)?
+
+- **Yes →** **Build = GO**
+- **No →**
+  - Do they have a Node/JS-based build we can modify?
+    - **Yes →** **Build = MAYBE** (requires review of pipeline).
+    - **No →** **Build = NO-GO**
+
+---
+
+## Step 3 – Git Provider & Access
+
+**Q3:** Is their Git provider reachable by Knapsack Cloud (GitHub, GitLab, Azure DevOps, Bitbucket) with app/token access?
+
+- **Yes →** **Git = GO**
+- **No →**
+  - Can they allowlist Knapsack IPs or open VPN-based access?
+    - **Yes →** **Git = MAYBE**
+    - **No →** **Git = NO-GO**
+
+---
+
+## Step 4 – CI/CD & Package Publishing
+
+**Q4:** Do they have CI/CD that can run Node.js and npm (GitHub Actions, GitLab CI, Azure Pipelines, etc.)?
+
+- **Yes →** **CI/CD = GO**
+- **No →**
+  - Do they have Jenkins / other CI that could be extended with Node/npm?
+    - **Yes →** **CI/CD = MAYBE**
+    - **No →** **CI/CD = NO-GO**
+
+**Q5:** Do they have an npm-compatible package registry (npm, GitHub Packages, Azure Artifacts, etc.)?
+
+- **Yes →** **Packages = GO**
+- **No →**
+  - Can one be created / approved?
+    - **Yes →** **Packages = MAYBE**
+    - **No →** **Packages = NO-GO**
+
+---
+
+## Step 5 – Hosting & Network
+
+**Q6:** Can they host a Node.js Deployed Workspace (or use Knapsack-provided hosting)?
+
+- **Yes →** **Hosting = GO**
+- **No →**
+  - Is there a path to using Knapsack-hosted workspace or new infra?
+    - **Yes →** **Hosting = MAYBE**
+    - **No →** **Hosting = NO-GO**
+
+**Q7:** Can Knapsack Cloud reach their Git repo and Deployed Workspace (directly or via IP allow-list/VPN)?
+
+- **Yes →** **Network = GO**
+- **No →**
+  - Is IP allow-listing or proxy feasible?
+    - **Yes →** **Network = MAYBE**
+    - **No →** **Network = NO-GO**
+
+---
+
+## Step 6 – SSO & Identity
+
+**Q8:** Do they use Okta or Azure AD with SAML 2.0 or OAuth/OIDC?
+
+- **Yes →** **SSO = GO**
+- **No →**
+  - Does their IdP support SAML/OAuth but needs custom config?
+    - **Yes →** **SSO = MAYBE**
+    - **No →** **SSO = NO-GO**
+
+---
+
+## Step 7 – Evaluate Overall Risk
+
+Count NO-GO answers across Steps 1–6.
+
+- **0–1 NO-GO:** ✅ Fast path. Proceed with standard implementation.
+- **2–3 NO-GO:** ⚠️ Elevated risk. Bring in Architecture / Product to plan mitigations.
+- **>3 NO-GO:** ❌ Not currently viable. Recommend architectural changes or different commercial path.
+
+Use this summary at the end of the call:
+- **Overall Tech Fit:** GO / MAYBE / NO-GO
+- **Top 3 Risks:** (list)
+- **Recommended Next Step:** POC / Deep-dive / Escalation / Disqualify
