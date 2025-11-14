@@ -1,491 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SE Technical Qualification & Decision Tree</title>
-    <style>
-        :root {
-            /* Color tokens */
-            --color-brand-primary: #6436bf;
-            --color-brand-primary-light: #f3effb;
-            --color-text-default: #28262c;
-            --color-text-subtle: #645e6e;
-            --color-background-light: #f5f4f6;
-            --color-background-subtle: #faf9fa;
-            --color-border-base: #e0dee3;
-            --color-action-text: #05a2f0;
-            --color-action-bg: #ebf8ff;
-            --color-feedback-success: #36bf7f;
-            --color-feedback-warning: #eb8d0a;
-            --color-feedback-error: #e60f0f;
-            --color-feedback-info: #1dd1d7;
-            --color-white: #ffffff;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SE Technical Qualification Suite</title>
 
-            /* Spacing tokens */
-            --spacing-xs: 0.5rem;
-            --spacing-sm: 0.75rem;
-            --spacing-md: 1rem;
-            --spacing-lg: 1.5rem;
-            --spacing-xl: 2rem;
-            --spacing-2xl: 3rem;
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        padding: 40px;
+        max-width: 900px;
+        margin: auto;
+    }
+    h1, h2, h3 {
+        color: #333;
+    }
+    a {
+        color: #0057ff;
+    }
+    .card {
+        background: white;
+        padding: 25px 30px;
+        margin-bottom: 35px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    hr {
+        margin: 30px 0;
+        border: none;
+        border-top: 1px solid #ccc;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: white;
+    }
+    th, td {
+        border: 1px solid #bbb;
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background: #eaeaea;
+    }
 
-            /* Radius tokens */
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
+    /* Decision Tree */
+    .toggle {
+        background: #e6e6e6;
+        padding: 12px;
+        cursor: pointer;
+        border-radius: 6px;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    .toggle:hover {
+        background: #dcdcdc;
+    }
+    .content {
+        display: none;
+        padding: 12px 20px;
+        border-left: 3px solid #777;
+        background: #fafafa;
+        border-radius: 4px;
+        margin-bottom: 15px;
+    }
+    .decision-list li {
+        margin-bottom: 6px;
+    }
+</style>
 
-            /* Typography tokens */
-            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            --font-size-sm: 0.875rem;
-            --font-size-base: 1rem;
-            --font-size-lg: 1.25rem;
-            --font-size-xl: 1.5rem;
-            --font-weight-regular: 400;
-            --font-weight-medium: 500;
-            --font-weight-semibold: 600;
-            --font-weight-bold: 700;
-            --line-height-tight: 1.2;
-            --line-height-regular: 1.5;
-
-            /* Shadow tokens */
-            --shadow-l1: 0px 0px 0px 1px rgba(20, 19, 22, 0.04), 2px 2px 4px rgba(20, 19, 22, 0.08);
-            --shadow-l2: 0px 0px 0px 1px rgba(20, 19, 22, 0.04), 2px 2px 4px rgba(20, 19, 22, 0.08), 4px 4px 8px rgba(20, 19, 22, 0.08);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            font-family: var(--font-family);
-            color: var(--color-text-default);
-            background-color: var(--color-background-subtle);
-            line-height: var(--line-height-regular);
-        }
-
-        body {
-            padding: var(--spacing-xl);
-        }
-
-        /* Layout - Container */
-        .container {
-            max-width: 1152px;
-            margin: 0 auto;
-        }
-
-        /* Typography */
-        h1 {
-            font-size: var(--font-size-xl);
-            font-weight: var(--font-weight-bold);
-            margin-bottom: var(--spacing-sm);
-            color: var(--color-text-default);
-        }
-
-        h2 {
-            font-size: var(--font-size-lg);
-            font-weight: var(--font-weight-semibold);
-            margin-bottom: var(--spacing-md);
-            margin-top: var(--spacing-lg);
-            color: var(--color-text-default);
-        }
-
-        h3 {
-            font-size: var(--font-size-base);
-            font-weight: var(--font-weight-semibold);
-            margin-bottom: var(--spacing-sm);
-            color: var(--color-text-default);
-        }
-
-        p {
-            margin-bottom: var(--spacing-md);
-            color: var(--color-text-subtle);
-            font-size: var(--font-size-base);
-        }
-
-        ul, ol {
-            margin-left: var(--spacing-lg);
-            margin-bottom: var(--spacing-md);
-        }
-
-        li {
-            margin-bottom: var(--spacing-sm);
-            color: var(--color-text-default);
-        }
-
-        /* Card component - Panel-like */
-        .card {
-            background: var(--color-white);
-            padding: var(--spacing-lg) var(--spacing-xl);
-            border-radius: var(--radius-md);
-            margin-bottom: var(--spacing-xl);
-            box-shadow: var(--shadow-l1);
-        }
-
-        /* Badge component */
-        .badge {
-            display: inline-block;
-            padding: 0.25rem var(--spacing-sm);
-            border-radius: var(--radius-sm);
-            font-size: var(--font-size-sm);
-            font-weight: var(--font-weight-semibold);
-            margin-right: var(--spacing-xs);
-            margin-bottom: var(--spacing-xs);
-        }
-
-        .badge.go {
-            background-color: #effbf5;
-            color: #247f55;
-            border: 1px solid #cef3e0;
-        }
-
-        .badge.maybe {
-            background-color: #fef6eb;
-            color: #9d5e07;
-            border: 1px solid #fce5c5;
-        }
-
-        .badge.nogo {
-            background-color: #feecec;
-            color: #990a0a;
-            border: 1px solid #fcc5c5;
-        }
-
-        /* Collapse/Accordion trigger - Button-like */
-        .toggle-trigger {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            padding: var(--spacing-md);
-            background: var(--color-background-light);
-            border: 1px solid var(--color-border-base);
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            font-weight: var(--font-weight-semibold);
-            font-size: var(--font-size-base);
-            color: var(--color-text-default);
-            margin: var(--spacing-md) 0;
-            transition: all 300ms cubic-bezier(0.7, 0.4, 0.2, 1);
-        }
-
-        .toggle-trigger:hover {
-            background-color: #ebe9f0;
-            border-color: #cbc8d0;
-        }
-
-        .toggle-trigger.active {
-            background-color: var(--color-brand-primary-light);
-            border-color: var(--color-brand-primary);
-            color: var(--color-brand-primary);
-        }
-
-        .toggle-icon {
-            display: inline-block;
-            transition: transform 300ms cubic-bezier(0.7, 0.4, 0.2, 1);
-            width: 20px;
-            height: 20px;
-            text-align: center;
-        }
-
-        .toggle-trigger.active .toggle-icon {
-            transform: rotate(180deg);
-        }
-
-        /* Collapsible content */
-        .collapse-content {
-            display: none;
-            padding: var(--spacing-md) var(--spacing-lg);
-            border-left: 3px solid var(--color-brand-primary);
-            margin-bottom: var(--spacing-md);
-            background-color: var(--color-background-subtle);
-            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-            animation: slideDown 300ms cubic-bezier(0.7, 0.4, 0.2, 1);
-        }
-
-        .collapse-content.active {
-            display: block;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Table component */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: var(--spacing-lg);
-            margin-bottom: var(--spacing-lg);
-            box-shadow: var(--shadow-l1);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-        }
-
-        thead th {
-            background-color: var(--color-brand-primary-light);
-            color: var(--color-brand-primary);
-            font-weight: var(--font-weight-semibold);
-            padding: var(--spacing-md);
-            text-align: left;
-            border-bottom: 1px solid var(--color-border-base);
-        }
-
-        tbody tr {
-            border-bottom: 1px solid var(--color-border-base);
-            transition: background-color 300ms cubic-bezier(0.7, 0.4, 0.2, 1);
-        }
-
-        tbody tr:hover {
-            background-color: var(--color-background-light);
-        }
-
-        tbody td {
-            padding: var(--spacing-md);
-            color: var(--color-text-default);
-        }
-
-        tbody tr:last-child {
-            border-bottom: none;
-        }
-
-        /* Status indicators - Inline badges */
-        .status-row {
-            display: flex;
-            gap: var(--spacing-md);
-            flex-wrap: wrap;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .status-item {
-            flex: 1;
-            min-width: 200px;
-            padding: var(--spacing-md);
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--color-border-base);
-        }
-
-        .status-item.success {
-            background-color: #effbf5;
-            border-color: #cef3e0;
-        }
-
-        .status-item.warning {
-            background-color: #fef6eb;
-            border-color: #fce5c5;
-        }
-
-        .status-item.error {
-            background-color: #feecec;
-            border-color: #fcc5c5;
-        }
-
-        .status-item strong {
-            display: block;
-            margin-bottom: var(--spacing-xs);
-            font-size: var(--font-size-sm);
-            font-weight: var(--font-weight-bold);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .status-item.success strong {
-            color: #247f55;
-        }
-
-        .status-item.warning strong {
-            color: #9d5e07;
-        }
-
-        .status-item.error strong {
-            color: #990a0a;
-        }
-    </style>
-    <script>
-        function toggleCollapse(triggerId, contentId) {
-            const trigger = document.getElementById(triggerId);
-            const content = document.getElementById(contentId);
-            
-            trigger.classList.toggle('active');
-            content.classList.toggle('active');
-        }
-    </script>
+<script>
+function toggle(id) {
+    var el = document.getElementById(id);
+    el.style.display = (el.style.display === "block") ? "none" : "block";
+}
+</script>
 </head>
+
 <body>
-    <div class="container">
-        <!-- 1-PAGER SECTION -->
-        <div class="card">
-            <h1>SE Rapid Technical Qualification – 1 Pager</h1>
-            <p>Use this as a quick technical filter to determine if a customer is ready for Knapsack and identify early blockers.</p>
 
-            <h2>1. Code Framework Compatibility</h2>
-            <div class="status-row">
-                <div class="status-item success">
-                    <strong>✓ Go</strong>
-                    React, Vue, Web Components, Angular, Twig, Handlebars
-                </div>
-                <div class="status-item warning">
-                    <strong>⚠ Maybe</strong>
-                    AEM (React/WE), PHP Twing, Astro, Kotlin/SwiftUI (future)
-                </div>
-                <div class="status-item error">
-                    <strong>✕ No-Go</strong>
-                    Xamarin, AEM HTL, unsupported native stacks
-                </div>
-            </div>
+<!-- ================================ -->
+<!-- 1. PDF Section -->
+<!-- ================================ -->
+<div class="card">
+<h1>1. Your 1-Page SE Technical Qualification PDF</h1>
 
-            <h2>2. Build / Compilation Toolchain</h2>
-            <div class="status-row">
-                <div class="status-item success">
-                    <strong>✓ Go</strong>
-                    Webpack, Vite, ESBuild, Rollup
-                </div>
-                <div class="status-item warning">
-                    <strong>⚠ Maybe</strong>
-                    Custom build scripts with output capability
-                </div>
-                <div class="status-item error">
-                    <strong>✕ No-Go</strong>
-                    Closed proprietary toolchains
-                </div>
-            </div>
+<p><strong>Download here:</strong><br>
+👉 <a href="sandbox:/mnt/data/SE_Qualification_1Pager.pdf" target="_blank">SE_Qualification_1Pager.pdf</a></p>
 
-            <!-- COLLAPSIBLE SECTION: Design System Maturity -->
-            <div>
-                <button class="toggle-trigger" id="trigger-maturity" onclick="toggleCollapse('trigger-maturity', 'content-maturity')">
-                    <span>3. Design System Maturity</span>
-                    <span class="toggle-icon">▼</span>
-                </button>
-                <div class="collapse-content" id="content-maturity">
-                    <h3>Design System State Assessment</h3>
-                    <p>Evaluate the current state of their design system infrastructure:</p>
-                    <ul>
-                        <li><strong>Established & Governed:</strong> Documented guidelines, component library, token system in place</li>
-                        <li><strong>Emerging:</strong> Some components exist, process unclear, scattered documentation</li>
-                        <li><strong>Ad-hoc:</strong> No formal system, inconsistent patterns across properties</li>
-                    </ul>
-                    <p style="margin-top: var(--spacing-lg); color: var(--color-feedback-warning); font-weight: var(--font-weight-semibold);">⚠ More mature systems typically see 3-6 month faster implementations</p>
-                </div>
-            </div>
+<p>If you'd like branding, color, icons, or a more visual layout, I can regenerate it.</p>
+</div>
 
-            <!-- COLLAPSIBLE SECTION: Scale & Scope -->
-            <div>
-                <button class="toggle-trigger" id="trigger-scale" onclick="toggleCollapse('trigger-scale', 'content-scale')">
-                    <span>4. Scale & Scope</span>
-                    <span class="toggle-icon">▼</span>
-                </button>
-                <div class="collapse-content" id="content-scale">
-                    <h3>Technical Footprint</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Size Category</th>
-                                <th>Component Count</th>
-                                <th>Design System Readiness</th>
-                                <th>Timeline Impact</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Small</strong></td>
-                                <td>1-50 components</td>
-                                <td>High (faster iteration)</td>
-                                <td>3-4 months</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Medium</strong></td>
-                                <td>51-200 components</td>
-                                <td>Medium (standardize)</td>
-                                <td>5-6 months</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Large</strong></td>
-                                <td>200+ components</td>
-                                <td>Lower (consolidate first)</td>
-                                <td>8-12 months</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+<!-- ================================ -->
+<!-- 2. Interactive Decision Tree -->
+<!-- ================================ -->
+<div class="card">
+<h1>2. Interactive Yes/No → GO/NO-GO Decision Tree</h1>
 
-            <!-- COLLAPSIBLE SECTION: Key Blockers -->
-            <div>
-                <button class="toggle-trigger" id="trigger-blockers" onclick="toggleCollapse('trigger-blockers', 'content-blockers')">
-                    <span>5. Common Technical Blockers</span>
-                    <span class="toggle-icon">▼</span>
-                </button>
-                <div class="collapse-content" id="content-blockers">
-                    <h3>Show Stoppers & Challenges</h3>
-                    <ul>
-                        <li><strong>No asset pipeline:</strong> Can't auto-generate component files from design system changes</li>
-                        <li><strong>Shadow DOM complexity:</strong> Web Components with Shadow DOM complicate token injection</li>
-                        <li><strong>Legacy monolith:</strong> Single mega-app with tight coupling makes modular architecture difficult</li>
-                        <li><strong>Multi-framework fragmentation:</strong> 3+ frameworks without bridge architecture increases scope</li>
-                        <li><strong>No centralized token management:</strong> Values scattered across codebase</li>
-                    </ul>
-                    <p style="margin-top: var(--spacing-lg); color: var(--color-feedback-info); font-weight: var(--font-weight-semibold);">💡 Tip: Ask about existing token infrastructure and tooling</p>
-                </div>
-            </div>
-        </div>
+<p>You can embed this anywhere — Notion, GitHub Pages, internal tools, etc.</p>
 
-        <!-- DECISION TREE SECTION -->
-        <div class="card">
-            <h1>Quick Decision Tree</h1>
-            <p>Use this framework to quickly assess readiness:</p>
+<div class="toggle" onclick="toggle('dt1')">1. Code Framework</div>
+<div id="dt1" class="content">
+  <p><strong>Q:</strong> Does the customer use a supported framework?</p>
+  <ul class="decision-list">
+    <li><strong>Yes → GO</strong></li>
+    <li><strong>No →</strong> Is it in MAYBE?</li>
+    <ul>
+      <li>Yes → MAYBE (requires POC)</li>
+      <li>No → <strong>NO-GO</strong></li>
+    </ul>
+  </ul>
+</div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Question</th>
-                        <th>Yes → Positive Signal</th>
-                        <th>No → Requires Discussion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Can you output component code automatically?</strong></td>
-                        <td><span class="badge go">Ready</span></td>
-                        <td><span class="badge nogo">Blocker</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Do tokens exist in code?</strong></td>
-                        <td><span class="badge go">Ready</span></td>
-                        <td><span class="badge maybe">Phase 1 work</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Single primary tech stack?</strong></td>
-                        <td><span class="badge go">Ready</span></td>
-                        <td><span class="badge maybe">Plan expansion</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Dedicated design system team?</strong></td>
-                        <td><span class="badge go">Ready</span></td>
-                        <td><span class="badge maybe">Needs governance</span></td>
-                    </tr>
-                </tbody>
-            </table>
+<div class="toggle" onclick="toggle('dt2')">2. Build System</div>
+<div id="dt2" class="content">
+  <p><strong>Q:</strong> Do they use Webpack/Vite/ESBuild/Rollup?</p>
+  <ul class="decision-list">
+    <li><strong>Yes → GO</strong></li>
+    <li><strong>No →</strong> Is the build modifiable?</li>
+    <ul>
+      <li>Yes → MAYBE</li>
+      <li>No → <strong>NO-GO</strong></li>
+    </ul>
+  </ul>
+</div>
 
-            <h2 style="margin-top: var(--spacing-2xl);">Qualification Threshold</h2>
-            <p style="font-size: var(--font-size-lg); font-weight: var(--font-weight-semibold);">
-                ✓ <strong>Proceed if:</strong> 3+ "Yes" answers + compatible tech stack
-            </p>
-            <p style="font-size: var(--font-size-lg); font-weight: var(--font-weight-semibold); color: var(--color-feedback-warning);">
-                ⚠ <strong>Explore further if:</strong> 2 "Yes" answers + clear blocker to address
-            </p>
-            <p style="font-size: var(--font-size-lg); font-weight: var(--font-weight-semibold); color: var(--color-feedback-error);">
-                ✕ <strong>Not a fit if:</strong> 1 or fewer "Yes" answers + incompatible framework
-            </p>
-        </div>
-    </div>
+<div class="toggle" onclick="toggle('dt3')">3. Git Provider Access</div>
+<div id="dt3" class="content">
+  <p><strong>Q:</strong> Can Knapsack Cloud access their Git provider?</p>
+  <ul>
+    <li><strong>Yes → GO</strong></li>
+    <li><strong>No →</strong> Is IP allowlisting possible?</li>
+    <ul>
+      <li>Yes → MAYBE</li>
+      <li>No → <strong>NO-GO</strong></li>
+    </ul>
+  </ul>
+</div>
+
+<div class="toggle" onclick="toggle('dt4')">4. CI/CD & Package Publishing</div>
+<div id="dt4" class="content">
+  <p><strong>Q:</strong> Do they use a supported CI/CD (GitHub Actions, GitLab, Azure)?</p>
+  <ul>
+    <li><strong>Yes → GO</strong></li>
+    <li><strong>No →</strong> Can they run Node + npm?</li>
+    <ul>
+      <li>Yes → MAYBE</li>
+      <li>No → <strong>NO-GO</strong></li>
+    </ul>
+  </ul>
+</div>
+
+<div class="toggle" onclick="toggle('dt5')">5. Hosting & Network</div>
+<div id="dt5" class="content">
+  <p><strong>Q:</strong> Can a Node.js Deployed Workspace run in their environment?</p>
+  <ul>
+    <li><strong>Yes → GO</strong></li>
+    <li><strong>No →</strong> Can Knapsack host it?</li>
+    <ul>
+      <li>Yes → MAYBE</li>
+      <li>No → <strong>NO-GO</strong></li>
+    </ul>
+  </ul>
+</div>
+
+<div class="toggle" onclick="toggle('dt6')">6. SSO / Identity Provider</div>
+<div id="dt6" class="content">
+  <p><strong>Q:</strong> Do they use Okta/Azure/SAML/OAuth?</p>
+  <ul>
+    <li><strong>Yes → GO</strong></li>
+    <li><strong>No →</strong> Is custom IdP connectable?</li>
+    <ul>
+      <li>Yes → MAYBE</li>
+      <li>No → <strong>NO-GO</strong></li>
+    </ul>
+  </ul>
+</div>
+
+<h3>Overall Rule:</h3>
+<ul>
+  <li><strong>0–1 NO-GO:</strong> Proceed with POC or Fast-Path</li>
+  <li><strong>2–3 NO-GO:</strong> Escalate to Architecture Team</li>
+  <li><strong>>3 NO-GO:</strong> Not viable in current state</li>
+</ul>
+
+</div>
+
+<!-- ================================ -->
+<!-- 3. Notion Table -->
+<!-- ================================ -->
+<div class="card">
+<h1>3. Notion-Ready Qualification Table</h1>
+
+<table>
+<thead>
+<tr>
+<th>Validation Category</th>
+<th>GO (Green)</th>
+<th>MAYBE (Yellow)</th>
+<th>NO-GO (Red)</th>
+<th>Notes / Actions</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong>Code Framework</strong></td>
+<td>React, Vue, Web Components, Angular, Twig, Handlebars</td>
+<td>AEM (React/WE), PHP Twing, Astro, Kotlin/SwiftUI future</td>
+<td>AEM HTL, Xamarin, unsupported native stacks</td>
+<td>If MAYBE, schedule component POC</td>
+</tr>
+
+<tr>
+<td><strong>Build Toolchain</strong></td>
+<td>Webpack, Vite, ESBuild, Rollup</td>
+<td>Custom or legacy bundlers</td>
+<td>No JS pipeline</td>
+<td>Confirm output format</td>
+</tr>
+
+<tr>
+<td><strong>Git Provider</strong></td>
+<td>GH Cloud/Enterprise, GitLab, Azure DevOps, Bitbucket</td>
+<td>On-prem w/ allowlists</td>
+<td>No external access</td>
+<td>Requires App/Token</td>
+</tr>
+
+<tr>
+<td><strong>Repo Model</strong></td>
+<td>Dedicated repo or monorepo</td>
+<td>Complex monorepo</td>
+<td>No ability to modify repo</td>
+<td>Identify owning team</td>
+</tr>
+
+<tr>
+<td><strong>CI/CD</strong></td>
+<td>GH Actions, GitLab CI, Azure Pipelines</td>
+<td>Jenkins, Artifactory, CodeArtifact</td>
+td>No CI/CD, no Node</td>
+<td>Validate npm execution</td>
+</tr>
+
+<tr>
+<td><strong>Package Hosting</strong></td>
+<td>npm, GH Packages, Azure Artifacts</td>
+<td>AWS CodeArtifact, JFrog, Verdaccio</td>
+<td>No registry exposure</td>
+<td>Ensure versioning workflow</td>
+</tr>
+
+<tr>
+<td><strong>Hosting</strong></td>
+<td>Knapsack hosting, AWS, Azure</td>
+<td>Self-hosted Node w/firewall</td>
+<td>No Node support</td>
+<td>Request hosting architecture</td>
+</tr>
+
+<tr>
+<td><strong>Network Connectivity</strong></td>
+<td>External cloud connectivity</td>
+<td>VPN/IP whitelist required</td>
+<td>No external connectivity</td>
+<td>Confirm ingress/egress rules</td>
+</tr>
+
+<tr>
+<td><strong>SSO Identity</strong></td>
+<td>Okta, Azure AD, SAML/OAuth</td>
+<td>Custom IdP</td>
+<td>Unsupported protocols</td>
+<td>Collect IdP metadata</td>
+</tr>
+
+<tr>
+<td><strong>Risk Score</strong></td>
+<td>0–1 NO-GO</td>
+<td>2–3 NO-GO</td>
+<td>>3 NO-GO</td>
+<td>Determines pathing</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+
 </body>
 </html>
