@@ -1,295 +1,725 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SE Technical Qualification Suite</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SE Rapid Technical Qualification – 1 Pager</title>
+    <style>
+        :root {
+            /* Brand Colors */
+            --toby-primary: #6436bf;
+            --toby-primary-light: #f3effb;
+            --toby-secondary: #e43a5c;
+            
+            /* Neutral Palette */
+            --toby-white: #ffffff;
+            --toby-neutral-50: #faf9fa;
+            --toby-neutral-100: #f5f4f6;
+            --toby-neutral-150: #e0dee3;
+            --toby-neutral-200: #cbc8d0;
+            --toby-neutral-300: #a19cab;
+            --toby-neutral-500: #645e6e;
+            --toby-neutral-800: #28262c;
+            --toby-neutral-900: #141316;
+            
+            /* Feedback Colors */
+            --toby-success: #36bf7f;
+            --toby-success-light: #effbf5;
+            --toby-success-border: #cef3e0;
+            --toby-warning: #eb8d0a;
+            --toby-warning-light: #fef6eb;
+            --toby-warning-border: #fce5c5;
+            --toby-error: #e60f0f;
+            --toby-error-light: #feecec;
+            --toby-error-border: #fcc5c5;
+            --toby-info: #1dd1d7;
+            --toby-info-light: #edfcfd;
+            --toby-info-border: #a5f0f3;
+            
+            /* Typography */
+            --toby-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+            --toby-font-mono: 'SF Mono', SFMono-Regular, ui-monospace, 'DejaVu Sans Mono', Menlo, Consolas, monospace;
+            --toby-font-size-xs: 0.6875rem;
+            --toby-font-size-sm: 0.875rem;
+            --toby-font-size-base: 1rem;
+            --toby-font-size-md: 1.125rem;
+            --toby-font-size-lg: 1.25rem;
+            --toby-font-size-xl: 1.5rem;
+            --toby-font-size-2xl: 1.75rem;
+            --toby-font-size-3xl: 2rem;
+            --toby-font-weight-regular: 400;
+            --toby-font-weight-medium: 500;
+            --toby-font-weight-semibold: 600;
+            --toby-font-weight-bold: 700;
+            --toby-line-height-tight: 1.2;
+            --toby-line-height-regular: 1.5;
+            --toby-line-height-loose: 2;
+            
+            /* Spacing */
+            --toby-space-2xs: 0.125rem;
+            --toby-space-xs: 0.25rem;
+            --toby-space-sm: 0.5rem;
+            --toby-space-md: 0.75rem;
+            --toby-space-lg: 1rem;
+            --toby-space-xl: 1.5rem;
+            --toby-space-2xl: 2rem;
+            --toby-space-3xl: 2.5rem;
+            --toby-space-4xl: 3rem;
+            --toby-space-5xl: 4rem;
+            --toby-space-6xl: 5rem;
+            
+            /* Radius */
+            --toby-radius-xs: 4px;
+            --toby-radius-sm: 8px;
+            --toby-radius-md: 12px;
+            --toby-radius-lg: 16px;
+            --toby-radius-xl: 24px;
+            --toby-radius-full: 80px;
+            
+            /* Shadows */
+            --toby-shadow-l1: 0px 0px 0px 1px rgba(20, 19, 22, 0.04), 2px 2px 4px rgba(20, 19, 22, 0.08);
+            --toby-shadow-l2: 0px 0px 0px 1px rgba(20, 19, 22, 0.04), 2px 2px 4px rgba(20, 19, 22, 0.08), 4px 4px 8px rgba(20, 19, 22, 0.08);
+            --toby-shadow-l3: 0px 0px 0px 1px rgba(20, 19, 22, 0.04), 2px 2px 4px rgba(20, 19, 22, 0.08), 4px 4px 8px rgba(20, 19, 22, 0.08), 8px 8px 16px rgba(20, 19, 22, 0.08);
+            
+            /* Transitions */
+            --toby-transition: all 300ms cubic-bezier(0.7, 0.4, 0.2, 1);
+        }
 
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #f5f5f5;
-        padding: 40px;
-        max-width: 900px;
-        margin: auto;
-    }
-    h1, h2, h3 {
-        color: #333;
-    }
-    a {
-        color: #0057ff;
-    }
-    .card {
-        background: white;
-        padding: 25px 30px;
-        margin-bottom: 35px;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    hr {
-        margin: 30px 0;
-        border: none;
-        border-top: 1px solid #ccc;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        background: white;
-    }
-    th, td {
-        border: 1px solid #bbb;
-        padding: 12px;
-        text-align: left;
-    }
-    th {
-        background: #eaeaea;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* Decision Tree */
-    .toggle {
-        background: #e6e6e6;
-        padding: 12px;
-        cursor: pointer;
-        border-radius: 6px;
-        margin-top: 10px;
-        font-weight: bold;
-    }
-    .toggle:hover {
-        background: #dcdcdc;
-    }
-    .content {
-        display: none;
-        padding: 12px 20px;
-        border-left: 3px solid #777;
-        background: #fafafa;
-        border-radius: 4px;
-        margin-bottom: 15px;
-    }
-    .decision-list li {
-        margin-bottom: 6px;
-    }
-</style>
+        html, body {
+            font-family: var(--toby-font-family);
+            color: var(--toby-neutral-800);
+            background-color: var(--toby-neutral-50);
+            line-height: var(--toby-line-height-regular);
+            -webkit-font-smoothing: antialiased;
+        }
 
-<script>
-function toggle(id) {
-    var el = document.getElementById(id);
-    el.style.display = (el.style.display === "block") ? "none" : "block";
-}
-</script>
+        body {
+            padding: var(--toby-space-4xl);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1152px;
+            margin: 0 auto;
+        }
+
+        /* Typography Styles */
+        h1 {
+            font-size: var(--toby-font-size-3xl);
+            font-weight: var(--toby-font-weight-bold);
+            line-height: var(--toby-line-height-tight);
+            margin-bottom: var(--toby-space-md);
+            color: var(--toby-neutral-900);
+        }
+
+        h2 {
+            font-size: var(--toby-font-size-xl);
+            font-weight: var(--toby-font-weight-semibold);
+            line-height: var(--toby-line-height-tight);
+            margin-top: var(--toby-space-3xl);
+            margin-bottom: var(--toby-space-lg);
+            color: var(--toby-neutral-800);
+        }
+
+        h3 {
+            font-size: var(--toby-font-size-lg);
+            font-weight: var(--toby-font-weight-semibold);
+            margin-bottom: var(--toby-space-md);
+            color: var(--toby-neutral-800);
+        }
+
+        p {
+            font-size: var(--toby-font-size-base);
+            color: var(--toby-neutral-500);
+            margin-bottom: var(--toby-space-lg);
+        }
+
+        p strong {
+            color: var(--toby-neutral-800);
+            font-weight: var(--toby-font-weight-semibold);
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background-color: var(--toby-neutral-150);
+            margin: var(--toby-space-3xl) 0;
+        }
+
+        ul, ol {
+            margin-left: var(--toby-space-xl);
+            margin-bottom: var(--toby-space-lg);
+        }
+
+        li {
+            margin-bottom: var(--toby-space-md);
+            color: var(--toby-neutral-800);
+            font-size: var(--toby-font-size-base);
+        }
+
+        /* Panel Component */
+        .panel {
+            background: var(--toby-white);
+            border-radius: var(--toby-radius-md);
+            box-shadow: var(--toby-shadow-l1);
+            padding: var(--toby-space-xl) var(--toby-space-2xl);
+            margin-bottom: var(--toby-space-3xl);
+        }
+
+        .panel-header {
+            margin-bottom: var(--toby-space-2xl);
+            padding-bottom: var(--toby-space-2xl);
+            border-bottom: 1px solid var(--toby-neutral-150);
+        }
+
+        .panel-header p {
+            margin-bottom: 0;
+        }
+
+        /* Status Section */
+        .status-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--toby-space-lg);
+            margin-bottom: var(--toby-space-2xl);
+        }
+
+        .status-card {
+            border-radius: var(--toby-radius-md);
+            padding: var(--toby-space-lg);
+            border: 1px solid;
+            transition: var(--toby-transition);
+        }
+
+        .status-card.go {
+            background-color: var(--toby-success-light);
+            border-color: var(--toby-success-border);
+        }
+
+        .status-card.go .status-label {
+            color: #247f55;
+        }
+
+        .status-card.maybe {
+            background-color: var(--toby-warning-light);
+            border-color: var(--toby-warning-border);
+        }
+
+        .status-card.maybe .status-label {
+            color: #9d5e07;
+        }
+
+        .status-card.nogo {
+            background-color: var(--toby-error-light);
+            border-color: var(--toby-error-border);
+        }
+
+        .status-card.nogo .status-label {
+            color: #7a0707;
+        }
+
+        .status-label {
+            font-size: var(--toby-font-size-sm);
+            font-weight: var(--toby-font-weight-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--toby-space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--toby-space-xs);
+        }
+
+        .status-icon {
+            font-size: var(--toby-font-size-lg);
+        }
+
+        .status-card ul {
+            margin-left: var(--toby-space-lg);
+            margin-bottom: 0;
+        }
+
+        .status-card li {
+            font-size: var(--toby-font-size-sm);
+            margin-bottom: var(--toby-space-sm);
+        }
+
+        /* Accordion */
+        .accordion {
+            border: 1px solid var(--toby-neutral-150);
+            border-radius: var(--toby-radius-md);
+            margin-bottom: var(--toby-space-lg);
+            overflow: hidden;
+        }
+
+        .accordion-trigger {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--toby-space-lg);
+            background-color: var(--toby-neutral-100);
+            border: none;
+            cursor: pointer;
+            font-family: var(--toby-font-family);
+            font-size: var(--toby-font-size-base);
+            font-weight: var(--toby-font-weight-semibold);
+            color: var(--toby-neutral-800);
+            transition: var(--toby-transition);
+        }
+
+        .accordion-trigger:hover {
+            background-color: #ebe9f0;
+        }
+
+        .accordion-trigger.active {
+            background-color: var(--toby-primary-light);
+            color: var(--toby-primary);
+        }
+
+        .accordion-trigger .chevron {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 300ms cubic-bezier(0.7, 0.4, 0.2, 1);
+            font-size: var(--toby-font-size-base);
+        }
+
+        .accordion-trigger.active .chevron {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 300ms cubic-bezier(0.7, 0.4, 0.2, 1);
+            background-color: var(--toby-white);
+        }
+
+        .accordion-content.active {
+            max-height: 2000px;
+        }
+
+        .accordion-content-inner {
+            padding: var(--toby-space-xl) var(--toby-space-lg);
+            border-top: 1px solid var(--toby-neutral-150);
+            border-left: 3px solid var(--toby-primary);
+        }
+
+        .accordion-content-inner > h3:first-child {
+            margin-top: 0;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: var(--toby-space-xs) var(--toby-space-md);
+            border-radius: var(--toby-radius-sm);
+            font-size: var(--toby-font-size-sm);
+            font-weight: var(--toby-font-weight-semibold);
+            border: 1px solid;
+            margin-right: var(--toby-space-sm);
+            margin-bottom: var(--toby-space-sm);
+        }
+
+        .badge.go {
+            background-color: var(--toby-success-light);
+            border-color: var(--toby-success-border);
+            color: #247f55;
+        }
+
+        .badge.maybe {
+            background-color: var(--toby-warning-light);
+            border-color: var(--toby-warning-border);
+            color: #9d5e07;
+        }
+
+        .badge.nogo {
+            background-color: var(--toby-error-light);
+            border-color: var(--toby-error-border);
+            color: #7a0707;
+        }
+
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: var(--toby-space-xl) 0;
+            border-radius: var(--toby-radius-md);
+            box-shadow: var(--toby-shadow-l1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--toby-white);
+        }
+
+        thead {
+            background-color: var(--toby-primary-light);
+        }
+
+        thead th {
+            padding: var(--toby-space-lg);
+            text-align: left;
+            font-size: var(--toby-font-size-sm);
+            font-weight: var(--toby-font-weight-bold);
+            color: var(--toby-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--toby-neutral-150);
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--toby-neutral-150);
+            transition: background-color 200ms ease;
+        }
+
+        tbody tr:hover {
+            background-color: var(--toby-neutral-50);
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        tbody td {
+            padding: var(--toby-space-lg);
+            font-size: var(--toby-font-size-base);
+            color: var(--toby-neutral-800);
+        }
+
+        tbody td strong {
+            font-weight: var(--toby-font-weight-semibold);
+        }
+
+        /* Banner/Callout */
+        .banner {
+            border-radius: var(--toby-radius-md);
+            padding: var(--toby-space-lg);
+            border-left: 4px solid;
+            margin-bottom: var(--toby-space-lg);
+            display: flex;
+            gap: var(--toby-space-md);
+        }
+
+        .banner-icon {
+            font-size: var(--toby-font-size-xl);
+            flex-shrink: 0;
+        }
+
+        .banner-content {
+            flex: 1;
+        }
+
+        .banner-content p {
+            margin-bottom: 0;
+        }
+
+        .banner.info {
+            background-color: var(--toby-info-light);
+            border-color: var(--toby-info);
+            color: #148b90;
+        }
+
+        .banner.success {
+            background-color: var(--toby-success-light);
+            border-color: var(--toby-success);
+            color: #247f55;
+        }
+
+        .banner.warning {
+            background-color: var(--toby-warning-light);
+            border-color: var(--toby-warning);
+            color: #9d5e07;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background-color: var(--toby-neutral-150);
+            margin: var(--toby-space-2xl) 0;
+        }
+
+        /* Helper Classes */
+        .text-muted {
+            color: var(--toby-neutral-500);
+        }
+
+        .text-subtle {
+            color: var(--toby-neutral-300);
+        }
+
+        .mt-lg {
+            margin-top: var(--toby-space-lg);
+        }
+
+        .mb-lg {
+            margin-bottom: var(--toby-space-lg);
+        }
+
+        .mt-xl {
+            margin-top: var(--toby-space-xl);
+        }
+    </style>
 </head>
-
 <body>
+    <div class="container">
+        <!-- Header Panel -->
+        <div class="panel">
+            <div class="panel-header">
+                <h1>SE Rapid Technical Qualification – 1 Pager</h1>
+                <p>Use this checklist to quickly determine if a customer is technically ready for Knapsack and to spot early blockers that will slow or kill an enterprise deal.</p>
+            </div>
 
-<!-- ================================ -->
-<!-- 1. PDF Section -->
-<!-- ================================ -->
-<div class="card">
-<h1>1. Your 1-Page SE Technical Qualification PDF</h1>
+            <!-- Section 1: Framework Compatibility -->
+            <h2>1. Code Framework Compatibility</h2>
+            <div class="status-section">
+                <div class="status-card go">
+                    <div class="status-label">
+                        <span class="status-icon">✓</span>
+                        <span>Go</span>
+                    </div>
+                    <ul>
+                        <li>React</li>
+                        <li>Vue</li>
+                        <li>Web Components</li>
+                        <li>Angular</li>
+                        <li>Twig</li>
+                        <li>Handlebars</li>
+                    </ul>
+                </div>
 
-<p><strong>Download here:</strong><br>
-👉 <a href="sandbox:/mnt/data/SE_Qualification_1Pager.pdf" target="_blank">SE_Qualification_1Pager.pdf</a></p>
+                <div class="status-card maybe">
+                    <div class="status-label">
+                        <span class="status-icon">⚠</span>
+                        <span>Maybe</span>
+                    </div>
+                    <ul>
+                        <li>AEM (React/Web Components)</li>
+                        <li>PHP with Twing</li>
+                        <li>Astro</li>
+                        <li>Kotlin/SwiftUI (future)</li>
+                        <li>Custom template engines</li>
+                    </ul>
+                </div>
 
-<p>If you'd like branding, color, icons, or a more visual layout, I can regenerate it.</p>
-</div>
+                <div class="status-card nogo">
+                    <div class="status-label">
+                        <span class="status-icon">✕</span>
+                        <span>No-Go</span>
+                    </div>
+                    <ul>
+                        <li>Xamarin</li>
+                        <li>AEM HTL only</li>
+                        <li>Unsupported native stacks</li>
+                        <li>Legacy Flash</li>
+                        <li>Proprietary frameworks</li>
+                    </ul>
+                </div>
+            </div>
 
-<!-- ================================ -->
-<!-- 2. Interactive Decision Tree -->
-<!-- ================================ -->
-<div class="card">
-<h1>2. Interactive Yes/No → GO/NO-GO Decision Tree</h1>
+            <!-- Section 2: Build Toolchain -->
+            <h2>2. Build / Compilation Toolchain</h2>
+            <div class="status-section">
+                <div class="status-card go">
+                    <div class="status-label">
+                        <span class="status-icon">✓</span>
+                        <span>Go</span>
+                    </div>
+                    <ul>
+                        <li>Webpack</li>
+                        <li>Vite</li>
+                        <li>ESBuild</li>
+                        <li>Rollup</li>
+                        <li>Parcel</li>
+                    </ul>
+                </div>
 
-<p>You can embed this anywhere — Notion, GitHub Pages, internal tools, etc.</p>
+                <div class="status-card maybe">
+                    <div class="status-label">
+                        <span class="status-icon">⚠</span>
+                        <span>Maybe</span>
+                    </div>
+                    <ul>
+                        <li>Custom build scripts</li>
+                        <li>Gradle/Maven variants</li>
+                        <li>Make-based builds</li>
+                        <li>Limited output capability</li>
+                    </ul>
+                </div>
 
-<div class="toggle" onclick="toggle('dt1')">1. Code Framework</div>
-<div id="dt1" class="content">
-  <p><strong>Q:</strong> Does the customer use a supported framework?</p>
-  <ul class="decision-list">
-    <li><strong>Yes → GO</strong></li>
-    <li><strong>No →</strong> Is it in MAYBE?</li>
-    <ul>
-      <li>Yes → MAYBE (requires POC)</li>
-      <li>No → <strong>NO-GO</strong></li>
-    </ul>
-  </ul>
-</div>
+                <div class="status-card nogo">
+                    <div class="status-label">
+                        <span class="status-icon">✕</span>
+                        <span>No-Go</span>
+                    </div>
+                    <ul>
+                        <li>Closed proprietary toolchain</li>
+                        <li>No build artifact output</li>
+                        <li>Monolithic build system</li>
+                        <li>Vendor lock-in patterns</li>
+                    </ul>
+                </div>
+            </div>
 
-<div class="toggle" onclick="toggle('dt2')">2. Build System</div>
-<div id="dt2" class="content">
-  <p><strong>Q:</strong> Do they use Webpack/Vite/ESBuild/Rollup?</p>
-  <ul class="decision-list">
-    <li><strong>Yes → GO</strong></li>
-    <li><strong>No →</strong> Is the build modifiable?</li>
-    <ul>
-      <li>Yes → MAYBE</li>
-      <li>No → <strong>NO-GO</strong></li>
-    </ul>
-  </ul>
-</div>
+            <div class="divider"></div>
 
-<div class="toggle" onclick="toggle('dt3')">3. Git Provider Access</div>
-<div id="dt3" class="content">
-  <p><strong>Q:</strong> Can Knapsack Cloud access their Git provider?</p>
-  <ul>
-    <li><strong>Yes → GO</strong></li>
-    <li><strong>No →</strong> Is IP allowlisting possible?</li>
-    <ul>
-      <li>Yes → MAYBE</li>
-      <li>No → <strong>NO-GO</strong></li>
-    </ul>
-  </ul>
-</div>
+            <!-- Section 3: Design System Maturity -->
+            <h2>3. Design System Maturity</h2>
 
-<div class="toggle" onclick="toggle('dt4')">4. CI/CD & Package Publishing</div>
-<div id="dt4" class="content">
-  <p><strong>Q:</strong> Do they use a supported CI/CD (GitHub Actions, GitLab, Azure)?</p>
-  <ul>
-    <li><strong>Yes → GO</strong></li>
-    <li><strong>No →</strong> Can they run Node + npm?</li>
-    <ul>
-      <li>Yes → MAYBE</li>
-      <li>No → <strong>NO-GO</strong></li>
-    </ul>
-  </ul>
-</div>
+            <div class="accordion">
+                <button class="accordion-trigger active" onclick="toggleAccordion(event)">
+                    <span>Established & Governed</span>
+                    <span class="chevron">▼</span>
+                </button>
+                <div class="accordion-content active">
+                    <div class="accordion-content-inner">
+                        <p><strong>Ready for Knapsack</strong></p>
+                        <ul>
+                            <li>Documented component guidelines</li>
+                            <li>Component library in production</li>
+                            <li>Token system in place</li>
+                            <li>Clear governance model</li>
+                            <li>Dedicated design system team</li>
+                        </ul>
+                        <p class="text-subtle mt-lg"><strong>Timeline:</strong> 3-6 months typical implementation</p>
+                    </div>
+                </div>
+            </div>
 
-<div class="toggle" onclick="toggle('dt5')">5. Hosting & Network</div>
-<div id="dt5" class="content">
-  <p><strong>Q:</strong> Can a Node.js Deployed Workspace run in their environment?</p>
-  <ul>
-    <li><strong>Yes → GO</strong></li>
-    <li><strong>No →</strong> Can Knapsack host it?</li>
-    <ul>
-      <li>Yes → MAYBE</li>
-      <li>No → <strong>NO-GO</strong></li>
-    </ul>
-  </ul>
-</div>
+            <div class="accordion">
+                <button class="accordion-trigger" onclick="toggleAccordion(event)">
+                    <span>Emerging System</span>
+                    <span class="chevron">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p><strong>Requires some setup</strong></p>
+                        <ul>
+                            <li>Some components exist but scattered</li>
+                            <li>Process is unclear or ad-hoc</li>
+                            <li>Documentation is inconsistent</li>
+                            <li>No formal governance</li>
+                            <li>Shared responsibility across teams</li>
+                        </ul>
+                        <p class="text-subtle mt-lg"><strong>Timeline:</strong> 6-9 months (add token setup phase)</p>
+                    </div>
+                </div>
+            </div>
 
-<div class="toggle" onclick="toggle('dt6')">6. SSO / Identity Provider</div>
-<div id="dt6" class="content">
-  <p><strong>Q:</strong> Do they use Okta/Azure/SAML/OAuth?</p>
-  <ul>
-    <li><strong>Yes → GO</strong></li>
-    <li><strong>No →</strong> Is custom IdP connectable?</li>
-    <ul>
-      <li>Yes → MAYBE</li>
-      <li>No → <strong>NO-GO</strong></li>
-    </ul>
-  </ul>
-</div>
+            <div class="accordion">
+                <button class="accordion-trigger" onclick="toggleAccordion(event)">
+                    <span>Ad-Hoc / No System</span>
+                    <span class="chevron">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p><strong>Heavy lift required</strong></p>
+                        <ul>
+                            <li>No formal design system</li>
+                            <li>Inconsistent patterns across properties</li>
+                            <li>Fragmented component implementations</li>
+                            <li>No centralized token management</li>
+                            <li>High technical debt</li>
+                        </ul>
+                        <p class="text-subtle mt-lg"><strong>Timeline:</strong> 12+ months (foundation building first)</p>
+                    </div>
+                </div>
+            </div>
 
-<h3>Overall Rule:</h3>
-<ul>
-  <li><strong>0–1 NO-GO:</strong> Proceed with POC or Fast-Path</li>
-  <li><strong>2–3 NO-GO:</strong> Escalate to Architecture Team</li>
-  <li><strong>>3 NO-GO:</strong> Not viable in current state</li>
-</ul>
+            <div class="divider"></div>
 
-</div>
+            <!-- Section 4: Quick Questions -->
+            <h2>4. Quick Qualification Questions</h2>
 
-<!-- ================================ -->
-<!-- 3. Notion Table -->
-<!-- ================================ -->
-<div class="card">
-<h1>3. Notion-Ready Qualification Table</h1>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Response</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Can you auto-generate component code from design changes?</strong></td>
+                            <td><span class="badge go">Yes = Ready</span><span class="badge nogo">No = Blocker</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Do design tokens exist in code?</strong></td>
+                            <td><span class="badge go">Yes = Ready</span><span class="badge maybe">Partial = Phase 1</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Single primary tech stack?</strong></td>
+                            <td><span class="badge go">Yes = Ready</span><span class="badge maybe">Multiple = Plan</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dedicated design system team or owner?</strong></td>
+                            <td><span class="badge go">Yes = Ready</span><span class="badge maybe">No = Establish first</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-<table>
-<thead>
-<tr>
-<th>Validation Category</th>
-<th>GO (Green)</th>
-<th>MAYBE (Yellow)</th>
-<th>NO-GO (Red)</th>
-<th>Notes / Actions</th>
-</tr>
-</thead>
+            <!-- Decision Framework -->
+            <div class="divider"></div>
+            <h2>5. Decision Framework</h2>
 
-<tbody>
-<tr>
-<td><strong>Code Framework</strong></td>
-<td>React, Vue, Web Components, Angular, Twig, Handlebars</td>
-<td>AEM (React/WE), PHP Twing, Astro, Kotlin/SwiftUI future</td>
-<td>AEM HTL, Xamarin, unsupported native stacks</td>
-<td>If MAYBE, schedule component POC</td>
-</tr>
+            <div class="banner success">
+                <span class="banner-icon">✓</span>
+                <div class="banner-content">
+                    <p><strong>Proceed if:</strong> 3+ "Yes" answers + compatible tech stack + clear technical ownership</p>
+                </div>
+            </div>
 
-<tr>
-<td><strong>Build Toolchain</strong></td>
-<td>Webpack, Vite, ESBuild, Rollup</td>
-<td>Custom or legacy bundlers</td>
-<td>No JS pipeline</td>
-<td>Confirm output format</td>
-</tr>
+            <div class="banner warning">
+                <span class="banner-icon">⚠</span>
+                <div class="banner-content">
+                    <p><strong>Explore further if:</strong> 2 "Yes" answers + defined blockers + willingness to address in parallel</p>
+                </div>
+            </div>
 
-<tr>
-<td><strong>Git Provider</strong></td>
-<td>GH Cloud/Enterprise, GitLab, Azure DevOps, Bitbucket</td>
-<td>On-prem w/ allowlists</td>
-<td>No external access</td>
-<td>Requires App/Token</td>
-</tr>
+            <div class="banner info">
+                <span class="banner-icon">ℹ</span>
+                <div class="banner-content">
+                    <p><strong>Not a fit if:</strong> 1 or fewer "Yes" answers + incompatible framework or vendor lock-in</p>
+                </div>
+            </div>
 
-<tr>
-<td><strong>Repo Model</strong></td>
-<td>Dedicated repo or monorepo</td>
-<td>Complex monorepo</td>
-<td>No ability to modify repo</td>
-<td>Identify owning team</td>
-</tr>
+        </div>
 
-<tr>
-<td><strong>CI/CD</strong></td>
-<td>GH Actions, GitLab CI, Azure Pipelines</td>
-<td>Jenkins, Artifactory, CodeArtifact</td>
-td>No CI/CD, no Node</td>
-<td>Validate npm execution</td>
-</tr>
+        <!-- Footer Note -->
+        <div class="panel" style="background-color: var(--toby-neutral-50); border: 1px solid var(--toby-neutral-150);">
+            <p class="text-muted"><strong>Next Step:</strong> For qualified leads, proceed to technical discovery call and request system architecture overview.</p>
+        </div>
+    </div>
 
-<tr>
-<td><strong>Package Hosting</strong></td>
-<td>npm, GH Packages, Azure Artifacts</td>
-<td>AWS CodeArtifact, JFrog, Verdaccio</td>
-<td>No registry exposure</td>
-<td>Ensure versioning workflow</td>
-</tr>
-
-<tr>
-<td><strong>Hosting</strong></td>
-<td>Knapsack hosting, AWS, Azure</td>
-<td>Self-hosted Node w/firewall</td>
-<td>No Node support</td>
-<td>Request hosting architecture</td>
-</tr>
-
-<tr>
-<td><strong>Network Connectivity</strong></td>
-<td>External cloud connectivity</td>
-<td>VPN/IP whitelist required</td>
-<td>No external connectivity</td>
-<td>Confirm ingress/egress rules</td>
-</tr>
-
-<tr>
-<td><strong>SSO Identity</strong></td>
-<td>Okta, Azure AD, SAML/OAuth</td>
-<td>Custom IdP</td>
-<td>Unsupported protocols</td>
-<td>Collect IdP metadata</td>
-</tr>
-
-<tr>
-<td><strong>Risk Score</strong></td>
-<td>0–1 NO-GO</td>
-<td>2–3 NO-GO</td>
-<td>>3 NO-GO</td>
-<td>Determines pathing</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-
-
+    <script>
+        function toggleAccordion(event) {
+            const trigger = event.target.closest('.accordion-trigger');
+            const accordion = trigger.closest('.accordion');
+            const content = accordion.querySelector('.accordion-content');
+            const chevron = trigger.querySelector('.chevron');
+            
+            // Close siblings
+            document.querySelectorAll('.accordion-trigger').forEach(btn => {
+                if (btn !== trigger) {
+                    btn.classList.remove('active');
+                    btn.closest('.accordion').querySelector('.accordion-content').classList.remove('active');
+                }
+            });
+            
+            // Toggle current
+            trigger.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
