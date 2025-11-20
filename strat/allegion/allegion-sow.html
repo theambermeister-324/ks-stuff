@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statement of Work - Allegion Design System Initiative</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+            background: #ffffff;
+            color: #28262c;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 48px;
+            background: #ffffff;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6436bf 0%, #42247f 100%);
+            color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .header .doc-type {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .header .subtitle {
+            font-size: 1rem;
+            opacity: 0.95;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .meta-info {
+            background: #f3effb;
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 32px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .meta-item {
+            font-size: 0.875rem;
+        }
+
+        .meta-item strong {
+            color: #6436bf;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #42247f;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+            border-bottom: 2px solid #6436bf;
+            padding-bottom: 8px;
+        }
+
+        .section h3 {
+            color: #6436bf;
+            font-size: 1.125rem;
+            margin-bottom: 12px;
+            margin-top: 24px;
+            font-weight: 700;
+        }
+
+        .section p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .section ul {
+            margin-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        .section li {
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .workstream-box {
+            background: linear-gradient(135deg, #faf9fa 0%, #f3effb 100%);
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            border: 2px solid #e0d4f7;
+        }
+
+        .workstream-box h3 {
+            color: #42247f;
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            margin-top: 0;
+        }
+
+        .workstream-box h4 {
+            color: #6436bf;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            margin-top: 16px;
+            font-weight: 700;
+        }
+
+        .win-themes {
+            background: linear-gradient(135deg, #faf9fa 0%, #f3effb 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            border-left: 4px solid #6436bf;
+        }
+
+        .win-themes ol {
+            margin-left: 20px;
+        }
+
+        .win-themes li {
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #42247f;
+        }
+
+        .highlight-box {
+            background: #ffffff;
+            border: 2px solid #e0d4f7;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .highlight-box h4 {
+            color: #6436bf;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .phase {
+            background: linear-gradient(135deg, #faf9fa 0%, #f3effb 100%);
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            border: 2px solid #e0d4f7;
+        }
+
+        .phase h3 {
+            color: #42247f;
+            font-size: 1.125rem;
+            margin-bottom: 8px;
+            margin-top: 0;
+        }
+
+        .phase .phase-meta {
+            color: #6436bf;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .phase strong {
+            color: #42247f;
+        }
+
+        .important-box {
+            background: #fdedf0;
+            border-left: 4px solid #e43a5c;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+        }
+
+        .important-box h4 {
+            color: #e43a5c;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .table-container {
+            background: #faf9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #42247f;
+            color: #ffffff;
+            padding: 12px;
+            text-align: left;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e0d4f7;
+            font-size: 0.9rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .schedule-timeline {
+            background: #ffffff;
+            border: 2px solid #e0d4f7;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3effb;
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: #6436bf;
+            font-size: 0.875rem;
+        }
+
+        .timeline-content {
+            font-size: 0.9rem;
+        }
+
+        .signature-section {
+            background: #28262c;
+            color: #ffffff;
+            padding: 32px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+
+        .signature-section h2 {
+            color: #ffffff;
+            border-bottom-color: #6436bf;
+        }
+
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 24px;
+        }
+
+        .signature-box {
+            background: #ffffff;
+            color: #28262c;
+            padding: 20px;
+            border-radius: 6px;
+        }
+
+        .signature-box h3 {
+            color: #6436bf;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            margin-top: 0;
+        }
+
+        .signature-field {
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e0d4f7;
+        }
+
+        .signature-field label {
+            font-size: 0.875rem;
+            color: #6436bf;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .page {
+                padding: 0.5in;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <div class="doc-type">Statement of Work No. 1</div>
+            <h1>Allegion Design System Initiative</h1>
+            <div class="subtitle">Knapsack Professional Services – CX Partnership & Technical Implementation</div>
+        </div>
+
+        <!-- BACKGROUND / TERMS -->
+        <div class="section">
+            <h2>Background & Terms</h2>
+            
+            <h3>Project Context</h3>
+            <p>Knapsack will support Allegion's 2026 enterprise design system initiative through two coordinated workstreams. This engagement aligns to Allegion's critical WIN themes:</p>
+            
+            <div class="win-themes">
+                <ol>
+                    <li>Efficiency & Speed</li>
+                    <li>Scalability & Consistency Across 10+ Brands</li>
+                    <li>AI Readiness & Innovation</li>
+                </ol>
+            </div>
+
+            <p>This SOW provides: <strong>(A) CX Partnership</strong> for strategy, governance, and AI advisory, and <strong>(B) Implementation Workstream</strong> for technical enablement and deployment support.</p>
+
+            <div class="important-box">
+                <h4>AI Advisory Role</h4>
+                <p>Knapsack will act as Allegion's AI advisor, offering guidance, frameworks, and workflow recommendations. Knapsack will not implement or deploy AI systems in Allegion's environment. Allegion retains all responsibility for AI system implementation.</p>
+            </div>
+
+            <h3>Governing Terms</h3>
+            <p>This Statement of Work ("SOW") is subject to the terms of the Customer Agreement between Knapsack Company ("Knapsack") and Allegion ("Customer"). Capitalized terms not otherwise defined herein have the meanings set forth in the Customer Agreement. In the event of any conflict between this SOW and the Customer Agreement, the Customer Agreement governs.</p>
+        </div>
+
+        <!-- CONTRACT INFORMATION -->
+        <div class="section">
+            <h2>Contract Information</h2>
+            <div class="meta-info">
+                <div class="meta-item">
+                    <strong>Customer Name:</strong>
+                    Allegion
+                </div>
+                <div class="meta-item">
+                    <strong>Project Name:</strong>
+                    Allegion Design System Initiative
+                </div>
+                <div class="meta-item">
+                    <strong>SOW Effective Date:</strong>
+                    ________
+                </div>
+                <div class="meta-item">
+                    <strong>Contract Duration:</strong>
+                    12 months from SOW Effective Date
+                </div>
+                <div class="meta-item">
+                    <strong>Customer Project Coordinator:</strong>
+                    ________
+                </div>
+                <div class="meta-item">
+                    <strong>Knapsack Project Coordinator:</strong>
+                    ________
+                </div>
+            </div>
+
+            <h3>Project Oversight</h3>
+            <p>Each party will appoint a Project Coordinator with day-to-day responsibility for scheduling, coordination, and communication. Knapsack management will provide weekly or agreed-upon oversight. All services will be delivered remotely.</p>
+        </div>
+
+        <!-- BRIEF DESCRIPTION / ASSUMPTIONS -->
+        <div class="section">
+            <h2>Description & Assumptions</h2>
+            
+            <h3>Scope of Services</h3>
+            <p>Knapsack will deliver two coordinated workstreams to support Allegion's unified design system across 10+ brands with multi-stack complexity.</p>
+
+            <div class="workstream-box">
+                <h3>Workstream A — CX Partnership (Strategy, Governance & AI Advisory)</h3>
+                <p>Knapsack's CX Partner will guide governance, strategic alignment, design system operating model definition, and development of Allegion's AI-Enabled Operating Model.</p>
+                <h4>Services Included:</h4>
+                <ul>
+                    <li>Design System Charter development</li>
+                    <li>Governance Framework definition</li>
+                    <li>Multi-Brand Operating Model design</li>
+                    <li>Contribution Processes & Templates</li>
+                    <li>Change Management & Communication Plan</li>
+                    <li>UX & Content Training</li>
+                    <li>KPI & Measurement Framework</li>
+                    <li>AI-Enabled Operating Model (Advisory)</li>
+                </ul>
+                <h4>AI-Enabled Operating Model (Advisory):</h4>
+                <p>Knapsack will advise on how Allegion can:</p>
+                <ul>
+                    <li>Prepare components, tokens, design patterns, and workflows for AI augmentation</li>
+                    <li>Govern AI-assisted workflows</li>
+                    <li>Evolve manual processes toward AI-supported practices over time</li>
+                    <li>Structure future AI capability growth</li>
+                </ul>
+                <p><strong>Note:</strong> Allegion retains all responsibility for AI system implementation.</p>
+            </div>
+
+            <div class="workstream-box">
+                <h3>Workstream B — Implementation Workstream (Technical Enablement)</h3>
+                <p>Due to multi-brand, multi-stack complexity, a 10% FTE Forward-Deployed Engineer (FDE) is required for 12 months to provide technical enablement activities.</p>
+                <h4>Services Included:</h4>
+                <ul>
+                    <li>Environment preparation and validation</li>
+                    <li>Local install support</li>
+                    <li>Component rendering support</li>
+                    <li>Rendering SME guidance</li>
+                    <li>Deployment support</li>
+                    <li>DevOps/CI/CD SME support</li>
+                    <li>Cloud authoring setup & testing</li>
+                    <li>SSO setup coordination</li>
+                    <li>Engineering training</li>
+                    <li>UX & Content training</li>
+                    <li>Transition support</li>
+                </ul>
+            </div>
+
+            <h3>Key Assumptions</h3>
+            
+            <p><strong>Customer Responsibilities:</strong></p>
+            <ul>
+                <li>Allegion owns implementation of design, engineering, and AI systems</li>
+                <li>Provide stakeholder access, documentation, and timely approvals</li>
+                <li>Supply SME availability for technical coordination</li>
+                <li>Manage all code repositories, infrastructure, and system integrations</li>
+                <li>Own all updates to design assets, code components, and token implementations</li>
+            </ul>
+
+            <p><strong>Knapsack Responsibilities:</strong></p>
+            <ul>
+                <li>Provide strategic guidance, CX partnership, and AI advisory only</li>
+                <li>Provide FDE technical enablement support for implementation complexity</li>
+                <li>Not perform production deployment or AI system implementation</li>
+            </ul>
+
+            <p><strong>Project Dependencies:</strong></p>
+            <ul>
+                <li>Customer approvals and SME availability impact project timelines</li>
+                <li>FDE support is required due to implementation complexity</li>
+            </ul>
+        </div>
+
+        <!-- ACTIVITIES -->
+        <div class="section">
+            <h2>Activities</h2>
+
+            <div class="phase">
+                <h3>Phase 1 — Implementation + Onboarding / Foundation & Operating Model Definition</h3>
+                <div class="phase-meta">Months 1–2</div>
+                <p><strong>Objective:</strong> Establish stakeholder alignment, environment readiness, AI Operating Model definition (advisory), early rendering setup, and initial governance alignment.</p>
+                <p><strong>Key Activities:</strong></p>
+                <ul>
+                    <li>Stakeholder discovery sessions and interviews</li>
+                    <li>Environment preparation and validation</li>
+                    <li>Initial component rendering setup</li>
+                    <li>WIN-theme alignment workshops</li>
+                    <li>AI Operating Model definition (advisory)</li>
+                    <li>Initial governance structure and decision-making processes</li>
+                    <li>Local install support</li>
+                </ul>
+            </div>
+
+            <div class="phase">
+                <h3>Phase 2 — Scaled Rollout + Multi-Brand Implementation</h3>
+                <div class="phase-meta">Months 3–5</div>
+                <p><strong>Objective:</strong> Multi-brand implementation support, rendering expansion, SSO integration support, cloud authoring configuration, and governance reinforcement.</p>
+                <p><strong>Key Activities:</strong></p>
+                <ul>
+                    <li>Multi-brand token and theming strategy implementation</li>
+                    <li>Component rendering expansion across frameworks</li>
+                    <li>SSO integration coordination</li>
+                    <li>Cloud authoring configuration and testing</li>
+                    <li>Contribution guidelines and templates</li>
+                    <li>Cross-brand decision framework</li>
+                    <li>Governance reinforcement</li>
+                    <li>Brand-specific training sessions</li>
+                </ul>
+            </div>
+
+            <div class="phase">
+                <h3>Phase 3 — Deployment Enablement & Workflow Readiness</h3>
+                <div class="phase-meta">Months 6–8</div>
+                <p><strong>Objective:</strong> Deployment workflows, CI/CD validation, QA support, engineering enablement, and refinement of AI-ready processes (advisory).</p>
+                <p><strong>Key Activities:</strong></p>
+                <ul>
+                    <li>Deployment workflow configuration</li>
+                    <li>CI/CD pipeline validation and support</li>
+                    <li>DevOps SME guidance</li>
+                    <li>QA and testing support</li>
+                    <li>Engineering enablement sessions</li>
+                    <li>AI readiness roadmap and use case modeling</li>
+                    <li>Requirements for MCP and intelligent automation (advisory)</li>
+                    <li>Audit framework for future AI-powered reviews</li>
+                </ul>
+            </div>
+
+            <div class="phase">
+                <h3>Phase 4 — Enterprise Adoption & Model Reinforcement</h3>
+                <div class="phase-meta">Months 9–11</div>
+                <p><strong>Objective:</strong> Persona-specific training, adoption support, governance reinforcement, communication, and change management activities.</p>
+                <p><strong>Key Activities:</strong></p>
+                <ul>
+                    <li>Persona-specific training (designers, developers, product managers)</li>
+                    <li>Adoption support and office hours</li>
+                    <li>Governance charter finalization</li>
+                    <li>Maintenance and audit process documentation</li>
+                    <li>Change management campaigns</li>
+                    <li>Stakeholder communication plans</li>
+                    <li>Success story documentation</li>
+                </ul>
+            </div>
+
+            <div class="phase">
+                <h3>Phase 5 — Optimization & Transition / Future-State Planning</h3>
+                <div class="phase-meta">Month 12</div>
+                <p><strong>Objective:</strong> Transition documentation, handoff to Allegion teams, optimization planning, and future AI/design system roadmap (advisory).</p>
+                <p><strong>Key Activities:</strong></p>
+                <ul>
+                    <li>Transition documentation and knowledge transfer</li>
+                    <li>Handoff to internal Allegion teams</li>
+                    <li>Optimization recommendations</li>
+                    <li>KPI dashboard and adoption measurement strategy</li>
+                    <li>Annual program performance review</li>
+                    <li>Future-state AI and design system roadmap (advisory)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- DELIVERABLES / ACCEPTANCE CRITERIA -->
+        <div class="section">
+            <h2>Deliverables & Acceptance Criteria</h2>
+
+            <div class="highlight-box">
+                <h4>Phase 1 Deliverables (Months 1–2)</h4>
+                <ul>
+                    <li>WIN-Theme–aligned system charter document</li>
+                    <li>Environment readiness validation report</li>
+                    <li>Initial component rendering setup</li>
+                    <li>Multi-brand operating model framework</li>
+                    <li>Initial governance structure documentation</li>
+                    <li>AI Operating Model definition (advisory document)</li>
+                </ul>
+                <p><strong>Acceptance Criteria:</strong> Customer approval of charter, governance structure, and environment validation within 10 business days of delivery.</p>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Phase 2 Deliverables (Months 3–5)</h4>
+                <ul>
+                    <li>Multi-brand rendering implementation</li>
+                    <li>SSO integration (coordinated with Customer IT)</li>
+                    <li>Cloud authoring configured and tested</li>
+                    <li>Multi-brand token and theme strategy</li>
+                    <li>Contribution guidelines and templates</li>
+                    <li>Cross-brand decision framework</li>
+                </ul>
+                <p><strong>Acceptance Criteria:</strong> Successful multi-brand rendering validation and Customer sign-off on strategy within 10 business days of delivery.</p>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Phase 3 Deliverables (Months 6–8)</h4>
+                <ul>
+                    <li>Deployment workflow documentation</li>
+                    <li>CI/CD integration validated</li>
+                    <li>Engineering enablement materials</li>
+                    <li>AI readiness roadmap</li>
+                    <li>Requirements documentation for MCP and intelligent automation (advisory)</li>
+                    <li>Audit framework for future AI-powered reviews</li>
+                </ul>
+                <p><strong>Acceptance Criteria:</strong> Successful deployment validation and Customer approval of AI roadmap within 10 business days of delivery.</p>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Phase 4 Deliverables (Months 9–11)</h4>
+                <ul>
+                    <li>Final governance charter</li>
+                    <li>Maintenance and audit process documentation</li>
+                    <li>Training curriculum and materials (all personas)</li>
+                    <li>Onboarding module for contributors</li>
+                    <li>Change management campaign materials</li>
+                </ul>
+                <p><strong>Acceptance Criteria:</strong> Completion of training sessions with 80%+ stakeholder attendance and Customer approval of documentation within 10 business days.</p>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Phase 5 Deliverables (Month 12)</h4>
+                <ul>
+                    <li>Transition documentation and handoff materials</li>
+                    <li>Optimization recommendations report</li>
+                    <li>KPI dashboard and adoption measurement strategy</li>
+                    <li>Annual program performance review</li>
+                    <li>Future-state roadmap (AI and design system)</li>
+                </ul>
+                <p><strong>Acceptance Criteria:</strong> Customer approval of final deliverables, performance review, and successful handoff within 10 business days of delivery.</p>
+            </div>
+        </div>
+
+        <!-- SCHEDULE -->
+        <div class="section">
+            <h2>Schedule</h2>
+            <div class="schedule-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Months 1–2</div>
+                    <div class="timeline-content">Phase 1: Implementation + Onboarding / Foundation & Operating Model Definition</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Months 3–5</div>
+                    <div class="timeline-content">Phase 2: Scaled Rollout + Multi-Brand Implementation</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Months 6–8</div>
+                    <div class="timeline-content">Phase 3: Deployment Enablement & Workflow Readiness</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Months 9–11</div>
+                    <div class="timeline-content">Phase 4: Enterprise Adoption & Model Reinforcement</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Month 12</div>
+                    <div class="timeline-content">Phase 5: Optimization & Transition / Future-State Planning</div>
+                </div>
+            </div>
+
+            <h3>Milestone Reviews</h3>
+            <p>Formal milestone reviews will be conducted at the completion of each phase. Customer approval is required before proceeding to the next phase.</p>
+        </div>
+
+        <!-- RESOURCES -->
+        <div class="section">
+            <h2>Resources</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Knapsack Resource</th>
+                            <th>Role</th>
+                            <th>Allocation</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CX Partner / Program & Change Management</td>
+                            <td>Strategic guidance, program leadership, stakeholder engagement, governance, AI advisory, change management</td>
+                            <td>15% FTE</td>
+                            <td>12 months</td>
+                        </tr>
+                        <tr>
+                            <td>Forward-Deployed Engineer (FDE)</td>
+                            <td>Technical enablement, rendering support, deployment guidance, DevOps/CI/CD support, engineering training</td>
+                            <td>10% FTE</td>
+                            <td>12 months</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Customer Resources Required</h3>
+            <ul>
+                <li>Program Lead for strategic oversight and approvals</li>
+                <li>Engineering team for implementation and technical coordination</li>
+                <li>Design system team members for workshops and collaborative sessions</li>
+                <li>IT/DevOps support for SSO, CI/CD, and infrastructure</li>
+                <li>Stakeholder availability for interviews, workshops, and training sessions</li>
+            </ul>
+        </div>
+
+        <!-- COSTS -->
+        <div class="section">
+            <h2>Costs</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 60%;">Services</th>
+                            <th>Fee</th>
+                            <th>Discount</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CX Partnership: Strategic Program Alignment, Governance, Change Management, & AI Advisory</td>
+                            <td>$___</td>
+                            <td>___%</td>
+                            <td>$___</td>
+                        </tr>
+                        <tr>
+                            <td>Implementation Workstream: Technical Enablement & Forward-Deployed Engineer Support</td>
+                            <td>$___</td>
+                            <td>___%</td>
+                            <td>$___</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="text-align: right; font-weight: 700; color: #6436bf;">Total Professional Services Fees:</td>
+                            <td style="font-weight: 700; color: #6436bf;">$________</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Payment Terms</h3>
+            <p>Fees are payable according to the payment schedule defined in the Customer Agreement. Invoices will be issued monthly based on work completed.</p>
+
+            <h3>Expenses</h3>
+            <p>All services will be delivered remotely. No travel or additional expenses are anticipated. Any extraordinary expenses must be pre-approved in writing by Customer.</p>
+        </div>
+
+        <!-- APPENDIX -->
+        <div class="section">
+            <h2>Appendix: Supporting Information</h2>
+            
+            <h3>A. WIN Theme Details</h3>
+            <div class="win-themes">
+                <p><strong>WIN Theme 1: Efficiency & Speed</strong></p>
+                <p style="margin-top: 8px;">Focus on accelerating product development, eliminating redundant work, and enabling teams to deliver faster with reusable components and clear guidelines.</p>
+            </div>
+
+            <div class="win-themes">
+                <p><strong>WIN Theme 2: Scalability & Consistency Across 10+ Brands</strong></p>
+                <p style="margin-top: 8px;">Establish unified design standards that accommodate multiple brand identities while maintaining consistency and enabling scale without proportional headcount increases.</p>
+            </div>
+
+            <div class="win-themes">
+                <p><strong>WIN Theme 3: AI Readiness & Innovation</strong></p>
+                <p style="margin-top: 8px;">Future-proof the design system for AI-augmented workflows, including automated component generation, intelligent audits, and design operations optimization.</p>
+            </div>
+
+            <h3>B. Success Metrics</h3>
+            <ul>
+                <li>Governance model operational within 90 days</li>
+                <li>Component rendering validated across multiple frameworks by month 5</li>
+                <li>SSO and cloud authoring configured by month 5</li>
+                <li>CI/CD deployment workflows validated by month 8</li>
+                <li>80%+ stakeholder participation in training and enablement sessions</li>
+                <li>AI readiness roadmap completed by month 8</li>
+                <li>Successful transition and handoff by month 12</li>
+            </ul>
+
+            <h3>C. Communication Plan</h3>
+            <ul>
+                <li>Weekly status calls between project coordinators</li>
+                <li>Bi-weekly stakeholder updates</li>
+                <li>Monthly executive summaries</li>
+                <li>Phase gate reviews at completion of each phase</li>
+                <li>Ad-hoc technical sessions as needed for implementation support</li>
+            </ul>
+        </div>
+
+        <!-- SIGNATURE SECTION -->
+        <div class="signature-section">
+            <h2>Acceptance & Signatures</h2>
+            <p style="margin-bottom: 24px; opacity: 0.9;">By signing below, both parties agree to the terms and conditions outlined in this Statement of Work.</p>
+            <div class="signature-grid">
+                <div class="signature-box">
+                    <h3>Knapsack Company</h3>
+                    <div class="signature-field">
+                        <label>Signature:</label>
+                        _______________________
+                    </div>
+                    <div class="signature-field">
+                        <label>Name:</label>
+                        _______________________
+                    </div>
+                    <div class="signature-field">
+                        <label>Title:</label>
+                        _______________________
+                    </div>
+                    <div class="signature-field">
+                        <label>Date:</label>
+                        _______________________
+                    </div>
+                </div>
+                <div class="signature-box">
+                    <h3>Customer: Allegion</h3>
+                    <div class="signature-field">
+                        <label>Signature:</label>
+                        _______________________
+                    </div>
+                    <div class="signature-field">
+                        <label>Name:</label>
+                        _______________________
+                    </div>
+                    <div class="signature-field">
+                        <label>Title:</label>
+                        _______________________
+                    </div>
+                    <div class="signature-field">
+                        <label>Date:</label>
+                        _______________________
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
