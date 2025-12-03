@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pittsburgh Post-Gazette</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+Pro:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Source Serif Pro', Georgia, serif;
+      background: #f5f5f0;
+      color: #1a1a1a;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    
+    .newspaper {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    }
+    
+    .masthead {
+      text-align: center;
+      padding: 20px 30px 15px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    
+    .masthead-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 10px;
+      color: #666;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .newspaper-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: #1a1a1a;
+      text-transform: uppercase;
+    }
+    
+    .tagline {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      color: #666;
+      margin-top: 5px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    
+    .nav-bar {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 12px 20px;
+      background: #1a1a1a;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .nav-bar span {
+      color: #fff;
+    }
+    
+    .article-container {
+      padding: 30px 40px 40px;
+    }
+    
+    .section-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #c41230;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 15px;
+      color: #1a1a1a;
+    }
+    
+    .subheadline {
+      font-family: 'Source Serif Pro', serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: #444;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    
+    .byline {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 12px;
+      color: #666;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 25px;
+    }
+    
+    .byline strong {
+      color: #1a1a1a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .article-body {
+      column-count: 2;
+      column-gap: 35px;
+      column-rule: 1px solid #e0e0e0;
+    }
+    
+    .article-body p {
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+      text-align: justify;
+      hyphens: auto;
+    }
+    
+    .article-body p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 58px;
+      float: left;
+      line-height: 0.8;
+      padding-right: 10px;
+      padding-top: 5px;
+      color: #c41230;
+      font-weight: 700;
+    }
+    
+    .pull-quote {
+      break-inside: avoid;
+      background: #f8f8f5;
+      border-left: 4px solid #c41230;
+      padding: 20px 25px;
+      margin: 20px 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: #333;
+      line-height: 1.5;
+    }
+    
+    .stats-box {
+      break-inside: avoid;
+      background: #1a1a1a;
+      color: #fff;
+      padding: 25px;
+      margin: 20px 0;
+    }
+    
+    .stats-box h4 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+      color: #c41230;
+    }
+    
+    .stat-item {
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #333;
+    }
+    
+    .stat-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+    }
+    
+    .stat-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .subhead {
+      break-inside: avoid;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 25px 0 15px;
+      color: #1a1a1a;
+    }
+    
+    .closing-quote {
+      break-inside: avoid;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 25px;
+      border-top: 2px solid #1a1a1a;
+      border-bottom: 2px solid #1a1a1a;
+    }
+    
+    .closing-quote p {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-style: italic;
+      line-height: 1.5;
+      color: #1a1a1a;
+      text-align: center !important;
+    }
+    
+    .closing-quote p strong {
+      display: block;
+      margin-top: 10px;
+      font-style: normal;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="newspaper">
+    <header class="masthead">
+      <div class="masthead-top">
+        <span>Pittsburgh, Pennsylvania</span>
+        <span>Wednesday, December 3, 2025</span>
+        <span>post-gazette.com</span>
+      </div>
+      <div class="newspaper-title">Pittsburgh Post-Gazette</div>
+      <div class="tagline">One of America's Great Newspapers</div>
+    </header>
+    
+    <nav class="nav-bar">
+      <span>News</span>
+      <span>Business</span>
+      <span>Sports</span>
+      <span>Opinion</span>
+      <span>Arts</span>
+      <span>Life</span>
+    </nav>
+    
+    <article class="article-container">
+      <div class="section-label">Business / Technology</div>
+      
+      <h1 class="headline">PNC's 'Brilliantly Boring' Design System Transformation Quietly Unlocks Enterprise-Scale Digital Modernization</h1>
+      
+      <p class="subheadline">Pittsburgh-based banking giant achieves what few can: a steady, disciplined approach to digital transformation that's now powering consistent experiences for millions of customers</p>
+      
+      <div class="byline">
+        <strong>Post-Gazette Business Desk</strong> | December 3, 2025
+      </div>
+      
+      <div class="article-body">
+        <p>In a financial landscape fueled by flashiness and digital hype, PNC has doubled down on something far more powerful: reliability. The company announced a major milestone in its digital modernization journey with the evolution of Ledger, PNC's enterprise design system that is silently powering consistent, effortless, and trusted digital experiences for millions of customers.</p>
+        
+        <p>In a space where many organizations struggle to operationalize design systems, PNC achieved what few can: a transformation that's "brilliantly boring"—steady, disciplined, and engineered for real-world scale. This work has become a foundational accelerator of PNC's broader modernization efforts, improving delivery velocity by more than 30%, reducing redundant design and engineering work by 40%, and increasing cross-team alignment and reuse by more than three times.</p>
+        
+        <div class="stats-box">
+          <h4>By the Numbers</h4>
+          <div class="stat-item">
+            <div class="stat-number">30%+</div>
+            <div class="stat-label">Improvement in delivery velocity</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">40%</div>
+            <div class="stat-label">Reduction in duplicate work</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">3×</div>
+            <div class="stat-label">Increase in component reuse</div>
+          </div>
+        </div>
+        
+        <p>And though the transformation was quiet by design, its impact has been anything but. It has positioned PNC as an emerging leader in enterprise design systems and a contributor to national conversations about scalable digital design—including at industry events such as Figma's flagship conference, Config.</p>
+        
+        <div class="subhead">A Cultural Shift Rooted in Discipline</div>
+        
+        <p>The success of Ledger's evolution wasn't born out of urgency—it was built on clarity. PNC's product, design, and engineering teams aligned behind a shared mission: make the complex simple and the experience seamless.</p>
+        
+        <p>This disciplined approach created measurable cultural gains including stronger collaboration across product, design, and engineering; streamlined, predictable communication flows; transparent prioritization and decision-making; clear, repeatable governance and intake processes; and designers and developers operating with shared accountability.</p>
+        
+        <div class="pull-quote">
+          "It's the kind of culture where momentum builds quietly—and results compound."
+        </div>
+        
+        <div class="subhead">From Governance to Growth</div>
+        
+        <p>Over the past year, PNC has modernized its design system end to end, introducing a series of durable, scalable improvements that now underpin its digital ecosystem. These include successful migration of components and patterns into Figma, modernized and simplified token architecture, and the launch of the first fully Figma-native version of the Ledger Design System.</p>
+        
+        <p>The company also integrated research and testing workflows to ensure usability and accessibility, introduced new contribution tools, documentation systems, and automated specs, and strengthened collaboration between design and engineering with a clear governance model enabling consistent, predictable delivery.</p>
+        
+        <p>Ledger is now simpler to use, easier to extend, and more reliable—as boring and brilliant as a system should be.</p>
+        
+        <div class="subhead">Quantifiable Impact</div>
+        
+        <p>The modernization of Ledger has accelerated the pace and quality of PNC's digital transformation. Early results include significant reductions in accessibility defects and remediation time, meaningful improvement in UI consistency across major customer journeys, and faster onboarding and clearer handoffs between teams.</p>
+        
+        <p>Customers experience digital interactions that feel simple, consistent, and trustworthy. Internally, teams report better clarity, higher satisfaction, and a more grounded sense of ownership. It's not glamorous—but it's game-changing.</p>
+        
+        <div class="subhead">Outpacing the Competition</div>
+        
+        <p>While many financial institutions grapple with fragmented design tooling, inconsistent UX, and slow modernization cycles, PNC has quietly built an operational backbone that lets it move faster, deliver cleaner experiences, and scale more predictably than many of its peers.</p>
+        
+        <p>PNC is now shipping updates more efficiently than typical industry benchmarks, delivering more consistent enterprise-wide digital experiences, reducing technical and design debt at scale, and modernizing with repeatable processes rather than one-off heroics.</p>
+        
+        <p>This disciplined, system-first approach has become a competitive advantage—though a decidedly boring one. And that's the point.</p>
+        
+        <div class="subhead">What's Next</div>
+        
+        <p>Ledger's evolution is just the beginning. PNC will continue investing in modern design tools, scalable systems, and cross-enterprise alignment to unlock the next phase of its digital modernization journey.</p>
+        
+        <p>With a strong governance model and a reliable design foundation, PNC is prepared to keep leading—quietly, confidently, and consistently. As the company shares its learnings across the industry, including at events like Figma Config, its message will be clear.</p>
+        
+        <div class="closing-quote">
+          <p>"Sometimes the most powerful innovations are the ones that just work. <strong>Brilliantly. Boringly. Every day.</strong></p>
+        </div>
+      </div>
+    </article>
+  </div>
+</body>
+</html>
