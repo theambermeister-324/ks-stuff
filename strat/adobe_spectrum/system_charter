@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Charter v4.0 — Spectrum Application Transformation</title>
+    <style>
+        /* Adobe Spectrum Design System Tokens */
+        :root {
+            /* Spectrum Gray Scale */
+            --spectrum-gray-50: #ffffff;
+            --spectrum-gray-75: #fafafa;
+            --spectrum-gray-100: #f5f5f5;
+            --spectrum-gray-200: #eaeaea;
+            --spectrum-gray-300: #e1e1e1;
+            --spectrum-gray-400: #cacaca;
+            --spectrum-gray-500: #b3b3b3;
+            --spectrum-gray-600: #8e8e8e;
+            --spectrum-gray-700: #6e6e6e;
+            --spectrum-gray-800: #4b4b4b;
+            --spectrum-gray-900: #2c2c2c;
+            
+            /* Spectrum Semantic Colors */
+            --spectrum-red-900: #EB1000;
+            --spectrum-red-800: #d70000;
+            --spectrum-blue-900: #1473E6;
+            --spectrum-blue-700: #0d66d0;
+            --spectrum-green-700: #12805c;
+            --spectrum-orange-700: #cb6f10;
+            
+            /* Typography */
+            --spectrum-font-family: 'Adobe Clean', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --spectrum-heading-font-weight: 700;
+            --spectrum-body-font-weight: 400;
+            
+            /* Spacing */
+            --spectrum-spacing-100: 8px;
+            --spectrum-spacing-200: 16px;
+            --spectrum-spacing-300: 24px;
+            --spectrum-spacing-400: 32px;
+            --spectrum-spacing-500: 40px;
+            
+            /* Border Radius */
+            --spectrum-radius-100: 4px;
+            --spectrum-radius-200: 8px;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            .page {
+                page-break-after: always;
+                page-break-inside: avoid;
+                box-shadow: none;
+                margin: 0;
+            }
+            .page:last-child {
+                page-break-after: avoid;
+            }
+            @page {
+                size: letter;
+                margin: 0.5in;
+            }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--spectrum-font-family);
+            background: var(--spectrum-gray-100);
+            color: var(--spectrum-gray-900);
+            font-size: 11pt;
+            line-height: 1.5;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 8.5in;
+            margin: 0 auto;
+        }
+        
+        .page {
+            background: var(--spectrum-gray-50);
+            padding: 48px 56px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-height: 11in;
+            position: relative;
+        }
+        
+        /* Header */
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 3px solid var(--spectrum-red-900);
+            padding-bottom: var(--spectrum-spacing-200);
+            margin-bottom: var(--spectrum-spacing-300);
+        }
+        
+        .header-left h1 {
+            font-size: 28pt;
+            font-weight: var(--spectrum-heading-font-weight);
+            color: var(--spectrum-gray-900);
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+        
+        .header-left .subtitle {
+            font-size: 14pt;
+            color: var(--spectrum-gray-700);
+            font-weight: 400;
+        }
+        
+        .header-right {
+            text-align: right;
+        }
+        
+        .adobe-logo {
+            font-size: 24pt;
+            font-weight: 700;
+            color: var(--spectrum-red-900);
+            margin-bottom: 8px;
+        }
+        
+        .document-meta {
+            font-size: 9pt;
+            color: var(--spectrum-gray-600);
+            line-height: 1.6;
+        }
+        
+        /* Section Headers */
+        h2 {
+            font-size: 16pt;
+            font-weight: var(--spectrum-heading-font-weight);
+            color: var(--spectrum-gray-900);
+            margin-top: var(--spectrum-spacing-400);
+            margin-bottom: var(--spectrum-spacing-200);
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--spectrum-red-900);
+        }
+        
+        h3 {
+            font-size: 12pt;
+            font-weight: 600;
+            color: var(--spectrum-red-900);
+            margin-top: var(--spectrum-spacing-300);
+            margin-bottom: var(--spectrum-spacing-100);
+        }
+        
+        h4 {
+            font-size: 11pt;
+            font-weight: 600;
+            color: var(--spectrum-gray-800);
+            margin-top: var(--spectrum-spacing-200);
+            margin-bottom: var(--spectrum-spacing-100);
+        }
+        
+        /* Body Text */
+        p {
+            margin-bottom: var(--spectrum-spacing-100);
+            color: var(--spectrum-gray-800);
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin-left: var(--spectrum-spacing-300);
+            margin-bottom: var(--spectrum-spacing-200);
+        }
+        
+        li {
+            margin-bottom: 6px;
+            color: var(--spectrum-gray-800);
+        }
+        
+        li::marker {
+            color: var(--spectrum-red-900);
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spectrum-spacing-200) 0;
+            font-size: 10pt;
+        }
+        
+        th {
+            background: var(--spectrum-red-900);
+            color: white;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--spectrum-gray-200);
+            vertical-align: top;
+        }
+        
+        tr:nth-child(even) {
+            background: var(--spectrum-gray-75);
+        }
+        
+        /* Callout Boxes */
+        .callout {
+            background: var(--spectrum-gray-75);
+            border-left: 4px solid var(--spectrum-red-900);
+            padding: var(--spectrum-spacing-200);
+            margin: var(--spectrum-spacing-200) 0;
+            border-radius: 0 var(--spectrum-radius-100) var(--spectrum-radius-100) 0;
+        }
+        
+        .callout-title {
+            font-weight: 600;
+            color: var(--spectrum-red-900);
+            margin-bottom: 8px;
+            font-size: 10pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .callout p {
+            margin-bottom: 0;
+            font-size: 10pt;
+        }
+        
+        .callout.highlight {
+            background: #FFF8E6;
+            border-left-color: var(--spectrum-orange-700);
+        }
+        
+        .callout.highlight .callout-title {
+            color: var(--spectrum-orange-700);
+        }
+        
+        .callout.success {
+            background: #E6F4EE;
+            border-left-color: var(--spectrum-green-700);
+        }
+        
+        .callout.success .callout-title {
+            color: var(--spectrum-green-700);
+        }
+        
+        /* Metric Cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spectrum-spacing-200);
+            margin: var(--spectrum-spacing-200) 0;
+        }
+        
+        .metric-card {
+            background: var(--spectrum-gray-50);
+            border: 2px solid var(--spectrum-red-900);
+            border-radius: var(--spectrum-radius-200);
+            padding: var(--spectrum-spacing-200);
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 24pt;
+            font-weight: 700;
+            color: var(--spectrum-red-900);
+            line-height: 1;
+        }
+        
+        .metric-label {
+            font-size: 9pt;
+            color: var(--spectrum-gray-700);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spectrum-spacing-300);
+        }
+        
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            background: #FFF3E0;
+            color: var(--spectrum-orange-700);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 9pt;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Footer */
+        .page-footer {
+            position: absolute;
+            bottom: 32px;
+            left: 56px;
+            right: 56px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 8pt;
+            color: var(--spectrum-gray-500);
+            border-top: 1px solid var(--spectrum-gray-200);
+            padding-top: 12px;
+        }
+        
+        /* Signature Block */
+        .signature-block {
+            margin-top: var(--spectrum-spacing-300);
+        }
+        
+        .signature-row {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 0.8fr;
+            gap: var(--spectrum-spacing-200);
+            padding: var(--spectrum-spacing-200) 0;
+            border-bottom: 1px solid var(--spectrum-gray-200);
+        }
+        
+        .signature-row:last-child {
+            border-bottom: none;
+        }
+        
+        .signature-label {
+            font-weight: 600;
+            color: var(--spectrum-gray-800);
+        }
+        
+        .signature-line {
+            border-bottom: 1px solid var(--spectrum-gray-400);
+            min-height: 24px;
+        }
+        
+        /* Section Label */
+        .section-label {
+            font-size: 9pt;
+            color: var(--spectrum-red-900);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        /* Lifecycle Flow */
+        .lifecycle-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: var(--spectrum-spacing-200) 0;
+            flex-wrap: wrap;
+        }
+        
+        .lifecycle-stage {
+            background: var(--spectrum-gray-100);
+            border: 1px solid var(--spectrum-gray-300);
+            padding: 8px 16px;
+            border-radius: var(--spectrum-radius-100);
+            font-size: 10pt;
+            font-weight: 500;
+        }
+        
+        .lifecycle-arrow {
+            color: var(--spectrum-red-900);
+            font-weight: bold;
+        }
+        
+        strong {
+            font-weight: 600;
+            color: var(--spectrum-gray-900);
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        
+        <!-- PAGE 1: COVER & EXECUTIVE SUMMARY -->
+        <div class="page">
+            <div class="document-header">
+                <div class="header-left">
+                    <h1>System Charter v4.0</h1>
+                    <div class="subtitle">Spectrum Application Transformation Charter</div>
+                </div>
+                <div class="header-right">
+                    <div class="adobe-logo">Adobe</div>
+                    <div class="document-meta">
+                        <strong>Version:</strong> 4.0<br>
+                        <strong>Last Updated:</strong> September 29, 2025<br>
+                        <strong>Charter Owner:</strong> Design System Lead<br>
+                        <span class="status-badge">Pending Approval</span>
+                    </div>
+                </div>
+            </div>
+            
+            <h2>1. Executive Summary</h2>
+            
+            <div class="callout highlight">
+                <div class="callout-title">Strategic Transformation</div>
+                <p>Adobe is transforming Spectrum from a static documentation system into the <strong>Spectrum application</strong>—a fully realized, living product that unifies design system resources across all platforms.</p>
+            </div>
+            
+            <p>The Spectrum app is powered by Adobe's implementation of <strong>Knapsack</strong> and the <strong>Intelligent Product Engine (IPE)</strong>, enabling multi-platform design system delivery with AI-powered automation.</p>
+            
+            <p>This charter replaces the prior infrastructure-only approach with a <strong>product-centric design system strategy</strong>, ensuring Spectrum becomes a dependable, authoritative interface for all Adobe design system users.</p>
+            
+            <h3>Financial Summary</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">$945K</div>
+                    <div class="metric-label">Annual Value</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">530%</div>
+                    <div class="metric-label">Net ROI</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">3.4 mo</div>
+                    <div class="metric-label">Payback Period</div>
+                </div>
+            </div>
+            
+            <h2>2. Business Objectives</h2>
+            
+            <h3>Primary Objectives</h3>
+            <ol>
+                <li>Deliver the <strong>Spectrum app</strong> as the unified, authoritative interface for Adobe's design system across platforms</li>
+                <li>Launch <strong>Spectrum 2</strong> with integrated guidance, tokens, accessibility principles, and multi-platform system behaviors</li>
+                <li>Provide <strong>single-source-of-truth documentation</strong>, reducing drift between design and code</li>
+                <li>Enable <strong>partner access parity</strong>, ensuring internal and external teams use the same system</li>
+                <li>Automate multi-platform governance via IPE for faster, safer component evolution</li>
+                <li>Reduce operational overhead through design-to-code automation, drift detection, and contributor workflow tooling</li>
+            </ol>
+            
+            <div class="page-footer">
+                <span>Adobe Confidential — System Charter v4.0</span>
+                <span>Page 1 of 5</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 2: SUCCESS METRICS & SCOPE -->
+        <div class="page">
+            <div class="section-label">Success Metrics & Scope</div>
+            <h2>Success Metrics</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Operational (90 Days)</h3>
+                    <table>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Target</th>
+                        </tr>
+                        <tr>
+                            <td>Component discovery time reduction</td>
+                            <td><strong>50%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Documentation drift across platforms</td>
+                            <td><strong>&lt;10%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Support question reduction</td>
+                            <td><strong>40%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Multi-platform implementation confidence</td>
+                            <td><strong>80%</strong></td>
+                        </tr>
+                    </table>
+                    
+                    <h3>Strategic (6 Months)</h3>
+                    <table>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Target</th>
+                        </tr>
+                        <tr>
+                            <td>Weekly active users in Spectrum app</td>
+                            <td><strong>75%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Partners accessing shared resources</td>
+                            <td><strong>100+</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Contribution request turnaround reduction</td>
+                            <td><strong>50%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Open-source contribution increase</td>
+                            <td><strong>30%</strong></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div>
+                    <h3>Financial (12 Months)</h3>
+                    <table>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Target</th>
+                        </tr>
+                        <tr>
+                            <td>Annual value validated</td>
+                            <td><strong>$945,000</strong></td>
+                        </tr>
+                        <tr>
+                            <td>ROI achieved</td>
+                            <td><strong>530%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Payback period</td>
+                            <td><strong>3.4 months</strong></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <h2>3. Scope & Boundaries</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>In Scope</h3>
+                    
+                    <h4>Spectrum Application Platform</h4>
+                    <ul>
+                        <li>Development and launch of the Spectrum app as a product</li>
+                        <li>Integration of design, code, tokens, guidelines, examples, and workflows</li>
+                        <li>Multi-platform view (Web, iOS, Android, desktop)</li>
+                    </ul>
+                    
+                    <h4>AI Workflow Integration (IPE)</h4>
+                    <ul>
+                        <li>Drift detection</li>
+                        <li>Automated accessibility validation</li>
+                        <li>Migration planning</li>
+                        <li>Component deduplication</li>
+                        <li>System-aware code generation</li>
+                    </ul>
+                    
+                    <h4>Partner Ecosystem Enablement</h4>
+                    <ul>
+                        <li>Partner access parity</li>
+                        <li>Contribution workflow standardization</li>
+                        <li>Shared governance for system evolution</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>Out of Scope (Phase 1)</h3>
+                    <ul>
+                        <li>Non-Spectrum app Adobe Creative Cloud integrations</li>
+                        <li>Multi-brand design systems (future phase)</li>
+                    </ul>
+                    
+                    <div class="callout">
+                        <div class="callout-title">Phase 2 Considerations</div>
+                        <p>Multi-brand architecture and extended Creative Cloud integrations will be evaluated following successful Phase 1 deployment and adoption validation.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="page-footer">
+                <span>Adobe Confidential — System Charter v4.0</span>
+                <span>Page 2 of 5</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 3: GOVERNANCE & WORKSTREAMS -->
+        <div class="page">
+            <div class="section-label">Governance & Workstreams</div>
+            <h2>4. Governance Structure</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Steering Committee</h3>
+                    <p>Provides strategic oversight, funding, risk resolution, and approval of major direction changes.</p>
+                    
+                    <h3>Spectrum App Product Board <span class="status-badge">New</span></h3>
+                    <p>Provides product governance for the Spectrum application.</p>
+                    
+                    <h4>Members</h4>
+                    <ul>
+                        <li>Senior Director, Experience Design (Spectrum)</li>
+                        <li>Design System Lead</li>
+                        <li>Spectrum App Product Manager</li>
+                        <li>Engineering Platform Lead</li>
+                        <li>Accessibility Lead</li>
+                        <li>CX Partner (Knapsack)</li>
+                    </ul>
+                    
+                    <h4>Responsibilities</h4>
+                    <ul>
+                        <li>Prioritize Spectrum app roadmap</li>
+                        <li>Manage contribution lifecycle</li>
+                        <li>Ensure accessibility, consistency, and multi-platform integrity</li>
+                        <li>Oversee release cycles and governance compliance</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>Core Implementation Team</h3>
+                    <p>Executes implementation of the Spectrum app and IPE integration.</p>
+                    
+                    <h3>Extended Teams</h3>
+                    <ul>
+                        <li>Designers (system + product teams)</li>
+                        <li>Engineers (Web, React, iOS, Android)</li>
+                        <li>Accessibility specialists</li>
+                        <li>Implementation Partner Council</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h2>5. Workstreams</h2>
+            
+            <table>
+                <tr>
+                    <th style="width: 25%;">Workstream</th>
+                    <th>Key Deliverables</th>
+                </tr>
+                <tr>
+                    <td><strong>1. Spectrum App Platform Foundation</strong></td>
+                    <td>Build infrastructure on Knapsack; Adobe IAM integration; Token management; Unified component catalog; Enterprise security guidelines</td>
+                </tr>
+                <tr>
+                    <td><strong>2. IPE Integration</strong></td>
+                    <td>Drift detection; Migration planning for Spectrum 2; Contribution workflow acceleration; Accessible component validation</td>
+                </tr>
+                <tr>
+                    <td><strong>3. Partner Enablement</strong></td>
+                    <td>Partner onboarding; Shared access; Contribution pathways; Training program for internal + external teams</td>
+                </tr>
+                <tr>
+                    <td><strong>4. Governance & Quality</strong></td>
+                    <td>Component lifecycle management; Automated governance via IPE; Release notes and versioning structure</td>
+                </tr>
+                <tr>
+                    <td><strong>5. Measurement & Analytics</strong></td>
+                    <td>App engagement analytics; Drift index; Contribution pipeline analytics; Partner usage telemetry</td>
+                </tr>
+                <tr>
+                    <td><strong>6. Spectrum App Productization</strong> <span class="status-badge">New</span></td>
+                    <td>App MVP delivery; Contributor dashboard; Component validation tooling; Release management and roadmap cadence</td>
+                </tr>
+            </table>
+            
+            <div class="page-footer">
+                <span>Adobe Confidential — System Charter v4.0</span>
+                <span>Page 3 of 5</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 4: RISK, TIMELINE, BUDGET -->
+        <div class="page">
+            <div class="section-label">Risk, Timeline & Budget</div>
+            <h2>6. Risk Management</h2>
+            
+            <table>
+                <tr>
+                    <th style="width: 30%;">Risk</th>
+                    <th style="width: 12%;">Impact</th>
+                    <th>Mitigation Strategy</th>
+                </tr>
+                <tr>
+                    <td>Low Spectrum app adoption</td>
+                    <td><strong>High</strong></td>
+                    <td>Release training, in-app onboarding, support pathways</td>
+                </tr>
+                <tr>
+                    <td>Partner access issues</td>
+                    <td><strong>High</strong></td>
+                    <td>Secure IAM integration, clear permission model</td>
+                </tr>
+                <tr>
+                    <td>Contribution overload</td>
+                    <td><strong>Medium</strong></td>
+                    <td>Product Board triage, SLA-based processing</td>
+                </tr>
+                <tr>
+                    <td>Drift between design & code</td>
+                    <td><strong>High</strong></td>
+                    <td>Automated IPE workflows + mandatory validation</td>
+                </tr>
+                <tr>
+                    <td>Accessibility regressions</td>
+                    <td><strong>High</strong></td>
+                    <td>Automated WCAG 2.1 AA scanning + manual audits</td>
+                </tr>
+            </table>
+            
+            <h2>7. Communication Plan</h2>
+            <ul>
+                <li><strong>Bi-weekly:</strong> Spectrum app release notes</li>
+                <li><strong>Monthly:</strong> Steering Committee updates; Partner council meetings</li>
+                <li><strong>Weekly:</strong> Office hours</li>
+                <li><strong>Quarterly:</strong> Training + contribution showcase</li>
+            </ul>
+            
+            <h2>8. Budget & Resource Allocation</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Platform Costs</h3>
+                    <table>
+                        <tr>
+                            <th>Item</th>
+                            <th>Annual Cost</th>
+                        </tr>
+                        <tr>
+                            <td>Knapsack Enterprise License</td>
+                            <td><strong>$150,000</strong></td>
+                        </tr>
+                        <tr>
+                            <td>IPE Beta Program</td>
+                            <td><em>Included</em></td>
+                        </tr>
+                        <tr>
+                            <td>App hosting & telemetry</td>
+                            <td>~$50,000</td>
+                        </tr>
+                        <tr>
+                            <td>Support & maintenance</td>
+                            <td>~$30,000</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div>
+                    <h3>Personnel Allocation</h3>
+                    <table>
+                        <tr>
+                            <th>Role</th>
+                            <th>FTE</th>
+                        </tr>
+                        <tr>
+                            <td>Spectrum App Product Manager</td>
+                            <td>0.5 FTE</td>
+                        </tr>
+                        <tr>
+                            <td>Design System Lead (post-launch)</td>
+                            <td>0.5 FTE</td>
+                        </tr>
+                        <tr>
+                            <td>Accessibility team</td>
+                            <td>0.25 FTE</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <h2>9. Timeline Overview</h2>
+            
+            <table>
+                <tr>
+                    <th style="width: 18%;">Phase</th>
+                    <th>Focus Areas</th>
+                </tr>
+                <tr>
+                    <td><strong>Phase 0</strong></td>
+                    <td>Procurement & App Architecture</td>
+                </tr>
+                <tr>
+                    <td><strong>Phase 1</strong></td>
+                    <td>Spectrum App MVP + Repository Integration</td>
+                </tr>
+                <tr>
+                    <td><strong>Phase 2</strong></td>
+                    <td>IPE Pilot + Drift Detection + Governance Tools</td>
+                </tr>
+                <tr>
+                    <td><strong>Phase 3</strong></td>
+                    <td>Full Rollout + Training + Contribution Workflow</td>
+                </tr>
+                <tr>
+                    <td><strong>Phase 4</strong></td>
+                    <td>Steady-State Product Lifecycle</td>
+                </tr>
+            </table>
+            
+            <div class="page-footer">
+                <span>Adobe Confidential — System Charter v4.0</span>
+                <span>Page 4 of 5</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 5: SUCCESS CRITERIA & APPROVAL -->
+        <div class="page">
+            <div class="section-label">Success Criteria & Approval</div>
+            <h2>10. Success Criteria</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Product Metrics</h3>
+                    <div class="callout success">
+                        <div class="callout-title">Key Targets</div>
+                        <ul style="margin-bottom: 0;">
+                            <li>75% WAU for Spectrum app</li>
+                            <li>&lt;10% documentation drift</li>
+                            <li>90% accuracy for IPE-driven drift detection</li>
+                            <li>50% reduction in contribution turnaround time</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>Operational Metrics</h3>
+                    <ul>
+                        <li>50% discovery time reduction</li>
+                        <li>40% support volume reduction</li>
+                    </ul>
+                    
+                    <h3>Financial Metrics</h3>
+                    <ul>
+                        <li>$945k annual value validated</li>
+                        <li>530% ROI achieved</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>Component Lifecycle Model</h3>
+                    <div class="lifecycle-flow">
+                        <span class="lifecycle-stage">Proposal</span>
+                        <span class="lifecycle-arrow">→</span>
+                        <span class="lifecycle-stage">Draft</span>
+                        <span class="lifecycle-arrow">→</span>
+                        <span class="lifecycle-stage">Beta</span>
+                        <span class="lifecycle-arrow">→</span>
+                        <span class="lifecycle-stage">Stable</span>
+                        <span class="lifecycle-arrow">→</span>
+                        <span class="lifecycle-stage">Deprecated</span>
+                    </div>
+                    
+                    <h3>Glossary</h3>
+                    <table>
+                        <tr>
+                            <td><strong>Spectrum App</strong></td>
+                            <td>Adobe's design system application</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IPE</strong></td>
+                            <td>Intelligent Product Engine</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Drift Detection</strong></td>
+                            <td>Automated comparison of design vs. code</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Component Lifecycle</strong></td>
+                            <td>Governance process for component evolution</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <h2>11. Approval & Sign-Off</h2>
+            
+            <div class="callout">
+                <div class="callout-title">Document Status</div>
+                <p>This charter is considered ratified upon signature from the following stakeholders. <strong>Status: Pending Adobe Operations, Procurement, and Security Approval.</strong></p>
+            </div>
+            
+            <div class="signature-block">
+                <div class="signature-row">
+                    <div class="signature-label">Executive Sponsor (VP of Design)</div>
+                    <div class="signature-line"></div>
+                    <div class="signature-line"></div>
+                </div>
+                <div class="signature-row">
+                    <div class="signature-label">Director of Design Operations</div>
+                    <div class="signature-line"></div>
+                    <div class="signature-line"></div>
+                </div>
+                <div class="signature-row">
+                    <div class="signature-label">Director of Engineering</div>
+                    <div class="signature-line"></div>
+                    <div class="signature-line"></div>
+                </div>
+                <div class="signature-row">
+                    <div class="signature-label">Spectrum App Product Manager</div>
+                    <div class="signature-line"></div>
+                    <div class="signature-line"></div>
+                </div>
+                <div class="signature-row">
+                    <div class="signature-label">Strategic Advisor (Knapsack)</div>
+                    <div class="signature-line"></div>
+                    <div class="signature-line"></div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 32px; text-align: center; color: var(--spectrum-gray-600); font-size: 10pt;">
+                <p><strong>Next Review:</strong> Monthly during implementation (Phases 0–3), Quarterly post-implementation (Phase 4+)</p>
+            </div>
+            
+            <div class="page-footer">
+                <span>Adobe Confidential — System Charter v4.0</span>
+                <span>Page 5 of 5</span>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>
