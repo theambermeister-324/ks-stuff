@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Charter v4.0 — Spectrum Application Transformation</title>
+    <title>System Charter v4.1 - Spectrum Application</title>
     <style>
         /* Adobe Spectrum Design System Tokens */
         :root {
-            /* Spectrum Gray Scale */
             --spectrum-gray-50: #ffffff;
             --spectrum-gray-75: #fafafa;
             --spectrum-gray-100: #f5f5f5;
@@ -19,419 +18,292 @@
             --spectrum-gray-700: #6e6e6e;
             --spectrum-gray-800: #4b4b4b;
             --spectrum-gray-900: #2c2c2c;
-            
-            /* Spectrum Semantic Colors */
-            --spectrum-red-900: #EB1000;
-            --spectrum-red-800: #d70000;
-            --spectrum-blue-900: #1473E6;
-            --spectrum-blue-700: #0d66d0;
-            --spectrum-green-700: #12805c;
-            --spectrum-orange-700: #cb6f10;
-            
-            /* Typography */
+            --spectrum-blue-400: #2680eb;
+            --spectrum-blue-500: #1473e6;
+            --spectrum-blue-600: #0d66d0;
+            --spectrum-blue-700: #095aba;
+            --spectrum-blue-900: #003087;
+            --spectrum-red-500: #d7373f;
+            --spectrum-red-600: #c9252d;
+            --spectrum-green-500: #268e6c;
+            --spectrum-green-600: #12805c;
+            --spectrum-green-700: #107154;
+            --spectrum-orange-500: #da7b11;
+            --spectrum-orange-600: #cb6f10;
+            --spectrum-purple-500: #864ccc;
+            --spectrum-purple-600: #7a42bf;
+            --spectrum-purple-700: #6f38b1;
+            --adobe-red: #eb1000;
             --spectrum-font-family: 'Adobe Clean', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            --spectrum-heading-font-weight: 700;
-            --spectrum-body-font-weight: 400;
-            
-            /* Spacing */
-            --spectrum-spacing-100: 8px;
-            --spectrum-spacing-200: 16px;
-            --spectrum-spacing-300: 24px;
-            --spectrum-spacing-400: 32px;
-            --spectrum-spacing-500: 40px;
-            
-            /* Border Radius */
             --spectrum-radius-100: 4px;
             --spectrum-radius-200: 8px;
         }
         
-        @media print {
-            body {
-                padding: 0;
-                background: white;
-            }
-            .page {
-                page-break-after: always;
-                page-break-inside: avoid;
-                box-shadow: none;
-                margin: 0;
-            }
-            .page:last-child {
-                page-break-after: avoid;
-            }
-            @page {
-                size: letter;
-                margin: 0.5in;
-            }
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: var(--spectrum-font-family);
-            background: var(--spectrum-gray-100);
+            font-size: 8.5pt;
+            line-height: 1.4;
             color: var(--spectrum-gray-900);
-            font-size: 11pt;
-            line-height: 1.5;
-            padding: 20px;
+            background: var(--spectrum-gray-200);
         }
         
-        .document-container {
-            max-width: 8.5in;
-            margin: 0 auto;
-        }
+        .container { max-width: 1100px; margin: 0 auto; }
         
         .page {
+            width: 11in;
+            min-height: 8.5in;
+            padding: 0.45in 0.55in;
+            margin: 20px auto;
             background: var(--spectrum-gray-50);
-            padding: 48px 56px;
-            margin-bottom: 20px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            min-height: 11in;
+            page-break-after: always;
             position: relative;
         }
         
-        /* Header */
-        .document-header {
+        @media print {
+            body { background: white; }
+            .page { box-shadow: none; margin: 0; }
+            @page { size: 11in 8.5in landscape; margin: 0; }
+        }
+        
+        .page-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            border-bottom: 3px solid var(--spectrum-red-900);
-            padding-bottom: var(--spectrum-spacing-200);
-            margin-bottom: var(--spectrum-spacing-300);
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--adobe-red);
         }
         
-        .header-left h1 {
-            font-size: 28pt;
-            font-weight: var(--spectrum-heading-font-weight);
+        .page-header h1 {
+            font-size: 20pt;
+            font-weight: 700;
             color: var(--spectrum-gray-900);
-            line-height: 1.1;
-            margin-bottom: 8px;
         }
         
-        .header-left .subtitle {
+        .subtitle {
+            font-size: 10pt;
+            color: var(--spectrum-gray-600);
+            margin-top: 2px;
+        }
+        
+        .logo {
             font-size: 14pt;
-            color: var(--spectrum-gray-700);
-            font-weight: 400;
+            font-weight: 700;
+            color: var(--adobe-red);
         }
         
-        .header-right {
+        .meta {
+            font-size: 8pt;
+            color: var(--spectrum-gray-600);
             text-align: right;
         }
         
-        .adobe-logo {
-            font-size: 24pt;
+        .version-badge {
+            display: inline-block;
+            background: var(--adobe-red);
+            color: white;
+            padding: 2px 10px;
+            border-radius: var(--spectrum-radius-100);
+            font-size: 9pt;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .section-label {
+            background: var(--spectrum-gray-100);
+            color: var(--spectrum-gray-700);
+            font-size: 7pt;
             font-weight: 700;
-            color: var(--spectrum-red-900);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 8px;
+            border-radius: var(--spectrum-radius-100);
+            display: inline-block;
             margin-bottom: 8px;
         }
         
-        .document-meta {
-            font-size: 9pt;
-            color: var(--spectrum-gray-600);
-            line-height: 1.6;
-        }
-        
-        /* Section Headers */
         h2 {
-            font-size: 16pt;
-            font-weight: var(--spectrum-heading-font-weight);
+            font-size: 10pt;
+            font-weight: 700;
             color: var(--spectrum-gray-900);
-            margin-top: var(--spectrum-spacing-400);
-            margin-bottom: var(--spectrum-spacing-200);
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--spectrum-red-900);
+            margin: 12px 0 6px 0;
+            padding-bottom: 3px;
+            border-bottom: 2px solid var(--spectrum-blue-600);
         }
         
         h3 {
-            font-size: 12pt;
+            font-size: 9pt;
             font-weight: 600;
-            color: var(--spectrum-red-900);
-            margin-top: var(--spectrum-spacing-300);
-            margin-bottom: var(--spectrum-spacing-100);
+            color: var(--spectrum-gray-800);
+            margin: 8px 0 4px 0;
         }
         
         h4 {
-            font-size: 11pt;
+            font-size: 8pt;
             font-weight: 600;
-            color: var(--spectrum-gray-800);
-            margin-top: var(--spectrum-spacing-200);
-            margin-bottom: var(--spectrum-spacing-100);
+            color: var(--spectrum-gray-700);
+            margin: 6px 0 3px 0;
         }
         
-        /* Body Text */
-        p {
-            margin-bottom: var(--spectrum-spacing-100);
-            color: var(--spectrum-gray-800);
-        }
+        p { margin: 4px 0; font-size: 8pt; }
+        ol, ul { margin-left: 14px; font-size: 8pt; }
+        li { margin: 2px 0; }
         
-        /* Lists */
-        ul, ol {
-            margin-left: var(--spectrum-spacing-300);
-            margin-bottom: var(--spectrum-spacing-200);
-        }
-        
-        li {
-            margin-bottom: 6px;
-            color: var(--spectrum-gray-800);
-        }
-        
-        li::marker {
-            color: var(--spectrum-red-900);
-        }
-        
-        /* Tables */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: var(--spectrum-spacing-200) 0;
-            font-size: 10pt;
+            margin: 6px 0;
+            font-size: 7.5pt;
         }
         
-        th {
-            background: var(--spectrum-red-900);
-            color: white;
-            padding: 10px 12px;
+        th, td {
+            border: 1px solid var(--spectrum-gray-300);
+            padding: 4px 6px;
             text-align: left;
-            font-weight: 600;
-            font-size: 9pt;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        td {
-            padding: 10px 12px;
-            border-bottom: 1px solid var(--spectrum-gray-200);
             vertical-align: top;
         }
         
-        tr:nth-child(even) {
-            background: var(--spectrum-gray-75);
+        th {
+            background: var(--spectrum-gray-100);
+            font-weight: 600;
+            color: var(--spectrum-gray-800);
         }
         
-        /* Callout Boxes */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+        
         .callout {
             background: var(--spectrum-gray-75);
-            border-left: 4px solid var(--spectrum-red-900);
-            padding: var(--spectrum-spacing-200);
-            margin: var(--spectrum-spacing-200) 0;
+            border-left: 3px solid var(--spectrum-blue-600);
+            padding: 8px 10px;
+            margin: 8px 0;
             border-radius: 0 var(--spectrum-radius-100) var(--spectrum-radius-100) 0;
         }
         
+        .callout.new { border-left-color: var(--spectrum-green-600); background: #f0fdf4; }
+        .callout.info { border-left-color: var(--spectrum-blue-600); }
+        .callout.success { border-left-color: var(--spectrum-green-600); }
+        .callout.warning { border-left-color: var(--spectrum-orange-600); background: #fffbeb; }
+        
         .callout-title {
+            font-weight: 700;
+            font-size: 8pt;
+            color: var(--spectrum-gray-800);
+            margin-bottom: 2px;
+        }
+        
+        .callout p { font-size: 7.5pt; margin: 0; }
+        
+        .updated-badge {
+            display: inline-block;
+            background: var(--spectrum-green-600);
+            color: white;
+            padding: 1px 5px;
+            border-radius: 8px;
+            font-size: 6pt;
             font-weight: 600;
-            color: var(--spectrum-red-900);
-            margin-bottom: 8px;
-            font-size: 10pt;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            margin-left: 4px;
+            vertical-align: middle;
         }
         
-        .callout p {
-            margin-bottom: 0;
-            font-size: 10pt;
+        .timeline-bar {
+            display: flex;
+            height: 18px;
+            margin: 6px 0;
+            border-radius: var(--spectrum-radius-100);
+            overflow: hidden;
         }
         
-        .callout.highlight {
-            background: #FFF8E6;
-            border-left-color: var(--spectrum-orange-700);
+        .timeline-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 7pt;
+            font-weight: 600;
         }
         
-        .callout.highlight .callout-title {
-            color: var(--spectrum-orange-700);
-        }
-        
-        .callout.success {
-            background: #E6F4EE;
-            border-left-color: var(--spectrum-green-700);
-        }
-        
-        .callout.success .callout-title {
-            color: var(--spectrum-green-700);
-        }
-        
-        /* Metric Cards */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--spectrum-spacing-200);
-            margin: var(--spectrum-spacing-200) 0;
-        }
+        .timeline-segment.r0 { background: var(--spectrum-gray-700); }
+        .timeline-segment.r1 { background: var(--spectrum-blue-700); }
+        .timeline-segment.r2 { background: var(--spectrum-green-600); }
+        .timeline-segment.r3 { background: var(--spectrum-purple-600); }
+        .timeline-segment.r4 { background: var(--spectrum-orange-600); }
         
         .metric-card {
-            background: var(--spectrum-gray-50);
-            border: 2px solid var(--spectrum-red-900);
+            background: var(--spectrum-gray-75);
+            border: 1px solid var(--spectrum-gray-300);
             border-radius: var(--spectrum-radius-200);
-            padding: var(--spectrum-spacing-200);
+            padding: 8px;
             text-align: center;
         }
         
         .metric-value {
-            font-size: 24pt;
+            font-size: 14pt;
             font-weight: 700;
-            color: var(--spectrum-red-900);
-            line-height: 1;
+            color: var(--spectrum-blue-700);
         }
         
         .metric-label {
-            font-size: 9pt;
-            color: var(--spectrum-gray-700);
-            margin-top: 8px;
+            font-size: 6pt;
+            color: var(--spectrum-gray-600);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
-        /* Two Column Layout */
-        .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spectrum-spacing-300);
-        }
+        .risk-high { color: var(--spectrum-red-600); }
+        .risk-medium { color: var(--spectrum-orange-600); }
+        .risk-low { color: var(--spectrum-green-600); }
         
-        /* Status Badge */
-        .status-badge {
-            display: inline-block;
-            background: #FFF3E0;
-            color: var(--spectrum-orange-700);
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 9pt;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        /* Footer */
-        .page-footer {
-            position: absolute;
-            bottom: 32px;
-            left: 56px;
-            right: 56px;
+        .footer {
             display: flex;
             justify-content: space-between;
-            font-size: 8pt;
-            color: var(--spectrum-gray-500);
-            border-top: 1px solid var(--spectrum-gray-200);
-            padding-top: 12px;
-        }
-        
-        /* Signature Block */
-        .signature-block {
-            margin-top: var(--spectrum-spacing-300);
-        }
-        
-        .signature-row {
-            display: grid;
-            grid-template-columns: 2fr 1.5fr 0.8fr;
-            gap: var(--spectrum-spacing-200);
-            padding: var(--spectrum-spacing-200) 0;
-            border-bottom: 1px solid var(--spectrum-gray-200);
-        }
-        
-        .signature-row:last-child {
-            border-bottom: none;
-        }
-        
-        .signature-label {
-            font-weight: 600;
-            color: var(--spectrum-gray-800);
-        }
-        
-        .signature-line {
-            border-bottom: 1px solid var(--spectrum-gray-400);
-            min-height: 24px;
-        }
-        
-        /* Section Label */
-        .section-label {
-            font-size: 9pt;
-            color: var(--spectrum-red-900);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-        
-        /* Lifecycle Flow */
-        .lifecycle-flow {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin: var(--spectrum-spacing-200) 0;
-            flex-wrap: wrap;
-        }
-        
-        .lifecycle-stage {
-            background: var(--spectrum-gray-100);
-            border: 1px solid var(--spectrum-gray-300);
-            padding: 8px 16px;
-            border-radius: var(--spectrum-radius-100);
-            font-size: 10pt;
-            font-weight: 500;
-        }
-        
-        .lifecycle-arrow {
-            color: var(--spectrum-red-900);
-            font-weight: bold;
-        }
-        
-        strong {
-            font-weight: 600;
-            color: var(--spectrum-gray-900);
+            font-size: 6.5pt;
+            color: var(--spectrum-gray-600);
+            border-top: 1px solid var(--spectrum-gray-300);
+            padding-top: 5px;
+            position: absolute;
+            bottom: 0.45in;
+            left: 0.55in;
+            right: 0.55in;
         }
     </style>
 </head>
 <body>
-    <div class="document-container">
+    <div class="container">
         
-        <!-- PAGE 1: COVER & EXECUTIVE SUMMARY -->
+        <!-- PAGE 1: TITLE & OBJECTIVES -->
         <div class="page">
-            <div class="document-header">
-                <div class="header-left">
-                    <h1>System Charter v4.0</h1>
-                    <div class="subtitle">Spectrum Application Transformation Charter</div>
+            <div class="page-header">
+                <div>
+                    <h1>System Charter <span class="version-badge">v4.1</span></h1>
+                    <div class="subtitle">Spectrum Application | Knapsack IPE Implementation</div>
                 </div>
-                <div class="header-right">
-                    <div class="adobe-logo">Adobe</div>
-                    <div class="document-meta">
-                        <strong>Version:</strong> 4.0<br>
-                        <strong>Last Updated:</strong> September 29, 2025<br>
-                        <strong>Charter Owner:</strong> Design System Lead<br>
-                        <span class="status-badge">Pending Approval</span>
-                    </div>
+                <div style="text-align: right;">
+                    <div class="logo">Adobe</div>
+                    <div class="meta">December 2025<br>Updated from v4.0</div>
                 </div>
             </div>
             
-            <h2>1. Executive Summary</h2>
-            
-            <div class="callout highlight">
-                <div class="callout-title">Strategic Transformation</div>
-                <p>Adobe is transforming Spectrum from a static documentation system into the <strong>Spectrum application</strong>—a fully realized, living product that unifies design system resources across all platforms.</p>
+            <div class="callout new">
+                <div class="callout-title">v4.1 Update Summary</div>
+                <p>This revision incorporates the MVP Release Plan structure (R0-R4), updated financial projections, refined success metrics, expanded RAID log items, and adds Knapsack MCP Beta Program to scope. IPE capabilities deferred to future SOW.</p>
             </div>
             
-            <p>The Spectrum app is powered by Adobe's implementation of <strong>Knapsack</strong> and the <strong>Intelligent Product Engine (IPE)</strong>, enabling multi-platform design system delivery with AI-powered automation.</p>
-            
-            <p>This charter replaces the prior infrastructure-only approach with a <strong>product-centric design system strategy</strong>, ensuring Spectrum becomes a dependable, authoritative interface for all Adobe design system users.</p>
-            
-            <h3>Financial Summary</h3>
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-value">$945K</div>
-                    <div class="metric-label">Annual Value</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">530%</div>
-                    <div class="metric-label">Net ROI</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">3.4 mo</div>
-                    <div class="metric-label">Payback Period</div>
-                </div>
-            </div>
+            <div class="section-label">Strategic Context</div>
+            <h2>1. Charter Purpose</h2>
+            <p>Define the scope, governance, success criteria, and workstream structure for deploying Knapsack's platform to transform Adobe's design system operations into an intelligent multi-platform delivery engine.</p>
             
             <h2>2. Business Objectives</h2>
             
@@ -441,472 +313,1176 @@
                 <li>Launch <strong>Spectrum 2</strong> with integrated guidance, tokens, accessibility principles, and multi-platform system behaviors</li>
                 <li>Provide <strong>single-source-of-truth documentation</strong>, reducing drift between design and code</li>
                 <li>Enable <strong>partner access parity</strong>, ensuring internal and external teams use the same system</li>
-                <li>Automate multi-platform governance via IPE for faster, safer component evolution</li>
+                <li>Automate multi-platform governance for faster, safer component evolution</li>
                 <li>Reduce operational overhead through design-to-code automation, drift detection, and contributor workflow tooling</li>
             </ol>
             
-            <div class="page-footer">
-                <span>Adobe Confidential — System Charter v4.0</span>
-                <span>Page 1 of 5</span>
+            <h2>3. Success Metrics <span class="updated-badge">UPDATED</span></h2>
+            
+            <div class="two-col">
+                <div>
+                    <h3>Operational (90 Days Post-R1)</h3>
+                    <table>
+                        <tr><th>Metric</th><th>Target</th></tr>
+                        <tr><td>Component discovery time</td><td><strong>-30%</strong> (R2), <strong>-50%</strong> (R3+)</td></tr>
+                        <tr><td>Documentation drift</td><td><strong>&lt;20%</strong> (R2), <strong>&lt;10%</strong> (R3+)</td></tr>
+                        <tr><td>Support question reduction</td><td><strong>-30%</strong> (R3), <strong>-40%</strong> (R4+)</td></tr>
+                    </table>
+                    
+                    <h3>Product (12 Months)</h3>
+                    <table>
+                        <tr><th>Metric</th><th>Target</th></tr>
+                        <tr><td>Adoption rate</td><td><strong>65%</strong> of 1,200+ users</td></tr>
+                        <tr><td>NPS (user satisfaction)</td><td><strong>30+</strong> (R1), <strong>50+</strong> (R4)</td></tr>
+                        <tr><td>Partner audit pass rate</td><td><strong>80%</strong> (R3), <strong>90%</strong> (R4+)</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>Strategic (24 Months)</h3>
+                    <table>
+                        <tr><th>Metric</th><th>Target</th></tr>
+                        <tr><td>Time saved per designer/week</td><td><strong>1.5 hours</strong></td></tr>
+                        <tr><td>Design-to-code time</td><td><strong>-40%</strong></td></tr>
+                        <tr><td>System-wide consistency</td><td><strong>90%</strong></td></tr>
+                    </table>
+                    
+                    <h3>Key Performance Indicators</h3>
+                    <div class="three-col" style="margin-top: 6px;">
+                        <div class="metric-card">
+                            <div class="metric-value">2,000+</div>
+                            <div class="metric-label">Target Users</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">$945K</div>
+                            <div class="metric-label">Annual Value</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">95%</div>
+                            <div class="metric-label">Year 1 ROI</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <span>Adobe Confidential | System Charter v4.1</span>
+                <span>Page 1 of 10</span>
             </div>
         </div>
         
-        <!-- PAGE 2: SUCCESS METRICS & SCOPE -->
+        <!-- PAGE 2: SCOPE -->
         <div class="page">
-            <div class="section-label">Success Metrics & Scope</div>
-            <h2>Success Metrics</h2>
+            <div class="section-label">Scope Definition</div>
             
-            <div class="two-column">
-                <div>
-                    <h3>Operational (90 Days)</h3>
-                    <table>
-                        <tr>
-                            <th>Metric</th>
-                            <th>Target</th>
-                        </tr>
-                        <tr>
-                            <td>Component discovery time reduction</td>
-                            <td><strong>50%</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Documentation drift across platforms</td>
-                            <td><strong>&lt;10%</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Support question reduction</td>
-                            <td><strong>40%</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Multi-platform implementation confidence</td>
-                            <td><strong>80%</strong></td>
-                        </tr>
-                    </table>
-                    
-                    <h3>Strategic (6 Months)</h3>
-                    <table>
-                        <tr>
-                            <th>Metric</th>
-                            <th>Target</th>
-                        </tr>
-                        <tr>
-                            <td>Weekly active users in Spectrum app</td>
-                            <td><strong>75%</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Partners accessing shared resources</td>
-                            <td><strong>100+</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Contribution request turnaround reduction</td>
-                            <td><strong>50%</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Open-source contribution increase</td>
-                            <td><strong>30%</strong></td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <div>
-                    <h3>Financial (12 Months)</h3>
-                    <table>
-                        <tr>
-                            <th>Metric</th>
-                            <th>Target</th>
-                        </tr>
-                        <tr>
-                            <td>Annual value validated</td>
-                            <td><strong>$945,000</strong></td>
-                        </tr>
-                        <tr>
-                            <td>ROI achieved</td>
-                            <td><strong>530%</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Payback period</td>
-                            <td><strong>3.4 months</strong></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+            <h2>4. Scope <span class="updated-badge">UPDATED</span></h2>
             
-            <h2>3. Scope & Boundaries</h2>
-            
-            <div class="two-column">
+            <div class="two-col">
                 <div>
                     <h3>In Scope</h3>
-                    
-                    <h4>Spectrum Application Platform</h4>
+                    <h4>Platform Foundation</h4>
                     <ul>
-                        <li>Development and launch of the Spectrum app as a product</li>
-                        <li>Integration of design, code, tokens, guidelines, examples, and workflows</li>
-                        <li>Multi-platform view (Web, iOS, Android, desktop)</li>
+                        <li>Knapsack workspace deployment and configuration</li>
+                        <li>Adobe IMS SSO integration</li>
+                        <li>GitHub repository integration</li>
+                        <li>Token management and synchronization</li>
+                        <li>Enterprise security compliance (SARB)</li>
                     </ul>
                     
-                    <h4>AI Workflow Integration (IPE)</h4>
+                    <h4>Platform Integrations</h4>
                     <ul>
-                        <li>Drift detection</li>
-                        <li>Automated accessibility validation</li>
-                        <li>Migration planning</li>
-                        <li>Component deduplication</li>
-                        <li>System-aware code generation</li>
+                        <li>Web Components (Spectrum Web Components)</li>
+                        <li>React (React Spectrum)</li>
+                        <li>iOS platform (R4 - deferred)</li>
+                        <li>Android platform (R4 - deferred)</li>
                     </ul>
                     
-                    <h4>Partner Ecosystem Enablement</h4>
+                    <h4>User Experience</h4>
                     <ul>
-                        <li>Partner access parity</li>
-                        <li>Contribution workflow standardization</li>
-                        <li>Shared governance for system evolution</li>
+                        <li>Unified component catalog</li>
+                        <li>Cross-platform documentation</li>
+                        <li>Interactive code examples</li>
+                        <li>Search and discovery optimization</li>
+                    </ul>
+                    
+                    <h4>Governance & Operations</h4>
+                    <ul>
+                        <li>Contribution workflows</li>
+                        <li>Quality gates and review processes</li>
+                        <li>Partner access and enablement</li>
+                        <li>Analytics and metrics dashboard</li>
+                    </ul>
+                    
+                    <h4>AI Capabilities <span class="updated-badge">NEW</span></h4>
+                    <ul>
+                        <li>Knapsack MCP Beta Program participation</li>
+                        <li>AI-assisted component discovery</li>
+                        <li>Natural language documentation queries</li>
                     </ul>
                 </div>
-                
                 <div>
-                    <h3>Out of Scope (Phase 1)</h3>
+                    <h3>Out of Scope <span class="updated-badge">UPDATED</span></h3>
                     <ul>
-                        <li>Non-Spectrum app Adobe Creative Cloud integrations</li>
-                        <li>Multi-brand design systems (future phase)</li>
+                        <li>Spectrum component design decisions (Spectrum Core team)</li>
+                        <li>Platform-native implementation code (Engineering teams)</li>
+                        <li>Product-specific customizations (Product teams)</li>
+                        <li>Figma library maintenance (Design Tools team)</li>
+                        <li>Infrastructure hosting (IT/Security)</li>
                     </ul>
                     
-                    <div class="callout">
-                        <div class="callout-title">Phase 2 Considerations</div>
-                        <p>Multi-brand architecture and extended Creative Cloud integrations will be evaluated following successful Phase 1 deployment and adoption validation.</p>
+                    <div class="callout warning">
+                        <div class="callout-title">IPE Capabilities Deferred</div>
+                        <p>The following IPE capabilities have been moved to out-of-scope for future SOW: Full IPE Integration, Ingestion Engine, Composition Agent, Advanced automation workflows. MCP Beta Program is included as in-scope alternative.</p>
                     </div>
+                    
+                    <h3>Shared Responsibilities</h3>
+                    <table>
+                        <tr><th>Area</th><th>Shared With</th></tr>
+                        <tr><td>Component documentation</td><td>Spectrum Core Team</td></tr>
+                        <tr><td>Accessibility validation</td><td>A11y Team</td></tr>
+                        <tr><td>Token management</td><td>Design Ops</td></tr>
+                        <tr><td>Security compliance</td><td>Security Team</td></tr>
+                        <tr><td>Partner contracts</td><td>Legal/Procurement</td></tr>
+                    </table>
+                    
+                    <h3>Key Decisions Required</h3>
+                    <table>
+                        <tr><th>Decision</th><th>Owner</th><th>Due</th></tr>
+                        <tr><td>SSO integration approach</td><td>Tech Lead</td><td>R0</td></tr>
+                        <tr><td>Data classification</td><td>Security</td><td>R0</td></tr>
+                        <tr><td>Partner access model</td><td>DS Lead</td><td>R1</td></tr>
+                        <tr><td>Contribution workflow</td><td>Product Mgr</td><td>R2</td></tr>
+                        <tr><td>Mobile platform priority</td><td>Steering</td><td>R3</td></tr>
+                        <tr><td>MCP Beta scope</td><td>DS Lead</td><td>R3</td></tr>
+                    </table>
                 </div>
             </div>
             
-            <div class="page-footer">
-                <span>Adobe Confidential — System Charter v4.0</span>
-                <span>Page 2 of 5</span>
+            <div class="footer">
+                <span>Adobe Confidential | System Charter v4.1</span>
+                <span>Page 2 of 10</span>
             </div>
         </div>
         
-        <!-- PAGE 3: GOVERNANCE & WORKSTREAMS -->
+        <!-- PAGE 3: TIMELINE & PHASES -->
         <div class="page">
-            <div class="section-label">Governance & Workstreams</div>
-            <h2>4. Governance Structure</h2>
+            <div class="section-label">Timeline & Phases</div>
             
-            <div class="two-column">
+            <h2>5. Release Timeline <span class="updated-badge">UPDATED</span></h2>
+            
+            <div class="timeline-bar">
+                <div class="timeline-segment r0" style="width: 15%;">R0</div>
+                <div class="timeline-segment r1" style="width: 20%;">R1</div>
+                <div class="timeline-segment r2" style="width: 25%;">R2</div>
+                <div class="timeline-segment r3" style="width: 25%;">R3</div>
+                <div class="timeline-segment r4" style="width: 15%;">R4</div>
+            </div>
+            <p style="font-size: 7pt; color: var(--spectrum-gray-600); text-align: center;">Oct 2025 | Dec 2025 | Feb 2026 | Apr 2026 | Jun 2026 | Ongoing</p>
+            
+            <table style="margin-top: 8px;">
+                <tr>
+                    <th style="width: 8%;">Release</th>
+                    <th style="width: 18%;">Name</th>
+                    <th style="width: 12%;">Timeline</th>
+                    <th style="width: 8%;">Duration</th>
+                    <th>Key Deliverables</th>
+                    <th style="width: 12%;">Gate Approver</th>
+                </tr>
+                <tr>
+                    <td><strong>R0</strong></td>
+                    <td>Foundation & Procurement</td>
+                    <td>Oct - Dec 2025</td>
+                    <td>10 weeks</td>
+                    <td>SARB approval, contracts, architecture validation, pilot user identification</td>
+                    <td>Steering Committee</td>
+                </tr>
+                <tr>
+                    <td><strong>R1</strong></td>
+                    <td>Spectrum App MVP</td>
+                    <td>Dec 2025 - Feb 2026</td>
+                    <td>10 weeks</td>
+                    <td>Platform live, Web Components, 50+ pilot users, core docs migrated</td>
+                    <td>DS Lead</td>
+                </tr>
+                <tr>
+                    <td><strong>R2</strong></td>
+                    <td>React + Governance</td>
+                    <td>Feb - Apr 2026</td>
+                    <td>10 weeks</td>
+                    <td>React integration, contribution workflows, 500+ users, 10+ partners</td>
+                    <td>Product Mgr</td>
+                </tr>
+                <tr>
+                    <td><strong>R3</strong></td>
+                    <td>Full Rollout + MCP Beta</td>
+                    <td>Apr - Jun 2026</td>
+                    <td>10 weeks</td>
+                    <td>2,000+ users, 100+ partners, MCP Beta active, drift detection</td>
+                    <td>Steering Committee</td>
+                </tr>
+                <tr>
+                    <td><strong>R4</strong></td>
+                    <td>Scale & Optimize</td>
+                    <td>Jun 2026+</td>
+                    <td>Ongoing</td>
+                    <td>Mobile platforms, 10K+ viewers, full value realization</td>
+                    <td>Exec Sponsor</td>
+                </tr>
+            </table>
+            
+            <h2>6. Governance Structure</h2>
+            
+            <div class="two-col">
                 <div>
                     <h3>Steering Committee</h3>
-                    <p>Provides strategic oversight, funding, risk resolution, and approval of major direction changes.</p>
-                    
-                    <h3>Spectrum App Product Board <span class="status-badge">New</span></h3>
-                    <p>Provides product governance for the Spectrum application.</p>
-                    
-                    <h4>Members</h4>
                     <ul>
-                        <li>Senior Director, Experience Design (Spectrum)</li>
-                        <li>Design System Lead</li>
-                        <li>Spectrum App Product Manager</li>
-                        <li>Engineering Platform Lead</li>
-                        <li>Accessibility Lead</li>
-                        <li>CX Partner (Knapsack)</li>
+                        <li>Executive Sponsor (Exec)</li>
+                        <li>Design System Leadership</li>
+                        <li>Engineering Leadership</li>
+                        <li>Design Ops (Angeli, Allison)</li>
+                        <li>Knapsack Partnership Lead</li>
                     </ul>
+                    <p style="font-size: 7pt; margin-top: 4px;"><strong>Cadence:</strong> Monthly + Release Gates</p>
                     
-                    <h4>Responsibilities</h4>
+                    <h3>Product Board</h3>
                     <ul>
-                        <li>Prioritize Spectrum app roadmap</li>
-                        <li>Manage contribution lifecycle</li>
-                        <li>Ensure accessibility, consistency, and multi-platform integrity</li>
-                        <li>Oversee release cycles and governance compliance</li>
+                        <li>DS Lead (Chair)</li>
+                        <li>Product Manager</li>
+                        <li>Tech Lead</li>
+                        <li>Implementation Manager (Aaron)</li>
+                        <li>Forward Deployed Engineer (Knapsack)</li>
                     </ul>
+                    <p style="font-size: 7pt; margin-top: 4px;"><strong>Cadence:</strong> Weekly</p>
                 </div>
-                
                 <div>
-                    <h3>Core Implementation Team</h3>
-                    <p>Executes implementation of the Spectrum app and IPE integration.</p>
-                    
-                    <h3>Extended Teams</h3>
-                    <ul>
-                        <li>Designers (system + product teams)</li>
-                        <li>Engineers (Web, React, iOS, Android)</li>
-                        <li>Accessibility specialists</li>
-                        <li>Implementation Partner Council</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h2>5. Workstreams</h2>
-            
-            <table>
-                <tr>
-                    <th style="width: 25%;">Workstream</th>
-                    <th>Key Deliverables</th>
-                </tr>
-                <tr>
-                    <td><strong>1. Spectrum App Platform Foundation</strong></td>
-                    <td>Build infrastructure on Knapsack; Adobe IAM integration; Token management; Unified component catalog; Enterprise security guidelines</td>
-                </tr>
-                <tr>
-                    <td><strong>2. IPE Integration</strong></td>
-                    <td>Drift detection; Migration planning for Spectrum 2; Contribution workflow acceleration; Accessible component validation</td>
-                </tr>
-                <tr>
-                    <td><strong>3. Partner Enablement</strong></td>
-                    <td>Partner onboarding; Shared access; Contribution pathways; Training program for internal + external teams</td>
-                </tr>
-                <tr>
-                    <td><strong>4. Governance & Quality</strong></td>
-                    <td>Component lifecycle management; Automated governance via IPE; Release notes and versioning structure</td>
-                </tr>
-                <tr>
-                    <td><strong>5. Measurement & Analytics</strong></td>
-                    <td>App engagement analytics; Drift index; Contribution pipeline analytics; Partner usage telemetry</td>
-                </tr>
-                <tr>
-                    <td><strong>6. Spectrum App Productization</strong> <span class="status-badge">New</span></td>
-                    <td>App MVP delivery; Contributor dashboard; Component validation tooling; Release management and roadmap cadence</td>
-                </tr>
-            </table>
-            
-            <div class="page-footer">
-                <span>Adobe Confidential — System Charter v4.0</span>
-                <span>Page 3 of 5</span>
-            </div>
-        </div>
-        
-        <!-- PAGE 4: RISK, TIMELINE, BUDGET -->
-        <div class="page">
-            <div class="section-label">Risk, Timeline & Budget</div>
-            <h2>6. Risk Management</h2>
-            
-            <table>
-                <tr>
-                    <th style="width: 30%;">Risk</th>
-                    <th style="width: 12%;">Impact</th>
-                    <th>Mitigation Strategy</th>
-                </tr>
-                <tr>
-                    <td>Low Spectrum app adoption</td>
-                    <td><strong>High</strong></td>
-                    <td>Release training, in-app onboarding, support pathways</td>
-                </tr>
-                <tr>
-                    <td>Partner access issues</td>
-                    <td><strong>High</strong></td>
-                    <td>Secure IAM integration, clear permission model</td>
-                </tr>
-                <tr>
-                    <td>Contribution overload</td>
-                    <td><strong>Medium</strong></td>
-                    <td>Product Board triage, SLA-based processing</td>
-                </tr>
-                <tr>
-                    <td>Drift between design & code</td>
-                    <td><strong>High</strong></td>
-                    <td>Automated IPE workflows + mandatory validation</td>
-                </tr>
-                <tr>
-                    <td>Accessibility regressions</td>
-                    <td><strong>High</strong></td>
-                    <td>Automated WCAG 2.1 AA scanning + manual audits</td>
-                </tr>
-            </table>
-            
-            <h2>7. Communication Plan</h2>
-            <ul>
-                <li><strong>Bi-weekly:</strong> Spectrum app release notes</li>
-                <li><strong>Monthly:</strong> Steering Committee updates; Partner council meetings</li>
-                <li><strong>Weekly:</strong> Office hours</li>
-                <li><strong>Quarterly:</strong> Training + contribution showcase</li>
-            </ul>
-            
-            <h2>8. Budget & Resource Allocation</h2>
-            
-            <div class="two-column">
-                <div>
-                    <h3>Platform Costs</h3>
+                    <h3>Release Gate Reviews <span class="updated-badge">NEW</span></h3>
                     <table>
-                        <tr>
-                            <th>Item</th>
-                            <th>Annual Cost</th>
-                        </tr>
-                        <tr>
-                            <td>Knapsack Enterprise License</td>
-                            <td><strong>$150,000</strong></td>
-                        </tr>
-                        <tr>
-                            <td>IPE Beta Program</td>
-                            <td><em>Included</em></td>
-                        </tr>
-                        <tr>
-                            <td>App hosting & telemetry</td>
-                            <td>~$50,000</td>
-                        </tr>
-                        <tr>
-                            <td>Support & maintenance</td>
-                            <td>~$30,000</td>
-                        </tr>
+                        <tr><th>Gate</th><th>Approver</th><th>Key Criteria</th></tr>
+                        <tr><td>R0 to R1</td><td>Steering Committee</td><td>SARB approved, contracts signed, 6/6 decisions</td></tr>
+                        <tr><td>R1 to R2</td><td>DS Lead</td><td>50+ pilot users, NPS 30+, zero P1 bugs</td></tr>
+                        <tr><td>R2 to R3</td><td>Product Mgr</td><td>500+ users, 10+ partners, NPS 40+</td></tr>
+                        <tr><td>R3 to R4</td><td>Steering Committee</td><td>2,000+ users, 1 hr/week savings validated</td></tr>
+                        <tr><td>R4 Steady</td><td>Exec Sponsor</td><td>$945K value, 95% Y1 ROI achieved</td></tr>
                     </table>
-                </div>
-                
-                <div>
-                    <h3>Personnel Allocation</h3>
-                    <table>
-                        <tr>
-                            <th>Role</th>
-                            <th>FTE</th>
-                        </tr>
-                        <tr>
-                            <td>Spectrum App Product Manager</td>
-                            <td>0.5 FTE</td>
-                        </tr>
-                        <tr>
-                            <td>Design System Lead (post-launch)</td>
-                            <td>0.5 FTE</td>
-                        </tr>
-                        <tr>
-                            <td>Accessibility team</td>
-                            <td>0.25 FTE</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            
-            <h2>9. Timeline Overview</h2>
-            
-            <table>
-                <tr>
-                    <th style="width: 18%;">Phase</th>
-                    <th>Focus Areas</th>
-                </tr>
-                <tr>
-                    <td><strong>Phase 0</strong></td>
-                    <td>Procurement & App Architecture</td>
-                </tr>
-                <tr>
-                    <td><strong>Phase 1</strong></td>
-                    <td>Spectrum App MVP + Repository Integration</td>
-                </tr>
-                <tr>
-                    <td><strong>Phase 2</strong></td>
-                    <td>IPE Pilot + Drift Detection + Governance Tools</td>
-                </tr>
-                <tr>
-                    <td><strong>Phase 3</strong></td>
-                    <td>Full Rollout + Training + Contribution Workflow</td>
-                </tr>
-                <tr>
-                    <td><strong>Phase 4</strong></td>
-                    <td>Steady-State Product Lifecycle</td>
-                </tr>
-            </table>
-            
-            <div class="page-footer">
-                <span>Adobe Confidential — System Charter v4.0</span>
-                <span>Page 4 of 5</span>
-            </div>
-        </div>
-        
-        <!-- PAGE 5: SUCCESS CRITERIA & APPROVAL -->
-        <div class="page">
-            <div class="section-label">Success Criteria & Approval</div>
-            <h2>10. Success Criteria</h2>
-            
-            <div class="two-column">
-                <div>
-                    <h3>Product Metrics</h3>
+                    
                     <div class="callout success">
-                        <div class="callout-title">Key Targets</div>
-                        <ul style="margin-bottom: 0;">
-                            <li>75% WAU for Spectrum app</li>
-                            <li>&lt;10% documentation drift</li>
-                            <li>90% accuracy for IPE-driven drift detection</li>
-                            <li>50% reduction in contribution turnaround time</li>
-                        </ul>
+                        <div class="callout-title">Gate Protocol</div>
+                        <p>Each gate requires documented sign-off. Blocked gates escalate to Steering Committee within 48 hours.</p>
                     </div>
-                    
-                    <h3>Operational Metrics</h3>
-                    <ul>
-                        <li>50% discovery time reduction</li>
-                        <li>40% support volume reduction</li>
-                    </ul>
-                    
-                    <h3>Financial Metrics</h3>
-                    <ul>
-                        <li>$945k annual value validated</li>
-                        <li>530% ROI achieved</li>
-                    </ul>
                 </div>
-                
+            </div>
+            
+            <div class="footer">
+                <span>Adobe Confidential | System Charter v4.1</span>
+                <span>Page 3 of 10</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 4: WORKSTREAMS -->
+        <div class="page">
+            <div class="section-label">Workstreams & Resources</div>
+            
+            <h2>7. Workstreams</h2>
+            
+            <table>
+                <tr>
+                    <th style="width: 20%;">Workstream</th>
+                    <th style="width: 12%;">Lead</th>
+                    <th>Focus Areas</th>
+                    <th style="width: 15%;">Active Releases</th>
+                </tr>
+                <tr>
+                    <td><strong>Platform & Infrastructure</strong></td>
+                    <td>Tech Lead</td>
+                    <td>SSO, GitHub integration, workspace architecture, security</td>
+                    <td>R0, R1</td>
+                </tr>
+                <tr>
+                    <td><strong>Content & Documentation</strong></td>
+                    <td>DS Lead</td>
+                    <td>Migration, guidelines, component docs, examples</td>
+                    <td>R1, R2</td>
+                </tr>
+                <tr>
+                    <td><strong>AI & Workflows</strong></td>
+                    <td>FDE (Knapsack)</td>
+                    <td>MCP Beta, drift detection, code gen, migration planning</td>
+                    <td>R2, R3</td>
+                </tr>
+                <tr>
+                    <td><strong>Governance & Contribution</strong></td>
+                    <td>Product Mgr</td>
+                    <td>Quality gates, workflows, lifecycle model</td>
+                    <td>R2, R3</td>
+                </tr>
+                <tr>
+                    <td><strong>Partner Enablement</strong></td>
+                    <td>DS Lead</td>
+                    <td>Partner access, training, audit automation</td>
+                    <td>R2, R3, R4</td>
+                </tr>
+                <tr>
+                    <td><strong>Training & Adoption</strong></td>
+                    <td>Design Ops</td>
+                    <td>Training materials, onboarding, change management</td>
+                    <td>R1, R2, R3</td>
+                </tr>
+            </table>
+            
+            <h2>8. Resource Allocation</h2>
+            
+            <div class="two-col">
                 <div>
-                    <h3>Component Lifecycle Model</h3>
-                    <div class="lifecycle-flow">
-                        <span class="lifecycle-stage">Proposal</span>
-                        <span class="lifecycle-arrow">→</span>
-                        <span class="lifecycle-stage">Draft</span>
-                        <span class="lifecycle-arrow">→</span>
-                        <span class="lifecycle-stage">Beta</span>
-                        <span class="lifecycle-arrow">→</span>
-                        <span class="lifecycle-stage">Stable</span>
-                        <span class="lifecycle-arrow">→</span>
-                        <span class="lifecycle-stage">Deprecated</span>
-                    </div>
-                    
-                    <h3>Glossary</h3>
+                    <h3>Adobe Team</h3>
                     <table>
-                        <tr>
-                            <td><strong>Spectrum App</strong></td>
-                            <td>Adobe's design system application</td>
-                        </tr>
-                        <tr>
-                            <td><strong>IPE</strong></td>
-                            <td>Intelligent Product Engine</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Drift Detection</strong></td>
-                            <td>Automated comparison of design vs. code</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Component Lifecycle</strong></td>
-                            <td>Governance process for component evolution</td>
-                        </tr>
+                        <tr><th>Role</th><th>Allocation</th><th>Duration</th></tr>
+                        <tr><td>Design System Lead</td><td>50%</td><td>R0-R4</td></tr>
+                        <tr><td>Product Manager</td><td>100%</td><td>R0-R4</td></tr>
+                        <tr><td>Technical Lead</td><td>75%</td><td>R0-R2</td></tr>
+                        <tr><td>Implementation Manager</td><td>100%</td><td>R1-R3</td></tr>
+                        <tr><td>Design Ops</td><td>25%</td><td>R0-R4</td></tr>
+                        <tr><td>Accessibility Lead</td><td>25%</td><td>R1-R4</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>Knapsack Team</h3>
+                    <table>
+                        <tr><th>Role</th><th>Allocation</th><th>Duration</th></tr>
+                        <tr><td>Forward Deployed Engineer</td><td>100%</td><td>R0-R4</td></tr>
+                        <tr><td>Customer Experience Partner</td><td>50%</td><td>R0-R4</td></tr>
+                        <tr><td>Technical Support</td><td>As needed</td><td>R0-R4</td></tr>
+                    </table>
+                    
+                    <div class="callout info">
+                        <div class="callout-title">FDE Value Proposition</div>
+                        <p>The Forward Deployed Engineer is the primary technical resource, minimizing Adobe pre-work burden and accelerating time-to-value through dedicated expertise.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2>9. Stakeholders</h2>
+            
+            <div class="two-col">
+                <div>
+                    <h3>Primary Stakeholders</h3>
+                    <table>
+                        <tr><th>Group</th><th>Scale</th><th>Interest</th></tr>
+                        <tr><td>Product Designers</td><td>600+</td><td>Component discovery, guidelines</td></tr>
+                        <tr><td>Engineers</td><td>600+</td><td>Implementation code, APIs</td></tr>
+                        <tr><td>Product Managers</td><td>200+</td><td>Consistency, timelines</td></tr>
+                        <tr><td>Implementation Partners</td><td>100+</td><td>Access, audit support</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>Secondary Stakeholders</h3>
+                    <table>
+                        <tr><th>Group</th><th>Interest</th></tr>
+                        <tr><td>Adobe Leadership</td><td>Platform efficiency, ROI</td></tr>
+                        <tr><td>Procurement</td><td>Vendor compliance</td></tr>
+                        <tr><td>Security</td><td>Data protection</td></tr>
+                        <tr><td>Legal</td><td>Contract terms</td></tr>
                     </table>
                 </div>
             </div>
             
-            <h2>11. Approval & Sign-Off</h2>
+            <div class="footer">
+                <span>Adobe Confidential | System Charter v4.1</span>
+                <span>Page 4 of 10</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 5: FINANCIALS -->
+        <div class="page">
+            <div class="section-label">Financial Model</div>
             
-            <div class="callout">
-                <div class="callout-title">Document Status</div>
-                <p>This charter is considered ratified upon signature from the following stakeholders. <strong>Status: Pending Adobe Operations, Procurement, and Security Approval.</strong></p>
+            <h2>10. Investment & ROI <span class="updated-badge">UPDATED</span></h2>
+            
+            <div class="two-col">
+                <div>
+                    <h3>Investment Summary</h3>
+                    <table>
+                        <tr><th>Category</th><th>Year 1</th><th>Notes</th></tr>
+                        <tr><td>Platform License</td><td>$250,000</td><td>Enterprise tier</td></tr>
+                        <tr><td>Implementation & Enablement Services</td><td>$121,992</td><td>Validation, documentation, enablement</td></tr>
+                        <tr><td>Architecture & Integration</td><td>$53,561</td><td>DevOps, SSO integration</td></tr>
+                        <tr><td>One-Time Implementation</td><td>$58,380</td><td>Knapsack setup</td></tr>
+                        <tr><td>Governance Toolkit</td><td>$0</td><td>Included</td></tr>
+                        <tr><td><strong>Total Investment</strong></td><td><strong>$483,933</strong></td><td></td></tr>
+                    </table>
+                    
+                    <h3>Value Realization by Release</h3>
+                    <table>
+                        <tr><th>Release</th><th>Cumulative Value</th><th>Net Position</th></tr>
+                        <tr><td>R0</td><td>$0</td><td>-$150K</td></tr>
+                        <tr><td>R1</td><td>$50K</td><td>-$284K</td></tr>
+                        <tr><td>R2</td><td>$200K</td><td>-$234K</td></tr>
+                        <tr><td>R3</td><td>$400K</td><td>+$166K</td></tr>
+                        <tr><td>R4</td><td>$945K</td><td>+$461K</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>Value Composition</h3>
+                    <table>
+                        <tr><th>Value Driver</th><th>Annual Value</th><th>Calculation</th></tr>
+                        <tr><td>Time savings (designers)</td><td>$468K</td><td>600 users x 1.5 hr/wk x $10/hr x 52 wk</td></tr>
+                        <tr><td>Time savings (engineers)</td><td>$312K</td><td>400 users x 1 hr/wk x $15/hr x 52 wk</td></tr>
+                        <tr><td>Support reduction</td><td>$100K</td><td>40% reduction in DS support load</td></tr>
+                        <tr><td>Partner efficiency</td><td>$65K</td><td>Reduced audit cycles, faster onboarding</td></tr>
+                        <tr><td><strong>Total Annual Value</strong></td><td><strong>$945K</strong></td><td></td></tr>
+                    </table>
+                    
+                    <h3>Key Financial Metrics</h3>
+                    <div class="three-col" style="margin-top: 6px;">
+                        <div class="metric-card">
+                            <div class="metric-value">$945K</div>
+                            <div class="metric-label">Annual Value</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">95%</div>
+                            <div class="metric-label">Year 1 ROI</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">6.2 mo</div>
+                            <div class="metric-label">Payback Period</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="signature-block">
-                <div class="signature-row">
-                    <div class="signature-label">Executive Sponsor (VP of Design)</div>
-                    <div class="signature-line"></div>
-                    <div class="signature-line"></div>
+            <div class="callout info">
+                <div class="callout-title">Financial Assumptions</div>
+                <p>ROI projections based on conservative adoption estimates (65% of target users). Payback period updated to 6.2 months (from 3.4 months) based on revised rollout timeline. Full value realization expected by end of R4.</p>
+            </div>
+            
+            <div class="footer">
+                <span>Adobe Confidential | System Charter v4.1</span>
+                <span>Page 5 of 10</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 6: RISKS -->
+        <div class="page">
+            <div class="section-label">Risk Management</div>
+            
+            <h2>11. Risk Register <span class="updated-badge">UPDATED</span></h2>
+            
+            <table>
+                <tr>
+                    <th style="width: 6%;">ID</th>
+                    <th style="width: 22%;">Risk</th>
+                    <th style="width: 8%;">Prob</th>
+                    <th style="width: 8%;">Impact</th>
+                    <th style="width: 36%;">Mitigation</th>
+                    <th style="width: 10%;">Owner</th>
+                    <th style="width: 10%;">Status</th>
+                </tr>
+                <tr>
+                    <td>R-01</td>
+                    <td>SARB approval delayed</td>
+                    <td class="risk-medium">Med</td>
+                    <td class="risk-high">High</td>
+                    <td>Early engagement with security team; pre-submission review; FDE support for documentation</td>
+                    <td>Tech Lead</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td>R-02</td>
+                    <td>Pilot user adoption lower than expected</td>
+                    <td class="risk-medium">Med</td>
+                    <td class="risk-medium">Med</td>
+                    <td>Targeted user selection; training program; feedback loops; champion network</td>
+                    <td>DS Lead</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td>R-03</td>
+                    <td>Content migration complexity</td>
+                    <td class="risk-high">High</td>
+                    <td class="risk-medium">Med</td>
+                    <td>Phased migration; prioritized content; FDE-led automation; quality gates</td>
+                    <td>Impl Mgr</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td>R-04</td>
+                    <td>SSO integration issues</td>
+                    <td class="risk-low">Low</td>
+                    <td class="risk-high">High</td>
+                    <td>Early POC; Adobe IMS expertise; fallback authentication option</td>
+                    <td>Tech Lead</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td>R-05</td>
+                    <td>Partner enablement delays</td>
+                    <td class="risk-medium">Med</td>
+                    <td class="risk-medium">Med</td>
+                    <td>Parallel partner onboarding track; dedicated support; tiered rollout</td>
+                    <td>DS Lead</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td>R-06</td>
+                    <td>Resource availability conflicts</td>
+                    <td class="risk-medium">Med</td>
+                    <td class="risk-medium">Med</td>
+                    <td>Clear allocation commitments; escalation path; FDE as primary resource</td>
+                    <td>Product Mgr</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td>R-07</td>
+                    <td>Scope creep</td>
+                    <td class="risk-high">High</td>
+                    <td class="risk-medium">Med</td>
+                    <td>Clear scope boundaries; change control process; release gate discipline</td>
+                    <td>DS Lead</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td>R-08</td>
+                    <td>Mobile platform complexity</td>
+                    <td class="risk-medium">Med</td>
+                    <td class="risk-medium">Med</td>
+                    <td>Deferred to R4; Web/React priority; phased mobile approach</td>
+                    <td>Tech Lead</td>
+                    <td>Accepted</td>
+                </tr>
+                <tr>
+                    <td>R-09</td>
+                    <td>MCP Beta scope uncertainty</td>
+                    <td class="risk-medium">Med</td>
+                    <td class="risk-low">Low</td>
+                    <td>Beta program structure; limited scope; progressive scaling plan</td>
+                    <td>FDE</td>
+                    <td>Active</td>
+                </tr>
+            </table>
+            
+            <h2>12. Risk Heat Map</h2>
+            
+            <div class="two-col">
+                <div>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th style="text-align: center;">Low Impact</th>
+                            <th style="text-align: center;">Med Impact</th>
+                            <th style="text-align: center;">High Impact</th>
+                        </tr>
+                        <tr>
+                            <th>High Prob</th>
+                            <td style="background: #fef3c7;"></td>
+                            <td style="background: #fed7aa;">R-03, R-07</td>
+                            <td style="background: #fecaca;"></td>
+                        </tr>
+                        <tr>
+                            <th>Med Prob</th>
+                            <td style="background: #d9f99d;">R-09</td>
+                            <td style="background: #fef3c7;">R-02, R-05, R-06, R-08</td>
+                            <td style="background: #fed7aa;">R-01</td>
+                        </tr>
+                        <tr>
+                            <th>Low Prob</th>
+                            <td style="background: #bbf7d0;"></td>
+                            <td style="background: #d9f99d;"></td>
+                            <td style="background: #fef3c7;">R-04</td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="signature-row">
-                    <div class="signature-label">Director of Design Operations</div>
-                    <div class="signature-line"></div>
-                    <div class="signature-line"></div>
-                </div>
-                <div class="signature-row">
-                    <div class="signature-label">Director of Engineering</div>
-                    <div class="signature-line"></div>
-                    <div class="signature-line"></div>
-                </div>
-                <div class="signature-row">
-                    <div class="signature-label">Spectrum App Product Manager</div>
-                    <div class="signature-line"></div>
-                    <div class="signature-line"></div>
-                </div>
-                <div class="signature-row">
-                    <div class="signature-label">Strategic Advisor (Knapsack)</div>
-                    <div class="signature-line"></div>
-                    <div class="signature-line"></div>
+                <div>
+                    <h3>Risk Response Summary</h3>
+                    <ul>
+                        <li><strong>Mitigate:</strong> R-01, R-02, R-03, R-04, R-05, R-06, R-07, R-09</li>
+                        <li><strong>Accept:</strong> R-08 (Mobile deferred)</li>
+                        <li><strong>Transfer:</strong> None</li>
+                        <li><strong>Avoid:</strong> None</li>
+                    </ul>
+                    
+                    <div class="callout warning">
+                        <div class="callout-title">Priority Risks</div>
+                        <p>R-01 (SARB) and R-03 (Migration) require active monitoring. Weekly risk review in Product Board meetings.</p>
+                    </div>
                 </div>
             </div>
             
-            <div style="margin-top: 32px; text-align: center; color: var(--spectrum-gray-600); font-size: 10pt;">
-                <p><strong>Next Review:</strong> Monthly during implementation (Phases 0–3), Quarterly post-implementation (Phase 4+)</p>
+            <div class="footer">
+                <span>Adobe Confidential | System Charter v4.1</span>
+                <span>Page 6 of 10</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 7: ASSUMPTIONS & ISSUES -->
+        <div class="page">
+            <div class="section-label">Assumptions, Issues & Dependencies</div>
+            
+            <h2>13. Assumptions</h2>
+            
+            <table>
+                <tr>
+                    <th style="width: 6%;">ID</th>
+                    <th style="width: 35%;">Assumption</th>
+                    <th style="width: 12%;">Owner</th>
+                    <th style="width: 35%;">Validation Approach</th>
+                    <th style="width: 12%;">Status</th>
+                </tr>
+                <tr>
+                    <td>A-01</td>
+                    <td>Adobe IMS SSO integration is technically feasible</td>
+                    <td>Tech Lead</td>
+                    <td>POC in R0; Knapsack confirms support</td>
+                    <td>Validated</td>
+                </tr>
+                <tr>
+                    <td>A-02</td>
+                    <td>Existing documentation can be migrated with reasonable effort</td>
+                    <td>Impl Mgr</td>
+                    <td>Content audit; migration pilot in R1</td>
+                    <td>Pending</td>
+                </tr>
+                <tr>
+                    <td>A-03</td>
+                    <td>65% adoption rate achievable within 12 months</td>
+                    <td>DS Lead</td>
+                    <td>Pilot feedback; progressive rollout metrics</td>
+                    <td>Pending</td>
+                </tr>
+                <tr>
+                    <td>A-04</td>
+                    <td>FDE allocation sufficient for implementation support</td>
+                    <td>Product Mgr</td>
+                    <td>Weekly capacity review; escalation path</td>
+                    <td>Validated</td>
+                </tr>
+                <tr>
+                    <td>A-05</td>
+                    <td>Partner access requirements align with security model</td>
+                    <td>Security</td>
+                    <td>Security review in R0; partner tiering</td>
+                    <td>Pending</td>
+                </tr>
+            </table>
+            
+            <h2>14. Issues Log</h2>
+            
+            <table>
+                <tr>
+                    <th style="width: 6%;">ID</th>
+                    <th style="width: 30%;">Issue</th>
+                    <th style="width: 10%;">Priority</th>
+                    <th style="width: 10%;">Owner</th>
+                    <th style="width: 32%;">Resolution Path</th>
+                    <th style="width: 12%;">Status</th>
+                </tr>
+                <tr>
+                    <td>I-01</td>
+                    <td>Data classification for partner content</td>
+                    <td class="risk-high">High</td>
+                    <td>Security</td>
+                    <td>Security review scheduled; classification matrix in development</td>
+                    <td>In Progress</td>
+                </tr>
+                <tr>
+                    <td>I-02</td>
+                    <td>Legacy documentation format compatibility</td>
+                    <td class="risk-medium">Med</td>
+                    <td>Impl Mgr</td>
+                    <td>Format conversion tooling; FDE support for automation</td>
+                    <td>In Progress</td>
+                </tr>
+            </table>
+            
+            <h2>15. Dependencies <span class="updated-badge">UPDATED</span></h2>
+            
+            <table>
+                <tr>
+                    <th style="width: 6%;">ID</th>
+                    <th style="width: 30%;">Dependency</th>
+                    <th style="width: 12%;">Type</th>
+                    <th style="width: 12%;">Owner</th>
+                    <th style="width: 28%;">Mitigation</th>
+                    <th style="width: 12%;">Target</th>
+                </tr>
+                <tr>
+                    <td>D-01</td>
+                    <td>iOS native component availability</td>
+                    <td>External</td>
+                    <td>Eng Lead</td>
+                    <td>Deferred to R4; web-first approach</td>
+                    <td>R4</td>
+                </tr>
+                <tr>
+                    <td>D-02</td>
+                    <td>Android native component availability</td>
+                    <td>External</td>
+                    <td>Eng Lead</td>
+                    <td>Deferred to R4; web-first approach</td>
+                    <td>R4</td>
+                </tr>
+                <tr>
+                    <td>D-03</td>
+                    <td>SARB approval</td>
+                    <td>Internal</td>
+                    <td>Tech Lead</td>
+                    <td>Early submission; pre-review engagement</td>
+                    <td>R0</td>
+                </tr>
+                <tr>
+                    <td>D-04</td>
+                    <td>Contract execution</td>
+                    <td>Internal</td>
+                    <td>Procurement</td>
+                    <td>Parallel processing; legal pre-review</td>
+                    <td>R0</td>
+                </tr>
+                <tr>
+                    <td>D-05</td>
+                    <td>GitHub Enterprise integration</td>
+                    <td>Technical</td>
+                    <td>Tech Lead</td>
+                    <td>Knapsack native support confirmed</td>
+                    <td>R1</td>
+                </tr>
+                <tr>
+                    <td>D-06</td>
+                    <td>Design token synchronization</td>
+                    <td>Technical</td>
+                    <td>Design Ops</td>
+                    <td>Token Studio integration path</td>
+                    <td>R1</td>
+                </tr>
+                <tr>
+                    <td>D-07</td>
+                    <td>MCP Server availability (Knapsack)</td>
+                    <td>External</td>
+                    <td>FDE</td>
+                    <td>Beta program scope; post-March timeline</td>
+                    <td>R3</td>
+                </tr>
+                <tr>
+                    <td>D-08</td>
+                    <td>Pilot user list confirmation</td>
+                    <td>Internal</td>
+                    <td>DS Lead</td>
+                    <td>Stakeholder alignment; champion network</td>
+                    <td>R0</td>
+                </tr>
+                <tr>
+                    <td>D-09</td>
+                    <td>Training materials development</td>
+                    <td>Internal</td>
+                    <td>Design Ops</td>
+                    <td>FDE collaboration; template-based approach</td>
+                    <td>R1</td>
+                </tr>
+            </table>
+            
+            <div class="footer">
+                <span>Adobe Confidential | System Charter v4.1</span>
+                <span>Page 7 of 10</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 8: ACTIONS & DECISIONS -->
+        <div class="page">
+            <div class="section-label">Actions & Decisions</div>
+            
+            <h2>16. Action Items <span class="updated-badge">UPDATED</span></h2>
+            
+            <table>
+                <tr>
+                    <th style="width: 6%;">ID</th>
+                    <th style="width: 35%;">Action</th>
+                    <th style="width: 12%;">Owner</th>
+                    <th style="width: 12%;">Due</th>
+                    <th style="width: 25%;">Deliverable</th>
+                    <th style="width: 10%;">Status</th>
+                </tr>
+                <tr>
+                    <td>A-01</td>
+                    <td>Submit SARB documentation package</td>
+                    <td>Tech Lead</td>
+                    <td>Week 4</td>
+                    <td>Complete security questionnaire</td>
+                    <td>Pending</td>
+                </tr>
+                <tr>
+                    <td>A-02</td>
+                    <td>Finalize pilot user list</td>
+                    <td>DS Lead</td>
+                    <td>Week 6</td>
+                    <td>50-100 confirmed participants</td>
+                    <td>In Progress</td>
+                </tr>
+                <tr>
+                    <td>A-03</td>
+                    <td>Complete content migration assessment</td>
+                    <td>Impl Mgr</td>
+                    <td>Week 8</td>
+                    <td>Migration plan with effort estimates</td>
+                    <td>Pending</td>
+                </tr>
+                <tr>
+                    <td>A-04</td>
+                    <td>Execute SSO integration POC</td>
+                    <td>Tech Lead</td>
+                    <td>Week 10</td>
+                    <td>Working SSO demonstration</td>
+                    <td>Pending</td>
+                </tr>
+                <tr>
+                    <td>A-05</td>
+                    <td>Develop pilot training materials</td>
+                    <td>Design Ops</td>
+                    <td>Week 12</td>
+                    <td>Training deck and guides</td>
+                    <td>Pending</td>
+                </tr>
+                <tr>
+                    <td>A-06</td>
+                    <td>Establish metrics baseline dashboard</td>
+                    <td>Product Mgr</td>
+                    <td>Week 14</td>
+                    <td>Analytics dashboard operational</td>
+                    <td>Pending</td>
+                </tr>
+            </table>
+            
+            <h2>17. Decision Log</h2>
+            
+            <table>
+                <tr>
+                    <th style="width: 6%;">ID</th>
+                    <th style="width: 30%;">Decision</th>
+                    <th style="width: 12%;">Made By</th>
+                    <th style="width: 10%;">Date</th>
+                    <th style="width: 32%;">Rationale</th>
+                    <th style="width: 10%;">Impact</th>
+                </tr>
+                <tr>
+                    <td>DC-01</td>
+                    <td>Web Components first approach</td>
+                    <td>Steering</td>
+                    <td>Oct 2025</td>
+                    <td>Largest user base; fastest path to value</td>
+                    <td>High</td>
+                </tr>
+                <tr>
+                    <td>DC-02</td>
+                    <td>Mobile platforms deferred to R4</td>
+                    <td>Steering</td>
+                    <td>Oct 2025</td>
+                    <td>Native dependencies not ready; focus on core platforms</td>
+                    <td>Med</td>
+                </tr>
+                <tr>
+                    <td>DC-03</td>
+                    <td>IPE capabilities deferred to future SOW</td>
+                    <td>DS Lead</td>
+                    <td>Nov 2025</td>
+                    <td>Scope management; MCP Beta as alternative</td>
+                    <td>High</td>
+                </tr>
+                <tr>
+                    <td>DC-04</td>
+                    <td>MCP Beta Program in scope</td>
+                    <td>DS Lead</td>
+                    <td>Nov 2025</td>
+                    <td>AI capabilities via beta program; lower risk</td>
+                    <td>Med</td>
+                </tr>
+                <tr>
+                    <td>DC-05</td>
+                    <td>Pilot size 50-100 users</td>
+                    <td>Product Board</td>
+                    <td>Nov 2025</td>
+                    <td>Balance feedback quality with manageable scope</td>
+                    <td>Med</td>
+                </tr>
+                <tr>
+                    <td>DC-06</td>
+                    <td>Release gate structure (R0-R4)</td>
+                    <td>Steering</td>
+                    <td>Nov 2025</td>
+                    <td>Clear accountability; progressive validation</td>
+                    <td>High</td>
+                </tr>
+            </table>
+            
+            <h2>18. Pending Decisions</h2>
+            
+            <table>
+                <tr>
+                    <th style="width: 6%;">ID</th>
+                    <th style="width: 30%;">Decision Required</th>
+                    <th style="width: 15%;">Decision Maker</th>
+                    <th style="width: 12%;">Due</th>
+                    <th style="width: 27%;">Options</th>
+                    <th style="width: 10%;">Status</th>
+                </tr>
+                <tr>
+                    <td>PD-01</td>
+                    <td>Partner access tier model</td>
+                    <td>DS Lead + Security</td>
+                    <td>R1</td>
+                    <td>Tiered vs. uniform access</td>
+                    <td>Open</td>
+                </tr>
+                <tr>
+                    <td>PD-02</td>
+                    <td>Public workspace timing</td>
+                    <td>Steering Committee</td>
+                    <td>R2</td>
+                    <td>R2 vs. R3 availability</td>
+                    <td>Open</td>
+                </tr>
+                <tr>
+                    <td>PD-03</td>
+                    <td>MCP Beta user selection criteria</td>
+                    <td>DS Lead + FDE</td>
+                    <td>R3</td>
+                    <td>Volunteer vs. targeted</td>
+                    <td>Open</td>
+                </tr>
+            </table>
+            
+            <div class="footer">
+                <span>Adobe Confidential | System Charter v4.1</span>
+                <span>Page 8 of 10</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 9: COMMUNICATION & CHANGE -->
+        <div class="page">
+            <div class="section-label">Communication & Change Management</div>
+            
+            <h2>19. Communication Plan</h2>
+            
+            <table>
+                <tr>
+                    <th style="width: 18%;">Audience</th>
+                    <th style="width: 25%;">Message</th>
+                    <th style="width: 15%;">Channel</th>
+                    <th style="width: 12%;">Frequency</th>
+                    <th style="width: 15%;">Owner</th>
+                    <th style="width: 15%;">Start</th>
+                </tr>
+                <tr>
+                    <td>Steering Committee</td>
+                    <td>Program status, risks, decisions</td>
+                    <td>Meeting + Report</td>
+                    <td>Monthly</td>
+                    <td>DS Lead</td>
+                    <td>R0</td>
+                </tr>
+                <tr>
+                    <td>Product Board</td>
+                    <td>Sprint progress, blockers</td>
+                    <td>Meeting</td>
+                    <td>Weekly</td>
+                    <td>Product Mgr</td>
+                    <td>R0</td>
+                </tr>
+                <tr>
+                    <td>Pilot Users</td>
+                    <td>Training, updates, feedback</td>
+                    <td>Slack + Email</td>
+                    <td>Bi-weekly</td>
+                    <td>Impl Mgr</td>
+                    <td>R1</td>
+                </tr>
+                <tr>
+                    <td>All Design System Users</td>
+                    <td>Announcements, availability</td>
+                    <td>Slack + Wiki</td>
+                    <td>Monthly</td>
+                    <td>Design Ops</td>
+                    <td>R2</td>
+                </tr>
+                <tr>
+                    <td>Partners</td>
+                    <td>Access, training, guidelines</td>
+                    <td>Email + Portal</td>
+                    <td>As needed</td>
+                    <td>DS Lead</td>
+                    <td>R2</td>
+                </tr>
+                <tr>
+                    <td>Leadership</td>
+                    <td>Executive summary, ROI</td>
+                    <td>Report</td>
+                    <td>Quarterly</td>
+                    <td>DS Lead</td>
+                    <td>R1</td>
+                </tr>
+            </table>
+            
+            <h2>20. Change Control Process</h2>
+            
+            <div class="two-col">
+                <div>
+                    <h3>Change Categories</h3>
+                    <table>
+                        <tr><th>Category</th><th>Approval</th><th>Timeline</th></tr>
+                        <tr><td><strong>Minor</strong> - Bug fixes, doc updates</td><td>Product Mgr</td><td>48 hours</td></tr>
+                        <tr><td><strong>Standard</strong> - Feature changes, scope adjustments</td><td>Product Board</td><td>1 week</td></tr>
+                        <tr><td><strong>Major</strong> - Timeline, budget, strategic scope</td><td>Steering Committee</td><td>Next meeting</td></tr>
+                        <tr><td><strong>Emergency</strong> - Critical blockers</td><td>DS Lead + escalation</td><td>24 hours</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>Change Request Process</h3>
+                    <ol>
+                        <li><strong>Submit:</strong> Requestor documents change via form</li>
+                        <li><strong>Assess:</strong> Product Mgr evaluates impact</li>
+                        <li><strong>Route:</strong> Categorize and assign approver</li>
+                        <li><strong>Review:</strong> Approver evaluates and decides</li>
+                        <li><strong>Implement:</strong> Update plans, communicate</li>
+                        <li><strong>Close:</strong> Document outcome in decision log</li>
+                    </ol>
+                </div>
             </div>
             
-            <div class="page-footer">
-                <span>Adobe Confidential — System Charter v4.0</span>
-                <span>Page 5 of 5</span>
+            <h2>21. Success Criteria Summary</h2>
+            
+            <table>
+                <tr>
+                    <th>Release</th>
+                    <th>Users</th>
+                    <th>NPS</th>
+                    <th>Key Deliverable</th>
+                    <th>Value Milestone</th>
+                </tr>
+                <tr>
+                    <td><strong>R0</strong></td>
+                    <td>10 (core team)</td>
+                    <td>N/A</td>
+                    <td>SARB Pass, Contract Signed</td>
+                    <td>Foundation complete</td>
+                </tr>
+                <tr>
+                    <td><strong>R1</strong></td>
+                    <td>50+ WAU</td>
+                    <td>30+</td>
+                    <td>MVP Live, Web Components</td>
+                    <td>$50K validation</td>
+                </tr>
+                <tr>
+                    <td><strong>R2</strong></td>
+                    <td>500+ WAU</td>
+                    <td>40+</td>
+                    <td>React, Governance, 10+ Partners</td>
+                    <td>$200K cumulative</td>
+                </tr>
+                <tr>
+                    <td><strong>R3</strong></td>
+                    <td>2,000+ WAU</td>
+                    <td>45+</td>
+                    <td>Full Rollout, MCP Beta, 100+ Partners</td>
+                    <td>$400K, Payback achieved</td>
+                </tr>
+                <tr>
+                    <td><strong>R4</strong></td>
+                    <td>2,000+ WAU, 10K viewers</td>
+                    <td>50+</td>
+                    <td>Mobile, Scale Operations</td>
+                    <td>$945K run rate, 95% ROI</td>
+                </tr>
+            </table>
+            
+            <div class="footer">
+                <span>Adobe Confidential | System Charter v4.1</span>
+                <span>Page 9 of 10</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 10: GLOSSARY & APPROVAL -->
+        <div class="page">
+            <div class="section-label">Reference & Approval</div>
+            
+            <h2>22. Glossary</h2>
+            
+            <div class="two-col">
+                <div>
+                    <table style="font-size: 7.5pt;">
+                        <tr><th style="width: 25%;">Term</th><th>Definition</th></tr>
+                        <tr><td><strong>MCP</strong></td><td>Model Context Protocol - AI integration standard; included via Knapsack MCP Beta Program</td></tr>
+                        <tr><td><strong>IPE</strong></td><td>Intelligent Product Engine - Knapsack's AI-powered automation (deferred; not in current scope)</td></tr>
+                        <tr><td><strong>FDE</strong></td><td>Forward Deployed Engineer - Dedicated Knapsack technical resource</td></tr>
+                        <tr><td><strong>SARB</strong></td><td>Security Architecture Review Board - Adobe's security approval body</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <table style="font-size: 7.5pt;">
+                        <tr><th style="width: 25%;">Term</th><th>Definition</th></tr>
+                        <tr><td><strong>ADR</strong></td><td>Architecture Decision Record - Documented technical decision</td></tr>
+                        <tr><td><strong>WAU</strong></td><td>Weekly Active Users - Primary adoption metric</td></tr>
+                        <tr><td><strong>DoD</strong></td><td>Definition of Done - Release completion criteria</td></tr>
+                        <tr><td><strong>NPS</strong></td><td>Net Promoter Score - User satisfaction metric</td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <h2>23. Related Documents</h2>
+            
+            <table style="font-size: 7.5pt;">
+                <tr><th>Document</th><th>Purpose</th><th>Owner</th></tr>
+                <tr><td>MVP Release Plan v1.2</td><td>Detailed release timelines, success criteria, DoD</td><td>Product Mgr</td></tr>
+                <tr><td>Team Charter v1.0</td><td>Team roles, responsibilities, governance</td><td>DS Lead</td></tr>
+                <tr><td>Security Review Questionnaire</td><td>SARB submission documentation</td><td>Tech Lead</td></tr>
+                <tr><td>ROI Model v2.0</td><td>Financial projections and value calculations</td><td>Design Ops</td></tr>
+                <tr><td>Technical Architecture Document</td><td>Integration specifications and data flows</td><td>Tech Lead</td></tr>
+                <tr><td>IPE Scope Definition (Future)</td><td>Deferred IPE capabilities for separate SOW</td><td>DS Lead</td></tr>
+            </table>
+            
+            <h2>24. Charter Approval</h2>
+            
+            <table>
+                <tr>
+                    <th style="width: 25%;">Role</th>
+                    <th style="width: 25%;">Name</th>
+                    <th style="width: 30%;">Signature</th>
+                    <th style="width: 20%;">Date</th>
+                </tr>
+                <tr>
+                    <td>Executive Sponsor</td>
+                    <td></td>
+                    <td style="border-bottom: 1px solid var(--spectrum-gray-400);"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Design System Lead</td>
+                    <td></td>
+                    <td style="border-bottom: 1px solid var(--spectrum-gray-400);"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Engineering Lead</td>
+                    <td></td>
+                    <td style="border-bottom: 1px solid var(--spectrum-gray-400);"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Design Ops Lead</td>
+                    <td></td>
+                    <td style="border-bottom: 1px solid var(--spectrum-gray-400);"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Knapsack Partner Lead</td>
+                    <td></td>
+                    <td style="border-bottom: 1px solid var(--spectrum-gray-400);"></td>
+                    <td></td>
+                </tr>
+            </table>
+            
+            <div class="callout success" style="margin-top: 12px;">
+                <div class="callout-title">Document Control</div>
+                <p><strong>Version:</strong> 4.1 | <strong>Status:</strong> Final | <strong>Last Updated:</strong> December 2025 | <strong>Review Cycle:</strong> Monthly during active releases | <strong>Next Review:</strong> January 2026</p>
+            </div>
+            
+            <div class="footer">
+                <span>Adobe Confidential | System Charter v4.1</span>
+                <span>Page 10 of 10</span>
             </div>
         </div>
         
