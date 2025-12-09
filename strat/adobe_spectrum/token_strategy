@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adobe Token Strategy Recommendations</title>
+    <style>
+        :root {
+            --spectrum-red-900: #EB1000;
+            --spectrum-red-800: #D31510;
+            --spectrum-gray-50: #FFFFFF;
+            --spectrum-gray-75: #FAFAFA;
+            --spectrum-gray-100: #F5F5F5;
+            --spectrum-gray-200: #EAEAEA;
+            --spectrum-gray-300: #E1E1E1;
+            --spectrum-gray-400: #CACACA;
+            --spectrum-gray-500: #B3B3B3;
+            --spectrum-gray-600: #8E8E8E;
+            --spectrum-gray-700: #6E6E6E;
+            --spectrum-gray-800: #4B4B4B;
+            --spectrum-gray-900: #2C2C2C;
+            --spectrum-blue-600: #0D66D0;
+            --spectrum-blue-700: #095ABA;
+            --spectrum-green-600: #12805C;
+            --spectrum-green-700: #107154;
+            --spectrum-orange-600: #CB6F10;
+            --spectrum-yellow-600: #B7A000;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @page {
+            size: 11in 8.5in landscape;
+            margin: 0.4in;
+        }
+        
+        body {
+            font-family: 'Adobe Clean', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 9pt;
+            line-height: 1.4;
+            color: var(--spectrum-gray-900);
+            background: var(--spectrum-gray-50);
+        }
+        
+        .page {
+            width: 10.2in;
+            min-height: 7.7in;
+            padding: 0.4in;
+            background: white;
+            margin: 0 auto 0.3in auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            page-break-after: always;
+            position: relative;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 3px solid var(--spectrum-red-900);
+            padding-bottom: 10px;
+            margin-bottom: 16px;
+        }
+        
+        .header-left h1 {
+            font-size: 18pt;
+            font-weight: 700;
+            color: var(--spectrum-gray-900);
+            margin-bottom: 2px;
+        }
+        
+        .header-left .subtitle {
+            font-size: 10pt;
+            color: var(--spectrum-gray-700);
+        }
+        
+        .header-right {
+            text-align: right;
+            font-size: 8pt;
+            color: var(--spectrum-gray-600);
+        }
+        
+        .adobe-logo {
+            font-weight: 700;
+            color: var(--spectrum-red-900);
+            font-size: 11pt;
+        }
+        
+        h2 {
+            font-size: 12pt;
+            font-weight: 700;
+            color: var(--spectrum-gray-900);
+            margin: 16px 0 10px 0;
+            padding-bottom: 4px;
+            border-bottom: 1px solid var(--spectrum-gray-300);
+        }
+        
+        h3 {
+            font-size: 10pt;
+            font-weight: 600;
+            color: var(--spectrum-gray-800);
+            margin: 12px 0 6px 0;
+        }
+        
+        h4 {
+            font-size: 9pt;
+            font-weight: 600;
+            color: var(--spectrum-gray-700);
+            margin: 8px 0 4px 0;
+        }
+        
+        p {
+            margin-bottom: 8px;
+        }
+        
+        .callout {
+            padding: 12px 14px;
+            border-radius: 4px;
+            margin: 12px 0;
+            border-left: 4px solid;
+        }
+        
+        .callout-title {
+            font-weight: 700;
+            font-size: 9pt;
+            margin-bottom: 4px;
+        }
+        
+        .callout.executive {
+            background: var(--spectrum-gray-75);
+            border-color: var(--spectrum-red-900);
+        }
+        
+        .callout.info {
+            background: #E5F2FF;
+            border-color: var(--spectrum-blue-600);
+        }
+        
+        .callout.success {
+            background: #E5F5F0;
+            border-color: var(--spectrum-green-600);
+        }
+        
+        .callout.warning {
+            background: #FFF4E5;
+            border-color: var(--spectrum-orange-600);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8pt;
+            margin: 8px 0;
+        }
+        
+        th, td {
+            padding: 6px 8px;
+            text-align: left;
+            border: 1px solid var(--spectrum-gray-300);
+        }
+        
+        th {
+            background: var(--spectrum-gray-100);
+            font-weight: 600;
+            color: var(--spectrum-gray-800);
+        }
+        
+        tr:nth-child(even) {
+            background: var(--spectrum-gray-75);
+        }
+        
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .four-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .metric-card {
+            background: var(--spectrum-gray-75);
+            border: 1px solid var(--spectrum-gray-300);
+            border-radius: 4px;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 18pt;
+            font-weight: 700;
+            color: var(--spectrum-red-900);
+        }
+        
+        .metric-label {
+            font-size: 8pt;
+            color: var(--spectrum-gray-700);
+            margin-top: 2px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 7pt;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .badge-recommended {
+            background: var(--spectrum-green-600);
+            color: white;
+        }
+        
+        .badge-defer {
+            background: var(--spectrum-orange-600);
+            color: white;
+        }
+        
+        .badge-critical {
+            background: var(--spectrum-red-900);
+            color: white;
+        }
+        
+        .badge-info {
+            background: var(--spectrum-blue-600);
+            color: white;
+        }
+        
+        .workflow-box {
+            background: var(--spectrum-gray-100);
+            border: 1px solid var(--spectrum-gray-300);
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin: 6px 0;
+            font-family: 'SF Mono', 'Consolas', monospace;
+            font-size: 8pt;
+            line-height: 1.6;
+        }
+        
+        .workflow-arrow {
+            color: var(--spectrum-red-900);
+            font-weight: 700;
+        }
+        
+        .decision-option {
+            border: 1px solid var(--spectrum-gray-300);
+            border-radius: 4px;
+            padding: 10px;
+            margin: 6px 0;
+        }
+        
+        .decision-option.recommended {
+            border-color: var(--spectrum-green-600);
+            background: #E5F5F0;
+        }
+        
+        .option-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        
+        .option-title {
+            font-weight: 700;
+            color: var(--spectrum-gray-900);
+        }
+        
+        ul {
+            margin: 4px 0 8px 16px;
+        }
+        
+        li {
+            margin-bottom: 3px;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            margin: 4px 0;
+        }
+        
+        .check-box {
+            width: 12px;
+            height: 12px;
+            border: 1px solid var(--spectrum-gray-500);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .section-label {
+            font-size: 7pt;
+            font-weight: 600;
+            color: var(--spectrum-red-900);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        
+        .footer {
+            position: absolute;
+            bottom: 0.4in;
+            left: 0.4in;
+            right: 0.4in;
+            display: flex;
+            justify-content: space-between;
+            font-size: 7pt;
+            color: var(--spectrum-gray-600);
+            border-top: 1px solid var(--spectrum-gray-300);
+            padding-top: 8px;
+        }
+        
+        .release-badge {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 9pt;
+            color: white;
+            margin-right: 8px;
+        }
+        
+        .r0 { background: var(--spectrum-gray-700); }
+        .r1 { background: var(--spectrum-blue-600); }
+        .r2 { background: var(--spectrum-green-600); }
+        .r3 { background: var(--spectrum-orange-600); }
+        
+        .risk-row-severe td:first-child {
+            border-left: 3px solid var(--spectrum-red-900);
+        }
+        
+        .risk-row-critical td:first-child {
+            border-left: 3px solid var(--spectrum-orange-600);
+        }
+    </style>
+</head>
+<body>
+
+<!-- PAGE 1: EXECUTIVE SUMMARY -->
+<div class="page">
+    <div class="header">
+        <div class="header-left">
+            <h1>Token Strategy Recommendations</h1>
+            <div class="subtitle">Knapsack Implementation — Spectrum Design System</div>
+        </div>
+        <div class="header-right">
+            <div class="adobe-logo">Adobe Spectrum</div>
+            <div>December 9, 2025</div>
+            <div>Version 1.0</div>
+        </div>
+    </div>
+    
+    <div class="callout executive">
+        <div class="callout-title">Executive Summary</div>
+        <p>The December 9 discovery session with Adobe's token architecture team revealed a sophisticated multi-dimensional token system built on the <code>spectrum-design-data</code> mono-repo. This document provides strategic recommendations aligned with the MVP Release Plan v1.2 timeline and addresses identified RAID items R-06 and R-07.</p>
+        <p style="margin-bottom: 0;"><strong>Recommended Approach:</strong> Consume-First Integration with Future Authoring Path</p>
+    </div>
+    
+    <div class="section-label">Strategic Recommendation</div>
+    
+    <div class="four-col" style="margin: 12px 0;">
+        <div class="metric-card">
+            <div class="metric-value" style="color: var(--spectrum-green-600);">Consume</div>
+            <div class="metric-label">R1 Integration Model</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value" style="color: var(--spectrum-blue-600);">npm</div>
+            <div class="metric-label">Package Source</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value" style="color: var(--spectrum-orange-600);">Defer</div>
+            <div class="metric-label">Authoring Capability</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value" style="color: var(--spectrum-red-900);">R3+</div>
+            <div class="metric-label">MCP Integration</div>
+        </div>
+    </div>
+    
+    <h2>1. Current State Analysis</h2>
+    
+    <div class="two-col">
+        <div>
+            <h3>Adobe's Token Architecture</h3>
+            <p><strong>Source of Truth:</strong> <code>Adobe/spectrum-design-data</code> (public GitHub mono-repo)</p>
+            <ul>
+                <li>Contains <code>spectrum-tokens</code> npm package (JSON format)</li>
+                <li>Component options via JSON schema</li>
+                <li>Custom JSON format using Style Dictionary with nested global properties</li>
+                <li>Multi-dimensional values (theme, density, platform) per token</li>
+            </ul>
+            
+            <h3>Token Layers</h3>
+            <table>
+                <tr>
+                    <th>Layer</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><strong>Private/Primitive</strong></td>
+                    <td>Base values (color scales)</td>
+                    <td><code>gray-100</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Semantic</strong></td>
+                    <td>Contextual meaning</td>
+                    <td><code>accent-color</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Multi-dimensional</strong></td>
+                    <td>Modal variations</td>
+                    <td><code>light/dark</code></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div>
+            <h3>Current Workflow</h3>
+            <div class="workflow-box">
+                Token Studio (Authoring)<br>
+                <span class="workflow-arrow">&nbsp;&nbsp;&nbsp;&nbsp;↓</span> Custom Script (UUID sync)<br>
+                spectrum-design-data (GitHub)<br>
+                <span class="workflow-arrow">&nbsp;&nbsp;&nbsp;&nbsp;↓</span> Schema Validation<br>
+                npm publish (@adobe/spectrum-tokens)<br>
+                <span class="workflow-arrow">&nbsp;&nbsp;&nbsp;&nbsp;↓</span> Diffing Engine → Release Notes<br>
+                Platform Implementations
+            </div>
+            
+            <div class="callout info">
+                <div class="callout-title">Critical Insight</div>
+                <p style="margin-bottom: 0;">Figma cannot serve as source of truth due to platform limitations. The custom UUID-based sync script bridges Token Studio and the repo, maintaining data structure integrity across incompatible formats.</p>
+            </div>
+        </div>
+    </div>
+    
+    <h2>2. Knapsack Integration Implications</h2>
+    
+    <table>
+        <tr>
+            <th style="width: 20%;">Token Characteristic</th>
+            <th style="width: 40%;">Adobe Implementation</th>
+            <th style="width: 40%;">Knapsack Requirement</th>
+        </tr>
+        <tr>
+            <td>Private tokens</td>
+            <td>Display only; prevent direct consumption by implementations</td>
+            <td>Render with "internal use" indicator; exclude from search results</td>
+        </tr>
+        <tr>
+            <td>Multi-dimensional values</td>
+            <td>Single token ID with multiple modal values (light/dark, desktop/mobile)</td>
+            <td>Mode-aware rendering with preview toggles; FDE validation required</td>
+        </tr>
+        <tr>
+            <td>Schema validation</td>
+            <td>Enforced at repo level to ensure consistency across modes</td>
+            <td>Display validation status; surface schema constraints in documentation</td>
+        </tr>
+        <tr>
+            <td>Change diffing</td>
+            <td>Custom diffing engine generates release notes between versions</td>
+            <td>Integrate changelog display; flag breaking changes in component docs</td>
+        </tr>
+    </table>
+    
+    <div class="footer">
+        <span>Adobe Confidential — Token Strategy Recommendations</span>
+        <span>Page 1 of 4</span>
+    </div>
+</div>
+
+<!-- PAGE 2: RECOMMENDATIONS -->
+<div class="page">
+    <div class="header">
+        <div class="header-left">
+            <h1>Strategic Recommendations</h1>
+            <div class="subtitle">Token Integration Approach for Knapsack Implementation</div>
+        </div>
+        <div class="header-right">
+            <div class="adobe-logo">Adobe Spectrum</div>
+        </div>
+    </div>
+    
+    <div class="two-col">
+        <div>
+            <h2>Recommendation 1: Consume-First Integration</h2>
+            <div class="callout success">
+                <div class="callout-title">R1 Priority <span class="status-badge badge-recommended">Recommended</span></div>
+                <p style="margin-bottom: 0;">Configure Knapsack to consume the published <code>spectrum-tokens</code> npm package rather than attempting bi-directional authoring in R1.</p>
+            </div>
+            
+            <h4>Rationale</h4>
+            <ul>
+                <li>Respects Adobe's established source of truth</li>
+                <li>Avoids disrupting the existing Token Studio → GitHub workflow</li>
+                <li>Aligns with R-07 mitigation strategy</li>
+                <li>Reduces R1 complexity while delivering immediate value</li>
+            </ul>
+            
+            <h4>Implementation Path</h4>
+            <ol>
+                <li>Configure npm package consumption from <code>@adobe/spectrum-tokens</code></li>
+                <li>Build token documentation views displaying semantic tokens with mode variants</li>
+                <li>Implement visual token browser with light/dark, desktop/mobile previews</li>
+                <li>Create token-to-component mapping documentation</li>
+            </ol>
+            
+            <h2>Recommendation 2: Multi-Dimensional Display</h2>
+            
+            <p><strong>Challenge:</strong> Adobe's tokens encode multiple dimensions (theme × density × platform) as single tokens with multiple values.</p>
+            
+            <table>
+                <tr>
+                    <th>Dimension</th>
+                    <th>Display Strategy</th>
+                    <th>User Interaction</th>
+                </tr>
+                <tr>
+                    <td>Theme (light/dark)</td>
+                    <td>Side-by-side preview panels</td>
+                    <td>Toggle switch</td>
+                </tr>
+                <tr>
+                    <td>Density (desktop/mobile)</td>
+                    <td>Contextual view tabs</td>
+                    <td>Viewport selector</td>
+                </tr>
+                <tr>
+                    <td>Combined states</td>
+                    <td>Matrix visualization</td>
+                    <td>Multi-toggle dashboard</td>
+                </tr>
+            </table>
+            
+            <div class="callout warning">
+                <div class="callout-title">Technical Validation Required</div>
+                <p style="margin-bottom: 0;">Work with FDE during R0 to validate Knapsack's multi-modal token rendering capabilities before finalizing display approach.</p>
+            </div>
+        </div>
+        
+        <div>
+            <h2>Recommendation 3: Token Wayfinding (R2/R3)</h2>
+            
+            <p><strong>Opportunity:</strong> Adobe is building AI-powered token wayfinding via Slack chatbot. Knapsack's MCP Beta Program creates a natural integration point.</p>
+            
+            <h4>Recommended Sequence</h4>
+            <table>
+                <tr>
+                    <th>Release</th>
+                    <th>Capability</th>
+                </tr>
+                <tr>
+                    <td><span class="release-badge r1">R1</span></td>
+                    <td>Document token usage patterns and designer decision trees manually</td>
+                </tr>
+                <tr>
+                    <td><span class="release-badge r2">R2</span></td>
+                    <td>Integrate token documentation with contribution workflows</td>
+                </tr>
+                <tr>
+                    <td><span class="release-badge r3">R3</span></td>
+                    <td>Explore MCP integration for token recommendation queries</td>
+                </tr>
+            </table>
+            
+            <h2>Recommendation 4: Defer Authoring</h2>
+            
+            <div class="callout warning">
+                <div class="callout-title">Risk Mitigation for R-07 <span class="status-badge badge-defer">Post-MVP</span></div>
+                <p style="margin-bottom: 0;">Position authoring capability as post-MVP scope. Premature authoring risks sync conflicts, schema violations, and governance gaps.</p>
+            </div>
+            
+            <h4>Prerequisites for Future Authoring</h4>
+            <div class="checklist-item"><div class="check-box"></div>Validated UUID synchronization compatibility</div>
+            <div class="checklist-item"><div class="check-box"></div>Schema validation integration matching Adobe's enforcement</div>
+            <div class="checklist-item"><div class="check-box"></div>Custom diffing engine integration for release notes</div>
+            <div class="checklist-item"><div class="check-box"></div>Governance workflow for token contribution approval</div>
+            <div class="checklist-item"><div class="check-box"></div>Rollback procedures documented and tested</div>
+            
+            <h4>Clear Boundary Definition</h4>
+            <table>
+                <tr>
+                    <th>Tool</th>
+                    <th>Responsibility</th>
+                </tr>
+                <tr>
+                    <td><strong>Token Studio</strong></td>
+                    <td>Authoring, design iteration, Figma sync</td>
+                </tr>
+                <tr>
+                    <td><strong>Knapsack</strong></td>
+                    <td>Documentation, consumption, wayfinding, governance</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <span>Adobe Confidential — Token Strategy Recommendations</span>
+        <span>Page 2 of 4</span>
+    </div>
+</div>
+
+<!-- PAGE 3: TECHNICAL DECISION & RELEASE ALIGNMENT -->
+<div class="page">
+    <div class="header">
+        <div class="header-left">
+            <h1>Technical Architecture Decision</h1>
+            <div class="subtitle">Token Consumption Method Selection</div>
+        </div>
+        <div class="header-right">
+            <div class="adobe-logo">Adobe Spectrum</div>
+        </div>
+    </div>
+    
+    <div class="section-label">Decision Required: R0 Gate</div>
+    
+    <h2>Token Consumption Method Options</h2>
+    
+    <div class="decision-option recommended">
+        <div class="option-header">
+            <span class="option-title">Option A: npm Package Consumption</span>
+            <span class="status-badge badge-recommended">Recommended for R1</span>
+        </div>
+        <p>Consume <code>@adobe/spectrum-tokens</code> published package</p>
+        <div class="two-col" style="margin-top: 8px;">
+            <div>
+                <strong style="color: var(--spectrum-green-600);">Advantages</strong>
+                <ul>
+                    <li>Stable, versioned releases</li>
+                    <li>Matches implementation team consumption pattern</li>
+                    <li>No additional security review required</li>
+                    <li>Documentation matches production reality</li>
+                </ul>
+            </div>
+            <div>
+                <strong style="color: var(--spectrum-red-900);">Limitations</strong>
+                <ul>
+                    <li>Update delay (requires publish cycle)</li>
+                    <li>No preview of upcoming changes</li>
+                    <li>Dependent on Adobe's release cadence</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="two-col" style="margin-top: 12px;">
+        <div class="decision-option">
+            <div class="option-header">
+                <span class="option-title">Option B: Direct Repo Sync</span>
+                <span class="status-badge badge-info">Alternative</span>
+            </div>
+            <p>Connect Knapsack directly to <code>spectrum-design-data</code> repository</p>
+            <div style="margin-top: 8px;">
+                <strong style="color: var(--spectrum-green-600);">Pros:</strong> Real-time updates, pre-publish visibility<br>
+                <strong style="color: var(--spectrum-red-900);">Cons:</strong> Security review complexity, repo access approval required
+            </div>
+        </div>
+        
+        <div class="decision-option">
+            <div class="option-header">
+                <span class="option-title">Option C: Hybrid Approach</span>
+                <span class="status-badge badge-info">R2+ Consideration</span>
+            </div>
+            <p>npm for stable documentation; repo for preview/staging environments</p>
+            <div style="margin-top: 8px;">
+                <strong style="color: var(--spectrum-green-600);">Pros:</strong> Best of both, supports staged rollout<br>
+                <strong style="color: var(--spectrum-red-900);">Cons:</strong> Higher maintenance, dual pipeline management
+            </div>
+        </div>
+    </div>
+    
+    <h2>Release Alignment</h2>
+    
+    <table>
+        <tr>
+            <th style="width: 8%;">Release</th>
+            <th style="width: 22%;">Token Deliverable</th>
+            <th style="width: 35%;">Strategy Alignment</th>
+            <th style="width: 20%;">Success Criteria</th>
+            <th style="width: 15%;">Owner</th>
+        </tr>
+        <tr>
+            <td><span class="release-badge r0">R0</span></td>
+            <td>Token pipeline approach validated</td>
+            <td>Confirm npm consumption; FDE validates multi-modal rendering</td>
+            <td>Technical feasibility confirmed</td>
+            <td>Tech Lead / FDE</td>
+        </tr>
+        <tr>
+            <td><span class="release-badge r1">R1</span></td>
+            <td>Token documentation live</td>
+            <td>Consume npm package; render semantic tokens; build token browser</td>
+            <td>Pilot users can discover tokens</td>
+            <td>FDE</td>
+        </tr>
+        <tr>
+            <td><span class="release-badge r1">R1</span></td>
+            <td>Token-to-component mapping</td>
+            <td>Document which tokens drive which components</td>
+            <td>Mapping documented for 68 components</td>
+            <td>DS Lead</td>
+        </tr>
+        <tr>
+            <td><span class="release-badge r2">R2</span></td>
+            <td>Token pipeline integrated</td>
+            <td>Automated npm sync; version tracking; changelog integration</td>
+            <td>Updates reflected within 24hrs of publish</td>
+            <td>Tech Lead</td>
+        </tr>
+        <tr>
+            <td><span class="release-badge r2">R2</span></td>
+            <td>Token Studio workflows updated</td>
+            <td>Define handoff boundaries (TS authoring vs. KS documentation)</td>
+            <td>Workflow documented; team trained</td>
+            <td>DS Lead</td>
+        </tr>
+        <tr>
+            <td><span class="release-badge r2">R2</span></td>
+            <td>Self-service token access</td>
+            <td>Search, filter, export token values with mode variants</td>
+            <td>Search response &lt;2s; export functional</td>
+            <td>FDE</td>
+        </tr>
+        <tr>
+            <td><span class="release-badge r3">R3</span></td>
+            <td>MCP Beta integration</td>
+            <td>Token wayfinding queries via MCP; contextual recommendations</td>
+            <td>Query accuracy &gt;80%</td>
+            <td>Tech Lead</td>
+        </tr>
+        <tr>
+            <td><span class="release-badge r3">R3</span></td>
+            <td>Token change management</td>
+            <td>Diffing integration; release note visibility; breaking change flags</td>
+            <td>Changes surfaced in component docs</td>
+            <td>FDE</td>
+        </tr>
+    </table>
+    
+    <div class="footer">
+        <span>Adobe Confidential — Token Strategy Recommendations</span>
+        <span>Page 3 of 4</span>
+    </div>
+</div>
+
+<!-- PAGE 4: RISK MITIGATION & NEXT STEPS -->
+<div class="page">
+    <div class="header">
+        <div class="header-left">
+            <h1>Risk Mitigation &amp; Next Steps</h1>
+            <div class="subtitle">RAID Updates and Action Items</div>
+        </div>
+        <div class="header-right">
+            <div class="adobe-logo">Adobe Spectrum</div>
+        </div>
+    </div>
+    
+    <h2>RAID Item Updates</h2>
+    
+    <table>
+        <tr>
+            <th style="width: 6%;">ID</th>
+            <th style="width: 24%;">Risk Description</th>
+            <th style="width: 8%;">Status</th>
+            <th style="width: 30%;">Original Mitigation</th>
+            <th style="width: 32%;">Updated Mitigation (Post-Discovery)</th>
+        </tr>
+        <tr class="risk-row-critical">
+            <td><strong>R-06</strong></td>
+            <td>Token pipeline changes — Current strategy needs documentation</td>
+            <td><span class="status-badge badge-recommended">Complete</span></td>
+            <td>Discovery session: "What's your token strategy today?"</td>
+            <td>Document findings in technical specification; validate npm consumption approach with FDE; define success criteria for token browser functionality</td>
+        </tr>
+        <tr class="risk-row-severe">
+            <td><strong>R-07</strong></td>
+            <td>Token Studio workflows — Need to remove authoring; move to self-service</td>
+            <td><span class="status-badge badge-info">In Progress</span></td>
+            <td>Evaluate direct KS editing; Design Data Extensibility is key</td>
+            <td>Position Knapsack as consumption layer for R1-R2; defer authoring evaluation to post-MVP; establish clear boundary between Token Studio (authoring) and Knapsack (documentation/consumption)</td>
+        </tr>
+    </table>
+    
+    <div class="two-col" style="margin-top: 16px;">
+        <div>
+            <h2>Next Steps</h2>
+            
+            <h3>Immediate (This Week)</h3>
+            <div class="checklist-item"><div class="check-box"></div>Confirm npm package access and versioning frequency with Garth</div>
+            <div class="checklist-item"><div class="check-box"></div>Document Token Studio → GitHub sync script behavior for FDE reference</div>
+            <div class="checklist-item"><div class="check-box"></div>Schedule Kayiu's reverse demo to map Figma-side token workflow</div>
+            <div class="checklist-item"><div class="check-box"></div>Establish Slack channel for ongoing engagement with Garth</div>
+            
+            <h3>R0 Validation (Dec 2025)</h3>
+            <div class="checklist-item"><div class="check-box"></div>FDE validates multi-dimensional token rendering in Knapsack</div>
+            <div class="checklist-item"><div class="check-box"></div>Security review for GitHub repo read access (if pursuing Option B/C)</div>
+            <div class="checklist-item"><div class="check-box"></div>Define token documentation page templates</div>
+            <div class="checklist-item"><div class="check-box"></div>Confirm schema validation display requirements</div>
+            
+            <h3>R1 Implementation (Jan-Feb 2026)</h3>
+            <div class="checklist-item"><div class="check-box"></div>Configure npm package consumption pipeline</div>
+            <div class="checklist-item"><div class="check-box"></div>Build token browser with mode switching (light/dark, desktop/mobile)</div>
+            <div class="checklist-item"><div class="check-box"></div>Create token-to-component mapping documentation</div>
+            <div class="checklist-item"><div class="check-box"></div>Pilot with 5-10 designers for token discovery feedback</div>
+        </div>
+        
+        <div>
+            <h2>Key Contacts</h2>
+            
+            <table>
+                <tr>
+                    <th>Role</th>
+                    <th>Person</th>
+                    <th>Token Responsibility</th>
+                </tr>
+                <tr>
+                    <td>Token Architecture SME</td>
+                    <td>Garth</td>
+                    <td>Source of truth; diffing engine; schema</td>
+                </tr>
+                <tr>
+                    <td>Design Tooling Lead</td>
+                    <td>Kayiu</td>
+                    <td>Token Studio workflow; Figma integration</td>
+                </tr>
+                <tr>
+                    <td>Forward Deployed Engineer</td>
+                    <td>TBD</td>
+                    <td>Knapsack token integration; technical validation</td>
+                </tr>
+                <tr>
+                    <td>DS Lead</td>
+                    <td>Aaron</td>
+                    <td>Token governance; usage guidelines</td>
+                </tr>
+                <tr>
+                    <td>Implementation Manager</td>
+                    <td>Aaron</td>
+                    <td>Timeline coordination; stakeholder alignment</td>
+                </tr>
+            </table>
+            
+            <h2>Token Change Lifecycle (Target State)</h2>
+            
+            <div class="workflow-box">
+                Token Change Initiated (Token Studio)<br>
+                <span class="workflow-arrow">&nbsp;&nbsp;&nbsp;&nbsp;↓</span><br>
+                Custom Script Sync (UUID mapping)<br>
+                <span class="workflow-arrow">&nbsp;&nbsp;&nbsp;&nbsp;↓</span><br>
+                PR to spectrum-design-data<br>
+                <span class="workflow-arrow">&nbsp;&nbsp;&nbsp;&nbsp;↓</span><br>
+                Diffing Engine → Release Notes Generated<br>
+                <span class="workflow-arrow">&nbsp;&nbsp;&nbsp;&nbsp;↓</span><br>
+                npm Publish (@adobe/spectrum-tokens@x.y.z)<br>
+                <span class="workflow-arrow">&nbsp;&nbsp;&nbsp;&nbsp;↓</span><br>
+                <strong style="color: var(--spectrum-red-900);">Knapsack Sync Job Detects New Version</strong><br>
+                <span class="workflow-arrow">&nbsp;&nbsp;&nbsp;&nbsp;↓</span><br>
+                Token Documentation Updated + Change Notification<br>
+                <span class="workflow-arrow">&nbsp;&nbsp;&nbsp;&nbsp;↓</span><br>
+                Component Documentation Flagged (if breaking)
+            </div>
+            
+            <p style="font-size: 8pt; color: var(--spectrum-gray-600); margin-top: 8px;"><strong>R2 Enhancement:</strong> Integrate diffing engine output directly into Knapsack changelog views.</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <span>Adobe Confidential — Token Strategy Recommendations</span>
+        <span>Page 4 of 4</span>
+    </div>
+</div>
+
+</body>
+</html>
