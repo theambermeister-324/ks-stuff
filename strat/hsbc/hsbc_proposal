@@ -1,0 +1,676 @@
+import { useState } from 'react';
+
+const sections = [
+  { id: 'overview', label: 'Platform Overview' },
+  { id: 'challenge', label: 'Strategic Challenge' },
+  { id: 'solution', label: 'Proposed Solution' },
+  { id: 'value', label: 'Value Realization' },
+  { id: 'comparison', label: 'Platform Competitive Landscape' },
+  { id: 'investment', label: 'Investment & Resources' },
+  { id: 'engagement', label: 'Engagement Model' },
+  { id: 'next-steps', label: 'Next Steps' }
+];
+
+const Hexagon = ({ size = 24, filled = true }) => (
+  <svg width={size} height={size} viewBox="0 0 100 100">
+    <polygon points="50,3 93,28 93,72 50,97 7,72 7,28" fill={filled ? "#db0011" : "none"} stroke={filled ? "none" : "#db0011"} strokeWidth="3" />
+  </svg>
+);
+
+const Badge = ({ children, variant = 'primary' }) => {
+  const variants = {
+    primary: 'bg-red-600 text-white',
+    success: 'bg-green-600 text-white',
+    muted: 'bg-gray-200 text-gray-700',
+    outline: 'bg-white text-red-600 border border-red-600'
+  };
+  return <span className={`inline-block px-3 py-1 rounded text-xs font-semibold uppercase tracking-wider ${variants[variant]}`}>{children}</span>;
+};
+
+const Card = ({ children, className = "", accent = false }) => (
+  <div className={`bg-white border border-gray-200 rounded-lg p-5 ${accent ? 'border-l-4 border-l-red-600' : ''} ${className}`}>{children}</div>
+);
+
+const Pill = ({ children, variant = 'strong' }) => {
+  const variants = {
+    strong: 'bg-green-100 text-green-800 border border-green-600',
+    partial: 'bg-yellow-100 text-yellow-800 border border-yellow-600',
+    weak: 'bg-gray-100 text-gray-600 border border-gray-400'
+  };
+  return <span className={`inline-block px-2 py-0.5 text-xs rounded font-medium ${variants[variant]}`}>{children}</span>;
+};
+
+const MetricCard = ({ value, label, subtitle }) => (
+  <div className="bg-white border-2 border-gray-200 rounded-lg p-5 text-center hover:border-red-600 transition-all">
+    <div className="text-3xl font-bold text-red-600 mb-1">{value}</div>
+    <div className="text-sm font-semibold text-gray-800 mb-1">{label}</div>
+    {subtitle && <div className="text-xs text-gray-600">{subtitle}</div>}
+  </div>
+);
+
+const OverviewSection = () => (
+  <div className="space-y-5">
+    <div className="bg-gradient-to-r from-red-600 to-red-700 text-white p-6 rounded-lg">
+      <div className="flex items-center gap-3 mb-4">
+        <Hexagon size={48} />
+        <div>
+          <h1 className="text-2xl font-bold">HSBC Enterprise Experience Platform</h1>
+          <p className="text-red-100">Powered by Knapsack</p>
+        </div>
+      </div>
+      <p className="text-lg leading-relaxed">Opening up a world of opportunity through unified design infrastructure — connecting design, code, governance, and AI into a single system of record.</p>
+    </div>
+
+    <Card accent>
+      <h3 className="font-bold text-gray-900 mb-3">Platform Vision</h3>
+      <p className="text-sm text-gray-700 leading-relaxed">The HSBC Enterprise Experience Platform (EEPx) transforms fragmented design systems into unified production infrastructure. By connecting design, code, tokens, and documentation in a single governed platform, EEPx enables HSBC to accelerate digital delivery while ensuring consistency across CIB, WPB, and Enterprise Technology.</p>
+      <div className="mt-4 p-4 bg-gray-50 rounded">
+        <p className="text-sm text-gray-700"><strong>Core Capability:</strong> EEPx extends HSBC's Create Design System from creative hub to production backbone — ensuring design intent translates directly to customer-facing experiences.</p>
+      </div>
+    </Card>
+
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <MetricCard value="20+" label="Storybooks" subtitle="Currently fragmented" />
+      <MetricCard value="3-4 wk" label="Component Cycles" subtitle="Current delivery time" />
+      <MetricCard value="~20%" label="Rework Rate" subtitle="Design-dev misalignment" />
+      <MetricCard value="3 BUs" label="Requiring Alignment" subtitle="CIB, WPB, ET" />
+    </div>
+
+    <Card>
+      <h3 className="font-bold text-gray-900 mb-3">Strategic Alignment with Create</h3>
+      <p className="text-sm text-gray-600 mb-4">EEPx is designed to extend — not replace — HSBC's Create Design System</p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="p-4 bg-gray-50 rounded text-center">
+          <Hexagon size={32} />
+          <p className="font-semibold text-gray-900 mt-2">Iconic Hexagon</p>
+          <p className="text-xs text-gray-600 mt-1">First point of contact — the definitive visual cue</p>
+        </div>
+        <div className="p-4 bg-gray-50 rounded text-center">
+          <Hexagon size={32} filled={false} />
+          <p className="font-semibold text-gray-900 mt-2">Open Hexagon</p>
+          <p className="text-xs text-gray-600 mt-1">Creates space while maintaining brand presence</p>
+        </div>
+        <div className="p-4 bg-gray-50 rounded text-center">
+          <div className="w-8 h-8 mx-auto bg-red-600 rounded-tr-2xl opacity-90" />
+          <p className="font-semibold text-gray-900 mt-2">Cropped Hexagon</p>
+          <p className="text-xs text-gray-600 mt-1">Bold canvasses using hexagon angles</p>
+        </div>
+      </div>
+    </Card>
+  </div>
+);
+
+const ChallengeSection = () => (
+  <div className="space-y-5">
+    <h2 className="text-2xl font-bold text-gray-900">Strategic Challenge</h2>
+    
+    <Card>
+      <h3 className="font-bold text-gray-900 mb-3">Current State Assessment</h3>
+      <p className="text-sm text-gray-700 mb-4">Enterprise digital production environments often face systemic fragmentation that impacts speed, quality, and governance:</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="p-4 bg-gray-50 rounded border-l-4 border-red-600">
+          <h4 className="font-semibold text-gray-900 mb-2">Fragmented Design Systems</h4>
+          <p className="text-sm text-gray-700">Multiple Storybooks, divergent code libraries, and inconsistent Figma variants create duplication across business units.</p>
+        </div>
+        <div className="p-4 bg-gray-50 rounded border-l-4 border-red-600">
+          <h4 className="font-semibold text-gray-900 mb-2">Manual Documentation</h4>
+          <p className="text-sm text-gray-700">Documentation spread across platforms becomes outdated quickly, causing design-development misalignment.</p>
+        </div>
+        <div className="p-4 bg-gray-50 rounded border-l-4 border-red-600">
+          <h4 className="font-semibold text-gray-900 mb-2">Governance Gaps</h4>
+          <p className="text-sm text-gray-700">No unified approval process or lifecycle tracking means teams work in silos with compliance risk.</p>
+        </div>
+        <div className="p-4 bg-gray-50 rounded border-l-4 border-red-600">
+          <h4 className="font-semibold text-gray-900 mb-2">Delivery Velocity</h4>
+          <p className="text-sm text-gray-700">Extended cycles to deliver new components with significant rework due to misalignment between design and engineering.</p>
+        </div>
+      </div>
+    </Card>
+
+    <Card accent>
+      <h3 className="font-bold text-gray-900 mb-3">Impact of Fragmentation</h3>
+      <div className="space-y-2 text-sm text-gray-700">
+        <p className="flex items-start gap-2"><span className="text-red-600 font-bold">→</span><span><strong>Duplicated effort:</strong> Teams rebuilding common patterns independently across business units</span></p>
+        <p className="flex items-start gap-2"><span className="text-red-600 font-bold">→</span><span><strong>Governance risk:</strong> Disconnected systems, accessibility non-compliance, and lack of audit trails</span></p>
+        <p className="flex items-start gap-2"><span className="text-red-600 font-bold">→</span><span><strong>Design maturity stagnation:</strong> Teams evolving in silos without shared frameworks</span></p>
+        <p className="flex items-start gap-2"><span className="text-red-600 font-bold">→</span><span><strong>Delivery delays:</strong> Slower velocity inhibits competitiveness and innovation</span></p>
+      </div>
+    </Card>
+  </div>
+);
+
+const SolutionSection = () => (
+  <div className="space-y-5">
+    <h2 className="text-2xl font-bold text-gray-900">Proposed Solution</h2>
+    
+    <Card accent>
+      <div className="flex items-center gap-3 mb-4">
+        <Hexagon size={32} />
+        <h3 className="text-xl font-bold text-gray-900">Enterprise Experience Platform (EEPx)</h3>
+      </div>
+      <p className="text-sm text-gray-700 leading-relaxed">A unified, code-connected platform that serves as the single source of truth for design, code, tokens, documentation, and governance — extending HSBC's Create Design System into production infrastructure.</p>
+    </Card>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <Card className="border-t-4 border-t-red-600">
+        <h4 className="font-bold text-gray-900 mb-2">Code-Connected by Default</h4>
+        <p className="text-sm text-gray-600 mb-3">Dynamic synchronization between Figma, Storybook/Ladle, and GitHub ensures the system is always accurate.</p>
+        <ul className="text-sm text-gray-700 space-y-1">
+          <li>• Real-time design-code linkage</li>
+          <li>• Automated token propagation</li>
+          <li>• Live component documentation</li>
+        </ul>
+      </Card>
+
+      <Card className="border-t-4 border-t-red-600">
+        <h4 className="font-bold text-gray-900 mb-2">Structured System of Record</h4>
+        <p className="text-sm text-gray-600 mb-3">Centralized platform consolidates design, code, and context — accessible to humans and AI.</p>
+        <ul className="text-sm text-gray-700 space-y-1">
+          <li>• Single source of truth</li>
+          <li>• Component lifecycle tracking</li>
+          <li>• Governance metadata</li>
+        </ul>
+      </Card>
+
+      <Card className="border-t-4 border-t-red-600">
+        <h4 className="font-bold text-gray-900 mb-2">AI-Ready Infrastructure</h4>
+        <p className="text-sm text-gray-600 mb-3">MCP server enables AI agents to generate production-ready experiences with brand compliance built in.</p>
+        <ul className="text-sm text-gray-700 space-y-1">
+          <li>• Structured metadata for AI</li>
+          <li>• Automated documentation</li>
+          <li>• Future-proof architecture</li>
+        </ul>
+      </Card>
+
+      <Card className="border-t-4 border-t-red-600">
+        <h4 className="font-bold text-gray-900 mb-2">Multi-BU Governance</h4>
+        <p className="text-sm text-gray-600 mb-3">Enterprise-grade platform enables consistent governance across business units with local flexibility.</p>
+        <ul className="text-sm text-gray-700 space-y-1">
+          <li>• Multi-brand workspace support</li>
+          <li>• Cross-platform delivery</li>
+          <li>• Scalable governance frameworks</li>
+        </ul>
+      </Card>
+    </div>
+  </div>
+);
+
+const ValueSection = () => (
+  <div className="space-y-5">
+    <h2 className="text-2xl font-bold text-gray-900">Value Realization</h2>
+    
+    <div className="bg-green-50 border-l-4 border-green-600 p-5 rounded-r-lg">
+      <h3 className="text-lg font-bold text-green-900 mb-2">Projected ROI: 3.5–5× Annual Return</h3>
+      <p className="text-sm text-green-800">Based on typical enterprise implementations, organizations realize significant efficiency gains within 12-18 months of full deployment.</p>
+    </div>
+
+    <Card>
+      <h3 className="font-bold text-gray-900 mb-4">Value Drivers</h3>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="p-3 text-left font-semibold">Value Category</th>
+              <th className="p-3 text-left font-semibold">Current Challenge</th>
+              <th className="p-3 text-left font-semibold">With EEPx</th>
+              <th className="p-3 text-left font-semibold">Projected Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b">
+              <td className="p-3 font-medium">System Governance</td>
+              <td className="p-3 text-gray-600">Fragmented systems, duplicated work</td>
+              <td className="p-3 text-gray-600">Unified platform, structured governance</td>
+              <td className="p-3 font-semibold text-green-700">40–50% waste reduction</td>
+            </tr>
+            <tr className="border-b bg-gray-50">
+              <td className="p-3 font-medium">Engineering Productivity</td>
+              <td className="p-3 text-gray-600">Rebuilding common UI patterns</td>
+              <td className="p-3 text-gray-600">Component reuse + automation</td>
+              <td className="p-3 font-semibold text-green-700">3–5 FTE equivalent saved</td>
+            </tr>
+            <tr className="border-b">
+              <td className="p-3 font-medium">Documentation</td>
+              <td className="p-3 text-gray-600">Inconsistent, outdated docs</td>
+              <td className="p-3 text-gray-600">Auto-synced, centralized</td>
+              <td className="p-3 font-semibold text-green-700">70% less maintenance</td>
+            </tr>
+            <tr className="border-b bg-gray-50">
+              <td className="p-3 font-medium">Delivery Velocity</td>
+              <td className="p-3 text-gray-600">3-4 week component cycles</td>
+              <td className="p-3 text-gray-600">Rapid iteration with live code</td>
+              <td className="p-3 font-semibold text-green-700">50%+ faster delivery</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </Card>
+
+    <Card>
+      <h3 className="font-bold text-gray-900 mb-3">Strategic Value</h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="flex items-start gap-2">
+          <Hexagon size={16} />
+          <div>
+            <p className="font-semibold text-gray-900 text-sm">Brand Consistency</p>
+            <p className="text-xs text-gray-600">Unified governance ensures Create Design System principles across all touchpoints</p>
+          </div>
+        </div>
+        <div className="flex items-start gap-2">
+          <Hexagon size={16} />
+          <div>
+            <p className="font-semibold text-gray-900 text-sm">Compliance Readiness</p>
+            <p className="text-xs text-gray-600">Verifiable design-code audit trails for regulatory and accessibility compliance</p>
+          </div>
+        </div>
+        <div className="flex items-start gap-2">
+          <Hexagon size={16} />
+          <div>
+            <p className="font-semibold text-gray-900 text-sm">Design Maturity</p>
+            <p className="text-xs text-gray-600">Structured enablement advances maturity from developing to operationalized</p>
+          </div>
+        </div>
+        <div className="flex items-start gap-2">
+          <Hexagon size={16} />
+          <div>
+            <p className="font-semibold text-gray-900 text-sm">Future-Proof Innovation</p>
+            <p className="text-xs text-gray-600">AI-ready infrastructure enables next-generation design automation</p>
+          </div>
+        </div>
+      </div>
+    </Card>
+  </div>
+);
+
+const ComparisonSection = () => (
+  <div className="space-y-5">
+    <h2 className="text-2xl font-bold text-gray-900">Platform Competitive Landscape</h2>
+    <p className="text-sm text-gray-600">HSBC's System Charter requires an enterprise control plane connecting design, code, tokens, and governance.</p>
+    
+    <Card>
+      <h3 className="font-bold text-gray-900 mb-4">Side-by-Side Comparison</h3>
+      <div className="overflow-x-auto">
+        <table className="w-full text-xs">
+          <thead>
+            <tr className="bg-gray-900 text-white">
+              <th className="p-2.5 text-left font-semibold">Dimension</th>
+              <th className="p-2.5 text-left font-semibold">Knapsack</th>
+              <th className="p-2.5 text-left font-semibold">zeroheight</th>
+              <th className="p-2.5 text-left font-semibold">Supernova</th>
+              <th className="p-2.5 text-left font-semibold">Zeplin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b">
+              <td className="p-2.5 font-semibold">System-of-Systems Control Plane</td>
+              <td className="p-2.5"><Pill variant="strong">Strong</Pill><br/><span className="text-gray-600">Design, code, docs, governance connected</span></td>
+              <td className="p-2.5"><Pill variant="partial">Partial</Pill><br/><span className="text-gray-600">Strong docs, lighter infra</span></td>
+              <td className="p-2.5"><Pill variant="partial">Partial</Pill><br/><span className="text-gray-600">DS platform with integrations</span></td>
+              <td className="p-2.5"><Pill variant="weak">Limited</Pill><br/><span className="text-gray-600">Design → dev handoff focus</span></td>
+            </tr>
+            <tr className="border-b bg-gray-50">
+              <td className="p-2.5 font-semibold">Design ↔ Code Linkage</td>
+              <td className="p-2.5"><Pill variant="strong">Strong</Pill><br/><span className="text-gray-600">Tightly linked and versioned</span></td>
+              <td className="p-2.5"><Pill variant="partial">Partial</Pill><br/><span className="text-gray-600">Code snippets in docs</span></td>
+              <td className="p-2.5"><Pill variant="strong">Strong</Pill><br/><span className="text-gray-600">Tokens + code export</span></td>
+              <td className="p-2.5"><Pill variant="partial">Partial</Pill><br/><span className="text-gray-600">Code link via handoff</span></td>
+            </tr>
+            <tr className="border-b">
+              <td className="p-2.5 font-semibold">Token Management</td>
+              <td className="p-2.5"><Pill variant="strong">Strong</Pill><br/><span className="text-gray-600">Multi-tier integrated with components</span></td>
+              <td className="p-2.5"><Pill variant="partial">Partial</Pill><br/><span className="text-gray-600">Token docs possible</span></td>
+              <td className="p-2.5"><Pill variant="strong">Strong</Pill><br/><span className="text-gray-600">Dedicated token tools</span></td>
+              <td className="p-2.5"><Pill variant="weak">Minimal</Pill><br/><span className="text-gray-600">Not a token tool</span></td>
+            </tr>
+            <tr className="border-b bg-gray-50">
+              <td className="p-2.5 font-semibold">AI-Native & Automation</td>
+              <td className="p-2.5"><Pill variant="strong">Strong</Pill><br/><span className="text-gray-600">MCP server for AI agents</span></td>
+              <td className="p-2.5"><Pill variant="partial">Partial</Pill><br/><span className="text-gray-600">Automation for sync</span></td>
+              <td className="p-2.5"><Pill variant="strong">Strong</Pill><br/><span className="text-gray-600">AI-assisted content</span></td>
+              <td className="p-2.5"><Pill variant="weak">Minimal</Pill><br/><span className="text-gray-600">Not AI-centric</span></td>
+            </tr>
+            <tr className="border-b">
+              <td className="p-2.5 font-semibold">Enterprise Governance</td>
+              <td className="p-2.5"><Pill variant="strong">Strong</Pill><br/><span className="text-gray-600">Multi-BU, RBAC, audit trails</span></td>
+              <td className="p-2.5"><Pill variant="partial">Partial</Pill><br/><span className="text-gray-600">Team-level controls</span></td>
+              <td className="p-2.5"><Pill variant="partial">Partial</Pill><br/><span className="text-gray-600">Growing enterprise features</span></td>
+              <td className="p-2.5"><Pill variant="weak">Limited</Pill><br/><span className="text-gray-600">Basic permissions</span></td>
+            </tr>
+            <tr>
+              <td className="p-2.5 font-semibold">Best-Fit for HSBC Charter</td>
+              <td className="p-2.5"><Pill variant="strong">Direct Match</Pill><br/><span className="text-gray-600">Infra-level EEPx</span></td>
+              <td className="p-2.5"><Pill variant="partial">Adjacent</Pill><br/><span className="text-gray-600">Docs companion</span></td>
+              <td className="p-2.5"><Pill variant="partial">Comparable</Pill><br/><span className="text-gray-600">Alternative to evaluate</span></td>
+              <td className="p-2.5"><Pill variant="partial">Adjacent</Pill><br/><span className="text-gray-600">Useful for handoff</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </Card>
+
+    <Card accent>
+      <h3 className="font-bold text-gray-900 mb-2">Recommendation</h3>
+      <p className="text-sm text-gray-700">Knapsack is the only platform purpose-built for HSBC's requirements: enterprise-grade governance, code-connected infrastructure, multi-BU scalability, and AI-ready architecture. While zeroheight and Supernova serve as valuable documentation companions, they cannot replace the strategic control plane that EEPx requires.</p>
+    </Card>
+  </div>
+);
+
+const InvestmentSection = () => (
+  <div className="space-y-5">
+    <h2 className="text-2xl font-bold text-gray-900">Investment & Resources</h2>
+    
+    <Card accent className="border-2 border-yellow-400">
+      <h3 className="font-bold text-gray-900 mb-2">Investment Overview</h3>
+      <p className="text-sm text-gray-700">A successful EEPx implementation requires dedicated resources across platform licensing, technical enablement, and change management. Final investment will be scoped following a Sandbox POC and maturity assessment to align with HSBC's specific requirements.</p>
+    </Card>
+
+    <Card>
+      <h3 className="font-bold text-gray-900 mb-4">Resource Components</h3>
+      <div className="space-y-4">
+        <div className="p-4 bg-gray-50 rounded border-l-4 border-red-600">
+          <div className="flex justify-between items-start">
+            <div>
+              <h4 className="font-semibold text-gray-900">Knapsack Enterprise Platform</h4>
+              <p className="text-sm text-gray-600 mt-1">Multi-workspace license with Figma/code integrations, AI MCP server, and enterprise security</p>
+            </div>
+            <Badge variant="primary">Platform</Badge>
+          </div>
+          <ul className="text-sm text-gray-700 mt-3 space-y-1">
+            <li>• Unlimited users across business units</li>
+            <li>• Multiple workspace and design system support</li>
+            <li>• SSO, RBAC, and compliance features</li>
+            <li>• Priority support with enterprise SLAs</li>
+          </ul>
+        </div>
+
+        <div className="p-4 bg-gray-50 rounded border-l-4 border-blue-600">
+          <div className="flex justify-between items-start">
+            <div>
+              <h4 className="font-semibold text-gray-900">Engineering Enablement (2× FDEs)</h4>
+              <p className="text-sm text-gray-600 mt-1">Embedded engineers for integration, automation, and CI/CD configuration</p>
+            </div>
+            <Badge variant="outline">~3,200 hrs/year</Badge>
+          </div>
+          <ul className="text-sm text-gray-700 mt-3 space-y-1">
+            <li>• Automated token synchronization and propagation</li>
+            <li>• GitHub/Figma/Storybook integration management</li>
+            <li>• CI/CD pipeline configuration and optimization</li>
+            <li>• Technical training and team enablement</li>
+            <li>• Ongoing maintenance and troubleshooting</li>
+          </ul>
+        </div>
+
+        <div className="p-4 bg-gray-50 rounded border-l-4 border-green-600">
+          <div className="flex justify-between items-start">
+            <div>
+              <h4 className="font-semibold text-gray-900">CX Partner for Change Management</h4>
+              <p className="text-sm text-gray-600 mt-1">Strategic enablement partnership for transformation success</p>
+            </div>
+            <Badge variant="outline">~1,200 hrs/year</Badge>
+          </div>
+          <ul className="text-sm text-gray-700 mt-3 space-y-1">
+            <li>• System charter and governance framework</li>
+            <li>• PI planning and program board facilitation</li>
+            <li>• Design maturity assessment and scoring</li>
+            <li>• Cross-BU stakeholder alignment</li>
+            <li>• Training curriculum and onboarding</li>
+          </ul>
+        </div>
+      </div>
+    </Card>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <Card className="text-center">
+        <p className="text-3xl font-bold text-red-600">~4,400</p>
+        <p className="text-sm font-semibold text-gray-900">Hours/Year</p>
+        <p className="text-xs text-gray-600">Dedicated enablement</p>
+      </Card>
+      <Card className="text-center">
+        <p className="text-3xl font-bold text-red-600">2</p>
+        <p className="text-sm font-semibold text-gray-900">Embedded FDEs</p>
+        <p className="text-xs text-gray-600">Technical implementation</p>
+      </Card>
+      <Card className="text-center">
+        <p className="text-3xl font-bold text-red-600">1</p>
+        <p className="text-sm font-semibold text-gray-900">CX Partner</p>
+        <p className="text-xs text-gray-600">Change management</p>
+      </Card>
+    </div>
+
+    <Card>
+      <h3 className="font-bold text-gray-900 mb-3">Investment Considerations</h3>
+      <div className="space-y-2 text-sm">
+        <div className="p-3 bg-gray-50 rounded"><strong>Multi-year commitment:</strong> Preferred for maximum value realization and relationship continuity</div>
+        <div className="p-3 bg-gray-50 rounded"><strong>Phased rollout:</strong> CIB-first implementation with expansion in subsequent phases</div>
+        <div className="p-3 bg-gray-50 rounded"><strong>POC investment:</strong> Sandbox POC enables validation before full commitment</div>
+      </div>
+    </Card>
+  </div>
+);
+
+const EngagementSection = () => (
+  <div className="space-y-5">
+    <h2 className="text-2xl font-bold text-gray-900">Engagement Model</h2>
+    <p className="text-sm text-gray-600">A two-year journey from validation to enterprise-wide transformation</p>
+    
+    <Card>
+      <h3 className="font-bold text-gray-900 mb-4">Year 1 — Foundation & CIB Implementation</h3>
+      <div className="space-y-4">
+        <div className="flex gap-4 items-start">
+          <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">0</div>
+          <div className="flex-1 pb-4 border-b border-gray-200">
+            <div className="flex items-center gap-2 mb-1">
+              <p className="font-semibold text-gray-900">Discovery & POC</p>
+              <Badge variant="muted">Weeks 1-6</Badge>
+            </div>
+            <p className="text-sm text-gray-600">30-day Sandbox POC with cross-BU participation, maturity assessment, infrastructure evaluation, stakeholder alignment, and requirements gathering</p>
+          </div>
+        </div>
+        <div className="flex gap-4 items-start">
+          <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
+          <div className="flex-1 pb-4 border-b border-gray-200">
+            <div className="flex items-center gap-2 mb-1">
+              <p className="font-semibold text-gray-900">CIB-First Implementation</p>
+              <Badge variant="muted">Weeks 7-20</Badge>
+            </div>
+            <p className="text-sm text-gray-600">Platform setup, CIB library consolidation, token architecture, NPR workflows, governance framework, initial training rollout</p>
+          </div>
+        </div>
+        <div className="flex gap-4 items-start">
+          <div className="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">1B</div>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-1">
+              <p className="font-semibold text-gray-900">CIB Stabilization & Optimization</p>
+              <Badge variant="muted">Weeks 21-52</Badge>
+            </div>
+            <p className="text-sm text-gray-600">CIB pilot validation, feedback integration, process refinement, documentation optimization, training program maturation</p>
+          </div>
+        </div>
+      </div>
+    </Card>
+
+    <Card>
+      <h3 className="font-bold text-gray-900 mb-4">Year 2 — Scale & Enterprise Transformation</h3>
+      <div className="space-y-4">
+        <div className="flex gap-4 items-start">
+          <div className="w-10 h-10 bg-yellow-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
+          <div className="flex-1 pb-4 border-b border-gray-200">
+            <div className="flex items-center gap-2 mb-1">
+              <p className="font-semibold text-gray-900">WPB & Retail Scale-Out</p>
+              <Badge variant="muted">Months 13-18</Badge>
+            </div>
+            <p className="text-sm text-gray-600">WPB/Retail library integration, shared journey standardization, cross-BU governance alignment, expanded training programs</p>
+          </div>
+        </div>
+        <div className="flex gap-4 items-start">
+          <div className="w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
+          <div className="flex-1 pb-4 border-b border-gray-200">
+            <div className="flex items-center gap-2 mb-1">
+              <p className="font-semibold text-gray-900">Enterprise Technology Integration</p>
+              <Badge variant="muted">Months 16-21</Badge>
+            </div>
+            <p className="text-sm text-gray-600">Internal tools component libraries, colleague-facing applications, ET-specific governance extensions, cross-BU harmonization</p>
+          </div>
+        </div>
+        <div className="flex gap-4 items-start">
+          <div className="w-10 h-10 bg-gray-800 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">4</div>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-1">
+              <p className="font-semibold text-gray-900">AI Enablement & Continuous Optimization</p>
+              <Badge variant="muted">Months 18-24+</Badge>
+            </div>
+            <p className="text-sm text-gray-600">MCP server activation, AI-assisted design workflows, advanced automation, quarterly optimization cycles, design maturity advancement</p>
+          </div>
+        </div>
+      </div>
+    </Card>
+
+    <Card accent>
+      <h3 className="font-bold text-gray-900 mb-3">30-Day Sandbox POC</h3>
+      <p className="text-sm text-gray-700 mb-4">Validate platform capabilities against HSBC's specific requirements before full implementation commitment, with participation from all three business units.</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <p className="text-xs text-gray-500 uppercase font-semibold mb-2">POC Objectives</p>
+          <ul className="text-sm text-gray-700 space-y-1">
+            <li>• Validate integration pathways</li>
+            <li>• Test with actual HSBC assets</li>
+            <li>• Assess infrastructure requirements</li>
+            <li>• Gather detailed scope requirements</li>
+            <li>• Evaluate cross-BU alignment needs</li>
+          </ul>
+        </div>
+        <div>
+          <p className="text-xs text-gray-500 uppercase font-semibold mb-2">POC Participants</p>
+          <div className="space-y-2">
+            <div className="p-2 bg-gray-50 rounded">
+              <p className="font-semibold text-gray-900 text-sm">CIB</p>
+              <p className="text-xs text-gray-600">2-3 Designers, 2-3 Engineers</p>
+            </div>
+            <div className="p-2 bg-gray-50 rounded">
+              <p className="font-semibold text-gray-900 text-sm">WPB</p>
+              <p className="text-xs text-gray-600">1-2 Designers, 1-2 Engineers</p>
+            </div>
+            <div className="p-2 bg-gray-50 rounded">
+              <p className="font-semibold text-gray-900 text-sm">Enterprise Technology</p>
+              <p className="text-xs text-gray-600">1-2 Designers, 1-2 Engineers</p>
+            </div>
+            <div className="p-2 bg-red-50 rounded border border-red-200">
+              <p className="font-semibold text-gray-900 text-sm">Cross-BU Leadership</p>
+              <p className="text-xs text-gray-600">Design System Lead, Technical Architect</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Card>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <Card className="text-center">
+        <p className="text-3xl font-bold text-red-600">24</p>
+        <p className="text-sm font-semibold text-gray-900">Months</p>
+        <p className="text-xs text-gray-600">Full transformation journey</p>
+      </Card>
+      <Card className="text-center">
+        <p className="text-3xl font-bold text-red-600">4</p>
+        <p className="text-sm font-semibold text-gray-900">Major Phases</p>
+        <p className="text-xs text-gray-600">Structured implementation</p>
+      </Card>
+    </div>
+  </div>
+);
+
+const NextStepsSection = () => (
+  <div className="space-y-5">
+    <h2 className="text-2xl font-bold text-gray-900">Recommended Next Steps</h2>
+    
+    <Card className="border-2 border-red-600">
+      <h3 className="font-bold text-gray-900 mb-4">Path Forward</h3>
+      <div className="space-y-4">
+        <div className="flex gap-4 items-start">
+          <div className="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">1</div>
+          <div>
+            <p className="font-semibold text-gray-900">Executive Alignment</p>
+            <p className="text-sm text-gray-600">Review platform vision and strategic fit with key stakeholders</p>
+          </div>
+        </div>
+        <div className="flex gap-4 items-start">
+          <div className="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">2</div>
+          <div>
+            <p className="font-semibold text-gray-900">Technical Deep-Dive</p>
+            <p className="text-sm text-gray-600">Detailed demonstration with Design System Lead and Engineering teams</p>
+          </div>
+        </div>
+        <div className="flex gap-4 items-start">
+          <div className="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">3</div>
+          <div>
+            <p className="font-semibold text-gray-900">30-Day Sandbox POC</p>
+            <p className="text-sm text-gray-600">Validate platform with actual HSBC Figma libraries and Storybook components</p>
+          </div>
+        </div>
+        <div className="flex gap-4 items-start">
+          <div className="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">4</div>
+          <div>
+            <p className="font-semibold text-gray-900">Requirements & Scope Finalization</p>
+            <p className="text-sm text-gray-600">Define CIB-first scope, governance bodies, and implementation timeline</p>
+          </div>
+        </div>
+        <div className="flex gap-4 items-start">
+          <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">5</div>
+          <div>
+            <p className="font-semibold text-gray-900">Implementation Kickoff</p>
+            <p className="text-sm text-gray-600">Begin Phase 1 with embedded FDE team and CX Partner</p>
+          </div>
+        </div>
+      </div>
+    </Card>
+
+    <div className="bg-red-600 text-white p-6 rounded-lg text-center">
+      <p className="text-lg font-semibold mb-2">Opening Up a World of Opportunity</p>
+      <p className="text-sm opacity-90">Transform fragmented design systems into HSBC's strategic advantage through unified infrastructure, governance, and AI-ready capabilities.</p>
+    </div>
+  </div>
+);
+
+export default function HSBCCustomerOverview() {
+  const [activeSection, setActiveSection] = useState('overview');
+
+  const renderContent = () => {
+    switch (activeSection) {
+      case 'overview': return <OverviewSection />;
+      case 'challenge': return <ChallengeSection />;
+      case 'solution': return <SolutionSection />;
+      case 'value': return <ValueSection />;
+      case 'comparison': return <ComparisonSection />;
+      case 'investment': return <InvestmentSection />;
+      case 'engagement': return <EngagementSection />;
+      case 'next-steps': return <NextStepsSection />;
+      default: return <OverviewSection />;
+    }
+  };
+
+  return (
+    <div className="flex min-h-screen bg-gray-100">
+      <nav className="w-60 bg-white border-r border-gray-200 fixed top-0 left-0 h-screen overflow-y-auto flex flex-col">
+        <div className="p-5 border-b border-gray-200 bg-gradient-to-br from-red-600 to-red-700">
+          <Hexagon size={32} />
+          <div className="text-xs font-semibold uppercase tracking-widest text-red-100 mt-3 mb-1">Platform Overview</div>
+          <div className="text-lg font-bold text-white">HSBC × Knapsack</div>
+          <div className="text-xs text-red-100 mt-1">Enterprise Experience Platform</div>
+        </div>
+        <div className="p-3 flex-1 overflow-y-auto">
+          {sections.map((s, i) => (
+            <button key={s.id} onClick={() => setActiveSection(s.id)} className={`flex items-center gap-2.5 w-full px-3 py-2.5 rounded text-sm text-left mb-0.5 transition-all ${activeSection === s.id ? 'bg-red-600 text-white font-semibold' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}`}>
+              <span className={`w-5 h-5 rounded flex items-center justify-center text-xs font-semibold flex-shrink-0 ${activeSection === s.id ? 'bg-white text-red-600' : 'bg-gray-200 text-gray-600'}`}>{i + 1}</span>
+              <span className="truncate">{s.label}</span>
+            </button>
+          ))}
+        </div>
+        <div className="p-4 border-t border-gray-200 bg-gray-50">
+          <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Prepared for</div>
+          <div className="text-sm font-bold text-gray-900">HSBC</div>
+          <div className="text-xs text-gray-600">December 2025</div>
+        </div>
+      </nav>
+      <main className="flex-1 ml-60 p-6 max-w-4xl">{renderContent()}</main>
+    </div>
+  );
+}
