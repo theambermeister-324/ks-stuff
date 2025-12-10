@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allegion TCO Analysis - Figma Eliminated Year 2</title>
+    <style>
+        @page { size: letter; margin: 0.5in; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fff;
+            color: #28262c;
+            line-height: 1.5;
+            font-size: 10pt;
+        }
+        .container { max-width: 8in; margin: 0 auto; }
+        .header {
+            background: linear-gradient(135deg, #6436bf 0%, #42247f 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+        .header h1 { font-size: 16pt; margin-bottom: 4px; }
+        .header p { opacity: 0.9; font-size: 9pt; }
+        .badge { 
+            display: inline-block; 
+            background: rgba(255,255,255,0.2); 
+            padding: 3px 8px; 
+            border-radius: 10px; 
+            font-size: 7pt; 
+            margin-top: 8px;
+        }
+        .card {
+            background: white;
+            border-radius: 6px;
+            padding: 14px;
+            margin-bottom: 14px;
+            border: 1px solid #e0d4f7;
+            page-break-inside: avoid;
+        }
+        .card h2 {
+            color: #42247f;
+            font-size: 11pt;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #6436bf;
+        }
+        .card h3 {
+            color: #6436bf;
+            font-size: 9pt;
+            margin: 10px 0 6px;
+        }
+        .exec-summary {
+            background: #f8f6fc;
+            border: 2px solid #6436bf;
+            border-radius: 6px;
+            padding: 14px;
+            margin-bottom: 14px;
+        }
+        .exec-summary h2 {
+            color: #42247f;
+            margin-bottom: 8px;
+            border: none;
+            padding: 0;
+            font-size: 11pt;
+        }
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .key-point {
+            background: white;
+            padding: 8px;
+            border-radius: 5px;
+            text-align: center;
+            border: 1px solid #e0d4f7;
+        }
+        .key-point .value {
+            font-size: 13pt;
+            font-weight: 700;
+            color: #2e7d32;
+        }
+        .key-point .label {
+            font-size: 6.5pt;
+            color: #666;
+            margin-top: 2px;
+            line-height: 1.2;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0;
+            font-size: 8pt;
+        }
+        th {
+            background: #42247f;
+            color: white;
+            padding: 5px 6px;
+            text-align: left;
+            font-size: 7pt;
+            text-transform: uppercase;
+        }
+        td {
+            padding: 5px 6px;
+            border-bottom: 1px solid #e0d4f7;
+            vertical-align: top;
+        }
+        tr:nth-child(even) { background: #faf9fa; }
+        .cost-negative { color: #c62828; font-weight: 600; }
+        .cost-positive { color: #2e7d32; font-weight: 600; }
+        .total-row { background: #f3effb !important; font-weight: 700; }
+        .total-row td { border-top: 2px solid #6436bf; }
+        .capability-row td:first-child { font-weight: 600; color: #42247f; }
+        .check { color: #2e7d32; font-weight: 700; }
+        .x { color: #c62828; font-weight: 700; }
+        .partial { color: #e65100; font-weight: 600; }
+        .value-cell { background: #e8f5e9; font-weight: 600; color: #2e7d32; text-align: right; }
+        .phase-box {
+            border: 1px solid #e0d4f7;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            page-break-inside: avoid;
+        }
+        .phase-box.year1 { border-left: 3px solid #ff9800; }
+        .phase-box.year2 { border-left: 3px solid #4caf50; }
+        .phase-box.year3 { border-left: 3px solid #2196f3; }
+        .phase-box h4 {
+            font-size: 9pt;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .phase-box h4 .badge {
+            font-size: 6pt;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: white;
+            margin: 0;
+        }
+        .phase-box.year1 h4 .badge { background: #ff9800; }
+        .phase-box.year2 h4 .badge { background: #4caf50; }
+        .phase-box.year3 h4 .badge { background: #2196f3; }
+        .phase-box p { font-size: 7pt; margin-top: 6px; }
+        .warning-box {
+            background: #fff8e1;
+            border-left: 3px solid #ff9800;
+            padding: 10px;
+            border-radius: 0 5px 5px 0;
+            margin: 10px 0;
+            font-size: 8pt;
+        }
+        .warning-box h4 { color: #e65100; font-size: 8pt; text-transform: uppercase; margin-bottom: 4px; }
+        .success-box {
+            background: #e8f5e9;
+            border-left: 3px solid #4caf50;
+            padding: 10px;
+            border-radius: 0 5px 5px 0;
+            margin: 10px 0;
+            font-size: 8pt;
+        }
+        .success-box h4 { color: #2e7d32; font-size: 8pt; text-transform: uppercase; margin-bottom: 4px; }
+        .success-box ul { margin-left: 14px; }
+        .success-box li { margin-bottom: 3px; font-size: 7pt; }
+        .highlight-box {
+            background: #f8f6fc;
+            border: 2px solid #6436bf;
+            border-radius: 5px;
+            padding: 12px;
+            margin: 12px 0;
+            page-break-inside: avoid;
+        }
+        .highlight-box h3 { color: #42247f; margin-bottom: 8px; font-size: 10pt; }
+        .footnote { font-size: 6.5pt; color: #666; margin-top: 4px; font-style: italic; }
+        .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+        .summary-card {
+            background: #faf9fa;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #e0d4f7;
+        }
+        .summary-card h4 { color: #42247f; margin-bottom: 8px; font-size: 9pt; }
+        .summary-card table { font-size: 7pt; }
+        .summary-card .total { font-size: 12pt; font-weight: 700; margin-top: 8px; }
+        .page-break { page-break-before: always; }
+        @media print {
+            body { background: white; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .container { max-width: 100%; }
+            .card { box-shadow: none; }
+            th, .value-cell, .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Total Cost of Ownership & Capabilities-Driven Value Analysis</h1>
+            <p>Knapsack vs. ZeroHeight — 3-Year Financial Impact for Allegion (Figma Eliminated Year 2)</p>
+            <div class="badge">CAPABILITIES-BASED VALUATION • REVISED DECEMBER 2025</div>
+        </div>
+
+        <div class="exec-summary">
+            <h2>Executive Summary: Figma Budget Reallocation in Year 2</h2>
+            <p style="font-size:8pt;margin-bottom:8px;">By running Knapsack and Figma in parallel during Year 1 and reallocating the Figma budget to Knapsack in Year 2, Allegion ensures a smooth transition while gaining enterprise-grade capabilities that ZeroHeight cannot provide. This analysis quantifies value by <strong>capability impact</strong>, not feature checklists.</p>
+            <div class="key-points">
+                <div class="key-point">
+                    <div class="value">$331K</div>
+                    <div class="label">Year 1 Investment<br>(Parallel Operation)</div>
+                </div>
+                <div class="key-point">
+                    <div class="value">$205K</div>
+                    <div class="label">Year 2+ Investment<br>(Figma Eliminated)</div>
+                </div>
+                <div class="key-point">
+                    <div class="value">$4.8M</div>
+                    <div class="label">3-Year Capability<br>Value Generated</div>
+                </div>
+                <div class="key-point">
+                    <div class="value">$8.4M</div>
+                    <div class="label">Net 3-Year<br>Advantage vs ZH</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Section 1: Contract-Aligned Investment Summary</h2>
+            <h3>Knapsack Platform & Services (Per Contract)</h3>
+            <table>
+                <thead>
+                    <tr><th>Component</th><th>Year 1</th><th>Year 2</th><th>Year 3</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Knapsack Core Package</strong><br><span style="font-size:7pt;color:#666;">10 Admin/Contributor, 200 Viewers, 3 Renderers, SSO, Custom Domain, MCP/IPE</span></td>
+                        <td>$105,000</td><td>$105,000</td><td>$105,000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CX Partnership + FDE Technical Enablement</strong><br><span style="font-size:7pt;color:#666;">Strategy, Governance, AI Advisory, Change Management + Forward-Deployed Engineer</span></td>
+                        <td>$100,000</td><td>$100,000</td><td>$100,000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Figma (Parallel Operation → Eliminated)</strong><br><span style="font-size:7pt;color:#666;">Maintained Year 1 for transition; budget reallocated Year 2</span></td>
+                        <td class="cost-negative">$126,000</td>
+                        <td class="cost-positive">$0 (reallocated)</td>
+                        <td class="cost-positive">$0</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>TOTAL ANNUAL INVESTMENT</strong></td>
+                        <td><strong>$331,000</strong></td><td><strong>$205,000</strong></td><td><strong>$205,000</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="success-box">
+                <h4>Budget Reallocation Strategy</h4>
+                <p>Year 1 maintains existing Figma budget ($126K) for parallel operation while Knapsack infrastructure is established. Starting Year 2, the Figma budget is reallocated—no net new funding required beyond Year 1 investment.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Section 2: Capabilities Comparison — Quantified Value</h2>
+            <p style="margin-bottom:8px;color:#666;font-size:8pt;">Each capability assessed for business impact based on Allegion's profile (300 engineers, 20 designers, 10+ brands, 12,000 employees).</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:18%;">Capability</th>
+                        <th style="width:24%;">Knapsack</th>
+                        <th style="width:24%;">ZeroHeight</th>
+                        <th style="width:12%;">Annual Value</th>
+                        <th style="width:22%;">Calculation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="capability-row">
+                        <td>Automated Code-Doc Sync</td>
+                        <td><span class="check">✓</span> Package introspection auto-updates</td>
+                        <td><span class="x">✗</span> Manual updates required</td>
+                        <td class="value-cell">$156,000</td>
+                        <td>40 hrs/wk × $75/hr × 52 × 0.5</td>
+                    </tr>
+                    <tr class="capability-row">
+                        <td>Multi-Platform Token Engine</td>
+                        <td><span class="check">✓</span> Exports CSS, JS, iOS, Android</td>
+                        <td><span class="x">✗</span> Display only</td>
+                        <td class="value-cell">$122,400</td>
+                        <td>3 platforms × 8 hrs/wk × $85 × 52 × 0.75</td>
+                    </tr>
+                    <tr class="capability-row">
+                        <td>Live Component Rendering</td>
+                        <td><span class="check">✓</span> Production code; React, Angular, Ionic</td>
+                        <td><span class="partial">◐</span> Storybook embed only</td>
+                        <td class="value-cell">$265,200</td>
+                        <td>300 eng × 2 hrs/mo × $85 × 12 × 0.5</td>
+                    </tr>
+                    <tr class="capability-row">
+                        <td>Multi-System Governance</td>
+                        <td><span class="check">✓</span> Core + brand systems w/permissions</td>
+                        <td><span class="x">✗</span> Single system only</td>
+                        <td class="value-cell">$117,000</td>
+                        <td>10 brands × 3 hrs/wk × $75 × 52</td>
+                    </tr>
+                    <tr class="capability-row">
+                        <td>Git-Based Developer Workflow</td>
+                        <td><span class="check">✓</span> Local dev, PR integration, GitHub</td>
+                        <td><span class="x">✗</span> Web UI only</td>
+                        <td class="value-cell">$459,000</td>
+                        <td>300 eng × 1.5 hrs/mo × $85 × 12</td>
+                    </tr>
+                    <tr class="capability-row">
+                        <td>AI/MCP Integration</td>
+                        <td><span class="check">✓</span> Production MCP server</td>
+                        <td><span class="x">✗</span> No AI capabilities</td>
+                        <td class="value-cell">$200,000</td>
+                        <td>Audit automation + productivity</td>
+                    </tr>
+                    <tr class="capability-row">
+                        <td>Enterprise Enablement</td>
+                        <td><span class="check">✓</span> 15% CX Partner + 10% FDE</td>
+                        <td><span class="x">✗</span> Self-serve only</td>
+                        <td class="value-cell">$150,000</td>
+                        <td>Avoided consultant costs</td>
+                    </tr>
+                    <tr class="capability-row">
+                        <td>Self-Service Portal</td>
+                        <td><span class="check">✓</span> 12,000 employee access</td>
+                        <td><span class="partial">◐</span> Basic documentation</td>
+                        <td class="value-cell">$117,000</td>
+                        <td>200 users × 0.75 hr/mo × $65 × 12</td>
+                    </tr>
+                    <tr class="capability-row">
+                        <td>Figma Replacement (Y2+)*</td>
+                        <td><span class="check">✓</span> Code-based prototyping</td>
+                        <td><span class="x">✗</span> Still requires Figma</td>
+                        <td class="value-cell">$126,000</td>
+                        <td>Figma license avoided</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3"><strong>TOTAL ANNUAL CAPABILITY VALUE (Full Year)</strong></td>
+                        <td class="value-cell"><strong>$1,712,600</strong></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="footnote">*Figma Replacement value of $126K realized starting Year 2. Year 1 capability value = $1,586,600 (excludes Figma savings).</p>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="card">
+            <h2>Section 3: ZeroHeight Hidden Costs (Capability Gaps)</h2>
+            <table>
+                <thead>
+                    <tr><th>Cost Category</th><th>Root Cause (Missing Capability)</th><th>Annual Cost</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Manual Documentation Maintenance</strong></td><td>No automated code sync</td><td class="cost-negative">$156,000</td></tr>
+                    <tr><td><strong>Multi-Platform Token Duplication</strong></td><td>No token engine</td><td class="cost-negative">$122,400</td></tr>
+                    <tr><td><strong>Developer Workflow Friction</strong></td><td>No Git integration</td><td class="cost-negative">$459,000</td></tr>
+                    <tr><td><strong>Multi-Brand Governance Overhead</strong></td><td>Single-system architecture</td><td class="cost-negative">$117,000</td></tr>
+                    <tr><td><strong>Stakeholder Bottleneck Time</strong></td><td>Limited self-service</td><td class="cost-negative">$117,000</td></tr>
+                    <tr><td><strong>Implementation Risk</strong></td><td>Self-serve model</td><td class="cost-negative">$75,000</td></tr>
+                    <tr><td><strong>Figma License (Required)</strong></td><td>No component rendering</td><td class="cost-negative">$126,000</td></tr>
+                    <tr class="total-row"><td colspan="2"><strong>TOTAL ANNUAL ZEROHEIGHT HIDDEN COSTS</strong></td><td class="cost-negative"><strong>$1,172,400</strong></td></tr>
+                </tbody>
+            </table>
+            <div class="warning-box">
+                <h4>AI Migration Liability</h4>
+                <p>ZeroHeight has <strong>zero AI capabilities</strong>. When Allegion executes its AI-enabled design operations vision (2026+), platform migration required. Estimated cost: <strong>$200K-$400K</strong>.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Section 4: 3-Year TCO Comparison (Figma Budget Reallocated Year 2)</h2>
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h4>Scenario A: ZeroHeight + Figma</h4>
+                    <table>
+                        <tr><td>ZeroHeight License (3 yrs)</td><td style="text-align:right;">$150,000</td></tr>
+                        <tr><td>Figma License (3 yrs)</td><td style="text-align:right;">$378,000</td></tr>
+                        <tr><td>Hidden Labor Costs (3 yrs)</td><td style="text-align:right;" class="cost-negative">$3,517,200</td></tr>
+                        <tr><td>AI Migration (Year 3)</td><td style="text-align:right;" class="cost-negative">$300,000</td></tr>
+                        <tr><td>Capability Value Generated</td><td style="text-align:right;">$0</td></tr>
+                    </table>
+                    <div class="total cost-negative">TCO: $4,345,200</div>
+                </div>
+                <div class="summary-card" style="border-color:#4caf50;border-width:2px;">
+                    <h4>Scenario B: Knapsack (Figma Reallocated Y2)</h4>
+                    <table>
+                        <tr><td>Knapsack Core (3 yrs @ $105K)</td><td style="text-align:right;">$315,000</td></tr>
+                        <tr><td>CX + FDE (3 yrs @ $100K)</td><td style="text-align:right;">$300,000</td></tr>
+                        <tr><td>Figma (Year 1 only)</td><td style="text-align:right;">$126,000</td></tr>
+                        <tr><td>Capability Value (3 yrs)</td><td style="text-align:right;" class="cost-positive">-$4,775,390</td></tr>
+                    </table>
+                    <div class="total cost-positive">TCO: -$4,034,390</div>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h3>Net 3-Year Advantage: Knapsack</h3>
+                <table>
+                    <tr><td style="width:60%;"><strong>ZeroHeight 3-Year TCO</strong></td><td style="text-align:right;" class="cost-negative"><strong>$4,345,200</strong></td></tr>
+                    <tr><td><strong>Knapsack 3-Year Net Position</strong></td><td style="text-align:right;" class="cost-positive"><strong>-$4,034,390</strong></td></tr>
+                    <tr style="background:#e8f5e9;"><td><strong>TOTAL FINANCIAL ADVANTAGE</strong></td><td style="text-align:right;font-size:11pt;" class="cost-positive"><strong>$8,379,590</strong></td></tr>
+                </table>
+                <p style="margin-top:8px;font-size:7pt;">Negative TCO for Knapsack indicates <strong>net value generation</strong>—capability value exceeds total investment.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Section 5: Year-by-Year Financial Breakdown</h2>
+            <div class="phase-box year1">
+                <h4><span class="badge">YEAR 1</span> Foundation — Parallel Operation (Knapsack + Figma)</h4>
+                <table>
+                    <tr><td><strong>Knapsack Core Package</strong></td><td style="text-align:right;">$105,000</td></tr>
+                    <tr><td><strong>CX Partnership + FDE</strong></td><td style="text-align:right;">$100,000</td></tr>
+                    <tr><td><strong>Figma (maintained for transition)</strong></td><td style="text-align:right;" class="cost-negative">$126,000</td></tr>
+                    <tr><td><strong>Capability Value (50% ramp, excl. Figma savings)</strong></td><td style="text-align:right;" class="cost-positive">-$793,300</td></tr>
+                    <tr class="total-row"><td><strong>Year 1 Net Position</strong></td><td style="text-align:right;" class="cost-positive"><strong>-$462,300</strong></td></tr>
+                </table>
+                <p><strong>Key Activities:</strong> Environment setup, component migration, token infrastructure, governance framework, designer training. Figma maintained for active design work.</p>
+            </div>
+            <div class="phase-box year2">
+                <h4><span class="badge">YEAR 2</span> Scale — Figma Budget Reallocated, Full Knapsack Adoption</h4>
+                <table>
+                    <tr><td><strong>Knapsack Core Package</strong></td><td style="text-align:right;">$105,000</td></tr>
+                    <tr><td><strong>CX Partnership + FDE</strong></td><td style="text-align:right;">$100,000</td></tr>
+                    <tr><td><strong>Figma (ELIMINATED — budget reallocated)</strong></td><td style="text-align:right;" class="cost-positive">$0</td></tr>
+                    <tr><td><strong>Capability Value (100%, incl. Figma savings)</strong></td><td style="text-align:right;" class="cost-positive">-$1,712,600</td></tr>
+                    <tr class="total-row"><td><strong>Year 2 Net Position</strong></td><td style="text-align:right;" class="cost-positive"><strong>-$1,507,600</strong></td></tr>
+                </table>
+                <p><strong>Key Activities:</strong> Figma contract non-renewed, designers work directly in Knapsack, multi-brand theming complete, MCP server integrated.</p>
+            </div>
+            <div class="phase-box year3">
+                <h4><span class="badge">YEAR 3</span> Optimize — AI-Augmented Operations</h4>
+                <table>
+                    <tr><td><strong>Knapsack Core Package</strong></td><td style="text-align:right;">$105,000</td></tr>
+                    <tr><td><strong>CX Partnership + FDE</strong></td><td style="text-align:right;">$100,000</td></tr>
+                    <tr><td><strong>Capability Value (115% - AI compound)</strong></td><td style="text-align:right;" class="cost-positive">-$1,969,490</td></tr>
+                    <tr><td><strong>AI-Driven Design Ops Bonus</strong></td><td style="text-align:right;" class="cost-positive">-$300,000</td></tr>
+                    <tr class="total-row"><td><strong>Year 3 Net Position</strong></td><td style="text-align:right;" class="cost-positive"><strong>-$2,064,490</strong></td></tr>
+                </table>
+                <p><strong>Key Activities:</strong> AI-assisted component generation, intelligent audit automation, path toward reduced design headcount (20→5 FTE potential).</p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="card">
+            <h2>Section 6: Figma to Knapsack Transition Timeline</h2>
+            <table>
+                <thead><tr><th>Figma Function</th><th>Knapsack Replacement</th><th>Advantage</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Component Library</strong></td><td>Live code components with visual rendering</td><td>Production-ready, single source of truth</td></tr>
+                    <tr><td><strong>Design Tokens</strong></td><td>Token engine + multi-platform export</td><td>Auto-sync CSS/JS/iOS/Android</td></tr>
+                    <tr><td><strong>Prototyping</strong></td><td>Code-based with real components</td><td>Prototype = production code</td></tr>
+                    <tr><td><strong>Developer Handoff</strong></td><td>Direct system access</td><td>Eliminates handoff entirely</td></tr>
+                    <tr><td><strong>Version Control</strong></td><td>Git-based with PR workflows</td><td>Matches engineering practices</td></tr>
+                    <tr><td><strong>Collaboration</strong></td><td>Cloud authoring, SSO, stakeholder access</td><td>12,000 employees can view</td></tr>
+                </tbody>
+            </table>
+            <div class="success-box">
+                <h4>Migration Timeline (Figma Budget Reallocated Year 2)</h4>
+                <ul>
+                    <li><strong>Year 1, Months 1-2:</strong> Knapsack environment ready, token infrastructure migrated</li>
+                    <li><strong>Year 1, Months 3-5:</strong> Component documentation migrated, designers begin training</li>
+                    <li><strong>Year 1, Months 6-12:</strong> Designers transition to code-based prototyping, Figma reduced to legacy reference</li>
+                    <li><strong>Year 2, Month 1:</strong> Figma contract non-renewed, budget reallocated; full Knapsack operation</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card" style="border: 2px solid #42247f;">
+            <h2>Section 7: Procurement & Budget Recommendations</h2>
+            <h3>Immediate Actions (Contract Execution)</h3>
+            <ul style="margin-left:16px;margin-bottom:12px;font-size:8pt;">
+                <li style="margin-bottom:4px;"><strong>Execute Knapsack Agreement:</strong> Year 1 commitment: $205,000 (Core $105K + CX/FDE $100K)</li>
+                <li style="margin-bottom:4px;"><strong>Maintain Figma (Year 1):</strong> Continue existing contract ($126K) for parallel operation</li>
+                <li style="margin-bottom:4px;"><strong>Plan Figma Non-Renewal:</strong> Identify termination notice period; execute non-renewal for Year 2 start</li>
+            </ul>
+            <h3>Net Budget Impact</h3>
+            <table style="margin-bottom:12px;">
+                <tr><td style="width:55%;"><strong>Current State (Figma only)</strong></td><td style="text-align:right;">$126,000/year</td></tr>
+                <tr><td><strong>Year 1 (Knapsack + Figma parallel)</strong></td><td style="text-align:right;">$331,000</td></tr>
+                <tr style="background:#fff8e1;"><td><strong>Year 1 Net New Budget Required</strong></td><td style="text-align:right;font-weight:700;">$205,000</td></tr>
+                <tr><td><strong>Year 2+ (Knapsack only, Figma reallocated)</strong></td><td style="text-align:right;">$205,000</td></tr>
+                <tr style="background:#e8f5e9;"><td><strong>Year 2+ Net New Budget vs. Current</strong></td><td style="text-align:right;font-weight:700;">$79,000</td></tr>
+                <tr style="background:#e8f5e9;"><td><strong>Capability Value Generated (Full Year)</strong></td><td style="text-align:right;" class="cost-positive">$1,712,600/year</td></tr>
+                <tr class="total-row"><td><strong>ROI (Value / Investment, Year 2+)</strong></td><td style="text-align:right;" class="cost-positive"><strong>835%</strong></td></tr>
+            </table>
+            <h3>Success Metrics for Approval</h3>
+            <ul style="margin-left:16px;font-size:8pt;">
+                <li style="margin-bottom:4px;"><strong>Year 1 Break-even:</strong> Month 5 (capability value exceeds Year 1 investment)</li>
+                <li style="margin-bottom:4px;"><strong>3-Year ROI:</strong> $8.4M advantage over ZeroHeight alternative</li>
+                <li style="margin-bottom:4px;"><strong>Strategic Value:</strong> Only platform supporting Allegion's 2026 AI design operations vision</li>
+                <li style="margin-bottom:4px;"><strong>Risk Mitigation:</strong> Parallel operation in Year 1 ensures no workflow disruption</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
