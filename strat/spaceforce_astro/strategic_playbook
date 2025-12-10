@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>U.S. Space Force × Knapsack Strategic Playbook</title>
+  <style>
+    :root {
+      --primary: #6436bf;
+      --primary-dark: #42247f;
+      --primary-light: #f3effb;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --action: #0ea5e9;
+      --warning: #f59e0b;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --space: #1e3a5f;
+      --space-accent: #9bdcfd;
+      --space-light: #e8f4fc;
+      --neutral-50: #faf9fa;
+      --neutral-100: #f5f5f5;
+      --neutral-150: #e5e5e5;
+      --neutral-200: #d4d4d4;
+      --neutral-500: #737373;
+      --neutral-600: #525252;
+      --neutral-700: #404040;
+      --neutral-800: #262626;
+      --neutral-900: #171717;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--neutral-50); display: flex; min-height: 100vh; color: var(--neutral-700); line-height: 1.6; }
+    nav { width: 260px; background: linear-gradient(180deg, #0f1f33 0%, #0a1420 100%); border-right: 1px solid rgba(155,220,253,0.1); padding: 20px 0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; }
+    .nav-header { padding: 0 16px 20px; border-bottom: 1px solid rgba(155,220,253,0.15); }
+    .nav-logo { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--space-accent); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .nav-logo::before { content: '★'; font-size: 12px; }
+    .nav-title { font-size: 15px; font-weight: 700; color: white; line-height: 1.3; }
+    .nav-subtitle { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+    .nav-section-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(155,220,253,0.5); padding: 16px 16px 8px; }
+    .nav-items { padding: 8px 10px; }
+    .nav-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 10px; border: none; border-radius: 5px; background: transparent; color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 400; cursor: pointer; text-align: left; margin-bottom: 2px; transition: all 0.15s; }
+    .nav-btn:hover { background: rgba(155,220,253,0.08); color: rgba(255,255,255,0.9); }
+    .nav-btn.active { background: rgba(155,220,253,0.12); color: var(--space-accent); font-weight: 600; }
+    .nav-num { width: 20px; height: 20px; border-radius: 4px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; flex-shrink: 0; }
+    .nav-btn.active .nav-num { background: var(--space-accent); color: #0f1f33; }
+    .nav-footer { padding: 16px; border-top: 1px solid rgba(155,220,253,0.1); margin-top: auto; }
+    .nav-footer-label { font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+    .nav-footer-title { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.9); }
+    .nav-footer-date { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+    main { flex: 1; padding: 28px 36px; max-width: 920px; margin-left: 260px; }
+    .card { background: white; border: 1px solid var(--neutral-150); border-radius: 8px; padding: 24px; margin-bottom: 20px; }
+    .section-title { font-size: 24px; font-weight: 700; color: var(--neutral-900); margin-bottom: 6px; line-height: 1.2; }
+    .section-subtitle { font-size: 14px; color: var(--neutral-600); margin-bottom: 24px; line-height: 1.5; }
+    .heading { font-size: 15px; font-weight: 600; color: var(--neutral-800); margin-bottom: 14px; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+    .hero { background: linear-gradient(135deg, #0f1f33 0%, #1e3a5f 50%, #0f1f33 100%); color: white; padding: 40px; border-radius: 10px; margin-bottom: 24px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(155,220,253,0.08) 0%, transparent 60%); }
+    .hero-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: var(--space-accent); margin-bottom: 14px; display: flex; align-items: center; gap: 6px; position: relative; }
+    .hero-label::before { content: '★'; }
+    .hero h1 { font-size: 30px; font-weight: 700; margin-bottom: 10px; position: relative; line-height: 1.15; }
+    .hero p { font-size: 16px; opacity: 0.9; position: relative; }
+    .hero .sub { font-size: 13px; opacity: 0.7; margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .callout { background: var(--space); color: white; padding: 20px 24px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid var(--space-accent); }
+    .callout-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--space-accent); margin-bottom: 6px; }
+    .callout-text { font-size: 17px; font-weight: 600; line-height: 1.4; }
+    .summary-card { background: var(--space-light); border-left: 4px solid var(--space); border-radius: 0 8px 8px 0; }
+    .summary-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--space); margin-bottom: 6px; }
+    .summary-text { font-size: 14px; color: var(--neutral-700); line-height: 1.6; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
+    .value-item { display: flex; gap: 10px; padding: 14px; background: var(--neutral-50); border-radius: 6px; border: 1px solid var(--neutral-150); }
+    .value-marker { width: 4px; background: var(--space); border-radius: 2px; flex-shrink: 0; }
+    .value-title { font-weight: 600; font-size: 13px; color: var(--neutral-800); margin-bottom: 3px; }
+    .value-desc { font-size: 12px; color: var(--neutral-600); }
+    .stat-banner { background: linear-gradient(135deg, var(--space) 0%, #0f1f33 100%); color: white; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 28px; border-radius: 8px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--space-accent); margin-bottom: 4px; }
+    .stat-value { font-size: 32px; font-weight: 700; line-height: 1; }
+    .stat-sub { font-size: 12px; opacity: 0.75; margin-top: 4px; }
+    .timeline-item { display: flex; gap: 16px; margin-bottom: 24px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-track { display: flex; flex-direction: column; align-items: center; padding-top: 4px; }
+    .timeline-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .timeline-line { width: 2px; flex: 1; background: var(--neutral-200); margin-top: 6px; }
+    .timeline-content { flex: 1; }
+    .timeline-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+    .timeline-date { font-size: 12px; font-weight: 700; }
+    .timeline-title { font-size: 14px; font-weight: 600; color: var(--neutral-800); }
+    .timeline-desc { font-size: 13px; color: var(--neutral-600); line-height: 1.5; }
+    .risk-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .risk-table th { background: var(--space); color: white; padding: 10px 12px; text-align: left; font-weight: 600; }
+    .risk-table td { padding: 10px 12px; border-bottom: 1px solid var(--neutral-150); }
+    .risk-table tr:hover { background: var(--neutral-50); }
+    .risk-high { color: var(--danger); font-weight: 600; }
+    .risk-med { color: var(--warning); font-weight: 600; }
+    .risk-low { color: var(--success); font-weight: 600; }
+    .metric-card { background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px; padding: 16px; text-align: center; }
+    .metric-value { font-size: 28px; font-weight: 800; line-height: 1; margin-bottom: 6px; }
+    .metric-label { font-size: 11px; font-weight: 600; color: var(--neutral-800); margin-bottom: 3px; line-height: 1.3; }
+    .metric-desc { font-size: 10px; color: var(--neutral-500); }
+    .pillar { border: 2px solid var(--neutral-150); border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+    .pillar-num { width: 36px; height: 36px; background: var(--space); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+    .pillar-title { font-size: 16px; font-weight: 700; color: var(--space); margin-bottom: 10px; }
+    .pillar-desc { font-size: 13px; color: var(--neutral-600); line-height: 1.6; margin-bottom: 14px; }
+    .tag-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { padding: 5px 10px; background: var(--space-light); border-radius: 4px; font-size: 11px; color: var(--space); font-weight: 500; }
+    .evidence-box { background: var(--success-light); border: 1px solid #a7f3d0; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+    .evidence-title { font-size: 13px; font-weight: 700; color: var(--success); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+    .align-box { background: var(--primary-light); border: 1px solid var(--primary); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+    .align-label { font-size: 10px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+    .align-text { font-size: 13px; color: var(--neutral-700); }
+    @media (max-width: 1000px) { .grid-4 { grid-template-columns: 1fr 1fr; } .stat-banner { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 900px) { nav { display: none; } main { margin-left: 0; padding: 20px; } .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } .stat-banner { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-header">
+      <div class="nav-logo">U.S. Space Force</div>
+      <div class="nav-title">Design System Strategic Playbook</div>
+      <div class="nav-subtitle">Grant Proposal | Knapsack Partnership</div>
+    </div>
+    <div class="nav-section-label">Executive Overview</div>
+    <div class="nav-items" id="navItems1"></div>
+    <div class="nav-section-label">Technical Approach</div>
+    <div class="nav-items" id="navItems2"></div>
+    <div class="nav-section-label">Management & Risk</div>
+    <div class="nav-items" id="navItems3"></div>
+    <div class="nav-section-label">Cost & Sustainment</div>
+    <div class="nav-items" id="navItems4"></div>
+    <div class="nav-footer">
+      <div class="nav-footer-label">In Partnership With</div>
+      <div class="nav-footer-title">Joseph & Associates (J&A)</div>
+      <div class="nav-footer-date">December 2025 | v2.0</div>
+    </div>
+  </nav>
+  <main id="mainContent"></main>
+  <script>
+    const sectionGroups = [
+      [{ id: 'exec-summary', label: 'Executive Summary' }, { id: 'past-performance', label: 'Past Performance' }],
+      [{ id: 'technical', label: 'Technical Approach' }, { id: 'ipe', label: 'Intelligent Product Engine' }, { id: 'dod-alignment', label: 'DoD Strategy Alignment' }],
+      [{ id: 'management', label: 'Management Approach' }, { id: 'risk', label: 'Risk Management' }, { id: 'roadmap', label: '90-Day Roadmap' }],
+      [{ id: 'cost', label: 'Cost & ROI Analysis' }, { id: 'security', label: 'Security & Compliance' }, { id: 'sustainment', label: 'Transition & Sustainment' }]
+    ];
+    const allSections = sectionGroups.flat();
+    let activeSection = 'exec-summary';
+
+    function renderNav() {
+      sectionGroups.forEach((group, gi) => {
+        const nav = document.getElementById('navItems' + (gi + 1));
+        let globalIdx = sectionGroups.slice(0, gi).flat().length;
+        nav.innerHTML = group.map((s, i) => `
+          <button class="nav-btn ${activeSection === s.id ? 'active' : ''}" onclick="setSection('${s.id}')">
+            <span class="nav-num">${globalIdx + i + 1}</span>
+            <span>${s.label}</span>
+          </button>
+        `).join('');
+      });
+    }
+
+    function setSection(id) {
+      activeSection = id;
+      renderNav();
+      renderContent();
+      window.scrollTo(0, 0);
+    }
+
+    function renderContent() {
+      const main = document.getElementById('mainContent');
+      const content = {
+        'exec-summary': `
+          <div class="hero">
+            <div class="hero-label">Grant Proposal | Strategic Playbook</div>
+            <h1>Design System Modernization for Mission-Ready Digital Products</h1>
+            <p>Unified design system platform enabling U.S. Space Force to accelerate software delivery through governed components, AI-enabled automation, and sustainable knowledge transfer</p>
+            <div class="sub">Prepared for DoD Software Modernization Initiative | Knapsack Intelligent Product Engine</div>
+          </div>
+
+          <div class="card evidence-box">
+            <div class="evidence-title">Funding Request Summary</div>
+            <div class="grid-4">
+              <div style="text-align:center;"><div style="font-size:28px;font-weight:800;color:var(--success);">$2.4M</div><div style="font-size:11px;color:var(--neutral-600);">Total Request (24 mo)</div></div>
+              <div style="text-align:center;"><div style="font-size:28px;font-weight:800;color:var(--success);">40-60%</div><div style="font-size:11px;color:var(--neutral-600);">Projected Time Savings</div></div>
+              <div style="text-align:center;"><div style="font-size:28px;font-weight:800;color:var(--success);">$3M+</div><div style="font-size:11px;color:var(--neutral-600);">Annual Cost Avoidance</div></div>
+              <div style="text-align:center;"><div style="font-size:28px;font-weight:800;color:var(--success);">7-9</div><div style="font-size:11px;color:var(--neutral-600);">Applications (Pilot)</div></div>
+            </div>
+          </div>
+
+          <div class="callout">
+            <div class="callout-label">Mission Statement</div>
+            <div class="callout-text">Establish a unified design system platform that eliminates duplicated work, enables AI-assisted development, and delivers software capabilities at the speed of mission—starting one software factory at a time, scaling across the enterprise.</div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Problem Statement</h2>
+            <p style="font-size:13px;color:var(--neutral-700);line-height:1.7;margin-bottom:16px;">Space Force software factories face systemic challenges that impede mission delivery:</p>
+            <div class="grid-2">
+              <div style="padding:14px;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;">
+                <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#dc2626;margin-bottom:10px;">Current State Challenges</div>
+                ${['Duplicated UI/UX development across 50+ DoD software factories', 'Inconsistent user experiences impacting operator effectiveness', 'Knowledge loss from contractor turnover (avg. 18-24 month cycles)', 'AI coding tools generate non-compliant, inconsistent output', 'Manual rework consuming 30-40% of development cycles'].map(i => `<div style="font-size:12px;color:var(--neutral-700);padding:4px 0;padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:#dc2626;font-weight:600;">×</span> ${i}</div>`).join('')}
+              </div>
+              <div style="padding:14px;background:var(--success-light);border:1px solid #a7f3d0;border-radius:6px;">
+                <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--success);margin-bottom:10px;">Proposed Solution Outcomes</div>
+                ${['Single source of truth for components across Space Force', 'Consistent UX enabling interoperability with Air Force assets', 'Sustainable knowledge transfer via reusable governed assets', 'AI-generated code that matches design system standards', 'Quarterly MVP release cadence with continuous improvement'].map(i => `<div style="font-size:12px;color:var(--neutral-700);padding:4px 0;padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--success);font-weight:600;">✓</span> ${i}</div>`).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Strategic Value Proposition</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Unified Design System Platform', desc: 'Centralized repository of production-ready components, design tokens, and documentation enabling cross-factory interoperability' },
+                { title: 'Intelligent Product Engine (IPE)', desc: 'AI control plane providing contextual intelligence to coding tools, ensuring generated code matches established standards' },
+                { title: 'Federated Governance Model', desc: 'Supports software factory autonomy while maintaining enterprise-wide consistency and compliance' },
+                { title: 'Sustainable Knowledge Transfer', desc: 'Super Coders program and reusable assets reduce dependency on transient contractor knowledge' },
+              ].map(v => `<div class="value-item"><div class="value-marker"></div><div><div class="value-title">${v.title}</div><div class="value-desc">${v.desc}</div></div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="align-box">
+            <div class="align-label">DoD Software Modernization Strategy Alignment</div>
+            <div class="align-text"><strong>Goal 2:</strong> Establish Department-wide Software Factory Ecosystem — This proposal directly supports G2.1 (Optimize and increase adoption of software factory ecosystem) and G2.2 (Enable trust and sharing across DevSecOps organizations) as defined in the FY25-26 Implementation Plan.</div>
+          </div>
+        `,
+
+        'past-performance': `
+          <h1 class="section-title">Past Performance Evidence</h1>
+          <p class="section-subtitle">Documented pilot results and third-party validated outcomes from 2024-2025 deployment</p>
+
+          <div class="stat-banner" style="margin-bottom:20px;">
+            <div class="stat-item"><div class="stat-label">Pilot Applications</div><div class="stat-value">7-9</div><div class="stat-sub">Unified on Platform</div></div>
+            <div class="stat-item"><div class="stat-label">Release Cadence</div><div class="stat-value">Quarterly</div><div class="stat-sub">MVP Delivery</div></div>
+            <div class="stat-item"><div class="stat-label">Time Savings</div><div class="stat-value">40-60%</div><div class="stat-sub">Prototyping</div></div>
+            <div class="stat-item"><div class="stat-label">Super Coders</div><div class="stat-value">Active</div><div class="stat-sub">Training Program</div></div>
+          </div>
+
+          <div class="card evidence-box">
+            <div class="evidence-title">Astro Software Factory Pilot Results (2024-2025)</div>
+            <div class="grid-2" style="margin-bottom:16px;">
+              ${[
+                { title: 'Centralized Design System Established', desc: 'Single source of truth for UI components and design tokens across Space Systems Command software factory', method: 'Platform deployment metrics' },
+                { title: 'Production-Ready Component Library', desc: 'React components integrated with Figma for seamless design-to-code workflows', method: 'Repository commit analysis' },
+                { title: 'Quarterly MVP Release Cadence', desc: 'Significant improvement from previous ad-hoc timelines to continuous release cycle', method: 'Release log tracking' },
+                { title: 'Cross-Application Consistency', desc: 'Standardized visual and interaction patterns across 7-9 pilot business solutions', method: 'UX audit documentation' },
+              ].map(a => `<div style="padding:14px;background:white;border:1px solid #c3ddd2;border-radius:6px;"><div style="font-size:13px;font-weight:600;color:var(--neutral-800);margin-bottom:6px;">${a.title}</div><div style="font-size:12px;color:var(--neutral-600);margin-bottom:8px;">${a.desc}</div><div style="font-size:10px;color:var(--success);font-weight:600;">Measurement: ${a.method}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Third-Party Validated Enterprise Outcomes</h2>
+            <p style="font-size:12px;color:var(--neutral-600);margin-bottom:14px;">Knapsack platform results from comparable Fortune 500 and enterprise deployments:</p>
+            <div class="grid-3">
+              ${[
+                { stat: '$3M', label: 'Annual Savings', client: 'Global Retailer', source: 'Engineering hours reduction' },
+                { stat: '20%', label: 'Efficiency Gain', client: 'Fortune 500 Manufacturer', source: '90-day implementation' },
+                { stat: '30%', label: 'QA Time Reduction', client: 'Global Pharmaceutical', source: 'Projected $10M annual savings' },
+                { stat: '15%', label: 'Speed-to-Market', client: 'National Retailer', source: 'Design system unification' },
+                { stat: '36', label: 'Components Deployed', client: 'Fortune 500', source: '45-day production readiness' },
+                { stat: '2 weeks', label: 'Migration Time', client: 'Multi-brand Enterprise', source: 'Legacy tool consolidation' },
+              ].map(s => `<div class="metric-card"><div class="metric-value" style="color:var(--space);font-size:24px;">${s.stat}</div><div class="metric-label">${s.label}</div><div class="metric-desc">${s.client}: ${s.source}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Measurement Methodology</h2>
+            <div class="grid-2">
+              ${[
+                { metric: 'Development Velocity', baseline: 'Sprint points per cycle (pre-implementation)', target: '40-50% increase in UI development throughput', method: 'Jira/Azure DevOps sprint tracking' },
+                { metric: 'Component Reuse Rate', baseline: 'Percentage of net-new vs. reused components', target: '80%+ reuse rate across applications', method: 'Platform analytics dashboard' },
+                { metric: 'Defect Density', baseline: 'UI-related defects per release', target: '70% reduction in component-level bugs', method: 'Defect categorization in issue tracking' },
+                { metric: 'Time to Production', baseline: 'Concept-to-deployment cycle time', target: 'Quarterly MVP cadence achieved', method: 'Release management timestamps' },
+              ].map(m => `<div style="padding:14px;background:var(--neutral-50);border:1px solid var(--neutral-150);border-radius:6px;"><div style="font-size:13px;font-weight:600;color:var(--space);margin-bottom:8px;">${m.metric}</div><div style="font-size:11px;color:var(--neutral-600);margin-bottom:4px;"><strong>Baseline:</strong> ${m.baseline}</div><div style="font-size:11px;color:var(--neutral-600);margin-bottom:4px;"><strong>Target:</strong> ${m.target}</div><div style="font-size:10px;color:var(--success);font-weight:600;">Method: ${m.method}</div></div>`).join('')}
+            </div>
+          </div>
+        `,
+
+        'technical': `
+          <h1 class="section-title">Technical Approach</h1>
+          <p class="section-subtitle">Four-pillar framework for mission-ready digital product delivery</p>
+
+          <div class="card" style="background:linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);color:white;border:none;margin-bottom:20px;">
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;opacity:0.9;margin-bottom:10px;">Technical Foundation</div>
+            <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;">Unified Platform + AI-Ready Infrastructure</h3>
+            <p style="font-size:13px;opacity:0.95;line-height:1.6;">Centralized repository of reusable components, design tokens, and standards integrated with AI control plane for intelligent code generation—reducing development time while ensuring consistency across distributed teams.</p>
+          </div>
+
+          <div class="pillar">
+            <div class="pillar-num">1</div>
+            <div class="pillar-title">Design System Governance & Infrastructure</div>
+            <div class="pillar-desc">Establish a single source of truth connecting design (Figma), code (React/Git), and documentation. Components are production-ready, always synchronized, and structured for both human and AI consumption.</div>
+            <div class="tag-grid">
+              ${['Design token management', 'Component versioning', 'Figma-to-code sync', 'Multi-framework support', 'Automated documentation'].map(t => `<span class="tag">${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="pillar">
+            <div class="pillar-num">2</div>
+            <div class="pillar-title">Intelligent Product Engine (AI Control Plane)</div>
+            <div class="pillar-desc">Contextual intelligence layer that aggregates design system, brand guidelines, accessibility requirements, and usage conventions—providing this context to AI coding tools via Model Context Protocol (MCP). Generated code matches established standards without manual rework.</div>
+            <div class="tag-grid">
+              ${['MCP integration', 'Context weighting', 'Multi-source aggregation', 'Quality analytics', 'Human-in-loop validation'].map(t => `<span class="tag">${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="pillar">
+            <div class="pillar-num">3</div>
+            <div class="pillar-title">Enterprise Security & Compliance Readiness</div>
+            <div class="pillar-desc">Built for government-grade security with SOC2 Type II certification. Three-phase deployment progresses toward FedRAMP authorization while maintaining operational continuity. Zero trust architecture principles embedded throughout.</div>
+            <div class="tag-grid">
+              ${['SOC2 Type II certified', 'FedRAMP pathway', 'SAML/OIDC SSO', 'Role-based access control', 'Audit logging'].map(t => `<span class="tag">${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="pillar">
+            <div class="pillar-num">4</div>
+            <div class="pillar-title">Training, Enablement & Knowledge Transfer</div>
+            <div class="pillar-desc">Beyond software licensing: enablement workshops, technical prototyping support, and Super Coder training program. Build institutional capability while reducing dependency on transient contractor knowledge.</div>
+            <div class="tag-grid">
+              ${['Super Coders program', 'Leadership prototyping', 'Workflow workshops', 'Documentation standards', 'AI readiness training'].map(t => `<span class="tag">${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Technology Stack</h2>
+            <div class="grid-3">
+              ${[
+                { layer: 'Design Layer', tech: 'Figma, Tokens Studio', desc: 'Design assets, tokens, and component specs' },
+                { layer: 'Platform Layer', tech: 'Knapsack Cloud', desc: 'Unified workspace, governance, analytics' },
+                { layer: 'Code Layer', tech: 'React, Git, CI/CD', desc: 'Production components, version control' },
+                { layer: 'AI Layer', tech: 'MCP, Control Plane', desc: 'Context aggregation, tool distribution' },
+                { layer: 'Integration Layer', tech: 'REST API, Webhooks', desc: 'Enterprise system connectivity' },
+                { layer: 'Analytics Layer', tech: 'Usage Dashboard', desc: 'Adoption, quality, impact metrics' },
+              ].map(t => `<div style="padding:14px;background:var(--space-light);border-radius:6px;"><div style="font-size:12px;font-weight:700;color:var(--space);margin-bottom:4px;">${t.layer}</div><div style="font-size:11px;font-weight:600;color:var(--neutral-800);margin-bottom:2px;">${t.tech}</div><div style="font-size:10px;color:var(--neutral-600);">${t.desc}</div></div>`).join('')}
+            </div>
+          </div>
+        `,
+
+        'ipe': `
+          <h1 class="section-title">Intelligent Product Engine</h1>
+          <p class="section-subtitle">AI control plane providing contextual intelligence for enterprise-ready code generation</p>
+
+          <div class="callout">
+            <div class="callout-label">Q1 2026 Capability</div>
+            <div class="callout-text">The control plane and contextual understanding that makes AI agents enterprise-ready.</div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">The Problem with Current AI Coding Tools</h2>
+            <p style="font-size:13px;color:var(--neutral-700);line-height:1.7;margin-bottom:14px;">AI coding tools (Cursor, Copilot, v0) are hitting the same wall for enterprise usage:</p>
+            <div class="grid-2">
+              ${[
+                { issue: 'Design System Inconsistency', desc: 'Generated code doesn\'t match established UI patterns or component usage conventions' },
+                { issue: 'Manual Rework Required', desc: 'Output requires extensive clean-up before production readiness, negating speed gains' },
+                { issue: 'Missing Context', desc: 'AI ignores brand standards, accessibility requirements, and organizational conventions' },
+                { issue: 'Regeneration Cycles', desc: 'Teams waste time regenerating rather than building, as initial output is unusable' },
+              ].map(i => `<div style="padding:14px;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;"><div style="font-size:13px;font-weight:600;color:#dc2626;margin-bottom:4px;">${i.issue}</div><div style="font-size:12px;color:var(--neutral-600);">${i.desc}</div></div>`).join('')}
+            </div>
+            <div style="margin-top:16px;padding:14px;background:var(--warning-light);border-left:4px solid var(--warning);border-radius:0 6px 6px 0;">
+              <div style="font-size:13px;font-weight:600;color:var(--neutral-800);">AI promises speed, but delivers more rework</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">How the Intelligent Product Engine Works</h2>
+            <div style="display:flex;gap:20px;margin-bottom:20px;">
+              <div style="flex:1;padding:20px;background:var(--space-light);border-radius:8px;">
+                <div style="font-size:14px;font-weight:700;color:var(--space);margin-bottom:10px;">The Control Plane</div>
+                <p style="font-size:12px;color:var(--neutral-700);line-height:1.6;">Connect your design system, component library, brand guidelines, and standards. The control plane aggregates this, lets you weight the importance of different sources, and gives this intelligence to AI tools via Model Context Protocol (MCP).</p>
+              </div>
+              <div style="flex:1;padding:20px;background:var(--success-light);border-radius:8px;">
+                <div style="font-size:14px;font-weight:700;color:var(--success);margin-bottom:10px;">Contextual Code Generation</div>
+                <p style="font-size:12px;color:var(--neutral-700);line-height:1.6;">AI generates code that already knows your context. Not just from a single source, but your entire ecosystem—using your design tokens, following your patterns, meeting your standards.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Expected Improvements</h2>
+            <div class="grid-3">
+              <div class="metric-card"><div class="metric-value" style="color:var(--success);">60%+</div><div class="metric-label">Reduction in Regeneration Cycles</div><div class="metric-desc">First-pass output matches requirements</div></div>
+              <div class="metric-card"><div class="metric-value" style="color:var(--action);">80%+</div><div class="metric-label">Higher Code Acceptance Rates</div><div class="metric-desc">Code used with minimal modification</div></div>
+              <div class="metric-card"><div class="metric-value" style="color:var(--primary);">70%+</div><div class="metric-label">Fewer Validation Failures</div><div class="metric-desc">Automated consistency checks pass</div></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Q1 2026 Release Features</h2>
+            <div class="grid-2">
+              ${[
+                { feature: 'Source Aggregation', desc: 'Aggregate, weight, and prioritize design system sources for context delivery' },
+                { feature: 'MCP Distribution', desc: 'Distribute via single MCP endpoint to AI coding tools (Cursor, Copilot, etc.)' },
+                { feature: 'Quality Analytics', desc: 'Dashboard showing impact on code quality, acceptance rates, and regeneration cycles' },
+                { feature: 'Ops Configuration', desc: 'UI for operations teams to configure weights, sources, and governance rules' },
+              ].map(f => `<div class="value-item"><div class="value-marker" style="background:var(--success);"></div><div><div class="value-title">${f.feature}</div><div class="value-desc">${f.desc}</div></div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="align-box">
+            <div class="align-label">DoD AI Strategy Alignment</div>
+            <div class="align-text">The Intelligent Product Engine supports the CDAO mandate for responsible AI adoption with human-in-the-loop validation, enabling AI speed while maintaining quality for mission-critical systems. Reference: <a href="https://www.ai.mil" style="color:var(--primary);">ai.mil</a></div>
+          </div>
+        `,
+
+        'dod-alignment': `
+          <h1 class="section-title">DoD Strategy Alignment</h1>
+          <p class="section-subtitle">Explicit mapping to official DoD modernization frameworks and strategic priorities</p>
+
+          <div class="callout">
+            <div class="callout-label">Primary Alignment</div>
+            <div class="callout-text">DoD Software Modernization Strategy (Feb 2022) — Goal 2: Establish Department-wide Software Factory Ecosystem</div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Software Modernization Implementation Plan FY25-26 Alignment</h2>
+            <table class="risk-table">
+              <thead>
+                <tr><th style="width:30%;">Implementation Plan Task</th><th style="width:40%;">Knapsack Contribution</th><th style="width:30%;">Deliverable</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>G2.1:</strong> Optimize software factory ecosystem</td><td>Unified design system platform enables component sharing across factories</td><td>Cross-factory component library</td></tr>
+                <tr><td><strong>G2.2:</strong> Enable trust and sharing across DevSecOps</td><td>Governed components with version control and documentation</td><td>Shared asset governance model</td></tr>
+                <tr><td><strong>G2.3:</strong> Advance interoperability of software capabilities</td><td>API-first architecture, design token standards</td><td>Interoperable design system</td></tr>
+                <tr><td><strong>G2.6:</strong> Prepare Software Factories for AI</td><td>Intelligent Product Engine, MCP integration</td><td>AI-ready infrastructure</td></tr>
+                <tr><td><strong>G3.1:</strong> Evolve Policy, Regulations, Standards</td><td>Accessibility compliance, brand governance</td><td>Standards enforcement tools</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Space Force Digital Service Vision Alignment</h2>
+            <div class="grid-2">
+              ${[
+                { vision: 'Digital Service Foundation', alignment: 'Unified design system provides the UI/UX layer for digital service infrastructure across Space Force applications' },
+                { vision: 'Workforce Modernization', alignment: 'Super Coders program trains guardians with commercial-transferable skills in design system operations' },
+                { vision: 'Innovation Acceleration', alignment: 'AI-enabled prototyping reduces concept-to-production cycles from months to weeks' },
+                { vision: 'Interoperability with Air Force', alignment: 'Component standards enable seamless digital asset sharing across DAF ecosystem' },
+              ].map(v => `<div style="padding:14px;background:var(--space-light);border:1px solid var(--space);border-radius:6px;"><div style="font-size:13px;font-weight:600;color:var(--space);margin-bottom:6px;">${v.vision}</div><div style="font-size:12px;color:var(--neutral-600);">${v.alignment}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Additional Strategic Framework Alignment</h2>
+            <div class="grid-3">
+              ${[
+                { framework: 'CDAO AI Principles', alignment: 'Human-in-the-loop validation for AI-generated code' },
+                { framework: 'Zero Trust Architecture', alignment: 'Role-based access, audit logging, SSO integration' },
+                { framework: 'FedRAMP Requirements', alignment: 'SOC2 Type II certified, FedRAMP pathway defined' },
+                { framework: 'DevSecOps Reference Design', alignment: 'CI/CD integration, automated security checks' },
+                { framework: 'Section 508 Accessibility', alignment: 'Built-in accessibility compliance checking' },
+                { framework: 'NDAA Software Provisions', alignment: 'Supports continuous authorization to operate (cATO)' },
+              ].map(f => `<div style="padding:12px;background:var(--neutral-50);border:1px solid var(--neutral-150);border-radius:6px;"><div style="font-size:12px;font-weight:600;color:var(--neutral-800);margin-bottom:4px;">${f.framework}</div><div style="font-size:11px;color:var(--neutral-600);">${f.alignment}</div></div>`).join('')}
+            </div>
+          </div>
+        `,
+
+        'management': `
+          <h1 class="section-title">Management Approach</h1>
+          <p class="section-subtitle">Organizational structure, governance, and operating cadence for sustainable operations</p>
+
+          <div class="card">
+            <h2 class="heading">Program Governance Structure</h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div style="padding:18px;background:var(--space-light);border:1px solid var(--space);border-radius:8px;">
+                <div style="font-size:14px;font-weight:700;color:var(--space);margin-bottom:12px;">Government Oversight</div>
+                ${[
+                  { role: 'Contracting Officer Representative', resp: 'Contract oversight, deliverable acceptance' },
+                  { role: 'Software Factory Leadership', resp: 'Executive sponsor, strategic direction' },
+                  { role: 'Security/Compliance Officer', resp: 'FedRAMP alignment, ATO coordination' },
+                  { role: 'Program Manager (Gov)', resp: 'Schedule, budget, requirements' },
+                ].map(r => `<div style="background:white;padding:10px;border-radius:4px;margin-bottom:8px;"><div style="font-size:12px;font-weight:600;color:var(--neutral-800);">${r.role}</div><div style="font-size:11px;color:var(--neutral-600);">${r.resp}</div></div>`).join('')}
+              </div>
+              <div style="padding:18px;background:var(--primary-light);border:1px solid var(--primary);border-radius:8px;">
+                <div style="font-size:14px;font-weight:700;color:var(--primary);margin-bottom:12px;">Contractor Support (Knapsack + J&A)</div>
+                ${[
+                  { role: 'Program Director', resp: 'Overall delivery, stakeholder management' },
+                  { role: 'Technical Architect', resp: 'Platform architecture, AI enablement' },
+                  { role: 'Design System Lead', resp: 'Component standards, Figma governance' },
+                  { role: 'Training Lead', resp: 'Super Coders program, enablement' },
+                ].map(r => `<div style="background:white;padding:10px;border-radius:4px;margin-bottom:8px;"><div style="font-size:12px;font-weight:600;color:var(--neutral-800);">${r.role}</div><div style="font-size:11px;color:var(--neutral-600);">${r.resp}</div></div>`).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Operating Cadence</h2>
+            <div class="grid-4">
+              ${[
+                { freq: 'Weekly', meeting: 'Team Sync', attendees: 'Core team', purpose: 'Progress, blockers, priorities' },
+                { freq: 'Bi-weekly', meeting: 'COR Brief', attendees: 'COR + PM', purpose: 'Status, risks, decisions' },
+                { freq: 'Monthly', meeting: 'Governance Council', attendees: 'Leadership', purpose: 'Strategic decisions, resources' },
+                { freq: 'Quarterly', meeting: 'Executive Review', attendees: 'Executives', purpose: 'ROI analysis, roadmap' },
+              ].map(o => `<div style="padding:12px;background:var(--neutral-50);border:1px solid var(--neutral-150);border-radius:6px;text-align:center;"><div style="font-size:10px;font-weight:700;color:var(--space);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">${o.freq}</div><div style="font-size:12px;font-weight:600;color:var(--neutral-800);margin-bottom:2px;">${o.meeting}</div><div style="font-size:10px;color:var(--neutral-600);margin-bottom:2px;">${o.attendees}</div><div style="font-size:10px;color:var(--neutral-500);">${o.purpose}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Decision Authority Matrix</h2>
+            <table class="risk-table">
+              <thead><tr><th>Decision Type</th><th>Authority</th><th>Escalation Path</th></tr></thead>
+              <tbody>
+                <tr><td>Component design standards</td><td>Design System Lead</td><td>Governance Council</td></tr>
+                <tr><td>Technical architecture changes</td><td>Technical Architect</td><td>Program Director → COR</td></tr>
+                <tr><td>Schedule/scope changes</td><td>Program Manager</td><td>COR → Contracting Officer</td></tr>
+                <tr><td>Security/compliance exceptions</td><td>Security Officer</td><td>AO → ISSM</td></tr>
+                <tr><td>Cross-factory expansion</td><td>Governance Council</td><td>Software Factory Leadership</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Reporting & Deliverables</h2>
+            <div class="grid-2">
+              ${[
+                { deliverable: 'Monthly Status Report', format: 'Written report', content: 'Progress, metrics, risks, financials' },
+                { deliverable: 'Quarterly Business Review', format: 'Presentation + discussion', content: 'ROI analysis, roadmap updates, strategic recommendations' },
+                { deliverable: 'Technical Documentation', format: 'Confluence/Notion', content: 'Architecture, APIs, component specs' },
+                { deliverable: 'Training Materials', format: 'Video + written guides', content: 'Super Coder curriculum, onboarding' },
+              ].map(d => `<div style="padding:12px;background:var(--neutral-50);border:1px solid var(--neutral-150);border-radius:6px;"><div style="font-size:12px;font-weight:600;color:var(--neutral-800);margin-bottom:6px;">${d.deliverable}</div><div style="font-size:11px;color:var(--neutral-600);margin-bottom:2px;"><strong>Format:</strong> ${d.format}</div><div style="font-size:11px;color:var(--neutral-600);"><strong>Content:</strong> ${d.content}</div></div>`).join('')}
+            </div>
+          </div>
+        `,
+
+        'risk': `
+          <h1 class="section-title">Risk Management</h1>
+          <p class="section-subtitle">Comprehensive risk assessment with mitigation strategies</p>
+
+          <div class="card">
+            <h2 class="heading">Risk Register</h2>
+            <table class="risk-table">
+              <thead><tr><th style="width:20%;">Risk Category</th><th style="width:25%;">Risk Description</th><th style="width:10%;">L</th><th style="width:10%;">I</th><th style="width:35%;">Mitigation Strategy</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Technical</strong></td><td>Platform integration complexity with existing DoD systems</td><td class="risk-med">M</td><td class="risk-high">H</td><td>Phased integration approach; API-first architecture; dedicated integration support</td></tr>
+                <tr><td><strong>Technical</strong></td><td>AI-generated code quality below acceptable thresholds</td><td class="risk-low">L</td><td class="risk-med">M</td><td>Human-in-the-loop validation; quality analytics dashboard; iterative context tuning</td></tr>
+                <tr><td><strong>Schedule</strong></td><td>FedRAMP authorization timeline extends beyond plan</td><td class="risk-med">M</td><td class="risk-med">M</td><td>SOC2 Type II interim; parallel processing; dedicated compliance resources</td></tr>
+                <tr><td><strong>Programmatic</strong></td><td>Key personnel turnover impacts delivery</td><td class="risk-med">M</td><td class="risk-med">M</td><td>Knowledge documentation; cross-training; succession planning</td></tr>
+                <tr><td><strong>Programmatic</strong></td><td>Funding discontinuity between fiscal years</td><td class="risk-low">L</td><td class="risk-high">H</td><td>Multi-year contract structure; modular deliverables; contingency planning</td></tr>
+                <tr><td><strong>Adoption</strong></td><td>User resistance to new workflows</td><td class="risk-med">M</td><td class="risk-med">M</td><td>Super Coders program; incremental rollout; workflow-level benefits analysis</td></tr>
+                <tr><td><strong>Security</strong></td><td>Vulnerability in third-party dependencies</td><td class="risk-low">L</td><td class="risk-high">H</td><td>Automated dependency scanning; supply chain risk management; rapid patching</td></tr>
+              </tbody>
+            </table>
+            <div style="margin-top:12px;font-size:11px;color:var(--neutral-500);"><strong>Legend:</strong> L = Likelihood, I = Impact | H = High, M = Medium, L = Low</div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Risk Monitoring & Response</h2>
+            <div class="grid-3">
+              ${[
+                { phase: 'Identification', activities: 'Weekly team review, stakeholder feedback, automated monitoring' },
+                { phase: 'Assessment', activities: 'Likelihood/impact scoring, trend analysis, threshold triggers' },
+                { phase: 'Response', activities: 'Mitigation activation, escalation protocols, contingency execution' },
+              ].map(p => `<div style="padding:14px;background:var(--neutral-50);border:1px solid var(--neutral-150);border-radius:6px;"><div style="font-size:13px;font-weight:600;color:var(--space);margin-bottom:6px;">${p.phase}</div><div style="font-size:12px;color:var(--neutral-600);">${p.activities}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Contingency Plans</h2>
+            <div class="grid-2">
+              ${[
+                { trigger: 'FedRAMP timeline exceeds 18 months', contingency: 'Continue operations under SOC2 Type II with enhanced security controls; pursue cATO pathway' },
+                { trigger: 'Key technical lead departure', contingency: 'Activate cross-trained backup; engage Knapsack professional services; accelerate documentation' },
+                { trigger: 'Adoption rate below 50% at 6 months', contingency: 'Intensive enablement workshops; leadership prototype demonstrations; workflow simplification' },
+                { trigger: 'Integration blockers with existing systems', contingency: 'API adapter development; manual bridge workflows; escalation to system owners' },
+              ].map(c => `<div style="padding:14px;background:var(--warning-light);border:1px solid #fde68a;border-radius:6px;"><div style="font-size:12px;font-weight:600;color:var(--neutral-800);margin-bottom:6px;">Trigger: ${c.trigger}</div><div style="font-size:12px;color:var(--neutral-600);"><strong>Response:</strong> ${c.contingency}</div></div>`).join('')}
+            </div>
+          </div>
+        `,
+
+        'roadmap': `
+          <h1 class="section-title">90-Day Implementation Roadmap</h1>
+          <p class="section-subtitle">Phased approach to Astro roadshow readiness and enterprise expansion</p>
+
+          <div class="callout">
+            <div class="callout-label">Primary Objective</div>
+            <div class="callout-text">Package Astro success, prepare roadshow materials, and engage 3-5 target software factories for expansion</div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Phase Breakdown</h2>
+            ${[
+              { phase: 'Days 1-30', title: 'Package & Prepare', color: 'var(--success)', items: [
+                { task: 'Document success stories with quantified metrics', owner: 'Design System Lead', deliverable: 'Case study document' },
+                { task: 'Build demonstration environment for roadshow', owner: 'Technical Architect', deliverable: 'Live demo environment' },
+                { task: 'Identify target software factories for expansion', owner: 'Program Director', deliverable: 'Prioritized factory list' },
+                { task: 'Prepare benefits analysis at workflow level', owner: 'Training Lead', deliverable: 'Benefits presentation' },
+              ]},
+              { phase: 'Days 31-60', title: 'Engage & Validate', color: 'var(--action)', items: [
+                { task: 'Initial roadshow to 2-3 target factories', owner: 'Program Director', deliverable: 'Roadshow completion' },
+                { task: 'Gather feedback on value proposition', owner: 'Design System Lead', deliverable: 'Feedback synthesis' },
+                { task: 'Identify champions at each location', owner: 'Training Lead', deliverable: 'Champion network' },
+                { task: 'Refine messaging based on audience response', owner: 'Program Director', deliverable: 'Updated materials' },
+              ]},
+              { phase: 'Days 61-90', title: 'Plan & Scale', color: 'var(--primary)', items: [
+                { task: 'Finalize expansion timeline and scope', owner: 'Governance Council', deliverable: 'Expansion plan' },
+                { task: 'Resource and budget planning for scale', owner: 'Program Director', deliverable: 'Resource plan' },
+                { task: 'Training curriculum for new teams', owner: 'Training Lead', deliverable: 'Training materials' },
+                { task: 'Executive briefing on expansion plan', owner: 'Program Director', deliverable: 'Executive brief' },
+              ]},
+            ].map((p, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background:${p.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span style="padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase;background:${p.color}15;color:${p.color};border:1px solid ${p.color}40;">${p.phase}</span><span class="timeline-title" style="color:${p.color}">${p.title}</span></div><div style="background:var(--neutral-50);border:1px solid var(--neutral-150);border-radius:6px;padding:12px;margin-top:8px;">${p.items.map(item => `<div style="font-size:12px;color:var(--neutral-700);padding:6px 0;border-bottom:1px solid var(--neutral-150);display:flex;justify-content:space-between;"><span>${item.task}</span><span style="font-size:10px;color:var(--neutral-500);">${item.owner}</span></div>`).join('')}</div></div></div>`).join('')}
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Key Milestones & Decision Gates</h2>
+            <div class="grid-2">
+              ${[
+                { milestone: 'Astro Documentation Complete', target: 'Day 15', gate: 'Review by COR' },
+                { milestone: 'Demo Environment Ready', target: 'Day 25', gate: 'Technical validation' },
+                { milestone: 'First Factory Roadshow', target: 'Day 35', gate: 'Stakeholder approval' },
+                { milestone: 'Feedback Synthesis', target: 'Day 55', gate: 'Go/no-go for expansion' },
+                { milestone: 'Expansion Plan Draft', target: 'Day 75', gate: 'Governance Council approval' },
+                { milestone: 'Executive Brief Delivered', target: 'Day 90', gate: 'Funding decision' },
+              ].map(m => `<div style="padding:12px;background:var(--neutral-50);border:1px solid var(--neutral-150);border-radius:6px;display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:13px;font-weight:600;color:var(--neutral-800);">${m.milestone}</div><div style="font-size:11px;color:var(--neutral-500);">Gate: ${m.gate}</div></div><span class="badge" style="background:var(--space-light);color:var(--space);">${m.target}</span></div>`).join('')}
+            </div>
+          </div>
+        `,
+
+        'cost': `
+          <h1 class="section-title">Cost & ROI Analysis</h1>
+          <p class="section-subtitle">Investment requirements, cost avoidance projections, and return on investment timeline</p>
+
+          <div class="card evidence-box">
+            <div class="evidence-title">Investment Summary (24-Month Period)</div>
+            <div class="grid-4">
+              <div style="text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--space);">$1.2M</div><div style="font-size:10px;color:var(--neutral-600);">Platform Licensing</div></div>
+              <div style="text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--space);">$800K</div><div style="font-size:10px;color:var(--neutral-600);">Implementation Services</div></div>
+              <div style="text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--space);">$400K</div><div style="font-size:10px;color:var(--neutral-600);">Training & Enablement</div></div>
+              <div style="text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--success);">$2.4M</div><div style="font-size:10px;color:var(--neutral-600);">Total Investment</div></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Cost Avoidance Projections</h2>
+            <table class="risk-table">
+              <thead><tr><th>Cost Category</th><th>Current Annual Cost</th><th>Projected Savings</th><th>Methodology</th></tr></thead>
+              <tbody>
+                <tr><td>UI Development Hours</td><td>$2.4M (120K hrs @ $200/hr)</td><td>$1.2M (50% reduction)</td><td>Sprint velocity tracking</td></tr>
+                <tr><td>Rework/Bug Fixes</td><td>$600K (30K hrs @ $200/hr)</td><td>$420K (70% reduction)</td><td>Defect categorization</td></tr>
+                <tr><td>Onboarding Time</td><td>$400K (avg 3 mo/dev)</td><td>$180K (45% reduction)</td><td>Time to first commit</td></tr>
+                <tr><td>Contractor Knowledge Loss</td><td>$800K (institutional rebuild)</td><td>$480K (60% reduction)</td><td>Documentation coverage</td></tr>
+                <tr><td><strong>Total Annual</strong></td><td><strong>$4.2M</strong></td><td><strong>$2.28M</strong></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">ROI Timeline</h2>
+            <div class="grid-4">
+              ${[
+                { period: 'Month 6', roi: '-60%', status: 'Investment', desc: 'Implementation phase' },
+                { period: 'Month 12', roi: '0%', status: 'Breakeven', desc: 'Initial savings realized' },
+                { period: 'Month 18', roi: '+45%', status: 'Positive', desc: 'Full adoption benefits' },
+                { period: 'Month 24', roi: '+95%', status: 'Strong', desc: 'Expanded scope benefits' },
+              ].map(r => `<div style="padding:14px;background:${r.roi.includes('+') ? 'var(--success-light)' : r.roi === '0%' ? 'var(--space-light)' : 'var(--neutral-50)'};border-radius:6px;text-align:center;"><div style="font-size:10px;font-weight:600;color:var(--neutral-600);text-transform:uppercase;margin-bottom:4px;">${r.period}</div><div style="font-size:24px;font-weight:800;color:${r.roi.includes('+') ? 'var(--success)' : r.roi === '0%' ? 'var(--space)' : 'var(--neutral-600)'};">${r.roi}</div><div style="font-size:11px;color:var(--neutral-600);margin-top:4px;">${r.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Comparison to Alternatives</h2>
+            <div class="grid-3">
+              ${[
+                { option: 'Status Quo', cost: '$4.2M/yr', risk: 'High', outcome: 'Continued inefficiency, knowledge loss' },
+                { option: 'Build In-House', cost: '$3.5M (one-time) + $1.2M/yr', risk: 'High', outcome: '18-24 mo timeline, staffing risk' },
+                { option: 'Knapsack Platform', cost: '$2.4M (24 mo)', risk: 'Low', outcome: 'Proven platform, expert support' },
+              ].map(o => `<div style="padding:14px;background:${o.option === 'Knapsack Platform' ? 'var(--success-light)' : 'var(--neutral-50)'};border:1px solid ${o.option === 'Knapsack Platform' ? '#a7f3d0' : 'var(--neutral-150)'};border-radius:6px;"><div style="font-size:13px;font-weight:600;color:${o.option === 'Knapsack Platform' ? 'var(--success)' : 'var(--neutral-800)'};margin-bottom:8px;">${o.option}</div><div style="font-size:12px;color:var(--neutral-600);margin-bottom:4px;"><strong>Cost:</strong> ${o.cost}</div><div style="font-size:12px;color:var(--neutral-600);margin-bottom:4px;"><strong>Risk:</strong> ${o.risk}</div><div style="font-size:11px;color:var(--neutral-600);"><strong>Outcome:</strong> ${o.outcome}</div></div>`).join('')}
+            </div>
+          </div>
+        `,
+
+        'security': `
+          <h1 class="section-title">Security & Compliance</h1>
+          <p class="section-subtitle">Government-grade security posture and compliance pathway</p>
+
+          <div class="card">
+            <h2 class="heading">Current Security Posture</h2>
+            <div class="grid-2">
+              <div style="padding:16px;background:var(--success-light);border:1px solid #a7f3d0;border-radius:8px;">
+                <div style="font-size:12px;font-weight:700;color:var(--success);text-transform:uppercase;margin-bottom:10px;">Achieved ✓</div>
+                ${['SOC2 Type II Certified', 'SAML/OIDC Single Sign-On', 'Role-Based Access Control (RBAC)', 'Audit Logging & Monitoring', 'Data Encryption (at rest & in transit)', 'Automated Vulnerability Scanning'].map(i => `<div style="font-size:12px;color:var(--neutral-700);padding:4px 0;">${i}</div>`).join('')}
+              </div>
+              <div style="padding:16px;background:var(--space-light);border:1px solid var(--space);border-radius:8px;">
+                <div style="font-size:12px;font-weight:700;color:var(--space);text-transform:uppercase;margin-bottom:10px;">In Progress →</div>
+                ${['FedRAMP Authorization (Moderate)', 'cATO Pathway Documentation', 'CMMC Level 2 Alignment', 'Supply Chain Risk Management (Section 889)', 'Zero Trust Architecture Implementation', 'IL4/IL5 Environment Preparation'].map(i => `<div style="font-size:12px;color:var(--neutral-700);padding:4px 0;">${i}</div>`).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">FedRAMP Authorization Pathway</h2>
+            ${[
+              { phase: 'Phase 1 (Current)', title: 'SOC2 + Enhanced Controls', timeline: 'Months 1-6', status: 'Active', desc: 'Operating under SOC2 Type II with additional DoD-aligned security controls' },
+              { phase: 'Phase 2', title: 'FedRAMP Ready', timeline: 'Months 7-12', status: 'Planned', desc: 'Complete 3PAO assessment, submit package to FedRAMP PMO' },
+              { phase: 'Phase 3', title: 'FedRAMP Authorized', timeline: 'Months 13-18', status: 'Planned', desc: 'Achieve FedRAMP Moderate authorization, continuous monitoring' },
+            ].map((p, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background:${p.status === 'Active' ? 'var(--success)' : 'var(--space)'}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span style="font-size:11px;font-weight:600;color:${p.status === 'Active' ? 'var(--success)' : 'var(--space)'};">${p.phase}</span><span class="badge" style="background:${p.status === 'Active' ? 'var(--success-light)' : 'var(--neutral-100)'};color:${p.status === 'Active' ? 'var(--success)' : 'var(--neutral-600)'};">${p.timeline}</span></div><div class="timeline-title">${p.title}</div><p class="timeline-desc">${p.desc}</p></div></div>`).join('')}
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Data Classification Handling</h2>
+            <table class="risk-table">
+              <thead><tr><th>Data Type</th><th>Classification</th><th>Handling</th></tr></thead>
+              <tbody>
+                <tr><td>Design system components</td><td>CUI / Unclassified</td><td>Standard platform controls</td></tr>
+                <tr><td>Usage analytics</td><td>Unclassified</td><td>Aggregated, anonymized</td></tr>
+                <tr><td>User credentials</td><td>CUI</td><td>SSO delegation, no storage</td></tr>
+                <tr><td>Generated code</td><td>Per source classification</td><td>Ephemeral, user-controlled</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+
+        'sustainment': `
+          <h1 class="section-title">Transition & Sustainment</h1>
+          <p class="section-subtitle">Path to operational capability and long-term sustainability</p>
+
+          <div class="card">
+            <h2 class="heading">Transition to Operations</h2>
+            ${[
+              { phase: 'Phase 1', title: 'Knowledge Transfer', timeline: 'Months 1-6', items: ['Core team training completion', 'Documentation handoff', 'Super Coders program launch'] },
+              { phase: 'Phase 2', title: 'Operational Capability', timeline: 'Months 7-12', items: ['Government team independence', 'Reduced contractor support', 'Self-service component creation'] },
+              { phase: 'Phase 3', title: 'Full Sustainment', timeline: 'Months 13-24', items: ['Organic maintenance capability', 'Advisory-only contractor role', 'Cross-factory governance'] },
+            ].map((p, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background:var(--space)"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span style="font-size:11px;font-weight:600;color:var(--space);">${p.phase}: ${p.title}</span><span class="badge" style="background:var(--space-light);color:var(--space);">${p.timeline}</span></div><div style="margin-top:8px;">${p.items.map(item => `<div style="font-size:12px;color:var(--neutral-600);padding:3px 0;">• ${item}</div>`).join('')}</div></div></div>`).join('')}
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Long-Term Sustainment Model</h2>
+            <div class="grid-2">
+              ${[
+                { model: 'Platform Licensing', desc: 'Annual subscription includes updates, security patches, new features', cost: '$600K/year' },
+                { model: 'Advisory Support', desc: 'Quarterly reviews, architecture guidance, best practices', cost: '$150K/year' },
+                { model: 'On-Demand Training', desc: 'New team onboarding, advanced workshops as needed', cost: 'Per engagement' },
+                { model: 'Government FTEs', desc: '2-3 FTEs for day-to-day operations and governance', cost: 'Organic' },
+              ].map(m => `<div style="padding:14px;background:var(--neutral-50);border:1px solid var(--neutral-150);border-radius:6px;"><div style="font-size:13px;font-weight:600;color:var(--space);margin-bottom:6px;">${m.model}</div><div style="font-size:12px;color:var(--neutral-600);margin-bottom:6px;">${m.desc}</div><div style="font-size:11px;font-weight:600;color:var(--neutral-800);">Est. Cost: ${m.cost}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Intellectual Property Rights</h2>
+            <div style="padding:16px;background:var(--space-light);border:1px solid var(--space);border-radius:8px;">
+              <div style="font-size:13px;color:var(--neutral-700);line-height:1.7;">
+                <p style="margin-bottom:12px;"><strong>Government Receives:</strong> Unlimited rights to all Space Force-specific components, documentation, and training materials developed under this contract. Full data rights to usage analytics and performance metrics.</p>
+                <p style="margin-bottom:12px;"><strong>Contractor Retains:</strong> Rights to Knapsack platform core technology, Intelligent Product Engine, and pre-existing intellectual property. Platform available under commercial license terms.</p>
+                <p><strong>Open Source:</strong> Where applicable, components may be released as open source to benefit broader DoD ecosystem, subject to security review.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="background:linear-gradient(135deg, #0f1f33 0%, #1e3a5f 100%);color:white;border:none;">
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--space-accent);margin-bottom:10px;">Mission Forward</div>
+            <p style="font-size:16px;line-height:1.7;margin-bottom:16px;"><strong>Space is hard. Make the rest easier.</strong></p>
+            <p style="font-size:14px;opacity:0.9;line-height:1.7;margin-bottom:16px;">The foundation is proven. Astro delivered results. This proposal scales that success—one software factory at a time, sharing components, streamlining development across the enterprise from Atlas to Air Force to Space Force.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <div style="padding:8px 16px;background:var(--success);color:white;border-radius:6px;font-weight:600;font-size:12px;">Foundation ✓</div>
+              <div style="padding:8px 16px;background:rgba(155,220,253,0.15);border:1px solid var(--space-accent);color:var(--space-accent);border-radius:6px;font-weight:600;font-size:12px;">Roadshow →</div>
+              <div style="padding:8px 16px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:white;border-radius:6px;font-weight:600;font-size:12px;">Enterprise</div>
+            </div>
+          </div>
+
+          <div style="text-align:center;padding:20px;color:var(--neutral-500);font-size:12px;">
+            <div style="margin-bottom:4px;">Partnership with Joseph & Associates (J&A)</div>
+            <div style="color:var(--space);">knapsack.cloud</div>
+          </div>
+        `,
+      };
+
+      main.innerHTML = content[activeSection] || content['exec-summary'];
+    }
+
+    renderNav();
+    renderContent();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>U.S. Space Force × Knapsack Strategic Playbook</title>
+  <style>
+    :root {
+      --primary: #6436bf;
+      --primary-dark: #42247f;
+      --primary-light: #f3effb;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --action: #0ea5e9;
+      --action-light: #e0f2fe;
+      --warning: #f59e0b;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --space: #1e3a5f;
+      --space-accent: #9bdcfd;
+      --space-light: #e8f4fc;
+      --neutral-50: #faf9fa;
+      --neutral-100: #f5f5f5;
+      --neutral-150: #e5e5e5;
+      --neutral-200: #d4d4d4;
+      --neutral-500: #737373;
+      --neutral-600: #525252;
+      --neutral-700: #404040;
+      --neutral-800: #262626;
+      --neutral-900: #171717;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--neutral-50); display: flex; min-height: 100vh; color: var(--neutral-700); line-height: 1.6; }
+    nav { width: 260px; background: linear-gradient(180deg, #0f1f33 0%, #0a1420 100%); border-right: 1px solid rgba(155,220,253,0.1); padding: 20px 0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; }
+    .nav-header { padding: 0 16px 20px; border-bottom: 1px solid rgba(155,220,253,0.15); }
+    .nav-logo { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--space-accent); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .nav-logo::before { content: '★'; font-size: 12px; }
+    .nav-title { font-size: 15px; font-weight: 700; color: white; line-height: 1.3; }
+    .nav-subtitle { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+    .nav-section-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(155,220,253,0.5); padding: 16px 16px 8px; }
+    .nav-items { padding: 8px 10px; }
+    .nav-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 10px; border: none; border-radius: 5px; background: transparent; color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 400; cursor: pointer; text-align: left; margin-bottom: 2px; transition: all 0.15s; }
+    .nav-btn:hover { background: rgba(155,220,253,0.08); color: rgba(255,255,255,0.9); }
+    .nav-btn.active { background: rgba(155,220,253,0.12); color: var(--space-accent); font-weight: 600; }
+    .nav-num { width: 20px; height: 20px; border-radius: 4px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; flex-shrink: 0; }
+    .nav-btn.active .nav-num { background: var(--space-accent); color: #0f1f33; }
+    .nav-footer { padding: 16px; border-top: 1px solid rgba(155,220,253,0.1); margin-top: auto; }
+    .nav-footer-label { font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+    .nav-footer-title { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.9); }
+    .nav-footer-date { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+    main { flex: 1; padding: 28px 36px; max-width: 920px; margin-left: 260px; }
+    .card { background: white; border: 1px solid var(--neutral-150); border-radius: 8px; padding: 24px; margin-bottom: 20px; }
+    .section-title { font-size: 24px; font-weight: 700; color: var(--neutral-900); margin-bottom: 6px; line-height: 1.2; }
+    .section-subtitle { font-size: 14px; color: var(--neutral-600); margin-bottom: 24px; line-height: 1.5; }
+    .heading { font-size: 15px; font-weight: 600; color: var(--neutral-800); margin-bottom: 14px; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+    .hero { background: linear-gradient(135deg, #0f1f33 0%, #1e3a5f 50%, #0f1f33 100%); color: white; padding: 40px; border-radius: 10px; margin-bottom: 24px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(155,220,253,0.08) 0%, transparent 60%); }
+    .hero-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: var(--space-accent); margin-bottom: 14px; display: flex; align-items: center; gap: 6px; position: relative; }
+    .hero-label::before { content: '★'; }
+    .hero h1 { font-size: 30px; font-weight: 700; margin-bottom: 10px; position: relative; line-height: 1.15; }
+    .hero p { font-size: 16px; opacity: 0.9; position: relative; }
+    .hero .sub { font-size: 13px; opacity: 0.7; margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .callout { background: var(--space); color: white; padding: 20px 24px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid var(--space-accent); }
+    .callout-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--space-accent); margin-bottom: 6px; }
+    .callout-text { font-size: 17px; font-weight: 600; line-height: 1.4; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
+    .value-item { display: flex; gap: 10px; padding: 14px; background: var(--neutral-50); border-radius: 6px; border: 1px solid var(--neutral-150); }
+    .value-marker { width: 4px; background: var(--space); border-radius: 2px; flex-shrink: 0; }
+    .value-title { font-weight: 600; font-size: 13px; color: var(--neutral-800); margin-bottom: 3px; }
+    .value-desc { font-size: 12px; color: var(--neutral-600); }
+    .stat-banner { background: linear-gradient(135deg, var(--space) 0%, #0f1f33 100%); color: white; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 28px; border-radius: 8px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--space-accent); margin-bottom: 4px; }
+    .stat-value { font-size: 32px; font-weight: 700; line-height: 1; }
+    .stat-sub { font-size: 12px; opacity: 0.75; margin-top: 4px; }
+    .timeline-item { display: flex; gap: 16px; margin-bottom: 24px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-track { display: flex; flex-direction: column; align-items: center; padding-top: 4px; }
+    .timeline-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .timeline-line { width: 2px; flex: 1; background: var(--neutral-200); margin-top: 6px; }
+    .timeline-content { flex: 1; }
+    .timeline-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+    .timeline-title { font-size: 14px; font-weight: 600; color: var(--neutral-800); }
+    .timeline-desc { font-size: 13px; color: var(--neutral-600); line-height: 1.5; }
+    .risk-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .risk-table th { background: var(--space); color: white; padding: 10px 12px; text-align: left; font-weight: 600; }
+    .risk-table td { padding: 10px 12px; border-bottom: 1px solid var(--neutral-150); }
+    .risk-table tr:hover { background: var(--neutral-50); }
+    .metric-card { background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px; padding: 16px; text-align: center; }
+    .metric-value { font-size: 28px; font-weight: 800; line-height: 1; margin-bottom: 6px; }
+    .metric-label { font-size: 11px; font-weight: 600; color: var(--neutral-800); margin-bottom: 3px; line-height: 1.3; }
+    .metric-desc { font-size: 10px; color: var(--neutral-500); }
+    .pillar { border: 2px solid var(--neutral-150); border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+    .pillar-num { width: 36px; height: 36px; background: var(--space); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+    .pillar-title { font-size: 16px; font-weight: 700; color: var(--space); margin-bottom: 10px; }
+    .pillar-desc { font-size: 13px; color: var(--neutral-600); line-height: 1.6; margin-bottom: 14px; }
+    .tag-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { padding: 5px 10px; background: var(--space-light); border-radius: 4px; font-size: 11px; color: var(--space); font-weight: 500; }
+    .evidence-box { background: var(--success-light); border: 1px solid #a7f3d0; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+    .evidence-title { font-size: 13px; font-weight: 700; color: var(--success); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+    .phase-card { border-radius: 8px; padding: 16px; border-left: 4px solid; }
+    .audience-card { padding: 16px; border-radius: 8px; border: 2px solid; }
+    @media (max-width: 1000px) { .grid-4 { grid-template-columns: 1fr 1fr; } .stat-banner { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 900px) { nav { display: none; } main { margin-left: 0; padding: 20px; } .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } .stat-banner { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-header">
+      <div class="nav-logo">U.S. Space Force</div>
+      <div class="nav-title">Design System Strategic Playbook</div>
+      <div class="nav-subtitle">Knapsack Partnership | v3.0</div>
+    </div>
+    <div class="nav-section-label">Executive Overview</div>
+    <div class="nav-items" id="navItems1"></div>
+    <div class="nav-section-label">Phase 1: Roadshow Pilot</div>
+    <div class="nav-items" id="navItems2"></div>
+    <div class="nav-section-label">Technical & Management</div>
+    <div class="nav-items" id="navItems3"></div>
+    <div class="nav-section-label">Cost & Sustainment</div>
+    <div class="nav-items" id="navItems4"></div>
+    <div class="nav-footer">
+      <div class="nav-footer-label">In Partnership With</div>
+      <div class="nav-footer-title">Joseph & Associates (J&A)</div>
+      <div class="nav-footer-date">December 2025</div>
+    </div>
+  </nav>
+  <main id="mainContent"></main>
+  <script>
+    const sectionGroups = [
+      [{ id: 'exec-summary', label: 'Executive Summary' }, { id: 'land-expand', label: 'Land & Expand Strategy' }],
+      [{ id: 'roadshow-overview', label: 'Roadshow Program' }, { id: 'roadshow-prepare', label: 'Package & Prepare' }, { id: 'roadshow-engage', label: 'Engage & Validate' }, { id: 'roadshow-synthestic', label: 'Synthesize & Plan' }],
+      [{ id: 'technical', label: 'Technical Approach' }, { id: 'management', label: 'Management & Governance' }, { id: 'risk', label: 'Risk Management' }],
+      [{ id: 'cost', label: 'Cost & ROI' }, { id: 'security', label: 'Security & Compliance' }, { id: 'next-steps', label: 'Execute Forward' }]
+    ];
+    let activeSection = 'exec-summary';
+
+    function renderNav() {
+      sectionGroups.forEach((group, gi) => {
+        const nav = document.getElementById('navItems' + (gi + 1));
+        let globalIdx = sectionGroups.slice(0, gi).flat().length;
+        nav.innerHTML = group.map((s, i) => `
+          <button class="nav-btn ${activeSection === s.id ? 'active' : ''}" onclick="setSection('${s.id}')">
+            <span class="nav-num">${globalIdx + i + 1}</span>
+            <span>${s.label}</span>
+          </button>
+        `).join('');
+      });
+    }
+
+    function setSection(id) {
+      activeSection = id;
+      renderNav();
+      renderContent();
+      window.scrollTo(0, 0);
+    }
+
+    function renderContent() {
+      const main = document.getElementById('mainContent');
+      const content = {
+        'exec-summary': `
+          <div class="hero">
+            <div class="hero-label">Strategic Playbook v3.0</div>
+            <h1>Space Is Hard.<br/>Make the Rest Easier.</h1>
+            <p>Unified design system platform enabling mission-ready digital products at the speed of innovation</p>
+            <div class="sub">Phase 1: Roadshow Pilot Program | 90 Days to Enterprise Expansion</div>
+          </div>
+
+          <div class="callout">
+            <div class="callout-label">Mission Statement</div>
+            <div class="callout-text">Transform Astro's proven success into enterprise-wide deployment through a strategic roadshow pilot—validating demand, building champions, and securing commitment for cross-factory expansion.</div>
+          </div>
+
+          <div class="stat-banner" style="margin-bottom: 24px;">
+            <div class="stat-item">
+              <div class="stat-label">Astro Pilot</div>
+              <div class="stat-value">7-9</div>
+              <div class="stat-sub">Apps Unified</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Phase 1 Target</div>
+              <div class="stat-value">3-5</div>
+              <div class="stat-sub">Factories Engaged</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Program Duration</div>
+              <div class="stat-value">90</div>
+              <div class="stat-sub">Days</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Expansion Goal</div>
+              <div class="stat-value">2+</div>
+              <div class="stat-sub">Commitments</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Strategic Value Delivered</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Unified Design System', desc: 'Single source of truth enabling interoperability across Space and Air Force digital assets' },
+                { title: 'Federated Model Support', desc: 'Works within software factory model—missionally aligned, locally empowered' },
+                { title: 'Accelerated Prototyping', desc: 'Reduces concept-to-production time by 40-60% through reusable, governed components' },
+                { title: 'AI-Ready Foundation', desc: 'Intelligent Product Engine prepared for generative AI and agentic workflows' },
+                { title: 'Sustainable Knowledge Transfer', desc: 'Super Coders program reduces dependency on transient contractors' },
+                { title: 'Roadshow-Validated Expansion', desc: 'Land and expand strategy proven through stakeholder engagement' },
+              ].map(v => `<div class="value-item"><div class="value-marker"></div><div><div class="value-title">${v.title}</div><div class="value-desc">${v.desc}</div></div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Phase 1 Roadshow Program Overview</h2>
+            <div class="grid-3">
+              <div class="phase-card" style="background: var(--success-light); border-color: var(--success);">
+                <div style="font-size: 11px; font-weight: 700; color: var(--success); text-transform: uppercase; margin-bottom: 8px;">Weeks 1-4</div>
+                <div style="font-size: 15px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">Package & Prepare</div>
+                <div style="font-size: 12px; color: var(--neutral-600);">Document Astro success, build demo environment, identify target factories</div>
+              </div>
+              <div class="phase-card" style="background: var(--action-light); border-color: var(--action);">
+                <div style="font-size: 11px; font-weight: 700; color: var(--action); text-transform: uppercase; margin-bottom: 8px;">Weeks 5-8</div>
+                <div style="font-size: 15px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">Engage & Validate</div>
+                <div style="font-size: 12px; color: var(--neutral-600);">Execute 6 roadshow events, gather feedback, build champion network</div>
+              </div>
+              <div class="phase-card" style="background: var(--primary-light); border-color: var(--primary);">
+                <div style="font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 8px;">Weeks 9-12</div>
+                <div style="font-size: 15px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">Synthesize & Plan</div>
+                <div style="font-size: 12px; color: var(--neutral-600);">Finalize expansion strategy, secure executive approval</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="background: linear-gradient(135deg, #0f1f33 0%, #1e3a5f 100%); color: white; border: none;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--space-accent); margin-bottom: 12px;">Enterprise Vision</div>
+            <p style="font-size: 18px; line-height: 1.7; margin-bottom: 16px;">Where AI, design systems, and secure automation converge to help the DoD <strong>design, build, and deploy digital experiences at the speed of mission.</strong></p>
+            <p style="font-size: 14px; opacity: 0.8;">The roadshow validates that vision with real stakeholders before scaling investment.</p>
+          </div>
+        `,
+
+        'land-expand': `
+          <h1 class="section-title">Land & Expand Strategy</h1>
+          <p class="section-subtitle">From proven Astro POC to enterprise-wide deployment via roadshow validation</p>
+
+          <div class="callout">
+            <div class="callout-label">Strategic Approach</div>
+            <div class="callout-text">Astro landed. Phase 1 roadshow validates expansion. Committed factories join Phase 2 deployment.</div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Three-Phase Expansion Model</h2>
+            ${[
+              { phase: 'COMPLETE', title: 'Astro Foundation', desc: '7-9 applications unified, quarterly MVP cadence, Super Coders active, stakeholder interest validated', color: 'var(--success)', badge: '✓ Delivered' },
+              { phase: 'PHASE 1', title: 'Roadshow Pilot (90 Days)', desc: 'Package success, engage 3-5 target factories, execute 6 roadshow events, secure 2+ expansion commitments', color: 'var(--action)', badge: 'Current' },
+              { phase: 'PHASE 2', title: 'Cross-Factory Deployment', desc: 'Onboard committed factories, scale component library, establish federated governance, expand Super Coders', color: 'var(--space)', badge: 'Next' },
+            ].map((p, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${p.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span style="font-size: 12px; font-weight: 700; color: ${p.color};">${p.phase}</span><span class="badge" style="background: ${p.color}15; color: ${p.color}; border: 1px solid ${p.color}40;">${p.badge}</span></div><div class="timeline-title">${p.title}</div><p class="timeline-desc">${p.desc}</p></div></div>`).join('')}
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Why Roadshow Before Scale</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Validate Demand', desc: 'Confirm that adjacent factories share the pain points Astro solved before committing resources' },
+                { title: 'Build Champions', desc: 'Identify and cultivate internal advocates at each target factory who will drive adoption' },
+                { title: 'Refine Messaging', desc: 'Test value proposition with real audiences, iterate based on objections and enthusiasm' },
+                { title: 'De-Risk Investment', desc: 'Secure stakeholder commitment before expanding, ensuring deployment success' },
+              ].map(v => `<div class="value-item"><div class="value-marker" style="background: var(--action);"></div><div><div class="value-title">${v.title}</div><div class="value-desc">${v.desc}</div></div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Federated Model Alignment</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">The roadshow emphasizes how design system supports factory autonomy:</p>
+            <div class="grid-2">
+              ${[
+                { title: 'Centralized Standards', desc: 'Core components maintained centrally for consistency—factories consume, not build from scratch' },
+                { title: 'Local Flexibility', desc: 'Factories can extend and customize while maintaining compliance—not one-size-fits-all' },
+                { title: 'Shared Innovation', desc: 'Best practices flow between factories through unified platform—rising tide lifts all boats' },
+                { title: 'Mission Focus', desc: 'Each factory remains focused on its mission while benefiting from shared infrastructure' },
+              ].map(f => `<div style="padding: 14px; background: var(--space-light); border-radius: 6px;"><div style="font-size: 13px; font-weight: 600; color: var(--space); margin-bottom: 4px;">${f.title}</div><div style="font-size: 12px; color: var(--neutral-600);">${f.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card" style="background: var(--primary-light); border: 1px solid var(--primary);">
+            <h2 class="heading" style="color: var(--primary);">Phase 1 Success Unlocks Phase 2</h2>
+            <div style="font-size: 14px; color: var(--neutral-700); line-height: 1.8;">
+              <div style="margin-bottom: 12px;"><strong style="color: var(--primary);">Go Criteria:</strong> 2+ factories with committed champions and leadership support</div>
+              <div style="margin-bottom: 12px;"><strong style="color: var(--primary);">Iterate Criteria:</strong> Strong interest but concerns requiring messaging refinement before expansion</div>
+              <div><strong style="color: var(--primary);">Pivot Criteria:</strong> Insufficient demand signals alternative approach needed</div>
+            </div>
+          </div>
+        `,
+
+        'roadshow-overview': `
+          <h1 class="section-title">Phase 1: Roadshow Pilot Program</h1>
+          <p class="section-subtitle">90-day program to validate expansion strategy through stakeholder engagement</p>
+
+          <div class="callout">
+            <div class="callout-label">Program Objective</div>
+            <div class="callout-text">Transform proven Astro results into a repeatable engagement that generates stakeholder commitment and validates the land-and-expand strategy for enterprise deployment.</div>
+          </div>
+
+          <div class="stat-banner" style="margin-bottom: 24px;">
+            <div class="stat-item">
+              <div class="stat-label">Duration</div>
+              <div class="stat-value">90</div>
+              <div class="stat-sub">Days</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Target Factories</div>
+              <div class="stat-value">3-5</div>
+              <div class="stat-sub">Engaged</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Roadshow Events</div>
+              <div class="stat-value">6</div>
+              <div class="stat-sub">Sessions</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Expansion Target</div>
+              <div class="stat-value">2+</div>
+              <div class="stat-sub">Commitments</div>
+            </div>
+          </div>
+
+          <div class="card evidence-box">
+            <div class="evidence-title">Astro Foundation: Proven Results to Showcase</div>
+            <p style="font-size: 13px; color: var(--neutral-700); margin-bottom: 16px;">These quantified results from the 2024-2025 pilot form the core narrative for factory engagement:</p>
+            <div class="stat-banner" style="margin-bottom: 16px; background: white; border: 1px solid #a7f3d0;">
+              <div class="stat-item">
+                <div class="stat-label" style="color: var(--success);">Applications</div>
+                <div class="stat-value" style="color: var(--space);">7-9</div>
+                <div class="stat-sub" style="color: var(--neutral-600);">Unified on Platform</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label" style="color: var(--success);">Release Cadence</div>
+                <div class="stat-value" style="color: var(--space);">Quarterly</div>
+                <div class="stat-sub" style="color: var(--neutral-600);">MVP Delivery</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label" style="color: var(--success);">Time Savings</div>
+                <div class="stat-value" style="color: var(--space);">40-60%</div>
+                <div class="stat-sub" style="color: var(--neutral-600);">Prototyping</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label" style="color: var(--success);">Training</div>
+                <div class="stat-value" style="color: var(--space);">Active</div>
+                <div class="stat-sub" style="color: var(--neutral-600);">Super Coders</div>
+              </div>
+            </div>
+            <div class="grid-2">
+              ${[
+                { title: 'Centralized Design System', desc: 'Single source of truth for UI components and design tokens across Space Systems Command', metric: 'Zero fragmentation' },
+                { title: 'Production-Ready Components', desc: 'React library integrated with Figma for seamless design-to-code workflows', metric: '50% faster UI dev' },
+                { title: 'Quarterly MVP Cadence', desc: 'Transformed from ad-hoc timelines to continuous, predictable release cycle', metric: '4x releases/year' },
+                { title: 'Cross-Application Consistency', desc: 'Standardized visual and interaction patterns across all pilot applications', metric: '90% design accuracy' },
+              ].map(a => `<div style="padding: 14px; background: white; border: 1px solid #c3ddd2; border-radius: 6px;"><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">${a.title}</div><div style="font-size: 12px; color: var(--neutral-600); margin-bottom: 8px;">${a.desc}</div><div style="font-size: 11px; font-weight: 600; color: var(--success);">Key Metric: ${a.metric}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Business Solutions Unified in Astro</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">Demonstrate breadth of application types successfully migrated:</p>
+            <div class="grid-3">
+              ${[
+                { area: 'Back Office', desc: 'Administrative and operational systems', count: '3-4 apps' },
+                { area: 'HR/Onboarding', desc: 'Personnel management and integration', count: '2-3 apps' },
+                { area: 'Networking', desc: 'Communication and collaboration tools', count: '2 apps' },
+              ].map(b => `<div style="padding: 20px; background: var(--space-light); border-radius: 8px; text-align: center;"><div style="font-size: 24px; font-weight: 700; color: var(--space); margin-bottom: 4px;">${b.count}</div><div style="font-size: 14px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">${b.area}</div><div style="font-size: 12px; color: var(--neutral-600);">${b.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Program Structure</h2>
+            <div class="grid-3" style="margin-bottom: 20px;">
+              <div class="phase-card" style="background: var(--success-light); border-color: var(--success);">
+                <div style="font-size: 11px; font-weight: 700; color: var(--success); text-transform: uppercase; margin-bottom: 8px;">Weeks 1-4</div>
+                <div style="font-size: 15px; font-weight: 700; color: var(--neutral-800); margin-bottom: 8px;">Package & Prepare</div>
+                <div style="font-size: 12px; color: var(--neutral-600);">
+                  • Document Astro success stories<br>
+                  • Build live demo environment<br>
+                  • Identify & prioritize targets<br>
+                  • Finalize roadshow materials
+                </div>
+              </div>
+              <div class="phase-card" style="background: var(--action-light); border-color: var(--action);">
+                <div style="font-size: 11px; font-weight: 700; color: var(--action); text-transform: uppercase; margin-bottom: 8px;">Weeks 5-8</div>
+                <div style="font-size: 15px; font-weight: 700; color: var(--neutral-800); margin-bottom: 8px;">Engage & Validate</div>
+                <div style="font-size: 12px; color: var(--neutral-600);">
+                  • Execute 6 roadshow events<br>
+                  • Gather structured feedback<br>
+                  • Build champion network<br>
+                  • Iterate messaging in real-time
+                </div>
+              </div>
+              <div class="phase-card" style="background: var(--primary-light); border-color: var(--primary);">
+                <div style="font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 8px;">Weeks 9-12</div>
+                <div style="font-size: 15px; font-weight: 700; color: var(--neutral-800); margin-bottom: 8px;">Synthesize & Plan</div>
+                <div style="font-size: 12px; color: var(--neutral-600);">
+                  • Analyze feedback patterns<br>
+                  • Develop expansion strategy<br>
+                  • Finalize business case<br>
+                  • Executive go/no-go decision
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Super Coders Program: Roadshow Leverage</h2>
+            <div class="grid-2">
+              <div style="padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 10px;">Proven Training Outcomes</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">✓ Design system thinking embedded</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">✓ Component-first development adopted</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">✓ Figma-to-code workflow proficiency</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">✓ Knowledge retention improved</div>
+              </div>
+              <div style="padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 10px;">Roadshow Messaging</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">→ Include Super Coder testimonials</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">→ Offer program to new factories</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">→ Demonstrate knowledge transfer model</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">→ Address contractor dependency concerns</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Target Factory Selection Criteria</h2>
+            <table class="risk-table">
+              <thead>
+                <tr><th>Criteria</th><th>Weight</th><th>Assessment Questions</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Mission Alignment</strong></td><td>25%</td><td>Does factory benefit from consistent UX? Cross-application interoperability needs?</td></tr>
+                <tr><td><strong>Technical Readiness</strong></td><td>25%</td><td>React-based stack? Existing Figma usage? DevOps maturity level?</td></tr>
+                <tr><td><strong>Stakeholder Receptivity</strong></td><td>20%</td><td>Leadership sponsor identified? Team openness to change?</td></tr>
+                <tr><td><strong>Strategic Value</strong></td><td>15%</td><td>Visibility for success? Air Force interoperability potential?</td></tr>
+                <tr><td><strong>Current Pain Points</strong></td><td>15%</td><td>Duplicated work complaints? Inconsistency issues?</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Roadshow Success Metrics</h2>
+            <div class="grid-2">
+              <div style="padding: 16px; background: var(--success-light); border: 1px solid #a7f3d0; border-radius: 8px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--success); text-transform: uppercase; margin-bottom: 12px;">Quantitative Targets</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Factories Engaged: 3-5</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Roadshow Sessions: 6-10</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Total Attendees: 50+</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Champions Identified: 1 per factory</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Follow-up Requests: 80%+ factories</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Expansion Commitments: 2+</div>
+              </div>
+              <div style="padding: 16px; background: var(--space-light); border: 1px solid var(--space); border-radius: 8px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--space); text-transform: uppercase; margin-bottom: 12px;">Qualitative Indicators</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">✓ Leadership enthusiasm level</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">✓ Technical team receptivity</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">✓ Quality of objections raised</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">✓ Unprompted referrals to other factories</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">✓ Requests for timeline and pricing</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="callout">
+            <div class="callout-label">Key Insight</div>
+            <div class="callout-text">"Design Systems haven't stuck without a centralized and dedicated team." Astro proved that with the right platform and partnership, adoption becomes sustainable—the roadshow tells that story.</div>
+          </div>
+        `,
+
+        'roadshow-prepare': `
+          <h1 class="section-title">Weeks 1-4: Package & Prepare</h1>
+          <p class="section-subtitle">Building the roadshow foundation with compelling materials and clear targets</p>
+
+          <div class="card">
+            <h2 class="heading">Weekly Breakdown</h2>
+            <div style="position: relative; padding-left: 24px;">
+              <div style="position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--neutral-150);"></div>
+              ${[
+                { week: 'Week 1-2', title: 'Success Story Documentation', desc: 'Compile quantified metrics from Astro: 7-9 applications unified, quarterly MVP cadence, Super Coders results, stakeholder testimonials', deliverable: 'Astro Case Study Document' },
+                { week: 'Week 2-3', title: 'Demo Environment Build', desc: 'Create live, interactive demonstration showcasing component library, Figma integration, design-to-code workflow, and IPE preview', deliverable: 'Live Demo Environment' },
+                { week: 'Week 3-4', title: 'Target Factory Identification', desc: 'Prioritize 3-5 factories based on selection criteria; map stakeholders, identify potential champions', deliverable: 'Prioritized Target List' },
+                { week: 'Week 4', title: 'Materials Finalization', desc: 'Executive presentation, technical deep-dive deck, workflow-level benefits analysis, leave-behind materials', deliverable: 'Complete Roadshow Kit' },
+              ].map(w => `<div style="position: relative; margin-bottom: 20px;"><div style="position: absolute; left: -24px; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--success); border: 3px solid white; box-shadow: 0 0 0 2px var(--success);"></div><div style="font-size: 11px; font-weight: 700; color: var(--success); text-transform: uppercase; margin-bottom: 4px;">${w.week}</div><div style="font-size: 14px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">${w.title}</div><div style="font-size: 13px; color: var(--neutral-600); margin-bottom: 8px;">${w.desc}</div><div style="font-size: 11px; font-weight: 600; color: var(--success);">Deliverable: ${w.deliverable}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Roadshow Materials Checklist</h2>
+            <div class="grid-2">
+              <div style="padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 12px;">Presentation Materials</div>
+                ${['Executive Presentation Deck (45 min)', 'Technical Deep-Dive Deck (90 min)', 'Workflow Benefits Analysis by Persona', 'ROI Calculator / Cost Avoidance Model', 'Astro Case Study (narrative + metrics)'].map(i => `<div style="font-size: 12px; color: var(--neutral-600); padding: 6px 0; border-bottom: 1px solid var(--neutral-150); display: flex; align-items: center; gap: 8px;"><span style="color: var(--space);">☐</span>${i}</div>`).join('')}
+              </div>
+              <div style="padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 12px;">Demo & Leave-Behind</div>
+                ${['Live Demo Environment (secure access)', 'Component Library Walkthrough Script', 'Figma Integration Demo', 'IPE / AI Capabilities Preview', 'One-Pager + FAQ Document'].map(i => `<div style="font-size: 12px; color: var(--neutral-600); padding: 6px 0; border-bottom: 1px solid var(--neutral-150); display: flex; align-items: center; gap: 8px;"><span style="color: var(--space);">☐</span>${i}</div>`).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Target Factory Prioritization</h2>
+            <div class="grid-2">
+              <div style="padding: 16px; background: var(--success-light); border: 1px solid #a7f3d0; border-radius: 8px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--success); margin-bottom: 10px;">Ideal First Targets</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">✓ High pain, high readiness factories</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">✓ Leadership already expressing interest</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">✓ Similar tech stack to Astro</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">✓ Potential champion already identified</div>
+              </div>
+              <div style="padding: 16px; background: var(--warning-light); border: 1px solid #fde68a; border-radius: 8px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--warning); margin-bottom: 10px;">Defer for Later Phases</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">○ Skeptical leadership without sponsor</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">○ Major ongoing transformation initiatives</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">○ Non-standard tech stack</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">○ Limited budget flexibility</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="background: var(--space); color: white; border: none;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--space-accent); margin-bottom: 12px;">Week 4 Gate</div>
+            <p style="font-size: 15px; line-height: 1.6;">Before proceeding to engagement phase: All materials complete, demo environment tested, target factories confirmed, roadshow schedule locked.</p>
+          </div>
+        `,
+
+        'roadshow-engage': `
+          <h1 class="section-title">Weeks 5-8: Engage & Validate</h1>
+          <p class="section-subtitle">Executing roadshow events and building the champion network</p>
+
+          <div class="card">
+            <h2 class="heading">Roadshow Event Structure</h2>
+            <div class="grid-2" style="margin-bottom: 20px;">
+              <div style="padding: 20px; background: var(--space-light); border-radius: 8px;">
+                <div style="font-size: 15px; font-weight: 700; color: var(--space); margin-bottom: 12px;">Session 1: Executive Briefing</div>
+                <div style="font-size: 12px; color: var(--neutral-600); margin-bottom: 8px;"><strong>Duration:</strong> 45 minutes</div>
+                <div style="font-size: 12px; color: var(--neutral-600); margin-bottom: 12px;"><strong>Audience:</strong> Factory leadership, program managers</div>
+                <div style="font-size: 12px; color: var(--neutral-700);">
+                  • Astro success story (10 min)<br>
+                  • Strategic value proposition (15 min)<br>
+                  • ROI and timeline overview (10 min)<br>
+                  • Q&A + next steps (10 min)
+                </div>
+              </div>
+              <div style="padding: 20px; background: var(--space-light); border-radius: 8px;">
+                <div style="font-size: 15px; font-weight: 700; color: var(--space); margin-bottom: 12px;">Session 2: Technical Deep Dive</div>
+                <div style="font-size: 12px; color: var(--neutral-600); margin-bottom: 8px;"><strong>Duration:</strong> 90 minutes</div>
+                <div style="font-size: 12px; color: var(--neutral-600); margin-bottom: 12px;"><strong>Audience:</strong> Engineers, designers, tech leads</div>
+                <div style="font-size: 12px; color: var(--neutral-700);">
+                  • Live platform demo (30 min)<br>
+                  • Workflow walkthrough (20 min)<br>
+                  • AI/IPE preview (15 min)<br>
+                  • Hands-on exploration (15 min)<br>
+                  • Technical Q&A (10 min)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Engagement Cadence</h2>
+            <table class="risk-table">
+              <thead>
+                <tr><th>Week</th><th>Activity</th><th>Targets</th><th>Outcome</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Week 5</strong></td><td>Roadshow Events #1-2</td><td>Top 2 priority factories</td><td>Initial feedback captured</td></tr>
+                <tr><td><strong>Week 6</strong></td><td>Roadshow Events #3-4</td><td>Next 2 priority factories</td><td>Pattern recognition begins</td></tr>
+                <tr><td><strong>Week 7</strong></td><td>Event #5 + Follow-ups</td><td>Final target + revisits</td><td>Champion relationships deepened</td></tr>
+                <tr><td><strong>Week 8</strong></td><td>Feedback Synthesis</td><td>Internal team workshop</td><td>Findings documented</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Audience-Specific Messaging</h2>
+            <div class="grid-3">
+              <div class="audience-card" style="border-color: #059669; background: #ecfdf5;">
+                <div style="font-size: 14px; font-weight: 700; color: #059669; margin-bottom: 8px;">Engineers</div>
+                <div style="font-size: 12px; color: var(--neutral-700); margin-bottom: 12px; font-style: italic;">"Build mission systems faster with governed, reusable components"</div>
+                <div style="font-size: 11px; color: var(--neutral-600);">
+                  • Production-ready from day one<br>
+                  • 50% faster UI development<br>
+                  • 70% fewer component bugs<br>
+                  • Accelerated onboarding
+                </div>
+              </div>
+              <div class="audience-card" style="border-color: #7c3aed; background: #f3effb;">
+                <div style="font-size: 14px; font-weight: 700; color: #7c3aed; margin-bottom: 8px;">Designers</div>
+                <div style="font-size: 12px; color: var(--neutral-700); margin-bottom: 12px; font-style: italic;">"Design with confidence—ship as intended"</div>
+                <div style="font-size: 11px; color: var(--neutral-600);">
+                  • Designs ship as designed<br>
+                  • Single source of truth<br>
+                  • Real-time visibility<br>
+                  • Direct influence on UX
+                </div>
+              </div>
+              <div class="audience-card" style="border-color: #dc2626; background: #fef2f2;">
+                <div style="font-size: 14px; font-weight: 700; color: #dc2626; margin-bottom: 8px;">Leadership</div>
+                <div style="font-size: 12px; color: var(--neutral-700); margin-bottom: 12px; font-style: italic;">"Accelerate delivery at the speed of mission"</div>
+                <div style="font-size: 11px; color: var(--neutral-600);">
+                  • 40-60% faster to production<br>
+                  • Reduced contractor dependency<br>
+                  • Consistent UX across apps<br>
+                  • AI-ready foundation
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Feedback Capture Framework</h2>
+            <div class="grid-2">
+              <div style="padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 10px;">Capture After Each Session</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">→ Enthusiasm level (1-5 scale)</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">→ Key objections/concerns raised</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">→ Questions that stumped the team</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">→ Champion candidates identified</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">→ Follow-up commitments made</div>
+              </div>
+              <div style="padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 10px;">Track Across All Events</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">→ Common objection patterns</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">→ Features generating most interest</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">→ Messaging that resonates</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">→ Competitive alternatives mentioned</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">→ Budget/timeline expectations</div>
+              </div>
+            </div>
+          </div>
+        `,
+
+        'roadshow-synthestic': `
+          <h1 class="section-title">Weeks 9-12: Synthesize & Plan</h1>
+          <p class="section-subtitle">Converting roadshow learnings into expansion strategy and executive decision</p>
+
+          <div class="card">
+            <h2 class="heading">Weekly Activities</h2>
+            <div style="position: relative; padding-left: 24px;">
+              <div style="position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--neutral-150);"></div>
+              ${[
+                { week: 'Week 9', title: 'Feedback Analysis', desc: 'Synthesize all roadshow feedback, identify common objections, document enthusiasm patterns, assess champion strength at each factory', output: 'Feedback Synthesis Report' },
+                { week: 'Week 10', title: 'Expansion Strategy', desc: 'Prioritize factories for Phase 2 onboarding, define resource requirements, draft timeline for multi-factory deployment', output: 'Expansion Plan Draft' },
+                { week: 'Week 11', title: 'Business Case Finalization', desc: 'Update ROI projections with roadshow learnings, refine messaging based on feedback, prepare funding justification', output: 'Updated Business Case' },
+                { week: 'Week 12', title: 'Executive Decision', desc: 'Present findings to Governance Council, secure approval for Phase 2 expansion, align on resource allocation', output: 'Go/No-Go Decision' },
+              ].map(w => `<div style="position: relative; margin-bottom: 20px;"><div style="position: absolute; left: -24px; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--primary); border: 3px solid white; box-shadow: 0 0 0 2px var(--primary);"></div><div style="font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 4px;">${w.week}</div><div style="font-size: 14px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">${w.title}</div><div style="font-size: 13px; color: var(--neutral-600); margin-bottom: 8px;">${w.desc}</div><div style="font-size: 11px; font-weight: 600; color: var(--primary);">Output: ${w.output}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Go/No-Go Decision Framework</h2>
+            <div class="grid-3">
+              <div style="padding: 16px; background: var(--success-light); border: 2px solid var(--success); border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 700; color: var(--success); margin-bottom: 8px;">✓ GO to Phase 2</div>
+                <div style="font-size: 12px; color: var(--neutral-700);">2+ factories with committed champions and leadership support. Clear enthusiasm and demand signals.</div>
+              </div>
+              <div style="padding: 16px; background: var(--warning-light); border: 2px solid var(--warning); border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 700; color: var(--warning); margin-bottom: 8px;">⚠ ITERATE</div>
+                <div style="font-size: 12px; color: var(--neutral-700);">Strong interest but concerns requiring messaging refinement or additional proof points before expansion.</div>
+              </div>
+              <div style="padding: 16px; background: #fef2f2; border: 2px solid var(--danger); border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 700; color: var(--danger); margin-bottom: 8px;">✗ PIVOT</div>
+                <div style="font-size: 12px; color: var(--neutral-700);">Insufficient demand signals. Alternative approach or market segment needed.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Executive Briefing Content</h2>
+            <div class="grid-2">
+              <div style="padding: 16px; background: var(--space-light); border: 1px solid var(--space); border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 600; color: var(--space); margin-bottom: 10px;">Roadshow Results Summary</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Factories engaged and reception</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Champion network status</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Commitment level by factory</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Key objections and responses</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Competitive landscape insights</div>
+              </div>
+              <div style="padding: 16px; background: var(--space-light); border: 1px solid var(--space); border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 600; color: var(--space); margin-bottom: 10px;">Expansion Recommendation</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Recommended Phase 2 factories</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Resource and budget requirements</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Timeline and milestones</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Risk factors and mitigations</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Success metrics for Phase 2</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="background: var(--space); color: white; border: none;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--space-accent); margin-bottom: 12px;">Phase 1 Completion</div>
+            <p style="font-size: 15px; line-height: 1.6; margin-bottom: 12px;">With executive approval, Phase 2 begins immediately: onboarding committed factories, expanding the component library, and establishing cross-factory governance.</p>
+            <div style="display: flex; gap: 12px;">
+              <span style="padding: 6px 14px; background: var(--success); border-radius: 4px; font-size: 12px; font-weight: 600;">Astro ✓</span>
+              <span style="padding: 6px 14px; background: var(--space-accent); color: var(--space); border-radius: 4px; font-size: 12px; font-weight: 600;">Roadshow ✓</span>
+              <span style="padding: 6px 14px; background: rgba(255,255,255,0.15); border-radius: 4px; font-size: 12px; font-weight: 600;">Expansion →</span>
+            </div>
+          </div>
+        `,
+
+        'technical': `
+          <h1 class="section-title">Technical Approach</h1>
+          <p class="section-subtitle">Four-pillar framework supporting roadshow demonstration and enterprise scale</p>
+
+          <div class="card" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; border: none; margin-bottom: 20px;">
+            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.9; margin-bottom: 10px;">Technical Foundation</div>
+            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Unified Platform + AI-Ready Infrastructure</h3>
+            <p style="font-size: 13px; opacity: 0.95; line-height: 1.6;">Centralized repository of reusable components, design tokens, and standards integrated with AI control plane—the core of every roadshow demonstration.</p>
+          </div>
+
+          <div class="pillar">
+            <div class="pillar-num">1</div>
+            <div class="pillar-title">Design System Governance & Infrastructure</div>
+            <div class="pillar-desc">Single source of truth connecting design (Figma), code (React/Git), and documentation. Components are production-ready, synchronized, and structured for both human and AI consumption.</div>
+            <div class="tag-grid">
+              ${['Design token management', 'Component versioning', 'Figma-to-code sync', 'Multi-framework support', 'Automated documentation'].map(t => `<span class="tag">${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="pillar">
+            <div class="pillar-num">2</div>
+            <div class="pillar-title">Intelligent Product Engine (IPE)</div>
+            <div class="pillar-desc">AI control plane that aggregates design system, brand guidelines, and accessibility requirements—providing context to AI coding tools via MCP. Generated code matches standards without rework. Key roadshow differentiator.</div>
+            <div class="tag-grid">
+              ${['MCP integration', 'Context weighting', 'Multi-source aggregation', 'Quality analytics', 'Human-in-loop validation'].map(t => `<span class="tag">${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="pillar">
+            <div class="pillar-num">3</div>
+            <div class="pillar-title">Enterprise Security & Compliance</div>
+            <div class="pillar-desc">Government-grade security with SOC2 Type II certification. FedRAMP pathway defined. Zero trust architecture principles embedded throughout. Critical for DoD stakeholder confidence.</div>
+            <div class="tag-grid">
+              ${['SOC2 Type II certified', 'FedRAMP pathway', 'SAML/OIDC SSO', 'Role-based access', 'Audit logging'].map(t => `<span class="tag">${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="pillar">
+            <div class="pillar-num">4</div>
+            <div class="pillar-title">Training & Enablement Partnership</div>
+            <div class="pillar-desc">Beyond software: enablement workshops, technical prototyping support, and Super Coder program. Roadshow includes enablement preview as key value proposition.</div>
+            <div class="tag-grid">
+              ${['Super Coders program', 'Leadership prototyping', 'Workflow workshops', 'Documentation standards', 'AI readiness training'].map(t => `<span class="tag">${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Technology Stack (Demo Environment)</h2>
+            <div class="grid-3">
+              ${[
+                { layer: 'Design Layer', tech: 'Figma, Tokens Studio', desc: 'Live in roadshow demo' },
+                { layer: 'Platform Layer', tech: 'Knapsack Cloud', desc: 'Core demo environment' },
+                { layer: 'Code Layer', tech: 'React, Git, CI/CD', desc: 'Production components' },
+                { layer: 'AI Layer', tech: 'MCP, Control Plane', desc: 'IPE preview demo' },
+                { layer: 'Integration Layer', tech: 'REST API, Webhooks', desc: 'Enterprise connectivity' },
+                { layer: 'Analytics Layer', tech: 'Usage Dashboard', desc: 'Adoption metrics' },
+              ].map(t => `<div style="padding: 14px; background: var(--space-light); border-radius: 6px;"><div style="font-size: 12px; font-weight: 700; color: var(--space); margin-bottom: 4px;">${t.layer}</div><div style="font-size: 11px; font-weight: 600; color: var(--neutral-800); margin-bottom: 2px;">${t.tech}</div><div style="font-size: 10px; color: var(--neutral-600);">${t.desc}</div></div>`).join('')}
+            </div>
+          </div>
+        `,
+
+        'management': `
+          <h1 class="section-title">Management & Governance</h1>
+          <p class="section-subtitle">Organizational structure supporting Phase 1 roadshow and Phase 2 expansion</p>
+
+          <div class="card">
+            <h2 class="heading">Roadshow Team Structure</h2>
+            <div class="grid-2">
+              <div style="padding: 18px; background: var(--space-light); border: 1px solid var(--space); border-radius: 8px;">
+                <div style="font-size: 14px; font-weight: 700; color: var(--space); margin-bottom: 12px;">Core Roadshow Team</div>
+                ${[
+                  { role: 'Program Director', resp: 'Lead presenter, stakeholder management, executive sessions' },
+                  { role: 'Technical Architect', resp: 'Demo lead, technical deep dive, Q&A support' },
+                  { role: 'Design System Lead', resp: 'Designer audience engagement, Figma workflow demo' },
+                  { role: 'Training Lead', resp: 'Super Coders pitch, enablement preview' },
+                ].map(r => `<div style="background: white; padding: 10px; border-radius: 4px; margin-bottom: 8px;"><div style="font-size: 12px; font-weight: 600; color: var(--neutral-800);">${r.role}</div><div style="font-size: 11px; color: var(--neutral-600);">${r.resp}</div></div>`).join('')}
+              </div>
+              <div style="padding: 18px; background: var(--primary-light); border: 1px solid var(--primary); border-radius: 8px;">
+                <div style="font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 12px;">Time Allocation (90 Days)</div>
+                <table style="font-size: 12px; width: 100%;">
+                  <tr><td>Preparation (Weeks 1-4)</td><td style="text-align: right; font-weight: 600;">~120 hours</td></tr>
+                  <tr><td>Roadshow Events (Weeks 5-8)</td><td style="text-align: right; font-weight: 600;">~80 hours</td></tr>
+                  <tr><td>Travel (if in-person)</td><td style="text-align: right; font-weight: 600;">~40 hours</td></tr>
+                  <tr><td>Synthesis & Planning (Weeks 9-12)</td><td style="text-align: right; font-weight: 600;">~60 hours</td></tr>
+                  <tr style="border-top: 2px solid var(--primary);"><td><strong>Total</strong></td><td style="text-align: right; font-weight: 700;">~300 hours</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Operating Cadence</h2>
+            <div class="grid-4">
+              ${[
+                { freq: 'Daily', meeting: 'Standup', purpose: 'During roadshow weeks', attendees: 'Core team' },
+                { freq: 'Weekly', meeting: 'Team Sync', purpose: 'Progress, blockers', attendees: 'Full team' },
+                { freq: 'Bi-weekly', meeting: 'COR Brief', purpose: 'Status, risks', attendees: 'COR + PM' },
+                { freq: 'End of Phase', meeting: 'Executive', purpose: 'Go/No-Go', attendees: 'Council' },
+              ].map(o => `<div style="padding: 12px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; text-align: center;"><div style="font-size: 10px; font-weight: 700; color: var(--space); text-transform: uppercase; margin-bottom: 4px;">${o.freq}</div><div style="font-size: 12px; font-weight: 600; color: var(--neutral-800); margin-bottom: 2px;">${o.meeting}</div><div style="font-size: 10px; color: var(--neutral-600);">${o.purpose}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Phase 2 Governance (Post-Expansion)</h2>
+            <div class="grid-2">
+              <div style="padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 10px;">Governance Council</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Software Factory Leadership (sponsor)</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Design System Lead (chair)</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Engineering Representatives</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Security/Compliance Officer</div>
+              </div>
+              <div style="padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 10px;">Cross-Factory Coordination</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Monthly component review</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Quarterly roadmap alignment</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Champion network meetings</div>
+                <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Shared Slack/Teams channel</div>
+              </div>
+            </div>
+          </div>
+        `,
+
+        'risk': `
+          <h1 class="section-title">Risk Management</h1>
+          <p class="section-subtitle">Roadshow-specific risks and mitigation strategies</p>
+
+          <div class="card">
+            <h2 class="heading">Phase 1 Roadshow Risks</h2>
+            <table class="risk-table">
+              <thead>
+                <tr><th style="width: 25%;">Risk</th><th style="width: 10%;">L</th><th style="width: 10%;">I</th><th style="width: 55%;">Mitigation Strategy</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Low Attendance</strong></td><td style="color: var(--warning); font-weight: 600;">M</td><td style="color: var(--warning); font-weight: 600;">M</td><td>Pre-schedule with leadership sponsors, offer multiple session times, provide compelling pre-read materials</td></tr>
+                <tr><td><strong>Technical Skepticism</strong></td><td style="color: var(--warning); font-weight: 600;">M</td><td style="color: var(--danger); font-weight: 600;">H</td><td>Lead with live demo over slides, bring technical architect, offer hands-on exploration time</td></tr>
+                <tr><td><strong>"Not Invented Here"</strong></td><td style="color: var(--warning); font-weight: 600;">M</td><td style="color: var(--warning); font-weight: 600;">M</td><td>Emphasize federated model (local empowerment), highlight customization, position as enabler not mandate</td></tr>
+                <tr><td><strong>Budget Concerns</strong></td><td style="color: var(--success); font-weight: 600;">L</td><td style="color: var(--danger); font-weight: 600;">H</td><td>Prepare detailed ROI analysis, show Astro cost avoidance data, offer phased adoption options</td></tr>
+                <tr><td><strong>Competing Initiatives</strong></td><td style="color: var(--warning); font-weight: 600;">M</td><td style="color: var(--warning); font-weight: 600;">M</td><td>Research factory priorities before visit, position as accelerant to existing goals</td></tr>
+                <tr><td><strong>Champion Turnover</strong></td><td style="color: var(--success); font-weight: 600;">L</td><td style="color: var(--warning); font-weight: 600;">M</td><td>Identify multiple stakeholders per factory, document relationships, maintain regular touchpoints</td></tr>
+                <tr><td><strong>Demo Environment Failure</strong></td><td style="color: var(--success); font-weight: 600;">L</td><td style="color: var(--danger); font-weight: 600;">H</td><td>Test thoroughly before each event, have offline backup, prepare recorded demo as fallback</td></tr>
+              </tbody>
+            </table>
+            <div style="margin-top: 12px; font-size: 11px; color: var(--neutral-500);"><strong>Legend:</strong> L = Likelihood, I = Impact | H = High, M = Medium, L = Low</div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Objection Response Guide</h2>
+            <div class="grid-2">
+              ${[
+                { objection: '"We already have a component library"', response: 'Knapsack provides governance, versioning, and AI integration that custom libraries lack. Complements existing work.' },
+                { objection: '"Our tech stack is different"', response: 'Multi-framework support (React, Vue, Angular, Web Components). Design tokens work across any stack.' },
+                { objection: '"We don\'t have budget"', response: 'ROI typically 12-18 months. Cost avoidance often exceeds licensing. Phased options available.' },
+                { objection: '"Our team is too busy"', response: 'Knapsack handles heavy lifting. Super Coders program builds capability. Reduces long-term workload.' },
+              ].map(o => `<div style="padding: 14px; background: var(--warning-light); border: 1px solid #fde68a; border-radius: 6px;"><div style="font-size: 12px; font-weight: 600; color: var(--neutral-800); margin-bottom: 6px;">${o.objection}</div><div style="font-size: 12px; color: var(--neutral-600);"><strong>Response:</strong> ${o.response}</div></div>`).join('')}
+            </div>
+          </div>
+        `,
+
+        'cost': `
+          <h1 class="section-title">Cost & ROI Analysis</h1>
+          <p class="section-subtitle">Investment requirements and projected returns supporting roadshow business case</p>
+
+          <div class="card evidence-box">
+            <div class="evidence-title">Investment Summary (24-Month Period)</div>
+            <div class="grid-4">
+              <div style="text-align: center;"><div style="font-size: 24px; font-weight: 800; color: var(--space);">$1.2M</div><div style="font-size: 10px; color: var(--neutral-600);">Platform Licensing</div></div>
+              <div style="text-align: center;"><div style="font-size: 24px; font-weight: 800; color: var(--space);">$800K</div><div style="font-size: 10px; color: var(--neutral-600);">Implementation</div></div>
+              <div style="text-align: center;"><div style="font-size: 24px; font-weight: 800; color: var(--space);">$400K</div><div style="font-size: 10px; color: var(--neutral-600);">Training</div></div>
+              <div style="text-align: center;"><div style="font-size: 24px; font-weight: 800; color: var(--success);">$2.4M</div><div style="font-size: 10px; color: var(--neutral-600);">Total</div></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Cost Avoidance Projections (Per Factory)</h2>
+            <table class="risk-table">
+              <thead><tr><th>Cost Category</th><th>Current Annual</th><th>Projected Savings</th></tr></thead>
+              <tbody>
+                <tr><td>UI Development Hours</td><td>$2.4M</td><td>$1.2M (50%)</td></tr>
+                <tr><td>Rework/Bug Fixes</td><td>$600K</td><td>$420K (70%)</td></tr>
+                <tr><td>Onboarding Time</td><td>$400K</td><td>$180K (45%)</td></tr>
+                <tr><td>Contractor Knowledge Loss</td><td>$800K</td><td>$480K (60%)</td></tr>
+                <tr style="background: var(--success-light);"><td><strong>Total Annual</strong></td><td><strong>$4.2M</strong></td><td><strong>$2.28M</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">ROI Timeline</h2>
+            <div class="grid-4">
+              ${[
+                { period: 'Month 6', roi: '-60%', desc: 'Implementation', color: 'var(--neutral-600)' },
+                { period: 'Month 12', roi: '0%', desc: 'Breakeven', color: 'var(--space)' },
+                { period: 'Month 18', roi: '+45%', desc: 'Adoption', color: 'var(--success)' },
+                { period: 'Month 24', roi: '+95%', desc: 'Scale', color: 'var(--success)' },
+              ].map(r => `<div style="padding: 14px; background: ${r.roi.includes('+') ? 'var(--success-light)' : r.roi === '0%' ? 'var(--space-light)' : 'var(--neutral-50)'}; border-radius: 6px; text-align: center;"><div style="font-size: 10px; font-weight: 600; color: var(--neutral-600); text-transform: uppercase; margin-bottom: 4px;">${r.period}</div><div style="font-size: 24px; font-weight: 800; color: ${r.color};">${r.roi}</div><div style="font-size: 11px; color: var(--neutral-600); margin-top: 4px;">${r.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="callout">
+            <div class="callout-label">Roadshow ROI Narrative</div>
+            <div class="callout-text">These numbers power the business case for every roadshow conversation. Astro data validates the model; each factory can project their own savings.</div>
+          </div>
+        `,
+
+        'security': `
+          <h1 class="section-title">Security & Compliance</h1>
+          <p class="section-subtitle">Government-grade security posture supporting DoD stakeholder confidence</p>
+
+          <div class="card">
+            <h2 class="heading">Current Security Posture</h2>
+            <div class="grid-2">
+              <div style="padding: 16px; background: var(--success-light); border: 1px solid #a7f3d0; border-radius: 8px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--success); text-transform: uppercase; margin-bottom: 10px;">Achieved ✓</div>
+                ${['SOC2 Type II Certified', 'SAML/OIDC Single Sign-On', 'Role-Based Access Control', 'Audit Logging & Monitoring', 'Data Encryption (rest & transit)', 'Automated Vulnerability Scanning'].map(i => `<div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">${i}</div>`).join('')}
+              </div>
+              <div style="padding: 16px; background: var(--space-light); border: 1px solid var(--space); border-radius: 8px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--space); text-transform: uppercase; margin-bottom: 10px;">In Progress →</div>
+                ${['FedRAMP Authorization (Moderate)', 'cATO Pathway Documentation', 'CMMC Level 2 Alignment', 'Supply Chain Risk Management', 'Zero Trust Architecture', 'IL4/IL5 Preparation'].map(i => `<div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">${i}</div>`).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">FedRAMP Authorization Pathway</h2>
+            ${[
+              { phase: 'Phase 1 (Current)', title: 'SOC2 + Enhanced Controls', timeline: 'Months 1-6', status: 'Active' },
+              { phase: 'Phase 2', title: 'FedRAMP Ready', timeline: 'Months 7-12', status: 'Planned' },
+              { phase: 'Phase 3', title: 'FedRAMP Authorized', timeline: 'Months 13-18', status: 'Planned' },
+            ].map((p, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${p.status === 'Active' ? 'var(--success)' : 'var(--space)'}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span style="font-size: 11px; font-weight: 600; color: ${p.status === 'Active' ? 'var(--success)' : 'var(--space)'};">${p.phase}</span><span class="badge" style="background: ${p.status === 'Active' ? 'var(--success-light)' : 'var(--neutral-100)'}; color: ${p.status === 'Active' ? 'var(--success)' : 'var(--neutral-600)'};">${p.timeline}</span></div><div class="timeline-title">${p.title}</div></div></div>`).join('')}
+          </div>
+
+          <div class="callout">
+            <div class="callout-label">Roadshow Security Messaging</div>
+            <div class="callout-text">SOC2 Type II enables immediate deployment. FedRAMP pathway provides long-term compliance assurance. Security-first architecture addresses DoD stakeholder concerns.</div>
+          </div>
+        `,
+
+        'next-steps': `
+          <h1 class="section-title">Execute Forward</h1>
+          <p class="section-subtitle">Immediate actions to launch Phase 1 Roadshow Pilot</p>
+
+          <div class="callout">
+            <div class="callout-label">Primary Objective</div>
+            <div class="callout-text">90 days to validated expansion strategy. Package Astro success, engage target factories, secure commitments for Phase 2 deployment.</div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Week 1 Kickoff Actions</h2>
+            <div class="grid-2">
+              <div style="padding: 16px; background: var(--primary-light); border: 1px solid var(--primary); border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 600; color: var(--primary); margin-bottom: 12px;">Immediate Actions</div>
+                ${['Confirm roadshow team assignments', 'Schedule 30-min recurring sync', 'Begin Astro success documentation', 'Draft initial target factory list', 'Identify demo environment requirements'].map((i, idx) => `<div style="font-size: 12px; color: var(--neutral-700); padding: 6px 0; display: flex; align-items: center; gap: 8px;"><span style="width: 20px; height: 20px; background: var(--primary); color: white; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">${idx + 1}</span>${i}</div>`).join('')}
+              </div>
+              <div style="padding: 16px; background: var(--warning-light); border: 1px solid #fde68a; border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 600; color: var(--warning); margin-bottom: 12px;">Decisions Needed</div>
+                ${['In-person vs. virtual roadshow format', 'Target factory prioritization criteria weights', 'Demo environment access approach', 'Executive sponsor for roadshow program', 'Budget allocation for travel (if applicable)'].map(i => `<div style="font-size: 12px; color: var(--neutral-700); padding: 6px 0; display: flex; align-items: center; gap: 8px;"><span style="color: var(--warning);">?</span>${i}</div>`).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Phase 1 Key Milestones</h2>
+            <div class="grid-2">
+              ${[
+                { milestone: 'Astro Documentation Complete', target: 'Day 15', gate: 'Review by COR' },
+                { milestone: 'Demo Environment Ready', target: 'Day 25', gate: 'Technical validation' },
+                { milestone: 'First Roadshow Event', target: 'Day 35', gate: 'Stakeholder scheduled' },
+                { milestone: 'Roadshow Complete', target: 'Day 60', gate: '6 events delivered' },
+                { milestone: 'Feedback Synthesis', target: 'Day 70', gate: 'Patterns documented' },
+                { milestone: 'Executive Go/No-Go', target: 'Day 90', gate: 'Council approval' },
+              ].map(m => `<div style="padding: 12px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">${m.milestone}</div><div style="font-size: 11px; color: var(--neutral-500);">Gate: ${m.gate}</div></div><span class="badge" style="background: var(--space-light); color: var(--space);">${m.target}</span></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card" style="background: linear-gradient(135deg, #0f1f33 0%, #1e3a5f 100%); color: white; border: none;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--space-accent); margin-bottom: 12px;">Mission Forward</div>
+            <p style="font-size: 18px; line-height: 1.7; margin-bottom: 16px;"><strong>Space is hard. Make the rest easier.</strong></p>
+            <p style="font-size: 14px; opacity: 0.9; line-height: 1.7; margin-bottom: 20px;">Astro proved the foundation. The roadshow validates the expansion. With committed factories and champion networks, Phase 2 deployment transforms Space Force digital operations.</p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <div style="padding: 8px 16px; background: var(--success); color: white; border-radius: 6px; font-weight: 600; font-size: 12px;">Astro ✓</div>
+              <div style="padding: 8px 16px; background: var(--space-accent); color: var(--space); border-radius: 6px; font-weight: 600; font-size: 12px;">Phase 1: Roadshow →</div>
+              <div style="padding: 8px 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 6px; font-weight: 600; font-size: 12px;">Phase 2: Expansion</div>
+              <div style="padding: 8px 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 6px; font-weight: 600; font-size: 12px;">Enterprise</div>
+            </div>
+          </div>
+
+          <div style="text-align: center; padding: 20px; color: var(--neutral-500); font-size: 12px;">
+            <div style="margin-bottom: 4px;">Partnership with Joseph & Associates (J&A)</div>
+            <div style="color: var(--space);">knapsack.cloud</div>
+          </div>
+        `,
+      };
+
+      main.innerHTML = content[activeSection] || content['exec-summary'];
+    }
+
+    renderNav();
+    renderContent();
+  </script>
+</body>
+</html>
