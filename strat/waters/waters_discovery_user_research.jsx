@@ -1,0 +1,471 @@
+import { useState } from 'react';
+
+const tokens = {
+  colors: {
+    primary: '#5a32a3',
+    primaryDark: '#3d2270',
+    primaryLight: '#f5f2fa',
+    secondary: '#c4314b',
+    secondaryLight: '#fdf2f4',
+    action: '#0077b6',
+    actionLight: '#e8f4fa',
+    warning: '#b06d00',
+    warningLight: '#fef7eb',
+    success: '#2a7d5f',
+    successLight: '#eef7f3',
+    neutral50: '#fafafa',
+    neutral100: '#f5f5f5',
+    neutral150: '#e5e5e5',
+    neutral200: '#d4d4d4',
+    neutral500: '#525252',
+    neutral600: '#404040',
+    neutral700: '#333333',
+    neutral800: '#1f1f1f',
+    neutral900: '#0a0a0a',
+  }
+};
+
+const NavButton = ({ active, onClick, num, children }) => (
+  <button
+    onClick={onClick}
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: 10,
+      width: '100%',
+      padding: '10px 12px',
+      border: 'none',
+      borderRadius: 6,
+      background: active ? tokens.colors.primaryLight : 'transparent',
+      color: active ? tokens.colors.primary : tokens.colors.neutral600,
+      fontSize: 13,
+      fontWeight: active ? 600 : 400,
+      cursor: 'pointer',
+      textAlign: 'left',
+      marginBottom: 2,
+      transition: 'background 0.15s',
+    }}
+  >
+    <span style={{
+      width: 22,
+      height: 22,
+      borderRadius: 4,
+      background: active ? tokens.colors.primary : tokens.colors.neutral150,
+      color: active ? 'white' : tokens.colors.neutral600,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: 11,
+      fontWeight: 600,
+      flexShrink: 0,
+    }}>{num}</span>
+    <span>{children}</span>
+  </button>
+);
+
+const Card = ({ children, style }) => (
+  <div style={{
+    background: 'white',
+    border: `1px solid ${tokens.colors.neutral150}`,
+    borderRadius: 8,
+    padding: 28,
+    marginBottom: 24,
+    ...style
+  }}>{children}</div>
+);
+
+const Heading = ({ children }) => (
+  <h2 style={{ fontSize: 17, fontWeight: 600, color: tokens.colors.neutral800, marginBottom: 16, marginTop: 0 }}>{children}</h2>
+);
+
+const Badge = ({ color = 'primary', children }) => {
+  const colors = {
+    primary: { bg: tokens.colors.primaryLight, text: tokens.colors.primary },
+    action: { bg: tokens.colors.actionLight, text: tokens.colors.action },
+    success: { bg: tokens.colors.successLight, text: tokens.colors.success },
+    warning: { bg: tokens.colors.warningLight, text: tokens.colors.warning },
+    secondary: { bg: tokens.colors.secondaryLight, text: tokens.colors.secondary },
+    neutral: { bg: tokens.colors.neutral100, text: tokens.colors.neutral600 },
+  };
+  return (
+    <span style={{
+      display: 'inline-block',
+      padding: '5px 12px',
+      borderRadius: 4,
+      fontSize: 12,
+      fontWeight: 600,
+      background: colors[color].bg,
+      color: colors[color].text,
+    }}>{children}</span>
+  );
+};
+
+const Question = ({ number, text, type, options, scale, note, required }) => (
+  <div style={{ background: tokens.colors.neutral50, border: `1px solid ${tokens.colors.neutral150}`, borderRadius: 6, padding: 16, marginBottom: 12 }}>
+    <div style={{ display: 'flex', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>
+      <Badge color="primary">Q{number}</Badge>
+      {required && <Badge color="warning">Required</Badge>}
+      <Badge color="neutral">{type}</Badge>
+    </div>
+    <p style={{ fontSize: 14, color: tokens.colors.neutral800, margin: '0 0 8px', lineHeight: 1.5 }}>{text}</p>
+    {options && (
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {options.map((opt, i) => (
+          <span key={i} style={{ fontSize: 11, color: tokens.colors.neutral600, background: 'white', padding: '4px 8px', borderRadius: 4, border: `1px solid ${tokens.colors.neutral200}` }}>{opt}</span>
+        ))}
+      </div>
+    )}
+    {scale && (
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: tokens.colors.neutral500, marginTop: 8 }}>
+        <span>{scale[0]}</span>
+        <span style={{ color: tokens.colors.neutral200 }}>1 — 2 — 3 — 4 — 5</span>
+        <span>{scale[1]}</span>
+      </div>
+    )}
+    {note && <p style={{ fontSize: 12, color: tokens.colors.action, margin: '10px 0 0', background: tokens.colors.actionLight, padding: '8px 12px', borderRadius: 4 }}>💡 {note}</p>}
+  </div>
+);
+
+const InterviewQuestion = ({ number, text, probes, timing, rationale }) => (
+  <div style={{ background: tokens.colors.neutral50, border: `1px solid ${tokens.colors.neutral150}`, borderRadius: 6, padding: 16, marginBottom: 12 }}>
+    <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
+      <Badge color="success">{number}</Badge>
+      {timing && <span style={{ fontSize: 11, color: tokens.colors.neutral500 }}>~{timing}</span>}
+    </div>
+    <p style={{ fontSize: 14, fontWeight: 600, color: tokens.colors.neutral800, margin: '0 0 8px', lineHeight: 1.5 }}>{text}</p>
+    {probes && probes.length > 0 && (
+      <div style={{ marginTop: 12, paddingLeft: 14, borderLeft: `2px solid ${tokens.colors.neutral200}` }}>
+        <p style={{ fontSize: 11, fontWeight: 600, color: tokens.colors.neutral500, margin: '0 0 6px', textTransform: 'uppercase', letterSpacing: '0.03em' }}>Follow-up Probes</p>
+        {probes.map((probe, i) => (
+          <p key={i} style={{ fontSize: 13, color: tokens.colors.neutral600, margin: '4px 0', lineHeight: 1.4 }}>— {probe}</p>
+        ))}
+      </div>
+    )}
+    {rationale && (
+      <div style={{ marginTop: 12, background: tokens.colors.actionLight, border: `1px solid #b8d4e8`, padding: 12, borderRadius: 6 }}>
+        <p style={{ fontSize: 12, color: tokens.colors.action, margin: 0 }}><strong>Why we ask:</strong> {rationale}</p>
+      </div>
+    )}
+  </div>
+);
+
+export default function WatersResearchKit() {
+  const [activeTab, setActiveTab] = useState('overview');
+
+  const tabs = [
+    { id: 'overview', label: 'Overview', num: 1 },
+    { id: 'survey', label: 'Survey (~18 min)', num: 2 },
+    { id: 'interview', label: 'Interview Guide (30 min)', num: 3 },
+    { id: 'analysis', label: 'Analysis Framework', num: 4 },
+  ];
+
+  const surveyQuestions = {
+    section1: [
+      { num: "1.1", text: "What is your primary role at Waters?", type: "Single Select", required: true, options: ["Designer", "Front-End Developer", "Full-Stack Developer", "Product Manager", "Engineering Manager", "Other (specify)"], note: "Routes to persona-specific follow-ups" },
+      { num: "1.2", text: "How long have you been in your current role at Waters?", type: "Single Select", required: true, options: ["Less than 1 year", "1-3 years", "3-5 years", "5-10 years", "10+ years"], note: "Segments veterans vs. newer team members for change readiness analysis" },
+      { num: "1.3", text: "Which product area(s) do you primarily work on?", type: "Multi Select", options: ["Core Instruments", "Informatics Platform", "Acquired Products (Wyatt, TA)", "New Product Development", "Internal Tools", "Multiple / Cross-cutting"] },
+    ],
+    section2: [
+      { num: "2.1", text: "Overall, how satisfied are you with the current design system and component library at Waters?", type: "5-Point Scale", required: true, scale: ["Very Dissatisfied", "Very Satisfied"] },
+      { num: "2.2", text: "How would you rate the consistency of UI across Waters products?", type: "5-Point Scale", scale: ["Very Inconsistent", "Very Consistent"] },
+      { num: "2.3", text: "How easy is it to find and use existing components when building new features?", type: "5-Point Scale", scale: ["Very Difficult", "Very Easy"] },
+      { num: "2.4", text: "How well do design files (Figma) match the implemented code (Storybook)?", type: "5-Point Scale", scale: ["Rarely Match", "Always Match"], note: "Validates known Figma to Storybook sync problem" },
+      { num: "2.5", text: "How much time per week do you spend on tasks that feel like reinventing the wheel?", type: "Single Select", options: ["Less than 1 hour", "1-3 hours", "3-5 hours", "5-10 hours", "10+ hours"], note: "Quantifies rework burden for ROI calculations" },
+      { num: "2.6", text: "When was the last time a UI inconsistency or bug triggered a quality escalation (NCR, CAPA, etc.)?", type: "Single Select", options: ["Never", "More than 12 months ago", "6-12 months ago", "1-6 months ago", "Within past month"], note: "Connects design system gaps to QMS impact" },
+      { num: "2.7", text: "Describe a recent frustration with the current design system in 1-2 sentences.", type: "Open Text", note: "Captures specific pain points in users own words" },
+    ],
+    section3: [
+      { num: "3.1", text: "When starting a new feature, where do you go FIRST to find existing patterns or components?", type: "Ranked Choice", options: ["Figma libraries", "Storybook", "Ask a colleague", "Browse existing products", "Documentation site", "Start from scratch"] },
+      { num: "3.2", text: "How would you describe handoffs between design and development?", type: "Single Select", options: ["Seamless — clear intent, minimal questions", "Mostly smooth — occasional clarifications needed", "Challenging — frequent misalignment", "Broken — we rebuild instead of translating"], note: "Validates handoff confusion hypothesis" },
+      { num: "3.3", text: "How often do designers and developers review work together before implementation begins?", type: "Single Select", options: ["Always", "Usually", "Sometimes", "Rarely", "Never"] },
+      { num: "3.4", text: "When you need a component that does not exist, what typically happens?", type: "Multi Select", options: ["I build a custom one-off", "I request it through a formal process", "I adapt something similar", "I ask the design system team", "Nothing — I work around it", "Unsure how to request"] },
+      { num: "3.5", text: "How do you currently stay updated on design system changes and new components?", type: "Multi Select", options: ["Slack announcements", "Email updates", "Team meetings", "I check Storybook/Figma periodically", "Word of mouth", "I often miss updates"] },
+      { num: "3.6", text: "If you collaborate with teams from acquired companies (Wyatt, TA Instruments), how challenging is it to align on UI patterns?", type: "5-Point Scale", scale: ["Not Applicable / N/A", "Very Challenging"], note: "Probes acquisition integration pain" },
+    ],
+    section4: [
+      { num: "4.1", text: "Which tools do you use for design system work? (Select all that apply)", type: "Multi Select", options: ["Figma", "Storybook", "Chromatic", "GitHub", "Confluence/Wiki", "Notion", "Other (specify)"] },
+      { num: "4.2", text: "Rate your experience with Storybook for component discovery and usage:", type: "5-Point Scale", scale: ["Frustrating", "Excellent"] },
+      { num: "4.3", text: "Rate your experience with Figma component libraries:", type: "5-Point Scale", scale: ["Frustrating", "Excellent"] },
+      { num: "4.4", text: "Have you used zeroheight or similar design system documentation tools in the past?", type: "Single Select", options: ["Yes, at Waters", "Yes, at a previous company", "No, never used", "Not sure"], note: "Surfaces historical context and potential skepticism" },
+      { num: "4.5", text: "If you answered Yes at Waters — what worked and what did not? (Optional)", type: "Open Text", note: "Critical for understanding early-adopter fatigue" },
+      { num: "4.6", text: "How prepared do you feel Waters is to leverage AI tools (like Figma Make or code generation) for design-to-code workflows?", type: "5-Point Scale", scale: ["Not At All Prepared", "Very Prepared"], note: "Validates AI readiness gap" },
+    ],
+    section5: [
+      { num: "5.1", text: "Rank these design system challenges from most to least impactful on your work:", type: "Ranked Choice", options: ["Finding components that already exist", "Design-to-code translation accuracy", "Documentation quality/completeness", "Keeping up with changes", "Requesting new components", "Cross-team/brand consistency"] },
+      { num: "5.2", text: "What would save you the most time in your day-to-day work?", type: "Multi Select", options: ["Single source of truth for components", "Better component search/discovery", "Clearer contribution process", "Real-time design-code sync", "Better documentation", "Training on existing tools"] },
+      { num: "5.3", text: "If you could fix ONE thing about the current design system, what would it be?", type: "Open Text", required: true },
+      { num: "5.4", text: "How important is it that a design system solution supports Waters multi-brand architecture (core + acquired products)?", type: "5-Point Scale", scale: ["Not Important", "Critical"] },
+      { num: "5.5", text: "How much would improved design system tooling reduce your rework time?", type: "Single Select", options: ["Minimal impact (less than 10%)", "Moderate impact (10-25%)", "Significant impact (25-50%)", "Major impact (50%+)", "Not sure"], note: "ROI input for business case" },
+      { num: "5.6", text: "What concerns, if any, do you have about adopting a new design system platform?", type: "Open Text", note: "Surfaces resistance factors for change management planning" },
+    ],
+    section6: [
+      { num: "6.1", text: "What learning format works best for you?", type: "Ranked Choice", options: ["Live workshops", "Self-paced video tutorials", "Written documentation", "Hands-on labs with support", "Peer mentoring", "1:1 coaching"] },
+      { num: "6.2", text: "How much time could you realistically dedicate to learning a new design system tool?", type: "Single Select", options: ["1-2 hours total", "3-5 hours total", "Half-day workshop", "Full-day workshop", "Multi-session program over weeks"] },
+      { num: "6.3", text: "Would you be interested in being an early adopter or champion for a new design system platform?", type: "Single Select", options: ["Yes, very interested", "Maybe, tell me more", "No, prefer to wait", "Not sure"], note: "Identifies pilot team candidates" },
+      { num: "6.4", text: "Any additional comments or suggestions for improving how Waters approaches design systems?", type: "Open Text" },
+    ],
+  };
+
+  const interviewQuestions = [
+    { section: "Opening", time: "3 min", color: tokens.colors.neutral600, questions: [
+      { num: "Intro", text: "Thank you for making time for this conversation. We are gathering input to shape how Knapsack will work for Waters — your experience and perspectives will directly influence our implementation approach. There are no right or wrong answers; we want to understand your real day-to-day experience. Everything shared here will be used to improve the platform rollout, not to evaluate individuals. Any questions before we start?", timing: "2 min" },
+      { num: "0", text: "To start, could you briefly describe your role and what a typical week looks like for you?", timing: "1 min", probes: ["How long have you been in this role?", "What products or teams do you work with most?"], rationale: "Establishes baseline and warms up the conversation" },
+    ]},
+    { section: "Current State Deep Dive", time: "10 min", color: tokens.colors.primary, questions: [
+      { num: "1", text: "Walk me through what happens when you need to build something new — where do you start, and what is that process like?", timing: "3 min", probes: ["Where do you look first for existing patterns?", "How do you know if something already exists?", "What typically slows you down?"], rationale: "Maps actual workflow to identify friction points; validates component discovery challenges" },
+      { num: "2", text: "Tell me about a recent time when the design system (or lack of one) made your job harder.", timing: "2 min", probes: ["What was the impact — time, quality, frustration?", "How did you work around it?", "Has this happened before?"], rationale: "Captures concrete pain points in user language for stakeholder communications" },
+      { num: "3", text: "How would you describe the relationship between what is in Figma and what is in Storybook/code?", timing: "2 min", probes: ["How often do they match?", "Who is responsible for keeping them in sync?", "What happens when they drift apart?"], rationale: "Validates known Figma to Storybook consistency gap; quantifies maintenance burden" },
+      { num: "4", text: "When you need a component that does not exist yet, what happens?", timing: "2 min", probes: ["Is there a formal request process?", "How long does it typically take?", "Do you usually just build your own?"], rationale: "Surfaces contribution workflow gaps and governance needs" },
+      { num: "5", text: "Have you ever been part of a quality escalation (NCR, CAPA) related to UI issues?", timing: "1 min", probes: ["What triggered it?", "How was it resolved?", "Could it have been prevented with better tooling?"], rationale: "Connects design system gaps to regulated environment risks; builds ROI case" },
+    ]},
+    { section: "Collaboration & Cross-Team", time: "6 min", color: tokens.colors.success, questions: [
+      { num: "6", text: "How do designers and developers work together on your team? What works well, and where does it break down?", timing: "2 min", probes: ["How are handoffs managed?", "When do misalignments surface — early or late?", "How do you resolve disagreements about implementation?"], rationale: "Validates design-dev handoff challenges; informs collaboration feature priorities" },
+      { num: "7", text: "Do you work with teams from acquired companies (Wyatt, TA Instruments)? If so, how do you handle differences in their UI patterns?", timing: "2 min", probes: ["What is the biggest challenge?", "Is there a plan to unify?", "Who decides what patterns to use?"], rationale: "Probes multi-brand architecture needs; informs acquisition playbook" },
+      { num: "8", text: "How do stakeholders (PMs, leadership) typically get visibility into what you are building before it ships?", timing: "2 min", probes: ["Do they see live prototypes or static designs?", "How often do late-stage changes happen?", "What would help them make faster decisions?"], rationale: "Validates PM pain points; positions Knapsack prototyping value" },
+    ]},
+    { section: "Previous Experience & Concerns", time: "5 min", color: tokens.colors.warning, questions: [
+      { num: "9", text: "Has Waters tried to implement design system tooling before? What was that experience like?", timing: "2 min", probes: ["What worked?", "What did not?", "Why do you think it went that way?", "What would need to be different this time?"], rationale: "Critical for early-adopter fatigue; directly informs risk mitigation" },
+      { num: "10", text: "What concerns, if any, do you have about adopting a new platform like Knapsack?", timing: "2 min", probes: ["What would make you skeptical?", "What would make you excited?", "What would you need to see to trust it?"], rationale: "Surfaces change resistance factors; shapes messaging and rollout approach" },
+      { num: "11", text: "If this implementation goes well, what does success look like to you in 6-12 months?", timing: "1 min", probes: ["What changes in your day-to-day?", "What problems go away?", "What new capabilities do you have?"], rationale: "Captures user-defined success metrics; aligns KPIs with real expectations" },
+    ]},
+    { section: "Future State & Priorities", time: "4 min", color: tokens.colors.action, questions: [
+      { num: "12", text: "If you had a magic wand and could fix one thing about how design and development work together at Waters, what would it be?", timing: "1.5 min", probes: ["Why that specifically?", "What impact would it have?"], rationale: "Identifies highest-priority opportunities in user framing" },
+      { num: "13", text: "How important is it that a design system platform can grow with Waters — supporting acquisitions, new products, multiple brands?", timing: "1.5 min", probes: ["Is this a current pain or future concern?", "Who else cares about this?"], rationale: "Validates multi-brand architecture as differentiator" },
+      { num: "14", text: "Waters is exploring AI-assisted workflows like Figma Make. How do you think AI could help — or hurt — design system work?", timing: "1 min", probes: ["What excites you?", "What worries you?", "What would need to be true for AI tools to work well?"], rationale: "Gauges AI readiness; informs Figma Make integration positioning" },
+    ]},
+    { section: "Closing", time: "2 min", color: tokens.colors.secondary, questions: [
+      { num: "15", text: "Is there anything we did not cover that you think we should know?", timing: "1 min" },
+      { num: "Closing", text: "Thank you so much — this was incredibly helpful. One last question: would you be interested in being an early adopter or champion as we roll out Knapsack? We will be looking for a pilot group to give feedback and help shape the experience for others.", timing: "1 min", rationale: "Identifies champion candidates for pilot team" },
+    ]},
+  ];
+
+  const Section = ({ title, subtitle, color = tokens.colors.primary, children }) => (
+    <div style={{ marginBottom: 28 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+        <div style={{ width: 4, height: 24, background: color, borderRadius: 2 }} />
+        <div>
+          <h3 style={{ fontSize: 15, fontWeight: 600, color: tokens.colors.neutral800, margin: 0 }}>{title}</h3>
+          {subtitle && <p style={{ fontSize: 12, color: tokens.colors.neutral500, margin: '2px 0 0' }}>{subtitle}</p>}
+        </div>
+      </div>
+      {children}
+    </div>
+  );
+
+  return (
+    <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', background: tokens.colors.neutral50, minHeight: '100vh', display: 'flex' }}>
+      {/* Sidebar Navigation */}
+      <nav style={{ width: 260, background: 'white', borderRight: `1px solid ${tokens.colors.neutral150}`, padding: '24px 0', position: 'fixed', top: 0, left: 0, height: '100vh', overflowY: 'auto' }}>
+        <div style={{ padding: '0 20px 24px', borderBottom: `1px solid ${tokens.colors.neutral150}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: tokens.colors.primary, marginBottom: 6 }}>Discovery Research</div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: tokens.colors.neutral900 }}>Waters × Knapsack</div>
+          <div style={{ fontSize: 13, color: tokens.colors.neutral600, marginTop: 4 }}>Design System Research Kit</div>
+        </div>
+        <div style={{ padding: '16px 12px' }}>
+          {tabs.map(t => (
+            <NavButton key={t.id} active={activeTab === t.id} onClick={() => setActiveTab(t.id)} num={t.num}>{t.label}</NavButton>
+          ))}
+        </div>
+        <div style={{ padding: 20, borderTop: `1px solid ${tokens.colors.neutral150}`, position: 'absolute', bottom: 0, width: '100%', background: 'white' }}>
+          <div style={{ fontSize: 11, color: tokens.colors.neutral500, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 4 }}>Prepared for</div>
+          <div style={{ fontSize: 14, fontWeight: 600, color: tokens.colors.neutral800 }}>Waters Corporation</div>
+          <div style={{ fontSize: 13, color: tokens.colors.neutral600, marginTop: 2 }}>November 2025</div>
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      <main style={{ flex: 1, padding: '32px 40px', maxWidth: 880, marginLeft: 260 }}>
+        {activeTab === 'overview' && (
+          <>
+            <div style={{ background: `linear-gradient(135deg, ${tokens.colors.primary} 0%, ${tokens.colors.primaryDark} 100%)`, color: 'white', padding: 40, borderRadius: 8, marginBottom: 28 }}>
+              <div style={{ fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.9, marginBottom: 12 }}>Discovery Phase</div>
+              <h1 style={{ fontSize: 28, fontWeight: 700, margin: '0 0 8px' }}>Design System Discovery Research Kit</h1>
+              <p style={{ fontSize: 16, opacity: 0.95, margin: 0, maxWidth: 600 }}>UX research instruments to capture as-is state requirements and validate sentiment</p>
+              <p style={{ fontSize: 14, opacity: 0.85, marginTop: 16 }}>Informs Implementation, Training, and Engagement Strategy</p>
+            </div>
+
+            <Card style={{ background: tokens.colors.primaryLight, borderLeft: `4px solid ${tokens.colors.primary}`, borderRadius: '0 8px 8px 0' }}>
+              <div style={{ fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: tokens.colors.primary, marginBottom: 8 }}>Research Objectives</div>
+              <p style={{ fontSize: 15, color: tokens.colors.neutral700, lineHeight: 1.7, margin: 0 }}>Validate known pain points, discover hidden requirements, measure sentiment and readiness, and inform strategic decisions for the Knapsack implementation at Waters.</p>
+            </Card>
+
+            <Card>
+              <Heading>Research Objectives</Heading>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+                {[
+                  { label: 'Validate Known Pain Points', items: ['Figma to Storybook inconsistency', '1997 webmaster tasks burden', 'No collaborative front door', 'Acquisition integration gaps'] },
+                  { label: 'Discover Hidden Requirements', items: ['Workflow-specific friction', 'Team capability variations', 'Documentation gaps', 'Governance needs'] },
+                  { label: 'Measure Sentiment & Readiness', items: ['Current satisfaction levels', 'Change appetite by persona', 'Previous tool experience', 'Training preferences'] },
+                  { label: 'Inform Strategy Decisions', items: ['Pilot team selection', 'Rollout sequencing', 'Training prioritization', 'Quick win identification'] },
+                ].map((obj, i) => (
+                  <div key={i} style={{ background: tokens.colors.neutral50, border: `1px solid ${tokens.colors.neutral150}`, padding: 16, borderRadius: 6 }}>
+                    <p style={{ fontSize: 12, fontWeight: 600, color: tokens.colors.primary, margin: '0 0 10px', textTransform: 'uppercase', letterSpacing: '0.03em' }}>{obj.label}</p>
+                    {obj.items.map((item, j) => (
+                      <p key={j} style={{ fontSize: 13, color: tokens.colors.neutral700, margin: '5px 0', paddingLeft: 16, position: 'relative' }}>
+                        <span style={{ position: 'absolute', left: 0, color: tokens.colors.neutral500 }}>—</span> {item}
+                      </p>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            <Card>
+              <Heading>Target Participants</Heading>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+                {[
+                  { role: 'Designers', count: '8-12', focus: 'Figma workflows, handoff experience, component discovery', color: tokens.colors.primary },
+                  { role: 'Developers', count: '10-15', focus: 'Storybook usage, component implementation, code-design sync', color: tokens.colors.success },
+                  { role: 'Product Managers', count: '5-8', focus: 'Spec creation, stakeholder alignment, decision velocity', color: tokens.colors.action },
+                ].map((p, i) => (
+                  <div key={i} style={{ background: tokens.colors.neutral50, border: `1px solid ${tokens.colors.neutral150}`, borderRadius: 6, padding: 16, borderTop: `4px solid ${p.color}` }}>
+                    <p style={{ fontSize: 16, fontWeight: 600, color: tokens.colors.neutral800, margin: '0 0 4px' }}>{p.role}</p>
+                    <p style={{ fontSize: 12, color: p.color, fontWeight: 600, margin: '0 0 10px' }}>Target: {p.count} participants</p>
+                    <p style={{ fontSize: 13, color: tokens.colors.neutral600, margin: 0, lineHeight: 1.5 }}>{p.focus}</p>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            <Card>
+              <Heading>Waters-Specific Context</Heading>
+              <p style={{ fontSize: 13, color: tokens.colors.neutral600, marginBottom: 16, marginTop: -8 }}>Findings that shaped these research instruments</p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+                {[
+                  { label: 'Early-Adopter Fatigue', desc: 'Previous zeroheight implementation failed. Research must surface residual concerns and skepticism while avoiding defensive positioning.', color: 'warning' },
+                  { label: 'Mixed Workforce', desc: '20+ year veterans alongside change agents. Research segments responses to understand adoption readiness across cohorts.', color: 'success' },
+                  { label: 'Regulated Environment', desc: 'QMS requirements mean small UI defects trigger expensive escalations. Questions probe quality impact and compliance concerns.', color: 'primary' },
+                  { label: 'Acquisition Complexity', desc: '2 acquired orgs not yet integrated. Research explores cross-team collaboration and brand architecture needs.', color: 'action' },
+                ].map((c, i) => (
+                  <div key={i} style={{ background: tokens.colors[c.color + 'Light'], border: `1px solid ${tokens.colors[c.color]}30`, padding: 16, borderRadius: 6 }}>
+                    <p style={{ fontSize: 11, fontWeight: 600, color: tokens.colors[c.color], margin: '0 0 8px', textTransform: 'uppercase', letterSpacing: '0.03em' }}>{c.label}</p>
+                    <p style={{ fontSize: 13, color: tokens.colors.neutral700, margin: 0, lineHeight: 1.5 }}>{c.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </>
+        )}
+
+        {activeTab === 'survey' && (
+          <>
+            <h1 style={{ fontSize: 28, fontWeight: 700, color: tokens.colors.neutral900, marginBottom: 8 }}>Survey Instrument</h1>
+            <p style={{ fontSize: 16, color: tokens.colors.neutral600, marginBottom: 28 }}>Comprehensive design system assessment for Waters team members</p>
+
+            <Card style={{ background: tokens.colors.primaryLight, border: `1px solid ${tokens.colors.primary}30`, marginBottom: 28 }}>
+              <p style={{ fontSize: 14, fontWeight: 600, color: tokens.colors.primary, margin: 0 }}>Estimated completion: 15-18 minutes • 32 questions across 6 sections</p>
+            </Card>
+
+            <Section title="Section 1: Role & Context" subtitle="Segmentation and baseline (3 questions)" color={tokens.colors.neutral600}>
+              {surveyQuestions.section1.map((q, i) => <Question key={i} {...q} number={q.num} />)}
+            </Section>
+            <Section title="Section 2: Current State Satisfaction" subtitle="Sentiment benchmarking (7 questions)" color={tokens.colors.primary}>
+              {surveyQuestions.section2.map((q, i) => <Question key={i} {...q} number={q.num} />)}
+            </Section>
+            <Section title="Section 3: Workflow & Collaboration" subtitle="Process mapping (6 questions)" color={tokens.colors.success}>
+              {surveyQuestions.section3.map((q, i) => <Question key={i} {...q} number={q.num} />)}
+            </Section>
+            <Section title="Section 4: Tool Experience" subtitle="Technical landscape (6 questions)" color={tokens.colors.action}>
+              {surveyQuestions.section4.map((q, i) => <Question key={i} {...q} number={q.num} />)}
+            </Section>
+            <Section title="Section 5: Pain Points & Priorities" subtitle="Requirements discovery (6 questions)" color={tokens.colors.warning}>
+              {surveyQuestions.section5.map((q, i) => <Question key={i} {...q} number={q.num} />)}
+            </Section>
+            <Section title="Section 6: Training & Support Preferences" subtitle="Engagement strategy inputs (4 questions)" color={tokens.colors.secondary}>
+              {surveyQuestions.section6.map((q, i) => <Question key={i} {...q} number={q.num} />)}
+            </Section>
+          </>
+        )}
+
+        {activeTab === 'interview' && (
+          <>
+            <h1 style={{ fontSize: 28, fontWeight: 700, color: tokens.colors.neutral900, marginBottom: 8 }}>Interview Guide</h1>
+            <p style={{ fontSize: 16, color: tokens.colors.neutral600, marginBottom: 28 }}>Semi-structured interview for sponsor users and key stakeholders</p>
+
+            <Card style={{ background: tokens.colors.successLight, border: `1px solid ${tokens.colors.success}30`, marginBottom: 28 }}>
+              <p style={{ fontSize: 14, fontWeight: 600, color: tokens.colors.success, margin: 0 }}>30-minute session • For sponsor users and key stakeholders • Semi-structured with probing questions</p>
+            </Card>
+
+            {interviewQuestions.map((section, si) => (
+              <Section key={si} title={section.section} subtitle={section.time} color={section.color}>
+                {section.questions.map((q, qi) => <InterviewQuestion key={qi} {...q} />)}
+              </Section>
+            ))}
+          </>
+        )}
+
+        {activeTab === 'analysis' && (
+          <>
+            <h1 style={{ fontSize: 28, fontWeight: 700, color: tokens.colors.neutral900, marginBottom: 8 }}>Analysis Framework</h1>
+            <p style={{ fontSize: 16, color: tokens.colors.neutral600, marginBottom: 28 }}>How to synthesize findings into actionable insights</p>
+
+            <Card>
+              <Heading>Analysis Approaches</Heading>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+                <div style={{ background: tokens.colors.neutral50, border: `1px solid ${tokens.colors.neutral150}`, padding: 16, borderRadius: 6 }}>
+                  <p style={{ fontSize: 12, fontWeight: 600, color: tokens.colors.primary, margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: '0.03em' }}>Quantitative Analysis</p>
+                  {['Satisfaction scores by persona/tenure', 'Time-to-rework correlation', 'Tool preference rankings', 'Training format preferences', 'Champion identification count', 'Pain point frequency analysis'].map((item, i) => (
+                    <p key={i} style={{ fontSize: 13, color: tokens.colors.neutral700, margin: '6px 0', display: 'flex', gap: 8 }}><span style={{ color: tokens.colors.primary }}>□</span> {item}</p>
+                  ))}
+                </div>
+                <div style={{ background: tokens.colors.neutral50, border: `1px solid ${tokens.colors.neutral150}`, padding: 16, borderRadius: 6 }}>
+                  <p style={{ fontSize: 12, fontWeight: 600, color: tokens.colors.success, margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: '0.03em' }}>Qualitative Themes</p>
+                  {['Workflow friction patterns', 'Previous tool failure factors', 'Success criteria definitions', 'Cross-team collaboration challenges', 'AI readiness indicators', 'Change resistance themes'].map((item, i) => (
+                    <p key={i} style={{ fontSize: 13, color: tokens.colors.neutral700, margin: '6px 0', display: 'flex', gap: 8 }}><span style={{ color: tokens.colors.success }}>□</span> {item}</p>
+                  ))}
+                </div>
+              </div>
+            </Card>
+
+            <Card>
+              <Heading>Key Metrics to Track</Heading>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+                {[
+                  { metric: 'Baseline NPS', source: 'Q2.1', target: 'Establish current state' },
+                  { metric: 'Rework Hours/Week', source: 'Q2.5', target: 'Baseline for ROI' },
+                  { metric: 'Design-Code Sync', source: 'Q2.4', target: 'Track improvement' },
+                  { metric: 'Component Discovery', source: 'Q2.3', target: 'Usability baseline' },
+                  { metric: 'AI Readiness', source: 'Q4.6', target: 'Training needs' },
+                  { metric: 'Champion Pool', source: 'Q6.3', target: '8-12 volunteers' },
+                ].map((m, i) => (
+                  <div key={i} style={{ background: tokens.colors.actionLight, border: `1px solid ${tokens.colors.action}30`, padding: 14, borderRadius: 6 }}>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: tokens.colors.neutral800, margin: '0 0 4px' }}>{m.metric}</p>
+                    <p style={{ fontSize: 11, color: tokens.colors.action, margin: '0 0 4px' }}>Source: {m.source}</p>
+                    <p style={{ fontSize: 11, color: tokens.colors.neutral600, margin: 0 }}>{m.target}</p>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            <Card>
+              <Heading>Outputs & Deliverables</Heading>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
+                {[
+                  { title: 'Discovery Report', desc: 'Executive summary of findings, key themes, and strategic recommendations', owner: 'Research Lead' },
+                  { title: 'Persona Pain Points', desc: 'Role-specific friction maps with prioritized opportunities', owner: 'Design Team' },
+                  { title: 'Risk Register', desc: 'Adoption risks identified with mitigation strategies', owner: 'Project Lead' },
+                  { title: 'Training Plan', desc: 'Format preferences and time constraints by persona', owner: 'Enablement' },
+                  { title: 'Pilot Team Roster', desc: 'Champion volunteers with contact info and availability', owner: 'Project Lead' },
+                  { title: 'ROI Inputs', desc: 'Quantified rework hours and quality escalation data', owner: 'Business Analyst' },
+                ].map((d, i) => (
+                  <div key={i} style={{ background: tokens.colors.neutral50, border: `1px solid ${tokens.colors.neutral150}`, borderRadius: 6, padding: 16 }}>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: tokens.colors.neutral800, margin: '0 0 6px' }}>{d.title}</p>
+                    <p style={{ fontSize: 13, color: tokens.colors.neutral600, margin: '0 0 10px', lineHeight: 1.4 }}>{d.desc}</p>
+                    <p style={{ fontSize: 11, color: tokens.colors.success, margin: 0, fontWeight: 500 }}>Owner: {d.owner}</p>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </>
+        )}
+
+        {/* Footer */}
+        <div style={{ textAlign: 'center', padding: '32px 0', color: tokens.colors.neutral500, fontSize: 12, borderTop: `1px solid ${tokens.colors.neutral150}`, marginTop: 24 }}>
+          <p style={{ margin: 0 }}>Waters × Knapsack Discovery Research Kit</p>
+          <p style={{ margin: '4px 0 0' }}>Designed to inform Implementation, Training and Engagement Strategy</p>
+        </div>
+      </main>
+    </div>
+  );
+}
+
