@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waters Flow Design System Discovery Research Kit</title>
+  <style>
+    :root {
+      --primary: #5a32a3;
+      --primary-dark: #3d2270;
+      --primary-light: #f5f2fa;
+      --secondary: #c4314b;
+      --secondary-light: #fdf2f4;
+      --action: #0077b6;
+      --action-light: #e8f4fa;
+      --success: #2a7d5f;
+      --success-light: #eef7f3;
+      --warning: #b06d00;
+      --warning-light: #fef7eb;
+      --neutral-50: #fafafa;
+      --neutral-100: #f5f5f5;
+      --neutral-150: #e5e5e5;
+      --neutral-200: #d4d4d4;
+      --neutral-500: #525252;
+      --neutral-600: #404040;
+      --neutral-700: #333333;
+      --neutral-800: #1f1f1f;
+      --neutral-900: #0a0a0a;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--neutral-50);
+      display: flex;
+      min-height: 100vh;
+      color: var(--neutral-700);
+      line-height: 1.5;
+    }
+    nav {
+      width: 260px;
+      background: white;
+      border-right: 1px solid var(--neutral-150);
+      padding: 24px 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .nav-header {
+      padding: 0 20px 24px;
+      border-bottom: 1px solid var(--neutral-150);
+    }
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .nav-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--neutral-900);
+    }
+    .nav-subtitle {
+      font-size: 13px;
+      color: var(--neutral-600);
+      margin-top: 4px;
+    }
+    .nav-items { padding: 16px 12px; }
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 12px;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--neutral-600);
+      font-size: 13px;
+      font-weight: 400;
+      cursor: pointer;
+      text-align: left;
+      margin-bottom: 2px;
+      transition: background 0.15s;
+    }
+    .nav-btn:hover { background: var(--neutral-100); }
+    .nav-btn:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .nav-btn.active {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .nav-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
+      background: var(--neutral-150);
+      color: var(--neutral-600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .nav-btn.active .nav-num {
+      background: var(--primary);
+      color: white;
+    }
+    .nav-footer {
+      padding: 20px;
+      border-top: 1px solid var(--neutral-150);
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: white;
+    }
+    .nav-footer-label {
+      font-size: 11px;
+      color: var(--neutral-500);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .nav-footer-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--neutral-800);
+    }
+    .nav-footer-date {
+      font-size: 13px;
+      color: var(--neutral-600);
+      margin-top: 2px;
+    }
+    main {
+      flex: 1;
+      padding: 32px 40px;
+      max-width: 880px;
+      margin-left: 260px;
+    }
+    .card {
+      background: white;
+      border: 1px solid var(--neutral-150);
+      border-radius: 8px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--neutral-900);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--neutral-600);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+    .heading {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--neutral-800);
+      margin-bottom: 16px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge-primary { background: var(--primary-light); color: var(--primary); }
+    .badge-action { background: var(--action-light); color: var(--action); }
+    .badge-success { background: var(--success-light); color: var(--success); }
+    .badge-warning { background: var(--warning-light); color: var(--warning); }
+    .badge-secondary { background: var(--secondary-light); color: var(--secondary); }
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 40px;
+      border-radius: 8px;
+      margin-bottom: 28px;
+    }
+    .hero-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.9;
+      margin-bottom: 12px;
+    }
+    .hero h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+    .hero p { font-size: 18px; opacity: 0.95; }
+    .hero .sub { font-size: 14px; opacity: 0.85; margin-top: 16px; }
+    .summary-card {
+      background: var(--primary-light);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 8px 8px 0;
+    }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+    .question-card {
+      background: white;
+      border: 1px solid var(--neutral-150);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .question-header {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .question-num {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+    .question-type {
+      background: var(--neutral-100);
+      color: var(--neutral-600);
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .question-required {
+      background: var(--warning-light);
+      color: var(--warning);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .question-text {
+      font-size: 14px;
+      color: var(--neutral-800);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .question-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .question-option {
+      font-size: 11px;
+      color: var(--neutral-600);
+      background: var(--neutral-50);
+      padding: 5px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--neutral-200);
+    }
+    .question-scale {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--neutral-500);
+      margin-top: 4px;
+    }
+    .question-scale-mid {
+      color: var(--neutral-300);
+    }
+    .question-note {
+      font-size: 11px;
+      color: var(--neutral-500);
+      font-style: italic;
+      margin-top: 10px;
+      padding-left: 20px;
+      position: relative;
+    }
+    .question-note::before {
+      content: "💡";
+      position: absolute;
+      left: 0;
+    }
+    .interview-card {
+      background: white;
+      border: 1px solid var(--neutral-150);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .interview-header {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .interview-num {
+      background: var(--success-light);
+      color: var(--success);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+    .interview-timing {
+      font-size: 10px;
+      color: var(--neutral-500);
+    }
+    .interview-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--neutral-800);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .interview-probes {
+      margin-top: 12px;
+      padding-left: 14px;
+      border-left: 2px solid var(--neutral-200);
+    }
+    .interview-probes-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--neutral-500);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .interview-probe {
+      font-size: 12px;
+      color: var(--neutral-600);
+      padding: 3px 0;
+      line-height: 1.4;
+    }
+    .interview-rationale {
+      margin-top: 12px;
+      background: var(--action-light);
+      padding: 12px;
+      border-radius: 6px;
+    }
+    .interview-rationale-text {
+      font-size: 11px;
+      color: var(--action);
+    }
+    .section-header {
+      border-left: 4px solid var(--primary);
+      padding-left: 16px;
+      margin-bottom: 20px;
+    }
+    .section-header-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--neutral-800);
+    }
+    .section-header-subtitle {
+      font-size: 13px;
+      color: var(--neutral-500);
+      margin-top: 4px;
+    }
+    .objective-card {
+      background: var(--neutral-50);
+      padding: 18px;
+      border-radius: 8px;
+    }
+    .objective-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .objective-item {
+      font-size: 13px;
+      color: var(--neutral-700);
+      padding: 4px 0;
+      display: flex;
+      gap: 8px;
+    }
+    .objective-arrow {
+      color: var(--neutral-400);
+    }
+    .participant-card {
+      background: white;
+      border: 1px solid var(--neutral-150);
+      border-radius: 8px;
+      padding: 18px;
+      border-top: 4px solid var(--primary);
+    }
+    .participant-card.dev { border-top-color: var(--success); }
+    .participant-card.pm { border-top-color: var(--action); }
+    .participant-role {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--neutral-800);
+      margin-bottom: 4px;
+    }
+    .participant-count {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .participant-card.dev .participant-count { color: var(--success); }
+    .participant-card.pm .participant-count { color: var(--action); }
+    .participant-focus {
+      font-size: 12px;
+      color: var(--neutral-600);
+      line-height: 1.4;
+    }
+    .context-card {
+      padding: 18px;
+      border-radius: 8px;
+    }
+    .context-card.fatigue { background: var(--warning-light); }
+    .context-card.workforce { background: var(--success-light); }
+    .context-card.regulated { background: var(--primary-light); }
+    .context-card.acquisition { background: var(--action-light); }
+    .context-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .context-card.fatigue .context-label { color: var(--warning); }
+    .context-card.workforce .context-label { color: var(--success); }
+    .context-card.regulated .context-label { color: var(--primary); }
+    .context-card.acquisition .context-label { color: var(--action); }
+    .context-text {
+      font-size: 13px;
+      color: var(--neutral-700);
+      line-height: 1.5;
+    }
+    .metric-card {
+      background: var(--action-light);
+      padding: 14px;
+      border-radius: 8px;
+    }
+    .metric-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--neutral-800);
+      margin-bottom: 4px;
+    }
+    .metric-source {
+      font-size: 11px;
+      color: var(--action);
+      margin-bottom: 4px;
+    }
+    .metric-target {
+      font-size: 11px;
+      color: var(--neutral-600);
+    }
+    .deliverable-card {
+      background: white;
+      border: 1px solid var(--neutral-150);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .deliverable-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--neutral-800);
+      margin-bottom: 6px;
+    }
+    .deliverable-desc {
+      font-size: 12px;
+      color: var(--neutral-600);
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+    .deliverable-owner {
+      font-size: 11px;
+      color: var(--success);
+    }
+    .analysis-card {
+      background: var(--neutral-50);
+      padding: 18px;
+      border-radius: 8px;
+    }
+    .analysis-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .analysis-label.quant { color: var(--primary); }
+    .analysis-label.qual { color: var(--success); }
+    .analysis-item {
+      font-size: 13px;
+      color: var(--neutral-700);
+      padding: 5px 0;
+      display: flex;
+      gap: 10px;
+    }
+    .analysis-check {
+      color: var(--primary);
+    }
+    .analysis-check.qual {
+      color: var(--success);
+    }
+    .info-banner {
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+    .info-banner.survey {
+      background: var(--primary-light);
+    }
+    .info-banner.interview {
+      background: var(--success-light);
+    }
+    .info-banner-text {
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .info-banner.survey .info-banner-text { color: var(--primary); }
+    .info-banner.interview .info-banner-text { color: var(--success); }
+    @media (max-width: 900px) {
+      nav { display: none; }
+      main { margin-left: 0; padding: 24px; }
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="Section navigation">
+    <div class="nav-header">
+      <div class="nav-label">Discovery Research</div>
+      <div class="nav-title">Flow Design System</div>
+      <div class="nav-subtitle">Requirements & Sentiment Capture</div>
+    </div>
+    <div class="nav-items" id="navItems" role="navigation"></div>
+    <div class="nav-footer">
+      <div class="nav-footer-label">Prepared for</div>
+      <div class="nav-footer-title">Waters Corporation</div>
+      <div class="nav-footer-date">December 2025</div>
+    </div>
+  </nav>
+  <main id="mainContent" role="main"></main>
+  <script>
+    const sections = [
+      { id: 'overview', label: 'Overview' },
+      { id: 'survey-1', label: 'Survey: Role & Context' },
+      { id: 'survey-2', label: 'Survey: Current State' },
+      { id: 'survey-3', label: 'Survey: Workflow' },
+      { id: 'survey-4', label: 'Survey: Tool Experience' },
+      { id: 'survey-5', label: 'Survey: Pain Points' },
+      { id: 'survey-6', label: 'Survey: Training Prefs' },
+      { id: 'interview', label: 'Interview Guide' },
+      { id: 'analysis', label: 'Analysis Framework' },
+    ];
+    let activeSection = 'overview';
+
+    function renderNav() {
+      const nav = document.getElementById('navItems');
+      nav.innerHTML = sections.map((s, i) => `
+        <button class="nav-btn ${activeSection === s.id ? 'active' : ''}" onclick="setSection('${s.id}')" aria-current="${activeSection === s.id ? 'page' : 'false'}">
+          <span class="nav-num" aria-hidden="true">${i + 1}</span>
+          <span>${s.label}</span>
+        </button>
+      `).join('');
+    }
+
+    function setSection(id) {
+      activeSection = id;
+      renderNav();
+      renderContent();
+      window.scrollTo(0, 0);
+    }
+
+    function renderQuestion(q) {
+      return `
+        <div class="question-card">
+          <div class="question-header">
+            <span class="question-num">Q${q.num}</span>
+            ${q.required ? '<span class="question-required">Required</span>' : ''}
+            <span class="question-type">${q.type}</span>
+          </div>
+          <p class="question-text">${q.text}</p>
+          ${q.options ? `<div class="question-options">${q.options.map(o => `<span class="question-option">${o}</span>`).join('')}</div>` : ''}
+          ${q.scale ? `<div class="question-scale"><span>${q.scale[0]}</span><span class="question-scale-mid">1 — 2 — 3 — 4 — 5</span><span>${q.scale[1]}</span></div>` : ''}
+          ${q.note ? `<p class="question-note">${q.note}</p>` : ''}
+        </div>
+      `;
+    }
+
+    function renderInterview(q) {
+      return `
+        <div class="interview-card">
+          <div class="interview-header">
+            <span class="interview-num">${q.num}</span>
+            ${q.timing ? `<span class="interview-timing">~${q.timing}</span>` : ''}
+          </div>
+          <p class="interview-text">${q.text}</p>
+          ${q.probes ? `
+            <div class="interview-probes">
+              <div class="interview-probes-label">Follow-up Probes</div>
+              ${q.probes.map(p => `<div class="interview-probe">• ${p}</div>`).join('')}
+            </div>
+          ` : ''}
+          ${q.rationale ? `
+            <div class="interview-rationale">
+              <p class="interview-rationale-text">🎯 <strong>Why we ask:</strong> ${q.rationale}</p>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    function renderContent() {
+      const main = document.getElementById('mainContent');
+
+      const surveySection1 = [
+        { num: '1.1', text: 'What is your primary role at Waters?', type: 'Single Select', required: true, options: ['Designer', 'Front-End Developer', 'Full-Stack Developer', 'Product Manager', 'Engineering Manager', 'Other (specify)'], note: 'Routes to persona-specific follow-ups' },
+        { num: '1.2', text: 'How long have you been in your current role at Waters?', type: 'Single Select', required: true, options: ['Less than 1 year', '1-3 years', '3-5 years', '5-10 years', '10+ years'], note: 'Segments veterans vs. newer team members for change readiness analysis' },
+        { num: '1.3', text: 'Which product area(s) do you primarily work on?', type: 'Multi Select', options: ['Core Instruments', 'Informatics Platform', 'Acquired Products (Wyatt, TA)', 'New Product Development', 'Internal Tools', 'Multiple / Cross-cutting'] },
+      ];
+
+      const surveySection2 = [
+        { num: '2.1', text: 'Overall, how satisfied are you with the current Flow design system and component library at Waters?', type: '5-Point Scale', required: true, scale: ['Very Dissatisfied', 'Very Satisfied'] },
+        { num: '2.2', text: 'How would you rate the consistency of UI across Waters products?', type: '5-Point Scale', scale: ['Very Inconsistent', 'Very Consistent'] },
+        { num: '2.3', text: 'How easy is it to find and use existing components when building new features?', type: '5-Point Scale', scale: ['Very Difficult', 'Very Easy'] },
+        { num: '2.4', text: 'How well do design files (Figma) match the implemented code (Storybook)?', type: '5-Point Scale', scale: ['Rarely Match', 'Always Match'], note: 'Validates known Figma to Storybook sync problem' },
+        { num: '2.5', text: 'How much time per week do you spend on tasks that feel like reinventing the wheel?', type: 'Single Select', options: ['Less than 1 hour', '1-3 hours', '3-5 hours', '5-10 hours', '10+ hours'], note: 'Quantifies rework burden for ROI calculations' },
+        { num: '2.6', text: 'When was the last time a UI inconsistency or bug triggered a quality escalation (NCR, CAPA, etc.)?', type: 'Single Select', options: ['Never', 'More than 12 months ago', '6-12 months ago', '1-6 months ago', 'Within past month'], note: 'Connects design system gaps to QMS impact' },
+        { num: '2.7', text: 'Describe a recent frustration with the current Flow design system in 1-2 sentences.', type: 'Open Text', note: 'Captures specific pain points in users own words' },
+      ];
+
+      const surveySection3 = [
+        { num: '3.1', text: 'When starting a new feature, where do you go FIRST to find existing patterns or components?', type: 'Ranked Choice', options: ['Figma libraries', 'Storybook', 'Ask a colleague', 'Browse existing products', 'Documentation site', 'Start from scratch'] },
+        { num: '3.2', text: 'How would you describe handoffs between design and development?', type: 'Single Select', options: ['Seamless — clear intent, minimal questions', 'Mostly smooth — occasional clarifications', 'Challenging — frequent misalignment', 'Broken — we rebuild instead of translating'], note: 'Validates handoff confusion hypothesis' },
+        { num: '3.3', text: 'How often do designers and developers review work together before implementation begins?', type: 'Single Select', options: ['Always', 'Usually', 'Sometimes', 'Rarely', 'Never'] },
+        { num: '3.4', text: 'When you need a component that does not exist, what typically happens?', type: 'Multi Select', options: ['I build a custom one-off', 'I request through formal process', 'I adapt something similar', 'I ask the design system team', 'Nothing — I work around it', 'Unsure how to request'] },
+        { num: '3.5', text: 'How do you currently stay updated on Flow design system changes and new components?', type: 'Multi Select', options: ['Slack announcements', 'Email updates', 'Team meetings', 'I check Storybook/Figma periodically', 'Word of mouth', 'I often miss updates'] },
+        { num: '3.6', text: 'If you collaborate with teams from acquired companies (Wyatt, TA Instruments), how challenging is it to align on UI patterns?', type: '5-Point Scale', scale: ['Not Applicable / N/A', 'Very Challenging'], note: 'Probes acquisition integration pain' },
+      ];
+
+      const surveySection4 = [
+        { num: '4.1', text: 'Which tools do you use for Flow design system work? (Select all that apply)', type: 'Multi Select', options: ['Figma', 'Storybook', 'Chromatic', 'GitHub', 'Confluence/Wiki', 'Notion', 'Other (specify)'] },
+        { num: '4.2', text: 'Rate your experience with Storybook for component discovery and usage:', type: '5-Point Scale', scale: ['Frustrating', 'Excellent'] },
+        { num: '4.3', text: 'Rate your experience with Figma component libraries:', type: '5-Point Scale', scale: ['Frustrating', 'Excellent'] },
+        { num: '4.4', text: 'Have you used zeroheight or similar design system documentation tools in the past?', type: 'Single Select', options: ['Yes, at Waters', 'Yes, at a previous company', 'No, never used', 'Not sure'], note: 'Surfaces historical context and potential skepticism' },
+        { num: '4.5', text: 'If you answered Yes at Waters — what worked and what did not? (Optional)', type: 'Open Text', note: 'Critical for understanding early-adopter fatigue' },
+        { num: '4.6', text: 'How prepared do you feel Waters is to leverage AI tools (like Figma Make or code generation) for design-to-code workflows?', type: '5-Point Scale', scale: ['Not At All Prepared', 'Very Prepared'], note: 'Validates AI readiness gap' },
+      ];
+
+      const surveySection5 = [
+        { num: '5.1', text: 'Rank these Flow design system challenges from most to least impactful on your work:', type: 'Ranked Choice', options: ['Finding components that already exist', 'Design-to-code translation accuracy', 'Documentation quality/completeness', 'Keeping up with changes', 'Requesting new components', 'Cross-team/brand consistency'] },
+        { num: '5.2', text: 'What would save you the most time in your day-to-day work?', type: 'Multi Select', options: ['Single source of truth for components', 'Better component search/discovery', 'Clearer contribution process', 'Real-time design-code sync', 'Better documentation', 'Training on existing tools'] },
+        { num: '5.3', text: 'If you could fix ONE thing about the current Flow design system, what would it be?', type: 'Open Text', required: true },
+        { num: '5.4', text: 'How important is it that a design system solution supports Waters multi-brand architecture (core + acquired products)?', type: '5-Point Scale', scale: ['Not Important', 'Critical'] },
+        { num: '5.5', text: 'How much would improved design system tooling reduce your rework time?', type: 'Single Select', options: ['Minimal impact (less than 10%)', 'Moderate impact (10-25%)', 'Significant impact (25-50%)', 'Major impact (50%+)', 'Not sure'], note: 'ROI input for business case' },
+        { num: '5.6', text: 'What concerns, if any, do you have about adopting a new design system platform?', type: 'Open Text', note: 'Surfaces resistance factors for change management planning' },
+      ];
+
+      const surveySection6 = [
+        { num: '6.1', text: 'What learning format works best for you?', type: 'Ranked Choice', options: ['Live workshops', 'Self-paced video tutorials', 'Written documentation', 'Hands-on labs with support', 'Peer mentoring', '1:1 coaching'] },
+        { num: '6.2', text: 'How much time could you realistically dedicate to learning a new design system tool?', type: 'Single Select', options: ['1-2 hours total', '3-5 hours total', 'Half-day workshop', 'Full-day workshop', 'Multi-session program over weeks'] },
+        { num: '6.3', text: 'Would you be interested in being an early adopter or champion for a new design system platform?', type: 'Single Select', options: ['Yes, very interested', 'Maybe, tell me more', 'No, prefer to wait', 'Not sure'], note: 'Identifies pilot team candidates' },
+        { num: '6.4', text: 'Any additional comments or suggestions for improving how Waters approaches design systems?', type: 'Open Text' },
+      ];
+
+      const interviewQuestions = [
+        { section: 'Opening (3 min)', color: 'var(--neutral-600)', questions: [
+          { num: 'Intro', text: 'Thank you for making time for this conversation. We are gathering input to shape how Knapsack will work for Waters — your experience and perspectives will directly influence our implementation approach. There are no right or wrong answers; we want to understand your real day-to-day experience. Everything shared here will be used to improve the platform rollout, not to evaluate individuals. Any questions before we start?', timing: '2 min' },
+          { num: '0', text: 'To start, could you briefly describe your role and what a typical week looks like for you?', timing: '1 min', probes: ['How long have you been in this role?', 'What products or teams do you work with most?'], rationale: 'Establishes baseline and warms up the conversation' },
+        ]},
+        { section: 'Current State Deep Dive (10 min)', color: 'var(--primary)', questions: [
+          { num: '1', text: 'Walk me through what happens when you need to build something new — where do you start, and what is that process like?', timing: '3 min', probes: ['Where do you look first for existing patterns?', 'How do you know if something already exists?', 'What typically slows you down?'], rationale: 'Maps actual workflow to identify friction points; validates component discovery challenges' },
+          { num: '2', text: 'Tell me about a recent time when Flow (or lack of it) made your job harder.', timing: '2 min', probes: ['What was the impact — time, quality, frustration?', 'How did you work around it?', 'Has this happened before?'], rationale: 'Captures concrete pain points in user language for stakeholder communications' },
+          { num: '3', text: 'How would you describe the relationship between what is in Figma and what is in Storybook/code?', timing: '2 min', probes: ['How often do they match?', 'Who is responsible for keeping them in sync?', 'What happens when they drift apart?'], rationale: 'Validates known Figma to Storybook consistency gap; quantifies maintenance burden' },
+          { num: '4', text: 'When you need a component that does not exist yet, what happens?', timing: '2 min', probes: ['Is there a formal request process?', 'How long does it typically take?', 'Do you usually just build your own?'], rationale: 'Surfaces contribution workflow gaps and governance needs' },
+          { num: '5', text: 'Have you ever been part of a quality escalation (NCR, CAPA) related to UI issues?', timing: '1 min', probes: ['What triggered it?', 'How was it resolved?', 'Could it have been prevented with better tooling?'], rationale: 'Connects design system gaps to regulated environment risks; builds ROI case' },
+        ]},
+        { section: 'Collaboration and Cross-Team (6 min)', color: 'var(--success)', questions: [
+          { num: '6', text: 'How do designers and developers work together on your team? What works well, and where does it break down?', timing: '2 min', probes: ['How are handoffs managed?', 'When do misalignments surface — early or late?', 'How do you resolve disagreements about implementation?'], rationale: 'Validates design-dev handoff challenges; informs collaboration feature priorities' },
+          { num: '7', text: 'Do you work with teams from acquired companies (Wyatt, TA Instruments)? If so, how do you handle differences in their UI patterns?', timing: '2 min', probes: ['What is the biggest challenge?', 'Is there a plan to unify?', 'Who decides what patterns to use?'], rationale: 'Probes multi-brand architecture needs; informs acquisition playbook' },
+          { num: '8', text: 'How do stakeholders (PMs, leadership) typically get visibility into what you are building before it ships?', timing: '2 min', probes: ['Do they see live prototypes or static designs?', 'How often do late-stage changes happen?', 'What would help them make faster decisions?'], rationale: 'Validates PM pain points; positions Knapsack prototyping value' },
+        ]},
+        { section: 'Previous Experience and Concerns (5 min)', color: 'var(--warning)', questions: [
+          { num: '9', text: 'Has Waters tried to implement design system tooling before? What was that experience like?', timing: '2 min', probes: ['What worked?', 'What did not?', 'Why do you think it went that way?', 'What would need to be different this time?'], rationale: 'Critical for early-adopter fatigue; directly informs risk mitigation' },
+          { num: '10', text: 'What concerns, if any, do you have about adopting a new platform like Knapsack?', timing: '2 min', probes: ['What would make you skeptical?', 'What would make you excited?', 'What would you need to see to trust it?'], rationale: 'Surfaces change resistance factors; shapes messaging and rollout approach' },
+          { num: '11', text: 'If this implementation goes well, what does success look like to you in 6-12 months?', timing: '1 min', probes: ['What changes in your day-to-day?', 'What problems go away?', 'What new capabilities do you have?'], rationale: 'Captures user-defined success metrics; aligns KPIs with real expectations' },
+        ]},
+        { section: 'Future State and Priorities (4 min)', color: 'var(--action)', questions: [
+          { num: '12', text: 'If you had a magic wand and could fix one thing about how design and development work together at Waters, what would it be?', timing: '1.5 min', probes: ['Why that specifically?', 'What impact would it have?'], rationale: 'Identifies highest-priority opportunities in user framing' },
+          { num: '13', text: 'How important is it that a design system platform can grow with Waters — supporting acquisitions, new products, multiple brands?', timing: '1.5 min', probes: ['Is this a current pain or future concern?', 'Who else cares about this?'], rationale: 'Validates multi-brand architecture as differentiator' },
+          { num: '14', text: 'Waters is exploring AI-assisted workflows like Figma Make. How do you think AI could help — or hurt — Flow design system work?', timing: '1 min', probes: ['What excites you?', 'What worries you?', 'What would need to be true for AI tools to work well?'], rationale: 'Gauges AI readiness; informs Figma Make integration positioning' },
+        ]},
+        { section: 'Closing (2 min)', color: 'var(--success)', questions: [
+          { num: '15', text: 'Is there anything we did not cover that you think we should know?', timing: '1 min' },
+          { num: 'Close', text: 'Thank you so much — this was incredibly helpful. One last question: would you be interested in being an early adopter or champion as we roll out Knapsack? We will be looking for a pilot group to give feedback and help shape the experience for others.', timing: '1 min', rationale: 'Identifies champion candidates for pilot team' },
+        ]},
+      ];
+
+      const content = {
+        overview: `
+          <div class="hero">
+            <div class="hero-label">Waters × Knapsack Discovery</div>
+            <h1>Flow Design System Research Kit</h1>
+            <p>UX Research Instruments for Requirements Capture & Sentiment Validation</p>
+            <p class="sub">Informing Implementation, Training, and Engagement Strategy</p>
+          </div>
+          <div class="card summary-card">
+            <h3 style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 8px;">Research Purpose</h3>
+            <p style="font-size: 16px; color: var(--neutral-700); line-height: 1.7;">Capture the as-is state of Waters Flow design system experience, validate known pain points, discover hidden requirements, and gather inputs to shape the Knapsack implementation approach tailored to Waters unique organizational context.</p>
+          </div>
+          <div class="card">
+            <h2 class="heading">Research Objectives</h2>
+            <div class="grid-2">
+              ${[
+                { label: 'Validate Known Pain Points', items: ['Figma to Storybook inconsistency', '1997 webmaster tasks burden', 'No collaborative front door', 'Acquisition integration gaps'] },
+                { label: 'Discover Hidden Requirements', items: ['Workflow-specific friction', 'Team capability variations', 'Documentation gaps', 'Governance needs'] },
+                { label: 'Measure Sentiment and Readiness', items: ['Current satisfaction levels', 'Change appetite by persona', 'Previous tool experience', 'Training preferences'] },
+                { label: 'Inform Strategy Decisions', items: ['Pilot team selection', 'Rollout sequencing', 'Training prioritization', 'Quick win identification'] },
+              ].map(obj => `
+                <div class="objective-card">
+                  <div class="objective-label">${obj.label}</div>
+                  ${obj.items.map(i => `<div class="objective-item"><span class="objective-arrow">→</span> ${i}</div>`).join('')}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Target Participants</h2>
+            <div class="grid-3">
+              <div class="participant-card">
+                <div class="participant-role">Designers</div>
+                <div class="participant-count">Target: 8-12 participants</div>
+                <div class="participant-focus">Figma workflows, handoff experience, component discovery</div>
+              </div>
+              <div class="participant-card dev">
+                <div class="participant-role">Developers</div>
+                <div class="participant-count">Target: 10-15 participants</div>
+                <div class="participant-focus">Storybook usage, component implementation, code-design sync</div>
+              </div>
+              <div class="participant-card pm">
+                <div class="participant-role">Product Managers</div>
+                <div class="participant-count">Target: 5-8 participants</div>
+                <div class="participant-focus">Spec creation, stakeholder alignment, decision velocity</div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Waters-Specific Context</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 20px;">Findings that shaped these research instruments</p>
+            <div class="grid-2">
+              <div class="context-card fatigue">
+                <div class="context-label">Early-Adopter Fatigue</div>
+                <p class="context-text">Previous zeroheight implementation failed. Research must surface residual concerns and skepticism while avoiding defensive positioning.</p>
+              </div>
+              <div class="context-card workforce">
+                <div class="context-label">Mixed Workforce</div>
+                <p class="context-text">20+ year veterans alongside change agents. Research segments responses to understand adoption readiness across cohorts.</p>
+              </div>
+              <div class="context-card regulated">
+                <div class="context-label">Regulated Environment</div>
+                <p class="context-text">QMS requirements mean small UI defects trigger expensive escalations. Questions probe quality impact and compliance concerns.</p>
+              </div>
+              <div class="context-card acquisition">
+                <div class="context-label">Acquisition Complexity</div>
+                <p class="context-text">2 acquired orgs not yet integrated. Research explores cross-team collaboration and brand architecture needs.</p>
+              </div>
+            </div>
+          </div>
+        `,
+        'survey-1': `
+          <h1 class="section-title">Survey Section 1</h1>
+          <p class="section-subtitle">Role and Context — Segmentation and baseline</p>
+          <div class="info-banner survey">
+            <p class="info-banner-text">⏱ Estimated completion: 15-18 minutes total | 32 questions across 6 sections</p>
+          </div>
+          <div class="section-header" style="border-left-color: var(--neutral-600);">
+            <div class="section-header-title">Section 1: Role and Context</div>
+            <div class="section-header-subtitle">3 questions — Segmentation and baseline</div>
+          </div>
+          ${surveySection1.map(q => renderQuestion(q)).join('')}
+        `,
+        'survey-2': `
+          <h1 class="section-title">Survey Section 2</h1>
+          <p class="section-subtitle">Current State Satisfaction — Sentiment benchmarking</p>
+          <div class="section-header" style="border-left-color: var(--primary);">
+            <div class="section-header-title">Section 2: Current State Satisfaction</div>
+            <div class="section-header-subtitle">7 questions — Sentiment benchmarking</div>
+          </div>
+          ${surveySection2.map(q => renderQuestion(q)).join('')}
+        `,
+        'survey-3': `
+          <h1 class="section-title">Survey Section 3</h1>
+          <p class="section-subtitle">Workflow and Collaboration — Process mapping</p>
+          <div class="section-header" style="border-left-color: var(--success);">
+            <div class="section-header-title">Section 3: Workflow and Collaboration</div>
+            <div class="section-header-subtitle">6 questions — Process mapping</div>
+          </div>
+          ${surveySection3.map(q => renderQuestion(q)).join('')}
+        `,
+        'survey-4': `
+          <h1 class="section-title">Survey Section 4</h1>
+          <p class="section-subtitle">Tool Experience — Technical landscape</p>
+          <div class="section-header" style="border-left-color: var(--action);">
+            <div class="section-header-title">Section 4: Tool Experience</div>
+            <div class="section-header-subtitle">6 questions — Technical landscape</div>
+          </div>
+          ${surveySection4.map(q => renderQuestion(q)).join('')}
+        `,
+        'survey-5': `
+          <h1 class="section-title">Survey Section 5</h1>
+          <p class="section-subtitle">Pain Points and Priorities — Requirements discovery</p>
+          <div class="section-header" style="border-left-color: var(--warning);">
+            <div class="section-header-title">Section 5: Pain Points and Priorities</div>
+            <div class="section-header-subtitle">6 questions — Requirements discovery</div>
+          </div>
+          ${surveySection5.map(q => renderQuestion(q)).join('')}
+        `,
+        'survey-6': `
+          <h1 class="section-title">Survey Section 6</h1>
+          <p class="section-subtitle">Training and Support Preferences — Engagement strategy inputs</p>
+          <div class="section-header" style="border-left-color: var(--success);">
+            <div class="section-header-title">Section 6: Training and Support Preferences</div>
+            <div class="section-header-subtitle">4 questions — Engagement strategy inputs</div>
+          </div>
+          ${surveySection6.map(q => renderQuestion(q)).join('')}
+        `,
+        'interview': `
+          <h1 class="section-title">Interview Guide</h1>
+          <p class="section-subtitle">30-minute session for sponsor users and key stakeholders</p>
+          <div class="info-banner interview">
+            <p class="info-banner-text">⏱ 30-minute session | Semi-structured with probing questions | For sponsor users and champions</p>
+          </div>
+          ${interviewQuestions.map(section => `
+            <div class="card">
+              <div class="section-header" style="border-left-color: ${section.color};">
+                <div class="section-header-title">${section.section}</div>
+              </div>
+              ${section.questions.map(q => renderInterview(q)).join('')}
+            </div>
+          `).join('')}
+        `,
+        'analysis': `
+          <h1 class="section-title">Analysis Framework</h1>
+          <p class="section-subtitle">How to synthesize findings into actionable insights</p>
+          <div class="card">
+            <h2 class="heading">Analysis Approach</h2>
+            <div class="grid-2">
+              <div class="analysis-card">
+                <div class="analysis-label quant">Quantitative Analysis</div>
+                ${['Satisfaction scores by persona/tenure', 'Time-to-rework correlation', 'Tool preference rankings', 'Training format preferences', 'Champion identification count', 'Pain point frequency analysis'].map(i => `<div class="analysis-item"><span class="analysis-check">□</span> ${i}</div>`).join('')}
+              </div>
+              <div class="analysis-card">
+                <div class="analysis-label qual">Qualitative Themes</div>
+                ${['Workflow friction patterns', 'Previous tool failure factors', 'Success criteria definitions', 'Cross-team collaboration challenges', 'AI readiness indicators', 'Change resistance themes'].map(i => `<div class="analysis-item"><span class="analysis-check qual">□</span> ${i}</div>`).join('')}
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Key Metrics to Track</h2>
+            <div class="grid-3">
+              ${[
+                { metric: 'Baseline NPS', source: 'Q2.1', target: 'Establish current state' },
+                { metric: 'Rework Hours/Week', source: 'Q2.5', target: 'Baseline for ROI' },
+                { metric: 'Design-Code Sync Score', source: 'Q2.4', target: 'Track improvement' },
+                { metric: 'Component Discovery Ease', source: 'Q2.3', target: 'Usability baseline' },
+                { metric: 'AI Readiness Score', source: 'Q4.6', target: 'Training needs' },
+                { metric: 'Champion Pool', source: 'Q6.3', target: '8-12 volunteers' },
+              ].map(m => `
+                <div class="metric-card">
+                  <div class="metric-title">${m.metric}</div>
+                  <div class="metric-source">Source: ${m.source}</div>
+                  <div class="metric-target">${m.target}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Outputs and Deliverables</h2>
+            <div class="grid-3">
+              ${[
+                { title: 'Discovery Report', desc: 'Executive summary of findings, key themes, and strategic recommendations', owner: 'Research Lead' },
+                { title: 'Persona Pain Points', desc: 'Role-specific friction maps with prioritized opportunities', owner: 'Design Team' },
+                { title: 'Risk Register', desc: 'Adoption risks identified with mitigation strategies', owner: 'Project Lead' },
+                { title: 'Training Plan', desc: 'Format preferences and time constraints by persona', owner: 'Enablement' },
+                { title: 'Pilot Team Roster', desc: 'Champion volunteers with contact info and availability', owner: 'Project Lead' },
+                { title: 'ROI Inputs', desc: 'Quantified rework hours and quality escalation data', owner: 'Business Analyst' },
+              ].map(d => `
+                <div class="deliverable-card">
+                  <div class="deliverable-title">${d.title}</div>
+                  <div class="deliverable-desc">${d.desc}</div>
+                  <div class="deliverable-owner">Owner: ${d.owner}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `,
+      };
+
+      main.innerHTML = content[activeSection] || content.overview;
+    }
+
+    renderNav();
+    renderContent();
+  </script>
+</body>
+</html>
