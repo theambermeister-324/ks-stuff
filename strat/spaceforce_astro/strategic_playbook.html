@@ -103,6 +103,11 @@
     .evidence-title { font-size: 13px; font-weight: 700; color: var(--success); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
     .phase-card { border-radius: 8px; padding: 16px; border-left: 4px solid; }
     .audience-card { padding: 16px; border-radius: 8px; border: 2px solid; }
+    .case-study { background: white; border: 2px solid var(--neutral-150); border-radius: 8px; padding: 20px; }
+    .case-study-logo { font-size: 14px; font-weight: 700; color: var(--space); margin-bottom: 8px; }
+    .case-study-challenge { font-size: 12px; color: var(--neutral-600); margin-bottom: 12px; }
+    .case-study-results { display: flex; flex-direction: column; gap: 6px; }
+    .case-study-metric { font-size: 12px; color: var(--success); font-weight: 600; }
     @media (max-width: 1000px) { .grid-4 { grid-template-columns: 1fr 1fr; } .stat-banner { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 900px) { nav { display: none; } main { margin-left: 0; padding: 20px; } .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } .stat-banner { grid-template-columns: 1fr; } }
   </style>
@@ -112,7 +117,7 @@
     <div class="nav-header">
       <div class="nav-logo">U.S. Space Force</div>
       <div class="nav-title">Design System Strategic Playbook</div>
-      <div class="nav-subtitle">Knapsack Partnership | v3.0</div>
+      <div class="nav-subtitle">Knapsack Partnership | v4.0</div>
     </div>
     <div class="nav-section-label">Executive Overview</div>
     <div class="nav-items" id="navItems1"></div>
@@ -131,7 +136,7 @@
   <main id="mainContent"></main>
   <script>
     const sectionGroups = [
-      [{ id: 'exec-summary', label: 'Executive Summary' }, { id: 'land-expand', label: 'Land & Expand Strategy' }],
+      [{ id: 'exec-summary', label: 'Executive Summary' }, { id: 'land-expand', label: 'Land & Expand Strategy' }, { id: 'case-studies', label: 'Enterprise Proof Points' }],
       [{ id: 'roadshow-overview', label: 'Roadshow Program' }, { id: 'roadshow-prepare', label: 'Package & Prepare' }, { id: 'roadshow-engage', label: 'Engage & Validate' }, { id: 'roadshow-synthestic', label: 'Synthesize & Plan' }],
       [{ id: 'technical', label: 'Technical Approach' }, { id: 'management', label: 'Management & Governance' }, { id: 'risk', label: 'Risk Management' }],
       [{ id: 'cost', label: 'Cost & ROI' }, { id: 'security', label: 'Security & Compliance' }, { id: 'next-steps', label: 'Execute Forward' }]
@@ -163,10 +168,10 @@
       const content = {
         'exec-summary': `
           <div class="hero">
-            <div class="hero-label">Strategic Playbook v3.0</div>
+            <div class="hero-label">Strategic Playbook v4.0</div>
             <h1>Space Is Hard.<br/>Make the Rest Easier.</h1>
             <p>Unified design system platform enabling mission-ready digital products at the speed of innovation</p>
-            <div class="sub">Phase 1: Roadshow Pilot Program | 90 Days to Enterprise Expansion</div>
+            
           </div>
 
           <div class="callout">
@@ -186,14 +191,26 @@
               <div class="stat-sub">Factories Engaged</div>
             </div>
             <div class="stat-item">
-              <div class="stat-label">Program Duration</div>
-              <div class="stat-value">90</div>
+              <div class="stat-label">Time to Results</div>
+              <div class="stat-value">60</div>
               <div class="stat-sub">Days</div>
             </div>
             <div class="stat-item">
-              <div class="stat-label">Expansion Goal</div>
-              <div class="stat-value">2+</div>
-              <div class="stat-sub">Commitments</div>
+              <div class="stat-label">Year 1 Investment</div>
+              <div class="stat-value">$595K</div>
+              <div class="stat-sub">Total</div>
+            </div>
+          </div>
+
+          <div class="card" style="background: var(--warning-light); border: 2px solid var(--warning); margin-bottom: 20px;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--warning); margin-bottom: 10px;">USSF Priority Pain Points Addressed</div>
+            <div class="grid-2">
+              ${[
+                { title: 'Meeting Project Deadlines', desc: 'Accelerate delivery with pre-built, production-ready components' },
+                { title: 'Design-Development Collaboration', desc: 'Bridge the gap with unified Figma-to-code workflows' },
+                { title: 'Reducing Confusion & Errors', desc: 'Single source of truth eliminates version conflicts' },
+                { title: 'Manual Process Elimination', desc: 'Replace ad-hoc work with reusable, governed components' },
+              ].map(v => `<div style="padding: 10px; background: white; border-radius: 6px;"><div style="font-size: 12px; font-weight: 600; color: var(--neutral-800); margin-bottom: 2px;">${v.title}</div><div style="font-size: 11px; color: var(--neutral-600);">${v.desc}</div></div>`).join('')}
             </div>
           </div>
 
@@ -206,7 +223,7 @@
                 { title: 'Accelerated Prototyping', desc: 'Reduces concept-to-production time by 40-60% through reusable, governed components' },
                 { title: 'AI-Ready Foundation', desc: 'Intelligent Product Engine prepared for generative AI and agentic workflows' },
                 { title: 'Sustainable Knowledge Transfer', desc: 'Super Coders program reduces dependency on transient contractors' },
-                { title: 'Roadshow-Validated Expansion', desc: 'Land and expand strategy proven through stakeholder engagement' },
+                { title: 'Tangible Results in 60 Days', desc: 'Proven deployment methodology delivers measurable outcomes fast' },
               ].map(v => `<div class="value-item"><div class="value-marker"></div><div><div class="value-title">${v.title}</div><div class="value-desc">${v.desc}</div></div></div>`).join('')}
             </div>
           </div>
@@ -245,7 +262,7 @@
 
           <div class="callout">
             <div class="callout-label">Strategic Approach</div>
-            <div class="callout-text">Astro landed. Phase 1 roadshow validates expansion. Committed factories join Phase 2 deployment.</div>
+            <div class="callout-text">Astro landed. Phase 1 roadshow validates expansion. Committed factories join Phase 2 deployment. Tangible results in 60 days.</div>
           </div>
 
           <div class="card">
@@ -292,13 +309,89 @@
           </div>
         `,
 
+        'case-studies': `
+          <h1 class="section-title">Enterprise Proof Points</h1>
+          <p class="section-subtitle">Validated results from Fortune 500 organizations demonstrating platform impact</p>
+
+          <div class="callout">
+            <div class="callout-label">Why This Matters for USSF</div>
+            <div class="callout-text">These organizations faced the same challenges USSF faces today—fragmented tools, manual processes, and the need to scale design consistency. Their results validate Knapsack's approach.</div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Enterprise Case Studies</h2>
+            <div class="grid-3" style="margin-bottom: 20px;">
+              <div class="case-study">
+                <div class="case-study-logo">🏠 Home Depot</div>
+                <div class="case-study-challenge"><strong>Challenge:</strong> Rigid system with fragmented tools blocking innovation</div>
+                <div class="case-study-results">
+                  <div class="case-study-metric">✓ 50% efficiency gain</div>
+                  <div class="case-study-metric">✓ $1M+ annual savings</div>
+                  <div class="case-study-metric">✓ 2,500+ active users</div>
+                </div>
+              </div>
+              <div class="case-study">
+                <div class="case-study-logo">🎨 Sherwin-Williams</div>
+                <div class="case-study-challenge"><strong>Challenge:</strong> Budget constraints, no in-house design system expertise</div>
+                <div class="case-study-results">
+                  <div class="case-study-metric">✓ 90-day deployment</div>
+                  <div class="case-study-metric">✓ $1M+ savings</div>
+                  <div class="case-study-metric">✓ 5x roadmap acceleration</div>
+                </div>
+              </div>
+              <div class="case-study">
+                <div class="case-study-logo">💊 GSK</div>
+                <div class="case-study-challenge"><strong>Challenge:</strong> Fractured tools, 120+ websites with no consistency</div>
+                <div class="case-study-results">
+                  <div class="case-study-metric">✓ 60-day migration</div>
+                  <div class="case-study-metric">✓ 30% QA reduction</div>
+                  <div class="case-study-metric">✓ $10M+ annual savings</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card evidence-box">
+            <div class="evidence-title">Common Success Patterns</div>
+            <div class="grid-2">
+              ${[
+                { pattern: 'Rapid Time-to-Value', detail: '60-90 day deployment cycles consistently achieved across all enterprise customers' },
+                { pattern: 'Measurable ROI', detail: '$1M+ annual savings typical within first year of adoption' },
+                { pattern: 'Scale Without Complexity', detail: 'Thousands of users supported without proportional increase in overhead' },
+                { pattern: 'Cross-Team Adoption', detail: 'Designers, developers, and leadership all find value in the platform' },
+              ].map(p => `<div style="padding: 12px; background: white; border: 1px solid #a7f3d0; border-radius: 6px;"><div style="font-size: 13px; font-weight: 600; color: var(--success); margin-bottom: 4px;">${p.pattern}</div><div style="font-size: 12px; color: var(--neutral-600);">${p.detail}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Roadshow Proof Point Integration</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">Each case study maps to USSF pain points and roadshow messaging:</p>
+            <table class="risk-table">
+              <thead>
+                <tr><th>USSF Pain Point</th><th>Enterprise Parallel</th><th>Proven Result</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Meeting project deadlines</td><td>GSK: 120+ sites to manage</td><td>60-day migration timeline</td></tr>
+                <tr><td>Design-dev collaboration gaps</td><td>Home Depot: fragmented tools</td><td>50% efficiency improvement</td></tr>
+                <tr><td>Manual process burden</td><td>Sherwin-Williams: no expertise</td><td>5x roadmap acceleration</td></tr>
+                <tr><td>Inconsistent user experience</td><td>All: multi-brand, multi-team</td><td>Single source of truth</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card" style="background: linear-gradient(135deg, #0f1f33 0%, #1e3a5f 100%); color: white; border: none;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--space-accent); margin-bottom: 12px;">Key Takeaway</div>
+            <p style="font-size: 16px; line-height: 1.7;">These enterprise results aren't aspirational—they're <strong>documented outcomes</strong> from organizations with similar complexity to USSF. The roadshow leverages these proof points to build confidence.</p>
+          </div>
+        `,
+
         'roadshow-overview': `
           <h1 class="section-title">Phase 1: Roadshow Pilot Program</h1>
           <p class="section-subtitle">90-day program to validate expansion strategy through stakeholder engagement</p>
 
           <div class="callout">
             <div class="callout-label">Program Objective</div>
-            <div class="callout-text">Transform proven Astro results into a repeatable engagement that generates stakeholder commitment and validates the land-and-expand strategy for enterprise deployment.</div>
+            <div class="callout-text">Transform proven Astro results into a repeatable engagement that generates stakeholder commitment and validates the land-and-expand strategy for enterprise deployment. Tangible results in 60 days.</div>
           </div>
 
           <div class="stat-banner" style="margin-bottom: 24px;">
@@ -494,11 +587,11 @@
             <div class="grid-2">
               <div style="padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px;">
                 <div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 12px;">Presentation Materials</div>
-                ${['Executive Presentation Deck (45 min)', 'Technical Deep-Dive Deck (90 min)', 'Workflow Benefits Analysis by Persona', 'ROI Calculator / Cost Avoidance Model', 'Astro Case Study (narrative + metrics)'].map(i => `<div style="font-size: 12px; color: var(--neutral-600); padding: 6px 0; border-bottom: 1px solid var(--neutral-150); display: flex; align-items: center; gap: 8px;"><span style="color: var(--space);">☐</span>${i}</div>`).join('')}
+                ${['Executive Presentation Deck (45 min)', 'Technical Deep-Dive Deck (90 min)', 'Workflow Benefits Analysis by Persona', 'ROI Calculator / Cost Avoidance Model', 'Astro Case Study (narrative + metrics)', 'Enterprise Case Studies (HD, SW, GSK)'].map(i => `<div style="font-size: 12px; color: var(--neutral-600); padding: 6px 0; border-bottom: 1px solid var(--neutral-150); display: flex; align-items: center; gap: 8px;"><span style="color: var(--space);">☐</span>${i}</div>`).join('')}
               </div>
               <div style="padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px;">
                 <div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 12px;">Demo & Leave-Behind</div>
-                ${['Live Demo Environment (secure access)', 'Component Library Walkthrough Script', 'Figma Integration Demo', 'IPE / AI Capabilities Preview', 'One-Pager + FAQ Document'].map(i => `<div style="font-size: 12px; color: var(--neutral-600); padding: 6px 0; border-bottom: 1px solid var(--neutral-150); display: flex; align-items: center; gap: 8px;"><span style="color: var(--space);">☐</span>${i}</div>`).join('')}
+                ${['Live Demo Environment (secure access)', 'Component Library Walkthrough Script', 'Figma Integration Demo', 'IPE / AI Capabilities Preview', 'One-Pager + FAQ Document', 'Year 1 Investment Summary ($595K)'].map(i => `<div style="font-size: 12px; color: var(--neutral-600); padding: 6px 0; border-bottom: 1px solid var(--neutral-150); display: flex; align-items: center; gap: 8px;"><span style="color: var(--space);">☐</span>${i}</div>`).join('')}
               </div>
             </div>
           </div>
@@ -542,9 +635,10 @@
                 <div style="font-size: 12px; color: var(--neutral-600); margin-bottom: 12px;"><strong>Audience:</strong> Factory leadership, program managers</div>
                 <div style="font-size: 12px; color: var(--neutral-700);">
                   • Astro success story (10 min)<br>
-                  • Strategic value proposition (15 min)<br>
+                  • Enterprise case studies (10 min)<br>
+                  • Strategic value proposition (10 min)<br>
                   • ROI and timeline overview (10 min)<br>
-                  • Q&A + next steps (10 min)
+                  • Q&A + next steps (5 min)
                 </div>
               </div>
               <div style="padding: 20px; background: var(--space-light); border-radius: 8px;">
@@ -604,7 +698,7 @@
                 <div style="font-size: 14px; font-weight: 700; color: #dc2626; margin-bottom: 8px;">Leadership</div>
                 <div style="font-size: 12px; color: var(--neutral-700); margin-bottom: 12px; font-style: italic;">"Accelerate delivery at the speed of mission"</div>
                 <div style="font-size: 11px; color: var(--neutral-600);">
-                  • 40-60% faster to production<br>
+                  • Results in 60 days<br>
                   • Reduced contractor dependency<br>
                   • Consistent UX across apps<br>
                   • AI-ready foundation
@@ -719,7 +813,7 @@
             <div class="pillar-title">Design System Governance & Infrastructure</div>
             <div class="pillar-desc">Single source of truth connecting design (Figma), code (React/Git), and documentation. Components are production-ready, synchronized, and structured for both human and AI consumption.</div>
             <div class="tag-grid">
-              ${['Design token management', 'Component versioning', 'Figma-to-code sync', 'Multi-framework support', 'Automated documentation'].map(t => `<span class="tag">${t}</span>`).join('')}
+              ${['Design token management', 'Component versioning', 'Figma-to-code sync', 'Multi-framework support', 'Automated documentation', 'Workshop + Storefront'].map(t => `<span class="tag">${t}</span>`).join('')}
             </div>
           </div>
 
@@ -737,7 +831,7 @@
             <div class="pillar-title">Enterprise Security & Compliance</div>
             <div class="pillar-desc">Government-grade security with SOC2 Type II certification. FedRAMP pathway defined. Zero trust architecture principles embedded throughout. Critical for DoD stakeholder confidence.</div>
             <div class="tag-grid">
-              ${['SOC2 Type II certified', 'FedRAMP pathway', 'SAML/OIDC SSO', 'Role-based access', 'Audit logging'].map(t => `<span class="tag">${t}</span>`).join('')}
+              ${['SOC2 Type II certified', 'FedRAMP pathway', 'AWS GovCloud connector', 'SAML/OIDC SSO', 'Role-based access', 'Audit logging'].map(t => `<span class="tag">${t}</span>`).join('')}
             </div>
           </div>
 
@@ -751,7 +845,7 @@
           </div>
 
           <div class="card">
-            <h2 class="heading">Technology Stack (Demo Environment)</h2>
+            <h2 class="heading">Platform Capabilities (Demo Environment)</h2>
             <div class="grid-3">
               ${[
                 { layer: 'Design Layer', tech: 'Figma, Tokens Studio', desc: 'Live in roadshow demo' },
@@ -759,8 +853,21 @@
                 { layer: 'Code Layer', tech: 'React, Git, CI/CD', desc: 'Production components' },
                 { layer: 'AI Layer', tech: 'MCP, Control Plane', desc: 'IPE preview demo' },
                 { layer: 'Integration Layer', tech: 'REST API, Webhooks', desc: 'Enterprise connectivity' },
-                { layer: 'Analytics Layer', tech: 'Usage Dashboard', desc: 'Adoption metrics' },
+                { layer: 'Analytics Layer', tech: 'Workspace Analytics', desc: 'Adoption metrics' },
               ].map(t => `<div style="padding: 14px; background: var(--space-light); border-radius: 6px;"><div style="font-size: 12px; font-weight: 700; color: var(--space); margin-bottom: 4px;">${t.layer}</div><div style="font-size: 11px; font-weight: 600; color: var(--neutral-800); margin-bottom: 2px;">${t.tech}</div><div style="font-size: 10px; color: var(--neutral-600);">${t.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Systems of Systems Capabilities</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">Enterprise features enabling multi-factory deployment:</p>
+            <div class="grid-2">
+              ${[
+                { title: 'Multi-Brand Support', desc: 'Manage distinct visual identities across Space Force, Air Force, and mission-specific systems from one platform' },
+                { title: 'White-Labeling', desc: 'Customize platform appearance for each factory while maintaining centralized governance' },
+                { title: 'Inheritance Model', desc: 'Core components inherit from base system; local extensions preserved across updates' },
+                { title: 'AWS GovCloud Connector', desc: 'Custom Git connector for GovCloud environments—secure, compliant integration' },
+              ].map(f => `<div style="padding: 14px; background: var(--success-light); border: 1px solid #a7f3d0; border-radius: 6px;"><div style="font-size: 13px; font-weight: 600; color: var(--success); margin-bottom: 4px;">${f.title}</div><div style="font-size: 12px; color: var(--neutral-600);">${f.desc}</div></div>`).join('')}
             </div>
           </div>
         `,
@@ -841,7 +948,7 @@
                 <tr><td><strong>Low Attendance</strong></td><td style="color: var(--warning); font-weight: 600;">M</td><td style="color: var(--warning); font-weight: 600;">M</td><td>Pre-schedule with leadership sponsors, offer multiple session times, provide compelling pre-read materials</td></tr>
                 <tr><td><strong>Technical Skepticism</strong></td><td style="color: var(--warning); font-weight: 600;">M</td><td style="color: var(--danger); font-weight: 600;">H</td><td>Lead with live demo over slides, bring technical architect, offer hands-on exploration time</td></tr>
                 <tr><td><strong>"Not Invented Here"</strong></td><td style="color: var(--warning); font-weight: 600;">M</td><td style="color: var(--warning); font-weight: 600;">M</td><td>Emphasize federated model (local empowerment), highlight customization, position as enabler not mandate</td></tr>
-                <tr><td><strong>Budget Concerns</strong></td><td style="color: var(--success); font-weight: 600;">L</td><td style="color: var(--danger); font-weight: 600;">H</td><td>Prepare detailed ROI analysis, show Astro cost avoidance data, offer phased adoption options</td></tr>
+                <tr><td><strong>Budget Concerns</strong></td><td style="color: var(--success); font-weight: 600;">L</td><td style="color: var(--danger); font-weight: 600;">H</td><td>Prepare detailed ROI analysis, show enterprise case study savings, offer Year 1 investment breakdown ($595K)</td></tr>
                 <tr><td><strong>Competing Initiatives</strong></td><td style="color: var(--warning); font-weight: 600;">M</td><td style="color: var(--warning); font-weight: 600;">M</td><td>Research factory priorities before visit, position as accelerant to existing goals</td></tr>
                 <tr><td><strong>Champion Turnover</strong></td><td style="color: var(--success); font-weight: 600;">L</td><td style="color: var(--warning); font-weight: 600;">M</td><td>Identify multiple stakeholders per factory, document relationships, maintain regular touchpoints</td></tr>
                 <tr><td><strong>Demo Environment Failure</strong></td><td style="color: var(--success); font-weight: 600;">L</td><td style="color: var(--danger); font-weight: 600;">H</td><td>Test thoroughly before each event, have offline backup, prepare recorded demo as fallback</td></tr>
@@ -856,8 +963,8 @@
               ${[
                 { objection: '"We already have a component library"', response: 'Knapsack provides governance, versioning, and AI integration that custom libraries lack. Complements existing work.' },
                 { objection: '"Our tech stack is different"', response: 'Multi-framework support (React, Vue, Angular, Web Components). Design tokens work across any stack.' },
-                { objection: '"We don\'t have budget"', response: 'ROI typically 12-18 months. Cost avoidance often exceeds licensing. Phased options available.' },
-                { objection: '"Our team is too busy"', response: 'Knapsack handles heavy lifting. Super Coders program builds capability. Reduces long-term workload.' },
+                { objection: '"We don\'t have budget"', response: 'Year 1 investment is $595K. Enterprise customers typically see $1M+ savings within first year. Phased options available.' },
+                { objection: '"Our team is too busy"', response: 'Tangible results in 60 days. Super Coders program builds capability. Reduces long-term workload.' },
               ].map(o => `<div style="padding: 14px; background: var(--warning-light); border: 1px solid #fde68a; border-radius: 6px;"><div style="font-size: 12px; font-weight: 600; color: var(--neutral-800); margin-bottom: 6px;">${o.objection}</div><div style="font-size: 12px; color: var(--neutral-600);"><strong>Response:</strong> ${o.response}</div></div>`).join('')}
             </div>
           </div>
@@ -868,12 +975,61 @@
           <p class="section-subtitle">Investment requirements and projected returns supporting roadshow business case</p>
 
           <div class="card evidence-box">
-            <div class="evidence-title">Investment Summary (24-Month Period)</div>
+            <div class="evidence-title">Year 1 Investment Summary</div>
             <div class="grid-4">
-              <div style="text-align: center;"><div style="font-size: 24px; font-weight: 800; color: var(--space);">$1.2M</div><div style="font-size: 10px; color: var(--neutral-600);">Platform Licensing</div></div>
-              <div style="text-align: center;"><div style="font-size: 24px; font-weight: 800; color: var(--space);">$800K</div><div style="font-size: 10px; color: var(--neutral-600);">Implementation</div></div>
-              <div style="text-align: center;"><div style="font-size: 24px; font-weight: 800; color: var(--space);">$400K</div><div style="font-size: 10px; color: var(--neutral-600);">Training</div></div>
-              <div style="text-align: center;"><div style="font-size: 24px; font-weight: 800; color: var(--success);">$2.4M</div><div style="font-size: 10px; color: var(--neutral-600);">Total</div></div>
+              <div style="text-align: center;"><div style="font-size: 24px; font-weight: 800; color: var(--space);">$225K</div><div style="font-size: 10px; color: var(--neutral-600);">Platform Fees</div></div>
+              <div style="text-align: center;"><div style="font-size: 24px; font-weight: 800; color: var(--space);">$105K</div><div style="font-size: 10px; color: var(--neutral-600);">AWS GovCloud Connector</div></div>
+              <div style="text-align: center;"><div style="font-size: 24px; font-weight: 800; color: var(--space);">$165K</div><div style="font-size: 10px; color: var(--neutral-600);">Support Services</div></div>
+              <div style="text-align: center;"><div style="font-size: 24px; font-weight: 800; color: var(--success);">$100K</div><div style="font-size: 10px; color: var(--neutral-600);">One-time Implementation</div></div>
+            </div>
+            <div style="text-align: center; margin-top: 20px; padding-top: 16px; border-top: 2px solid #a7f3d0;">
+              <div style="font-size: 32px; font-weight: 800; color: var(--space);">$595,000</div>
+              <div style="font-size: 12px; color: var(--neutral-600);">Total Year 1 Investment</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Investment Breakdown</h2>
+            <table class="risk-table">
+              <thead><tr><th>Component</th><th>Annual Cost</th><th>Details</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Platform Licensing</strong></td><td>$225,000</td><td>Knapsack Cloud enterprise subscription</td></tr>
+                <tr><td><strong>AWS GovCloud Connector</strong></td><td>$105,000</td><td>Custom Git connector for GovCloud environments</td></tr>
+                <tr><td><strong>Support Services</strong></td><td>$165,000</td><td>Dedicated success manager, training, enablement</td></tr>
+                <tr><td><strong>Implementation (One-time)</strong></td><td>$100,000</td><td>Initial setup, migration, configuration</td></tr>
+                <tr style="background: var(--success-light);"><td><strong>Year 1 Total</strong></td><td><strong>$595,000</strong></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Enterprise-Validated ROI</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">Projected savings based on enterprise case study patterns:</p>
+            <div class="grid-3">
+              <div class="case-study">
+                <div class="case-study-logo">🏠 Home Depot Model</div>
+                <div class="case-study-challenge"><strong>Comparable Scale:</strong> 2,500+ users</div>
+                <div class="case-study-results">
+                  <div class="case-study-metric">50% efficiency gain</div>
+                  <div class="case-study-metric">$1M+ annual savings</div>
+                </div>
+              </div>
+              <div class="case-study">
+                <div class="case-study-logo">🎨 Sherwin-Williams Model</div>
+                <div class="case-study-challenge"><strong>Comparable Timeline:</strong> 90 days</div>
+                <div class="case-study-results">
+                  <div class="case-study-metric">5x roadmap acceleration</div>
+                  <div class="case-study-metric">$1M+ savings</div>
+                </div>
+              </div>
+              <div class="case-study">
+                <div class="case-study-logo">💊 GSK Model</div>
+                <div class="case-study-challenge"><strong>Comparable Complexity:</strong> 120+ sites</div>
+                <div class="case-study-results">
+                  <div class="case-study-metric">30% QA reduction</div>
+                  <div class="case-study-metric">$10M+ annual savings</div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -895,17 +1051,17 @@
             <h2 class="heading">ROI Timeline</h2>
             <div class="grid-4">
               ${[
-                { period: 'Month 6', roi: '-60%', desc: 'Implementation', color: 'var(--neutral-600)' },
-                { period: 'Month 12', roi: '0%', desc: 'Breakeven', color: 'var(--space)' },
-                { period: 'Month 18', roi: '+45%', desc: 'Adoption', color: 'var(--success)' },
-                { period: 'Month 24', roi: '+95%', desc: 'Scale', color: 'var(--success)' },
-              ].map(r => `<div style="padding: 14px; background: ${r.roi.includes('+') ? 'var(--success-light)' : r.roi === '0%' ? 'var(--space-light)' : 'var(--neutral-50)'}; border-radius: 6px; text-align: center;"><div style="font-size: 10px; font-weight: 600; color: var(--neutral-600); text-transform: uppercase; margin-bottom: 4px;">${r.period}</div><div style="font-size: 24px; font-weight: 800; color: ${r.color};">${r.roi}</div><div style="font-size: 11px; color: var(--neutral-600); margin-top: 4px;">${r.desc}</div></div>`).join('')}
+                { period: 'Day 60', roi: 'First Results', desc: 'Tangible outcomes', color: 'var(--action)' },
+                { period: 'Month 6', roi: '-40%', desc: 'Implementation', color: 'var(--neutral-600)' },
+                { period: 'Month 12', roi: '+70%', desc: 'Breakeven', color: 'var(--success)' },
+                { period: 'Month 24', roi: '+180%', desc: 'Scale', color: 'var(--success)' },
+              ].map(r => `<div style="padding: 14px; background: ${r.roi.includes('+') ? 'var(--success-light)' : r.roi === 'First Results' ? 'var(--action-light)' : 'var(--neutral-50)'}; border-radius: 6px; text-align: center;"><div style="font-size: 10px; font-weight: 600; color: var(--neutral-600); text-transform: uppercase; margin-bottom: 4px;">${r.period}</div><div style="font-size: 20px; font-weight: 800; color: ${r.color};">${r.roi}</div><div style="font-size: 11px; color: var(--neutral-600); margin-top: 4px;">${r.desc}</div></div>`).join('')}
             </div>
           </div>
 
           <div class="callout">
             <div class="callout-label">Roadshow ROI Narrative</div>
-            <div class="callout-text">These numbers power the business case for every roadshow conversation. Astro data validates the model; each factory can project their own savings.</div>
+            <div class="callout-text">$595K Year 1 investment with proven enterprise returns of $1M+ annual savings. Tangible results in 60 days. Each factory can project their own savings based on validated patterns.</div>
           </div>
         `,
 
@@ -918,7 +1074,7 @@
             <div class="grid-2">
               <div style="padding: 16px; background: var(--success-light); border: 1px solid #a7f3d0; border-radius: 8px;">
                 <div style="font-size: 12px; font-weight: 700; color: var(--success); text-transform: uppercase; margin-bottom: 10px;">Achieved ✓</div>
-                ${['SOC2 Type II Certified', 'SAML/OIDC Single Sign-On', 'Role-Based Access Control', 'Audit Logging & Monitoring', 'Data Encryption (rest & transit)', 'Automated Vulnerability Scanning'].map(i => `<div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">${i}</div>`).join('')}
+                ${['SOC2 Type II Certified', 'SAML/OIDC Single Sign-On', 'Role-Based Access Control', 'Audit Logging & Monitoring', 'Data Encryption (rest & transit)', 'Automated Vulnerability Scanning', 'AWS GovCloud Custom Git Connector'].map(i => `<div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">${i}</div>`).join('')}
               </div>
               <div style="padding: 16px; background: var(--space-light); border: 1px solid var(--space); border-radius: 8px;">
                 <div style="font-size: 12px; font-weight: 700; color: var(--space); text-transform: uppercase; margin-bottom: 10px;">In Progress →</div>
@@ -938,7 +1094,7 @@
 
           <div class="callout">
             <div class="callout-label">Roadshow Security Messaging</div>
-            <div class="callout-text">SOC2 Type II enables immediate deployment. FedRAMP pathway provides long-term compliance assurance. Security-first architecture addresses DoD stakeholder concerns.</div>
+            <div class="callout-text">SOC2 Type II enables immediate deployment. AWS GovCloud connector included in Year 1 investment. FedRAMP pathway provides long-term compliance assurance.</div>
           </div>
         `,
 
@@ -948,7 +1104,7 @@
 
           <div class="callout">
             <div class="callout-label">Primary Objective</div>
-            <div class="callout-text">90 days to validated expansion strategy. Package Astro success, engage target factories, secure commitments for Phase 2 deployment.</div>
+            <div class="callout-text">Tangible results in 60 days. 90 days to validated expansion strategy. Package Astro success, engage target factories, secure commitments for Phase 2 deployment.</div>
           </div>
 
           <div class="card">
@@ -972,7 +1128,7 @@
                 { milestone: 'Astro Documentation Complete', target: 'Day 15', gate: 'Review by COR' },
                 { milestone: 'Demo Environment Ready', target: 'Day 25', gate: 'Technical validation' },
                 { milestone: 'First Roadshow Event', target: 'Day 35', gate: 'Stakeholder scheduled' },
-                { milestone: 'Roadshow Complete', target: 'Day 60', gate: '6 events delivered' },
+                { milestone: 'Tangible Results Delivered', target: 'Day 60', gate: 'Measurable outcomes' },
                 { milestone: 'Feedback Synthesis', target: 'Day 70', gate: 'Patterns documented' },
                 { milestone: 'Executive Go/No-Go', target: 'Day 90', gate: 'Council approval' },
               ].map(m => `<div style="padding: 12px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">${m.milestone}</div><div style="font-size: 11px; color: var(--neutral-500);">Gate: ${m.gate}</div></div><span class="badge" style="background: var(--space-light); color: var(--space);">${m.target}</span></div>`).join('')}
