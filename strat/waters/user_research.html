@@ -572,18 +572,25 @@
       window.scrollTo(0, 0);
     }
 
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
     function renderQuestion(q) {
       return `
         <div class="question-card">
           <div class="question-header">
-            <span class="question-num">Q${q.num}</span>
+            <span class="question-num">Q${escapeHtml(q.num)}</span>
             ${q.required ? '<span class="question-required">Required</span>' : ''}
-            <span class="question-type">${q.type}</span>
+            <span class="question-type">${escapeHtml(q.type)}</span>
           </div>
-          <p class="question-text">${q.text}</p>
-          ${q.options ? `<div class="question-options">${q.options.map(o => `<span class="question-option">${o}</span>`).join('')}</div>` : ''}
-          ${q.scale ? `<div class="question-scale"><span>${q.scale[0]}</span><span class="question-scale-mid">1 — 2 — 3 — 4 — 5</span><span>${q.scale[1]}</span></div>` : ''}
-          ${q.note ? `<p class="question-note">${q.note}</p>` : ''}
+          <p class="question-text">${escapeHtml(q.text)}</p>
+          ${q.options ? `<div class="question-options">${q.options.map(o => `<span class="question-option">${escapeHtml(o)}</span>`).join('')}</div>` : ''}
+          ${q.scale ? `<div class="question-scale"><span>${escapeHtml(q.scale[0])}</span><span class="question-scale-mid">1 — 2 — 3 — 4 — 5</span><span>${escapeHtml(q.scale[1])}</span></div>` : ''}
+          ${q.note ? `<p class="question-note">${escapeHtml(q.note)}</p>` : ''}
         </div>
       `;
     }
@@ -592,19 +599,19 @@
       return `
         <div class="interview-card">
           <div class="interview-header">
-            <span class="interview-num">${q.num}</span>
-            ${q.timing ? `<span class="interview-timing">~${q.timing}</span>` : ''}
+            <span class="interview-num">${escapeHtml(q.num)}</span>
+            ${q.timing ? `<span class="interview-timing">~${escapeHtml(q.timing)}</span>` : ''}
           </div>
-          <p class="interview-text">${q.text}</p>
+          <p class="interview-text">${escapeHtml(q.text)}</p>
           ${q.probes ? `
             <div class="interview-probes">
               <div class="interview-probes-label">Follow-up Probes</div>
-              ${q.probes.map(p => `<div class="interview-probe">• ${p}</div>`).join('')}
+              ${q.probes.map(p => `<div class="interview-probe">• ${escapeHtml(p)}</div>`).join('')}
             </div>
           ` : ''}
           ${q.rationale ? `
             <div class="interview-rationale">
-              <p class="interview-rationale-text">🎯 <strong>Why we ask:</strong> ${q.rationale}</p>
+              <p class="interview-rationale-text">🎯 <strong>Why we ask:</strong> ${escapeHtml(q.rationale)}</p>
             </div>
           ` : ''}
         </div>
@@ -719,8 +726,8 @@
                 { label: 'Inform Strategy Decisions', items: ['Pilot team selection', 'Rollout sequencing', 'Training prioritization', 'Quick win identification'] },
               ].map(obj => `
                 <div class="objective-card">
-                  <div class="objective-label">${obj.label}</div>
-                  ${obj.items.map(i => `<div class="objective-item"><span class="objective-arrow">→</span> ${i}</div>`).join('')}
+                  <div class="objective-label">${escapeHtml(obj.label)}</div>
+                  ${obj.items.map(i => `<div class="objective-item"><span class="objective-arrow">→</span> ${escapeHtml(i)}</div>`).join('')}
                 </div>
               `).join('')}
             </div>
@@ -848,11 +855,11 @@
             <div class="grid-2">
               <div class="analysis-card">
                 <div class="analysis-label quant">Quantitative Analysis</div>
-                ${['Satisfaction scores by persona/tenure', 'Time-to-rework correlation', 'Tool preference rankings', 'Training format preferences', 'Champion identification count', 'Pain point frequency analysis'].map(i => `<div class="analysis-item"><span class="analysis-check">□</span> ${i}</div>`).join('')}
+                ${['Satisfaction scores by persona/tenure', 'Time-to-rework correlation', 'Tool preference rankings', 'Training format preferences', 'Champion identification count', 'Pain point frequency analysis'].map(i => `<div class="analysis-item"><span class="analysis-check">□</span> ${escapeHtml(i)}</div>`).join('')}
               </div>
               <div class="analysis-card">
                 <div class="analysis-label qual">Qualitative Themes</div>
-                ${['Workflow friction patterns', 'Previous tool failure factors', 'Success criteria definitions', 'Cross-team collaboration challenges', 'AI readiness indicators', 'Change resistance themes'].map(i => `<div class="analysis-item"><span class="analysis-check qual">□</span> ${i}</div>`).join('')}
+                ${['Workflow friction patterns', 'Previous tool failure factors', 'Success criteria definitions', 'Cross-team collaboration challenges', 'AI readiness indicators', 'Change resistance themes'].map(i => `<div class="analysis-item"><span class="analysis-check qual">□</span> ${escapeHtml(i)}</div>`).join('')}
               </div>
             </div>
           </div>
@@ -868,9 +875,9 @@
                 { metric: 'Champion Pool', source: 'Q6.3', target: '8-12 volunteers' },
               ].map(m => `
                 <div class="metric-card">
-                  <div class="metric-title">${m.metric}</div>
-                  <div class="metric-source">Source: ${m.source}</div>
-                  <div class="metric-target">${m.target}</div>
+                  <div class="metric-title">${escapeHtml(m.metric)}</div>
+                  <div class="metric-source">Source: ${escapeHtml(m.source)}</div>
+                  <div class="metric-target">${escapeHtml(m.target)}</div>
                 </div>
               `).join('')}
             </div>
@@ -887,9 +894,9 @@
                 { title: 'ROI Inputs', desc: 'Quantified rework hours and quality escalation data', owner: 'Business Analyst' },
               ].map(d => `
                 <div class="deliverable-card">
-                  <div class="deliverable-title">${d.title}</div>
-                  <div class="deliverable-desc">${d.desc}</div>
-                  <div class="deliverable-owner">Owner: ${d.owner}</div>
+                  <div class="deliverable-title">${escapeHtml(d.title)}</div>
+                  <div class="deliverable-desc">${escapeHtml(d.desc)}</div>
+                  <div class="deliverable-owner">Owner: ${escapeHtml(d.owner)}</div>
                 </div>
               `).join('')}
             </div>
