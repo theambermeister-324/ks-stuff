@@ -294,9 +294,9 @@
     }
 
     img.thunder-art {
-      object-fit: cover;
-      --zoom: 1.12;        /* bring face/figure forward */
-      --origin: 50% 34%;   /* keep "I" and face nicely framed */
+      object-fit: contain;  /* preserve full image including THUNDERBOOGIE banner */
+      --zoom: 1.05;        /* slight zoom to fill frame while preserving edges */
+      --origin: 50% 50%;   /* center the image */
     }
 
     .card-title-bottom {
@@ -550,7 +550,7 @@
               <div class="card-image-frame">
                 <img
                   class="tarot-art sixteen-art"
-                  src="sixteen-of-cups.jpeg"
+                  src="Sixteen Golden Cups Tarot Card.jpeg"
                   alt="Sixteen of Cups"
                 />
               </div>
