@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #2a2a2a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+
+      /* Global readability */
+      font-family: 'EB Garamond', serif;
+    }
+
+    .poster {
+      width: 11in;
+      height: 17in;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(201,162,39,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(201,162,39,0.08) 0%, transparent 50%),
+        linear-gradient(180deg, #1f1510 0%, #0d0908 50%, #1f1510 100%);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+    }
+
+    /* Aged texture overlay */
+    .poster::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+    }
+
+    /* Ornate double border */
+    .border-outer {
+      position: absolute;
+      inset: 20px;
+      border: 4px solid #8b6914;
+      border-radius: 12px;
+    }
+
+    .border-middle {
+      position: absolute;
+      inset: 28px;
+      border: 1px solid #5c4426;
+    }
+
+    .border-inner {
+      position: absolute;
+      inset: 35px;
+      border: 2px solid #c9a227;
+      border-radius: 6px;
+    }
+
+    /* Decorative corner pieces */
+    .corner-deco {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      color: #c9a227;
+      font-size: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .corner-tl { top: 40px; left: 40px; }
+    .corner-tr { top: 40px; right: 40px; transform: scaleX(-1); }
+    .corner-bl { bottom: 40px; left: 40px; transform: scaleY(-1); }
+    .corner-br { bottom: 40px; right: 40px; transform: scale(-1); }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 80px 60px 60px;
+    }
+
+    /* Header section */
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .tagline {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 22px;
+      color: #c9a227;
+      letter-spacing: 6px;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .title-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px; /* slightly tighter */
+      text-align: center;
+    }
+
+    /* Optical-ish alignment for ornaments */
+    .title-flourish {
+      color: #c9a227;
+      font-size: 24px;
+      display: inline-block;
+      width: 1em;
+      text-align: center;
+      transform: translateY(-0.5px);
+    }
+
+    .title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 52px;
+      font-weight: 900;
+      background: linear-gradient(180deg, #f4e4bc 0%, #c9a227 50%, #8b6914 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.6));
+
+      /* tighter tracking for letterpress vibe */
+      letter-spacing: 3px;
+      text-rendering: geometricPrecision;
+      font-kerning: normal;
+      font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
+    }
+
+    /* Tarot spread area */
+    .tarot-spread {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 50px;
+      margin: 15px 0 25px;
+      position: relative;
+    }
+
+    /* Wrap each card + label so label sits BELOW card without affecting fixed card height */
+    .tarot-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Labels centered below each card */
+    .spread-label {
+      margin-top: 16px; /* more vertical separation */
+      text-align: center;
+
+      font-family: 'EB Garamond', serif;
+      font-size: 13px;
+      letter-spacing: 2.5px;
+      color: #9a8666;
+
+      font-variant-caps: all-small-caps;
+      font-variant: small-caps;
+    }
+
+    .spread-label::before,
+    .spread-label::after {
+      content: "✧ — ✧";
+      display: inline-block;
+      width: 3.25em;     /* fixed optical width so ornaments don't "widen" the line */
+      text-align: center;
+      margin: 0 0.45em;
+      color: #c9a227;
+      opacity: 0.85;
+      transform: translateY(-0.5px);
+    }
+
+    /* Individual tarot cards */
+    .tarot-card {
+      width: 200px;
+      height: 320px;
+      background: linear-gradient(145deg, #e8dcc8 0%, #d4c4a8 30%, #c9b896 70%, #b8a882 100%);
+      border-radius: 10px;
+      border: 3px solid #2c1810;
+      box-shadow:
+        0 10px 30px rgba(0,0,0,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.2),
+        inset 0 -1px 0 rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Aged paper texture on cards */
+    .tarot-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+    }
+
+    .tarot-card::after {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 2px solid #5c4426;
+      border-radius: 6px;
+      pointer-events: none;
+    }
+
+    .card-content {
+      position: relative;
+      height: 100%;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title-top {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #2c1810;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 8px;
+
+      text-rendering: geometricPrecision;
+      font-kerning: normal;
+      font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
+    }
+
+    .card-image-frame {
+      flex: 1;
+      border: 2px solid #5c4426;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      background: #d4c4a8;
+    }
+
+    /* Real tarot art images + parchment overlay */
+    .card-image-frame img.tarot-art {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transform: scale(var(--zoom, 1));
+      transform-origin: var(--origin, 50% 50%);
+      filter: contrast(1.02) saturate(1.03);
+    }
+
+    /* Subtle parchment/ink overlay to match card stock */
+    .card-image-frame::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(255, 245, 220, 0.22) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 80%, rgba(110, 70, 25, 0.10) 0%, transparent 60%),
+        linear-gradient(180deg, rgba(255, 240, 210, 0.10) 0%, rgba(90, 55, 20, 0.08) 100%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+      opacity: 0.28;
+    }
+
+    .card-image-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      background: linear-gradient(135deg, rgba(0,0,0,0.18) 0%, transparent 35%, transparent 65%, rgba(0,0,0,0.16) 100%);
+      opacity: 0.25;
+    }
+
+    /* Per-card crop / zoom tuning */
+    img.sixteen-art {
+      object-fit: contain;  /* preserve top/bottom text */
+      --zoom: 1.01;
+      --origin: 50% 50%;
+    }
+
+    img.thunder-art {
+      object-fit: cover;
+      --zoom: 1.12;        /* bring face/figure forward */
+      --origin: 50% 34%;   /* keep "I" and face nicely framed */
+    }
+
+    .card-title-bottom {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #2c1810;
+      text-align: center;
+      text-transform: uppercase;
+
+      /* slightly tighter for letterpress vibe */
+      letter-spacing: 2px;
+      margin-top: 8px;
+
+      text-rendering: geometricPrecision;
+      font-kerning: normal;
+      font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
+    }
+
+    /* Center event info */
+    .event-info {
+      text-align: center;
+      padding: 25px 50px;
+      position: relative;
+      margin: 10px 0;
+    }
+
+    .event-info::before,
+    .event-info::after {
+      content: '✧';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #c9a227;
+      font-size: 28px;
+    }
+    .event-info::before { left: 0; }
+    .event-info::after { right: 0; }
+
+    .brewery-logo {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: #e8d5a3;
+      text-shadow: 2px 3px 6px rgba(0,0,0,0.6);
+      margin-bottom: 5px;
+
+      /* tighter tracking */
+      letter-spacing: 1.25px;
+      text-rendering: geometricPrecision;
+      font-kerning: normal;
+      font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
+    }
+
+    .brewery-loc {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      color: #c9a227;
+      letter-spacing: 6px;
+      margin-bottom: 18px;
+
+      text-rendering: geometricPrecision;
+      font-kerning: normal;
+      font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
+    }
+
+    .divider {
+      width: 280px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, #c9a227 20%, #c9a227 80%, transparent 100%);
+      margin: 12px auto;
+      position: relative;
+    }
+
+    .divider::before {
+      content: '◆';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: #c9a227;
+      font-size: 10px;
+      background: #1a0f0a;
+      padding: 0 8px;
+    }
+
+    .event-date {
+      font-family: 'Cinzel', serif;
+      font-size: 24px;
+      color: #e8d5a3;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+
+      text-rendering: geometricPrecision;
+      font-kerning: normal;
+      font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
+    }
+
+    .event-celebrate {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 20px;
+      color: #c9a227;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .event-time {
+      font-family: 'Cinzel', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #e8d5a3;
+
+      /* slightly tighter than before */
+      letter-spacing: 2.5px;
+
+      text-rendering: geometricPrecision;
+      font-kerning: normal;
+      font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
+    }
+
+    /* Footer / band section */
+    .footer-section {
+      margin-top: auto;
+      text-align: center;
+    }
+
+    .featuring-text {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: #c9a227;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .band-name {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 36px;
+      font-weight: 700;
+      background: linear-gradient(180deg, #ff69b4 0%, #e83e8c 50%, #c2185b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+
+      /* tighter tracking for letterpress vibe */
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+
+      text-rendering: geometricPrecision;
+      font-kerning: normal;
+      font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
+    }
+
+    .mystical-text {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: #6b5a45;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
+
+    .star-dec { color: #c9a227; }
+
+    /* Optical margin alignment-ish improvements */
+    .poster, .content { hanging-punctuation: first last; }
+
+    /* Screen defaults (slightly heavier for dark background) */
+    .title { font-weight: 900; }
+    .band-name { font-weight: 700; }
+    .brewery-logo { font-weight: 700; }
+    .event-date, .event-time { font-weight: 600; }
+    .tagline, .event-celebrate, .featuring-text, .mystical-text { font-weight: 500; }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .poster {
+        box-shadow: none;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 11/17;
+      }
+
+      /* Print/PDF tuning: crisper type, less fuzz */
+      .title {
+        letter-spacing: 2.5px;
+        filter: none;
+      }
+
+      .band-name {
+        letter-spacing: 2.5px;
+        filter: none;
+      }
+
+      .brewery-logo {
+        letter-spacing: 1px;
+        text-shadow: none;
+      }
+
+      .tagline { letter-spacing: 5px; }
+
+      /* EB Garamond prints beautifully lighter */
+      .event-celebrate,
+      .featuring-text,
+      .mystical-text,
+      .spread-label {
+        font-weight: 400;
+      }
+
+      .event-date { font-weight: 500; }
+      .event-time { font-weight: 600; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="poster">
+    <div class="border-outer"></div>
+    <div class="border-middle"></div>
+    <div class="border-inner"></div>
+
+    <div class="corner-deco corner-tl">❧</div>
+    <div class="corner-deco corner-tr">❧</div>
+    <div class="corner-deco corner-bl">❧</div>
+    <div class="corner-deco corner-br">❧</div>
+
+    <div class="content">
+      <div class="header">
+        <div class="tagline">— Come One, Come All —</div>
+        <div class="title-line">
+          <span class="title-flourish">☽</span>
+          <h1 class="title">16th Anniversary</h1>
+          <span class="title-flourish">☾</span>
+        </div>
+      </div>
+
+      <div class="tarot-spread">
+        <!-- Left: Celebration -->
+        <div class="tarot-item">
+          <div class="tarot-card">
+            <div class="card-content">
+              <div class="card-title-top">Sixteen</div>
+              <div class="card-image-frame">
+                <img
+                  class="tarot-art sixteen-art"
+                  src="sixteen-of-cups.jpeg"
+                  alt="Sixteen of Cups"
+                />
+              </div>
+              <div class="card-title-bottom">of Cups</div>
+            </div>
+          </div>
+          <div class="spread-label">The Celebration</div>
+        </div>
+
+        <!-- Right: Entertainment -->
+        <div class="tarot-item">
+          <div class="tarot-card">
+            <div class="card-content">
+              <div class="card-title-top">The Musician</div>
+              <div class="card-image-frame">
+                <img
+                  class="tarot-art thunder-art"
+                  src="thunderboogie.png"
+                  alt="Thunderboogie"
+                />
+              </div>
+              <div class="card-title-bottom">Thunderboogie</div>
+            </div>
+          </div>
+          <div class="spread-label">The Entertainment</div>
+        </div>
+      </div>
+
+      <div class="event-info">
+        <div class="brewery-logo">Asher Brewing Co.</div>
+        <div class="brewery-loc">Boulder, CO</div>
+        <div class="divider"></div>
+        <div class="event-date">Saturday, December 27th</div>
+        <div class="event-celebrate">Celebrating 16 Years of Friends and Beer</div>
+        <div class="event-time">6 – 9 PM</div>
+      </div>
+
+      <div class="footer-section">
+        <div class="featuring-text">~ Live Music From ~</div>
+        <div class="band-name">THUNDERBOOGIE</div>
+        <div class="mystical-text"><span class="star-dec">✦</span> The cards foretell good times ahead <span class="star-dec">✦</span></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
