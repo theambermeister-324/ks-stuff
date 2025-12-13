@@ -1,13 +1,20 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Asher Brewing Co. 16th Anniversary - Thunderboogie</title>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600&display=swap');
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root{
+      /* Hop cone SVG */
+      --hop-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%232c1810' stroke-width='2' stroke-linejoin='round'%3E%3Cpath d='M32 6 C24 12 20 20 22 28 C16 30 14 38 19 44 C22 49 27 54 32 58 C37 54 42 49 45 44 C50 38 48 30 42 28 C44 20 40 12 32 6 Z' fill='%236f863a'/%3E%3Cpath d='M32 12 C27 16 25 21 26 26 C22 28 21 33 24 37 C26 40 29 44 32 47 C35 44 38 40 40 37 C43 33 42 28 38 26 C39 21 37 16 32 12 Z' fill='%238aa24a'/%3E%3Cpath d='M32 18 C29 20 28 23 29 26 C27 27 26 30 28 33 C29 35 30 37 32 39 C34 37 35 35 36 33 C38 30 37 27 35 26 C36 23 35 20 32 18 Z' fill='%23a2bb5a'/%3E%3Cpath d='M32 10 V56' opacity='0.25'/%3E%3C/g%3E%3C/svg%3E");
+    }
 
     body {
       background: #2a2a2a;
@@ -16,8 +23,6 @@
       align-items: center;
       min-height: 100vh;
       padding: 20px;
-
-      /* Global readability */
       font-family: 'EB Garamond', serif;
     }
 
@@ -50,13 +55,11 @@
       border: 4px solid #8b6914;
       border-radius: 12px;
     }
-
     .border-middle {
       position: absolute;
       inset: 28px;
       border: 1px solid #5c4426;
     }
-
     .border-inner {
       position: absolute;
       inset: 35px;
@@ -64,21 +67,32 @@
       border-radius: 6px;
     }
 
-    /* Decorative corner pieces */
+    /* Hop icon utility (UPDATED sizes) */
+    .hop {
+      display: inline-block;
+      background-image: var(--hop-svg);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.35));
+    }
+    .hop-lg { width: 68px; height: 68px; } /* was 52 */
+    .hop-md { width: 30px; height: 30px; } /* was 22 */
+    .hop-sm { width: 20px; height: 20px; } /* was 16 */
+
+    /* Decorative corner pieces (hops) */
     .corner-deco {
       position: absolute;
-      width: 80px;
-      height: 80px;
-      color: #c9a227;
-      font-size: 50px;
+      width: 90px;
+      height: 90px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .corner-tl { top: 40px; left: 40px; }
-    .corner-tr { top: 40px; right: 40px; transform: scaleX(-1); }
-    .corner-bl { bottom: 40px; left: 40px; transform: scaleY(-1); }
-    .corner-br { bottom: 40px; right: 40px; transform: scale(-1); }
+    .corner-tl { top: 36px; left: 36px; }
+    .corner-tr { top: 36px; right: 36px; transform: scaleX(-1); }
+    .corner-bl { bottom: 36px; left: 36px; transform: scaleY(-1); }
+    .corner-br { bottom: 36px; right: 36px; transform: scale(-1); }
 
     .content {
       position: relative;
@@ -87,13 +101,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 80px 60px 60px;
+      padding: 78px 60px 58px;
     }
 
     /* Header section */
     .header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     .tagline {
@@ -110,17 +124,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 18px; /* slightly tighter */
+      gap: 14px;
       text-align: center;
     }
 
-    /* Optical-ish alignment for ornaments */
     .title-flourish {
-      color: #c9a227;
-      font-size: 24px;
-      display: inline-block;
-      width: 1em;
-      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.2em;
       transform: translateY(-0.5px);
     }
 
@@ -133,55 +145,55 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.6));
-
-      /* tighter tracking for letterpress vibe */
       letter-spacing: 3px;
       text-rendering: geometricPrecision;
       font-kerning: normal;
       font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
     }
 
-    /* Tarot spread area */
+    /* Tarot spread area (tighter) */
     .tarot-spread {
       display: flex;
       justify-content: center;
       align-items: flex-start;
       gap: 50px;
-      margin: 15px 0 25px;
+      margin: 10px 0 12px;
       position: relative;
     }
 
-    /* Wrap each card + label so label sits BELOW card without affecting fixed card height */
     .tarot-item {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: center; /* strict centered stack */
     }
 
-    /* Labels centered below each card */
+    /* Labels centered below each card (fixed width) */
     .spread-label {
-      margin-top: 16px; /* more vertical separation */
+      margin-top: 16px;
+      width: 200px;           /* match card width */
+      justify-content: center;
       text-align: center;
-
       font-family: 'EB Garamond', serif;
       font-size: 13px;
       letter-spacing: 2.5px;
       color: #9a8666;
-
       font-variant-caps: all-small-caps;
       font-variant: small-caps;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
     }
-
-    .spread-label::before,
-    .spread-label::after {
-      content: "✧ — ✧";
-      display: inline-block;
-      width: 3.25em;     /* fixed optical width so ornaments don't "widen" the line */
-      text-align: center;
-      margin: 0 0.45em;
+    .spread-label .deco {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.95;
+    }
+    .spread-label .dash {
       color: #c9a227;
-      opacity: 0.85;
+      opacity: 0.9;
       transform: translateY(-0.5px);
+      letter-spacing: 1px;
     }
 
     /* Individual tarot cards */
@@ -217,33 +229,19 @@
       pointer-events: none;
     }
 
+    /* Remove text areas and expand image */
     .card-content {
       position: relative;
       height: 100%;
-      padding: 12px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
-    }
-
-    .card-title-top {
-      font-family: 'Cinzel', serif;
-      font-size: 15px;
-      font-weight: 700;
-      color: #2c1810;
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      margin-bottom: 8px;
-
-      text-rendering: geometricPrecision;
-      font-kerning: normal;
-      font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
     }
 
     .card-image-frame {
       flex: 1;
       border: 2px solid #5c4426;
-      border-radius: 4px;
+      border-radius: 6px;
       overflow: hidden;
       position: relative;
       background: #d4c4a8;
@@ -254,13 +252,13 @@
       width: 100%;
       height: 100%;
       display: block;
-      object-fit: cover;
+      object-fit: cover; /* default */
       transform: scale(var(--zoom, 1));
       transform-origin: var(--origin, 50% 50%);
       filter: contrast(1.02) saturate(1.03);
     }
 
-    /* Subtle parchment/ink overlay to match card stock */
+    /* Parchment overlay */
     .card-image-frame::before {
       content: '';
       position: absolute;
@@ -286,55 +284,169 @@
       opacity: 0.25;
     }
 
-    /* Per-card crop / zoom tuning */
-    img.sixteen-art {
-      object-fit: contain;  /* preserve top/bottom text */
-      --zoom: 1.01;
-      --origin: 50% 50%;
-    }
+    /* Fit images */
+    img.sixteen-art { object-fit: cover; --zoom: 1.10; --origin: 50% 50%; }
+    img.thunder-art { object-fit: cover; --zoom: 1.12; --origin: 50% 32%; }
 
-    img.thunder-art {
-      object-fit: contain;  /* preserve full image including THUNDERBOOGIE banner */
-      --zoom: 1.05;        /* slight zoom to fill frame while preserving edges */
-      --origin: 50% 50%;   /* center the image */
-    }
-
-    .card-title-bottom {
-      font-family: 'Cinzel', serif;
-      font-size: 13px;
-      font-weight: 600;
-      color: #2c1810;
+    /* Reading block (UPDATED: centered, poster-friendly) */
+    .reading{
+      width: 100%;
+      max-width: 880px;
+      margin: 10px 0 14px;
+      padding: 18px 34px;
       text-align: center;
-      text-transform: uppercase;
+      border: 2px solid rgba(201,162,39,0.40);
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(201,162,39,0.09) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 80%, rgba(201,162,39,0.07) 0%, transparent 60%),
+        rgba(13, 9, 8, 0.34);
+      border-radius: 14px;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.45);
+      position: relative;
+    }
 
-      /* slightly tighter for letterpress vibe */
-      letter-spacing: 2px;
-      margin-top: 8px;
+    .reading::before,
+    .reading::after{
+      content:'';
+      position:absolute;
+      top: 16px;
+      width: 34px;
+      height: 34px;
+      background-image: var(--hop-svg);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.9;
+      filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.35));
+    }
+    .reading::before{ left: 14px; }
+    .reading::after{ right: 14px; transform: scaleX(-1); }
 
-      text-rendering: geometricPrecision;
-      font-kerning: normal;
-      font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
+    .reading-kicker{
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      letter-spacing: 5px;
+      color: #c9a227;
+      margin-bottom: 10px;
+    }
+
+    .reading p{
+      font-size: 18px;
+      line-height: 1.38;
+      color: #e8d5a3;
+      margin: 10px auto;
+      max-width: 760px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    }
+
+    .reading-lede{
+      font-size: 19px;
+      line-height: 1.35;
+      margin-top: 6px;
+    }
+
+    .reading-cta{
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      letter-spacing: 1px;
+      color: #f4e4bc;
+      margin-top: 10px;
+    }
+
+    .card-reveal{
+      display: grid;
+      grid-template-columns: 320px 320px;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .reveal{
+      text-align: center;
+      border: 2px solid rgba(92,68,38,0.85);
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: rgba(31,21,16,0.34);
+    }
+
+    .reveal .label{
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: #9a8666;
+      margin-bottom: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .reveal .label .hop{
+      width: 16px;
+      height: 16px;
+    }
+
+    .reveal .name{
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 22px;
+      letter-spacing: 1.5px;
+      color: #f4e4bc;
+      margin-bottom: 6px;
+      filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.35));
+    }
+
+    .reveal .desc{
+      font-size: 16px;
+      line-height: 1.32;
+      color: #e8d5a3;
+      opacity: 0.96;
+    }
+
+    .cta-line{
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(201,162,39,0.26);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      color: #c9a227;
+      letter-spacing: 3px;
+      font-size: 14px;
+    }
+
+    .cta-line .hop{
+      width: 22px;
+      height: 22px;
     }
 
     /* Center event info */
     .event-info {
       text-align: center;
-      padding: 25px 50px;
+      padding: 22px 50px;
       position: relative;
-      margin: 10px 0;
+      margin: 6px 0 6px;
     }
 
     .event-info::before,
     .event-info::after {
-      content: '✧';
+      content: '';
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      color: #c9a227;
-      font-size: 28px;
+      width: 36px;   /* bigger */
+      height: 36px;  /* bigger */
+      background-image: var(--hop-svg);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.9;
+      filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.35));
     }
     .event-info::before { left: 0; }
-    .event-info::after { right: 0; }
+    .event-info::after  { right: 0; transform: translateY(-50%) scaleX(-1); }
 
     .brewery-logo {
       font-family: 'Cinzel Decorative', serif;
@@ -343,8 +455,6 @@
       color: #e8d5a3;
       text-shadow: 2px 3px 6px rgba(0,0,0,0.6);
       margin-bottom: 5px;
-
-      /* tighter tracking */
       letter-spacing: 1.25px;
       text-rendering: geometricPrecision;
       font-kerning: normal;
@@ -356,8 +466,7 @@
       font-size: 20px;
       color: #c9a227;
       letter-spacing: 6px;
-      margin-bottom: 18px;
-
+      margin-bottom: 16px;
       text-rendering: geometricPrecision;
       font-kerning: normal;
       font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
@@ -372,15 +481,22 @@
     }
 
     .divider::before {
-      content: '◆';
+      content: '';
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      color: #c9a227;
-      font-size: 10px;
-      background: #1a0f0a;
+      width: 20px;   /* bigger */
+      height: 20px;  /* bigger */
+      background-image: var(--hop-svg);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: #1a0f0a;
       padding: 0 8px;
+      box-shadow: 0 0 0 7px #1a0f0a; /* thicker */
+      border-radius: 999px;
+      opacity: 0.95;
     }
 
     .event-date {
@@ -389,7 +505,6 @@
       color: #e8d5a3;
       letter-spacing: 2px;
       margin-bottom: 8px;
-
       text-rendering: geometricPrecision;
       font-kerning: normal;
       font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
@@ -409,16 +524,13 @@
       font-size: 28px;
       font-weight: 700;
       color: #e8d5a3;
-
-      /* slightly tighter than before */
       letter-spacing: 2.5px;
-
       text-rendering: geometricPrecision;
       font-kerning: normal;
       font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
     }
 
-    /* Footer / band section */
+    /* Footer */
     .footer-section {
       margin-top: auto;
       text-align: center;
@@ -442,11 +554,8 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
-
-      /* tighter tracking for letterpress vibe */
       letter-spacing: 3px;
-      margin-bottom: 15px;
-
+      margin-bottom: 12px;
       text-rendering: geometricPrecision;
       font-kerning: normal;
       font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
@@ -456,22 +565,14 @@
       font-family: 'EB Garamond', serif;
       font-style: italic;
       font-size: 16px;
-      color: #6b5a45;
+      color: #9a8666;
       letter-spacing: 1px;
       font-weight: 500;
     }
 
     .star-dec { color: #c9a227; }
 
-    /* Optical margin alignment-ish improvements */
     .poster, .content { hanging-punctuation: first last; }
-
-    /* Screen defaults (slightly heavier for dark background) */
-    .title { font-weight: 900; }
-    .band-name { font-weight: 700; }
-    .brewery-logo { font-weight: 700; }
-    .event-date, .event-time { font-weight: 600; }
-    .tagline, .event-celebrate, .featuring-text, .mystical-text { font-weight: 500; }
 
     @media print {
       body {
@@ -488,34 +589,15 @@
         aspect-ratio: 11/17;
       }
 
-      /* Print/PDF tuning: crisper type, less fuzz */
-      .title {
-        letter-spacing: 2.5px;
-        filter: none;
-      }
-
-      .band-name {
-        letter-spacing: 2.5px;
-        filter: none;
-      }
-
-      .brewery-logo {
-        letter-spacing: 1px;
-        text-shadow: none;
-      }
-
+      .title { letter-spacing: 2.5px; filter: none; }
+      .band-name { letter-spacing: 2.5px; filter: none; }
+      .brewery-logo { letter-spacing: 1px; text-shadow: none; }
       .tagline { letter-spacing: 5px; }
 
-      /* EB Garamond prints beautifully lighter */
       .event-celebrate,
       .featuring-text,
       .mystical-text,
-      .spread-label {
-        font-weight: 400;
-      }
-
-      .event-date { font-weight: 500; }
-      .event-time { font-weight: 600; }
+      .spread-label { font-weight: 400; }
     }
   </style>
 </head>
@@ -526,18 +608,19 @@
     <div class="border-middle"></div>
     <div class="border-inner"></div>
 
-    <div class="corner-deco corner-tl">❧</div>
-    <div class="corner-deco corner-tr">❧</div>
-    <div class="corner-deco corner-bl">❧</div>
-    <div class="corner-deco corner-br">❧</div>
+    <!-- Corners: hops -->
+    <div class="corner-deco corner-tl"><span class="hop hop-lg" aria-hidden="true"></span></div>
+    <div class="corner-deco corner-tr"><span class="hop hop-lg" aria-hidden="true"></span></div>
+    <div class="corner-deco corner-bl"><span class="hop hop-lg" aria-hidden="true"></span></div>
+    <div class="corner-deco corner-br"><span class="hop hop-lg" aria-hidden="true"></span></div>
 
     <div class="content">
       <div class="header">
         <div class="tagline">— Come One, Come All —</div>
         <div class="title-line">
-          <span class="title-flourish">☽</span>
+          <span class="title-flourish" aria-hidden="true"><span class="hop hop-md"></span></span>
           <h1 class="title">16th Anniversary</h1>
-          <span class="title-flourish">☾</span>
+          <span class="title-flourish" aria-hidden="true"><span class="hop hop-md" style="transform:scaleX(-1)"></span></span>
         </div>
       </div>
 
@@ -546,7 +629,6 @@
         <div class="tarot-item">
           <div class="tarot-card">
             <div class="card-content">
-              <div class="card-title-top">Sixteen</div>
               <div class="card-image-frame">
                 <img
                   class="tarot-art sixteen-art"
@@ -554,17 +636,24 @@
                   alt="Sixteen of Cups"
                 />
               </div>
-              <div class="card-title-bottom">of Cups</div>
             </div>
           </div>
-          <div class="spread-label">The Celebration</div>
+
+          <div class="spread-label">
+            <span class="deco" aria-hidden="true">
+              <span class="hop hop-sm"></span><span class="dash">—</span><span class="hop hop-sm"></span>
+            </span>
+            <span>The Celebration</span>
+            <span class="deco" aria-hidden="true">
+              <span class="hop hop-sm" style="transform:scaleX(-1)"></span><span class="dash">—</span><span class="hop hop-sm" style="transform:scaleX(-1)"></span>
+            </span>
+          </div>
         </div>
 
         <!-- Right: Entertainment -->
         <div class="tarot-item">
           <div class="tarot-card">
             <div class="card-content">
-              <div class="card-title-top">The Musician</div>
               <div class="card-image-frame">
                 <img
                   class="tarot-art thunder-art"
@@ -572,12 +661,61 @@
                   alt="Thunderboogie"
                 />
               </div>
-              <div class="card-title-bottom">Thunderboogie</div>
             </div>
           </div>
-          <div class="spread-label">The Entertainment</div>
+
+          <div class="spread-label">
+            <span class="deco" aria-hidden="true">
+              <span class="hop hop-sm"></span><span class="dash">—</span><span class="hop hop-sm"></span>
+            </span>
+            <span>The Entertainment</span>
+            <span class="deco" aria-hidden="true">
+              <span class="hop hop-sm" style="transform:scaleX(-1)"></span><span class="dash">—</span><span class="hop hop-sm" style="transform:scaleX(-1)"></span>
+            </span>
+          </div>
         </div>
       </div>
+
+      <!-- Tarot reading copy (TIGHT + POSTER-FRIENDLY) -->
+      <section class="reading" aria-label="Tarot Reading">
+        <div class="reading-kicker">🜂 A TAROT READING FOR THE FAITHFUL 🜂</div>
+
+        <p class="reading-lede">
+          You shuffle. You cut. The room hums with laughter and <strong>good hops</strong>.
+          Two cards rise from the deck—clear as a clinked glass.
+        </p>
+
+        <div class="card-reveal">
+          <div class="reveal">
+            <div class="label"><span class="hop" aria-hidden="true"></span> FIRST CARD</div>
+            <div class="name">THE SIXTEEN OF CUPS</div>
+            <div class="desc">
+              Overflowing cups. Full hearts. <strong>16 years of friendship &amp; beer</strong>.
+              The celebration is abundant—and it wants you in the circle.
+            </div>
+          </div>
+
+          <div class="reveal">
+            <div class="label"><span class="hop" aria-hidden="true"></span> SECOND CARD</div>
+            <div class="name">THUNDERBOOGIE</div>
+            <div class="desc">
+              The spark. The shake. The grin you can’t hide.
+              <strong>Live music</strong> to raise the roof and move the room.
+            </div>
+          </div>
+        </div>
+
+        <p class="reading-cta">
+          Your next step is simple:
+          <strong>Saturday, December 27th</strong> at <strong>Asher Brewery</strong> in <strong>Boulder, Colorado</strong>.
+        </p>
+
+        <div class="cta-line">
+          <span class="hop" aria-hidden="true"></span>
+          <span>COME ONE, COME ALL — GOOD HOPS &amp; GOOD TIMES</span>
+          <span class="hop" aria-hidden="true" style="transform:scaleX(-1)"></span>
+        </div>
+      </section>
 
       <div class="event-info">
         <div class="brewery-logo">Asher Brewing Co.</div>
