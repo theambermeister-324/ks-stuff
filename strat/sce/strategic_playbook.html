@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Southern California Edison Design System Strategic Playbook - Enterprise Design System enablement partnership with Knapsack for 2026">
+  <meta name="author" content="Knapsack">
+  <meta name="robots" content="index, follow">
   <title>SCE × Knapsack Strategic Playbook 2026</title>
   <style>
     :root {
@@ -97,30 +100,33 @@
     .opex { background: #fef3c7; color: #d97706; }
     .mixed { background: #f3e8ff; color: #7c3aed; }
     @media (max-width: 900px) { nav { display: none; } main { margin-left: 0; padding: 20px; } .stat-banner, .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+    .skip-link { position: absolute; top: -40px; left: 0; background: var(--sce); color: white; padding: 8px 16px; text-decoration: none; z-index: 100; }
+    .skip-link:focus { top: 0; }
   </style>
 </head>
 <body>
-  <nav>
+  <a href="#mainContent" class="skip-link">Skip to main content</a>
+  <nav aria-label="Document navigation">
     <div class="nav-header">
       <div class="nav-logo">Southern California Edison</div>
       <div class="nav-title">Design System Strategic Playbook</div>
       <div class="nav-subtitle">Knapsack Enablement Partnership | 2026</div>
     </div>
     <div class="nav-section-label">Executive Overview</div>
-    <div class="nav-items" id="navItems1"></div>
+    <div class="nav-items" id="navItems1" role="list"></div>
     <div class="nav-section-label">Technical Approach</div>
-    <div class="nav-items" id="navItems2"></div>
+    <div class="nav-items" id="navItems2" role="list"></div>
     <div class="nav-section-label">System Charter</div>
-    <div class="nav-items" id="navItems3"></div>
+    <div class="nav-items" id="navItems3" role="list"></div>
     <div class="nav-section-label">Implementation</div>
-    <div class="nav-items" id="navItems4"></div>
+    <div class="nav-items" id="navItems4" role="list"></div>
     <div class="nav-footer">
       <div class="nav-footer-label">Platform Partner</div>
       <div class="nav-footer-title">Knapsack</div>
       <div class="nav-footer-date">January 2026 | v3.1 | Draft</div>
     </div>
   </nav>
-  <main id="mainContent"></main>
+  <main id="mainContent" role="main"></main>
   <script>
     const sectionGroups = [
       [{ id: 'exec-summary', label: 'Executive Summary' }, { id: 'why-knapsack', label: 'Why Knapsack' }, { id: 'three-year', label: 'Three-Year Program' }],
@@ -135,7 +141,7 @@
         const nav = document.getElementById('navItems' + (gi + 1));
         let globalIdx = sectionGroups.slice(0, gi).flat().length;
         nav.innerHTML = group.map((s, i) => `
-          <button class="nav-btn ${activeSection === s.id ? 'active' : ''}" onclick="setSection('${s.id}')">
+          <button class="nav-btn ${activeSection === s.id ? 'active' : ''}" onclick="setSection('${s.id}')" aria-label="Navigate to ${s.label}" aria-current="${activeSection === s.id ? 'true' : 'false'}" role="listitem">
             <span class="nav-num">${globalIdx + i + 1}</span>
             <span>${s.label}</span>
           </button>
@@ -749,7 +755,7 @@
               <div style="padding:14px;background:var(--success-light);border:1px solid #a7f3d0;border-radius:8px;">
                 <div style="font-size:11px;font-weight:700;color:var(--success);text-transform:uppercase;margin-bottom:8px;">Standard PMO Governance</div>
                 <p style="font-size:11px;color:var(--neutral-700);">In-scope adjustments within the approved WBS and funding envelope</p>
-              </div>
+            </div>
               <div style="padding:14px;background:var(--warning-light);border:1px solid #fcd34d;border-radius:8px;">
                 <div style="font-size:11px;font-weight:700;color:var(--warning);text-transform:uppercase;margin-bottom:8px;">Formal Change Order Required</div>
                 <ul style="font-size:11px;color:var(--neutral-700);padding-left:16px;margin:0;">
@@ -758,7 +764,7 @@
                   <li>Increase authorized funding</li>
                   <li>Extend timelines</li>
                 </ul>
-              </div>
+          </div>
             </div>
           </div>
 
