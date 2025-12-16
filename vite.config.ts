@@ -14,7 +14,8 @@ export default defineConfig({
     outDir: 'dist',
     rollupOptions: {
       input: {
-        'ipe-playbook': './strat/solutionengineering/ipe-playbook.html'
+        'ipe-playbook': './strat/solutionengineering/ipe-playbook.html',
+        'pnc-ipe': './strat/pnc/pnc-ipe.html'
       }
     }
   }
