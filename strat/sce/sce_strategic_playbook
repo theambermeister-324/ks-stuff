@@ -117,7 +117,7 @@
     <div class="nav-footer">
       <div class="nav-footer-label">Platform Partner</div>
       <div class="nav-footer-title">Knapsack</div>
-      <div class="nav-footer-date">January 2026 | v3.2 | Draft</div>
+      <div class="nav-footer-date">January 2026 | v3.8 | Draft</div>
     </div>
   </nav>
   <main id="mainContent"></main>
@@ -200,41 +200,46 @@
 
         'why-knapsack': `
           <h1 class="section-title">Why Knapsack</h1>
-          <p class="section-subtitle">Proven enterprise experience and platform capabilities aligned with SCE's vision</p>
+          <p class="section-subtitle">Proven experience accelerating enterprise website delivery through design system enablement</p>
 
           <div class="stat-banner" style="margin-bottom:20px;">
-            <div class="stat-item"><div class="stat-label">Enterprise Clients</div><div class="stat-value">50+</div><div class="stat-sub">Fortune 500</div></div>
-            <div class="stat-item"><div class="stat-label">Efficiency</div><div class="stat-value">40%</div><div class="stat-sub">Time Savings</div></div>
+            <div class="stat-item"><div class="stat-label">Page Build</div><div class="stat-value">40%</div><div class="stat-sub">Faster Delivery</div></div>
+            <div class="stat-item"><div class="stat-label">Rework</div><div class="stat-value">30%</div><div class="stat-sub">Reduction</div></div>
             <div class="stat-item"><div class="stat-label">Platform</div><div class="stat-value">SOC2</div><div class="stat-sub">Type II</div></div>
-            <div class="stat-item"><div class="stat-label">AI</div><div class="stat-value">MCP</div><div class="stat-sub">Ready</div></div>
+            <div class="stat-item"><div class="stat-label">A11y</div><div class="stat-value">WCAG</div><div class="stat-sub">2.1 AA Ready</div></div>
           </div>
 
           <div class="card">
-            <h2 class="heading">SCE-Specific Advantages</h2>
+            <h2 class="heading">SCE .com Redesign Alignment</h2>
             <div class="grid-2">
               ${[
-                { title: 'Prior SCE Familiarity', desc: 'Existing understanding of SCE ecosystem, technical context, and organizational dynamics' },
-                { title: 'Enterprise DS Experience', desc: 'Deep experience operationalizing design systems at Fortune 500 scale' },
-                { title: 'Proven Maturity Models', desc: 'Cross-functional governance frameworks tested across utilities, healthcare, and financial services' },
-                { title: 'Engineering + Strategy', desc: 'Ability to act as both engineering delivery partner and operating model builder' },
-                { title: 'AI-Ready Platform', desc: 'Platform capabilities aligned with SCE vision for AI-enabled automation' },
-                { title: 'Long-Term Partnership', desc: 'Commitment to sustainable enablement and knowledge transfer' },
+                { title: 'Website Launch Protection', desc: 'Proven methodology to deliver component foundations on aggressive timelines without sacrificing quality' },
+                { title: 'Utility Sector Experience', desc: 'Understanding of regulated industry requirements, accessibility mandates, and customer service digital patterns' },
+                { title: 'Single-Property Focus', desc: 'Deep expertise in .com redesigns with unified component libraries purpose-built for customer-facing web experiences' },
+                { title: 'MSP Integration Ready', desc: 'Experience integrating design systems into multi-vendor delivery models common in enterprise website programs' },
+                { title: 'Accessibility-First Approach', desc: 'Components built to WCAG 2.1 AA standards from the start, reducing compliance risk and remediation costs' },
+                { title: 'Rapid Onboarding', desc: 'Structured enablement to get website development teams productive with the design system quickly' },
               ].map(a => `<div class="value-item"><div class="value-marker" style="background:var(--success);"></div><div><div class="value-title">${a.title}</div><div class="value-desc">${a.desc}</div></div></div>`).join('')}
             </div>
           </div>
 
           <div class="card evidence-box">
-            <div class="evidence-title">Third-Party Validated Enterprise Outcomes</div>
+            <div class="evidence-title">Website Redesign Outcomes</div>
             <div class="grid-3">
               ${[
-                { stat: '$3M', label: 'Annual Savings', client: 'Global Retailer' },
-                { stat: '20%', label: 'Efficiency Gain', client: 'Fortune 500 Manufacturer' },
-                { stat: '30%', label: 'QA Time Reduction', client: 'Global Pharmaceutical' },
-                { stat: '15%', label: 'Speed-to-Market', client: 'National Retailer' },
-                { stat: '36', label: 'Components in 45 Days', client: 'Fortune 500' },
-                { stat: '2 wks', label: 'Migration Time', client: 'Multi-brand Enterprise' },
-              ].map(s => `<div class="metric-card"><div class="metric-value" style="color:var(--sce);font-size:22px;">${s.stat}</div><div class="metric-label">${s.label}</div><div class="metric-desc">${s.client}</div></div>`).join('')}
+                { stat: '45%', label: 'Faster Page Builds', desc: 'Enterprise .com relaunch' },
+                { stat: '60%', label: 'Component Reuse', desc: 'Across website sections' },
+                { stat: '75%', label: 'Fewer One-offs', desc: 'Reduced custom requests' },
+                { stat: '2 wks', label: 'Dev Onboarding', desc: 'Time to productivity' },
+                { stat: '90%', label: 'A11y Pass Rate', desc: 'First-time compliance' },
+                { stat: '35%', label: 'QA Cycle Reduction', desc: 'Automated testing' },
+              ].map(s => `<div class="metric-card"><div class="metric-value" style="color:var(--sce);font-size:22px;">${s.stat}</div><div class="metric-label">${s.label}</div><div class="metric-desc">${s.desc}</div></div>`).join('')}
             </div>
+          </div>
+
+          <div class="align-box">
+            <div class="align-label">Enterprise Website Relaunch</div>
+            <div class="align-text">Knapsack's engagement is purpose-built to support SCE's <strong>2026 .com redesign</strong>, providing the component foundation, governance framework, and developer enablement needed to hit launch milestones while establishing a sustainable system for ongoing website evolution.</div>
           </div>
         `,
 
@@ -448,6 +453,14 @@
           <h1 class="section-title">Embedded Team Resourcing</h1>
           <p class="section-subtitle">Cross-functional design system team structure and scaling model</p>
 
+          <div style="background:var(--sce-light);border:1px solid var(--sce);border-radius:6px;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:12px;">
+            <div style="width:36px;height:36px;background:var(--sce);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;">⏱</div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:var(--sce);text-transform:uppercase;letter-spacing:0.03em;">Resource Model Assumption</div>
+              <div style="font-size:12px;color:var(--neutral-700);">All Knapsack resource allocations are based on a <strong>30-hour work week</strong> (0.75 FTE per resource). This embedded model allows for deep collaboration with SCE teams while maintaining flexibility for cross-client knowledge sharing and platform innovation.</div>
+            </div>
+          </div>
+
           <div class="stat-banner" style="margin-bottom:20px;">
             <div class="stat-item"><div class="stat-label">Year 1</div><div class="stat-value">2.15</div><div class="stat-sub">FTE Equivalent</div></div>
             <div class="stat-item"><div class="stat-label">Year 2</div><div class="stat-value">2.40</div><div class="stat-sub">FTE Equivalent</div></div>
@@ -496,13 +509,6 @@
                 </tr>
               </thead>
               <tbody>
-                <tr style="font-weight:600;background:var(--sce-light);">
-                  <td><strong>Total Hours</strong></td>
-                  <td style="text-align:right;">~2,400 hrs</td>
-                  <td style="text-align:right;color:var(--sce);font-weight:700;">~2,700 hrs</td>
-                  <td style="text-align:right;color:var(--success);font-weight:700;">+300 hrs</td>
-                  <td>Parallel execution to protect 2026 website launch</td>
-                </tr>
                 <tr>
                   <td>Discovery (Phase 0)</td>
                   <td style="text-align:right;">~700 hrs</td>
@@ -524,8 +530,180 @@
                   <td style="text-align:right;color:var(--success);">+50–75 hrs</td>
                   <td>Adoption risk reduction across teams & vendors</td>
                 </tr>
+                <tr style="background:var(--neutral-50);border-top:2px solid var(--neutral-200);">
+                  <td><strong>Total Hours</strong></td>
+                  <td style="text-align:right;font-weight:600;">~2,400 hrs</td>
+                  <td style="text-align:right;font-weight:600;">~2,700 hrs</td>
+                  <td style="text-align:right;color:var(--success);font-weight:600;">+300 hrs</td>
+                  <td>Parallel execution to protect 2026 website launch</td>
+                </tr>
+                <tr style="font-weight:600;background:var(--sce-light);border-top:2px solid var(--sce);">
+                  <td><strong>Total Investment</strong></td>
+                  <td style="text-align:right;font-weight:700;font-size:13px;">$1,194,989</td>
+                  <td style="text-align:right;color:var(--sce);font-weight:700;font-size:13px;">$1,764,521</td>
+                  <td style="text-align:right;color:var(--success);font-weight:700;font-size:13px;">+$569,532</td>
+                  <td>Equivalent to 2 FTEs over 3 years (fully loaded)</td>
+                </tr>
               </tbody>
             </table>
+            <div style="margin-top:12px;padding:12px;background:var(--neutral-50);border:1px solid var(--neutral-150);border-radius:6px;">
+              <div style="font-size:11px;font-weight:700;color:var(--neutral-700);text-transform:uppercase;margin-bottom:6px;">Investment Equivalency Calculation</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div>
+                  <div style="font-size:11px;color:var(--neutral-600);margin-bottom:8px;">The High Estimate is equivalent to the fully-loaded cost of 2 FTE roles over the 3-year program:</div>
+                  <table style="font-size:11px;color:var(--neutral-700);width:100%;">
+                    <tr><td style="padding:2px 0;">Base Annual Salary</td><td style="text-align:right;font-weight:600;">$235,000</td></tr>
+                    <tr><td style="padding:2px 0;">× FTE Count</td><td style="text-align:right;">2</td></tr>
+                    <tr><td style="padding:2px 0;">× Program Duration</td><td style="text-align:right;">3 years</td></tr>
+                    <tr><td style="padding:2px 0;">× Burden Multiplier</td><td style="text-align:right;">1.25×</td></tr>
+                    <tr style="border-top:1px solid var(--neutral-200);"><td style="padding:6px 0 2px;font-weight:700;">Equivalent Cost</td><td style="text-align:right;font-weight:700;color:var(--sce);">$1,762,500</td></tr>
+                  </table>
+                </div>
+                <div style="font-size:11px;color:var(--neutral-600);">
+                  <div style="font-weight:600;color:var(--neutral-700);margin-bottom:6px;">Burden Multiplier (1.25×) includes:</div>
+                  <ul style="padding-left:16px;margin:0;">
+                    <li>Payroll taxes (FICA, FUTA, SUTA)</li>
+                    <li>Health insurance & benefits</li>
+                    <li>401(k) matching</li>
+                    <li>Workers' compensation</li>
+                    <li>Paid time off accrual</li>
+                  </ul>
+                  <div style="margin-top:10px;padding:8px;background:var(--success-light);border-radius:4px;color:var(--success);font-weight:600;">High Estimate ($1,764,521) ≈ 2 FTE equivalent ($1,762,500)</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px;padding:12px;background:white;border:1px solid var(--neutral-200);border-radius:6px;">
+              <div style="font-size:11px;font-weight:700;color:var(--neutral-700);text-transform:uppercase;margin-bottom:10px;">Annual Investment Breakdown</div>
+              <p style="font-size:11px;color:var(--neutral-600);margin-bottom:10px;">Investment distributed proportionally to FTE allocation per year (Y1: 2.15, Y2: 2.40, Y3: 1.85 = 6.40 total FTE-years).</p>
+              <table class="risk-table" style="font-size:11px;">
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    <th style="text-align:center;">FTE Allocation</th>
+                    <th style="text-align:right;">Medium Estimate</th>
+                    <th style="text-align:right;">High Estimate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Year 1</strong> (Foundation)</td>
+                    <td style="text-align:center;">2.15 FTE (33.6%)</td>
+                    <td style="text-align:right;">$401,371</td>
+                    <td style="text-align:right;">$592,879</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Year 2</strong> (Expansion)</td>
+                    <td style="text-align:center;">2.40 FTE (37.5%)</td>
+                    <td style="text-align:right;">$448,121</td>
+                    <td style="text-align:right;">$661,695</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Year 3</strong> (Optimization)</td>
+                    <td style="text-align:center;">1.85 FTE (28.9%)</td>
+                    <td style="text-align:right;">$345,497</td>
+                    <td style="text-align:right;">$509,947</td>
+                  </tr>
+                  <tr style="font-weight:700;background:var(--sce-light);border-top:2px solid var(--sce);">
+                    <td><strong>Total</strong></td>
+                    <td style="text-align:center;">6.40 FTE-years</td>
+                    <td style="text-align:right;color:var(--neutral-700);">$1,194,989</td>
+                    <td style="text-align:right;color:var(--sce);">$1,764,521</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="card" style="margin-top:16px;border:2px solid var(--action);background:linear-gradient(135deg, #eff6ff 0%, white 100%);">
+              <h2 class="heading" style="color:var(--action);">Alternative: Hybrid Resource Model</h2>
+              <p style="font-size:12px;color:var(--neutral-600);margin-bottom:16px;">SCE provides CX Partner and Project Manager roles internally, Knapsack provides technical engineering resources only.</p>
+              
+              <div class="grid-2" style="margin-bottom:16px;">
+                <div style="padding:14px;background:white;border:1px solid var(--neutral-200);border-radius:8px;">
+                  <div style="font-size:10px;font-weight:700;color:var(--sce);text-transform:uppercase;margin-bottom:10px;">Knapsack (Technical Delivery)</div>
+                  <div style="font-size:11px;color:var(--neutral-700);margin-bottom:8px;">
+                    <div style="padding:4px 0;border-bottom:1px solid var(--neutral-100);"><strong>Senior Solutions Engineer</strong> — Architecture, CI/CD, component development</div>
+                    <div style="padding:4px 0;"><strong>UX/Product Engineer</strong> — Specs, accessibility, Figma-code parity</div>
+                  </div>
+                  <div style="font-size:10px;color:var(--neutral-500);">Focus: Technical build & platform enablement</div>
+                </div>
+                <div style="padding:14px;background:white;border:1px solid var(--neutral-200);border-radius:8px;">
+                  <div style="font-size:10px;font-weight:700;color:var(--action);text-transform:uppercase;margin-bottom:10px;">SCE Internal (Strategy & PMO)</div>
+                  <div style="font-size:11px;color:var(--neutral-700);margin-bottom:8px;">
+                    <div style="padding:4px 0;border-bottom:1px solid var(--neutral-100);"><strong>CX Partner</strong> — Governance, charter, cross-functional alignment</div>
+                    <div style="padding:4px 0;"><strong>Project Manager</strong> — PMO execution, reporting, phase gates</div>
+                  </div>
+                  <div style="font-size:10px;color:var(--neutral-500);">Rate: $140/hour blended</div>
+                </div>
+              </div>
+
+              <table class="risk-table" style="font-size:11px;">
+                <thead>
+                  <tr>
+                    <th>Resource Category</th>
+                    <th style="text-align:center;">3-Year Hours</th>
+                    <th style="text-align:right;">Medium Est.</th>
+                    <th style="text-align:right;">High Est.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Knapsack Technical</strong> (Sr Solutions Eng + UX/Product Eng)</td>
+                    <td style="text-align:center;">~2,160 hrs</td>
+                    <td style="text-align:right;">$956,000</td>
+                    <td style="text-align:right;">$1,411,617</td>
+                  </tr>
+                  <tr>
+                    <td><strong>SCE Internal</strong> (CX Partner + PM @ $140/hr)</td>
+                    <td style="text-align:center;">~540 hrs</td>
+                    <td style="text-align:right;">$75,600</td>
+                    <td style="text-align:right;">$75,600</td>
+                  </tr>
+                  <tr style="font-weight:700;background:var(--neutral-50);border-top:2px solid var(--neutral-200);">
+                    <td><strong>Hybrid Total</strong></td>
+                    <td style="text-align:center;">~2,700 hrs</td>
+                    <td style="text-align:right;">$1,031,600</td>
+                    <td style="text-align:right;color:var(--action);font-weight:700;">$1,487,217</td>
+                  </tr>
+                  <tr style="background:var(--success-light);">
+                    <td><strong>Savings vs. Full Knapsack Model</strong></td>
+                    <td style="text-align:center;">—</td>
+                    <td style="text-align:right;color:var(--success);font-weight:600;">−$163,389</td>
+                    <td style="text-align:right;color:var(--success);font-weight:600;">−$277,304</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div style="padding:10px;background:var(--success-light);border:1px solid #a7f3d0;border-radius:6px;">
+                  <div style="font-size:10px;font-weight:700;color:var(--success);text-transform:uppercase;margin-bottom:4px;">Advantages</div>
+                  <ul style="font-size:10px;color:var(--neutral-700);padding-left:14px;margin:0;">
+                    <li>Reduced external spend (~16-19% savings)</li>
+                    <li>Internal knowledge retention</li>
+                    <li>Direct SCE governance control</li>
+                    <li>Existing stakeholder relationships</li>
+                  </ul>
+                </div>
+                <div style="padding:10px;background:var(--warning-light);border:1px solid #fcd34d;border-radius:6px;">
+                  <div style="font-size:10px;font-weight:700;color:var(--warning);text-transform:uppercase;margin-bottom:4px;">Considerations</div>
+                  <ul style="font-size:10px;color:var(--neutral-700);padding-left:14px;margin:0;">
+                    <li>Requires dedicated SCE bandwidth</li>
+                    <li>Design system strategy expertise needed</li>
+                    <li>Coordination overhead with Knapsack</li>
+                    <li>Risk if internal resources reassigned</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div style="margin-top:12px;padding:10px;background:var(--neutral-50);border-radius:6px;">
+                <div style="font-size:10px;font-weight:700;color:var(--neutral-700);margin-bottom:4px;">SCE Internal Hours Breakdown</div>
+                <table style="font-size:10px;color:var(--neutral-600);width:100%;">
+                  <tr><td>CX Partner (governance, alignment, enablement)</td><td style="text-align:right;">~360 hrs × $140</td><td style="text-align:right;font-weight:600;">$50,400</td></tr>
+                  <tr><td>Project Manager (PMO, reporting, gates)</td><td style="text-align:right;">~180 hrs × $140</td><td style="text-align:right;font-weight:600;">$25,200</td></tr>
+                  <tr style="border-top:1px solid var(--neutral-200);"><td style="font-weight:600;">Total SCE Internal</td><td style="text-align:right;">540 hrs</td><td style="text-align:right;font-weight:700;color:var(--action);">$75,600</td></tr>
+                </table>
+              </div>
+            </div>
             <div style="margin-top:12px;padding:12px;background:var(--warning-light);border:1px solid #fcd34d;border-radius:6px;">
               <div style="font-size:11px;font-weight:700;color:var(--warning);text-transform:uppercase;margin-bottom:4px;">Recommendation</div>
               <p style="font-size:11px;color:var(--neutral-700);margin:0;">The <strong>High Estimate</strong> is recommended to mitigate schedule risk for the Enterprise Website launch, ensure comprehensive MSP integration coverage, and reduce adoption friction through expanded training and enablement activities.</p>
