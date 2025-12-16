@@ -3,6 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Asher Brewing Co. 16th Anniversary Event Flyer - Print Ready" />
+  <!-- 
+    PRINT INSTRUCTIONS:
+    1. Open this file in a modern browser (Chrome, Firefox, Safari, Edge)
+    2. Press Cmd/Ctrl + P to open print dialog
+    3. Select "Save as PDF" as destination
+    4. In print settings:
+       - Page size: Custom (set to desired poster size, e.g., 24" x 36")
+       - Scale: 100% (do not scale)
+       - Margins: None or Minimum (0.125" for bleed)
+       - Background graphics: ENABLED ✓
+       - Color: Color
+    5. Save the PDF
+    6. For professional printing:
+       - Send PDF to print service
+       - Request CMYK conversion (most services do this automatically)
+       - Verify final size matches your requirements
+       - Check that images are at least 150-300 DPI at final size
+    
+    IMAGE RESOLUTION NOTES:
+    - sixteen_of_cups_192.5x332.52mm_300dpi.jpeg: 300 DPI (print-ready)
+    - thunderboogie.png: Verify resolution (should be 300 DPI for best results)
+    - ABC Only (1).png: Verify resolution (should be 300 DPI for best results)
+    
+    COLOR MODE:
+    - This file uses RGB colors (web standard)
+    - Professional printers will convert to CMYK automatically
+    - For color-critical work, preview CMYK conversion in design software
+  -->
   <title>Asher Brewing Co. 16th Anniversary - Thunderboogie</title>
 
   <style>
@@ -308,6 +337,21 @@
       filter: none;
       display: block;
       flex-shrink: 0;
+    }
+    
+    /* Ensure images maintain quality for printing */
+    img {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: auto; /* Smooth rendering for photos */
+      -ms-interpolation-mode: bicubic; /* High-quality interpolation */
+    }
+    
+    /* High-resolution image handling - maintain quality */
+    .header-logo,
+    .card-image-frame img {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: auto;
+      -ms-interpolation-mode: bicubic;
     }
 
     .date-time-banner {
@@ -1112,14 +1156,30 @@
       line-height: 1.2;
     }
 
-    /* Print-specific styles */
+    /* Print-specific styles - Optimized for professional printing */
     @media print {
-      /* Page setup */
+      /* 
+        PRINT SETUP INSTRUCTIONS:
+        - For best results, print to PDF first, then send PDF to printer
+        - Recommended: Use "Save as PDF" in browser print dialog
+        - Page size: Adjust in browser print settings (e.g., Custom: 24" x 36" for poster)
+        - Scale: 100% (do not scale)
+        - Margins: None or minimum (0.125" bleed if needed)
+        - Background graphics: ENABLED
+        - Color: Color (will be converted to CMYK by print service)
+        
+        NOTE: Browsers print in RGB. For CMYK conversion, use professional print software
+        (Adobe Acrobat, InDesign, or print service's online tool) after exporting to PDF.
+      */
+      
+      /* Page setup - supports custom sizes via browser print dialog */
       @page {
-        size: letter; /* 8.5 x 11 inches */
-        margin: 0.5in;
+        size: auto; /* Allows custom size in print dialog */
+        margin: 0.125in; /* 0.125" bleed area */
+        marks: crop; /* Crop marks for bleed */
       }
       
+      /* Force exact color rendering */
       * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -1130,17 +1190,21 @@
         padding: 0 !important;
         margin: 0 !important;
         display: block !important;
+        width: 100% !important;
+        height: 100% !important;
       }
       
       .poster {
         max-width: 100% !important;
         width: 100% !important;
         box-shadow: none !important;
-        background: white !important;
+        background: #1a2f24 !important; /* Keep dark background for contrast */
         min-height: auto !important;
         margin: 0 !important;
         padding: 0 !important;
         page-break-inside: avoid;
+        page-break-after: avoid;
+        position: relative;
       }
       
       .poster::before {
@@ -1148,29 +1212,76 @@
       }
       
       .ornate-border {
-        opacity: 0.7 !important;
+        opacity: 0.85 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
       
       .content {
-        padding: 30px 25px !important;
+        padding: 0.5in !important; /* 0.5" safety margin inside bleed */
         page-break-inside: avoid;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      
+      /* Ensure high-resolution image rendering */
+      img {
+        max-width: 100% !important;
+        height: auto !important;
+        page-break-inside: avoid;
+        image-rendering: -webkit-optimize-contrast !important;
+        image-rendering: auto !important; /* Smooth rendering for photos */
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        /* Prevent browser from downscaling high-res images */
+        image-resolution: 300dpi !important;
+        /* Ensure images print at native resolution */
+        object-fit: cover !important;
+      }
+      
+      /* Force high-res rendering for specific images */
+      .header-logo,
+      .card-image-frame img {
+        image-rendering: -webkit-optimize-contrast !important;
+        image-rendering: auto !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        /* Maintain aspect ratio and quality */
+        object-fit: cover !important;
+      }
+      
+      /* Ensure logo prints at high quality */
+      .header-logo {
+        width: auto !important;
+        max-width: 100% !important;
+        height: auto !important;
       }
       
       /* Ensure text is dark enough for print */
       .reading p,
       .event-header-date,
       .brewery-logo,
-      .card-title {
+      .card-title,
+      .card-content .reveal .desc,
+      .card-content .reveal .label,
+      .info-card-title,
+      .info-card-detail {
         color: #1a0f0a !important;
         text-shadow: none !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
       
       .event-header-time,
       .tagline,
       .reading-kicker,
-      .reading .reading-personal {
+      .reading .reading-personal,
+      .cta-text,
+      .cta-intro {
         color: #8b6914 !important;
         text-shadow: none !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
       
       .spread-caption {
@@ -1178,9 +1289,26 @@
         text-shadow: none !important;
       }
       
+      .brewery-name,
+      .feature-title,
+      .event-features-footer .feature-title {
+        color: #d4a853 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      
+      .feature-detail,
+      .event-features-footer .feature-detail,
+      .brewery-address {
+        color: #b8941f !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      
       /* Remove shadows that don't print well, but keep borders */
       * {
         text-shadow: none !important;
+        box-shadow: none !important;
       }
       
       /* Keep essential borders and backgrounds for cards */
@@ -1190,6 +1318,8 @@
         background: #f5ead6 !important;
         box-shadow: none !important;
         page-break-inside: avoid;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
       
       .tarot-card::after {
@@ -1198,24 +1328,21 @@
       
       .card-image-frame {
         border-color: #5c4426 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
       
-      .card-content .reveal .desc,
-      .card-content .reveal .label,
-      .info-card-title,
-      .info-card-detail {
-        color: #1a0f0a !important;
-      }
-      
-      /* Ensure images print */
-      img {
-        max-width: 100% !important;
-        height: auto !important;
-        page-break-inside: avoid;
+      /* Keep background colors for sections */
+      .tarot-section {
+        background: rgba(13, 15, 10, 0.8) !important;
+        border-color: rgba(122,154,122,0.8) !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
       
       /* Keep gradients for backgrounds where needed */
-      .date-time-banner {
+      .date-time-banner,
+      .poster {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -1233,8 +1360,13 @@
         page-break-inside: avoid;
       }
       
+      .header {
+        page-break-inside: avoid;
+      }
+      
       /* Footer info cards */
-      .top-features {
+      .top-features,
+      .event-features-footer {
         page-break-inside: avoid;
       }
       
@@ -1243,11 +1375,20 @@
         display: none !important;
       }
       
-      /* Ensure logos print */
+      /* Ensure logos print at full quality */
       .info-card-logo,
-      .logo-img {
+      .logo-img,
+      .header-logo {
         filter: none !important;
         -webkit-filter: none !important;
+        image-rendering: -webkit-optimize-contrast !important;
+        image-rendering: crisp-edges !important;
+      }
+      
+      /* SVG elements should print at high quality */
+      .hop {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
     }
 
