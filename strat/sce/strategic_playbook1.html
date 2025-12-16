@@ -3,9 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Southern California Edison Design System Strategic Playbook - Enterprise Design System enablement partnership with Knapsack for 2026">
-  <meta name="author" content="Knapsack">
-  <meta name="robots" content="index, follow">
   <title>SCE × Knapsack Strategic Playbook 2026</title>
   <style>
     :root {
@@ -100,33 +97,30 @@
     .opex { background: #fef3c7; color: #d97706; }
     .mixed { background: #f3e8ff; color: #7c3aed; }
     @media (max-width: 900px) { nav { display: none; } main { margin-left: 0; padding: 20px; } .stat-banner, .grid-2, .grid-3 { grid-template-columns: 1fr; } }
-    .skip-link { position: absolute; top: -40px; left: 0; background: var(--sce); color: white; padding: 8px 16px; text-decoration: none; z-index: 100; }
-    .skip-link:focus { top: 0; }
   </style>
 </head>
 <body>
-  <a href="#mainContent" class="skip-link">Skip to main content</a>
-  <nav aria-label="Document navigation">
+  <nav>
     <div class="nav-header">
       <div class="nav-logo">Southern California Edison</div>
       <div class="nav-title">Design System Strategic Playbook</div>
       <div class="nav-subtitle">Knapsack Enablement Partnership | 2026</div>
     </div>
     <div class="nav-section-label">Executive Overview</div>
-    <div class="nav-items" id="navItems1" role="list"></div>
+    <div class="nav-items" id="navItems1"></div>
     <div class="nav-section-label">Technical Approach</div>
-    <div class="nav-items" id="navItems2" role="list"></div>
+    <div class="nav-items" id="navItems2"></div>
     <div class="nav-section-label">System Charter</div>
-    <div class="nav-items" id="navItems3" role="list"></div>
+    <div class="nav-items" id="navItems3"></div>
     <div class="nav-section-label">Implementation</div>
-    <div class="nav-items" id="navItems4" role="list"></div>
+    <div class="nav-items" id="navItems4"></div>
     <div class="nav-footer">
       <div class="nav-footer-label">Platform Partner</div>
       <div class="nav-footer-title">Knapsack</div>
       <div class="nav-footer-date">January 2026 | v3.2 | Draft</div>
     </div>
   </nav>
-  <main id="mainContent" role="main"></main>
+  <main id="mainContent"></main>
   <script>
     const sectionGroups = [
       [{ id: 'exec-summary', label: 'Executive Summary' }, { id: 'why-knapsack', label: 'Why Knapsack' }, { id: 'three-year', label: 'Three-Year Program' }],
@@ -141,7 +135,7 @@
         const nav = document.getElementById('navItems' + (gi + 1));
         let globalIdx = sectionGroups.slice(0, gi).flat().length;
         nav.innerHTML = group.map((s, i) => `
-          <button class="nav-btn ${activeSection === s.id ? 'active' : ''}" onclick="setSection('${s.id}')" aria-label="Navigate to ${s.label}" aria-current="${activeSection === s.id ? 'true' : 'false'}" role="listitem">
+          <button class="nav-btn ${activeSection === s.id ? 'active' : ''}" onclick="setSection('${s.id}')">
             <span class="nav-num">${globalIdx + i + 1}</span>
             <span>${s.label}</span>
           </button>

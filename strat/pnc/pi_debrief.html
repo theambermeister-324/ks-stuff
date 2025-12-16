@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PI Planning Workshop Summary</title>
+  <style>
+    @page {
+      size: landscape;
+      margin: 0.4in;
+    }
+    
+    :root {
+      --primary: #2d3748;
+      --primary-light: #4a5568;
+      --accent: #718096;
+      --accent-dark: #4a5568;
+      --gray-50: #f7fafc;
+      --gray-100: #edf2f7;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e0;
+      --gray-600: #718096;
+      --gray-700: #4a5568;
+      --gray-800: #2d3748;
+      --gray-900: #1a202c;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #f0f0f0;
+      color: var(--gray-800);
+      line-height: 1.6;
+      font-size: 12px;
+    }
+    
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+    
+    .page {
+      padding: 36px 44px;
+      page-break-after: always;
+      min-height: 680px;
+      position: relative;
+      background: white;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    
+    .page:last-child {
+      page-break-after: avoid;
+      border-bottom: none;
+    }
+    
+    /* Title Page */
+    .title-page {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 680px;
+      background: linear-gradient(135deg, rgba(45,55,72,0.04) 0%, rgba(113,128,150,0.04) 100%);
+      padding: 60px;
+    }
+    
+    .title-page h1 {
+      font-size: 36px;
+      color: var(--gray-900);
+      margin-bottom: 12px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    
+    .title-page h2 {
+      font-size: 22px;
+      color: var(--gray-600);
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+    
+    .title-page .subtitle {
+      font-size: 13px;
+      color: var(--gray-600);
+      margin-bottom: 40px;
+      max-width: 600px;
+      line-height: 1.7;
+    }
+    
+    .teams-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    
+    .team-tag {
+      background: var(--primary);
+      color: white;
+      font-size: 10px;
+      padding: 4px 12px;
+      border-radius: 3px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+    
+    .document-meta {
+      position: absolute;
+      bottom: 36px;
+      left: 44px;
+      right: 44px;
+      font-size: 11px;
+      color: var(--gray-600);
+      border-top: 1px solid var(--gray-200);
+      padding-top: 16px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    /* Section Headers */
+    .section-header {
+      margin-bottom: 20px;
+    }
+    
+    .section-header h1 {
+      font-size: 24px;
+      color: var(--gray-900);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    
+    .section-subtitle {
+      font-size: 11px;
+      color: var(--gray-600);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    h2 {
+      font-size: 16px;
+      color: var(--gray-900);
+      margin-top: 24px;
+      margin-bottom: 14px;
+      font-weight: 700;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--gray-300);
+    }
+    
+    h3 {
+      font-size: 13px;
+      color: var(--gray-800);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    
+    p {
+      margin-bottom: 12px;
+      font-size: 11px;
+      color: var(--gray-700);
+      line-height: 1.65;
+    }
+    
+    /* Callout Box */
+    .callout-box {
+      background: var(--gray-50);
+      border-left: 4px solid var(--gray-600);
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      border-radius: 0 6px 6px 0;
+    }
+    
+    .callout-box h3 {
+      color: var(--gray-700);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    
+    .callout-box p {
+      margin-bottom: 0;
+    }
+    
+    /* Two Column Layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    
+    /* Info Cards */
+    .info-card {
+      background: var(--gray-50);
+      border-left: 4px solid var(--primary);
+      padding: 14px 16px;
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 10px;
+    }
+    
+    .info-card h4 {
+      font-size: 10px;
+      color: var(--gray-800);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    
+    .info-card p {
+      font-size: 10px;
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+      margin-top: 12px;
+    }
+    
+    .data-table th {
+      background: var(--primary);
+      color: white;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 10px;
+    }
+    
+    .data-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--gray-200);
+      vertical-align: top;
+    }
+    
+    .data-table tr:nth-child(even) {
+      background: var(--gray-50);
+    }
+    
+    .obj-name {
+      font-weight: 600;
+      color: var(--gray-800);
+      white-space: nowrap;
+    }
+    
+    .new-tag {
+      background: var(--gray-600);
+      color: white;
+      font-size: 8px;
+      padding: 2px 6px;
+      border-radius: 2px;
+      margin-left: 6px;
+      font-weight: 600;
+      vertical-align: middle;
+    }
+    
+    /* Next Steps Section */
+    .next-steps-section {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      padding: 20px 24px;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+    
+    .next-steps-section h3 {
+      color: white;
+      margin-bottom: 14px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.9;
+    }
+    
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px 16px;
+    }
+    
+    .step-item {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      font-size: 9px;
+      line-height: 1.4;
+    }
+    
+    .step-num {
+      background: white;
+      color: var(--primary);
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    
+    /* Risk Table */
+    .risk-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9px;
+    }
+    
+    .risk-table th {
+      background: var(--primary);
+      color: white;
+      padding: 8px 10px;
+      text-align: left;
+      font-weight: 600;
+    }
+    
+    .risk-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--gray-200);
+      vertical-align: top;
+    }
+    
+    .risk-table tr:nth-child(even) {
+      background: var(--gray-50);
+    }
+    
+    .risk-num {
+      font-weight: 700;
+      color: var(--gray-800);
+    }
+    
+    .risk-name {
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+    
+    .risk-doubt {
+      color: var(--gray-600);
+      font-style: italic;
+    }
+    
+    .impact-tag {
+      display: inline-block;
+      font-size: 8px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+    
+    .impact-high { background: var(--gray-800); color: white; }
+    .impact-med { background: var(--gray-200); color: var(--gray-800); }
+    .impact-low { background: var(--gray-100); color: var(--gray-700); }
+    
+    /* Hopes & Doubts */
+    .hopes-doubts-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .list-box {
+      background: var(--gray-50);
+      padding: 14px 16px;
+      border-radius: 6px;
+      flex: 1;
+      border-left: 4px solid var(--gray-400);
+    }
+    
+    .list-box.hopes { border-left-color: var(--primary); }
+    .list-box.doubts { border-left-color: var(--gray-600); }
+    
+    .list-box h4 {
+      font-size: 10px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-800);
+    }
+    
+    .list-box ol {
+      padding-left: 16px;
+      font-size: 9px;
+      line-height: 1.5;
+      color: var(--gray-700);
+    }
+    
+    .list-box li { margin-bottom: 2px; }
+    
+    /* ROAM Legend */
+    .roam-legend {
+      display: flex;
+      gap: 20px;
+      padding: 12px 16px;
+      background: var(--gray-50);
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+    
+    .roam-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      color: var(--gray-600);
+    }
+    
+    .roam-badge {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 10px;
+      color: white;
+      background: var(--primary);
+    }
+    
+    .roam-badge.accent { background: var(--gray-600); }
+    
+    /* Integration Cards */
+    .integration-card {
+      background: var(--gray-50);
+      border-radius: 6px;
+      padding: 18px 20px;
+      border-left: 4px solid var(--primary);
+    }
+    
+    .integration-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    
+    .integration-card h3 span {
+      background: var(--primary);
+      color: white;
+      font-size: 8px;
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+    
+    .integration-list {
+      font-size: 10px;
+      color: var(--gray-700);
+      padding-left: 18px;
+    }
+    
+    .integration-list li {
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    
+    .integration-list strong {
+      color: var(--gray-800);
+    }
+    
+    /* Flow Diagram */
+    .flow-diagram {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    
+    .flow-diagram h3 {
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 11px;
+    }
+    
+    .flow-steps {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    
+    .flow-step {
+      flex: 1;
+      text-align: center;
+      padding: 12px 10px;
+      background: var(--gray-100);
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+    
+    .flow-step.highlight {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .flow-arrow {
+      color: var(--gray-400);
+      font-size: 18px;
+      font-weight: bold;
+    }
+    
+    /* Improvements Grid */
+    .improvements-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    
+    .improvement-card {
+      background: var(--gray-50);
+      padding: 12px 14px;
+      border-radius: 4px;
+      border-top: 3px solid var(--gray-400);
+    }
+    
+    .improvement-card strong {
+      display: block;
+      font-size: 10px;
+      color: var(--gray-800);
+      margin-bottom: 6px;
+    }
+    
+    .improvement-card span {
+      font-size: 9px;
+      color: var(--gray-600);
+      line-height: 1.45;
+    }
+    
+    /* Footer */
+    .page-footer {
+      position: absolute;
+      bottom: 20px;
+      left: 44px;
+      right: 44px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      color: var(--gray-600);
+      padding-top: 12px;
+      border-top: 1px solid var(--gray-200);
+    }
+    
+    @media print {
+      body { 
+        background: white;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .container { 
+        box-shadow: none;
+        max-width: 100%;
+      }
+      .page {
+        min-height: auto;
+        padding: 24px 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- PAGE 1: Title Page -->
+    <div class="page title-page">
+      <h1>PI Planning Workshop Summary</h1>
+      <h2>PI126 Planning for Ledger Design System Modernization</h2>
+      <p class="subtitle">The PI Planning workshop brought together cross-functional teams to align on Ledger Design System modernization while protecting BAU delivery. This document captures key learnings, objectives, risk assessment, and integration planning for the next cycle.</p>
+      
+      <div class="teams-bar">
+        <span class="team-tag">Ledger</span>
+        <span class="team-tag">Private Bank</span>
+        <span class="team-tag">Retail CL Dev</span>
+        <span class="team-tag">Harmony</span>
+        <span class="team-tag">Ledger System</span>
+        <span class="team-tag">Knapsack</span>
+      </div>
+      
+      <div class="document-meta">
+        <span>Ledger + Knapsack Partnership</span>
+        <span>Design System Modernization</span>
+      </div>
+    </div>
+    
+    <!-- PAGE 2: Key Insights & Objectives -->
+    <div class="page">
+      <div class="section-header">
+        <h1>Key Insights & Objectives</h1>
+        <p class="section-subtitle">Workshop Learnings and Strategic Alignment</p>
+      </div>
+      
+      <div class="callout-box">
+        <h3>What We Learned</h3>
+        <p>Teams need structured pre-work, early alignment on vision, and clarity on system-wide direction before detailed planning can begin. The program assumes all product teams continue to ship their roadmaps, while Knapsack and an FDE-led architecture track take on system-level modernization, token strategy, and governance.</p>
+      </div>
+      
+      <div class="two-col">
+        <div>
+          <h2>Key Insights</h2>
+          <p>The pilot surfaced important learnings. We still default to reactive planning—timeboxing drove "what's on fire now" rather than future-looking dependency planning.</p>
+          
+          <div class="info-grid">
+            <div class="info-card">
+              <h4>Pre-work Essential</h4>
+              <p>Teams need dedicated time before workshops to review boards, align on BAU vs. modernization scope, and come prepared.</p>
+            </div>
+            <div class="info-card">
+              <h4>Consolidation Clarity</h4>
+              <p>Private Bank struggles to plan migration without a clearer path for Ledger + PB consolidation.</p>
+            </div>
+            <div class="info-card">
+              <h4>Separate Planning from Solutioning</h4>
+              <p>Complex topics (table deconstruction, a11y debt) need separate deep dives so PI Planning focuses on commitments.</p>
+            </div>
+            <div class="info-card">
+              <h4>Business Value Linkage</h4>
+              <p>Clearer connection needed between objectives and leadership metrics: risk reduction, time-to-market, efficiency.</p>
+            </div>
+            <div class="info-card">
+              <h4>Board Clarity Needed</h4>
+              <p>Boards should clearly distinguish committed work, in-flight dependencies, and exploratory ideas.</p>
+            </div>
+            <div class="info-card">
+              <h4>Format Inclusivity</h4>
+              <p>Content and facilitation must better support designers, developers, in-room and remote participants equally.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h2>PI Objectives (Working Set)</h2>
+          <p>Six strategic objectives align cross-functional teams toward shared outcomes.</p>
+          
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 30%">Objective</th>
+                <th>Business Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="obj-name">Modernization</td>
+                <td>M3, Angular 18/20+ upgrades improve performance and reduce liability.</td>
+              </tr>
+              <tr>
+                <td class="obj-name">Enhancement</td>
+                <td>Tables and modular components improve satisfaction and reduce duplication.</td>
+              </tr>
+              <tr>
+                <td class="obj-name">Accessibility</td>
+                <td>WCAG 2.2 and a11y-first design expands access and reduces ADA risk.</td>
+              </tr>
+              <tr>
+                <td class="obj-name">Token Strategy</td>
+                <td>Cross-channel theming and density alignment; centralizes standards.</td>
+              </tr>
+              <tr>
+                <td class="obj-name">Knapsack Migration</td>
+                <td>Single source of truth for components; consolidates documentation.</td>
+              </tr>
+              <tr>
+                <td class="obj-name">Maturity & AI<span class="new-tag">NEW</span></td>
+                <td>Assess design system maturity to drive roadmap and AI readiness.</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <div class="info-card" style="margin-top: 16px;">
+            <h4>Token Strategy & Density</h4>
+            <p>Tokens require dedicated collaboration time—separate focused working sessions are needed to define strategy, pilots, and success measures. <strong>Phased Rollout:</strong> Color (Q1) → Spacing (Q2) → Typography (Q3)</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="next-steps-section">
+        <h3>Improvements for Next PI Cycle</h3>
+        <div class="steps-grid">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <span>Require structured pre-work: updated backlog, BAU load, and top dependencies</span>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <span>Start with "North Star + Principles" segment for shared guardrails</span>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <span>Dedicate separate Token Strategy working session with pilots</span>
+          </div>
+          <div class="step-item">
+            <span class="step-num">4</span>
+            <span>Provide examples of "good" PI Plan and Program Board</span>
+          </div>
+          <div class="step-item">
+            <span class="step-num">5</span>
+            <span>Explicit call-outs: high-confidence commits, collaboration needs, risks</span>
+          </div>
+          <div class="step-item">
+            <span class="step-num">6</span>
+            <span>Introduce ongoing prioritization and Scrum-of-Scrums cadence</span>
+          </div>
+          <div class="step-item">
+            <span class="step-num">7</span>
+            <span>Capture actions as Jira items and trace via dependency matrix</span>
+          </div>
+          <div class="step-item">
+            <span class="step-num">8</span>
+            <span>Facilitate System-of-Systems vision session with all teams</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="page-footer">
+        <span>Ledger + Knapsack Partnership</span>
+        <span>Page 2 of 4</span>
+      </div>
+    </div>
+    
+    <!-- PAGE 3: ROAM Risk Matrix -->
+    <div class="page">
+      <div class="section-header">
+        <h1>ROAM Risk Matrix</h1>
+        <p class="section-subtitle">Hopes, Doubts & Mitigations</p>
+      </div>
+      
+      <div class="roam-legend">
+        <div class="roam-item"><span class="roam-badge">R</span> <strong>Resolved</strong> – Addressed and closed</div>
+        <div class="roam-item"><span class="roam-badge">O</span> <strong>Owned</strong> – Assigned to an owner</div>
+        <div class="roam-item"><span class="roam-badge accent">A</span> <strong>Accepted</strong> – Acknowledged, will monitor</div>
+        <div class="roam-item"><span class="roam-badge accent">M</span> <strong>Mitigated</strong> – Reduced through action</div>
+      </div>
+      
+      <div class="two-col" style="grid-template-columns: 5fr 3fr;">
+        <div>
+          <table class="risk-table">
+            <thead>
+              <tr>
+                <th style="width: 5%">#</th>
+                <th style="width: 18%">Risk</th>
+                <th style="width: 13%">Impact</th>
+                <th style="width: 30%">Doubt</th>
+                <th style="width: 34%">Mitigation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="risk-num">1</td>
+                <td class="risk-name">Timeline Misalignment</td>
+                <td><span class="impact-tag impact-high">High / High</span></td>
+                <td class="risk-doubt">Workload may exceed available bandwidth</td>
+                <td>Capacity planning, realistic sequencing, biweekly health checks</td>
+              </tr>
+              <tr>
+                <td class="risk-num">2</td>
+                <td class="risk-name">M3 Migration Complexity</td>
+                <td><span class="impact-tag impact-high">High / High</span></td>
+                <td class="risk-doubt">Unclear scope, unknown effort, insufficient guidance</td>
+                <td>Migration playbook, pilot migrations, DS office hours</td>
+              </tr>
+              <tr>
+                <td class="risk-num">3</td>
+                <td class="risk-name">System Instability</td>
+                <td><span class="impact-tag impact-high">High / High</span></td>
+                <td class="risk-doubt">Ongoing reliability issues may block teams</td>
+                <td>Prioritize stability fixes, clear owners, weekly checkpoints</td>
+              </tr>
+              <tr>
+                <td class="risk-num">4</td>
+                <td class="risk-name">Late Design Decisions</td>
+                <td><span class="impact-tag impact-med">High / Low</span></td>
+                <td class="risk-doubt">Decisions may arrive too late for efficient delivery</td>
+                <td>Decision deadlines, design approval gate, shared design backlog</td>
+              </tr>
+              <tr>
+                <td class="risk-num">5</td>
+                <td class="risk-name">Dependency Management</td>
+                <td><span class="impact-tag impact-med">High / Low</span></td>
+                <td class="risk-doubt">Dependencies may not be managed proactively</td>
+                <td>Dependency matrix, dependency captains, active program board</td>
+              </tr>
+              <tr>
+                <td class="risk-num">6</td>
+                <td class="risk-name">Documentation Gaps</td>
+                <td><span class="impact-tag impact-med">Med / High</span></td>
+                <td class="risk-doubt">Documentation may be incomplete or outdated</td>
+                <td>Centralized docs, completeness criteria, SME reviews</td>
+              </tr>
+              <tr>
+                <td class="risk-num">7</td>
+                <td class="risk-name">Unclear Governance</td>
+                <td><span class="impact-tag impact-med">Med / High</span></td>
+                <td class="risk-doubt">Governance roles may remain unclear</td>
+                <td>RACI, escalation paths, governance kickoff</td>
+              </tr>
+              <tr>
+                <td class="risk-num">8</td>
+                <td class="risk-name">Onboarding Challenges</td>
+                <td><span class="impact-tag impact-low">Low / High</span></td>
+                <td class="risk-doubt">Tooling maturity and onboarding may lag</td>
+                <td>Readiness checklist, training sessions, early adopters</td>
+              </tr>
+              <tr>
+                <td class="risk-num">9</td>
+                <td class="risk-name">Leadership Alignment</td>
+                <td><span class="impact-tag impact-low">Low / Low</span></td>
+                <td class="risk-doubt">Leadership alignment may shift during execution</td>
+                <td>Weekly leadership sync, shared dashboard, decision broadcasts</td>
+              </tr>
+              <tr>
+                <td class="risk-num">10</td>
+                <td class="risk-name">Collaboration Breakdown</td>
+                <td><span class="impact-tag impact-low">Low / Low</span></td>
+                <td class="risk-doubt">Cross-team collaboration may weaken over time</td>
+                <td>Cross-team syncs, shared comms channels, mid-PI checkpoints</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="hopes-doubts-col">
+          <div class="list-box hopes">
+            <h4>Top 10 Hopes</h4>
+            <ol>
+              <li>Early, clear communication of expectations and priorities</li>
+              <li>Stable, predictable shared systems and platforms</li>
+              <li>Strong guidance and assets for M3 migration</li>
+              <li>Smoother design–engineering alignment</li>
+              <li>Realistic timelines aligned to actual capacity</li>
+              <li>Improved tooling, automation, reduced manual effort</li>
+              <li>Clarified ownership and decision pathways</li>
+              <li>Stronger cross-team collaboration and coordination</li>
+              <li>Better documentation and self-service resources</li>
+              <li>A supportive, transparent team culture</li>
+            </ol>
+          </div>
+          
+          <div class="list-box doubts">
+            <h4>Top 10 Doubts</h4>
+            <ol>
+              <li>Timelines may not align with capacity</li>
+              <li>M3 migration effort may exceed expectations</li>
+              <li>System instability could continue to block work</li>
+              <li>Design decisions may arrive too late</li>
+              <li>Dependencies may not be managed proactively</li>
+              <li>Documentation may be incomplete or outdated</li>
+              <li>Governance roles may remain unclear</li>
+              <li>Tooling maturity and onboarding may lag</li>
+              <li>Leadership alignment may shift during execution</li>
+              <li>Cross-team collaboration may weaken over time</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      
+      <div class="page-footer">
+        <span>Ledger + Knapsack Partnership</span>
+        <span>Page 3 of 4</span>
+      </div>
+    </div>
+    
+    <!-- PAGE 4: Jira & Dependency Matrix Integration -->
+    <div class="page">
+      <div class="section-header">
+        <h1>Jira & Dependency Matrix Integration</h1>
+        <p class="section-subtitle">Traceability from Objectives to Execution</p>
+      </div>
+      
+      <div class="callout-box">
+        <h3>Traceability Framework</h3>
+        <p>Together, the updated Jira structure and Dependency Matrix give PI Planning teams a clearer, traceable view from objectives → features → teams → dependencies, and set a stronger foundation for the next PI cycle. Actions are captured as Jira "Program Board Action Items" so risks, decisions, and follow-ups are visible across teams.</p>
+      </div>
+      
+      <div class="two-col">
+        <div class="integration-card">
+          <h3>Jira CSV Updates <span>STRUCTURE</span></h3>
+          <p style="font-size: 10px; margin-bottom: 12px;">The updated Jira CSV tags every Epic and Story to one of the six PI Objectives, creating clear alignment between work items and strategic goals.</p>
+          <ul class="integration-list">
+            <li><strong>Objective Tagging:</strong> Every Epic/Story mapped to Modernization, Enhancement, Accessibility, Token Strategy, Migration/Docs, or Maturity & AI Readiness</li>
+            <li><strong>Scope Distinction:</strong> Clear separation between new-scope work and existing implementation work</li>
+            <li><strong>Commitment Levels:</strong> High-confidence commits vs. items needing collaboration vs. exploratory work</li>
+            <li><strong>Program Board Actions:</strong> Action items traced with owners and target dates</li>
+          </ul>
+        </div>
+        
+        <div class="integration-card">
+          <h3>Dependency Matrix <span>CRITICAL PATHS</span></h3>
+          <p style="font-size: 10px; margin-bottom: 12px;">The Dependency Matrix highlights critical cross-team dependencies that must be actively managed to avoid delivery risk.</p>
+          <ul class="integration-list">
+            <li><strong>Maturity Score → Roadmap Depth:</strong> Assessment results inform prioritization and investment sequencing</li>
+            <li><strong>FDE Assignment → System Progress:</strong> Architecture track capacity gates token and consolidation work</li>
+            <li><strong>Angular/M3 → Components:</strong> Table and component work blocked until M3 foundations complete</li>
+            <li><strong>Token Strategy → Theming:</strong> Density and branding decisions cascade to all product teams</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="flow-diagram">
+        <h3>Traceability Flow</h3>
+        <div class="flow-steps">
+          <div class="flow-step highlight">PI Objectives</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">Epics & Features</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">Team Assignments</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">Dependencies</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step highlight">Program Board</div>
+        </div>
+      </div>
+      
+      <h2>Structural Improvements Implemented</h2>
+      <div class="improvements-grid">
+        <div class="improvement-card">
+          <strong>Objective-Aligned Tagging</strong>
+          <span>All Jira items tagged to PI Objectives enabling filtering, reporting, and progress tracking by strategic goal.</span>
+        </div>
+        <div class="improvement-card">
+          <strong>Scope Classification</strong>
+          <span>Clear distinction between BAU, new modernization scope, and exploratory work requiring further definition.</span>
+        </div>
+        <div class="improvement-card">
+          <strong>Dependency Visibility</strong>
+          <span>Critical dependencies surfaced in matrix with owners, enabling proactive management and escalation paths.</span>
+        </div>
+        <div class="improvement-card">
+          <strong>Action Item Tracing</strong>
+          <span>Program Board actions captured in Jira with due dates, owners, and links to dependent work items.</span>
+        </div>
+        <div class="improvement-card">
+          <strong>Commitment Clarity</strong>
+          <span>Board items marked as committed, needs-collaboration, or exploratory to set appropriate expectations.</span>
+        </div>
+        <div class="improvement-card">
+          <strong>Cross-Team Visibility</strong>
+          <span>Shared views and dashboards enable all teams to see work in progress and upcoming dependencies.</span>
+        </div>
+      </div>
+      
+      <div class="page-footer">
+        <span>Ledger + Knapsack Partnership</span>
+        <span>Page 4 of 4</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
