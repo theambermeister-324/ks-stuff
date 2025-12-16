@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asher Brewing Co. 16th Anniversary - Thunderboogie</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=MedievalSharp&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      /* Complimentary Color Palette - harmonizes with tarot card sage/teal tones */
+      --color-gold: #d4a853;
+      --color-gold-light: #e8d5a3;
+      --color-gold-dark: #b8941f;
+      --color-sage: #6b8b6b;
+      --color-sage-light: #8fa68f;
+      --color-sage-dark: #4a6a4a;
+      --color-teal: #5a8a7a;
+      --color-teal-light: #7a9a8a;
+      --color-teal-dark: #3a6a5a;
+      --color-forest: #2d4a3a;
+      --color-forest-dark: #1a2f24;
+      --color-bg-dark: #1a2f24;
+      --color-parchment: #f5ead6;
+      --color-parchment-dark: #e8dcc8;
+      --color-parchment-light: #faf5eb;
+      --color-brown: #3d2817;
+      --color-brown-light: #5c4426;
+      --color-bg-dark: #1a2f24;
+      --color-text-light: #f4e4bc;
+      --color-text-dark: #2d4a3a;
+      
+      /* Legacy colors for compatibility */
+      --color-emerald: #5a8a7a;
+      --color-emerald-dark: #3a6a5a;
+      --color-emerald-light: #7a9a8a;
+      --color-cream: #f5ead6;
+      --color-cream-dark: #e8dcc8;
+      
+      --hop-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%232c1810' stroke-width='2' stroke-linejoin='round'%3E%3Cpath d='M32 6 C24 12 20 20 22 28 C16 30 14 38 19 44 C22 49 27 54 32 58 C37 54 42 49 45 44 C50 38 48 30 42 28 C44 20 40 12 32 6 Z' fill='%236f863a'/%3E%3Cpath d='M32 12 C27 16 25 21 26 26 C22 28 21 33 24 37 C26 40 29 44 32 47 C35 44 38 40 40 37 C43 33 42 28 38 26 C39 21 37 16 32 12 Z' fill='%238aa24a'/%3E%3Cpath d='M32 18 C29 20 28 23 29 26 C27 27 26 30 28 33 C29 35 30 37 32 39 C34 37 35 35 36 33 C38 30 37 27 35 26 C36 23 35 20 32 18 Z' fill='%23a2bb5a'/%3E%3Cpath d='M32 10 V56' opacity='0.25'/%3E%3C/g%3E%3C/svg%3E");
+      --ornate-border: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='1400' viewBox='0 0 900 1400'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='25%25' r='80%25'%3E%3Cstop offset='0%25' stop-color='%23f4e4bc' stop-opacity='.10'/%3E%3Cstop offset='40%25' stop-color='%237a9a7a' stop-opacity='.06'/%3E%3Cstop offset='55%25' stop-color='%23c9a227' stop-opacity='.05'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect x='0' y='0' width='900' height='1400' fill='none'/%3E%3Crect x='24' y='24' width='852' height='1352' rx='18' fill='none' stroke='%237a9a7a' stroke-width='6'/%3E%3Crect x='44' y='44' width='812' height='1312' rx='14' fill='none' stroke='%235c4426' stroke-width='2'/%3E%3Crect x='60' y='60' width='780' height='1280' rx='12' fill='url(%23g)' opacity='.9'/%3E%3C/svg%3E");
+    }
+
+    body {
+      background: #2a2a2a;
+      min-height: 100vh;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      font-family: 'EB Garamond', serif;
+      font-size: 20px; /* Base font size for better readability */
+      line-height: 1.4; /* Tighter line height for print */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      font-feature-settings: "kern" 1;
+    }
+
+    .poster {
+      width: 100%;
+      max-width: 950px;
+      min-height: 1000px;
+      background: #1a2f24;
+      position: relative;
+      overflow: hidden;
+      box-shadow: none;
+    }
+
+    .poster::before {
+      display: none;
+    }
+    
+    .poster::after {
+      display: none;
+    }
+
+    .ornate-border {
+      position: absolute;
+      inset: 0;
+      border-radius: 0;
+      background-image: 
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='1400' viewBox='0 0 900 1400'%3E%3Cdefs%3E%3Cpattern id='knot' x='0' y='0' width='40' height='40' patternUnits='userSpaceOnUse'%3E%3Cpath d='M20,5 Q15,10 10,15 Q15,20 20,25 Q25,20 30,15 Q25,10 20,5' fill='none' stroke='%23c9a227' stroke-width='0.8' opacity='0.4'/%3E%3C/pattern%3E%3C/defs%3E%3Crect x='0' y='0' width='900' height='1400' fill='none'/%3E%3Crect x='24' y='24' width='852' height='1352' rx='18' fill='none' stroke='%23c9a227' stroke-width='4'/%3E%3Crect x='44' y='44' width='812' height='1312' rx='14' fill='none' stroke='%231e5631' stroke-width='2'/%3E%3Crect x='60' y='60' width='780' height='1280' rx='12' fill='url(%23knot)' opacity='0.1'/%3E%3C/svg%3E");
+      background-size: cover;
+      background-position: center;
+      pointer-events: none;
+      opacity: 0.95;
+      z-index: 1;
+    }
+
+    .hop {
+      display: inline-block;
+      background-image: var(--hop-svg);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: none;
+    }
+    .hop-lg { width: 74px; height: 74px; }
+    .hop-md { width: 44px; height: 44px; }
+    .hop-sm { width: 24px; height: 24px; }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto auto;
+      grid-template-areas:
+        "header"
+        "tarot-section"
+        "event-features";
+      gap: 20px;
+      padding: 30px 25px 20px;
+      align-items: start;
+      justify-items: center;
+    }
+
+    .top-features {
+      grid-area: top-features;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 23px 30px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: nowrap;
+      opacity: 0.85;
+    }
+
+    .top-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+      background: rgba(122,154,122,0.12);
+      border: 2px solid rgba(122,154,122,0.3);
+      border-radius: 12px;
+      font-size: 22px;
+      color: var(--color-text-light);
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .top-feature-icon {
+      width: 35px;
+      height: 35px;
+      flex-shrink: 0;
+    }
+
+    .top-feature-text {
+      font-family: 'EB Garamond', serif;
+      font-size: 22px;
+      color: var(--color-gold-light);
+      white-space: nowrap;
+    }
+
+    .header { 
+      text-align: center;
+      margin-bottom: 0;
+      grid-area: header;
+      width: 100%;
+    }
+
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+      gap: 12px;
+    }
+    
+    .header-top-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .header-logo {
+      width: 100px;
+      height: auto;
+      flex-shrink: 0;
+    }
+    
+    .brewery-name {
+      font-family: 'Cinzel', serif;
+      font-size: 32px;
+      color: var(--color-gold);
+      letter-spacing: 1px;
+      font-weight: 600;
+      text-align: center;
+    }
+    
+    .header-middle-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    
+    .header-bottom-section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(122,154,122,0.3);
+      flex-wrap: wrap;
+    }
+    
+    .header-bottom-section .event-header-date {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      color: var(--color-text-light);
+      letter-spacing: 1px;
+      margin: 0;
+    }
+    
+    .header-bottom-section .event-header-time {
+      font-family: 'Cinzel', serif;
+      font-size: 28px;
+      color: var(--color-gold);
+      letter-spacing: 2px;
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .header-bottom-section .brewery-address {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      color: var(--color-text-light);
+      letter-spacing: 0.5px;
+      margin: 0;
+    }
+    
+    .event-features-footer {
+      grid-area: event-features;
+      width: 100%;
+      max-width: 850px;
+      margin: 8px auto 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: baseline;
+      gap: 60px;
+      padding-top: 0;
+    }
+    
+    .event-features-footer .feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 4px;
+      flex: 0 0 auto;
+    }
+    
+    .event-features-footer .feature-title {
+      font-family: 'Cinzel', serif;
+      font-size: 19.8px;
+      color: var(--color-text-light);
+      letter-spacing: 0.5px;
+    }
+    
+    .event-features-footer .feature-detail {
+      font-family: 'Cinzel', serif;
+      font-size: 17.1px;
+      color: var(--color-gold);
+      letter-spacing: 0.5px;
+    }
+
+    .brewery-section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    
+    .brewery-text-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .logo-img {
+      width: 100px;
+      height: auto;
+      margin: 0;
+      filter: none;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .date-time-banner {
+      display: none;
+    }
+
+    .header-block-right .title {
+      margin-bottom: 12px;
+    }
+
+
+    .event-header-date {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      color: var(--color-text-light);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      font-weight: 500;
+      text-shadow: none;
+      line-height: 1.3;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .event-header-time {
+      font-family: 'Uncial Antiqua', cursive;
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--color-gold);
+      letter-spacing: 3px;
+      text-shadow: none;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .tagline {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 32.49px;
+      color: var(--color-gold);
+      letter-spacing: 2px;
+      margin: 0 0 8px 0;
+      text-shadow: none;
+      font-weight: 500;
+      line-height: 1.3;
+      text-align: center;
+      width: 100%;
+    }
+
+
+    .title {
+      font-family: 'Uncial Antiqua', cursive;
+      font-size: 69.312px;
+      font-weight: 400;
+      color: var(--color-gold);
+      letter-spacing: 3px;
+      line-height: 1;
+      text-shadow: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      margin: 0;
+      position: relative;
+      display: inline-block;
+      padding: 0 50px;
+    }
+    
+    .title::before,
+    .title::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background-image: var(--hop-svg);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.8;
+    }
+    
+    .title::before {
+      left: 8px;
+    }
+    
+    .title::after {
+      right: 8px;
+      transform: translateY(-50%) scaleX(-1);
+    }
+    
+    .header-content .title {
+      margin: 0;
+    }
+
+    .header-content .event-header-date {
+      margin: 0;
+    }
+
+    .header-content .event-header-time {
+      margin: 0;
+    }
+
+    .header-content .brewery-address {
+      margin: 0;
+    }
+
+    .tarot-section {
+      grid-area: tarot-section;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 14px 22px 14px 22px;
+      border: 2.5px solid rgba(122,154,122,0.6);
+      background: rgba(13, 15, 10, 0.5);
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tarot-spread {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 36px;
+      margin: 0;
+      width: 100%;
+      flex-wrap: nowrap;
+      justify-self: center;
+    }
+
+    .tarot-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8.8px;
+      flex: 1 1 0;
+      min-width: 0;
+      max-width: 375px;
+    }
+
+    .tarot-card {
+      width: 100%;
+      max-width: 394.8px;
+      height: 100%;
+      min-height: 100%;
+      background: var(--color-parchment-dark);
+      border-radius: 20px;
+      border: 6px solid var(--color-text-dark);
+      box-shadow: none;
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tarot-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .tarot-card::after {
+      content: '';
+      position: absolute;
+      inset: 9px;
+      border: 3px solid #5c4426;
+      border-radius: 10px;
+      pointer-events: none;
+    }
+
+    .card-content {
+      position: relative;
+      padding: 22px 22px 17.6px 22px;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      flex: 1 1 auto;
+      min-height: 0;
+      gap: 17.6px;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 27.72px;
+      font-weight: 600;
+      color: var(--color-text-dark);
+      text-align: center;
+      margin-bottom: 13.2px;
+      letter-spacing: 2px;
+      line-height: 1.2;
+      text-shadow: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .card-image-frame {
+      width: 100%;
+      aspect-ratio: 16.25 / 28.07;
+      border: 4.4px solid #5c4426;
+      border-radius: 13.2px;
+      overflow: hidden;
+      position: relative;
+      background: var(--color-parchment);
+      margin-bottom: 0;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    .card-image-frame .placeholder {
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      color: #5c4426;
+      text-align: center;
+      padding: 20px;
+      opacity: 0.7;
+    }
+
+    .single-hop {
+      margin-top: 12px;
+      width: 40px;
+      height: 40px;
+      opacity: 0.95;
+    }
+
+    .spread-caption {
+      margin-top: auto;
+      padding-top: 5.7px;
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 17.82px;
+      letter-spacing: 1px;
+      color: #0d3b1f;
+      text-transform: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8.8px;
+      font-weight: 400;
+      line-height: 1.3;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    
+    .spread-caption::before,
+    .spread-caption::after {
+      display: none;
+    }
+
+    .card-content .reveal {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 100%;
+      box-sizing: border-box;
+      flex: 1 1 auto;
+      padding-top: 8px;
+      border-top: 2px solid rgba(92, 68, 38, 0.3);
+    }
+
+    .card-content .reveal .label {
+      font-family: 'Cinzel', serif;
+      font-size: 21.6px;
+      letter-spacing: 3px;
+      margin-bottom: 16px;
+      margin-top: 4px;
+      color: var(--color-brown-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 600;
+      line-height: 1.3;
+      text-transform: uppercase;
+      text-shadow: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .card-content .reveal .label .hop {
+      width: 18px;
+      height: 18px;
+    }
+
+    .card-content .reveal .desc {
+      font-family: 'EB Garamond', serif;
+      font-size: 23.4px;
+      line-height: 1.7;
+      color: var(--color-text-dark);
+      text-align: center;
+      font-weight: 400;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      max-width: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    
+    .card-content .reveal .desc strong {
+      font-weight: 600;
+      color: var(--color-brown);
+      display: inline;
+    }
+    
+    .card-content .reveal .desc br {
+      line-height: 1.8;
+    }
+
+    .reading {
+      width: 100%;
+      max-width: 800px;
+      margin: 0;
+      padding: 12px 20px;
+      text-align: center;
+      border: none;
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      justify-self: center;
+    }
+
+    .reading-intro {
+      position: relative;
+      padding: 16px 0 0 0;
+      text-align: center;
+      max-width: 100%;
+      margin: 0 auto 0;
+    }
+    
+    .reading-intro::before {
+      display: none;
+    }
+    
+    .reading-intro .reading-kicker {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      letter-spacing: 1.5px;
+      color: var(--color-gold);
+      margin-bottom: 6px;
+      text-align: center;
+      font-weight: 600;
+      text-shadow: none;
+      line-height: 1.3;
+      text-transform: uppercase;
+      position: relative;
+      opacity: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    
+    .reading-intro p {
+      font-family: 'EB Garamond', serif;
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--color-text-light);
+      font-style: normal;
+      text-align: center;
+      margin-bottom: 0;
+      letter-spacing: 0.5px;
+      text-shadow: none;
+      position: relative;
+      padding: 0;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    
+    .reading-intro p::before {
+      display: none;
+    }
+
+    .reading-intro p::after {
+      display: none;
+    }
+    
+    .reading-intro .reading-personal {
+      font-family: 'EB Garamond', serif;
+      font-size: 24px;
+      line-height: 1.4;
+      color: var(--color-gold-light);
+      font-style: italic;
+      text-align: center;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      text-shadow: none;
+      margin-top: 8px;
+      position: relative;
+      padding: 0 20px;
+      opacity: 0.95;
+    }
+
+    .call-to-action {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    
+    .event-details-footer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding-top: 8px;
+      gap: 30px;
+      border-top: 1px solid rgba(122,154,122,0.3);
+    }
+    
+    .event-details-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      gap: 4px;
+    }
+    
+    .event-details-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      text-align: right;
+      gap: 4px;
+    }
+    
+    .event-details-footer .brewery-address {
+      font-family: 'EB Garamond', serif;
+      font-size: 16px;
+      color: var(--color-gold-light);
+      letter-spacing: 1px;
+      margin: 0;
+      font-weight: 500;
+      text-shadow: none;
+      line-height: 1.3;
+      text-align: left;
+    }
+    
+    .event-details-footer .event-header-date {
+      font-size: 18px;
+      margin-bottom: 0;
+    }
+    
+    .event-details-footer .event-header-time {
+      font-size: 32px;
+      margin-bottom: 0;
+    }
+    
+    .event-details-footer .feature-title {
+      font-size: 19.8px;
+      margin-bottom: 2px;
+    }
+    
+    .event-details-footer .feature-detail {
+      font-size: 17.1px;
+    }
+    
+    .event-features {
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding-top: 0;
+      text-align: right;
+    }
+    
+    .cta-text {
+      font-family: 'Cinzel', serif;
+      font-size: 25.2px;
+      font-weight: 600;
+      color: #e8d5a3;
+      letter-spacing: 1.5px;
+      text-shadow: none;
+      line-height: 1.4;
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    
+    .cta-intro {
+      color: #d4a853;
+    }
+    
+    
+    .feature-item {
+      margin-bottom: 14px;
+    }
+    
+    .feature-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .feature-title {
+      font-family: 'Cinzel', serif;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--color-text-light);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      text-shadow: none;
+      line-height: 1.3;
+    }
+    
+    .feature-detail {
+      font-family: 'EB Garamond', serif;
+      font-size: 23px;
+      color: var(--color-gold-light);
+      font-style: italic;
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+    }
+
+    .reading p {
+      font-size: 28px;
+      line-height: 1.4;
+      color: var(--color-text-light);
+      margin: 16px auto;
+      max-width: 600px;
+      text-shadow: none;
+      font-weight: 400;
+    }
+
+    .reading .reading-personal {
+      font-style: italic;
+      font-size: 26px;
+      color: var(--color-gold);
+      margin-top: 16px;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .info-cards {
+      grid-area: info-cards;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      width: 100%;
+      max-width: 520px;
+      margin: 0;
+      align-items: stretch;
+      justify-self: center;
+    }
+
+    .info-card {
+      flex: 1;
+      min-width: 0;
+      background: var(--color-parchment-dark);
+      border-radius: 10px;
+      border: 3px solid var(--color-text-dark);
+      padding: 22px 18px;
+      text-align: center;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .info-card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--color-text-dark);
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      line-height: 1.2;
+    }
+
+    .info-card-detail {
+      font-family: 'EB Garamond', serif;
+      font-size: 18px;
+      color: var(--color-brown-light);
+      line-height: 1.4;
+      font-weight: 400;
+      flex-shrink: 0;
+    }
+
+    .info-card-logo {
+      width: 100%;
+      max-width: 120px;
+      height: auto;
+      margin: 0 auto 12px;
+      display: block;
+      filter: none;
+      flex-shrink: 0;
+    }
+    
+    /* Container for logo with color overlay (for image logos) */
+    .info-card-logo-wrapper {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      max-width: 120px;
+      margin: 0 auto 12px;
+      flex-shrink: 0;
+    }
+    
+    /* Ensure SVG logos match the same size */
+    .info-card svg.info-card-logo {
+      width: 100%;
+      max-width: 120px;
+      height: auto;
+      margin: 0 auto 12px;
+      display: block;
+      flex-shrink: 0;
+    }
+    
+    /* Specific styling for Grill and Smoke logo to match color palette */
+    .info-card img.info-card-logo {
+      filter: 
+        hue-rotate(-25deg)
+        saturate(1.2)
+        brightness(0.9)
+        contrast(1.1);
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    
+    /* Add a subtle color overlay to match palette */
+    .info-card-logo-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(107, 139, 107, 0.1);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      border-radius: 50%;
+    }
+
+    .event-info {
+      text-align: center;
+      padding: 10px 40px 8px;
+      margin-top: 2px;
+    }
+
+    
+    .brewery-logo {
+      font-family: 'Uncial Antiqua', cursive;
+      font-size: 32.49px;
+      font-weight: 400;
+      color: var(--color-gold);
+      text-shadow: none;
+      margin: 0;
+      letter-spacing: 2px;
+      line-height: 1.2;
+      text-align: center;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .brewery-section .brewery-address {
+      font-size: 21.6px;
+      margin: 0;
+      text-align: center;
+    }
+    
+    .brewery-text-group .brewery-logo {
+      margin: 0;
+    }
+
+    .header-block-right .title {
+      margin-bottom: 16px;
+    }
+
+    .brewery-address {
+      font-family: 'EB Garamond', serif;
+      font-size: 18px;
+      color: var(--color-gold-light);
+      letter-spacing: 1px;
+      margin-top: 0;
+      margin-bottom: 0;
+      font-weight: 500;
+      text-shadow: none;
+      line-height: 1.4;
+      text-align: left;
+    }
+
+    .divider {
+      width: 200px;
+      height: 1px;
+      background: var(--color-teal);
+      margin: 8px auto 10px;
+      position: relative;
+    }
+
+    .celtic-divider {
+      grid-area: celtic-divider;
+      width: 100%;
+      max-width: 600px;
+      margin: 20px auto;
+      position: relative;
+      height: 2px;
+    }
+
+    .celtic-divider::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--color-gold) 20%, var(--color-gold) 80%, transparent);
+    }
+
+    .celtic-divider::after {
+      content: '◊';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--color-gold);
+      font-size: 18px;
+      background: var(--color-bg-dark);
+      padding: 0 8px;
+      line-height: 1;
+      z-index: 1;
+    }
+
+    .divider::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 24px;
+      height: 24px;
+      background-image: var(--hop-svg);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: #1a0f0a;
+      box-shadow: none;
+      border-radius: 999px;
+      opacity: 0.95;
+    }
+
+    .event-date {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      color: #e8d5a3;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .event-celebrate {
+      font-style: italic;
+      font-size: 18px;
+      color: #c9a227;
+      margin-bottom: 8px;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .event-time {
+      font-family: 'Cinzel', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #e8d5a3;
+      letter-spacing: 2px;
+      line-height: 1.2;
+    }
+
+    /* Print-specific styles */
+    @media print {
+      /* Page setup */
+      @page {
+        size: letter; /* 8.5 x 11 inches */
+        margin: 0.5in;
+      }
+      
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      
+      body {
+        background: white !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: block !important;
+      }
+      
+      .poster {
+        max-width: 100% !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        background: white !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        page-break-inside: avoid;
+      }
+      
+      .poster::before {
+        display: none !important;
+      }
+      
+      .ornate-border {
+        opacity: 0.7 !important;
+      }
+      
+      .content {
+        padding: 30px 25px !important;
+        page-break-inside: avoid;
+      }
+      
+      /* Ensure text is dark enough for print */
+      .reading p,
+      .event-header-date,
+      .brewery-logo,
+      .card-title {
+        color: #1a0f0a !important;
+        text-shadow: none !important;
+      }
+      
+      .event-header-time,
+      .tagline,
+      .reading-kicker,
+      .reading .reading-personal {
+        color: #8b6914 !important;
+        text-shadow: none !important;
+      }
+      
+      .spread-caption {
+        color: #5a7a5a !important;
+        text-shadow: none !important;
+      }
+      
+      /* Remove shadows that don't print well, but keep borders */
+      * {
+        text-shadow: none !important;
+      }
+      
+      /* Keep essential borders and backgrounds for cards */
+      .tarot-card,
+      .info-card {
+        border: 3px solid #1a0f0a !important;
+        background: #f5ead6 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+      }
+      
+      .tarot-card::after {
+        border-color: #5c4426 !important;
+      }
+      
+      .card-image-frame {
+        border-color: #5c4426 !important;
+      }
+      
+      .card-content .reveal .desc,
+      .card-content .reveal .label,
+      .info-card-title,
+      .info-card-detail {
+        color: #1a0f0a !important;
+      }
+      
+      /* Ensure images print */
+      img {
+        max-width: 100% !important;
+        height: auto !important;
+        page-break-inside: avoid;
+      }
+      
+      /* Keep gradients for backgrounds where needed */
+      .date-time-banner {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      
+      /* Prevent page breaks in critical sections */
+      .tarot-spread {
+        page-break-inside: avoid;
+      }
+      
+      .tarot-item {
+        page-break-inside: avoid;
+      }
+      
+      .reading {
+        page-break-inside: avoid;
+      }
+      
+      /* Footer info cards */
+      .top-features {
+        page-break-inside: avoid;
+      }
+      
+      /* Remove filters that might interfere with printing */
+      .info-card-logo-wrapper::after {
+        display: none !important;
+      }
+      
+      /* Ensure logos print */
+      .info-card-logo,
+      .logo-img {
+        filter: none !important;
+        -webkit-filter: none !important;
+      }
+    }
+
+    /* Responsive adjustments for digital */
+    @media (max-width: 950px) {
+      .poster {
+        max-width: 100%;
+      }
+      
+      .content {
+        grid-template-rows: auto auto auto auto auto auto;
+        gap: 24px;
+        padding: 40px 30px;
+      }
+      
+      .bottom-content {
+        flex-direction: column;
+        gap: 30px;
+        padding-top: 25px;
+      }
+      
+      .call-to-action,
+      .event-features {
+        flex: 1 1 auto;
+        text-align: center;
+      }
+      
+      .cta-text {
+        font-size: 26px;
+      }
+      
+      .feature-title {
+        font-size: 22px;
+      }
+      
+      .feature-detail {
+        font-size: 19px;
+      }
+      
+      .event-features {
+        gap: 60px;
+        padding-top: 6px;
+      }
+      
+      .tarot-spread {
+        flex-wrap: wrap;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .content {
+        padding: 40px 25px 35px;
+        gap: 20px;
+      }
+      
+      .header-content {
+        max-width: 100%;
+        padding: 0 20px;
+        gap: 10px;
+      }
+      
+      .tagline {
+        font-size: 28px;
+      }
+      
+      .title {
+        font-size: 42px;
+      }
+      
+      .event-header-date {
+        font-size: 22px;
+      }
+      
+      .event-header-time {
+        font-size: 30px;
+      }
+      
+      .brewery-section {
+        flex-direction: row;
+        gap: 12px;
+        margin-top: 4px;
+      }
+      
+      .logo-img {
+        width: 90px;
+      }
+      
+      .brewery-logo {
+        font-size: 32px;
+      }
+      
+      .brewery-section .brewery-address {
+        font-size: 20px;
+      }
+      
+      .content {
+        padding: 30px 25px 30px;
+        gap: 18px;
+      }
+      
+      .event-header-date {
+        font-size: 22px;
+      }
+      
+      .event-header-time {
+        font-size: 30px;
+      }
+      
+      .tarot-spread {
+        gap: 32px;
+      }
+      
+      .tarot-card {
+        max-width: 319.2px;
+      }
+      
+      .tarot-item {
+        max-width: 319.2px;
+      }
+      
+      .bottom-content {
+        flex-direction: column;
+        gap: 30px;
+        padding-top: 20px;
+      }
+      
+      .call-to-action,
+      .event-features {
+        flex: 1 1 auto;
+        text-align: center;
+      }
+      
+      .cta-text {
+        font-size: 24px;
+      }
+      
+      .feature-title {
+        font-size: 20px;
+      }
+      
+      .feature-detail {
+        font-size: 18px;
+      }
+      
+      .event-features {
+        gap: 50px;
+        padding-top: 6px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .content {
+        padding: 30px 20px;
+      }
+      
+      .header-content {
+        max-width: 100%;
+        padding: 0 15px;
+        gap: 10px;
+      }
+      
+      .tagline {
+        font-size: 24px;
+      }
+      
+      .title {
+        font-size: 36px;
+      }
+      
+      .event-header-date {
+        font-size: 18px;
+      }
+      
+      .event-header-time {
+        font-size: 28px;
+      }
+      
+      .brewery-section {
+        flex-direction: row;
+        gap: 10px;
+        margin-top: 4px;
+      }
+      
+      .logo-img {
+        width: 80px;
+      }
+      
+      .brewery-logo {
+        font-size: 28px;
+      }
+      
+      .brewery-section .brewery-address {
+        font-size: 18px;
+      }
+      
+      .content {
+        padding: 25px 20px 25px;
+        gap: 15px;
+      }
+      
+      .tarot-spread {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .tarot-card {
+        width: 100%;
+        max-width: 299.25px;
+      }
+      
+      .tarot-item {
+        max-width: 299.25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="poster">
+    <div class="ornate-border" aria-hidden="true"></div>
+    <div class="content">
+      <div class="header">
+        <div class="header-content">
+          <div class="header-top-section">
+            <img class="header-logo" src="ABC Only (1).png" alt="Asher Brewing Co. Logo">
+            <div class="brewery-name">Asher Brewing Co.</div>
+          </div>
+          <div class="header-middle-section">
+            <div class="tagline">— Gather One and All for a Super Sweet —</div>
+            <h1 class="title">16th Anniversary</h1>
+          </div>
+          <div class="header-bottom-section">
+            <div class="event-header-date">Saturday, December 27th</div>
+            <div class="event-header-time">5PM - MIDNIGHT</div>
+            <div class="brewery-address">4699 Nautilus Ct. S., Boulder</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tarot-section">
+        <section class="reading reading-intro" aria-label="Tarot Reading">
+          <div class="reading-kicker">A TAROT READING FOR THE FAITHFUL</div>
+          <p>
+            Two cards rise from the deck - clear as clinked glass.
+          </p>
+        </section>
+        <div class="tarot-spread">
+          <div class="tarot-item">
+            <div class="tarot-card">
+              <div class="card-content">
+                <div class="card-image-frame">
+                  <img src="sixteen_of_cups_192.5x332.52mm_300dpi.jpeg" alt="Sixteen of Cups" style="width: 100%; height: 100%; object-fit: cover;" />
+                </div>
+                <div class="reveal">
+                  <div class="label">FIRST CARD</div>
+                  <div class="desc">
+                    <strong>16 years of friendship &amp; beer</strong>.
+                    Abundance surrounds you—and it wants you in the circle.
+                  </div>
+                </div>
+                <div class="spread-caption"><span class="hop hop-sm" aria-hidden="true"></span> The Celebration <span class="hop hop-sm" aria-hidden="true" style="transform:scaleX(-1)"></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tarot-item">
+            <div class="tarot-card">
+              <div class="card-content">
+                <div class="card-image-frame">
+                  <img src="thunderboogie.png" alt="Thunderboogie" style="width: 100%; height: 100%; object-fit: cover;" />
+                </div>
+                <div class="reveal">
+                  <div class="label">SECOND CARD</div>
+                  <div class="desc">
+                    <strong>The grin you can't hide.</strong><br />
+                    Funk, jazz, prog, and psychedelic<br />
+                    rhythm that shakes the room.
+                  </div>
+                </div>
+                <div class="spread-caption"><span class="hop hop-sm" aria-hidden="true"></span> The Entertainment <span class="hop hop-sm" aria-hidden="true" style="transform:scaleX(-1)"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="call-to-action">
+          <p class="cta-text">
+            <span class="cta-intro">Your next step is simple:</span><br />
+            Raise a glass to cups overflowing<br />
+            &amp; friendships ever growing.
+          </p>
+        </div>
+      </div>
+      
+      <div class="event-features-footer">
+        <div class="feature-item">
+          <div class="feature-title">Grill and Smoke</div>
+          <div class="feature-detail">Food Truck @5pm</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-title">Tarot Card Readings</div>
+          <div class="feature-detail">by Susan @6pm</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
