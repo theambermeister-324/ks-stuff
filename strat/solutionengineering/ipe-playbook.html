@@ -1,15 +1,1032 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IPE Strategic Playbook</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPE Strategic Playbook - Internal Leadership Guide</title>
     <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/strat/solutionengineering/main.tsx"></script>
-  </body>
-</html>
+    <style>
+        [data-section] { display: none; }
+        [data-section].active { display: block; }
+        .nav-btn.active { background-color: #0f172a; color: white; }
+        .journey-content, .phase-content { display: none; }
+        .journey-content.expanded, .phase-content.expanded { display: block; }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-100">
+    <header class="bg-slate-900 text-white sticky top-0 z-20">
+        <div class="max-w-6xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-500 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold">IPE Strategic Playbook</h1>
+                        <p class="text-xs text-slate-400">Internal Leadership Guide · Next 12-18 Months</p>
+                    </div>
+                </div>
+                <span class="text-xs bg-rose-500 text-white px-2 py-1 rounded font-medium">INTERNAL ONLY</span>
+            </div>
+        </div>
+    </header>
 
+    <nav class="bg-white border-b border-slate-200 sticky top-[72px] z-10 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex gap-1 overflow-x-auto py-2">
+                <button class="nav-btn active flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap" data-section-id="vision">🎯 Vision & Market</button>
+                <button class="nav-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap text-slate-600 hover:bg-slate-100" data-section-id="maturity">📊 Maturity Model</button>
+                <button class="nav-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap text-slate-600 hover:bg-slate-100" data-section-id="assessment">🚩 Assessment Framework</button>
+                <button class="nav-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap text-slate-600 hover:bg-slate-100" data-section-id="journeys">🌿 Customer Journeys</button>
+                <button class="nav-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap text-slate-600 hover:bg-slate-100" data-section-id="activation">⚡ Activation Phases</button>
+                <button class="nav-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap text-slate-600 hover:bg-slate-100" data-section-id="operations">⚙️ Operating Guidance</button>
+                <button class="nav-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap text-slate-600 hover:bg-slate-100" data-section-id="metrics">📈 Metrics</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Vision Section -->
+        <div data-section="vision" class="active space-y-8">
+            <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-white">
+                <div class="flex items-center gap-2 text-emerald-400 text-sm font-medium mb-3">
+                    <span>🎯</span> STRATEGIC NORTH STAR
+                </div>
+                <h2 class="text-3xl font-bold mb-4">Knapsack becomes the Intelligent Product Engine enterprises trust to execute product change—safely, governably, and at scale—in the AI era.</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                    <div class="bg-white/10 rounded-lg p-3">
+                        <p class="text-emerald-400 text-xs font-medium mb-1">Product intent</p>
+                        <p class="text-white font-medium text-sm">Executable, not descriptive</p>
+                    </div>
+                    <div class="bg-white/10 rounded-lg p-3">
+                        <p class="text-emerald-400 text-xs font-medium mb-1">Systems</p>
+                        <p class="text-white font-medium text-sm">Evolve as one</p>
+                    </div>
+                    <div class="bg-white/10 rounded-lg p-3">
+                        <p class="text-emerald-400 text-xs font-medium mb-1">AI context</p>
+                        <p class="text-white font-medium text-sm">Trusted & structured</p>
+                    </div>
+                    <div class="bg-white/10 rounded-lg p-3">
+                        <p class="text-emerald-400 text-xs font-medium mb-1">Delivery</p>
+                        <p class="text-white font-medium text-sm">Faster via governance</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white border border-slate-200 rounded-xl p-6">
+                    <h3 class="font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                        <span>💾</span> Market Definition
+                    </h3>
+                    <p class="text-slate-600 mb-4">Knapsack competes in <span class="font-semibold text-slate-900">Product Intelligence Infrastructure</span>:</p>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-slate-300"></span>Product system infrastructure (design + code systems of record)</li>
+                        <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-slate-300"></span>Orchestration (governance + change propagation)</li>
+                        <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-slate-300"></span>Product intelligence (structured knowledge + signals)</li>
+                        <li class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-slate-300"></span>AI product enablement (safe, contextual execution)</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-xl p-6">
+                    <h3 class="font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                        <span>💰</span> TAM by Capability Layer
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between text-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded bg-slate-100 text-slate-600 text-xs font-bold flex items-center justify-center">L1</span>
+                                <span class="text-slate-600">Product System Infrastructure</span>
+                            </div>
+                            <span class="font-semibold text-slate-900">$5–8B</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded bg-slate-100 text-slate-600 text-xs font-bold flex items-center justify-center">L2</span>
+                                <span class="text-slate-600">Product Orchestration</span>
+                            </div>
+                            <span class="font-semibold text-slate-900">$12–18B</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded bg-slate-100 text-slate-600 text-xs font-bold flex items-center justify-center">L3</span>
+                                <span class="text-slate-600">Product Intelligence</span>
+                            </div>
+                            <span class="font-semibold text-slate-900">$30–40B</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded bg-slate-100 text-slate-600 text-xs font-bold flex items-center justify-center">L4</span>
+                                <span class="text-slate-600">AI Product Enablement</span>
+                            </div>
+                            <span class="font-semibold text-slate-900">$15–25B</span>
+                        </div>
+                        <div class="border-t border-slate-200 pt-3 mt-3">
+                            <div class="flex justify-between text-sm">
+                                <span class="font-semibold text-slate-900">Total TAM</span>
+                                <span class="font-bold text-emerald-600">$62–91B</span>
+                            </div>
+                            <div class="flex justify-between text-sm mt-1">
+                                <span class="text-slate-500">AI-expanded TAM</span>
+                                <span class="font-semibold text-slate-700">$75–110B</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-6">
+                <div class="flex gap-3">
+                    <span class="text-2xl">⚠️</span>
+                    <div>
+                        <h3 class="font-semibold text-amber-900 mb-2">The Problem We Solve</h3>
+                        <p class="text-amber-800 mb-3">Modern enterprises don't fail because they lack tools. They fail because product knowledge is fragmented, implicit, and non-operational:</p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div class="bg-white/60 rounded-lg p-2 text-xs text-amber-800">Design intent lives in files</div>
+                            <div class="bg-white/60 rounded-lg p-2 text-xs text-amber-800">Engineering reality lives in code</div>
+                            <div class="bg-white/60 rounded-lg p-2 text-xs text-amber-800">Decisions live in meetings</div>
+                            <div class="bg-white/60 rounded-lg p-2 text-xs text-amber-800">AI operates without structure</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Maturity Section -->
+        <div data-section="maturity" class="space-y-6">
+            <div class="bg-white border border-slate-200 rounded-xl p-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Product System Maturity Model</h2>
+                <p class="text-slate-600 mb-6">Five levels define where customers are and where they need to go.</p>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50">
+                        <div class="w-10 h-10 rounded-full bg-gray-400 flex items-center justify-center text-white font-bold">1</div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-slate-900">UI Artifacts</h3>
+                            <p class="text-sm text-slate-500">Static mockups, no system connection</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50">
+                        <div class="w-10 h-10 rounded-full bg-amber-400 flex items-center justify-center text-white font-bold">2</div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-slate-900">Design Library</h3>
+                            <p class="text-sm text-slate-500">Organized components, limited code integration</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50">
+                        <div class="w-10 h-10 rounded-full bg-blue-400 flex items-center justify-center text-white font-bold">3</div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-slate-900">Integrated Product System</h3>
+                            <p class="text-sm text-slate-500">Design-to-code connection, basic governance</p>
+                        </div>
+                        <span class="text-xs font-medium px-2 py-1 rounded bg-emerald-100 text-emerald-700">SAM</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50">
+                        <div class="w-10 h-10 rounded-full bg-emerald-400 flex items-center justify-center text-white font-bold">4</div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-slate-900">Scaled Product System</h3>
+                            <p class="text-sm text-slate-500">Control plane operating, cross-system governance</p>
+                        </div>
+                        <span class="text-xs font-medium px-2 py-1 rounded bg-emerald-100 text-emerald-700">SAM</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50">
+                        <div class="w-10 h-10 rounded-full bg-violet-500 flex items-center justify-center text-white font-bold">5</div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-slate-900">IPE-Activated System</h3>
+                            <p class="text-sm text-slate-500">Control plane operated + governed, full intelligence layer</p>
+                        </div>
+                        <span class="text-xs font-medium px-2 py-1 rounded bg-emerald-100 text-emerald-700">SAM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-rose-50 border border-rose-200 rounded-xl p-6">
+                <h3 class="font-semibold text-rose-900 mb-2 flex items-center gap-2">
+                    <span>⚠️</span> Critical Clarification
+                </h3>
+                <p class="text-rose-800 font-medium text-lg mb-2">"Implemented" does not equal "Activated"</p>
+                <p class="text-rose-700">Many customers are technically implemented but still operating at <span class="font-semibold">Quadrant G</span> (strong system, low intelligence) until signals, governance cadence, and MCP execution are in place. This gap is the primary driver of churn.</p>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl p-6">
+                <h3 class="font-semibold text-slate-900 mb-4">Readiness Quadrants (IPE-aligned)</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-3">Pipeline Development (low interest)</p>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="w-6 h-6 rounded bg-slate-200 text-slate-600 text-xs font-bold flex items-center justify-center">A</span>
+                                <span class="text-slate-600">Low context, low AI → long nurture</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="w-6 h-6 rounded bg-slate-200 text-slate-600 text-xs font-bold flex items-center justify-center">B</span>
+                                <span class="text-slate-600">Low context, high AI → educate on structure</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="w-6 h-6 rounded bg-slate-200 text-slate-600 text-xs font-bold flex items-center justify-center">C</span>
+                                <span class="text-slate-600">High context, low interest → exit/monitor</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="w-6 h-6 rounded bg-slate-200 text-slate-600 text-xs font-bold flex items-center justify-center">D</span>
+                                <span class="text-slate-600">High context, latent interest → timing play</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-3">Active Pipeline (high interest)</p>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="w-6 h-6 rounded bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center">E</span>
+                                <span class="text-slate-600">Interest without structure → docs + heavy services</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="w-6 h-6 rounded bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center">F</span>
+                                <span class="text-slate-600">AI ambition without context → docs + light services</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="w-6 h-6 rounded bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center">G</span>
+                                <span class="text-slate-600">Strong system, low intelligence → IPE Enablement</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="w-6 h-6 rounded bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center">H</span>
+                                <span class="text-slate-600">IPE-ready → IPE Activation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assessment Section -->
+        <div data-section="assessment" class="space-y-6">
+            <div class="bg-white border border-slate-200 rounded-xl p-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Assessment Framework</h2>
+                <p class="text-slate-600 mb-6">Required scoring for every account. No exceptions.</p>
+                
+                <div class="grid grid-cols-3 gap-4 mb-6">
+                    <div class="bg-slate-50 rounded-lg p-4 text-center">
+                        <p class="text-sm font-medium text-slate-900">Product System Maturity</p>
+                        <p class="text-xs text-slate-500 mt-1">1-5</p>
+                    </div>
+                    <div class="bg-slate-50 rounded-lg p-4 text-center">
+                        <p class="text-sm font-medium text-slate-900">AI & Automation Capability</p>
+                        <p class="text-xs text-slate-500 mt-1">Low/Med/High</p>
+                    </div>
+                    <div class="bg-slate-50 rounded-lg p-4 text-center">
+                        <p class="text-sm font-medium text-slate-900">Interest State</p>
+                        <p class="text-xs text-slate-500 mt-1">Low/Latent/High</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 text-white rounded-xl p-6">
+                <h3 class="font-semibold mb-4 flex items-center gap-2">
+                    <span>🚩</span> Account State Flags (Required in CRM)
+                </h3>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-4 bg-white/10 rounded-lg p-3">
+                        <span class="w-6 h-6 rounded-full bg-emerald-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2">
+                                <span class="font-medium">Implemented?</span>
+                                <span class="text-xs bg-white/20 px-2 py-0.5 rounded">Y/N</span>
+                            </div>
+                            <p class="text-sm text-slate-300 mt-1">Platform technically deployed</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 bg-white/10 rounded-lg p-3">
+                        <span class="w-6 h-6 rounded-full bg-emerald-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2">
+                                <span class="font-medium">Trust Status</span>
+                                <span class="text-xs bg-white/20 px-2 py-0.5 rounded">Green/Yellow/Red</span>
+                            </div>
+                            <p class="text-sm text-slate-300 mt-1">Red = data loss / severe performance / support failure</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 bg-white/10 rounded-lg p-3">
+                        <span class="w-6 h-6 rounded-full bg-emerald-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2">
+                                <span class="font-medium">Activation Depth</span>
+                                <span class="text-xs bg-white/20 px-2 py-0.5 rounded">Docs → Control Plane → MCP → AI</span>
+                            </div>
+                            <p class="text-sm text-slate-300 mt-1">How deeply they use the platform</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 bg-white/10 rounded-lg p-3">
+                        <span class="w-6 h-6 rounded-full bg-emerald-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2">
+                                <span class="font-medium">MCP/IPE Interest</span>
+                                <span class="text-xs bg-white/20 px-2 py-0.5 rounded">Y/N</span>
+                            </div>
+                            <p class="text-sm text-slate-300 mt-1">Expressed interest in AI capabilities</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 bg-white/10 rounded-lg p-3">
+                        <span class="w-6 h-6 rounded-full bg-emerald-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2">
+                                <span class="font-medium">Strategic Fit</span>
+                                <span class="text-xs bg-white/20 px-2 py-0.5 rounded">Y/N</span>
+                            </div>
+                            <p class="text-sm text-slate-300 mt-1">True ICP match</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-rose-100 border-2 border-rose-300 rounded-xl p-6">
+                <h3 class="font-bold text-rose-900 mb-3 flex items-center gap-2">
+                    <span>⚠️</span> Routing Rule (Non-negotiable)
+                </h3>
+                <div class="bg-white rounded-lg p-4">
+                    <p class="text-lg text-rose-800 font-medium">
+                        If <span class="bg-rose-200 px-2 py-0.5 rounded">Strategic Fit = TRUE</span> and <span class="bg-rose-200 px-2 py-0.5 rounded">Implemented = NO</span>, the account is <span class="font-bold">Journey 3 by default</span> until activation is complete.
+                    </p>
+                </div>
+                <p class="text-sm text-rose-700 mt-3">This prevents the most common sequencing mistake: selling platform expansion before activation is real.</p>
+            </div>
+        </div>
+
+        <!-- Journeys Section -->
+        <div data-section="journeys" class="space-y-6">
+            <div class="bg-white border border-slate-200 rounded-xl p-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Customer Journeys</h2>
+                <p class="text-slate-600">Grounded in real portfolio reality. Not all "low engagement" accounts are equal.</p>
+            </div>
+
+            <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-6">
+                <h3 class="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
+                    <span>📊</span> Portfolio Bet Summary (Leadership View)
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white rounded-lg p-4">
+                        <p class="text-emerald-800 font-medium">Journey 3 holds the majority of ARR and the majority of meaningful churn risk</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4">
+                        <p class="text-emerald-800 font-medium">Services capacity is the growth bottleneck (not top-of-funnel)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journey Cards - Simplified for HTML -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                <button class="journey-toggle w-full p-5 text-left" data-journey="1">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0">
+                            <span class="text-lg font-bold text-slate-700">J1</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h3 class="text-lg font-semibold text-slate-900">Progressive Maturation</h3>
+                                <span class="text-xs font-mono bg-slate-100 px-2 py-0.5 rounded text-slate-600">A → B → F → H</span>
+                            </div>
+                            <p class="text-sm text-slate-500 mt-1">True non-ICP or low readiness — don't overinvest</p>
+                            <div class="flex items-center gap-4 mt-2 text-xs">
+                                <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600">low risk</span>
+                                <span class="text-slate-500">ARR: ~10%</span>
+                            </div>
+                        </div>
+                        <span class="journey-chevron">▶</span>
+                    </div>
+                </button>
+                <div class="journey-content px-5 pb-5 border-t border-slate-100">
+                    <div class="pt-5 space-y-5">
+                        <div class="bg-slate-50 rounded-lg p-4">
+                            <p class="text-sm text-slate-500 mb-1">Objective</p>
+                            <p class="font-medium text-slate-700">Maintain relationship and credibility while they mature. No platform pressure.</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-slate-500 mb-2">Accounts</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Associated Press (non-ICP, low engagement)</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Bright Horizons (non-ICP, no engineering support)</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">MSK (low engagement; minimal upside)</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Accutech (beta exception: low ARR but high IPE excitement)</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm font-medium text-slate-500 mb-2">Standard Service: Product System Readiness Assessment</p>
+                                <ul class="space-y-1">
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Validation Workshop</li>
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Vision Definition</li>
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Stakeholder Interviews & Strategic Recommendations</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-slate-500 mb-2">Platform Rule</p>
+                                <div class="rounded-lg p-3 bg-rose-50 border border-rose-200">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span>✗</span>
+                                        <span class="text-sm font-medium text-rose-700">Expansion blocked</span>
+                                    </div>
+                                    <p class="text-xs text-rose-600">Platform expansion is not the play. If they cannot secure engineering/platform ownership, they cannot operate IPE.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journey 2 -->
+            <div class="bg-white border border-blue-300 rounded-xl overflow-hidden">
+                <button class="journey-toggle w-full p-5 text-left" data-journey="2">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
+                            <span class="text-lg font-bold text-blue-700">J2</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h3 class="text-lg font-semibold text-slate-900">Independent Maturation</h3>
+                                <span class="text-xs font-mono bg-slate-100 px-2 py-0.5 rounded text-slate-600">A → D → H</span>
+                            </div>
+                            <p class="text-sm text-slate-500 mt-1">Mature orgs; sudden trigger; fast activation required</p>
+                            <div class="flex items-center gap-4 mt-2 text-xs">
+                                <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600">low risk</span>
+                                <span class="text-slate-500">ARR: ~5%</span>
+                            </div>
+                        </div>
+                        <span class="journey-chevron">▶</span>
+                    </div>
+                </button>
+                <div class="journey-content px-5 pb-5 border-t border-slate-100">
+                    <div class="pt-5 space-y-5">
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <p class="text-sm text-slate-500 mb-1">Objective</p>
+                            <p class="font-medium text-blue-700">Instant IPE activation when timing flips. Avoid re-education.</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-slate-500 mb-2">Accounts</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Adobe (reference implementation + enterprise rollout pattern)</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm font-medium text-slate-500 mb-2">Standard Service: IPE Activation Sprint (Trigger-Based)</p>
+                                <ul class="space-y-1">
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Advanced Implementation & Onboarding</li>
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Security/Vendor assessment</li>
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Architecture validation</li>
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Integration setup + pilot validation</li>
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Advanced enablement</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-slate-500 mb-2">Platform Rule</p>
+                                <div class="rounded-lg p-3 bg-emerald-50 border border-emerald-200">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span>✓</span>
+                                        <span class="text-sm font-medium text-emerald-700">Expansion allowed</span>
+                                    </div>
+                                    <p class="text-xs text-emerald-600">Immediate platform sale allowed. Sell the control plane and expansion roadmap.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journey 3 - Primary -->
+            <div class="bg-white border-2 border-emerald-500 rounded-xl overflow-hidden ring-2 ring-emerald-500 ring-offset-2">
+                <button class="journey-toggle w-full p-5 text-left" data-journey="3">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                            <span class="text-lg font-bold text-emerald-700">J3</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h3 class="text-lg font-semibold text-slate-900">Services Transformation</h3>
+                                <span class="text-xs font-medium px-2 py-0.5 rounded bg-emerald-500 text-white">PRIMARY FOCUS</span>
+                                <span class="text-xs font-mono bg-slate-100 px-2 py-0.5 rounded text-slate-600">E → F/G → H</span>
+                            </div>
+                            <p class="text-sm text-slate-500 mt-1">High-value ICP accounts blocked on activation + trust</p>
+                            <div class="flex items-center gap-4 mt-2 text-xs">
+                                <span class="px-2 py-0.5 rounded bg-rose-100 text-rose-700">high risk</span>
+                                <span class="text-slate-500">ARR: ~60%</span>
+                            </div>
+                        </div>
+                        <span class="journey-chevron">▶</span>
+                    </div>
+                </button>
+                <div class="journey-content px-5 pb-5 border-t border-slate-100">
+                    <div class="pt-5 space-y-5">
+                        <div class="bg-emerald-50 rounded-lg p-4">
+                            <p class="text-sm text-slate-500 mb-1">Objective</p>
+                            <p class="font-medium text-emerald-700">Activate IPE in the correct order: stability + trust → governance/control plane → execution enablement → signals → expansion</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-slate-500 mb-2">Accounts</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">PNC (not implemented; frustration)</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Edward Jones (not implemented; policy + Git hurdles)</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">DoubleVerify (not implemented; risk high — rescue or exit)</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Qualcomm (not implemented; org changes + missed window)</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">GSK US (implemented but trust/performance eroding value)</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">HealthEdge (implemented; early frustration; now IPE interest)</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Columbia Sportswear</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Southern California Edison</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">CVS Health</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Alaska Airlines</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Allegion</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm font-medium text-slate-500 mb-2">Standard Service: IPE Context & Control Foundation + Execution Enablement</p>
+                                <ul class="space-y-1">
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Validation Workshop</li>
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Vision Definition</li>
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Tailored Workflow Definition & Advanced Training</li>
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Token Strategy & Implementation</li>
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Component Architecture & Delivery (POC)</li>
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Forward-Deployed Engineering</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-slate-500 mb-2">Platform Rule</p>
+                                <div class="rounded-lg p-3 bg-rose-50 border border-rose-200">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span>✗</span>
+                                        <span class="text-sm font-medium text-rose-700">Expansion blocked</span>
+                                    </div>
+                                    <p class="text-xs text-rose-600">Platform expansion only after pilot proof. No expansion until activation complete.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journey 4 -->
+            <div class="bg-white border border-violet-300 rounded-xl overflow-hidden">
+                <button class="journey-toggle w-full p-5 text-left" data-journey="4">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+                            <span class="text-lg font-bold text-violet-700">J4</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h3 class="text-lg font-semibold text-slate-900">Timing Play</h3>
+                                <span class="text-xs font-mono bg-slate-100 px-2 py-0.5 rounded text-slate-600">D → H</span>
+                            </div>
+                            <p class="text-sm text-slate-500 mt-1">Mature systems; latent interest; needs trigger + crisp activation</p>
+                            <div class="flex items-center gap-4 mt-2 text-xs">
+                                <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-700">medium risk</span>
+                                <span class="text-slate-500">ARR: ~25%</span>
+                            </div>
+                        </div>
+                        <span class="journey-chevron">▶</span>
+                    </div>
+                </button>
+                <div class="journey-content px-5 pb-5 border-t border-slate-100">
+                    <div class="pt-5 space-y-5">
+                        <div class="bg-violet-50 rounded-lg p-4">
+                            <p class="text-sm text-slate-500 mb-1">Objective</p>
+                            <p class="font-medium text-violet-700">Executive activation package when opportunity appears. Do not drag into long services.</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-slate-500 mb-2">Accounts</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">The Home Depot (embedded; underutilized; org consolidation trigger)</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">CSX (strong relationship; blocked by Angular parity)</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">GSK Global (exec alignment; tech consolidation; AEM requirements)</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Crown Equipment (renewed; early MCP interest)</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Shutterfly (mature small; selective growth)</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">BILL (strong embedded usage; budget constraints; MCP curiosity)</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm font-medium text-slate-500 mb-2">Standard Service: IPE Executive Activation</p>
+                                <ul class="space-y-1">
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Executive alignment + success criteria</li>
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Targeted implementation enhancements</li>
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> MCP roadmap + scoped activation</li>
+                                    <li class="flex items-center gap-2 text-sm text-slate-600"><span>✓</span> Expansion plan</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-slate-500 mb-2">Platform Rule</p>
+                                <div class="rounded-lg p-3 bg-emerald-50 border border-emerald-200">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span>✓</span>
+                                        <span class="text-sm font-medium text-emerald-700">Expansion allowed</span>
+                                    </div>
+                                    <p class="text-xs text-emerald-600">J4 should not be dragged into long services until a trigger exists.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activation Phases Section -->
+        <div data-section="activation" class="space-y-4">
+            <div class="bg-white border border-slate-200 rounded-xl p-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Activation Phases (Journey 3 Model)</h2>
+                <p class="text-slate-600">Each phase has clear exit criteria. MCP is gated until trust is established.</p>
+            </div>
+
+            <!-- Phase 1 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                <button class="phase-toggle w-full p-5 text-left flex items-center gap-4" data-phase="1">
+                    <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center">
+                        <span>🛡️</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3">
+                            <h3 class="font-semibold text-slate-900">Phase 1: Stabilize & Complete</h3>
+                            <span>🔒</span>
+                        </div>
+                        <p class="text-sm text-slate-500">Level 3 → Operational</p>
+                    </div>
+                    <span class="phase-chevron">▶</span>
+                </button>
+                <div class="phase-content px-5 pb-5 border-t border-slate-100">
+                    <div class="pt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Workstreams</p>
+                            <ul class="space-y-1">
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Workspace Go-Live</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Entitlement setup + Site Switcher roles</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Repo / Figma access dependencies</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Proxy traffic testing + prod push</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Deployment checklists + CRs</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Exit Criteria</p>
+                            <ul class="space-y-1">
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="text-emerald-500">✓</span>Teams can publish + update without Knapsack intervention</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="text-emerald-500">✓</span>Workspace 2 live or date-certain</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="text-emerald-500">✓</span>Entitlements + access no longer blocking work</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Deliverables</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Workspace Go-Live Checklists</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">RACI for Workspace 2+</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Deployment Definition of Done</span>
+                            </div>
+                            <div class="mt-3 rounded-lg p-2 bg-rose-50">
+                                <p class="text-xs font-medium text-rose-700">🚫 MCP out of scope</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                <button class="phase-toggle w-full p-5 text-left flex items-center gap-4" data-phase="2">
+                    <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center">
+                        <span>🔒</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3">
+                            <h3 class="font-semibold text-slate-900">Phase 2: Control Plane & Governance</h3>
+                            <span>🔒</span>
+                        </div>
+                        <p class="text-sm text-slate-500">Level 3 → Level 4</p>
+                    </div>
+                    <span class="phase-chevron">▶</span>
+                </button>
+                <div class="phase-content px-5 pb-5 border-t border-slate-100">
+                    <div class="pt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Workstreams</p>
+                            <ul class="space-y-1">
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Token Strategy POV (multi-brand)</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Ledger + LPB governance representation</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>System-of-Systems architecture</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Governance model definition</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>System Charter (North Star)</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>PI prioritization rubric</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Exit Criteria</p>
+                            <ul class="space-y-1">
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="text-emerald-500">✓</span>Token strategy approved and enforced</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="text-emerald-500">✓</span>Governance model active beyond Ledger</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="text-emerald-500">✓</span>Clear rules for cross-system interaction</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Deliverables</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Control Plane Definition</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Token ownership + decision rights</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Cross-system governance operating model</span>
+                            </div>
+                            <div class="mt-3 rounded-lg p-2 bg-rose-50">
+                                <p class="text-xs font-medium text-rose-700">🚫 MCP out of scope</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                <button class="phase-toggle w-full p-5 text-left flex items-center gap-4" data-phase="3">
+                    <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center">
+                        <span>⚡</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3">
+                            <h3 class="font-semibold text-slate-900">Phase 3: Execution Enablement</h3>
+                            <span>🔓</span>
+                        </div>
+                        <p class="text-sm text-slate-500">Level 4 Operational</p>
+                    </div>
+                    <span class="phase-chevron">▶</span>
+                </button>
+                <div class="phase-content px-5 pb-5 border-t border-slate-100">
+                    <div class="pt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Workstreams</p>
+                            <ul class="space-y-1">
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Integrated token strategy epics</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Component modularization</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Angular 18 + 20 planning</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Testing architecture</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Code Connect mapping</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Migration + tech docs epics</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Exit Criteria</p>
+                            <ul class="space-y-1">
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="text-emerald-500">✓</span>One meaningful change ships end-to-end via Knapsack</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="text-emerald-500">✓</span>Upgrade path validated without regressions</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="text-emerald-500">✓</span>Teams trust the system to enforce standards</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Deliverables</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Governed pipelines</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Safe propagation</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Quality gates</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Predictable upgrades</span>
+                            </div>
+                            <div class="mt-3 rounded-lg p-2 bg-amber-50">
+                                <p class="text-xs font-medium text-amber-700">⚡ MCP prep begins</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4 -->
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                <button class="phase-toggle w-full p-5 text-left flex items-center gap-4" data-phase="4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                        <span>📊</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3">
+                            <h3 class="font-semibold text-slate-900">Phase 4: Signals & Intelligence</h3>
+                            <span>✓</span>
+                        </div>
+                        <p class="text-sm text-slate-500">Level 4 → Level 5</p>
+                    </div>
+                    <span class="phase-chevron">▶</span>
+                </button>
+                <div class="phase-content px-5 pb-5 border-t border-slate-100">
+                    <div class="pt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Workstreams</p>
+                            <ul class="space-y-1">
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Maturity & AI Readiness Assessment</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Signal capture + dashboards</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>Change readiness surveys</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>MCP onboarding (scoped)</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-slate-300 mt-1 flex-shrink-0"></span>FDE assignment confirmation</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Exit Criteria</p>
+                            <ul class="space-y-1">
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="text-emerald-500">✓</span>Signals prove faster, safer change</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="text-emerald-500">✓</span>MCP adds value without introducing risk</li>
+                                <li class="flex items-start gap-2 text-sm text-slate-600"><span class="text-emerald-500">✓</span>Execs can articulate ROI + next bets</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Deliverables</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">Signal dashboards</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">MCP pilot (1-2 use cases)</span>
+                                <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">ROI framework</span>
+                            </div>
+                            <div class="mt-3 rounded-lg p-2 bg-emerald-50">
+                                <p class="text-xs font-medium text-emerald-700">✓ MCP pilot ready</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Operations Section -->
+        <div data-section="operations" class="space-y-6">
+            <div class="bg-white border border-slate-200 rounded-xl p-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">Leadership Operating Guidance</h2>
+                
+                <h3 class="font-semibold text-slate-900 mb-3">Where to Place Bets</h3>
+                <div class="space-y-2 mb-6">
+                    <div class="flex items-center gap-3 p-3 rounded-lg bg-emerald-50 border border-emerald-200">
+                        <span class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm bg-emerald-500 text-white">J3</span>
+                        <span class="text-emerald-800 font-medium">Portfolio's growth and retention engine</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-50">
+                        <span class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm bg-slate-200 text-slate-600">J4</span>
+                        <span class="text-slate-700">Fastest expansion engine when triggers appear</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-50">
+                        <span class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm bg-slate-200 text-slate-600">J1</span>
+                        <span class="text-slate-700">Must be protected from premature platform selling</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-50">
+                        <span class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm bg-slate-200 text-slate-600">J2</span>
+                        <span class="text-slate-700">Rare but high-impact; treat as lighthouse wins</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-rose-50 border border-rose-200 rounded-xl p-6">
+                    <h3 class="font-semibold text-rose-900 mb-4 flex items-center gap-2">
+                        <span>⏸️</span> What to STOP Doing
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2 text-sm text-rose-800"><span class="text-rose-500">✗</span>Treating MCP Support as a substitute for activation</li>
+                        <li class="flex items-start gap-2 text-sm text-rose-800"><span class="text-rose-500">✗</span>Treating "implemented" as "successful"</li>
+                        <li class="flex items-start gap-2 text-sm text-rose-800"><span class="text-rose-500">✗</span>Running long implementations without ownership, milestones, or FDE</li>
+                        <li class="flex items-start gap-2 text-sm text-rose-800"><span class="text-rose-500">✗</span>Over-serving non-ICP accounts</li>
+                    </ul>
+                </div>
+
+                <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-6">
+                    <h3 class="font-semibold text-emerald-900 mb-4 flex items-center gap-2">
+                        <span>▶️</span> What to START Doing
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2 text-sm text-emerald-800"><span class="text-emerald-500">✓</span>Gate all work by maturity phase</li>
+                        <li class="flex items-start gap-2 text-sm text-emerald-800"><span class="text-emerald-500">✓</span>Require Account State Flags in CRM</li>
+                        <li class="flex items-start gap-2 text-sm text-emerald-800"><span class="text-emerald-500">✓</span>Apply the routing rule without exception</li>
+                        <li class="flex items-start gap-2 text-sm text-emerald-800"><span class="text-emerald-500">✓</span>Invest services capacity in Journey 3</li>
+                        <li class="flex items-start gap-2 text-sm text-emerald-800"><span class="text-emerald-500">✓</span>Treat J4 triggers as expansion opps</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 text-white rounded-xl p-6">
+                <h3 class="font-semibold mb-4 flex items-center gap-2">
+                    <span>🕐</span> Operating Cadence (Quarterly)
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white/10 rounded-lg p-4">
+                        <p class="text-sm text-slate-300 mb-2">Pipeline + ARR reviewed by:</p>
+                        <p class="font-medium">Journey + Activation Depth</p>
+                        <p class="text-xs text-slate-400 mt-1">(not just pipeline stage)</p>
+                    </div>
+                    <div class="bg-white/10 rounded-lg p-4">
+                        <p class="text-sm text-slate-300 mb-2">Journey 3 accounts reviewed by:</p>
+                        <ul class="text-sm space-y-1">
+                            <li>• Time to implementation completion</li>
+                            <li>• Trust status</li>
+                            <li>• Time to first production value</li>
+                            <li>• Signal instrumentation adoption</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metrics Section -->
+        <div data-section="metrics" class="space-y-6">
+            <div class="bg-white border border-slate-200 rounded-xl p-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6">Metrics That Matter</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <h3 class="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                            <span class="text-blue-500">📊</span> Activation Metrics
+                        </h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-blue-400"></span>Implemented rate (Y/N) by ICP segment</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-blue-400"></span>Trust status distribution (G/Y/R)</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-blue-400"></span>Activation depth distribution</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-blue-400"></span>Time-to-first-production value</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                            <span class="text-violet-500">⚡</span> Product Intelligence
+                        </h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-violet-400"></span>% decisions via MCP workflows</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-violet-400"></span>Time: intent → governed execution</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-violet-400"></span>AI output acceptance rate</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-violet-400"></span>Signal reuse across teams</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                            <span class="text-emerald-500">💰</span> Business Metrics
+                        </h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-emerald-400"></span>ARR concentration by journey</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-emerald-400"></span>ARR at risk by journey</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-emerald-400"></span>J3 conversion velocity (E/F/G → H)</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-emerald-400"></span>Services → platform conversion</li>
+                            <li class="flex items-center gap-2 text-sm text-slate-600"><span class="w-3 h-3 rounded-full bg-emerald-400"></span>Expansion ARR via L3/L4</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl p-8 text-white">
+                <h3 class="text-xl font-bold mb-4">Final Word</h3>
+                <p class="text-slate-300 text-lg mb-4">
+                    Knapsack's opportunity is not to be the best design system platform. It is to become the <span class="text-white font-semibold">governed engine enterprises trust to execute product change in the AI era</span>.
+                </p>
+                <p class="text-slate-400">
+                    The biggest wins are not "more pipeline." They are <span class="text-emerald-400">better sequencing</span>, <span class="text-emerald-400">stronger activation</span>, and <span class="text-emerald-400">durable trust</span> — especially in Journey 3.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-white mt-12">
+        <div class="max-w-6xl mx-auto px-4 py-6 flex items-center justify-between">
+            <div class="text-sm text-slate-400">
+                Knapsack · IPE Strategic Playbook · Confidential
+            </div>
+            <div class="text-xs text-slate-500">
+                Updated quarterly · Review with leadership team
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const sectionId = btn.dataset.sectionId;
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.querySelectorAll('[data-section]').forEach(s => s.classList.remove('active'));
+                document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+            });
+        });
+
+        // Journey toggles
+        document.querySelectorAll('.journey-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const journeyId = btn.dataset.journey;
+                const content = btn.nextElementSibling;
+                const chevron = btn.querySelector('.journey-chevron');
+                if (content.classList.contains('expanded')) {
+                    content.classList.remove('expanded');
+                    chevron.textContent = '▶';
+                } else {
+                    document.querySelectorAll('.journey-content').forEach(c => c.classList.remove('expanded'));
+                    document.querySelectorAll('.journey-chevron').forEach(c => c.textContent = '▶');
+                    content.classList.add('expanded');
+                    chevron.textContent = '▼';
+                }
+            });
+        });
+
+        // Phase toggles
+        document.querySelectorAll('.phase-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const phaseId = btn.dataset.phase;
+                const content = btn.nextElementSibling;
+                const chevron = btn.querySelector('.phase-chevron');
+                if (content.classList.contains('expanded')) {
+                    content.classList.remove('expanded');
+                    chevron.textContent = '▶';
+                } else {
+                    content.classList.add('expanded');
+                    chevron.textContent = '▼';
+                }
+            });
+        });
+
+        // Expand Journey 3 by default
+        document.querySelector('[data-journey="3"]').click();
+    </script>
+</body>
+</html>

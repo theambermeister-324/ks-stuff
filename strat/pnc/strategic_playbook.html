@@ -520,6 +520,11 @@
         .commit-dot.collab { background: #eb8d0a; }
         .commit-dot.explore { background: #6436bf; }
         
+        .investment-section {
+            page-break-before: always !important;
+            break-before: page !important;
+        }
+        
         @media print {
             body { background: white; padding: 0; }
             .container { box-shadow: none; }
@@ -1331,7 +1336,7 @@
         </div>
         
         <!-- Investment Model -->
-        <div class="section">
+        <div class="section investment-section">
             <h2 class="section-title">Investment Model</h2>
             
             <p style="font-size: 0.9rem; margin-bottom: 20px;">Investment is structured by maturity phase, not just deliverables. Year 1 builds the control plane; Year 2 proves execution and unlocks intelligence.</p>
