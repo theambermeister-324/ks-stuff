@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPE Strategic Playbook - Print Version</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: white; color: #1e293b; font-size: 11pt; line-height: 1.5; padding: 0.5in; }
+    
+    @media print {
+      body { padding: 0; }
+      .page-break { page-break-before: always; }
+      .no-break { page-break-inside: avoid; }
+    }
+    
+    /* Header */
+    .doc-header { border-bottom: 3px solid #10b981; padding-bottom: 1rem; margin-bottom: 1.5rem; }
+    .doc-header h1 { font-size: 24pt; color: #0f172a; margin-bottom: 0.25rem; }
+    .doc-header p { color: #64748b; font-size: 10pt; }
+    .badges { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+    .badge { font-size: 8pt; padding: 0.2rem 0.5rem; border-radius: 0.25rem; font-weight: 600; }
+    .badge-red { background: #fee2e2; color: #b91c1c; }
+    
+    /* Sections */
+    .section { margin-bottom: 2rem; }
+    .section-title { font-size: 16pt; color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .section-title::before { content: ""; width: 4px; height: 1.25rem; background: #10b981; border-radius: 2px; }
+    
+    /* Cards */
+    .card { border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+    .card-dark { background: #0f172a; color: white; border: none; }
+    .card-amber { background: #fffbeb; border-color: #fcd34d; }
+    .card-rose { background: #fff1f2; border-color: #fda4af; }
+    .card-emerald { background: #ecfdf5; border-color: #6ee7b7; }
+    
+    h2 { font-size: 14pt; color: #0f172a; margin-bottom: 0.5rem; }
+    h3 { font-size: 12pt; color: #0f172a; margin-bottom: 0.5rem; }
+    h4 { font-size: 11pt; color: #334155; margin-bottom: 0.25rem; }
+    
+    p { margin-bottom: 0.5rem; }
+    .text-sm { font-size: 10pt; }
+    .text-xs { font-size: 9pt; }
+    .text-slate { color: #64748b; }
+    .text-emerald { color: #059669; }
+    .text-rose { color: #be123c; }
+    .font-bold { font-weight: 700; }
+    .font-medium { font-weight: 500; }
+    
+    /* Grid */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+    .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0.75rem; }
+    
+    /* Flex */
+    .flex { display: flex; }
+    .items-center { align-items: center; }
+    .items-start { align-items: flex-start; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-3 { gap: 0.75rem; }
+    .flex-wrap { flex-wrap: wrap; }
+    
+    /* Lists */
+    .list-item { display: flex; align-items: flex-start; gap: 0.4rem; margin-bottom: 0.3rem; font-size: 10pt; }
+    .list-item .bullet { width: 6px; height: 6px; border-radius: 50%; background: #cbd5e1; margin-top: 0.4rem; flex-shrink: 0; }
+    .list-item .check { color: #10b981; font-weight: bold; flex-shrink: 0; }
+    .list-item .x { color: #ef4444; font-weight: bold; flex-shrink: 0; }
+    
+    /* Tags */
+    .tag { display: inline-block; padding: 0.15rem 0.4rem; background: #f1f5f9; border-radius: 0.25rem; font-size: 9pt; color: #475569; margin: 0.1rem; }
+    
+    /* Level indicators */
+    .level { display: inline-flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; color: white; font-weight: 700; font-size: 10pt; margin-right: 0.5rem; }
+    .level-1 { background: #9ca3af; }
+    .level-2 { background: #f59e0b; }
+    .level-3 { background: #3b82f6; }
+    .level-4 { background: #10b981; }
+    .level-5 { background: #8b5cf6; }
+    
+    /* Journey boxes */
+    .journey { border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+    .journey-header { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .journey-icon { width: 2rem; height: 2rem; border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 11pt; flex-shrink: 0; }
+    .j1 { background: #f1f5f9; color: #475569; }
+    .j2 { background: #dbeafe; color: #1d4ed8; }
+    .j3 { background: #d1fae5; color: #059669; border: 2px solid #10b981; }
+    .j4 { background: #ede9fe; color: #7c3aed; }
+    
+    /* Phase boxes */
+    .phase { border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+    .phase-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .phase-num { width: 1.5rem; height: 1.5rem; border-radius: 0.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 10pt; }
+    .phase-locked { background: #f1f5f9; color: #64748b; }
+    .phase-unlocking { background: #fef3c7; color: #d97706; }
+    .phase-unlocked { background: #d1fae5; color: #059669; }
+    
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; font-size: 10pt; }
+    th, td { border: 1px solid #e2e8f0; padding: 0.5rem; text-align: left; }
+    th { background: #f8fafc; font-weight: 600; }
+    
+    /* Platform rules */
+    .rule-allowed { background: #ecfdf5; border: 1px solid #6ee7b7; border-radius: 0.25rem; padding: 0.5rem; font-size: 9pt; }
+    .rule-blocked { background: #fff1f2; border: 1px solid #fda4af; border-radius: 0.25rem; padding: 0.5rem; font-size: 9pt; }
+    
+    /* Highlight box */
+    .highlight-box { background: #0f172a; color: white; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
+    .highlight-box h2 { color: white; }
+    
+    /* Stat grid */
+    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-top: 1rem; }
+    .stat-box { background: rgba(255,255,255,0.1); border-radius: 0.375rem; padding: 0.5rem; }
+    .stat-label { font-size: 9pt; color: #34d399; margin-bottom: 0.125rem; }
+    .stat-value { font-size: 10pt; font-weight: 500; }
+    
+    /* Footer */
+    .doc-footer { border-top: 1px solid #e2e8f0; padding-top: 1rem; margin-top: 2rem; font-size: 9pt; color: #94a3b8; display: flex; justify-content: space-between; }
+  </style>
+</head>
+<body>
+
+<div class="doc-header">
+  <h1>IPE Strategic Playbook</h1>
+  <p>Internal Leadership Guide · Next 12-18 Months</p>
+  <div class="badges">
+    <span class="badge badge-red">INTERNAL ONLY · CONFIDENTIAL</span>
+  </div>
+</div>
+
+<!-- VISION & MARKET -->
+<div class="section">
+  <div class="section-title">Vision & Market</div>
+  
+  <div class="highlight-box no-break">
+    <p class="text-xs" style="color:#34d399;font-weight:600;margin-bottom:0.5rem;">STRATEGIC NORTH STAR</p>
+    <h2 style="font-size:14pt;line-height:1.4;">Knapsack becomes the Intelligent Product Engine enterprises trust to execute product change—safely, governably, and at scale—in the AI era.</h2>
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-label">Product intent</div><div class="stat-value">Executable, not descriptive</div></div>
+      <div class="stat-box"><div class="stat-label">Systems</div><div class="stat-value">Evolve as one</div></div>
+      <div class="stat-box"><div class="stat-label">AI context</div><div class="stat-value">Trusted & structured</div></div>
+      <div class="stat-box"><div class="stat-label">Delivery</div><div class="stat-value">Faster via governance</div></div>
+    </div>
+  </div>
+
+  <div class="grid-2 no-break">
+    <div class="card">
+      <h3>Market Definition</h3>
+      <p class="text-sm text-slate">Knapsack competes in <strong>Product Intelligence Infrastructure</strong>:</p>
+      <div class="list-item"><span class="bullet"></span>Product system infrastructure (design + code systems of record)</div>
+      <div class="list-item"><span class="bullet"></span>Orchestration (governance + change propagation)</div>
+      <div class="list-item"><span class="bullet"></span>Product intelligence (structured knowledge + signals)</div>
+      <div class="list-item"><span class="bullet"></span>AI product enablement (safe, contextual execution)</div>
+    </div>
+    <div class="card">
+      <h3>TAM by Capability Layer</h3>
+      <table>
+        <tr><td><strong>L1</strong> Product System Infrastructure</td><td style="text-align:right"><strong>$5–8B</strong></td></tr>
+        <tr><td><strong>L2</strong> Product Orchestration</td><td style="text-align:right"><strong>$12–18B</strong></td></tr>
+        <tr><td><strong>L3</strong> Product Intelligence</td><td style="text-align:right"><strong>$30–40B</strong></td></tr>
+        <tr><td><strong>L4</strong> AI Product Enablement</td><td style="text-align:right"><strong>$15–25B</strong></td></tr>
+        <tr style="background:#ecfdf5"><td><strong>Total TAM</strong></td><td style="text-align:right;color:#059669"><strong>$62–91B</strong></td></tr>
+        <tr><td>AI-expanded TAM</td><td style="text-align:right"><strong>$75–110B</strong></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card card-amber no-break">
+    <h3 style="color:#92400e">The Problem We Solve</h3>
+    <p class="text-sm" style="color:#92400e">Modern enterprises don't fail because they lack tools. They fail because product knowledge is fragmented, implicit, and non-operational:</p>
+    <div class="grid-4" style="margin-top:0.5rem">
+      <div class="tag">Design intent lives in files</div>
+      <div class="tag">Engineering reality lives in code</div>
+      <div class="tag">Decisions live in meetings</div>
+      <div class="tag">AI operates without structure</div>
+    </div>
+  </div>
+</div>
+
+<!-- MATURITY MODEL -->
+<div class="section page-break">
+  <div class="section-title">Maturity Model</div>
+  
+  <div class="card no-break">
+    <h3>Product System Maturity Model</h3>
+    <p class="text-sm text-slate" style="margin-bottom:1rem">Five levels define where customers are and where they need to go.</p>
+    
+    <table>
+      <tr><td style="width:3rem"><span class="level level-1">1</span></td><td><strong>UI Artifacts</strong><br><span class="text-sm text-slate">Static mockups, no system connection</span></td><td style="width:4rem"></td></tr>
+      <tr><td><span class="level level-2">2</span></td><td><strong>Design Library</strong><br><span class="text-sm text-slate">Organized components, limited code integration</span></td><td></td></tr>
+      <tr><td><span class="level level-3">3</span></td><td><strong>Integrated Product System</strong><br><span class="text-sm text-slate">Design-to-code connection, basic governance</span></td><td><span class="tag" style="background:#d1fae5;color:#059669">SAM</span></td></tr>
+      <tr><td><span class="level level-4">4</span></td><td><strong>Scaled Product System</strong><br><span class="text-sm text-slate">Control plane operating, cross-system governance</span></td><td><span class="tag" style="background:#d1fae5;color:#059669">SAM</span></td></tr>
+      <tr><td><span class="level level-5">5</span></td><td><strong>IPE-Activated System</strong><br><span class="text-sm text-slate">Control plane operated + governed, full intelligence layer</span></td><td><span class="tag" style="background:#d1fae5;color:#059669">SAM</span></td></tr>
+    </table>
+  </div>
+
+  <div class="card card-rose no-break">
+    <h3 class="text-rose">Critical Clarification</h3>
+    <p style="color:#be123c;font-size:12pt;font-weight:600;margin-bottom:0.25rem;">"Implemented" does not equal "Activated"</p>
+    <p class="text-sm" style="color:#be123c">Many customers are technically implemented but still operating at <strong>Quadrant G</strong> (strong system, low intelligence) until signals, governance cadence, and MCP execution are in place. This gap is the primary driver of churn.</p>
+  </div>
+
+  <div class="card no-break">
+    <h3>Readiness Quadrants (IPE-aligned)</h3>
+    <div class="grid-2">
+      <div>
+        <h4 class="text-slate text-xs" style="text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem">Pipeline Development (low interest)</h4>
+        <div class="list-item"><span class="tag">A</span> Low context, low AI → long nurture</div>
+        <div class="list-item"><span class="tag">B</span> Low context, high AI → educate on structure</div>
+        <div class="list-item"><span class="tag">C</span> High context, low interest → exit/monitor</div>
+        <div class="list-item"><span class="tag">D</span> High context, latent interest → timing play</div>
+      </div>
+      <div>
+        <h4 class="text-slate text-xs" style="text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem">Active Pipeline (high interest)</h4>
+        <div class="list-item"><span class="tag" style="background:#d1fae5;color:#059669">E</span> Interest without structure → docs + heavy services</div>
+        <div class="list-item"><span class="tag" style="background:#d1fae5;color:#059669">F</span> AI ambition without context → docs + light services</div>
+        <div class="list-item"><span class="tag" style="background:#d1fae5;color:#059669">G</span> Strong system, low intelligence → IPE Enablement</div>
+        <div class="list-item"><span class="tag" style="background:#d1fae5;color:#059669">H</span> IPE-ready → IPE Activation</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ASSESSMENT FRAMEWORK -->
+<div class="section page-break">
+  <div class="section-title">Assessment Framework</div>
+  
+  <div class="card no-break">
+    <h3>Required Scoring (No Exceptions)</h3>
+    <div class="grid-3" style="margin-bottom:1rem">
+      <div style="background:#f8fafc;padding:0.75rem;border-radius:0.375rem;text-align:center"><strong>Product System Maturity</strong><br><span class="text-xs text-slate">1-5</span></div>
+      <div style="background:#f8fafc;padding:0.75rem;border-radius:0.375rem;text-align:center"><strong>AI & Automation Capability</strong><br><span class="text-xs text-slate">Low/Med/High</span></div>
+      <div style="background:#f8fafc;padding:0.75rem;border-radius:0.375rem;text-align:center"><strong>Interest State</strong><br><span class="text-xs text-slate">Low/Latent/High</span></div>
+    </div>
+  </div>
+
+  <div class="highlight-box no-break">
+    <h3 style="color:white">Account State Flags (Required in CRM)</h3>
+    <table style="margin-top:0.75rem;background:rgba(255,255,255,0.1);border:none">
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.2)"><td style="border:none;color:white"><strong>1. Implemented?</strong></td><td style="border:none;color:#94a3b8">Y/N</td><td style="border:none;color:#94a3b8">Platform technically deployed</td></tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.2)"><td style="border:none;color:white"><strong>2. Trust Status</strong></td><td style="border:none;color:#94a3b8">G/Y/R</td><td style="border:none;color:#94a3b8">Red = data loss / severe performance / support failure</td></tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.2)"><td style="border:none;color:white"><strong>3. Activation Depth</strong></td><td style="border:none;color:#94a3b8">Docs → CP → MCP → AI</td><td style="border:none;color:#94a3b8">How deeply they use the platform</td></tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.2)"><td style="border:none;color:white"><strong>4. MCP/IPE Interest</strong></td><td style="border:none;color:#94a3b8">Y/N</td><td style="border:none;color:#94a3b8">Expressed interest in AI capabilities</td></tr>
+      <tr><td style="border:none;color:white"><strong>5. Strategic Fit</strong></td><td style="border:none;color:#94a3b8">Y/N</td><td style="border:none;color:#94a3b8">True ICP match</td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="background:#ffe4e6;border:2px solid #fda4af" class="no-break">
+    <h3 class="text-rose">Routing Rule (Non-negotiable)</h3>
+    <div style="background:white;padding:0.75rem;border-radius:0.375rem;margin-top:0.5rem">
+      <p style="color:#be123c;font-size:11pt">If <span style="background:#fecdd3;padding:0.125rem 0.375rem;border-radius:0.25rem">Strategic Fit = TRUE</span> and <span style="background:#fecdd3;padding:0.125rem 0.375rem;border-radius:0.25rem">Implemented = NO</span>, the account is <strong>Journey 3 by default</strong> until activation is complete.</p>
+    </div>
+    <p class="text-sm text-rose" style="margin-top:0.5rem">This prevents the most common sequencing mistake: selling platform expansion before activation is real.</p>
+  </div>
+</div>
+
+<!-- CUSTOMER JOURNEYS -->
+<div class="section page-break">
+  <div class="section-title">How to Use This Framework</div>
+  
+  <div class="card no-break">
+    <h3>From Assessment to Journey: A Step-by-Step Process</h3>
+    <p class="text-sm text-slate" style="margin-bottom:1rem">Follow these five steps to correctly identify which journey an account belongs to and where they should enter.</p>
+    
+    <table>
+      <tr style="background:#f8fafc">
+        <td style="width:4rem;text-align:center;font-weight:700;color:#10b981">Step 1</td>
+        <td><strong>Score the Account</strong><br><span class="text-sm text-slate">Rate the account on all three dimensions: Product System Maturity (1-5), AI & Automation Capability (Low/Med/High), and Interest State (Low/Latent/High)</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;color:#10b981">Step 2</td>
+        <td><strong>Plot the Quadrant</strong><br><span class="text-sm text-slate">Use the scores to identify the account's current quadrant (A-H). Context depth (Maturity + AI capability) forms one axis; Interest State forms the other.</span></td>
+      </tr>
+      <tr style="background:#f8fafc">
+        <td style="text-align:center;font-weight:700;color:#10b981">Step 3</td>
+        <td><strong>Check Account State Flags</strong><br><span class="text-sm text-slate">Confirm all five CRM flags: Implemented (Y/N), Trust Status (G/Y/R), Activation Depth, MCP/IPE Interest (Y/N), Strategic Fit (Y/N)</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;color:#10b981">Step 4</td>
+        <td><strong>Apply the Routing Rule</strong><br><span class="text-sm text-slate">If Strategic Fit = YES and Implemented = NO → Journey 3 (no exceptions). This rule overrides quadrant-based assignment.</span></td>
+      </tr>
+      <tr style="background:#f8fafc">
+        <td style="text-align:center;font-weight:700;color:#10b981">Step 5</td>
+        <td><strong>Confirm Journey & Entry Phase</strong><br><span class="text-sm text-slate">Match the journey to the appropriate entry phase based on current maturity level and activation depth.</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Decision Tree -->
+  <div class="card no-break">
+    <h3>Journey Selection Decision Tree</h3>
+    <p class="text-sm text-slate" style="margin-bottom:1rem">Use this logic flow to determine the correct journey assignment.</p>
+    
+    <div style="background:#f8fafc;border-radius:0.5rem;padding:1.5rem;font-size:10pt;">
+      <div style="margin-bottom:1rem;">
+        <strong style="color:#0f172a">START: Is Strategic Fit = YES?</strong>
+      </div>
+      
+      <div style="margin-left:1.5rem;margin-bottom:1rem;padding-left:1rem;border-left:2px solid #10b981">
+        <div style="margin-bottom:0.75rem"><strong style="color:#10b981">YES → Is Implemented = NO?</strong></div>
+        <div style="margin-left:1.5rem;padding-left:1rem;border-left:2px solid #10b981">
+          <div style="margin-bottom:0.5rem"><strong style="color:#10b981">YES →</strong> <span style="background:#d1fae5;color:#059669;padding:0.25rem 0.5rem;border-radius:0.25rem;font-weight:700">JOURNEY 3</span> <span class="text-slate">(Services Transformation)</span></div>
+          <div class="text-xs text-slate">Account needs activation before any platform expansion. Enter at Phase 1.</div>
+        </div>
+        <div style="margin-left:1.5rem;padding-left:1rem;border-left:2px solid #3b82f6;margin-top:0.75rem">
+          <div style="margin-bottom:0.5rem"><strong style="color:#3b82f6">NO (Implemented = YES) → Check for Triggers</strong></div>
+          <div style="margin-left:1.5rem;margin-top:0.5rem">
+            <div style="margin-bottom:0.5rem">Is there an active trigger (exec change, reorg, tech consolidation, budget cycle)?</div>
+            <div style="margin-left:1rem">
+              <div style="margin-bottom:0.25rem"><strong>YES →</strong> <span style="background:#ede9fe;color:#7c3aed;padding:0.25rem 0.5rem;border-radius:0.25rem;font-weight:700">JOURNEY 4</span> <span class="text-slate">(Timing Play)</span></div>
+              <div style="margin-bottom:0.5rem"><strong>NO →</strong> Is Maturity Level 4+ with high MCP interest and sudden need?</div>
+              <div style="margin-left:1rem">
+                <div style="margin-bottom:0.25rem"><strong>YES →</strong> <span style="background:#dbeafe;color:#1d4ed8;padding:0.25rem 0.5rem;border-radius:0.25rem;font-weight:700">JOURNEY 2</span> <span class="text-slate">(Independent Maturation)</span></div>
+                <div><strong>NO →</strong> <span class="text-slate">Monitor, maintain relationship, watch for triggers</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div style="margin-left:1.5rem;padding-left:1rem;border-left:2px solid #64748b">
+        <div style="margin-bottom:0.5rem"><strong style="color:#64748b">NO (Strategic Fit = NO) →</strong> <span style="background:#f1f5f9;color:#475569;padding:0.25rem 0.5rem;border-radius:0.25rem;font-weight:700">JOURNEY 1</span> <span class="text-slate">(Progressive Maturation)</span></div>
+        <div class="text-xs text-slate">Maintain relationship without platform pressure. Do not overinvest.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quadrant to Journey Mapping Table -->
+  <div class="card no-break">
+    <h3>Quadrant-to-Journey Mapping</h3>
+    <p class="text-sm text-slate" style="margin-bottom:1rem">Starting quadrant suggests likely journey, but the routing rule and account flags determine final assignment.</p>
+    
+    <table>
+      <tr style="background:#0f172a;color:white">
+        <th style="border-color:#334155">Quadrant</th>
+        <th style="border-color:#334155">Profile</th>
+        <th style="border-color:#334155">Likely Journey</th>
+        <th style="border-color:#334155">Rationale</th>
+      </tr>
+      <tr>
+        <td style="text-align:center"><span class="tag">A</span></td>
+        <td>Low context, Low AI interest</td>
+        <td><strong>J1</strong> Progressive Maturation</td>
+        <td class="text-sm">Long nurture cycle; not ready for platform investment</td>
+      </tr>
+      <tr style="background:#f8fafc">
+        <td style="text-align:center"><span class="tag">B</span></td>
+        <td>Low context, High AI interest</td>
+        <td><strong>J1 → J3</strong></td>
+        <td class="text-sm">Educate on structure first; may accelerate to J3 if ICP</td>
+      </tr>
+      <tr>
+        <td style="text-align:center"><span class="tag">C</span></td>
+        <td>High context, Low interest</td>
+        <td><strong>J1</strong> or Exit</td>
+        <td class="text-sm">Monitor only; exit if no path to activation</td>
+      </tr>
+      <tr style="background:#f8fafc">
+        <td style="text-align:center"><span class="tag">D</span></td>
+        <td>High context, Latent interest</td>
+        <td><strong>J2</strong> or <strong>J4</strong></td>
+        <td class="text-sm">Trigger-dependent; ready for fast activation when timing aligns</td>
+      </tr>
+      <tr style="background:#ecfdf5">
+        <td style="text-align:center"><span class="tag" style="background:#d1fae5;color:#059669">E</span></td>
+        <td>Interest without structure</td>
+        <td><strong style="color:#059669">J3</strong> (if ICP)</td>
+        <td class="text-sm">Heavy services needed; documentation + implementation focus</td>
+      </tr>
+      <tr style="background:#ecfdf5">
+        <td style="text-align:center"><span class="tag" style="background:#d1fae5;color:#059669">F</span></td>
+        <td>AI ambition without context</td>
+        <td><strong style="color:#059669">J3</strong> (if ICP)</td>
+        <td class="text-sm">Light services + docs; build foundation before AI enablement</td>
+      </tr>
+      <tr style="background:#ecfdf5">
+        <td style="text-align:center"><span class="tag" style="background:#d1fae5;color:#059669">G</span></td>
+        <td>Strong system, Low intelligence</td>
+        <td><strong style="color:#059669">J3</strong> (if ICP)</td>
+        <td class="text-sm">IPE enablement path; control plane → signals → MCP</td>
+      </tr>
+      <tr style="background:#f8fafc">
+        <td style="text-align:center"><span class="tag" style="background:#d1fae5;color:#059669">H</span></td>
+        <td>IPE-ready</td>
+        <td><strong>J2</strong> or <strong>J4</strong></td>
+        <td class="text-sm">Fast activation; expansion-ready</td>
+      </tr>
+    </table>
+    
+    <div style="background:#fff1f2;border:1px solid #fda4af;border-radius:0.375rem;padding:0.75rem;margin-top:1rem">
+      <p class="text-sm" style="color:#be123c"><strong>Remember:</strong> The routing rule overrides quadrant logic. If Strategic Fit = YES and Implemented = NO, the account is Journey 3 regardless of quadrant.</p>
+    </div>
+  </div>
+
+  <!-- Worked Examples -->
+  <div class="card no-break">
+    <h3>Worked Examples</h3>
+    <p class="text-sm text-slate" style="margin-bottom:1rem">Three examples showing how assessment inputs determine journey assignment.</p>
+    
+    <!-- Example 1: PNC -->
+    <div style="background:#ecfdf5;border:1px solid #6ee7b7;border-radius:0.5rem;padding:1rem;margin-bottom:1rem">
+      <h4 style="color:#059669;margin-bottom:0.5rem">Example 1: PNC</h4>
+      <div class="grid-2" style="margin-bottom:0.75rem">
+        <div>
+          <p class="text-xs text-slate" style="text-transform:uppercase;margin-bottom:0.25rem">Assessment Scores</p>
+          <div class="text-sm">
+            <div>Product System Maturity: <strong>Level 3</strong></div>
+            <div>AI & Automation Capability: <strong>Medium</strong></div>
+            <div>Interest State: <strong>High</strong></div>
+          </div>
+        </div>
+        <div>
+          <p class="text-xs text-slate" style="text-transform:uppercase;margin-bottom:0.25rem">Account State Flags</p>
+          <div class="text-sm">
+            <div>Implemented: <strong style="color:#be123c">NO</strong></div>
+            <div>Trust Status: <strong style="color:#f59e0b">Yellow</strong> (frustration)</div>
+            <div>Strategic Fit: <strong style="color:#059669">YES</strong></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:white;border-radius:0.375rem;padding:0.75rem">
+        <p class="text-sm"><strong>Quadrant:</strong> E (Interest without structure)</p>
+        <p class="text-sm"><strong>Routing Rule Check:</strong> Strategic Fit = YES + Implemented = NO</p>
+        <p class="text-sm" style="margin-top:0.5rem"><strong style="color:#059669">Result: JOURNEY 3</strong> — Enter at Phase 1 (Stabilize & Complete). Focus on trust repair and basic activation before any platform expansion discussion.</p>
+      </div>
+    </div>
+    
+    <!-- Example 2: Adobe -->
+    <div style="background:#dbeafe;border:1px solid #93c5fd;border-radius:0.5rem;padding:1rem;margin-bottom:1rem">
+      <h4 style="color:#1d4ed8;margin-bottom:0.5rem">Example 2: Adobe</h4>
+      <div class="grid-2" style="margin-bottom:0.75rem">
+        <div>
+          <p class="text-xs text-slate" style="text-transform:uppercase;margin-bottom:0.25rem">Assessment Scores</p>
+          <div class="text-sm">
+            <div>Product System Maturity: <strong>Level 4</strong></div>
+            <div>AI & Automation Capability: <strong>High</strong></div>
+            <div>Interest State: <strong>High</strong> (sudden trigger)</div>
+          </div>
+        </div>
+        <div>
+          <p class="text-xs text-slate" style="text-transform:uppercase;margin-bottom:0.25rem">Account State Flags</p>
+          <div class="text-sm">
+            <div>Implemented: <strong style="color:#059669">YES</strong></div>
+            <div>Trust Status: <strong style="color:#059669">Green</strong></div>
+            <div>Strategic Fit: <strong style="color:#059669">YES</strong></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:white;border-radius:0.375rem;padding:0.75rem">
+        <p class="text-sm"><strong>Quadrant:</strong> H (IPE-ready)</p>
+        <p class="text-sm"><strong>Routing Rule Check:</strong> Strategic Fit = YES but Implemented = YES, so rule does not apply</p>
+        <p class="text-sm"><strong>Trigger Check:</strong> Enterprise rollout pattern identified (active trigger)</p>
+        <p class="text-sm" style="margin-top:0.5rem"><strong style="color:#1d4ed8">Result: JOURNEY 2</strong> — Mature org with sudden trigger requiring fast activation. Treat as reference implementation. Platform expansion is appropriate.</p>
+      </div>
+    </div>
+    
+    <!-- Example 3: The Home Depot -->
+    <div style="background:#ede9fe;border:1px solid #c4b5fd;border-radius:0.5rem;padding:1rem">
+      <h4 style="color:#7c3aed;margin-bottom:0.5rem">Example 3: The Home Depot</h4>
+      <div class="grid-2" style="margin-bottom:0.75rem">
+        <div>
+          <p class="text-xs text-slate" style="text-transform:uppercase;margin-bottom:0.25rem">Assessment Scores</p>
+          <div class="text-sm">
+            <div>Product System Maturity: <strong>Level 4</strong></div>
+            <div>AI & Automation Capability: <strong>Medium</strong></div>
+            <div>Interest State: <strong>Latent</strong></div>
+          </div>
+        </div>
+        <div>
+          <p class="text-xs text-slate" style="text-transform:uppercase;margin-bottom:0.25rem">Account State Flags</p>
+          <div class="text-sm">
+            <div>Implemented: <strong style="color:#059669">YES</strong> (embedded but underutilized)</div>
+            <div>Trust Status: <strong style="color:#059669">Green</strong></div>
+            <div>Strategic Fit: <strong style="color:#059669">YES</strong></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:white;border-radius:0.375rem;padding:0.75rem">
+        <p class="text-sm"><strong>Quadrant:</strong> D (High context, Latent interest)</p>
+        <p class="text-sm"><strong>Routing Rule Check:</strong> Strategic Fit = YES but Implemented = YES, so rule does not apply</p>
+        <p class="text-sm"><strong>Trigger Check:</strong> Org consolidation trigger identified</p>
+        <p class="text-sm" style="margin-top:0.5rem"><strong style="color:#7c3aed">Result: JOURNEY 4</strong> — Timing play. Do not drag into long services. Prepare executive activation package and move quickly when trigger fires. Platform expansion is appropriate once trigger activates.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CUSTOMER JOURNEYS -->
+<div class="section page-break">
+  <div class="section-title">Customer Journeys</div>
+  
+  <div class="card card-emerald no-break">
+    <h3 class="text-emerald">Portfolio Bet Summary (Leadership View)</h3>
+    <div class="grid-2">
+      <div style="background:white;padding:0.75rem;border-radius:0.375rem"><p class="text-sm" style="color:#065f46;font-weight:500">Journey 3 holds the majority of ARR and the majority of meaningful churn risk</p></div>
+      <div style="background:white;padding:0.75rem;border-radius:0.375rem"><p class="text-sm" style="color:#065f46;font-weight:500">Services capacity is the growth bottleneck (not top-of-funnel)</p></div>
+    </div>
+  </div>
+
+  <!-- J1 -->
+  <div class="journey no-break">
+    <div class="journey-header">
+      <div class="journey-icon j1">J1</div>
+      <div>
+        <strong>Progressive Maturation</strong> <span class="tag" style="font-family:monospace">A → B → F → H</span> <span class="tag">~10% ARR</span> <span class="tag">low risk</span>
+        <p class="text-sm text-slate">True non-ICP or low readiness — don't overinvest</p>
+      </div>
+    </div>
+    <p class="text-sm"><strong>Objective:</strong> Maintain relationship and credibility while they mature. No platform pressure.</p>
+    <p class="text-sm" style="margin-top:0.5rem"><strong>Accounts:</strong> <span class="tag">Associated Press</span> <span class="tag">Bright Horizons</span> <span class="tag">MSK</span> <span class="tag">Accutech</span></p>
+    <p class="text-sm" style="margin-top:0.5rem"><strong>Service:</strong> Product System Readiness Assessment (Validation Workshop, Vision Definition, Stakeholder Interviews)</p>
+    <div class="rule-blocked" style="margin-top:0.5rem"><strong>✗ Expansion blocked:</strong> Platform expansion is not the play. If they cannot secure engineering/platform ownership, they cannot operate IPE.</div>
+  </div>
+
+  <!-- J2 -->
+  <div class="journey no-break">
+    <div class="journey-header">
+      <div class="journey-icon j2">J2</div>
+      <div>
+        <strong>Independent Maturation</strong> <span class="tag" style="font-family:monospace">A → D → H</span> <span class="tag">~5% ARR</span> <span class="tag">low risk</span>
+        <p class="text-sm text-slate">Mature orgs; sudden trigger; fast activation required</p>
+      </div>
+    </div>
+    <p class="text-sm"><strong>Objective:</strong> Instant IPE activation when timing flips. Avoid re-education.</p>
+    <p class="text-sm" style="margin-top:0.5rem"><strong>Accounts:</strong> <span class="tag">Adobe (reference implementation + enterprise rollout pattern)</span></p>
+    <p class="text-sm" style="margin-top:0.5rem"><strong>Service:</strong> IPE Activation Sprint (Advanced Implementation, Security assessment, Architecture validation, Integration setup, Enablement)</p>
+    <div class="rule-allowed" style="margin-top:0.5rem"><strong>✓ Expansion allowed:</strong> Immediate platform sale allowed. Sell the control plane and expansion roadmap.</div>
+  </div>
+
+  <!-- J3 -->
+  <div class="journey no-break" style="border:2px solid #10b981">
+    <div class="journey-header">
+      <div class="journey-icon j3">J3</div>
+      <div>
+        <strong>Services Transformation</strong> <span class="tag" style="background:#10b981;color:white">PRIMARY FOCUS</span> <span class="tag" style="font-family:monospace">E → F/G → H</span> <span class="tag" style="background:#fee2e2;color:#b91c1c">~60% ARR</span> <span class="tag" style="background:#fee2e2;color:#b91c1c">high risk</span>
+        <p class="text-sm text-slate">High-value ICP accounts blocked on activation + trust</p>
+      </div>
+    </div>
+    <p class="text-sm"><strong>Objective:</strong> Activate IPE in the correct order: stability + trust → governance/control plane → execution enablement → signals → expansion</p>
+    <p class="text-sm" style="margin-top:0.5rem"><strong>Accounts:</strong> <span class="tag">PNC</span> <span class="tag">Edward Jones</span> <span class="tag">DoubleVerify</span> <span class="tag">Qualcomm</span> <span class="tag">GSK US</span> <span class="tag">HealthEdge</span> <span class="tag">Columbia Sportswear</span> <span class="tag">Southern California Edison</span> <span class="tag">CVS Health</span> <span class="tag">Alaska Airlines</span> <span class="tag">Allegion</span></p>
+    <p class="text-sm" style="margin-top:0.5rem"><strong>Service:</strong> IPE Context & Control Foundation + Execution Enablement (Validation Workshop, Vision Definition, Workflow Definition, Token Strategy, Component Architecture, Forward-Deployed Engineering)</p>
+    <div class="rule-blocked" style="margin-top:0.5rem"><strong>✗ Expansion blocked:</strong> Platform expansion only after pilot proof. No expansion until activation complete.</div>
+  </div>
+
+  <!-- J4 -->
+  <div class="journey no-break">
+    <div class="journey-header">
+      <div class="journey-icon j4">J4</div>
+      <div>
+        <strong>Timing Play</strong> <span class="tag" style="font-family:monospace">D → H</span> <span class="tag">~25% ARR</span> <span class="tag" style="background:#fef3c7;color:#92400e">medium risk</span>
+        <p class="text-sm text-slate">Mature systems; latent interest; needs trigger + crisp activation</p>
+      </div>
+    </div>
+    <p class="text-sm"><strong>Objective:</strong> Executive activation package when opportunity appears. Do not drag into long services.</p>
+    <p class="text-sm" style="margin-top:0.5rem"><strong>Accounts:</strong> <span class="tag">The Home Depot</span> <span class="tag">CSX</span> <span class="tag">GSK Global</span> <span class="tag">Crown Equipment</span> <span class="tag">Shutterfly</span> <span class="tag">BILL</span></p>
+    <p class="text-sm" style="margin-top:0.5rem"><strong>Service:</strong> IPE Executive Activation (Executive alignment, Targeted implementation, MCP roadmap, Expansion plan)</p>
+    <div class="rule-allowed" style="margin-top:0.5rem"><strong>✓ Expansion allowed:</strong> J4 should not be dragged into long services until a trigger exists.</div>
+  </div>
+</div>
+
+<!-- ENGAGEMENT PHASES -->
+<div class="section page-break">
+  <div class="section-title">Engagement Phases (Journey 3 Model)</div>
+  
+  <div class="card card-emerald no-break">
+    <h3 class="text-emerald">PNC Partnership Example</h3>
+    <p class="text-sm" style="color:#047857">This engagement structure has been <strong>tailored for PNC</strong> to illustrate how the IPE maturity model and assessment framework adapt to specific customer contexts. The phases, workstreams, and exit criteria shown here demonstrate the flexibility of our approach—each enterprise partnership is customized based on their current state, strategic priorities, and activation goals.</p>
+  </div>
+
+  <!-- Phase 1 -->
+  <div class="phase no-break">
+    <div class="phase-header">
+      <div class="phase-num phase-locked">1</div>
+      <div><strong>Stabilize & Complete</strong> <span class="text-sm text-slate">Level 3 → Operational</span> <span class="tag" style="background:#fff1f2;color:#be123c">MCP locked</span></div>
+    </div>
+    <p class="text-sm text-slate" style="margin-bottom:0.75rem"><strong>Goal:</strong> Make the platform reliably usable for real teams, without heroics.</p>
+    <div class="grid-3">
+      <div><h4 class="text-xs text-slate" style="text-transform:uppercase">Workstreams</h4>
+        <div class="list-item"><span class="bullet"></span>Workspace Go-Live</div>
+        <div class="list-item"><span class="bullet"></span>Entitlement setup + Site Switcher roles</div>
+        <div class="list-item"><span class="bullet"></span>Repo / Figma access dependencies</div>
+        <div class="list-item"><span class="bullet"></span>Proxy traffic testing + prod push</div>
+        <div class="list-item"><span class="bullet"></span>Deployment checklists + CRs</div>
+      </div>
+      <div><h4 class="text-xs text-slate" style="text-transform:uppercase">Exit Criteria</h4>
+        <div class="list-item"><span class="check">✓</span>Teams can publish + update without Knapsack intervention</div>
+        <div class="list-item"><span class="check">✓</span>Workspace 2 live or date-certain</div>
+        <div class="list-item"><span class="check">✓</span>Entitlements + access no longer blocking work</div>
+      </div>
+      <div><h4 class="text-xs text-slate" style="text-transform:uppercase">Deliverables</h4>
+        <span class="tag">Workspace Go-Live Checklists</span>
+        <span class="tag">RACI for Workspace 2+</span>
+        <span class="tag">Deployment Definition of Done</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="phase no-break">
+    <div class="phase-header">
+      <div class="phase-num phase-locked">2</div>
+      <div><strong>Control Plane & Governance</strong> <span class="text-sm text-slate">Level 3 → Level 4</span> <span class="tag" style="background:#fff1f2;color:#be123c">MCP locked</span></div>
+    </div>
+    <p class="text-sm text-slate" style="margin-bottom:0.75rem"><strong>Goal:</strong> Turn "systems" into a system of record with decision authority.</p>
+    <div class="grid-3">
+      <div><h4 class="text-xs text-slate" style="text-transform:uppercase">Workstreams</h4>
+        <div class="list-item"><span class="bullet"></span>Token Strategy POV (multi-brand)</div>
+        <div class="list-item"><span class="bullet"></span>Ledger + LPB governance representation</div>
+        <div class="list-item"><span class="bullet"></span>System-of-Systems architecture</div>
+        <div class="list-item"><span class="bullet"></span>Governance model definition</div>
+        <div class="list-item"><span class="bullet"></span>System Charter (North Star)</div>
+        <div class="list-item"><span class="bullet"></span>PI prioritization rubric</div>
+      </div>
+      <div><h4 class="text-xs text-slate" style="text-transform:uppercase">Exit Criteria</h4>
+        <div class="list-item"><span class="check">✓</span>Token strategy approved and enforced</div>
+        <div class="list-item"><span class="check">✓</span>Governance model active beyond Ledger</div>
+        <div class="list-item"><span class="check">✓</span>Clear rules for cross-system interaction</div>
+      </div>
+      <div><h4 class="text-xs text-slate" style="text-transform:uppercase">Deliverables</h4>
+        <span class="tag">Control Plane Definition</span>
+        <span class="tag">Token ownership + decision rights</span>
+        <span class="tag">Cross-system governance operating model</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="phase no-break">
+    <div class="phase-header">
+      <div class="phase-num phase-unlocking">3</div>
+      <div><strong>Execution Enablement</strong> <span class="text-sm text-slate">Level 4 Operational</span> <span class="tag" style="background:#fef3c7;color:#92400e">MCP prep begins</span></div>
+    </div>
+    <p class="text-sm text-slate" style="margin-bottom:0.75rem"><strong>Goal:</strong> Prove that governed intent can safely become production change.</p>
+    <div class="grid-3">
+      <div><h4 class="text-xs text-slate" style="text-transform:uppercase">Workstreams</h4>
+        <div class="list-item"><span class="bullet"></span>Integrated token strategy epics</div>
+        <div class="list-item"><span class="bullet"></span>Component modularization</div>
+        <div class="list-item"><span class="bullet"></span>Angular 18 + 20 planning</div>
+        <div class="list-item"><span class="bullet"></span>Testing architecture</div>
+        <div class="list-item"><span class="bullet"></span>Code Connect mapping</div>
+        <div class="list-item"><span class="bullet"></span>Migration + tech docs epics</div>
+      </div>
+      <div><h4 class="text-xs text-slate" style="text-transform:uppercase">Exit Criteria</h4>
+        <div class="list-item"><span class="check">✓</span>One meaningful change ships end-to-end via Knapsack</div>
+        <div class="list-item"><span class="check">✓</span>Upgrade path validated without regressions</div>
+        <div class="list-item"><span class="check">✓</span>Teams trust the system to enforce standards</div>
+      </div>
+      <div><h4 class="text-xs text-slate" style="text-transform:uppercase">Deliverables</h4>
+        <span class="tag">Governed pipelines</span>
+        <span class="tag">Safe propagation</span>
+        <span class="tag">Quality gates</span>
+        <span class="tag">Predictable upgrades</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 4 -->
+  <div class="phase no-break">
+    <div class="phase-header">
+      <div class="phase-num phase-unlocked">4</div>
+      <div><strong>Signals & Intelligence</strong> <span class="text-sm text-slate">Level 4 → Level 5</span> <span class="tag" style="background:#d1fae5;color:#059669">MCP pilot ready</span></div>
+    </div>
+    <p class="text-sm text-slate" style="margin-bottom:0.75rem"><strong>Goal:</strong> Introduce intelligence only after trust exists.</p>
+    <div class="grid-3">
+      <div><h4 class="text-xs text-slate" style="text-transform:uppercase">Workstreams</h4>
+        <div class="list-item"><span class="bullet"></span>Maturity & AI Readiness Assessment</div>
+        <div class="list-item"><span class="bullet"></span>Signal capture + dashboards</div>
+        <div class="list-item"><span class="bullet"></span>Change readiness surveys</div>
+        <div class="list-item"><span class="bullet"></span>MCP onboarding (scoped)</div>
+        <div class="list-item"><span class="bullet"></span>FDE assignment confirmation</div>
+      </div>
+      <div><h4 class="text-xs text-slate" style="text-transform:uppercase">Exit Criteria</h4>
+        <div class="list-item"><span class="check">✓</span>Signals prove faster, safer change</div>
+        <div class="list-item"><span class="check">✓</span>MCP adds value without introducing risk</div>
+        <div class="list-item"><span class="check">✓</span>Execs can articulate ROI + next bets</div>
+      </div>
+      <div><h4 class="text-xs text-slate" style="text-transform:uppercase">Deliverables</h4>
+        <span class="tag">Signal dashboards</span>
+        <span class="tag">MCP pilot (1-2 use cases)</span>
+        <span class="tag">ROI framework</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPERATING GUIDANCE -->
+<div class="section page-break">
+  <div class="section-title">Operating Guidance</div>
+  
+  <div class="card no-break">
+    <h3>Where to Place Bets</h3>
+    <table>
+      <tr style="background:#ecfdf5"><td style="width:3rem"><strong style="color:#059669">J3</strong></td><td><strong style="color:#059669">Portfolio's growth and retention engine</strong></td></tr>
+      <tr><td><strong>J4</strong></td><td>Fastest expansion engine when triggers appear</td></tr>
+      <tr><td><strong>J1</strong></td><td>Must be protected from premature platform selling</td></tr>
+      <tr><td><strong>J2</strong></td><td>Rare but high-impact; treat as lighthouse wins</td></tr>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-rose no-break">
+      <h3 class="text-rose">✗ What to STOP Doing</h3>
+      <div class="list-item"><span class="x">✗</span>Treating MCP Support as a substitute for activation</div>
+      <div class="list-item"><span class="x">✗</span>Treating "implemented" as "successful"</div>
+      <div class="list-item"><span class="x">✗</span>Running long implementations without ownership, milestones, or FDE</div>
+      <div class="list-item"><span class="x">✗</span>Over-serving non-ICP accounts</div>
+    </div>
+    <div class="card card-emerald no-break">
+      <h3 class="text-emerald">✓ What to START Doing</h3>
+      <div class="list-item"><span class="check">✓</span>Gate all work by maturity phase</div>
+      <div class="list-item"><span class="check">✓</span>Require Account State Flags in CRM</div>
+      <div class="list-item"><span class="check">✓</span>Apply the routing rule without exception</div>
+      <div class="list-item"><span class="check">✓</span>Invest services capacity in Journey 3</div>
+      <div class="list-item"><span class="check">✓</span>Treat J4 triggers as expansion opps</div>
+    </div>
+  </div>
+
+  <div class="highlight-box no-break">
+    <h3 style="color:white">Operating Cadence (Quarterly)</h3>
+    <div class="grid-2" style="margin-top:0.75rem">
+      <div class="stat-box"><p class="text-sm" style="color:#94a3b8">Pipeline + ARR reviewed by:</p><p style="color:white;font-weight:500">Journey + Activation Depth</p><p class="text-xs" style="color:#64748b">(not just pipeline stage)</p></div>
+      <div class="stat-box"><p class="text-sm" style="color:#94a3b8">Journey 3 accounts reviewed by:</p><p style="color:white;font-size:10pt">• Time to implementation completion<br>• Trust status<br>• Time to first production value<br>• Signal instrumentation adoption</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- METRICS -->
+<div class="section page-break">
+  <div class="section-title">Metrics That Matter</div>
+  
+  <div class="card no-break">
+    <div class="grid-3">
+      <div>
+        <h3 style="color:#3b82f6">Activation Metrics</h3>
+        <div class="list-item"><span class="bullet" style="background:#3b82f6"></span>Implemented rate (Y/N) by ICP segment</div>
+        <div class="list-item"><span class="bullet" style="background:#3b82f6"></span>Trust status distribution (G/Y/R)</div>
+        <div class="list-item"><span class="bullet" style="background:#3b82f6"></span>Activation depth distribution</div>
+        <div class="list-item"><span class="bullet" style="background:#3b82f6"></span>Time-to-first-production value</div>
+      </div>
+      <div>
+        <h3 style="color:#8b5cf6">Product Intelligence</h3>
+        <div class="list-item"><span class="bullet" style="background:#8b5cf6"></span>% decisions via MCP workflows</div>
+        <div class="list-item"><span class="bullet" style="background:#8b5cf6"></span>Time: intent → governed execution</div>
+        <div class="list-item"><span class="bullet" style="background:#8b5cf6"></span>AI output acceptance rate</div>
+        <div class="list-item"><span class="bullet" style="background:#8b5cf6"></span>Signal reuse across teams</div>
+      </div>
+      <div>
+        <h3 style="color:#10b981">Business Metrics</h3>
+        <div class="list-item"><span class="bullet" style="background:#10b981"></span>ARR concentration by journey</div>
+        <div class="list-item"><span class="bullet" style="background:#10b981"></span>ARR at risk by journey</div>
+        <div class="list-item"><span class="bullet" style="background:#10b981"></span>J3 conversion velocity (E/F/G → H)</div>
+        <div class="list-item"><span class="bullet" style="background:#10b981"></span>Services → platform conversion</div>
+        <div class="list-item"><span class="bullet" style="background:#10b981"></span>Expansion ARR via L3/L4</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box no-break">
+    <h3 style="color:white;font-size:14pt">Final Word</h3>
+    <p style="color:#cbd5e1;margin-bottom:0.5rem">Knapsack's opportunity is not to be the best design system platform. It is to become the <strong style="color:white">governed engine enterprises trust to execute product change in the AI era</strong>.</p>
+    <p style="color:#94a3b8">The biggest wins are not "more pipeline." They are <span style="color:#34d399">better sequencing</span>, <span style="color:#34d399">stronger activation</span>, and <span style="color:#34d399">durable trust</span> — especially in Journey 3.</p>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <span>Knapsack · IPE Strategic Playbook · Confidential</span>
+  <span>Updated quarterly · Review with leadership team</span>
+</div>
+
+</body>
+</html>
