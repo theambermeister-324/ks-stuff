@@ -3,969 +3,722 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IPE Strategic Playbook - Internal Leadership Guide</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+  <title>IPE Strategic Playbook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f1f5f9; min-height: 100vh; }
-    
-    /* Header */
-    .header { background: #0f172a; color: white; position: sticky; top: 0; z-index: 20; }
-    .header-inner { max-width: 72rem; margin: 0 auto; padding: 1rem; display: flex; align-items: center; justify-content: space-between; }
-    .header-left { display: flex; align-items: center; gap: 0.75rem; }
-    .header-icon { width: 2.5rem; height: 2.5rem; background: #10b981; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; }
-    .header-title { font-size: 1.125rem; font-weight: 700; }
-    .header-subtitle { font-size: 0.75rem; color: #94a3b8; }
-    .internal-badge { font-size: 0.75rem; background: #ef4444; color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-weight: 500; }
-    
-    /* Nav */
-    .nav { background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 72px; z-index: 10; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-    .nav-inner { max-width: 72rem; margin: 0 auto; padding: 0 1rem; display: flex; gap: 0.25rem; overflow-x: auto; padding-top: 0.5rem; padding-bottom: 0.5rem; }
-    .nav-btn { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; white-space: nowrap; border: none; cursor: pointer; transition: all 0.2s; background: transparent; color: #475569; }
-    .nav-btn:hover { background: #f1f5f9; }
-    .nav-btn.active { background: #0f172a; color: white; }
-    .nav-btn svg { width: 1rem; height: 1rem; }
-    
-    /* Main */
-    main { max-width: 72rem; margin: 0 auto; padding: 2rem 1rem; }
-    .section { display: none; }
-    .section.active { display: block; }
-    
-    /* Cards */
-    .card { background: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; }
-    .card-dark { background: linear-gradient(to bottom right, #0f172a, #1e293b); color: white; border: none; }
-    .card-amber { background: #fffbeb; border-color: #fcd34d; }
-    .card-rose { background: #fff1f2; border-color: #fda4af; }
-    .card-emerald { background: #ecfdf5; border-color: #6ee7b7; }
-    .card-rose-strong { background: #ffe4e6; border: 2px solid #fda4af; }
-    
-    /* Typography */
-    h2 { font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem; }
-    h3 { font-size: 1.125rem; font-weight: 600; color: #0f172a; margin-bottom: 0.75rem; }
-    .text-slate { color: #475569; }
-    .text-emerald { color: #059669; }
-    .text-amber { color: #d97706; }
-    .text-rose { color: #be123c; }
-    .text-sm { font-size: 0.875rem; }
-    .text-xs { font-size: 0.75rem; }
-    .font-bold { font-weight: 700; }
-    .font-medium { font-weight: 500; }
-    
-    /* Grid */
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-    @media (max-width: 768px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
-    
-    /* Flex */
-    .flex { display: flex; }
-    .flex-col { flex-direction: column; }
-    .items-center { align-items: center; }
-    .items-start { align-items: flex-start; }
-    .justify-between { justify-content: space-between; }
-    .gap-2 { gap: 0.5rem; }
-    .gap-3 { gap: 0.75rem; }
-    .gap-4 { gap: 1rem; }
-    
-    /* Badges */
-    .badge { display: inline-flex; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 500; }
-    .badge-emerald { background: #d1fae5; color: #059669; }
-    .badge-slate { background: #f1f5f9; color: #475569; }
-    .badge-rose { background: #ffe4e6; color: #be123c; }
-    .badge-amber { background: #fef3c7; color: #d97706; }
-    
-    /* Level circles */
-    .level-circle { width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; flex-shrink: 0; }
-    .bg-gray { background: #9ca3af; }
-    .bg-amber { background: #f59e0b; }
-    .bg-blue { background: #3b82f6; }
-    .bg-emerald { background: #10b981; }
-    .bg-violet { background: #8b5cf6; }
-    
-    /* Journey cards */
-    .journey-card { background: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; overflow: hidden; margin-bottom: 1rem; transition: all 0.2s; }
-    .journey-card.primary { box-shadow: 0 0 0 2px #10b981, 0 0 0 4px white; }
-    .journey-card.expanded { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-    .journey-header { padding: 1.25rem; cursor: pointer; display: flex; align-items: flex-start; gap: 1rem; }
-    .journey-icon { width: 3rem; height: 3rem; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.125rem; flex-shrink: 0; }
-    .journey-content { display: none; padding: 1.25rem; border-top: 1px solid #f1f5f9; }
-    .journey-card.expanded .journey-content { display: block; }
-    
-    /* Phase cards */
-    .phase-card { background: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; overflow: hidden; margin-bottom: 1rem; transition: all 0.2s; }
-    .phase-card.expanded { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: #cbd5e1; }
-    .phase-header { padding: 1.25rem; cursor: pointer; display: flex; align-items: center; gap: 1rem; }
-    .phase-icon { width: 3rem; height: 3rem; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; }
-    .phase-content { display: none; padding: 1.25rem; border-top: 1px solid #f1f5f9; }
-    .phase-card.expanded .phase-content { display: block; }
-    
-    /* Lists */
-    .list-item { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem; font-size: 0.875rem; color: #475569; }
-    .list-item svg { width: 0.75rem; height: 0.75rem; margin-top: 0.25rem; flex-shrink: 0; }
-    
-    /* Tags */
-    .tag { display: inline-block; padding: 0.25rem 0.5rem; background: #f1f5f9; border-radius: 0.25rem; font-size: 0.75rem; color: #475569; margin: 0.125rem; }
-    
-    /* Stat boxes */
-    .stat-box { background: rgba(255,255,255,0.1); border-radius: 0.5rem; padding: 0.75rem; }
-    .stat-label { font-size: 0.75rem; color: #34d399; margin-bottom: 0.25rem; }
-    .stat-value { font-size: 0.875rem; font-weight: 500; }
-    
-    /* TAM table */
-    .tam-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.875rem; padding: 0.5rem 0; }
-    .tam-layer { width: 1.5rem; height: 1.5rem; background: #f1f5f9; border-radius: 0.25rem; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #475569; }
-    
-    /* Footer */
-    footer { background: #0f172a; color: white; margin-top: 3rem; }
-    .footer-inner { max-width: 72rem; margin: 0 auto; padding: 1.5rem 1rem; display: flex; justify-content: space-between; align-items: center; }
-    .footer-left { font-size: 0.875rem; color: #94a3b8; }
-    .footer-right { font-size: 0.75rem; color: #64748b; }
-    
-    /* Utilities */
-    .mb-2 { margin-bottom: 0.5rem; }
-    .mb-4 { margin-bottom: 1rem; }
-    .mb-6 { margin-bottom: 1.5rem; }
-    .mt-2 { margin-top: 0.5rem; }
-    .mt-4 { margin-top: 1rem; }
-    .p-3 { padding: 0.75rem; }
-    .p-4 { padding: 1rem; }
-    .rounded { border-radius: 0.5rem; }
-    .rounded-lg { border-radius: 0.75rem; }
-    .bg-slate-50 { background: #f8fafc; }
-    .bg-white-10 { background: rgba(255,255,255,0.1); }
-    .border-t { border-top: 1px solid #e2e8f0; }
-    .uppercase { text-transform: uppercase; }
-    .tracking-wide { letter-spacing: 0.05em; }
-    .flex-wrap { flex-wrap: wrap; }
-    .flex-1 { flex: 1; }
-    .shrink-0 { flex-shrink: 0; }
-    
-    /* Rule box */
-    .rule-box { background: white; border-radius: 0.5rem; padding: 1rem; }
-    .highlight { background: #fecdd3; padding: 0.125rem 0.5rem; border-radius: 0.25rem; }
-    
-    /* Platform rule */
-    .platform-rule { border-radius: 0.5rem; padding: 0.75rem; }
-    .platform-rule.allowed { background: #ecfdf5; border: 1px solid #6ee7b7; }
-    .platform-rule.blocked { background: #fff1f2; border: 1px solid #fda4af; }
-    
-    /* Chevron */
+    [data-section] { display: none; }
+    [data-section].active { display: block; }
     .chevron { transition: transform 0.2s; }
-    .expanded .chevron { transform: rotate(90deg); }
-    
-    /* Operations boxes */
-    .ops-box { border-radius: 0.75rem; padding: 1.5rem; }
-    .ops-box.stop { background: #fff1f2; border: 1px solid #fda4af; }
-    .ops-box.start { background: #ecfdf5; border: 1px solid #6ee7b7; }
+    .chevron.rotated { transform: rotate(180deg); }
+    .icon { width: 1em; height: 1em; display: inline-block; vertical-align: middle; }
   </style>
 </head>
-<body>
-  <header class="header">
-    <div class="header-inner">
-      <div class="header-left">
-        <div class="header-icon">
-          <i data-lucide="layers" style="width:1.25rem;height:1.25rem;color:white"></i>
-        </div>
-        <div>
-          <div class="header-title">IPE Strategic Playbook</div>
-          <div class="header-subtitle">Internal Leadership Guide · Next 12-18 Months</div>
-        </div>
-      </div>
-      <span class="internal-badge">INTERNAL ONLY</span>
+<body class="min-h-screen bg-slate-50 flex">
+  <!-- Sidebar Navigation -->
+  <nav class="w-56 bg-slate-900 text-white p-4 flex-shrink-0">
+    <div class="mb-6">
+      <h1 class="text-lg font-bold">IPE Playbook</h1>
+      <p class="text-xs text-slate-400">Internal Leadership Guide</p>
+      <span class="inline-block mt-2 px-2 py-0.5 bg-red-500/20 text-red-300 text-xs rounded">CONFIDENTIAL</span>
     </div>
-  </header>
-
-  <nav class="nav">
-    <div class="nav-inner">
-      <button class="nav-btn active" data-section="vision"><i data-lucide="target"></i>Vision & Market</button>
-      <button class="nav-btn" data-section="maturity"><i data-lucide="layers"></i>Maturity Model</button>
-      <button class="nav-btn" data-section="assessment"><i data-lucide="flag"></i>Assessment Framework</button>
-      <button class="nav-btn" data-section="journeys"><i data-lucide="git-branch"></i>Customer Journeys</button>
-      <button class="nav-btn" data-section="activation"><i data-lucide="zap"></i>Engagement Phases</button>
-      <button class="nav-btn" data-section="operations"><i data-lucide="settings"></i>Operating Guidance</button>
-      <button class="nav-btn" data-section="metrics"><i data-lucide="bar-chart-3"></i>Metrics</button>
+    <div class="space-y-1" id="sidebar-nav">
+      <!-- Navigation buttons will be rendered here by JS -->
     </div>
   </nav>
 
-  <main>
-    <!-- VISION SECTION -->
-    <div class="section active" id="vision">
-      <div class="card card-dark" style="padding:2rem;border-radius:1rem;">
-        <div class="flex items-center gap-2 mb-3" style="color:#34d399;font-size:0.875rem;font-weight:500;">
-          <i data-lucide="target" style="width:1rem;height:1rem"></i>
-          STRATEGIC NORTH STAR
-        </div>
-        <h2 style="font-size:1.875rem;color:white;margin-bottom:1rem;">Knapsack becomes the Intelligent Product Engine enterprises trust to execute product change—safely, governably, and at scale—in the AI era.</h2>
-        <div class="grid-4 mt-4">
-          <div class="stat-box"><div class="stat-label">Product intent</div><div class="stat-value">Executable, not descriptive</div></div>
-          <div class="stat-box"><div class="stat-label">Systems</div><div class="stat-value">Evolve as one</div></div>
-          <div class="stat-box"><div class="stat-label">AI context</div><div class="stat-value">Trusted & structured</div></div>
-          <div class="stat-box"><div class="stat-label">Delivery</div><div class="stat-value">Faster via governance</div></div>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div class="card">
-          <h3 class="flex items-center gap-2"><i data-lucide="database" style="width:1.25rem;height:1.25rem;color:#94a3b8"></i>Market Definition</h3>
-          <p class="text-slate mb-4">Knapsack competes in <strong>Product Intelligence Infrastructure</strong>:</p>
-          <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Product system infrastructure (design + code systems of record)</div>
-          <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Orchestration (governance + change propagation)</div>
-          <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Product intelligence (structured knowledge + signals)</div>
-          <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>AI product enablement (safe, contextual execution)</div>
-        </div>
-        <div class="card">
-          <h3 class="flex items-center gap-2"><i data-lucide="dollar-sign" style="width:1.25rem;height:1.25rem;color:#10b981"></i>TAM by Capability Layer</h3>
-          <div class="tam-row"><div class="flex items-center gap-2"><span class="tam-layer">L1</span><span class="text-slate">Product System Infrastructure</span></div><strong>$5–8B</strong></div>
-          <div class="tam-row"><div class="flex items-center gap-2"><span class="tam-layer">L2</span><span class="text-slate">Product Orchestration</span></div><strong>$12–18B</strong></div>
-          <div class="tam-row"><div class="flex items-center gap-2"><span class="tam-layer">L3</span><span class="text-slate">Product Intelligence</span></div><strong>$30–40B</strong></div>
-          <div class="tam-row"><div class="flex items-center gap-2"><span class="tam-layer">L4</span><span class="text-slate">AI Product Enablement</span></div><strong>$15–25B</strong></div>
-          <div class="border-t mt-2 pt-2">
-            <div class="tam-row"><strong>Total TAM</strong><span style="color:#10b981;font-weight:700;">$62–91B</span></div>
-            <div class="tam-row"><span class="text-slate">AI-expanded TAM</span><strong>$75–110B</strong></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card card-amber">
-        <div class="flex gap-3">
-          <i data-lucide="alert-triangle" style="width:1.5rem;height:1.5rem;color:#d97706;flex-shrink:0"></i>
-          <div>
-            <h3 style="color:#78350f">The Problem We Solve</h3>
-            <p style="color:#92400e;margin-bottom:0.75rem;">Modern enterprises don't fail because they lack tools. They fail because product knowledge is fragmented, implicit, and non-operational:</p>
-            <div class="grid-4">
-              <div style="background:rgba(255,255,255,0.6);padding:0.5rem;border-radius:0.5rem;font-size:0.75rem;color:#92400e">Design intent lives in files</div>
-              <div style="background:rgba(255,255,255,0.6);padding:0.5rem;border-radius:0.5rem;font-size:0.75rem;color:#92400e">Engineering reality lives in code</div>
-              <div style="background:rgba(255,255,255,0.6);padding:0.5rem;border-radius:0.5rem;font-size:0.75rem;color:#92400e">Decisions live in meetings</div>
-              <div style="background:rgba(255,255,255,0.6);padding:0.5rem;border-radius:0.5rem;font-size:0.75rem;color:#92400e">AI operates without structure</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- MATURITY SECTION -->
-    <div class="section" id="maturity">
-      <div class="card">
-        <h2>Product System Maturity Model</h2>
-        <p class="text-slate mb-6">Five levels define where customers are and where they need to go.</p>
-        
-        <div class="flex items-center gap-4 p-4 rounded-lg bg-slate-50 mb-3">
-          <div class="level-circle bg-gray">1</div>
-          <div class="flex-1"><strong>UI Artifacts</strong><p class="text-sm text-slate">Static mockups, no system connection</p></div>
-        </div>
-        <div class="flex items-center gap-4 p-4 rounded-lg bg-slate-50 mb-3">
-          <div class="level-circle bg-amber">2</div>
-          <div class="flex-1"><strong>Design Library</strong><p class="text-sm text-slate">Organized components, limited code integration</p></div>
-        </div>
-        <div class="flex items-center gap-4 p-4 rounded-lg bg-slate-50 mb-3">
-          <div class="level-circle bg-blue">3</div>
-          <div class="flex-1"><strong>Integrated Product System</strong><p class="text-sm text-slate">Design-to-code connection, basic governance</p></div>
-          <span class="badge badge-emerald">SAM</span>
-        </div>
-        <div class="flex items-center gap-4 p-4 rounded-lg bg-slate-50 mb-3">
-          <div class="level-circle bg-emerald">4</div>
-          <div class="flex-1"><strong>Scaled Product System</strong><p class="text-sm text-slate">Control plane operating, cross-system governance</p></div>
-          <span class="badge badge-emerald">SAM</span>
-        </div>
-        <div class="flex items-center gap-4 p-4 rounded-lg bg-slate-50">
-          <div class="level-circle bg-violet">5</div>
-          <div class="flex-1"><strong>IPE-Activated System</strong><p class="text-sm text-slate">Control plane operated + governed, full intelligence layer</p></div>
-          <span class="badge badge-emerald">SAM</span>
-        </div>
-      </div>
-
-      <div class="card card-rose">
-        <h3 class="flex items-center gap-2 text-rose"><i data-lucide="alert-triangle" style="width:1.25rem;height:1.25rem"></i>Critical Clarification</h3>
-        <p style="color:#be123c;font-size:1.125rem;font-weight:500;margin-bottom:0.5rem;">"Implemented" does not equal "Activated"</p>
-        <p style="color:#be123c;">Many customers are technically implemented but still operating at <strong>Quadrant G</strong> (strong system, low intelligence) until signals, governance cadence, and MCP execution are in place. This gap is the primary driver of churn.</p>
-      </div>
-
-      <div class="card">
-        <h3>Readiness Quadrants (IPE-aligned)</h3>
-        <div class="grid-2">
-          <div>
-            <p class="text-xs uppercase tracking-wide text-slate mb-3">Pipeline Development (low interest)</p>
-            <div class="flex items-center gap-2 text-sm mb-2"><span class="tam-layer">A</span><span class="text-slate">Low context, low AI → long nurture</span></div>
-            <div class="flex items-center gap-2 text-sm mb-2"><span class="tam-layer">B</span><span class="text-slate">Low context, high AI → educate on structure</span></div>
-            <div class="flex items-center gap-2 text-sm mb-2"><span class="tam-layer">C</span><span class="text-slate">High context, low interest → exit/monitor</span></div>
-            <div class="flex items-center gap-2 text-sm"><span class="tam-layer">D</span><span class="text-slate">High context, latent interest → timing play</span></div>
-          </div>
-          <div>
-            <p class="text-xs uppercase tracking-wide text-slate mb-3">Active Pipeline (high interest)</p>
-            <div class="flex items-center gap-2 text-sm mb-2"><span class="tam-layer" style="background:#d1fae5;color:#059669">E</span><span class="text-slate">Interest without structure → docs + heavy services</span></div>
-            <div class="flex items-center gap-2 text-sm mb-2"><span class="tam-layer" style="background:#d1fae5;color:#059669">F</span><span class="text-slate">AI ambition without context → docs + light services</span></div>
-            <div class="flex items-center gap-2 text-sm mb-2"><span class="tam-layer" style="background:#d1fae5;color:#059669">G</span><span class="text-slate">Strong system, low intelligence → IPE Enablement</span></div>
-            <div class="flex items-center gap-2 text-sm"><span class="tam-layer" style="background:#d1fae5;color:#059669">H</span><span class="text-slate">IPE-ready → IPE Activation</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ASSESSMENT SECTION -->
-    <div class="section" id="assessment">
-      <div class="card">
-        <h2>Assessment Framework</h2>
-        <p class="text-slate mb-6">Required scoring for every account. No exceptions.</p>
-        <div class="grid-3 mb-6">
-          <div class="bg-slate-50 rounded-lg p-4 text-center"><p class="font-medium">Product System Maturity</p><p class="text-xs text-slate mt-1">1-5</p></div>
-          <div class="bg-slate-50 rounded-lg p-4 text-center"><p class="font-medium">AI & Automation Capability</p><p class="text-xs text-slate mt-1">Low/Med/High</p></div>
-          <div class="bg-slate-50 rounded-lg p-4 text-center"><p class="font-medium">Interest State</p><p class="text-xs text-slate mt-1">Low/Latent/High</p></div>
-        </div>
-      </div>
-
-      <div class="card card-dark" style="border-radius:0.75rem;">
-        <h3 class="flex items-center gap-2" style="color:white"><i data-lucide="flag" style="width:1.25rem;height:1.25rem;color:#34d399"></i>Account State Flags (Required in CRM)</h3>
-        <div class="mt-4">
-          <div class="flex items-start gap-4 bg-white-10 rounded-lg p-3 mb-3">
-            <span style="width:1.5rem;height:1.5rem;border-radius:50%;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">1</span>
-            <div><div class="flex items-center gap-2"><strong>Implemented?</strong><span class="badge" style="background:rgba(255,255,255,0.2)">Y/N</span></div><p class="text-sm" style="color:#cbd5e1;margin-top:0.25rem;">Platform technically deployed</p></div>
-          </div>
-          <div class="flex items-start gap-4 bg-white-10 rounded-lg p-3 mb-3">
-            <span style="width:1.5rem;height:1.5rem;border-radius:50%;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">2</span>
-            <div><div class="flex items-center gap-2"><strong>Trust Status</strong><span class="badge" style="background:rgba(255,255,255,0.2)">Green/Yellow/Red</span></div><p class="text-sm" style="color:#cbd5e1;margin-top:0.25rem;">Red = data loss / severe performance / support failure</p></div>
-          </div>
-          <div class="flex items-start gap-4 bg-white-10 rounded-lg p-3 mb-3">
-            <span style="width:1.5rem;height:1.5rem;border-radius:50%;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">3</span>
-            <div><div class="flex items-center gap-2"><strong>Activation Depth</strong><span class="badge" style="background:rgba(255,255,255,0.2)">Docs → Control Plane → MCP → AI</span></div><p class="text-sm" style="color:#cbd5e1;margin-top:0.25rem;">How deeply they use the platform</p></div>
-          </div>
-          <div class="flex items-start gap-4 bg-white-10 rounded-lg p-3 mb-3">
-            <span style="width:1.5rem;height:1.5rem;border-radius:50%;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">4</span>
-            <div><div class="flex items-center gap-2"><strong>MCP/IPE Interest</strong><span class="badge" style="background:rgba(255,255,255,0.2)">Y/N</span></div><p class="text-sm" style="color:#cbd5e1;margin-top:0.25rem;">Expressed interest in AI capabilities</p></div>
-          </div>
-          <div class="flex items-start gap-4 bg-white-10 rounded-lg p-3">
-            <span style="width:1.5rem;height:1.5rem;border-radius:50%;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;">5</span>
-            <div><div class="flex items-center gap-2"><strong>Strategic Fit</strong><span class="badge" style="background:rgba(255,255,255,0.2)">Y/N</span></div><p class="text-sm" style="color:#cbd5e1;margin-top:0.25rem;">True ICP match</p></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card card-rose-strong">
-        <h3 class="flex items-center gap-2 font-bold text-rose"><i data-lucide="alert-triangle" style="width:1.25rem;height:1.25rem"></i>Routing Rule (Non-negotiable)</h3>
-        <div class="rule-box mt-3">
-          <p style="font-size:1.125rem;color:#be123c;font-weight:500;">If <span class="highlight">Strategic Fit = TRUE</span> and <span class="highlight">Implemented = NO</span>, the account is <strong>Journey 3 by default</strong> until activation is complete.</p>
-        </div>
-        <p class="text-sm text-rose mt-3">This prevents the most common sequencing mistake: selling platform expansion before activation is real.</p>
-      </div>
-    </div>
-
-    <!-- JOURNEYS SECTION -->
-    <div class="section" id="journeys">
-      <div class="card">
-        <h2>Customer Journeys</h2>
-        <p class="text-slate">Grounded in real portfolio reality. Not all "low engagement" accounts are equal.</p>
-      </div>
-
-      <div class="card card-emerald">
-        <h3 class="flex items-center gap-2 text-emerald"><i data-lucide="pie-chart" style="width:1.25rem;height:1.25rem"></i>Portfolio Bet Summary (Leadership View)</h3>
-        <div class="grid-2 mt-4">
-          <div style="background:white;padding:1rem;border-radius:0.5rem;"><p style="color:#065f46;font-weight:500;">Journey 3 holds the majority of ARR and the majority of meaningful churn risk</p></div>
-          <div style="background:white;padding:1rem;border-radius:0.5rem;"><p style="color:#065f46;font-weight:500;">Services capacity is the growth bottleneck (not top-of-funnel)</p></div>
-        </div>
-      </div>
-
-      <!-- Journey 1 -->
-      <div class="journey-card" data-journey="1">
-        <div class="journey-header">
-          <div class="journey-icon" style="background:#f1f5f9;color:#475569;">J1</div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <strong style="font-size:1.125rem;">Progressive Maturation</strong>
-              <span class="tag" style="font-family:monospace;">A → B → F → H</span>
-            </div>
-            <p class="text-sm text-slate mt-1">True non-ICP or low readiness — don't overinvest</p>
-            <div class="flex items-center gap-4 mt-2">
-              <span class="badge badge-slate">low risk</span>
-              <span class="text-xs text-slate">ARR: ~10%</span>
-            </div>
-          </div>
-          <i data-lucide="chevron-right" class="chevron" style="width:1.25rem;height:1.25rem;color:#94a3b8"></i>
-        </div>
-        <div class="journey-content">
-          <div class="bg-slate-50 rounded-lg p-4 mb-4">
-            <p class="text-sm text-slate mb-1">Objective</p>
-            <p class="font-medium text-slate">Maintain relationship and credibility while they mature. No platform pressure.</p>
-          </div>
-          <div class="mb-4">
-            <p class="text-sm font-medium text-slate mb-2">Accounts</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tag">Associated Press (non-ICP, low engagement)</span>
-              <span class="tag">Bright Horizons (non-ICP, no engineering support)</span>
-              <span class="tag">MSK (low engagement; minimal upside)</span>
-              <span class="tag">Accutech (beta exception: low ARR but high IPE excitement)</span>
-            </div>
-          </div>
-          <div class="grid-2">
-            <div>
-              <p class="text-sm font-medium text-slate mb-2">Standard Service: Product System Readiness Assessment</p>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Validation Workshop</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Vision Definition</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Stakeholder Interviews & Strategic Recommendations</div>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-slate mb-2">Platform Rule</p>
-              <div class="platform-rule blocked">
-                <div class="flex items-center gap-2 mb-1"><i data-lucide="x-circle" style="width:1rem;height:1rem;color:#be123c"></i><span class="text-sm font-medium text-rose">Expansion blocked</span></div>
-                <p class="text-xs text-rose">Platform expansion is not the play. If they cannot secure engineering/platform ownership, they cannot operate IPE.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Journey 2 -->
-      <div class="journey-card" data-journey="2">
-        <div class="journey-header">
-          <div class="journey-icon" style="background:#dbeafe;color:#1d4ed8;">J2</div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <strong style="font-size:1.125rem;">Independent Maturation</strong>
-              <span class="tag" style="font-family:monospace;">A → D → H</span>
-            </div>
-            <p class="text-sm text-slate mt-1">Mature orgs; sudden trigger; fast activation required</p>
-            <div class="flex items-center gap-4 mt-2">
-              <span class="badge badge-slate">low risk</span>
-              <span class="text-xs text-slate">ARR: ~5%</span>
-            </div>
-          </div>
-          <i data-lucide="chevron-right" class="chevron" style="width:1.25rem;height:1.25rem;color:#94a3b8"></i>
-        </div>
-        <div class="journey-content">
-          <div style="background:#eff6ff;border-radius:0.5rem;padding:1rem;margin-bottom:1rem;">
-            <p class="text-sm text-slate mb-1">Objective</p>
-            <p class="font-medium" style="color:#1d4ed8;">Instant IPE activation when timing flips. Avoid re-education.</p>
-          </div>
-          <div class="mb-4">
-            <p class="text-sm font-medium text-slate mb-2">Accounts</p>
-            <div class="flex flex-wrap gap-2"><span class="tag">Adobe (reference implementation + enterprise rollout pattern)</span></div>
-          </div>
-          <div class="grid-2">
-            <div>
-              <p class="text-sm font-medium text-slate mb-2">Standard Service: IPE Activation Sprint (Trigger-Based)</p>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Advanced Implementation & Onboarding</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Security/Vendor assessment</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Architecture validation</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Integration setup + pilot validation</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Advanced enablement</div>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-slate mb-2">Platform Rule</p>
-              <div class="platform-rule allowed">
-                <div class="flex items-center gap-2 mb-1"><i data-lucide="check-circle-2" style="width:1rem;height:1rem;color:#059669"></i><span class="text-sm font-medium text-emerald">Expansion allowed</span></div>
-                <p class="text-xs text-emerald">Immediate platform sale allowed. Sell the control plane and expansion roadmap.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Journey 3 (Primary) -->
-      <div class="journey-card primary expanded" data-journey="3">
-        <div class="journey-header">
-          <div class="journey-icon" style="background:#d1fae5;color:#059669;">J3</div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <strong style="font-size:1.125rem;">Services Transformation</strong>
-              <span class="badge" style="background:#10b981;color:white;">PRIMARY FOCUS</span>
-              <span class="tag" style="font-family:monospace;">E → F/G → H</span>
-            </div>
-            <p class="text-sm text-slate mt-1">High-value ICP accounts blocked on activation + trust</p>
-            <div class="flex items-center gap-4 mt-2">
-              <span class="badge badge-rose">high risk</span>
-              <span class="text-xs text-slate">ARR: ~60%</span>
-            </div>
-          </div>
-          <i data-lucide="chevron-right" class="chevron" style="width:1.25rem;height:1.25rem;color:#94a3b8;transform:rotate(90deg)"></i>
-        </div>
-        <div class="journey-content" style="display:block;">
-          <div style="background:#ecfdf5;border-radius:0.5rem;padding:1rem;margin-bottom:1rem;">
-            <p class="text-sm text-slate mb-1">Objective</p>
-            <p class="font-medium text-emerald">Activate IPE in the correct order: stability + trust → governance/control plane → execution enablement → signals → expansion</p>
-          </div>
-          <div class="mb-4">
-            <p class="text-sm font-medium text-slate mb-2">Accounts</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tag">PNC (not implemented; frustration)</span>
-              <span class="tag">Edward Jones (not implemented; policy + Git hurdles)</span>
-              <span class="tag">DoubleVerify (not implemented; risk high — rescue or exit)</span>
-              <span class="tag">Qualcomm (not implemented; org changes + missed window)</span>
-              <span class="tag">GSK US (implemented but trust/performance eroding value)</span>
-              <span class="tag">HealthEdge (implemented; early frustration; now IPE interest)</span>
-              <span class="tag">Columbia Sportswear</span>
-              <span class="tag">Southern California Edison</span>
-              <span class="tag">CVS Health</span>
-              <span class="tag">Alaska Airlines</span>
-              <span class="tag">Allegion</span>
-            </div>
-          </div>
-          <div class="grid-2">
-            <div>
-              <p class="text-sm font-medium text-slate mb-2">Standard Service: IPE Context & Control Foundation + Execution Enablement</p>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Validation Workshop</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Vision Definition</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Tailored Workflow Definition & Advanced Training</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Token Strategy & Implementation</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Component Architecture & Delivery (POC)</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Forward-Deployed Engineering</div>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-slate mb-2">Platform Rule</p>
-              <div class="platform-rule blocked">
-                <div class="flex items-center gap-2 mb-1"><i data-lucide="x-circle" style="width:1rem;height:1rem;color:#be123c"></i><span class="text-sm font-medium text-rose">Expansion blocked</span></div>
-                <p class="text-xs text-rose">Platform expansion only after pilot proof. No expansion until activation complete.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Journey 4 -->
-      <div class="journey-card" data-journey="4">
-        <div class="journey-header">
-          <div class="journey-icon" style="background:#ede9fe;color:#7c3aed;">J4</div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <strong style="font-size:1.125rem;">Timing Play</strong>
-              <span class="tag" style="font-family:monospace;">D → H</span>
-            </div>
-            <p class="text-sm text-slate mt-1">Mature systems; latent interest; needs trigger + crisp activation</p>
-            <div class="flex items-center gap-4 mt-2">
-              <span class="badge badge-amber">medium risk</span>
-              <span class="text-xs text-slate">ARR: ~25%</span>
-            </div>
-          </div>
-          <i data-lucide="chevron-right" class="chevron" style="width:1.25rem;height:1.25rem;color:#94a3b8"></i>
-        </div>
-        <div class="journey-content">
-          <div style="background:#f5f3ff;border-radius:0.5rem;padding:1rem;margin-bottom:1rem;">
-            <p class="text-sm text-slate mb-1">Objective</p>
-            <p class="font-medium" style="color:#7c3aed;">Executive activation package when opportunity appears. Do not drag into long services.</p>
-          </div>
-          <div class="mb-4">
-            <p class="text-sm font-medium text-slate mb-2">Accounts</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tag">The Home Depot (embedded; underutilized; org consolidation trigger)</span>
-              <span class="tag">CSX (strong relationship; blocked by Angular parity)</span>
-              <span class="tag">GSK Global (exec alignment; tech consolidation; AEM requirements)</span>
-              <span class="tag">Crown Equipment (renewed; early MCP interest)</span>
-              <span class="tag">Shutterfly (mature small; selective growth)</span>
-              <span class="tag">BILL (strong embedded usage; budget constraints; MCP curiosity)</span>
-            </div>
-          </div>
-          <div class="grid-2">
-            <div>
-              <p class="text-sm font-medium text-slate mb-2">Standard Service: IPE Executive Activation</p>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Executive alignment + success criteria</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Targeted implementation enhancements</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>MCP roadmap + scoped activation</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#94a3b8"></i>Expansion plan</div>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-slate mb-2">Platform Rule</p>
-              <div class="platform-rule allowed">
-                <div class="flex items-center gap-2 mb-1"><i data-lucide="check-circle-2" style="width:1rem;height:1rem;color:#059669"></i><span class="text-sm font-medium text-emerald">Expansion allowed</span></div>
-                <p class="text-xs text-emerald">J4 should not be dragged into long services until a trigger exists.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ACTIVATION SECTION -->
-    <div class="section" id="activation">
-      <div class="card">
-        <h2>Engagement Phases (Journey 3 Model)</h2>
-        <p class="text-slate">Each phase has clear exit criteria. MCP is gated until trust is established.</p>
-      </div>
-
-      <!-- PNC Example Note -->
-      <div class="card" style="background: linear-gradient(to right, #ecfdf5, #d1fae5); border: 1px solid #6ee7b7;">
-        <div class="flex items-start gap-3">
-          <div style="width:2.5rem;height:2.5rem;background:#10b981;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <i data-lucide="building-2" style="width:1.25rem;height:1.25rem;color:white"></i>
-          </div>
-          <div>
-            <h3 style="color:#065f46;margin-bottom:0.25rem;">PNC Partnership Example</h3>
-            <p style="color:#047857;font-size:0.875rem;">This engagement structure has been <strong>tailored for PNC</strong> to illustrate how the IPE maturity model and assessment framework adapt to specific customer contexts. The phases, workstreams, and exit criteria shown here demonstrate the flexibility of our approach—each enterprise partnership is customized based on their current state, strategic priorities, and activation goals.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Phase 1 -->
-      <div class="phase-card" data-phase="1">
-        <div class="phase-header">
-          <div class="phase-icon" style="background:#f1f5f9;color:#64748b;"><i data-lucide="shield" style="width:1.5rem;height:1.5rem"></i></div>
-          <div class="flex-1">
-            <div class="flex items-center gap-3"><strong>Phase 1: Stabilize & Complete</strong><i data-lucide="lock" style="width:1rem;height:1rem;color:#94a3b8"></i></div>
-            <p class="text-sm text-slate">Level 3 → Operational</p>
-          </div>
-          <i data-lucide="chevron-right" class="chevron" style="width:1.25rem;height:1.25rem;color:#94a3b8"></i>
-        </div>
-        <div class="phase-content">
-          <div class="grid-3">
-            <div>
-              <p class="text-xs uppercase tracking-wide text-slate mb-2">Workstreams</p>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Workspace Go-Live</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Entitlement setup + Site Switcher roles</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Repo / Figma access dependencies</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Proxy traffic testing + prod push</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Deployment checklists + CRs</div>
-            </div>
-            <div>
-              <p class="text-xs uppercase tracking-wide text-slate mb-2">Exit Criteria</p>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>Teams can publish + update without Knapsack intervention</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>Workspace 2 live or date-certain</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>Entitlements + access no longer blocking work</div>
-            </div>
-            <div>
-              <p class="text-xs uppercase tracking-wide text-slate mb-2">Deliverables</p>
-              <div class="flex flex-wrap gap-2 mb-3">
-                <span class="tag">Workspace Go-Live Checklists</span>
-                <span class="tag">RACI for Workspace 2+</span>
-                <span class="tag">Deployment Definition of Done</span>
-              </div>
-              <div style="background:#fff1f2;border-radius:0.5rem;padding:0.5rem;"><p class="text-xs font-medium text-rose">🚫 MCP out of scope</p></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Phase 2 -->
-      <div class="phase-card" data-phase="2">
-        <div class="phase-header">
-          <div class="phase-icon" style="background:#f1f5f9;color:#64748b;"><i data-lucide="lock" style="width:1.5rem;height:1.5rem"></i></div>
-          <div class="flex-1">
-            <div class="flex items-center gap-3"><strong>Phase 2: Control Plane & Governance</strong><i data-lucide="lock" style="width:1rem;height:1rem;color:#94a3b8"></i></div>
-            <p class="text-sm text-slate">Level 3 → Level 4</p>
-          </div>
-          <i data-lucide="chevron-right" class="chevron" style="width:1.25rem;height:1.25rem;color:#94a3b8"></i>
-        </div>
-        <div class="phase-content">
-          <div class="grid-3">
-            <div>
-              <p class="text-xs uppercase tracking-wide text-slate mb-2">Workstreams</p>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Token Strategy POV (multi-brand)</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Ledger + LPB governance representation</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>System-of-Systems architecture</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Governance model definition</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>System Charter (North Star)</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>PI prioritization rubric</div>
-            </div>
-            <div>
-              <p class="text-xs uppercase tracking-wide text-slate mb-2">Exit Criteria</p>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>Token strategy approved and enforced</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>Governance model active beyond Ledger</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>Clear rules for cross-system interaction</div>
-            </div>
-            <div>
-              <p class="text-xs uppercase tracking-wide text-slate mb-2">Deliverables</p>
-              <div class="flex flex-wrap gap-2 mb-3">
-                <span class="tag">Control Plane Definition</span>
-                <span class="tag">Token ownership + decision rights</span>
-                <span class="tag">Cross-system governance operating model</span>
-              </div>
-              <div style="background:#fff1f2;border-radius:0.5rem;padding:0.5rem;"><p class="text-xs font-medium text-rose">🚫 MCP out of scope</p></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Phase 3 -->
-      <div class="phase-card" data-phase="3">
-        <div class="phase-header">
-          <div class="phase-icon" style="background:#fef3c7;color:#d97706;"><i data-lucide="zap" style="width:1.5rem;height:1.5rem"></i></div>
-          <div class="flex-1">
-            <div class="flex items-center gap-3"><strong>Phase 3: Execution Enablement</strong><i data-lucide="unlock" style="width:1rem;height:1rem;color:#f59e0b"></i></div>
-            <p class="text-sm text-slate">Level 4 Operational</p>
-          </div>
-          <i data-lucide="chevron-right" class="chevron" style="width:1.25rem;height:1.25rem;color:#94a3b8"></i>
-        </div>
-        <div class="phase-content">
-          <div class="grid-3">
-            <div>
-              <p class="text-xs uppercase tracking-wide text-slate mb-2">Workstreams</p>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Integrated token strategy epics</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Component modularization</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Angular 18 + 20 planning</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Testing architecture</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Code Connect mapping</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Migration + tech docs epics</div>
-            </div>
-            <div>
-              <p class="text-xs uppercase tracking-wide text-slate mb-2">Exit Criteria</p>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>One meaningful change ships end-to-end via Knapsack</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>Upgrade path validated without regressions</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>Teams trust the system to enforce standards</div>
-            </div>
-            <div>
-              <p class="text-xs uppercase tracking-wide text-slate mb-2">Deliverables</p>
-              <div class="flex flex-wrap gap-2 mb-3">
-                <span class="tag">Governed pipelines</span>
-                <span class="tag">Safe propagation</span>
-                <span class="tag">Quality gates</span>
-                <span class="tag">Predictable upgrades</span>
-              </div>
-              <div style="background:#fef3c7;border-radius:0.5rem;padding:0.5rem;"><p class="text-xs font-medium text-amber">⚡ MCP prep begins</p></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Phase 4 -->
-      <div class="phase-card" data-phase="4">
-        <div class="phase-header">
-          <div class="phase-icon" style="background:#d1fae5;color:#059669;"><i data-lucide="bar-chart-3" style="width:1.5rem;height:1.5rem"></i></div>
-          <div class="flex-1">
-            <div class="flex items-center gap-3"><strong>Phase 4: Signals & Intelligence</strong><i data-lucide="check-circle-2" style="width:1rem;height:1rem;color:#10b981"></i></div>
-            <p class="text-sm text-slate">Level 4 → Level 5</p>
-          </div>
-          <i data-lucide="chevron-right" class="chevron" style="width:1.25rem;height:1.25rem;color:#94a3b8"></i>
-        </div>
-        <div class="phase-content">
-          <div class="grid-3">
-            <div>
-              <p class="text-xs uppercase tracking-wide text-slate mb-2">Workstreams</p>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Maturity & AI Readiness Assessment</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Signal capture + dashboards</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>Change readiness surveys</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>MCP onboarding (scoped)</div>
-              <div class="list-item"><i data-lucide="circle" style="color:#cbd5e1"></i>FDE assignment confirmation</div>
-            </div>
-            <div>
-              <p class="text-xs uppercase tracking-wide text-slate mb-2">Exit Criteria</p>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>Signals prove faster, safer change</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>MCP adds value without introducing risk</div>
-              <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>Execs can articulate ROI + next bets</div>
-            </div>
-            <div>
-              <p class="text-xs uppercase tracking-wide text-slate mb-2">Deliverables</p>
-              <div class="flex flex-wrap gap-2 mb-3">
-                <span class="tag">Signal dashboards</span>
-                <span class="tag">MCP pilot (1-2 use cases)</span>
-                <span class="tag">ROI framework</span>
-              </div>
-              <div style="background:#d1fae5;border-radius:0.5rem;padding:0.5rem;"><p class="text-xs font-medium text-emerald">✓ MCP pilot ready</p></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- OPERATIONS SECTION -->
-    <div class="section" id="operations">
-      <div class="card">
-        <h2>Leadership Operating Guidance</h2>
-        <h3 class="mt-4">Where to Place Bets</h3>
-        <div class="flex items-center gap-3 p-3 rounded-lg mb-2" style="background:#ecfdf5;border:1px solid #6ee7b7;">
-          <span style="width:2rem;height:2rem;background:#10b981;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:0.875rem;">J3</span>
-          <span class="font-medium text-emerald">Portfolio's growth and retention engine</span>
-        </div>
-        <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-50 mb-2">
-          <span style="width:2rem;height:2rem;background:#e2e8f0;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;color:#475569;font-weight:700;font-size:0.875rem;">J4</span>
-          <span class="text-slate">Fastest expansion engine when triggers appear</span>
-        </div>
-        <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-50 mb-2">
-          <span style="width:2rem;height:2rem;background:#e2e8f0;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;color:#475569;font-weight:700;font-size:0.875rem;">J1</span>
-          <span class="text-slate">Must be protected from premature platform selling</span>
-        </div>
-        <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-50">
-          <span style="width:2rem;height:2rem;background:#e2e8f0;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;color:#475569;font-weight:700;font-size:0.875rem;">J2</span>
-          <span class="text-slate">Rare but high-impact; treat as lighthouse wins</span>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div class="ops-box stop">
-          <h3 class="flex items-center gap-2 text-rose"><i data-lucide="pause-circle" style="width:1.25rem;height:1.25rem"></i>What to STOP Doing</h3>
-          <div class="list-item mt-4"><i data-lucide="x-circle" style="color:#f43f5e"></i>Treating MCP Support as a substitute for activation</div>
-          <div class="list-item"><i data-lucide="x-circle" style="color:#f43f5e"></i>Treating "implemented" as "successful"</div>
-          <div class="list-item"><i data-lucide="x-circle" style="color:#f43f5e"></i>Running long implementations without ownership, milestones, or FDE</div>
-          <div class="list-item"><i data-lucide="x-circle" style="color:#f43f5e"></i>Over-serving non-ICP accounts</div>
-        </div>
-        <div class="ops-box start">
-          <h3 class="flex items-center gap-2 text-emerald"><i data-lucide="play-circle" style="width:1.25rem;height:1.25rem"></i>What to START Doing</h3>
-          <div class="list-item mt-4"><i data-lucide="check-circle-2" style="color:#10b981"></i>Gate all work by maturity phase</div>
-          <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>Require Account State Flags in CRM</div>
-          <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>Apply the routing rule without exception</div>
-          <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>Invest services capacity in Journey 3</div>
-          <div class="list-item"><i data-lucide="check-circle-2" style="color:#10b981"></i>Treat J4 triggers as expansion opps</div>
-        </div>
-      </div>
-
-      <div class="card card-dark" style="border-radius:0.75rem;">
-        <h3 class="flex items-center gap-2" style="color:white"><i data-lucide="clock" style="width:1.25rem;height:1.25rem;color:#34d399"></i>Operating Cadence (Quarterly)</h3>
-        <div class="grid-2 mt-4">
-          <div class="bg-white-10 rounded-lg p-4">
-            <p class="text-sm" style="color:#cbd5e1;margin-bottom:0.5rem;">Pipeline + ARR reviewed by:</p>
-            <p class="font-medium" style="color:white">Journey + Activation Depth</p>
-            <p class="text-xs" style="color:#94a3b8;margin-top:0.25rem;">(not just pipeline stage)</p>
-          </div>
-          <div class="bg-white-10 rounded-lg p-4">
-            <p class="text-sm" style="color:#cbd5e1;margin-bottom:0.5rem;">Journey 3 accounts reviewed by:</p>
-            <ul class="text-sm" style="color:white">
-              <li>• Time to implementation completion</li>
-              <li>• Trust status</li>
-              <li>• Time to first production value</li>
-              <li>• Signal instrumentation adoption</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- METRICS SECTION -->
-    <div class="section" id="metrics">
-      <div class="card">
-        <h2>Metrics That Matter</h2>
-        <div class="grid-3 mt-6">
-          <div>
-            <h3 class="flex items-center gap-2"><i data-lucide="activity" style="width:1.25rem;height:1.25rem;color:#3b82f6"></i>Activation Metrics</h3>
-            <div class="list-item mt-3"><i data-lucide="circle" style="color:#60a5fa"></i>Implemented rate (Y/N) by ICP segment</div>
-            <div class="list-item"><i data-lucide="circle" style="color:#60a5fa"></i>Trust status distribution (G/Y/R)</div>
-            <div class="list-item"><i data-lucide="circle" style="color:#60a5fa"></i>Activation depth distribution</div>
-            <div class="list-item"><i data-lucide="circle" style="color:#60a5fa"></i>Time-to-first-production value</div>
-          </div>
-          <div>
-            <h3 class="flex items-center gap-2"><i data-lucide="zap" style="width:1.25rem;height:1.25rem;color:#8b5cf6"></i>Product Intelligence</h3>
-            <div class="list-item mt-3"><i data-lucide="circle" style="color:#a78bfa"></i>% decisions via MCP workflows</div>
-            <div class="list-item"><i data-lucide="circle" style="color:#a78bfa"></i>Time: intent → governed execution</div>
-            <div class="list-item"><i data-lucide="circle" style="color:#a78bfa"></i>AI output acceptance rate</div>
-            <div class="list-item"><i data-lucide="circle" style="color:#a78bfa"></i>Signal reuse across teams</div>
-          </div>
-          <div>
-            <h3 class="flex items-center gap-2"><i data-lucide="dollar-sign" style="width:1.25rem;height:1.25rem;color:#10b981"></i>Business Metrics</h3>
-            <div class="list-item mt-3"><i data-lucide="circle" style="color:#34d399"></i>ARR concentration by journey</div>
-            <div class="list-item"><i data-lucide="circle" style="color:#34d399"></i>ARR at risk by journey</div>
-            <div class="list-item"><i data-lucide="circle" style="color:#34d399"></i>J3 conversion velocity (E/F/G → H)</div>
-            <div class="list-item"><i data-lucide="circle" style="color:#34d399"></i>Services → platform conversion</div>
-            <div class="list-item"><i data-lucide="circle" style="color:#34d399"></i>Expansion ARR via L3/L4</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card card-dark" style="padding:2rem;border-radius:0.75rem;">
-        <h3 style="font-size:1.25rem;color:white;margin-bottom:1rem;">Final Word</h3>
-        <p style="color:#cbd5e1;font-size:1.125rem;margin-bottom:1rem;">Knapsack's opportunity is not to be the best design system platform. It is to become the <strong style="color:white">governed engine enterprises trust to execute product change in the AI era</strong>.</p>
-        <p style="color:#94a3b8;">The biggest wins are not "more pipeline." They are <span style="color:#34d399">better sequencing</span>, <span style="color:#34d399">stronger activation</span>, and <span style="color:#34d399">durable trust</span> — especially in Journey 3.</p>
-      </div>
+  <!-- Main Content -->
+  <main class="flex-1 p-6 overflow-auto">
+    <div id="content-sections" class="space-y-6 max-w-5xl">
+      <!-- Sections will be rendered here by JS -->
     </div>
   </main>
 
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-left">Knapsack · IPE Strategic Playbook · Confidential</div>
-      <div class="footer-right">Updated quarterly · Review with leadership team</div>
-    </div>
-  </footer>
-
   <script>
-    // Initialize Lucide icons
-    if (typeof lucide !== 'undefined') {
-      lucide.createIcons();
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+      let activeSection = 'vision';
+      let selectedJourney = null;
+      let selectedPhase = null;
+      let selectedQuadrant = null;
+      let showDecisionTree = false;
+      let selectedExample = null;
 
-    // Navigation function
-    function showSection(sectionId) {
-      // Update nav buttons
-      document.querySelectorAll('.nav-btn').forEach(function(b) {
-        b.classList.remove('active');
-        if (b.getAttribute('data-section') === sectionId) {
-          b.classList.add('active');
-        }
-      });
-      
-      // Update sections
-      document.querySelectorAll('.section').forEach(function(s) {
-        s.classList.remove('active');
-      });
-      
-      var targetSection = document.getElementById(sectionId);
-      if (targetSection) {
-        targetSection.classList.add('active');
-      }
-    }
+      const iconSVG = {
+        target: '<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+        layers: '<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m12.83 2.18a1 1 0 0 0-1.66 0L2 6v12l9.17-3.82a1 1 0 0 0 .66 0L22 18V6l-9.17-3.82Z"/><path d="m22 6-9.17 3.82a1 1 0 0 1-.66 0L2 6"/><path d="m22 12-9.17 3.82a1 1 0 0 1-.66 0L2 12"/></svg>',
+        barChart: '<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 6-6"/><path d="M7 12h10"/></svg>',
+        gitBranch: '<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>',
+        clock: '<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+        shield: '<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>',
+        trendingUp: '<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m3 17 9-9 5 5 7-7"/><path d="M14 7h7v7"/></svg>',
+        alertTriangle: '<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>',
+        building: '<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 22V7M18 22V7M2 22h20M2 7h20M10 10h4M10 14h4M10 18h4M5 7V4h14v3"/></svg>',
+        star: '<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>',
+        lock: '<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+        unlock: '<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>',
+        checkCircle: '<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>',
+        xCircle: '<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>',
+        chevronDown: '<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>',
+      };
 
-    // Add click handlers to nav buttons
-    document.addEventListener('DOMContentLoaded', function() {
-      // Re-initialize icons after DOM ready
-      if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-      }
-      
-      // Nav buttons
-      var navButtons = document.querySelectorAll('.nav-btn');
-      navButtons.forEach(function(btn) {
-        btn.onclick = function(e) {
-          e.preventDefault();
-          var sectionId = this.getAttribute('data-section');
-          showSection(sectionId);
+      const sectionsData = [
+        { id: 'vision', label: 'Vision & Market', icon: iconSVG.target },
+        { id: 'maturity', label: 'Maturity Model', icon: iconSVG.layers },
+        { id: 'assessment', label: 'Assessment Framework', icon: iconSVG.barChart },
+        { id: 'journeys', label: 'Customer Journeys', icon: iconSVG.gitBranch },
+        { id: 'phases', label: 'Engagement Phases', icon: iconSVG.clock },
+        { id: 'guidance', label: 'Operating Guidance', icon: iconSVG.shield },
+        { id: 'metrics', label: 'Metrics', icon: iconSVG.trendingUp },
+      ];
+
+      const journeysData = [
+        { id: 'j1', name: 'Progressive Maturation', path: 'A → B → F → H', arr: '~10%', risk: 'low', color: 'slate', desc: 'True non-ICP or low readiness — don\'t overinvest', expansion: false, accounts: ['Associated Press', 'Bright Horizons', 'MSK', 'Accutech'] },
+        { id: 'j2', name: 'Independent Maturation', path: 'A → D → H', arr: '~5%', risk: 'low', color: 'blue', desc: 'Mature orgs; sudden trigger; fast activation required', expansion: true, accounts: ['Adobe'] },
+        { id: 'j3', name: 'Services Transformation', path: 'E → F/G → H', arr: '~60%', risk: 'high', color: 'emerald', desc: 'High-value ICP accounts blocked on activation + trust', expansion: false, accounts: ['PNC', 'Edward Jones', 'DoubleVerify', 'Qualcomm', 'GSK US', 'HealthEdge'], primary: true },
+        { id: 'j4', name: 'Timing Play', path: 'D → H', arr: '~25%', risk: 'medium', color: 'violet', desc: 'Mature systems; latent interest; needs trigger + crisp activation', expansion: true, accounts: ['The Home Depot', 'CSX', 'GSK Global', 'Crown Equipment'] },
+      ];
+
+      const phasesData = [
+        { num: 1, name: 'Stabilize & Complete', level: 'Level 3 → Operational', mcp: 'locked', color: 'slate', goal: 'Make the platform reliably usable for real teams, without heroics.', workstreams: ['Workspace Go-Live', 'Entitlement setup', 'Repo/Figma access', 'Deployment checklists'], exitCriteria: ['Teams can publish without intervention', 'Workspace 2 live', 'Access no longer blocking work'] },
+        { num: 2, name: 'Control Plane & Governance', level: 'Level 3 → Level 4', mcp: 'locked', color: 'blue', goal: 'Turn "systems" into a system of record with decision authority.', workstreams: ['Token Strategy POV', 'Governance model definition', 'System Charter', 'PI prioritization rubric'], exitCriteria: ['Token strategy approved', 'Governance model active', 'Clear cross-system rules'] },
+        { num: 3, name: 'Execution Enablement', level: 'Level 4 Operational', mcp: 'prep', color: 'amber', goal: 'Prove that governed intent can safely become production change.', workstreams: ['Component modularization', 'Testing architecture', 'Code Connect mapping', 'Migration docs'], exitCriteria: ['One change ships end-to-end', 'Upgrade path validated', 'Teams trust the system'] },
+        { num: 4, name: 'Signals & Intelligence', level: 'Level 4 → Level 5', mcp: 'unlocked', color: 'emerald', goal: 'Introduce intelligence only after trust exists.', workstreams: ['Signal capture + dashboards', 'MCP onboarding', 'Change readiness surveys', 'FDE assignment'], exitCriteria: ['Signals prove faster change', 'MCP adds value safely', 'Execs articulate ROI'] },
+      ];
+
+      const quadrantsData = [
+        { id: 'A', profile: 'Low context, Low AI', journey: 'J1', color: 'slate', x: 0, y: 0 },
+        { id: 'B', profile: 'Low context, High AI', journey: 'J1→J3', color: 'slate', x: 1, y: 0 },
+        { id: 'C', profile: 'High context, Low interest', journey: 'J1/Exit', color: 'slate', x: 0, y: 1 },
+        { id: 'D', profile: 'High context, Latent', journey: 'J2/J4', color: 'blue', x: 1, y: 1 },
+        { id: 'E', profile: 'Interest w/o structure', journey: 'J3', color: 'emerald', x: 0, y: 2, active: true },
+        { id: 'F', profile: 'AI ambition w/o context', journey: 'J3', color: 'emerald', x: 1, y: 2, active: true },
+        { id: 'G', profile: 'Strong system, Low intel', journey: 'J3', color: 'emerald', x: 0, y: 3, active: true },
+        { id: 'H', profile: 'IPE-ready', journey: 'J2/J4', color: 'violet', x: 1, y: 3 },
+      ];
+
+      const examplesData = [
+        { name: 'PNC', maturity: 3, ai: 'Medium', interest: 'High', implemented: false, trust: 'Yellow', fit: true, quadrant: 'E', result: 'J3', color: 'emerald' },
+        { name: 'Adobe', maturity: 4, ai: 'High', interest: 'High', implemented: true, trust: 'Green', fit: true, quadrant: 'H', result: 'J2', color: 'blue' },
+        { name: 'Home Depot', maturity: 4, ai: 'Medium', interest: 'Latent', implemented: true, trust: 'Green', fit: true, quadrant: 'D', result: 'J4', color: 'violet' },
+      ];
+
+      const getColorClass = (color, type) => {
+        const colors = {
+          slate: { bg: 'bg-slate-100', border: 'border-slate-300', text: 'text-slate-700', accent: 'bg-slate-600', light: 'bg-slate-50' },
+          blue: { bg: 'bg-blue-100', border: 'border-blue-300', text: 'text-blue-700', accent: 'bg-blue-600', light: 'bg-blue-50' },
+          emerald: { bg: 'bg-emerald-100', border: 'border-emerald-300', text: 'text-emerald-700', accent: 'bg-emerald-600', light: 'bg-emerald-50' },
+          violet: { bg: 'bg-violet-100', border: 'border-violet-300', text: 'text-violet-700', accent: 'bg-violet-600', light: 'bg-violet-50' },
+          amber: { bg: 'bg-amber-100', border: 'border-amber-300', text: 'text-amber-700', accent: 'bg-amber-600', light: 'bg-amber-50' },
+          rose: { bg: 'bg-rose-100', border: 'border-rose-300', text: 'text-rose-700', accent: 'bg-rose-600', light: 'bg-rose-50' },
         };
-      });
+        return colors[color]?.[type] || '';
+      };
 
-      // Journey cards toggle
-      var journeyHeaders = document.querySelectorAll('.journey-header');
-      journeyHeaders.forEach(function(header) {
-        header.onclick = function() {
-          var card = this.parentElement;
-          var wasExpanded = card.classList.contains('expanded');
-          
-          // Collapse all non-primary cards
-          document.querySelectorAll('.journey-card').forEach(function(c) {
-            if (!c.classList.contains('primary')) {
-              c.classList.remove('expanded');
-              var chev = c.querySelector('.chevron');
-              if (chev) chev.style.transform = '';
+      const renderSidebar = () => {
+        const navContainer = document.getElementById('sidebar-nav');
+        if (!navContainer) return;
+        navContainer.innerHTML = sectionsData.map(s => `
+          <button data-section-id="${s.id}" class="nav-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all ${activeSection === s.id ? 'bg-emerald-500 text-white' : 'text-slate-300 hover:bg-slate-800'}">
+            ${s.icon}
+            ${s.label}
+          </button>
+        `).join('');
+
+        navContainer.querySelectorAll('.nav-btn').forEach(button => {
+          button.addEventListener('click', () => {
+            activeSection = button.dataset.sectionId;
+            renderContent();
+            renderSidebar();
+          });
+        });
+      };
+
+      const renderContent = () => {
+        const contentContainer = document.getElementById('content-sections');
+        if (!contentContainer) return;
+        contentContainer.innerHTML = '';
+
+        if (activeSection === 'vision') {
+          contentContainer.innerHTML = `
+            <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6">
+              <p class="text-emerald-400 text-sm font-semibold mb-2">STRATEGIC NORTH STAR</p>
+              <h2 class="text-xl font-bold mb-4">Knapsack becomes the Intelligent Product Engine enterprises trust to execute product change—safely, governably, and at scale—in the AI era.</h2>
+              <div class="grid grid-cols-4 gap-3 mt-4">
+                ${[{ label: 'Product intent', value: 'Executable, not descriptive' }, { label: 'Systems', value: 'Evolve as one' }, { label: 'AI context', value: 'Trusted & structured' }, { label: 'Delivery', value: 'Faster via governance' }].map((s, i) => `
+                  <div class="bg-white/10 rounded-lg p-3">
+                    <p class="text-emerald-400 text-xs">${s.label}</p>
+                    <p class="text-sm font-medium">${s.value}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white rounded-xl border p-5">
+                <h3 class="font-semibold mb-3">Market Definition</h3>
+                <p class="text-sm text-slate-600 mb-3">Knapsack competes in <span class="font-semibold text-slate-900">Product Intelligence Infrastructure</span>:</p>
+                <div class="space-y-2">
+                  ${['Product system infrastructure', 'Orchestration & governance', 'Product intelligence', 'AI product enablement'].map((item, i) => `
+                    <div class="flex items-center gap-2 text-sm">
+                      <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+                      ${item}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+              <div class="bg-white rounded-xl border p-5">
+                <h3 class="font-semibold mb-3">TAM by Capability Layer</h3>
+                <div class="space-y-2">
+                  ${[{ l: 'L1 Product System Infrastructure', v: '$5–8B' }, { l: 'L2 Product Orchestration', v: '$12–18B' }, { l: 'L3 Product Intelligence', v: '$30–40B' }, { l: 'L4 AI Product Enablement', v: '$15–25B' }].map((r, i) => `
+                    <div class="flex justify-between text-sm py-1 border-b border-slate-100">
+                      <span class="text-slate-600">${r.l}</span>
+                      <span class="font-semibold">${r.v}</span>
+                    </div>
+                  `).join('')}
+                  <div class="flex justify-between text-sm py-2 bg-emerald-50 rounded px-2 mt-2">
+                    <span class="font-semibold text-emerald-700">Total TAM</span>
+                    <span class="font-bold text-emerald-700">$62–91B</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
+              <h3 class="font-semibold text-amber-800 mb-2">The Problem We Solve</h3>
+              <p class="text-sm text-amber-700 mb-3">Modern enterprises don't fail because they lack tools. They fail because product knowledge is fragmented, implicit, and non-operational:</p>
+              <div class="flex flex-wrap gap-2">
+                ${['Design intent lives in files', 'Engineering reality lives in code', 'Decisions live in meetings', 'AI operates without structure'].map((t, i) => `
+                  <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs">${t}</span>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        } else if (activeSection === 'maturity') {
+          contentContainer.innerHTML = `
+            <h2 class="text-2xl font-bold">Product System Maturity Model</h2>
+            <p class="text-slate-600">Five levels define where customers are and where they need to go.</p>
+            
+            <div class="bg-white rounded-xl border p-5 space-y-3">
+              ${[{ l: 1, name: 'UI Artifacts', desc: 'Static mockups, no system connection', sam: false },
+                { l: 2, name: 'Design Library', desc: 'Organized components, limited code integration', sam: false },
+                { l: 3, name: 'Integrated Product System', desc: 'Design-to-code connection, basic governance', sam: true },
+                { l: 4, name: 'Scaled Product System', desc: 'Control plane operating, cross-system governance', sam: true },
+                { l: 5, name: 'IPE-Activated System', desc: 'Control plane operated + governed, full intelligence layer', sam: true }].map((level) => `
+                <div class="flex items-center gap-4 p-3 rounded-lg transition-all hover:bg-slate-50 ${level.sam ? 'border-l-4 border-emerald-500' : ''}">
+                  <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${level.l === 1 ? 'bg-slate-400' : level.l === 2 ? 'bg-amber-500' : level.l === 3 ? 'bg-blue-500' : level.l === 4 ? 'bg-emerald-500' : 'bg-violet-500'}">
+                    ${level.l}
+                  </div>
+                  <div class="flex-1">
+                    <p class="font-semibold">${level.name}</p>
+                    <p class="text-sm text-slate-500">${level.desc}</p>
+                  </div>
+                  ${level.sam ? '<span class="px-2 py-1 bg-emerald-100 text-emerald-700 text-xs rounded">SAM</span>' : ''}
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="bg-rose-50 border-2 border-rose-200 rounded-xl p-5">
+              <div class="flex items-start gap-3">
+                <span class="text-rose-500 flex-shrink-0 mt-0.5 w-5 h-5">${iconSVG.alertTriangle}</span>
+                <div>
+                  <h3 class="font-semibold text-rose-800">"Implemented" ≠ "Activated"</h3>
+                  <p class="text-sm text-rose-700 mt-1">Many customers are technically implemented but still operating at Quadrant G (strong system, low intelligence) until signals, governance cadence, and MCP execution are in place. This gap is the primary driver of churn.</p>
+                </div>
+              </div>
+            </div>
+          `;
+        } else if (activeSection === 'assessment') {
+          contentContainer.innerHTML = `
+            <h2 class="text-2xl font-bold">Assessment Framework</h2>
+            
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">From Assessment to Journey: A Step-by-Step Process</h3>
+              <p class="text-sm text-slate-600 mb-4">Follow these five steps to correctly identify which journey an account belongs to and where they should enter.</p>
+              <div class="space-y-3">
+                ${[{ step: 1, title: 'Score the Account', desc: 'Rate on all three dimensions: Product System Maturity (1-5), AI & Automation Capability (Low/Med/High), and Interest State (Low/Latent/High)' },
+                  { step: 2, title: 'Plot the Quadrant', desc: 'Use scores to identify the account\'s current quadrant (A-H). Context depth (Maturity + AI capability) forms one axis; Interest State forms the other.' },
+                  { step: 3, title: 'Check Account State Flags', desc: 'Confirm all five CRM flags: Implemented (Y/N), Trust Status (G/Y/R), Activation Depth, MCP/IPE Interest (Y/N), Strategic Fit (Y/N)' },
+                  { step: 4, title: 'Apply the Routing Rule', desc: 'If Strategic Fit = YES and Implemented = NO → Journey 3 (no exceptions). This rule overrides quadrant-based assignment.' },
+                  { step: 5, title: 'Confirm Journey & Entry Phase', desc: 'Match the journey to the appropriate entry phase based on current maturity level and activation depth.' }].map(s => `
+                  <div class="flex gap-4 p-3 rounded-lg ${s.step % 2 === 1 ? 'bg-slate-50' : ''}">
+                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">${s.step}</div>
+                    <div>
+                      <p class="font-semibold text-sm">${s.title}</p>
+                      <p class="text-xs text-slate-600">${s.desc}</p>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Required Scoring (No Exceptions)</h3>
+              <div class="grid grid-cols-3 gap-4">
+                ${[{ name: 'Product System Maturity', scale: '1-5' }, { name: 'AI & Automation Capability', scale: 'Low/Med/High' }, { name: 'Interest State', scale: 'Low/Latent/High' }].map((s, i) => `
+                  <div class="bg-slate-50 rounded-lg p-4 text-center">
+                    <p class="font-semibold text-sm">${s.name}</p>
+                    <p class="text-xs text-slate-500 mt-1">${s.scale}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="bg-slate-900 text-white rounded-xl p-5">
+              <h3 class="font-semibold mb-4">Account State Flags (Required in CRM)</h3>
+              <div class="space-y-2">
+                ${[{ n: 'Implemented?', v: 'Y/N', d: 'Platform technically deployed' },
+                  { n: 'Trust Status', v: 'G/Y/R', d: 'Red = data loss / severe performance / support failure' },
+                  { n: 'Activation Depth', v: 'Docs → CP → MCP → AI', d: 'How deeply they use the platform' },
+                  { n: 'MCP/IPE Interest', v: 'Y/N', d: 'Expressed interest in AI capabilities' },
+                  { n: 'Strategic Fit', v: 'Y/N', d: 'True ICP match' }].map((f, i) => `
+                  <div class="flex items-center gap-4 py-2 border-b border-slate-700">
+                    <span class="font-medium w-40">${f.n}</span>
+                    <span class="text-slate-400 w-32">${f.v}</span>
+                    <span class="text-slate-400 text-sm">${f.d}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="bg-rose-100 border-2 border-rose-300 rounded-xl p-5">
+              <h3 class="font-semibold text-rose-800 mb-2">Routing Rule (Non-negotiable)</h3>
+              <div class="bg-white rounded-lg p-4">
+                <p class="text-rose-700">If <span class="bg-rose-200 px-2 py-0.5 rounded">Strategic Fit = TRUE</span> and <span class="bg-rose-200 px-2 py-0.5 rounded">Implemented = NO</span>, the account is <strong>Journey 3 by default</strong> until activation is complete.</p>
+              </div>
+              <p class="text-sm text-rose-700 mt-2">This prevents the most common sequencing mistake: selling platform expansion before activation is real.</p>
+            </div>
+
+            <div class="bg-white rounded-xl border p-5">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-semibold">Journey Selection Decision Tree</h3>
+                <button id="toggle-decision-tree" class="text-sm text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+                  <span id="decision-tree-text">Show</span> Decision Logic
+                  <span class="chevron" id="decision-tree-chevron">${iconSVG.chevronDown}</span>
+                </button>
+              </div>
+              <div id="decision-tree-content" class="hidden bg-slate-50 rounded-lg p-4 text-sm space-y-4">
+                <div class="font-semibold text-slate-900">START: Is Strategic Fit = YES?</div>
+                
+                <div class="ml-4 pl-4 border-l-2 border-emerald-500 space-y-3">
+                  <div class="font-semibold text-emerald-700">YES → Is Implemented = NO?</div>
+                  <div class="ml-4 pl-4 border-l-2 border-emerald-500">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="font-semibold text-emerald-700">YES →</span>
+                      <span class="px-2 py-1 bg-emerald-100 text-emerald-700 rounded font-bold">JOURNEY 3</span>
+                      <span class="text-slate-500">(Services Transformation)</span>
+                    </div>
+                    <p class="text-xs text-slate-600">Account needs activation before any platform expansion. Enter at Phase 1.</p>
+                  </div>
+                  <div class="ml-4 pl-4 border-l-2 border-blue-500 space-y-2">
+                    <div class="font-semibold text-blue-700">NO (Implemented = YES) → Check for Triggers</div>
+                    <div class="ml-4 text-slate-600">
+                      <p class="mb-2">Is there an active trigger (exec change, reorg, tech consolidation, budget cycle)?</p>
+                      <div class="space-y-2 ml-2">
+                        <div class="flex items-center gap-2">
+                          <span class="font-medium">YES →</span>
+                          <span class="px-2 py-1 bg-violet-100 text-violet-700 rounded font-bold">JOURNEY 4</span>
+                          <span class="text-slate-500">(Timing Play)</span>
+                        </div>
+                        <div>
+                          <p class="mb-1"><span class="font-medium">NO →</span> Is Maturity Level 4+ with high MCP interest and sudden need?</p>
+                          <div class="ml-4 space-y-1">
+                            <div class="flex items-center gap-2">
+                              <span class="font-medium">YES →</span>
+                              <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded font-bold">JOURNEY 2</span>
+                              <span class="text-slate-500">(Independent Maturation)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                              <span class="font-medium">NO →</span>
+                              <span class="text-slate-500">Monitor, maintain relationship, watch for triggers</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ml-4 pl-4 border-l-2 border-slate-400">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="font-semibold text-slate-600">NO (Strategic Fit = NO) →</span>
+                    <span class="px-2 py-1 bg-slate-200 text-slate-700 rounded font-bold">JOURNEY 1</span>
+                    <span class="text-slate-500">(Progressive Maturation)</span>
+                  </div>
+                  <p class="text-xs text-slate-600">Maintain relationship without platform pressure. Do not overinvest.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-2">Quadrant-to-Journey Mapping</h3>
+              <p class="text-sm text-slate-600 mb-4">Starting quadrant suggests likely journey, but the routing rule and account flags determine final assignment.</p>
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="bg-slate-900 text-white">
+                      <th class="px-3 py-2 text-left rounded-tl-lg">Quadrant</th>
+                      <th class="px-3 py-2 text-left">Profile</th>
+                      <th class="px-3 py-2 text-left">Likely Journey</th>
+                      <th class="px-3 py-2 text-left rounded-tr-lg">Rationale</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${[{ q: 'A', p: 'Low context, Low AI interest', j: 'J1', r: 'Long nurture cycle; not ready for platform investment', active: false },
+                      { q: 'B', p: 'Low context, High AI interest', j: 'J1 → J3', r: 'Educate on structure first; may accelerate to J3 if ICP', active: false },
+                      { q: 'C', p: 'High context, Low interest', j: 'J1 or Exit', r: 'Monitor only; exit if no path to activation', active: false },
+                      { q: 'D', p: 'High context, Latent interest', j: 'J2 or J4', r: 'Trigger-dependent; ready for fast activation when timing aligns', active: false },
+                      { q: 'E', p: 'Interest without structure', j: 'J3 (if ICP)', r: 'Heavy services needed; documentation + implementation focus', active: true },
+                      { q: 'F', p: 'AI ambition without context', j: 'J3 (if ICP)', r: 'Light services + docs; build foundation before AI enablement', active: true },
+                      { q: 'G', p: 'Strong system, Low intelligence', j: 'J3 (if ICP)', r: 'IPE enablement path; control plane → signals → MCP', active: true },
+                      { q: 'H', p: 'IPE-ready', j: 'J2 or J4', r: 'Fast activation; expansion-ready', active: false }].map((row, i) => `
+                      <tr class="${row.active ? 'bg-emerald-50' : i % 2 === 0 ? 'bg-slate-50' : ''}">
+                        <td class="px-3 py-2">
+                          <span class="px-2 py-0.5 rounded text-xs font-bold ${row.active ? 'bg-emerald-200 text-emerald-700' : 'bg-slate-200 text-slate-600'}">${row.q}</span>
+                        </td>
+                        <td class="px-3 py-2">${row.p}</td>
+                        <td class="px-3 py-2 font-semibold">${row.j}</td>
+                        <td class="px-3 py-2 text-slate-600 text-xs">${row.r}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+              <div class="mt-4 p-3 bg-rose-50 border border-rose-200 rounded-lg">
+                <p class="text-sm text-rose-700"><strong>Remember:</strong> The routing rule overrides quadrant logic. If Strategic Fit = YES and Implemented = NO, the account is Journey 3 regardless of quadrant.</p>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Readiness Quadrants (Click to explore)</h3>
+              <div class="grid grid-cols-4 gap-2" id="quadrant-grid">
+                ${quadrantsData.map(q => `
+                  <button data-quadrant-id="${q.id}" class="quadrant-btn p-3 rounded-lg border-2 transition-all text-left ${selectedQuadrant === q.id ? 'border-slate-900 shadow-lg' : 'border-slate-200 hover:border-slate-400'} ${q.active ? getColorClass(q.color, 'light') : 'bg-slate-50'}">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="px-2 py-0.5 rounded text-xs font-bold ${q.active ? getColorClass(q.color, 'bg') + ' ' + getColorClass(q.color, 'text') : 'bg-slate-200 text-slate-600'}">${q.id}</span>
+                      <span class="text-xs text-slate-500">${q.journey}</span>
+                    </div>
+                    <p class="text-xs text-slate-600">${q.profile}</p>
+                  </button>
+                `).join('')}
+              </div>
+              <div id="selected-quadrant-info" class="mt-4 p-4 bg-slate-50 rounded-lg ${selectedQuadrant ? '' : 'hidden'}">
+                ${selectedQuadrant ? `
+                  <p class="text-sm"><strong>Quadrant ${selectedQuadrant}:</strong> ${quadrantsData.find(q => q.id === selectedQuadrant)?.profile || ''}</p>
+                  <p class="text-sm text-slate-600 mt-1">Likely Journey: <strong>${quadrantsData.find(q => q.id === selectedQuadrant)?.journey || ''}</strong></p>
+                ` : ''}
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-2">Worked Examples</h3>
+              <p class="text-sm text-slate-600 mb-4">Three examples showing how assessment inputs determine journey assignment.</p>
+              <div class="space-y-4" id="examples-container">
+                ${examplesData.map(ex => {
+                  const isExpanded = selectedExample === ex.name;
+                  return `
+                    <div class="example-card rounded-xl border-2 overflow-hidden transition-all ${isExpanded ? 'shadow-lg' : ''} ${getColorClass(ex.color, 'border')}">
+                      <button data-example-name="${ex.name}" class="example-toggle-btn w-full p-4 text-left flex items-center justify-between ${getColorClass(ex.color, 'light')}">
+                        <div class="flex items-center gap-3">
+                          <span class="w-5 h-5 text-slate-600">${iconSVG.building}</span>
+                          <span class="font-semibold">${ex.name}</span>
+                          <span class="px-2 py-0.5 rounded text-xs font-bold ${getColorClass(ex.color, 'bg')} ${getColorClass(ex.color, 'text')}">→ ${ex.result}</span>
+                        </div>
+                        <span class="chevron ${isExpanded ? 'rotated' : ''} w-4 h-4">${iconSVG.chevronDown}</span>
+                      </button>
+                      <div class="example-content p-4 bg-white border-t ${isExpanded ? '' : 'hidden'}">
+                        <div class="grid grid-cols-2 gap-6">
+                          <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wide mb-2">Assessment Scores</p>
+                            <div class="space-y-1 text-sm">
+                              <p>Product System Maturity: <strong>Level ${ex.maturity}</strong></p>
+                              <p>AI & Automation Capability: <strong>${ex.ai}</strong></p>
+                              <p>Interest State: <strong>${ex.interest}</strong></p>
+                            </div>
+                          </div>
+                          <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wide mb-2">Account State Flags</p>
+                            <div class="space-y-1 text-sm">
+                              <p>Implemented: <strong class="${ex.implemented ? 'text-emerald-600' : 'text-rose-600'}">${ex.implemented ? 'YES' : 'NO'}</strong></p>
+                              <p>Trust Status: <strong class="${ex.trust === 'Green' ? 'text-emerald-600' : 'text-amber-600'}">${ex.trust}</strong></p>
+                              <p>Strategic Fit: <strong class="text-emerald-600">YES</strong></p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t space-y-2">
+                          <p class="text-sm"><strong>Quadrant:</strong> ${ex.quadrant} (${quadrantsData.find(q => q.id === ex.quadrant)?.profile || ''})</p>
+                          <p class="text-sm"><strong>Routing Rule Check:</strong> Strategic Fit = YES ${ex.implemented ? 'but Implemented = YES, so rule does not apply' : '+ Implemented = NO'}</p>
+                          ${ex.implemented ? `<p class="text-sm"><strong>Trigger Check:</strong> ${ex.name === 'Adobe' ? 'Enterprise rollout pattern identified (active trigger)' : 'Org consolidation trigger identified'}</p>` : ''}
+                          <div class="mt-3 p-3 rounded-lg ${getColorClass(ex.color, 'light')}">
+                            <p class="text-sm font-semibold ${getColorClass(ex.color, 'text')}">
+                              Result: ${ex.result} — ${ex.result === 'J3' ? 'Enter at Phase 1 (Stabilize & Complete). Focus on trust repair and basic activation before any platform expansion discussion.' : ex.result === 'J2' ? 'Mature org with sudden trigger requiring fast activation. Treat as reference implementation. Platform expansion is appropriate.' : 'Timing play. Do not drag into long services. Prepare executive activation package and move quickly when trigger fires.'}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          `;
+
+          // Add event listeners for decision tree toggle
+          setTimeout(() => {
+            const toggleBtn = document.getElementById('toggle-decision-tree');
+            const treeContent = document.getElementById('decision-tree-content');
+            const treeText = document.getElementById('decision-tree-text');
+            const treeChevron = document.getElementById('decision-tree-chevron');
+            
+            if (toggleBtn && treeContent) {
+              toggleBtn.addEventListener('click', () => {
+                showDecisionTree = !showDecisionTree;
+                treeContent.classList.toggle('hidden', !showDecisionTree);
+                if (treeText) treeText.textContent = showDecisionTree ? 'Hide' : 'Show';
+                if (treeChevron) treeChevron.classList.toggle('rotated', showDecisionTree);
+              });
             }
-          });
-          
-          // Toggle this card
-          if (!wasExpanded) {
-            card.classList.add('expanded');
-            var chevron = card.querySelector('.chevron');
-            if (chevron) chevron.style.transform = 'rotate(90deg)';
-          } else if (!card.classList.contains('primary')) {
-            card.classList.remove('expanded');
-            var chevron = card.querySelector('.chevron');
-            if (chevron) chevron.style.transform = '';
-          }
-        };
-      });
 
-      // Phase cards toggle
-      var phaseHeaders = document.querySelectorAll('.phase-header');
-      phaseHeaders.forEach(function(header) {
-        header.onclick = function() {
-          var card = this.parentElement;
-          var wasExpanded = card.classList.contains('expanded');
-          
-          // Collapse all phase cards
-          document.querySelectorAll('.phase-card').forEach(function(c) {
-            c.classList.remove('expanded');
-            var chev = c.querySelector('.chevron');
-            if (chev) chev.style.transform = '';
-          });
-          
-          // Toggle this card
-          if (!wasExpanded) {
-            card.classList.add('expanded');
-            var chevron = card.querySelector('.chevron');
-            if (chevron) chevron.style.transform = 'rotate(90deg)';
-          }
-        };
-      });
+            // Quadrant buttons
+            document.querySelectorAll('.quadrant-btn').forEach(btn => {
+              btn.addEventListener('click', () => {
+                const qId = btn.dataset.quadrantId;
+                selectedQuadrant = selectedQuadrant === qId ? null : qId;
+                renderContent();
+              });
+            });
+
+            // Example toggles
+            document.querySelectorAll('.example-toggle-btn').forEach(btn => {
+              btn.addEventListener('click', () => {
+                const exName = btn.dataset.exampleName;
+                selectedExample = selectedExample === exName ? null : exName;
+                renderContent();
+              });
+            });
+          }, 100);
+
+        } else if (activeSection === 'journeys') {
+          contentContainer.innerHTML = `
+            <h2 class="text-2xl font-bold">Customer Journeys</h2>
+            
+            <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+              <div class="flex items-center gap-3">
+                <span class="text-emerald-600 w-5 h-5">${iconSVG.star}</span>
+                <div>
+                  <p class="font-semibold text-emerald-800">Journey 3 holds the majority of ARR and the majority of meaningful churn risk</p>
+                  <p class="text-sm text-emerald-700">Services capacity is the growth bottleneck (not top-of-funnel)</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-4" id="journeys-container">
+              ${journeysData.map(j => {
+                const isExpanded = selectedJourney === j.id;
+                return `
+                  <div data-journey-id="${j.id}" class="journey-card bg-white rounded-xl border-2 p-5 cursor-pointer transition-all ${j.primary ? 'border-emerald-500' : 'border-slate-200'} ${isExpanded ? 'shadow-lg ring-2 ring-offset-2 ring-slate-300' : 'hover:shadow-md'}">
+                    <div class="flex items-start gap-4">
+                      <div class="w-12 h-12 rounded-lg flex items-center justify-center font-bold text-lg ${getColorClass(j.color, 'bg')} ${getColorClass(j.color, 'text')} ${j.primary ? 'ring-2 ring-emerald-500' : ''}">
+                        ${j.id.toUpperCase()}
+                      </div>
+                      <div class="flex-1">
+                        <div class="flex items-center gap-2 flex-wrap">
+                          <h3 class="font-semibold">${j.name}</h3>
+                          ${j.primary ? '<span class="px-2 py-0.5 bg-emerald-500 text-white text-xs rounded">PRIMARY FOCUS</span>' : ''}
+                          <span class="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs font-mono rounded">${j.path}</span>
+                          <span class="px-2 py-0.5 text-xs rounded ${j.risk === 'high' ? 'bg-rose-100 text-rose-700' : j.risk === 'medium' ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-600'}">${j.arr} ARR • ${j.risk} risk</span>
+                        </div>
+                        <p class="text-sm text-slate-600 mt-1">${j.desc}</p>
+                        ${isExpanded ? `
+                          <div class="mt-4 pt-4 border-t space-y-3">
+                            <div>
+                              <p class="text-xs text-slate-500 uppercase tracking-wide mb-1">Accounts</p>
+                              <div class="flex flex-wrap gap-1">
+                                ${j.accounts.map(a => `<span class="px-2 py-0.5 bg-slate-100 rounded text-xs">${a}</span>`).join('')}
+                              </div>
+                            </div>
+                            <div class="p-3 rounded-lg ${j.expansion ? 'bg-emerald-50 border border-emerald-200' : 'bg-rose-50 border border-rose-200'}">
+                              <p class="text-sm font-medium ${j.expansion ? 'text-emerald-700' : 'text-rose-700'} flex items-center gap-1">
+                                <span class="w-4 h-4">${j.expansion ? iconSVG.checkCircle : iconSVG.xCircle}</span>
+                                ${j.expansion ? 'Expansion allowed' : 'Expansion blocked'}
+                              </p>
+                              <p class="text-xs ${j.expansion ? 'text-emerald-600' : 'text-rose-600'}">
+                                ${j.expansion ? 'Platform sale allowed when triggers appear' : 'No platform expansion until activation complete'}
+                              </p>
+                            </div>
+                          </div>
+                        ` : ''}
+                      </div>
+                      <span class="chevron ${isExpanded ? 'rotated' : ''} w-5 h-5">${iconSVG.chevronDown}</span>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `;
+
+          setTimeout(() => {
+            document.querySelectorAll('.journey-card').forEach(card => {
+              card.addEventListener('click', () => {
+                const jId = card.dataset.journeyId;
+                selectedJourney = selectedJourney === jId ? null : jId;
+                renderContent();
+              });
+            });
+          }, 100);
+
+        } else if (activeSection === 'phases') {
+          contentContainer.innerHTML = `
+            <h2 class="text-2xl font-bold">Engagement Phases (Journey 3 Model)</h2>
+            <p class="text-slate-600">PNC Partnership Example — illustrating how the IPE maturity model adapts to specific customer contexts.</p>
+
+            <div class="space-y-4" id="phases-container">
+              ${phasesData.map(p => {
+                const isExpanded = selectedPhase === p.num;
+                const mcpIcon = p.mcp === 'locked' ? iconSVG.lock : p.mcp === 'prep' ? iconSVG.clock : iconSVG.unlock;
+                return `
+                  <div data-phase-num="${p.num}" class="phase-card bg-white rounded-xl border p-5 cursor-pointer transition-all ${isExpanded ? 'shadow-lg ring-2 ring-offset-2 ring-slate-300' : 'hover:shadow-md'}">
+                    <div class="flex items-center gap-4">
+                      <div class="w-10 h-10 rounded-lg flex items-center justify-center font-bold ${p.mcp === 'locked' ? 'bg-slate-200 text-slate-600' : p.mcp === 'prep' ? 'bg-amber-200 text-amber-700' : 'bg-emerald-200 text-emerald-700'}">
+                        ${p.num}
+                      </div>
+                      <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                          <h3 class="font-semibold">${p.name}</h3>
+                          <span class="w-4 h-4">${mcpIcon}</span>
+                          <span class="text-sm text-slate-500">${p.level}</span>
+                          <span class="px-2 py-0.5 text-xs rounded flex items-center gap-1 ${p.mcp === 'locked' ? 'bg-rose-100 text-rose-700' : p.mcp === 'prep' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700'}">
+                            ${p.mcp === 'locked' ? 'MCP locked' : p.mcp === 'prep' ? 'MCP prep' : 'MCP ready'}
+                          </span>
+                        </div>
+                        <p class="text-sm text-slate-600 mt-1">${p.goal}</p>
+                      </div>
+                      <span class="chevron ${isExpanded ? 'rotated' : ''} w-5 h-5">${iconSVG.chevronDown}</span>
+                    </div>
+                    ${isExpanded ? `
+                      <div class="mt-4 pt-4 border-t grid grid-cols-2 gap-4">
+                        <div>
+                          <p class="text-xs text-slate-500 uppercase tracking-wide mb-2">Workstreams</p>
+                          <div class="space-y-1">
+                            ${p.workstreams.map(w => `
+                              <div class="flex items-center gap-2 text-sm">
+                                <div class="w-1.5 h-1.5 rounded-full bg-slate-400"></div>
+                                ${w}
+                              </div>
+                            `).join('')}
+                          </div>
+                        </div>
+                        <div>
+                          <p class="text-xs text-slate-500 uppercase tracking-wide mb-2">Exit Criteria</p>
+                          <div class="space-y-1">
+                            ${p.exitCriteria.map(c => `
+                              <div class="flex items-center gap-2 text-sm">
+                                <span class="text-emerald-500 w-4 h-4">${iconSVG.checkCircle}</span>
+                                ${c}
+                              </div>
+                            `).join('')}
+                          </div>
+                        </div>
+                      </div>
+                    ` : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `;
+
+          setTimeout(() => {
+            document.querySelectorAll('.phase-card').forEach(card => {
+              card.addEventListener('click', () => {
+                const pNum = parseInt(card.dataset.phaseNum);
+                selectedPhase = selectedPhase === pNum ? null : pNum;
+                renderContent();
+              });
+            });
+          }, 100);
+
+        } else if (activeSection === 'guidance') {
+          contentContainer.innerHTML = `
+            <h2 class="text-2xl font-bold">Operating Guidance</h2>
+            
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Where to Place Bets</h3>
+              <div class="space-y-2">
+                ${[{ j: 'J3', desc: "Portfolio's growth and retention engine", primary: true },
+                  { j: 'J4', desc: 'Fastest expansion engine when triggers appear' },
+                  { j: 'J1', desc: 'Must be protected from premature platform selling' },
+                  { j: 'J2', desc: 'Rare but high-impact; treat as lighthouse wins' }].map(b => `
+                  <div class="flex items-center gap-3 p-3 rounded-lg ${b.primary ? 'bg-emerald-50' : 'bg-slate-50'}">
+                    <span class="font-bold ${b.primary ? 'text-emerald-700' : 'text-slate-700'}">${b.j}</span>
+                    <span class="text-sm ${b.primary ? 'text-emerald-700 font-medium' : 'text-slate-600'}">${b.desc}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-rose-50 border border-rose-200 rounded-xl p-5">
+                <h3 class="font-semibold text-rose-800 mb-3 flex items-center gap-2">
+                  <span class="w-5 h-5">${iconSVG.xCircle}</span>
+                  What to STOP Doing
+                </h3>
+                <div class="space-y-2">
+                  ${['Treating MCP Support as a substitute for activation', 'Treating "implemented" as "successful"', 'Running long implementations without ownership', 'Over-serving non-ICP accounts'].map((item, i) => `
+                    <div class="flex items-start gap-2 text-sm text-rose-700">
+                      <span class="w-4 h-4 mt-0.5">${iconSVG.xCircle}</span>
+                      ${item}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+              <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5">
+                <h3 class="font-semibold text-emerald-800 mb-3 flex items-center gap-2">
+                  <span class="w-5 h-5">${iconSVG.checkCircle}</span>
+                  What to START Doing
+                </h3>
+                <div class="space-y-2">
+                  ${['Gate all work by maturity phase', 'Require Account State Flags in CRM', 'Apply the routing rule without exception', 'Invest services capacity in Journey 3', 'Treat J4 triggers as expansion opps'].map((item, i) => `
+                    <div class="flex items-start gap-2 text-sm text-emerald-700">
+                      <span class="w-4 h-4 mt-0.5">${iconSVG.checkCircle}</span>
+                      ${item}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          `;
+        } else if (activeSection === 'metrics') {
+          contentContainer.innerHTML = `
+            <h2 class="text-2xl font-bold">Metrics That Matter</h2>
+            
+            <div class="grid grid-cols-3 gap-4">
+              ${[{ title: 'Activation Metrics', color: 'blue', items: ['Implemented rate by ICP segment', 'Trust status distribution (G/Y/R)', 'Activation depth distribution', 'Time-to-first-production value'] },
+                { title: 'Product Intelligence', color: 'violet', items: ['% decisions via MCP workflows', 'Time: intent → governed execution', 'AI output acceptance rate', 'Signal reuse across teams'] },
+                { title: 'Business Metrics', color: 'emerald', items: ['ARR concentration by journey', 'ARR at risk by journey', 'J3 conversion velocity', 'Services → platform conversion'] }].map(cat => `
+                <div class="bg-white rounded-xl border p-5">
+                  <h3 class="font-semibold mb-3 ${getColorClass(cat.color, 'text')}">${cat.title}</h3>
+                  <div class="space-y-2">
+                    ${cat.items.map((item, i) => `
+                      <div class="flex items-center gap-2 text-sm">
+                        <div class="w-2 h-2 rounded-full ${getColorClass(cat.color, 'accent')}"></div>
+                        ${item}
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6">
+              <h3 class="text-lg font-bold mb-3">Final Word</h3>
+              <p class="text-slate-300 mb-2">Knapsack's opportunity is not to be the best design system platform. It is to become the <span class="text-white font-semibold">governed engine enterprises trust to execute product change in the AI era</span>.</p>
+              <p class="text-slate-400">The biggest wins are not "more pipeline." They are <span class="text-emerald-400">better sequencing</span>, <span class="text-emerald-400">stronger activation</span>, and <span class="text-emerald-400">durable trust</span> — especially in Journey 3.</p>
+            </div>
+          `;
+        }
+      };
+
+      renderSidebar();
+      renderContent();
     });
-    
-    // Fallback: also attach handlers immediately in case DOMContentLoaded already fired
-    (function() {
-      var navButtons = document.querySelectorAll('.nav-btn');
-      navButtons.forEach(function(btn) {
-        btn.onclick = function(e) {
-          e.preventDefault();
-          var sectionId = this.getAttribute('data-section');
-          showSection(sectionId);
-        };
-      });
-    })();
   </script>
 </body>
 </html>
