@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MVP1 System Charter - Spectrum Application</title>
+<style>
+:root{--spectrum-blue-600:#1473e6;--spectrum-purple-600:#9256d9;--spectrum-green-600:#12805c;--spectrum-red-600:#d7373f;--spectrum-orange-600:#e68619;--spectrum-gray-900:#1d1d1d;--spectrum-gray-700:#4b4b4b;--spectrum-gray-600:#6e6e6e;--spectrum-gray-200:#e1e1e1;--spectrum-gray-100:#f5f5f5;--spectrum-gray-50:#fafafa}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;color:var(--spectrum-gray-900);line-height:1.5;background:#fff}
+.page{max-width:1100px;margin:0 auto;padding:48px 56px;page-break-after:always}
+.page:last-child{page-break-after:avoid}
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:20px;border-bottom:3px solid var(--spectrum-blue-600)}
+.header h1{font-size:28px;font-weight:700;color:var(--spectrum-gray-900)}
+.header .subtitle{font-size:14px;color:var(--spectrum-gray-600);margin-top:4px}
+.logo{font-size:18px;font-weight:700;color:var(--spectrum-red-600)}
+.section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--spectrum-blue-600);margin-bottom:8px}
+h2{font-size:18px;font-weight:700;color:var(--spectrum-gray-900);margin:24px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--spectrum-gray-200)}
+h3{font-size:14px;font-weight:700;color:var(--spectrum-gray-700);margin:16px 0 8px}
+p{font-size:13px;color:var(--spectrum-gray-700);margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:12px;margin:12px 0 20px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--spectrum-gray-200)}
+th{background:var(--spectrum-gray-100);font-weight:600;color:var(--spectrum-gray-700);font-size:11px;text-transform:uppercase;letter-spacing:0.03em}
+tr:hover{background:var(--spectrum-gray-50)}
+.callout{border-radius:6px;padding:16px 20px;margin:16px 0}
+.callout-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px}
+.callout p{margin:0;font-size:13px}
+.callout.blue{background:#e6f2ff;border-left:4px solid var(--spectrum-blue-600)}
+.callout.blue .callout-title{color:var(--spectrum-blue-600)}
+.callout.warning{background:#fff8e6;border-left:4px solid var(--spectrum-orange-600)}
+.callout.warning .callout-title{color:#7e6000}
+.callout.success{background:#e6f7f1;border-left:4px solid var(--spectrum-green-600)}
+.callout.success .callout-title{color:var(--spectrum-green-600)}
+.callout.critical{background:#ffebe6;border-left:4px solid var(--spectrum-red-600)}
+.callout.critical .callout-title{color:var(--spectrum-red-600)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.metric-card{background:var(--spectrum-gray-50);border:1px solid var(--spectrum-gray-200);border-radius:6px;padding:16px;text-align:center}
+.metric-value{font-size:24px;font-weight:700;color:var(--spectrum-blue-600)}
+.metric-label{font-size:11px;color:var(--spectrum-gray-600);text-transform:uppercase;letter-spacing:0.05em;margin-top:4px}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600}
+.badge-blue{background:#e6f2ff;color:var(--spectrum-blue-600)}
+.badge-purple{background:#f3e8ff;color:var(--spectrum-purple-600)}
+.badge-green{background:#e6f7f1;color:var(--spectrum-green-600)}
+.badge-red{background:#ffebe6;color:var(--spectrum-red-600)}
+.badge-orange{background:#fff3e0;color:#b45309}
+ul{margin:8px 0 16px 20px;font-size:13px}
+li{margin-bottom:6px;color:var(--spectrum-gray-700)}
+.footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--spectrum-gray-200);display:flex;justify-content:space-between;font-size:11px;color:var(--spectrum-gray-600)}
+.comparison-header{display:flex;gap:12px;margin-bottom:8px}
+.comparison-spacer{width:160px;flex-shrink:0}
+.comparison-col{flex:1;padding:12px 16px;border-radius:6px;background:var(--spectrum-gray-100)}
+.comparison-col.mvp1{border-left:4px solid var(--spectrum-blue-600)}
+.comparison-col.mvp2{border-left:4px solid var(--spectrum-purple-600)}
+.comparison-col strong{font-size:14px;display:block}
+.comparison-col span{font-size:11px;color:var(--spectrum-gray-600)}
+.comparison-table td:first-child{width:160px;font-weight:600;font-size:11px;color:var(--spectrum-gray-600)}
+.scope-lock{background:linear-gradient(135deg,#1473e6 0%,#0d66d0 100%);color:#fff;border-radius:8px;padding:20px 24px;margin:20px 0}
+.scope-lock h3{color:#fff;margin:0 0 8px}
+.scope-lock p{color:rgba(255,255,255,0.9);margin:0}
+@media print{
+body{font-size:11px}
+.page{padding:0;max-width:100%}
+th,td{padding:6px 8px}
+.callout{padding:12px 16px}
+h2{font-size:14px;margin:16px 0 8px}
+.metric-value{font-size:18px}
+.header h1{font-size:22px}
+.two-col,.three-col{gap:12px}
+tr:nth-child(odd),tr:nth-child(even),.callout,.metric-card,.comparison-col,.scope-lock{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+@page{margin:0.4in;size:letter}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+<div class="header">
+<div>
+<h1>MVP1 System Charter</h1>
+<div class="subtitle">Spectrum Application - Migration and Cutover</div>
+</div>
+<div style="text-align:right">
+<div class="logo">Adobe</div>
+<div style="font-size:11px;color:var(--spectrum-gray-600);margin-top:4px">Version 1.0 | January 2025</div>
+</div>
+</div>
+
+<div class="section-label">Executive Summary</div>
+<h2>1. Mission and Objective</h2>
+
+<p><strong>Mission Statement:</strong> Migrate the existing Spectrum documentation platform to Knapsack to enable safe decommissioning of the legacy CMS by April 2026.</p>
+
+<p><strong>Core Question Answered:</strong> "Can we replace the existing site?"</p>
+
+<div class="callout critical">
+<div class="callout-title">Guardrail Principle</div>
+<p><strong>If it is not required to turn off the current CMS, it is not MVP1.</strong></p>
+</div>
+
+<div class="three-col">
+<div class="metric-card">
+<div class="metric-value">~90</div>
+<div class="metric-label">Content Items</div>
+</div>
+<div class="metric-card">
+<div class="metric-value">TBD</div>
+<div class="metric-label">Pilot Users</div>
+</div>
+<div class="metric-card">
+<div class="metric-value">Apr 26</div>
+<div class="metric-label">CMS Cutover</div>
+</div>
+</div>
+
+<h2>2. Steering Committee Objective</h2>
+
+<p>The Adobe Spectrum + Knapsack Steering Committee provides executive oversight for the Knapsack MVP program, with initial focus on MVP1 content migration and CMS cutover.</p>
+
+<p><strong>This forum is responsible for:</strong></p>
+<ul>
+<li>Validating MVP1 scope and success criteria</li>
+<li>Reviewing progress against the migration plan and timeline</li>
+<li>Identifying and removing blockers and cross-team dependencies</li>
+<li>Preventing scope creep</li>
+<li>Serving as formal phase-gate review to approve exits between MVP stages</li>
+</ul>
+
+<div class="callout warning">
+<div class="callout-title">Escalation Rule</div>
+<p>Any RAID item marked <strong>High Impact</strong> or <strong>Phase-Blocking</strong> must be reviewed in Steering Committee before delivery proceeds.</p>
+</div>
+
+<div class="footer">
+<span>Adobe Confidential - MVP1 System Charter v1.0</span>
+<span>Page 1 of 6</span>
+</div>
+</div>
+
+<div class="page">
+<div class="header">
+<div>
+<h1>Scope and Boundaries</h1>
+<div class="subtitle">MVP1 vs MVP2 Comparison</div>
+</div>
+<div style="text-align:right">
+<div class="logo">Adobe</div>
+</div>
+</div>
+
+<div class="section-label">Scope Definition</div>
+<h2>3. MVP1 vs MVP2 - Scope Comparison</h2>
+
+<p>The following comparison defines the explicit boundaries between MVP1 (Migration and Cutover) and MVP2 (Enablement and Evolution). Use this reference to validate any scope questions.</p>
+
+<div class="comparison-header">
+<div class="comparison-spacer"></div>
+<div class="comparison-col mvp1"><strong>MVP1</strong><span>Migration and Cutover</span></div>
+<div class="comparison-col mvp2"><strong>MVP2</strong><span>Enablement and Evolution</span></div>
+</div>
+
+<table class="comparison-table">
+<tr><td>Primary Goal</td><td>Switch off the current CMS safely</td><td>Unlock long-term value of Knapsack</td></tr>
+<tr><td>Core Question</td><td>Can we replace the existing site?</td><td>How do teams use, extend, and improve this?</td></tr>
+<tr><td>Content</td><td>Migrate existing content as-is</td><td>Improve, evolve, and expand content</td></tr>
+<tr><td>Content Volume</td><td>~90 existing items (68-69 components + guidelines)</td><td>Net-new content, refactors, consolidations</td></tr>
+<tr><td>Migration Approach</td><td>Scripted ingestion + limited manual fixes</td><td>No bulk migration; incremental authoring</td></tr>
+<tr><td>AI Usage</td><td>Context enrichment only (non-authoritative)</td><td>AI-assisted workflows, automation, insights</td></tr>
+<tr><td>Design Changes</td><td>None</td><td>Possible restructuring, new patterns</td></tr>
+<tr><td>Workflows</td><td>Minimal (admin-only)</td><td>Contribution, review, governance workflows</td></tr>
+<tr><td>Permissions</td><td>Basic (read vs edit)</td><td>Advanced roles, approval models</td></tr>
+<tr><td>Integrations</td><td>Figma + 1 implementation (minimum)</td><td>Expanded integrations (tokens, MCP, tooling)</td></tr>
+<tr><td>Audience</td><td>Admins and internal maintainers</td><td>Broader Adobe teams + partners</td></tr>
+<tr><td>Success Metric</td><td>Legacy CMS can be shut off</td><td>Knapsack becomes the system of record</td></tr>
+<tr><td>Timeline Driver</td><td>April CMS switch-off</td><td>Business priorities and roadmap</td></tr>
+<tr><td>Risk Tolerance</td><td>Very low (must be stable)</td><td>Higher (iterative improvement)</td></tr>
+</table>
+
+<div class="two-col">
+<div class="callout blue">
+<div class="callout-title">MVP1 in One Line</div>
+<p>"Move what we have so we can turn the old thing off."</p>
+</div>
+<div class="callout" style="background:#f3e8ff;border-left:4px solid var(--spectrum-purple-600)">
+<div class="callout-title" style="color:var(--spectrum-purple-600)">MVP2 in One Line</div>
+<p>"Make it better, scalable, and future-ready."</p>
+</div>
+</div>
+
+<div class="footer">
+<span>Adobe Confidential - MVP1 System Charter v1.0</span>
+<span>Page 2 of 6</span>
+</div>
+</div>
+
+<div class="page">
+<div class="header">
+<div>
+<h1>Scope Lock and Success Criteria</h1>
+<div class="subtitle">Boundaries and Definition of Done</div>
+</div>
+<div style="text-align:right">
+<div class="logo">Adobe</div>
+</div>
+</div>
+
+<div class="section-label">Scope Control</div>
+<h2>4. Scope Lock</h2>
+
+<div class="scope-lock">
+<h3>Scope Lock Effective: January 30, 2025 (Governance Gate)</h3>
+<p>Any scope additions after this date require Steering Committee approval and must answer: "Is this required to turn off the current CMS?" If yes, evaluate impact on March 27 Phase Gate. If no, document for MVP2 backlog and do not discuss in MVP1 forums.</p>
+</div>
+
+<h3>In Scope (MVP1)</h3>
+<table>
+<tr><th>Category</th><th>Deliverables</th></tr>
+<tr><td>Content Migration</td><td>68-69 components, guidelines, resources (~90 items total) migrated as-is</td></tr>
+<tr><td>Platform Foundation</td><td>Knapsack instance deployed, Adobe SSO integrated, deployment pipeline operational</td></tr>
+<tr><td>Minimum Integrations</td><td>Figma plugin + 1 implementation (Web Components)</td></tr>
+<tr><td>Permissions</td><td>Basic access model (read vs edit)</td></tr>
+<tr><td>Workflows</td><td>Admin-only content management</td></tr>
+<tr><td>AI Capabilities</td><td>Context enrichment only (non-authoritative, no IPE)</td></tr>
+</table>
+
+<h3>Explicitly Out of Scope (Deferred to MVP2+)</h3>
+<table>
+<tr><th>Category</th><th>Deferred To</th></tr>
+<tr><td>Content improvements, restructuring, or expansion</td><td>MVP2</td></tr>
+<tr><td>Contribution, review, governance workflows</td><td>MVP2</td></tr>
+<tr><td>Advanced roles and approval models</td><td>MVP2</td></tr>
+<tr><td>Expanded integrations (tokens, MCP, additional tooling)</td><td>MVP2</td></tr>
+<tr><td>AI-assisted workflows, automation, insights</td><td>MVP2</td></tr>
+<tr><td>Partner ecosystem enablement</td><td>MVP2/R2</td></tr>
+<tr><td>Mobile platforms (iOS, Android)</td><td>R4 (June 2026+)</td></tr>
+</table>
+
+<h2>5. Success Criteria</h2>
+
+<p><strong>Primary Success Metric:</strong> Legacy CMS can be safely shut off.</p>
+
+<div class="callout success">
+<div class="callout-title">Definition of Done (MVP1 Complete)</div>
+<p>Platform accessible via Adobe SSO. Web Components catalog live with 68+ components. All ~90 content items migrated with rendering parity. Pilot users actively using platform weekly (count per DEC-04). NPS survey completed with score of 30 or higher. No unresolved P1 bugs. Legacy CMS redirect plan approved.</p>
+</div>
+
+<div class="footer">
+<span>Adobe Confidential - MVP1 System Charter v1.0</span>
+<span>Page 3 of 6</span>
+</div>
+</div>
+
+<div class="page">
+<div class="header">
+<div>
+<h1>Timeline and Phase Gates</h1>
+<div class="subtitle">Steering Committee Decision Calendar</div>
+</div>
+<div style="text-align:right">
+<div class="logo">Adobe</div>
+</div>
+</div>
+
+<div class="section-label">Phase Gate Schedule</div>
+<h2>6. Phase-Gate Calendar</h2>
+
+<p>Each Steering Committee meeting maps to one of three governance states: <strong>Checkpoint</strong> (progress review, risks surfaced early), <strong>Phase Gate</strong> (formal approval required to proceed), or <strong>Scope Gate</strong> (MVP boundaries validated or reset).</p>
+
+<table>
+<tr><th>Date</th><th>Gate Type</th><th>RAID Focus</th><th>Approval Outcome</th></tr>
+<tr style="background:#e6f2ff">
+<td><strong>Jan 30</strong></td>
+<td><span class="badge badge-blue">Governance</span></td>
+<td>Assumptions, early risks</td>
+<td>MVP1 scope locked, success criteria confirmed, governance ratified</td>
+</tr>
+<tr>
+<td><strong>Feb 27</strong></td>
+<td><span class="badge badge-orange">Checkpoint</span></td>
+<td>Risks, dependencies</td>
+<td>Migration approach validated, no critical blockers red, cutover plan viable</td>
+</tr>
+<tr style="background:#ffebe6">
+<td><strong>Mar 27</strong></td>
+<td><span class="badge badge-red">Hard Phase Gate</span></td>
+<td>Issues, dependencies, cutover risk</td>
+<td>Approve cutover, begin onboarding, decommission legacy CMS</td>
+</tr>
+<tr style="background:#f3e8ff">
+<td><strong>Apr 24</strong></td>
+<td><span class="badge badge-purple">Scope Gate</span></td>
+<td>New risks, scope creep</td>
+<td>MVP1 formally exited, MVP2 scope approved, new RAID logged separately</td>
+</tr>
+</table>
+
+<div class="callout critical">
+<div class="callout-title">Critical Decision Point - March 27</div>
+<p>The March 27 Hard Phase Gate is the approval point for CMS cutover. Steering Committee must validate: migration complete, pilot feedback positive (NPS 30+), no P1 bugs, and rollback plan documented. Approval authorizes legacy CMS decommissioning.</p>
+</div>
+
+<h2>7. Milestone Dependencies</h2>
+
+<table>
+<tr><th>Milestone</th><th>Target Date</th><th>Gate</th><th>Dependency</th></tr>
+<tr><td>R0 Complete (Foundation)</td><td>January 2026</td><td>Steering Committee</td><td>SARB approval, SSO decision, Procurement complete</td></tr>
+<tr><td>Content Migration Complete</td><td>March 2026</td><td>DS Lead</td><td>Content inventory finalized</td></tr>
+<tr><td>Pilot Validation Complete</td><td>April 2026</td><td>DS Lead</td><td>Pilot users onboarded (per DEC-04)</td></tr>
+<tr><td>Legacy CMS Cutover</td><td>April 2026</td><td>Steering Committee</td><td>Mar 27 Phase Gate approval</td></tr>
+</table>
+
+<div class="footer">
+<span>Adobe Confidential - MVP1 System Charter v1.0</span>
+<span>Page 4 of 6</span>
+</div>
+</div>
+
+<div class="page">
+<div class="header">
+<div>
+<h1>Governance and Accountability</h1>
+<div class="subtitle">RACI and Decision Rights</div>
+</div>
+<div style="text-align:right">
+<div class="logo">Adobe</div>
+</div>
+</div>
+
+<div class="section-label">Accountability Model</div>
+<h2>8. RACI - Phase Gate View</h2>
+
+<table>
+<tr><th>Role</th><th>Person</th><th>RACI</th><th>Accountability</th></tr>
+<tr><td>Steering Committee</td><td>Allison Shaw, Sean Cheris</td><td><span class="badge badge-red">A</span></td><td>Approves phase exits, removes blockers, validates success</td></tr>
+<tr><td>Adobe Spectrum Lead</td><td>Aaron Brownlee</td><td><span class="badge badge-blue">R</span></td><td>MVP1 scope, content readiness, Adobe alignment</td></tr>
+<tr><td>Knapsack Lead</td><td>Chris Bloom</td><td><span class="badge badge-blue">R</span></td><td>Migration execution, technical readiness</td></tr>
+<tr><td>Adoption Lead</td><td>Kaiyu Carlson</td><td><span class="badge badge-blue">R</span></td><td>Onboarding, adoption readiness, pre-mortem outcomes</td></tr>
+<tr><td>Mobile/React Reps</td><td>Josh Johnson, Matthew Deutsch</td><td><span class="badge badge-orange">C</span></td><td>Cross-platform dependency validation</td></tr>
+<tr><td>Adobe Pilot Teams</td><td>TBD</td><td><span class="badge badge-green">I</span></td><td>Delivery awareness, adoption preparation</td></tr>
+</table>
+
+<h2>9. Steering Committee Decision Rights</h2>
+
+<div class="two-col">
+<div>
+<h3>Accountable For</h3>
+<ul>
+<li>Approving or rejecting phase exits</li>
+<li>Re-scoping MVPs when risks exceed tolerance</li>
+<li>Authorizing timeline changes tied to RAID impacts</li>
+<li>Removing cross-team blockers</li>
+<li>Validating success criteria achievement</li>
+</ul>
+</div>
+<div>
+<h3>NOT Responsible For</h3>
+<ul>
+<li>Day-to-day delivery decisions</li>
+<li>Content prioritization within approved scope</li>
+<li>Technical implementation choices</li>
+<li>Individual workstream management</li>
+<li>Vendor relationship management</li>
+</ul>
+</div>
+</div>
+
+<h2>10. Scope Change Protocol</h2>
+
+<table>
+<tr><th>Step</th><th>Action</th><th>Owner</th></tr>
+<tr><td>1</td><td>Proposed addition documented with business justification</td><td>Requestor</td></tr>
+<tr><td>2</td><td>Apply guardrail test: "Is this required to turn off the current CMS?"</td><td>Aaron Brownlee</td></tr>
+<tr><td>3a</td><td>If NO: Document in MVP2 backlog, close discussion</td><td>Aaron Brownlee</td></tr>
+<tr><td>3b</td><td>If YES: Assess impact on March 27 Phase Gate timeline</td><td>Chris Bloom</td></tr>
+<tr><td>4</td><td>Present to Steering Committee with impact analysis</td><td>Aaron Brownlee</td></tr>
+<tr><td>5</td><td>Steering Committee approves, rejects, or defers</td><td>Steering Committee</td></tr>
+</table>
+
+<div class="footer">
+<span>Adobe Confidential - MVP1 System Charter v1.0</span>
+<span>Page 5 of 6</span>
+</div>
+</div>
+
+<div class="page">
+<div class="header">
+<div>
+<h1>RAID Summary</h1>
+<div class="subtitle">Risks, Assumptions, Issues, Dependencies</div>
+</div>
+<div style="text-align:right">
+<div class="logo">Adobe</div>
+</div>
+</div>
+
+<div class="section-label">Project Controls</div>
+<h2>11. Critical Risks (MVP1)</h2>
+
+<table>
+<tr><th>ID</th><th>Risk</th><th>Prob</th><th>Impact</th><th>Mitigation</th><th>Owner</th></tr>
+<tr><td>R-04</td><td>Repo setup/migration strategy unclear</td><td>Med</td><td><span class="badge badge-red">Critical</span></td><td>R0 gate requires ADR approval</td><td>Tech Lead</td></tr>
+<tr><td>R-15</td><td>Security review delayed</td><td>Med</td><td><span class="badge badge-red">Critical</span></td><td>Parallel workstream; escalation path</td><td>Security Team</td></tr>
+<tr><td>R-16</td><td>SARB approval delayed</td><td>Med</td><td><span class="badge badge-red">Critical</span></td><td>Early engagement; exec escalation</td><td>Allison Shaw</td></tr>
+<tr><td>R-17</td><td>Pilot NPS below threshold</td><td>Low</td><td><span class="badge badge-orange">Medium</span></td><td>Early feedback loops; weekly check-ins</td><td>DS Lead</td></tr>
+</table>
+
+<h2>12. Key Assumptions</h2>
+
+<table>
+<tr><th>ID</th><th>Assumption</th><th>Validation Point</th><th>Owner</th></tr>
+<tr><td>AS-01</td><td>Content can be migrated as-is without restructuring</td><td>Content audit (R0)</td><td>Adobe PM</td></tr>
+<tr><td>AS-02</td><td>Pilot users available with 2-4 hrs/week commitment</td><td>DEC-04 resolution</td><td>Aaron Brownlee</td></tr>
+<tr><td>AS-03</td><td>Adobe SSO integration follows standard SAML/OIDC</td><td>Security review (R0)</td><td>Security Team</td></tr>
+<tr><td>AS-04</td><td>FDE resource available for full MVP1 duration</td><td>Contract confirmation</td><td>Knapsack</td></tr>
+</table>
+
+<h2>13. Open Decisions (R0 Blockers)</h2>
+
+<table>
+<tr><th>ID</th><th>Decision</th><th>Options</th><th>Required By</th><th>Owner</th></tr>
+<tr><td>DEC-01</td><td>SSO Protocol</td><td>SAML vs OIDC</td><td>R0 Exit</td><td>Security Team</td></tr>
+<tr><td>DEC-02</td><td>Repository Strategy</td><td>Mono vs Multi</td><td>R0 Exit</td><td>Tech Lead</td></tr>
+<tr><td>DEC-03</td><td>Workspace Architecture</td><td>Single vs Multi</td><td>R0 Exit</td><td>Knapsack</td></tr>
+<tr><td>DEC-04</td><td>Pilot User Count</td><td>TBD by Adobe Team</td><td>R0 Exit</td><td>Aaron Brownlee</td></tr>
+</table>
+
+<h2>14. Critical Dependencies</h2>
+
+<table>
+<tr><th>ID</th><th>Dependency</th><th>Owner</th><th>Required By</th><th>Status</th></tr>
+<tr><td>DEP-01</td><td>SARB approval</td><td>Security Team</td><td>R0 Exit</td><td><span class="badge badge-orange">In Progress</span></td></tr>
+<tr><td>DEP-02</td><td>FDE onboarded and active</td><td>Knapsack</td><td>R0 Start</td><td><span class="badge badge-green">Complete</span></td></tr>
+<tr><td>DEP-03</td><td>Content inventory finalized</td><td>Adobe PM</td><td>R1 Start</td><td><span class="badge badge-orange">In Progress</span></td></tr>
+<tr><td>DEP-04</td><td>Procurement complete</td><td>Allison Shaw</td><td>January 2025</td><td><span class="badge badge-red">Critical</span></td></tr>
+</table>
+
+<div class="callout warning">
+<div class="callout-title">R0 Gate Blockers</div>
+<p><strong>Must resolve before R1 start:</strong> R-04 (Repo strategy), R-10 (Workspace architecture), R-15/R-16 (Security/SARB), DEC-01 (SSO), DEC-02 (Repository ADR), DEC-04 (Pilot user count). <strong>January Critical:</strong> DEP-04 (Procurement complete).</p>
+</div>
+
+<div class="footer">
+<span>Adobe Confidential - MVP1 System Charter v1.0</span>
+<span>Page 6 of 6</span>
+</div>
+</div>
+
+</body>
+</html>
