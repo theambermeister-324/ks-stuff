@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MVP1 vs MVP2 - Scope Comparison</title>
+</head>
+<body>
+  <div style="min-height: 100vh; background-color: #ffffff; padding: 48px 40px; font-family: Adobe Clean, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      
+      <!-- Header -->
+      <div style="margin-bottom: 40px;">
+        <h1 style="font-size: 28px; font-weight: 700; color: #1d1d1d; margin: 0 0 8px 0; letter-spacing: -0.01em;">
+          MVP1 vs MVP2
+        </h1>
+        <p style="font-size: 16px; color: #6e6e6e; margin: 0;">
+          Scope Comparison
+        </p>
+      </div>
+
+      <!-- Column Headers -->
+      <div style="display: grid; grid-template-columns: 200px 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+        <div></div>
+        <div style="background-color: #f5f5f5; border-radius: 8px; padding: 16px 20px; border-left: 4px solid #1473e6;">
+          <div style="font-size: 16px; font-weight: 700; color: #1d1d1d; margin-bottom: 4px;">MVP1</div>
+          <div style="font-size: 13px; color: #6e6e6e;">Migration & Cutover</div>
+        </div>
+        <div style="background-color: #f5f5f5; border-radius: 8px; padding: 16px 20px; border-left: 4px solid #9256d9;">
+          <div style="font-size: 16px; font-weight: 700; color: #1d1d1d; margin-bottom: 4px;">MVP2</div>
+          <div style="font-size: 13px; color: #6e6e6e;">Enablement & Evolution</div>
+        </div>
+      </div>
+
+      <!-- Comparison Table -->
+      <div style="background-color: #fafafa; border-radius: 8px; border: 1px solid #e1e1e1; overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 200px 1fr 1fr; gap: 16px; padding: 14px 20px; border-bottom: 1px solid #e1e1e1; background-color: #ffffff;">
+          <div style="display: flex; align-items: center; font-size: 13px; font-weight: 600; color: #4b4b4b;">Primary Goal</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Switch off the current CMS safely</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Unlock long-term value of Knapsack</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 200px 1fr 1fr; gap: 16px; padding: 14px 20px; border-bottom: 1px solid #e1e1e1; background-color: #fafafa;">
+          <div style="display: flex; align-items: center; font-size: 13px; font-weight: 600; color: #4b4b4b;">Core Question</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">"Can we replace the existing site?"</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">"How do teams use, extend, and improve this?"</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 200px 1fr 1fr; gap: 16px; padding: 14px 20px; border-bottom: 1px solid #e1e1e1; background-color: #ffffff;">
+          <div style="display: flex; align-items: center; font-size: 13px; font-weight: 600; color: #4b4b4b;">Content</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Migrate existing content as-is</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Improve, evolve, and expand content</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 200px 1fr 1fr; gap: 16px; padding: 14px 20px; border-bottom: 1px solid #e1e1e1; background-color: #fafafa;">
+          <div style="display: flex; align-items: center; font-size: 13px; font-weight: 600; color: #4b4b4b;">Content Volume</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">~90 existing items</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Net-new content, refactors, consolidations</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 200px 1fr 1fr; gap: 16px; padding: 14px 20px; border-bottom: 1px solid #e1e1e1; background-color: #ffffff;">
+          <div style="display: flex; align-items: center; font-size: 13px; font-weight: 600; color: #4b4b4b;">Migration Approach</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Scripted ingestion + limited manual fixes</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">No bulk migration; incremental authoring</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 200px 1fr 1fr; gap: 16px; padding: 14px 20px; border-bottom: 1px solid #e1e1e1; background-color: #fafafa;">
+          <div style="display: flex; align-items: center; font-size: 13px; font-weight: 600; color: #4b4b4b;">AI Usage</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Context enrichment only (non-authoritative)</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">AI-assisted workflows, automation, insights</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 200px 1fr 1fr; gap: 16px; padding: 14px 20px; border-bottom: 1px solid #e1e1e1; background-color: #ffffff;">
+          <div style="display: flex; align-items: center; font-size: 13px; font-weight: 600; color: #4b4b4b;">Design Changes</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">None</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Possible restructuring, new patterns</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 200px 1fr 1fr; gap: 16px; padding: 14px 20px; border-bottom: 1px solid #e1e1e1; background-color: #fafafa;">
+          <div style="display: flex; align-items: center; font-size: 13px; font-weight: 600; color: #4b4b4b;">Workflows</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Minimal (admin-only)</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Contribution, review, governance workflows</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 200px 1fr 1fr; gap: 16px; padding: 14px 20px; border-bottom: 1px solid #e1e1e1; background-color: #ffffff;">
+          <div style="display: flex; align-items: center; font-size: 13px; font-weight: 600; color: #4b4b4b;">Permissions</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Basic (read vs edit)</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Advanced roles, approval models</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 200px 1fr 1fr; gap: 16px; padding: 14px 20px; border-bottom: 1px solid #e1e1e1; background-color: #fafafa;">
+          <div style="display: flex; align-items: center; font-size: 13px; font-weight: 600; color: #4b4b4b;">Integrations</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Figma + 1 implementation (minimum)</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Expanded integrations (tokens, MCP, tooling)</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 200px 1fr 1fr; gap: 16px; padding: 14px 20px; border-bottom: 1px solid #e1e1e1; background-color: #ffffff;">
+          <div style="display: flex; align-items: center; font-size: 13px; font-weight: 600; color: #4b4b4b;">Audience</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Admins and internal maintainers</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Broader Adobe teams + partners</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 200px 1fr 1fr; gap: 16px; padding: 14px 20px; border-bottom: 1px solid #e1e1e1; background-color: #fafafa;">
+          <div style="display: flex; align-items: center; font-size: 13px; font-weight: 600; color: #4b4b4b;">Success Metric</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Legacy CMS can be shut off</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Knapsack becomes the system of record</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 200px 1fr 1fr; gap: 16px; padding: 14px 20px; border-bottom: 1px solid #e1e1e1; background-color: #ffffff;">
+          <div style="display: flex; align-items: center; font-size: 13px; font-weight: 600; color: #4b4b4b;">Timeline Driver</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">April CMS switch-off</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Business priorities & roadmap</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 200px 1fr 1fr; gap: 16px; padding: 14px 20px; background-color: #fafafa;">
+          <div style="display: flex; align-items: center; font-size: 13px; font-weight: 600; color: #4b4b4b;">Risk Tolerance</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Very low (must be stable)</div>
+          <div style="display: flex; align-items: center; font-size: 14px; color: #1d1d1d; line-height: 1.5;">Higher (iterative improvement)</div>
+        </div>
+      </div>
+
+      <!-- One-Line Framing -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px;">
+        <div style="background-color: #ffffff; border-radius: 8px; border: 1px solid #e1e1e1; padding: 20px 24px; border-top: 3px solid #1473e6;">
+          <div style="font-size: 11px; font-weight: 700; color: #1473e6; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">MVP1 in one line</div>
+          <p style="font-size: 15px; color: #1d1d1d; margin: 0; font-weight: 500; line-height: 1.5;">"Move what we have so we can turn the old thing off."</p>
+        </div>
+        <div style="background-color: #ffffff; border-radius: 8px; border: 1px solid #e1e1e1; padding: 20px 24px; border-top: 3px solid #9256d9;">
+          <div style="font-size: 11px; font-weight: 700; color: #9256d9; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">MVP2 in one line</div>
+          <p style="font-size: 15px; color: #1d1d1d; margin: 0; font-weight: 500; line-height: 1.5;">"Make it better, scalable, and future-ready."</p>
+        </div>
+      </div>
+
+      <!-- Guardrail -->
+      <div style="margin-top: 32px; background-color: #fff8e6; border-radius: 8px; border: 1px solid #f7c600; padding: 20px 24px; display: flex; align-items: flex-start; gap: 16px;">
+        <div style="width: 24px; height: 24px; background-color: #f7c600; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="font-size: 14px; font-weight: 700; color: #1d1d1d;">!</span>
+        </div>
+        <div>
+          <div style="font-size: 11px; font-weight: 700; color: #7e6000; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">Anti–Scope-Creep Guardrail</div>
+          <p style="font-size: 15px; color: #1d1d1d; margin: 0; font-weight: 600;">If it is not required to turn off the current CMS, it is not MVP1.</p>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #e1e1e1;">
+        <p style="font-size: 14px; color: #6e6e6e; margin: 0; font-style: italic;">
+          MVP1 creates the foundation. MVP2 creates the value. Trying to do both at once delays both.
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

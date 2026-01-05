@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPE GTM Headcount Study</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    [data-tab] { display: none; }
+    [data-tab].active { display: block; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50">
+  <div id="app"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // State management
+      let state = {
+        activeTab: 'summary',
+        utilization: 75,
+        scenario: 'base',
+        staffingModel: 'hybrid',
+        pricingTier: 'standard'
+      };
+
+      const WEEKS_PER_YEAR = 48;
+      const HOURS_PER_WEEK = 40;
+      const HOURS_PER_YEAR = WEEKS_PER_YEAR * HOURS_PER_WEEK;
+
+      // SVG Icons
+      const icons = {
+        users: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+        dollarSign: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+        trendingUp: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>',
+        calculator: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>',
+        target: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+        alertTriangle: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+        checkCircle: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+        clock: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+        briefcase: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
+        barChart: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>',
+        gitBranch: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>',
+        layers: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
+        userCheck: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>',
+        calendar: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+        code: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+        messageSquare: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+        zap: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+        user: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'
+      };
+
+      // Data structures
+      const rateCard = {
+        cxp: { title: 'CX Partner', person: 'Amber', cost: 120, partner: 300, standard: 450, list: 600 },
+        fde: { title: 'Senior Solution Analyst', person: 'Jake', cost: 110, partner: 275, standard: 425, list: 550 },
+        analyst: { title: 'Solution Analyst', person: 'Britt', cost: 80, partner: 200, standard: 300, list: 400 },
+        pm: { title: 'Project Manager', person: 'Nina', cost: 80, partner: 200, standard: 300, list: 400 },
+        sme: { title: 'SME', person: 'Bloom', cost: 150, partner: 375, standard: 550, list: 750 },
+        executive: { title: 'Executive', person: 'Andrew', cost: 165, partner: 412.50, standard: 650, list: 825 },
+      };
+
+      const pricingTiers = {
+        cost: { label: 'Cost', desc: 'Internal cost rate', discount: '~20% of list' },
+        partner: { label: 'Partner', desc: 'SI/Volume discount', discount: '50% of list' },
+        standard: { label: 'Standard', desc: 'Typical negotiated', discount: '~75% of list' },
+        list: { label: 'List', desc: 'Full enterprise rate', discount: '100%' },
+      };
+
+      const roleCosts = {
+        fde: { title: 'Forward-Deployed Engineer', salary: 185000, fullyLoaded: 240000 },
+        sme: { title: 'Subject Matter Expert', salary: 160000, fullyLoaded: 210000 },
+        cxp: { title: 'CX Partner', salary: 125000, fullyLoaded: 165000 },
+        pm: { title: 'Project Manager', salary: 140000, fullyLoaded: 185000 },
+        csm: { title: 'Customer Success Manager', salary: 115000, fullyLoaded: 150000 },
+        ae: { title: 'Account Executive', salary: 150000, fullyLoaded: 275000 },
+        bdr: { title: 'Business Development Rep', salary: 75000, fullyLoaded: 115000 },
+      };
+
+      const journeyDefs = {
+        j1: { name: 'J1: Progressive Maturation', path: 'A → B → F → H', arrShare: 10, risk: 'low', color: 'slate', desc: 'Non-ICP or low readiness. Maintain relationship while they mature.', expansionAllowed: false },
+        j2: { name: 'J2: Independent Maturation', path: 'A → D → H', arrShare: 5, risk: 'low', color: 'blue', desc: 'Mature orgs with sudden trigger. Fast activation required.', expansionAllowed: true },
+        j3: { name: 'J3: Services Transformation', path: 'E → F/G → H', arrShare: 60, risk: 'high', color: 'emerald', desc: 'High-value ICP accounts blocked on activation + trust. Primary investment focus.', expansionAllowed: false },
+        j4: { name: 'J4: Timing Play', path: 'D → H', arrShare: 25, risk: 'medium', color: 'violet', desc: 'Mature systems with latent interest. Expansion-ready when trigger fires.', expansionAllowed: true },
+      };
+
+      const scenarios = {
+        conservative: { label: 'Conservative ($3M)', targetRev: 3, newLogoWins: 2, winRate: 0.25, j1_assessment: 4, j2_sprint: 1, j3_foundation: 2, j3_scale: 1, j4_mcp: 3, existingAccounts: 12 },
+        base: { label: 'Base Case ($5M)', targetRev: 5, newLogoWins: 3, winRate: 0.30, j1_assessment: 5, j2_sprint: 1, j3_foundation: 3, j3_scale: 2, j4_mcp: 5, existingAccounts: 12 },
+        aggressive: { label: 'Aggressive ($8M)', targetRev: 8, newLogoWins: 5, winRate: 0.35, j1_assessment: 6, j2_sprint: 2, j3_foundation: 4, j3_scale: 3, j4_mcp: 8, existingAccounts: 12 },
+      };
+
+      const staffingModels = {
+        fte: { label: 'Full-Time Employees', costMultiplier: 1, rampTime: 3, quality: 'highest', control: 'full', risk: 'low' },
+        hybrid: { label: 'Hybrid (FTE + Contract)', costMultiplier: 0.85, rampTime: 1.5, quality: 'high', control: 'high', risk: 'medium' },
+        contractor: { label: 'Contractor-Heavy', costMultiplier: 0.7, rampTime: 0.5, quality: 'variable', control: 'limited', risk: 'high' },
+      };
+
+      const currentState = { fde: 2, sme: 0, cxp: 1, pm: 1, csm: 2, ae: 2, bdr: 1 };
+
+      const tabs = [
+        { id: 'summary', label: 'Executive Summary', icon: 'barChart' },
+        { id: 'pricing', label: 'Rate Card & Pricing', icon: 'dollarSign' },
+        { id: 'journeys', label: 'Journey Capacity', icon: 'gitBranch' },
+        { id: 'engagements', label: 'Engagement Model', icon: 'layers' },
+        { id: 'roles', label: 'Hiring Profiles', icon: 'userCheck' },
+        { id: 'timeline', label: 'Hiring Timeline', icon: 'calendar' },
+      ];
+
+      const hiringProfiles = [
+        { role: 'fde', icon: 'code', desc: 'Owns technical implementation, architecture decisions, and code quality. Primary delivery resource for J2/J3 engagements.', requirements: ['7+ years full-stack development', 'Design system architecture experience', 'Enterprise integration skills', 'Client-facing delivery experience'], metrics: ['Implementation quality > 95%', 'On-time delivery > 90%', 'CSAT > 4.5/5'] },
+        { role: 'sme', icon: 'layers', desc: 'Design system and product methodology expert. Leads governance frameworks and change management.', requirements: ['10+ years design/product systems', 'Enterprise consulting background', 'Governance framework expertise', 'Executive stakeholder management'], metrics: ['Framework adoption > 80%', 'Stakeholder alignment score', 'Knowledge transfer effectiveness'] },
+        { role: 'cxp', icon: 'messageSquare', desc: 'Owns customer relationship, success planning, and expansion conversations within active engagements.', requirements: ['5+ years customer success', 'Enterprise software experience', 'Strong executive presence', 'Proven expansion track record'], metrics: ['NPS > 50', 'Health score maintenance', 'Expansion pipeline generated'] },
+        { role: 'pm', icon: 'briefcase', desc: 'Owns governance, RAID log, and steering committee. Ensures phase-gate execution.', requirements: ['5+ years technical PM', 'Enterprise implementation experience', 'PMP or equivalent preferred', 'Phase-gate delivery expertise'], metrics: ['On-time phase completion > 85%', 'Scope variance < 10%', 'Stakeholder satisfaction > 4/5'] },
+      ];
+
+      // Helper functions
+      const getRate = (role) => rateCard[role]?.[state.pricingTier] || 0;
+
+      const calcServicesRev = (fdeHrs, smeHrs, cxpHrs, pmHrs) => {
+        return (fdeHrs * getRate('fde')) + (smeHrs * getRate('sme')) + 
+               (cxpHrs * getRate('cxp')) + (pmHrs * getRate('pm'));
+      };
+
+      const getEngagementTemplates = () => {
+        const templates = {
+          j1_assessment: { name: 'Product System Readiness Assessment', journey: 'j1', description: 'Validation Workshop + Vision Definition + Strategic Recommendations', weeks: 4, fdeHrs: 40, smeHrs: 16, cxpHrs: 24, pmHrs: 16, platformARR: 25000 },
+          j2_sprint: { name: 'IPE Activation Sprint', journey: 'j2', description: 'Trigger-based fast activation for ready accounts', weeks: 6, fdeHrs: 160, smeHrs: 40, cxpHrs: 48, pmHrs: 60, platformARR: 150000 },
+          j3_foundation: { name: 'J3 Foundation Phase', journey: 'j3', description: 'Implementation + Onboarding (Weeks 1-20)', weeks: 20, fdeHrs: 560, smeHrs: 160, cxpHrs: 80, pmHrs: 400, platformARR: 100000 },
+          j3_scale: { name: 'J3 Scale Phase', journey: 'j3', description: 'Scaled Rollout + Optimization (Weeks 21-40)', weeks: 20, fdeHrs: 1200, smeHrs: 256, cxpHrs: 176, pmHrs: 200, platformARR: 50000 },
+          j3_full: { name: 'J3 Full Transformation', journey: 'j3', description: 'Foundation + Scale (40 weeks total)', weeks: 40, fdeHrs: 1760, smeHrs: 416, cxpHrs: 256, pmHrs: 600, platformARR: 150000 },
+          j4_mcp: { name: 'MCP Expansion', journey: 'j4', description: 'Existing customer MCP activation + expansion', weeks: 12, fdeHrs: 120, smeHrs: 60, cxpHrs: 60, pmHrs: 80, platformARR: 30000 },
+        };
+        // Calculate servicesRev for each template
+        Object.values(templates).forEach(t => {
+          t.servicesRev = calcServicesRev(t.fdeHrs, t.smeHrs, t.cxpHrs, t.pmHrs);
+        });
+        return templates;
+      };
+
+      const formatNumber = (n) => n?.toLocaleString() || '0';
+      const formatCurrency = (n) => '$' + (n?.toLocaleString() || '0');
+      const formatCurrencyK = (n) => n >= 1000000 ? `$${(n/1000000).toFixed(2)}M` : n >= 1000 ? `$${Math.round(n/1000)}K` : `$${n}`;
+
+      const calculateCapacity = () => {
+        const activeScenario = scenarios[state.scenario];
+        const effectiveHours = HOURS_PER_YEAR * (state.utilization / 100);
+        const engagementTemplates = getEngagementTemplates();
+        
+        const j1Hours = {
+          fde: activeScenario.j1_assessment * engagementTemplates.j1_assessment.fdeHrs,
+          sme: activeScenario.j1_assessment * engagementTemplates.j1_assessment.smeHrs,
+          cxp: activeScenario.j1_assessment * engagementTemplates.j1_assessment.cxpHrs,
+          pm: activeScenario.j1_assessment * engagementTemplates.j1_assessment.pmHrs,
+        };
+        const j2Hours = {
+          fde: activeScenario.j2_sprint * engagementTemplates.j2_sprint.fdeHrs,
+          sme: activeScenario.j2_sprint * engagementTemplates.j2_sprint.smeHrs,
+          cxp: activeScenario.j2_sprint * engagementTemplates.j2_sprint.cxpHrs,
+          pm: activeScenario.j2_sprint * engagementTemplates.j2_sprint.pmHrs,
+        };
+        const j3Hours = {
+          fde: (activeScenario.j3_foundation * engagementTemplates.j3_foundation.fdeHrs) + (activeScenario.j3_scale * engagementTemplates.j3_scale.fdeHrs),
+          sme: (activeScenario.j3_foundation * engagementTemplates.j3_foundation.smeHrs) + (activeScenario.j3_scale * engagementTemplates.j3_scale.smeHrs),
+          cxp: (activeScenario.j3_foundation * engagementTemplates.j3_foundation.cxpHrs) + (activeScenario.j3_scale * engagementTemplates.j3_scale.cxpHrs),
+          pm: (activeScenario.j3_foundation * engagementTemplates.j3_foundation.pmHrs) + (activeScenario.j3_scale * engagementTemplates.j3_scale.pmHrs),
+        };
+        const j4Hours = {
+          fde: activeScenario.j4_mcp * engagementTemplates.j4_mcp.fdeHrs,
+          sme: activeScenario.j4_mcp * engagementTemplates.j4_mcp.smeHrs,
+          cxp: activeScenario.j4_mcp * engagementTemplates.j4_mcp.cxpHrs,
+          pm: activeScenario.j4_mcp * engagementTemplates.j4_mcp.pmHrs,
+        };
+
+        const totalHours = {
+          fde: j1Hours.fde + j2Hours.fde + j3Hours.fde + j4Hours.fde,
+          sme: j1Hours.sme + j2Hours.sme + j3Hours.sme + j4Hours.sme,
+          cxp: j1Hours.cxp + j2Hours.cxp + j3Hours.cxp + j4Hours.cxp,
+          pm: j1Hours.pm + j2Hours.pm + j3Hours.pm + j4Hours.pm,
+        };
+
+        const platformRevenue = (
+          (activeScenario.j1_assessment * engagementTemplates.j1_assessment.platformARR) +
+          (activeScenario.j2_sprint * engagementTemplates.j2_sprint.platformARR) +
+          (activeScenario.j3_foundation * engagementTemplates.j3_foundation.platformARR) +
+          (activeScenario.j3_scale * engagementTemplates.j3_scale.platformARR) +
+          (activeScenario.j4_mcp * engagementTemplates.j4_mcp.platformARR)
+        );
+        const servicesRevenue = (
+          (activeScenario.j1_assessment * engagementTemplates.j1_assessment.servicesRev) +
+          (activeScenario.j2_sprint * engagementTemplates.j2_sprint.servicesRev) +
+          (activeScenario.j3_foundation * engagementTemplates.j3_foundation.servicesRev) +
+          (activeScenario.j3_scale * engagementTemplates.j3_scale.servicesRev) +
+          (activeScenario.j4_mcp * engagementTemplates.j4_mcp.servicesRev)
+        );
+
+        const totalEngagements = activeScenario.j1_assessment + activeScenario.j2_sprint + 
+          activeScenario.j3_foundation + activeScenario.j3_scale + activeScenario.j4_mcp;
+        const totalAccounts = totalEngagements + activeScenario.existingAccounts;
+
+        const fdeNeeded = Math.ceil(totalHours.fde / effectiveHours);
+        const smeNeeded = Math.ceil(totalHours.sme / effectiveHours);
+        const cxpNeeded = Math.ceil(totalHours.cxp / effectiveHours);
+        const pmNeeded = Math.ceil(totalHours.pm / effectiveHours);
+        const csmNeeded = Math.ceil(totalAccounts / 12);
+        const aeNeeded = Math.ceil((activeScenario.newLogoWins / activeScenario.winRate) / 6);
+        const bdrNeeded = Math.ceil(80 / 20);
+
+        return {
+          j1Hours, j2Hours, j3Hours, j4Hours, totalHours,
+          platformRevenue, servicesRevenue,
+          fdeNeeded, smeNeeded, cxpNeeded, pmNeeded, csmNeeded, aeNeeded, bdrNeeded,
+          totalAccounts, totalEngagements, effectiveHours
+        };
+      };
+
+      const calculateCosts = (capacity) => {
+        const activeStaffingModel = staffingModels[state.staffingModel];
+        const costMult = activeStaffingModel.costMultiplier;
+        const servicesTeamCost = (
+          (capacity.fdeNeeded * roleCosts.fde.fullyLoaded) +
+          (capacity.smeNeeded * roleCosts.sme.fullyLoaded) +
+          (capacity.cxpNeeded * roleCosts.cxp.fullyLoaded) +
+          (capacity.pmNeeded * roleCosts.pm.fullyLoaded)
+        ) * costMult;
+        const gtmTeamCost = (capacity.csmNeeded * roleCosts.csm.fullyLoaded) + 
+          (capacity.aeNeeded * roleCosts.ae.fullyLoaded) + 
+          (capacity.bdrNeeded * roleCosts.bdr.fullyLoaded);
+        const totalHCCost = servicesTeamCost + gtmTeamCost;
+        const totalHeadcount = capacity.fdeNeeded + capacity.smeNeeded + capacity.cxpNeeded + 
+          capacity.pmNeeded + capacity.csmNeeded + capacity.aeNeeded + capacity.bdrNeeded;
+        const revenuePerHead = (capacity.platformRevenue + capacity.servicesRevenue) / totalHeadcount;
+        const servicesMargin = (capacity.servicesRevenue - servicesTeamCost) / capacity.servicesRevenue;
+        return { servicesTeamCost, gtmTeamCost, totalHCCost, totalHeadcount, revenuePerHead, servicesMargin };
+      };
+
+      // Render functions
+      const renderIcon = (iconName, size = 16, className = '') => {
+        const icon = icons[iconName] || '';
+        return `<span class="inline-block ${className}" style="width: ${size}px; height: ${size}px;">${icon}</span>`;
+      };
+
+      const render = () => {
+        const capacity = calculateCapacity();
+        const costs = calculateCosts(capacity);
+        const activeScenario = scenarios[state.scenario];
+        const engagementTemplates = getEngagementTemplates();
+        
+        const gaps = {
+          fde: capacity.fdeNeeded - currentState.fde,
+          sme: capacity.smeNeeded - currentState.sme,
+          cxp: capacity.cxpNeeded - currentState.cxp,
+          pm: capacity.pmNeeded - currentState.pm,
+          csm: capacity.csmNeeded - currentState.csm,
+          ae: capacity.aeNeeded - currentState.ae,
+          bdr: capacity.bdrNeeded - currentState.bdr,
+        };
+        const totalNewHires = Object.values(gaps).reduce((sum, g) => sum + Math.max(0, g), 0);
+
+        const journeyDistribution = [
+          { journey: 'J1', hours: capacity.j1Hours.fde + capacity.j1Hours.sme + capacity.j1Hours.cxp + capacity.j1Hours.pm, color: 'slate', engagements: activeScenario.j1_assessment, revenue: activeScenario.j1_assessment * engagementTemplates.j1_assessment.servicesRev },
+          { journey: 'J2', hours: capacity.j2Hours.fde + capacity.j2Hours.sme + capacity.j2Hours.cxp + capacity.j2Hours.pm, color: 'blue', engagements: activeScenario.j2_sprint, revenue: activeScenario.j2_sprint * engagementTemplates.j2_sprint.servicesRev },
+          { journey: 'J3', hours: capacity.j3Hours.fde + capacity.j3Hours.sme + capacity.j3Hours.cxp + capacity.j3Hours.pm, color: 'emerald', engagements: activeScenario.j3_foundation + activeScenario.j3_scale, revenue: (activeScenario.j3_foundation * engagementTemplates.j3_foundation.servicesRev) + (activeScenario.j3_scale * engagementTemplates.j3_scale.servicesRev) },
+          { journey: 'J4', hours: capacity.j4Hours.fde + capacity.j4Hours.sme + capacity.j4Hours.cxp + capacity.j4Hours.pm, color: 'violet', engagements: activeScenario.j4_mcp, revenue: activeScenario.j4_mcp * engagementTemplates.j4_mcp.servicesRev },
+        ];
+
+        const app = document.getElementById('app');
+        app.innerHTML = `
+          <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-900 text-white px-6 py-4">
+            <div class="max-w-7xl mx-auto">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="flex items-center gap-2">
+                    ${renderIcon('users', 24, 'text-emerald-400')}
+                    <h1 class="text-xl font-bold">IPE GTM Headcount Study</h1>
+                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 text-xs font-semibold rounded ml-2">v3.2 - Multi-Tier Pricing</span>
+                  </div>
+                  <p class="text-slate-400 text-sm mt-1">${WEEKS_PER_YEAR}-Week Year · ${pricingTiers[state.pricingTier].label} Rates · ${activeScenario.label}</p>
+                </div>
+                <span class="px-3 py-1 bg-rose-500/20 text-rose-300 text-xs font-semibold rounded">INTERNAL ONLY</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border-b sticky top-0 z-10">
+            <div class="max-w-7xl mx-auto px-6 py-3">
+              <div class="flex items-center justify-between flex-wrap gap-3">
+                <div class="flex gap-1 overflow-x-auto">
+                  ${tabs.map(t => `
+                    <button onclick="window.setActiveTab('${t.id}')" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${state.activeTab === t.id ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'}">
+                      ${renderIcon(t.icon, 16)}${t.label}
+                    </button>
+                  `).join('')}
+                </div>
+                <div class="flex items-center gap-3 flex-wrap">
+                  <select onchange="window.setPricingTier(this.value)" class="border rounded-lg px-3 py-2 text-sm bg-emerald-50 border-emerald-200 text-emerald-800 font-medium">
+                    ${Object.entries(pricingTiers).map(([k,v]) => `<option value="${k}" ${state.pricingTier === k ? 'selected' : ''}>${v.label} (${v.discount})</option>`).join('')}
+                  </select>
+                  <select onchange="window.setScenario(this.value)" class="border rounded-lg px-3 py-2 text-sm">
+                    ${Object.entries(scenarios).map(([k,v]) => `<option value="${k}" ${state.scenario === k ? 'selected' : ''}>${v.label}</option>`).join('')}
+                  </select>
+                  <select onchange="window.setStaffingModel(this.value)" class="border rounded-lg px-3 py-2 text-sm">
+                    ${Object.entries(staffingModels).map(([k,v]) => `<option value="${k}" ${state.staffingModel === k ? 'selected' : ''}>${v.label}</option>`).join('')}
+                  </select>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs text-slate-500">Util:</span>
+                    <input type="range" min="60" max="85" value="${state.utilization}" oninput="window.setUtilization(this.value)" class="w-14" />
+                    <span class="text-sm font-semibold w-8">${state.utilization}%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <main class="max-w-7xl mx-auto px-6 py-6">
+            <div class="rounded-xl p-4 mb-6 flex items-center justify-between ${state.pricingTier === 'list' ? 'bg-emerald-100 border border-emerald-300' : state.pricingTier === 'standard' ? 'bg-blue-50 border border-blue-200' : state.pricingTier === 'partner' ? 'bg-amber-50 border border-amber-200' : 'bg-slate-100 border border-slate-300'}">
+              <div class="flex items-center gap-3">
+                ${renderIcon('dollarSign', 20, state.pricingTier === 'list' ? 'text-emerald-600' : state.pricingTier === 'standard' ? 'text-blue-600' : state.pricingTier === 'partner' ? 'text-amber-600' : 'text-slate-600')}
+                <div>
+                  <p class="font-semibold">${pricingTiers[state.pricingTier].label} Pricing Tier</p>
+                  <p class="text-sm text-slate-600">${pricingTiers[state.pricingTier].desc} — ${pricingTiers[state.pricingTier].discount}</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="text-2xl font-bold">${formatCurrencyK(capacity.servicesRevenue)}</p>
+                <p class="text-xs text-slate-500">Services Revenue</p>
+              </div>
+            </div>
+
+            ${renderTabContent(state.activeTab, capacity, costs, gaps, totalNewHires, journeyDistribution, activeScenario, engagementTemplates)}
+          </main>
+
+          <footer class="border-t bg-white mt-8">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between text-sm text-slate-500">
+              <span>Knapsack · IPE GTM Headcount Study v3.2 · ${pricingTiers[state.pricingTier].label} Pricing</span>
+              <span>${activeScenario.label} · ${WEEKS_PER_YEAR}-Week Year · ${state.utilization}% Util</span>
+            </div>
+          </footer>
+        `;
+      };
+
+      const renderTabContent = (tab, capacity, costs, gaps, totalNewHires, journeyDistribution, activeScenario, engagementTemplates) => {
+        if (tab === 'summary') {
+          return `
+            <div class="grid grid-cols-4 gap-4 mb-6">
+              <div class="bg-white rounded-xl border p-5">
+                <p class="text-sm text-slate-500 mb-1">Total Headcount</p>
+                <p class="text-3xl font-bold text-slate-900">${costs.totalHeadcount}</p>
+                <p class="text-sm text-emerald-600 mt-1">+${totalNewHires} new hires</p>
+              </div>
+              <div class="bg-white rounded-xl border p-5">
+                <p class="text-sm text-slate-500 mb-1">Total Revenue</p>
+                <p class="text-3xl font-bold text-slate-900">${formatCurrencyK(capacity.platformRevenue + capacity.servicesRevenue)}</p>
+                <p class="text-sm text-slate-500 mt-1">Platform + Services</p>
+              </div>
+              <div class="bg-white rounded-xl border p-5">
+                <p class="text-sm text-slate-500 mb-1">Services Margin</p>
+                <p class="text-3xl font-bold ${costs.servicesMargin > 0.4 ? 'text-emerald-600' : costs.servicesMargin > 0.2 ? 'text-amber-600' : 'text-rose-600'}">${(costs.servicesMargin * 100).toFixed(0)}%</p>
+                <p class="text-sm text-slate-500 mt-1">@ ${pricingTiers[state.pricingTier].label} rates</p>
+              </div>
+              <div class="bg-white rounded-xl border p-5">
+                <p class="text-sm text-slate-500 mb-1">Rev per Head</p>
+                <p class="text-3xl font-bold text-slate-900">${formatCurrencyK(Math.round(costs.revenuePerHead))}</p>
+                <p class="text-sm text-slate-500 mt-1">Efficiency</p>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl border p-6 mb-6">
+              <h3 class="font-semibold mb-4">Services Revenue by Journey @ ${pricingTiers[state.pricingTier].label} Rates</h3>
+              <div class="space-y-3">
+                ${journeyDistribution.map(j => `
+                  <div class="flex items-center gap-4">
+                    <span class="w-8 h-8 rounded-lg bg-${j.color}-100 text-${j.color}-700 flex items-center justify-center font-bold text-sm">${j.journey}</span>
+                    <div class="flex-1">
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="text-sm font-medium">${journeyDefs[j.journey.toLowerCase()].name}</span>
+                        <span class="text-sm font-semibold">${formatCurrencyK(j.revenue)}</span>
+                      </div>
+                      <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
+                        <div class="h-full bg-${j.color}-500 rounded-full" style="width: ${(j.revenue / capacity.servicesRevenue) * 100}%"></div>
+                      </div>
+                    </div>
+                    <span class="text-sm text-slate-500 w-20 text-right">${j.engagements} eng.</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6">
+              <div class="bg-white rounded-xl border p-6">
+                <h3 class="font-semibold mb-4 flex items-center gap-2">${renderIcon('zap', 18, 'text-emerald-500')}Services Team</h3>
+                <div class="space-y-3">
+                  ${[
+                    { role: 'FDE', key: 'fde', current: currentState.fde, need: capacity.fdeNeeded, gap: gaps.fde },
+                    { role: 'SME', key: 'sme', current: currentState.sme, need: capacity.smeNeeded, gap: gaps.sme },
+                    { role: 'CXP', key: 'cxp', current: currentState.cxp, need: capacity.cxpNeeded, gap: gaps.cxp },
+                    { role: 'PM', key: 'pm', current: currentState.pm, need: capacity.pmNeeded, gap: gaps.pm },
+                  ].map(r => `
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                      <div class="flex items-center gap-3">
+                        <span class="font-medium">${r.role}</span>
+                        <span class="text-xs text-emerald-600">$${getRate(r.key)}/hr</span>
+                      </div>
+                      <div class="flex items-center gap-3">
+                        <span class="text-sm text-slate-500">${r.current} → ${r.need}</span>
+                        <span class="px-2 py-0.5 rounded text-xs font-semibold ${r.gap > 0 ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'}">
+                          ${r.gap > 0 ? `+${r.gap}` : r.gap}
+                        </span>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+              <div class="bg-white rounded-xl border p-6">
+                <h3 class="font-semibold mb-4 flex items-center gap-2">${renderIcon('trendingUp', 18, 'text-blue-500')}GTM Team</h3>
+                <div class="space-y-3">
+                  ${[
+                    { role: 'CSM', current: currentState.csm, need: capacity.csmNeeded, gap: gaps.csm },
+                    { role: 'AE', current: currentState.ae, need: capacity.aeNeeded, gap: gaps.ae },
+                    { role: 'BDR', current: currentState.bdr, need: capacity.bdrNeeded, gap: gaps.bdr },
+                  ].map(r => `
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                      <span class="font-medium">${r.role}</span>
+                      <div class="flex items-center gap-3">
+                        <span class="text-sm text-slate-500">${r.current} → ${r.need}</span>
+                        <span class="px-2 py-0.5 rounded text-xs font-semibold ${r.gap > 0 ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'}">
+                          ${r.gap > 0 ? `+${r.gap}` : r.gap}
+                        </span>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        if (tab === 'pricing') {
+          return `
+            <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-xl p-6 text-white mb-6">
+              <h2 class="text-xl font-bold mb-2">Knapsack Rate Card</h2>
+              <p class="text-emerald-100">Four pricing tiers for different customer segments and deal structures.</p>
+            </div>
+
+            <div class="bg-white rounded-xl border overflow-hidden mb-6">
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead class="bg-slate-900 text-white">
+                    <tr>
+                      <th class="text-left px-4 py-3">Role</th>
+                      <th class="text-left px-4 py-3">Person</th>
+                      <th class="text-right px-4 py-3 ${state.pricingTier === 'cost' ? 'bg-emerald-700' : ''}">Cost</th>
+                      <th class="text-right px-4 py-3 ${state.pricingTier === 'partner' ? 'bg-emerald-700' : ''}">Partner</th>
+                      <th class="text-right px-4 py-3 ${state.pricingTier === 'standard' ? 'bg-emerald-700' : ''}">Standard</th>
+                      <th class="text-right px-4 py-3 ${state.pricingTier === 'list' ? 'bg-emerald-700' : ''}">List</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y">
+                    ${Object.entries(rateCard).map(([key, r]) => `
+                      <tr class="hover:bg-slate-50">
+                        <td class="px-4 py-3 font-medium">${r.title}</td>
+                        <td class="px-4 py-3">
+                          <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center">
+                              ${renderIcon('user', 14, 'text-slate-500')}
+                            </div>
+                            <span class="text-slate-600">${r.person}</span>
+                          </div>
+                        </td>
+                        <td class="text-right px-4 py-3 ${state.pricingTier === 'cost' ? 'bg-emerald-50 font-bold text-emerald-700' : 'text-slate-500'}">$${r.cost}</td>
+                        <td class="text-right px-4 py-3 ${state.pricingTier === 'partner' ? 'bg-emerald-50 font-bold text-emerald-700' : 'text-slate-500'}">$${r.partner}</td>
+                        <td class="text-right px-4 py-3 ${state.pricingTier === 'standard' ? 'bg-emerald-50 font-bold text-emerald-700' : 'text-slate-500'}">$${r.standard}</td>
+                        <td class="text-right px-4 py-3 ${state.pricingTier === 'list' ? 'bg-emerald-50 font-bold text-emerald-700' : 'text-slate-500'}">$${r.list}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-4 gap-4 mb-6">
+              ${Object.entries(pricingTiers).map(([key, tier]) => {
+                const tierCalc = (fdeHrs, smeHrs, cxpHrs, pmHrs) => {
+                  return (fdeHrs * rateCard.fde[key]) + (smeHrs * rateCard.sme[key]) + 
+                         (cxpHrs * rateCard.cxp[key]) + (pmHrs * rateCard.pm[key]);
+                };
+                const thisRevenue = (
+                  (activeScenario.j1_assessment * tierCalc(40, 16, 24, 16)) +
+                  (activeScenario.j2_sprint * tierCalc(160, 40, 48, 60)) +
+                  (activeScenario.j3_foundation * tierCalc(560, 160, 80, 400)) +
+                  (activeScenario.j3_scale * tierCalc(1200, 256, 176, 200)) +
+                  (activeScenario.j4_mcp * tierCalc(120, 60, 60, 80))
+                );
+                const isActive = state.pricingTier === key;
+                return `
+                  <div onclick="window.setPricingTier('${key}')" class="rounded-xl p-5 cursor-pointer transition-all ${isActive ? 'bg-emerald-100 border-2 border-emerald-500 ring-2 ring-emerald-200' : 'bg-white border hover:border-emerald-300'}">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="font-semibold ${isActive ? 'text-emerald-800' : ''}">${tier.label}</span>
+                      ${isActive ? renderIcon('checkCircle', 18, 'text-emerald-600') : ''}
+                    </div>
+                    <p class="text-2xl font-bold mb-1">${formatCurrencyK(thisRevenue)}</p>
+                    <p class="text-xs text-slate-500">${tier.desc}</p>
+                    <p class="text-xs text-slate-400 mt-1">${tier.discount}</p>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            <div class="bg-white rounded-xl border overflow-hidden">
+              <div class="bg-slate-900 text-white px-6 py-4">
+                <h3 class="font-semibold">Journey Pricing @ ${pricingTiers[state.pricingTier].label} Rates</h3>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead class="bg-slate-50">
+                    <tr>
+                      <th class="text-left px-4 py-3">Engagement</th>
+                      <th class="text-center px-4 py-3">Weeks</th>
+                      <th class="text-right px-4 py-3">FDE @ $${getRate('fde')}</th>
+                      <th class="text-right px-4 py-3">SME @ $${getRate('sme')}</th>
+                      <th class="text-right px-4 py-3">CXP @ $${getRate('cxp')}</th>
+                      <th class="text-right px-4 py-3">PM @ $${getRate('pm')}</th>
+                      <th class="text-right px-4 py-3 bg-emerald-50 font-semibold">Services Price</th>
+                      <th class="text-right px-4 py-3">+ Platform</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y">
+                    ${Object.entries(engagementTemplates).map(([key, t]) => {
+                      const journey = journeyDefs[t.journey];
+                      return `
+                        <tr class="${t.journey === 'j3' ? 'bg-emerald-50/30' : ''}">
+                          <td class="px-4 py-3">
+                            <div class="flex items-center gap-2">
+                              <span class="px-2 py-0.5 rounded text-xs font-bold bg-${journey.color}-100 text-${journey.color}-700">${t.journey.toUpperCase()}</span>
+                              <span class="font-medium">${t.name}</span>
+                            </div>
+                          </td>
+                          <td class="text-center px-4 py-3 text-slate-500">${t.weeks}</td>
+                          <td class="text-right px-4 py-3">${t.fdeHrs}h = ${formatCurrencyK(t.fdeHrs * getRate('fde'))}</td>
+                          <td class="text-right px-4 py-3">${t.smeHrs}h = ${formatCurrencyK(t.smeHrs * getRate('sme'))}</td>
+                          <td class="text-right px-4 py-3">${t.cxpHrs}h = ${formatCurrencyK(t.cxpHrs * getRate('cxp'))}</td>
+                          <td class="text-right px-4 py-3">${t.pmHrs}h = ${formatCurrencyK(t.pmHrs * getRate('pm'))}</td>
+                          <td class="text-right px-4 py-3 bg-emerald-50 font-bold text-emerald-700">${formatCurrencyK(t.servicesRev)}</td>
+                          <td class="text-right px-4 py-3 text-slate-500">${formatCurrencyK(t.platformARR)}</td>
+                        </tr>
+                      `;
+                    }).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-6 mt-6">
+              <h3 class="font-semibold text-amber-900 mb-4 flex items-center gap-2">${renderIcon('calculator', 18)}Margin Analysis @ ${pricingTiers[state.pricingTier].label}</h3>
+              <div class="grid grid-cols-4 gap-4">
+                ${[
+                  { role: 'FDE', key: 'fde', cost: roleCosts.fde.fullyLoaded },
+                  { role: 'SME', key: 'sme', cost: roleCosts.sme.fullyLoaded },
+                  { role: 'CXP', key: 'cxp', cost: roleCosts.cxp.fullyLoaded },
+                  { role: 'PM', key: 'pm', cost: roleCosts.pm.fullyLoaded },
+                ].map(r => {
+                  const annualBillable = capacity.effectiveHours * getRate(r.key);
+                  const margin = ((annualBillable - r.cost) / annualBillable) * 100;
+                  return `
+                    <div class="bg-white p-4 rounded-lg">
+                      <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">${r.role}</span>
+                        <span class="text-emerald-600">$${getRate(r.key)}/hr</span>
+                      </div>
+                      <p class="text-xs text-slate-500">Annual billable: ${formatCurrencyK(annualBillable)}</p>
+                      <p class="text-xs text-slate-500">Loaded cost: ${formatCurrencyK(r.cost)}</p>
+                      <p class="text-lg font-bold mt-2 ${margin > 30 ? 'text-emerald-600' : margin > 0 ? 'text-amber-600' : 'text-rose-600'}">${margin.toFixed(0)}% margin</p>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          `;
+        }
+
+        if (tab === 'journeys') {
+          return `
+            <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-xl p-6 text-white mb-6">
+              <h2 class="text-xl font-bold mb-2">Journey-Based Capacity Planning</h2>
+              <p class="text-emerald-100">Pricing at ${pricingTiers[state.pricingTier].label} tier. J3 = ~60% of ARR.</p>
+            </div>
+
+            ${Object.entries(journeyDefs).map(([key, j]) => {
+              const jNum = key.charAt(1);
+              const hourData = capacity[`j${jNum}Hours`];
+              const totalHours = hourData.fde + hourData.sme + hourData.cxp + hourData.pm;
+              const engagementCount = key === 'j3' ? activeScenario.j3_foundation + activeScenario.j3_scale :
+                                      key === 'j1' ? activeScenario.j1_assessment :
+                                      key === 'j2' ? activeScenario.j2_sprint : activeScenario.j4_mcp;
+              const journeyRev = journeyDistribution.find(jd => jd.journey === key.toUpperCase())?.revenue || 0;
+              return `
+                <div class="bg-white rounded-xl border ${j.color === 'emerald' ? 'border-emerald-300 ring-2 ring-emerald-100' : ''} p-5 mb-4">
+                  <div class="flex items-start justify-between">
+                    <div class="flex items-start gap-4">
+                      <div class="w-12 h-12 rounded-xl bg-${j.color}-100 flex items-center justify-center">
+                        <span class="text-${j.color}-700 font-bold text-lg">${key.toUpperCase()}</span>
+                      </div>
+                      <div>
+                        <h3 class="font-semibold text-lg">${j.name}</h3>
+                        <p class="text-sm text-slate-500 mt-0.5">${j.desc}</p>
+                        <div class="flex items-center gap-3 mt-2">
+                          <span class="px-2 py-0.5 rounded text-xs font-medium bg-${j.color}-100 text-${j.color}-700">${j.path}</span>
+                          <span class="text-xs text-slate-500">~${j.arrShare}% ARR</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-right">
+                      <p class="text-2xl font-bold text-emerald-600">${formatCurrencyK(journeyRev)}</p>
+                      <p class="text-sm text-slate-500">${engagementCount} engagements</p>
+                    </div>
+                  </div>
+                  
+                  <div class="mt-4 pt-4 border-t grid grid-cols-5 gap-4">
+                    <div class="text-center">
+                      <p class="text-lg font-bold">${formatNumber(totalHours)}</p>
+                      <p class="text-xs text-slate-500">Total Hours</p>
+                    </div>
+                    <div class="text-center">
+                      <p class="text-lg font-semibold text-emerald-600">${formatNumber(hourData.fde)}</p>
+                      <p class="text-xs text-slate-500">FDE @ $${getRate('fde')}</p>
+                    </div>
+                    <div class="text-center">
+                      <p class="text-lg font-semibold text-amber-600">${formatNumber(hourData.sme)}</p>
+                      <p class="text-xs text-slate-500">SME @ $${getRate('sme')}</p>
+                    </div>
+                    <div class="text-center">
+                      <p class="text-lg font-semibold text-violet-600">${formatNumber(hourData.cxp)}</p>
+                      <p class="text-xs text-slate-500">CXP @ $${getRate('cxp')}</p>
+                    </div>
+                    <div class="text-center">
+                      <p class="text-lg font-semibold text-blue-600">${formatNumber(hourData.pm)}</p>
+                      <p class="text-xs text-slate-500">PM @ $${getRate('pm')}</p>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+
+            <div class="bg-slate-900 rounded-xl p-6 text-white mt-6">
+              <h3 class="font-semibold mb-4">Headcount Required</h3>
+              <div class="grid grid-cols-4 gap-4">
+                ${[
+                  { role: 'FDE', need: capacity.fdeNeeded, hrs: capacity.totalHours.fde, key: 'fde', color: 'emerald' },
+                  { role: 'SME', need: capacity.smeNeeded, hrs: capacity.totalHours.sme, key: 'sme', color: 'amber' },
+                  { role: 'CXP', need: capacity.cxpNeeded, hrs: capacity.totalHours.cxp, key: 'cxp', color: 'violet' },
+                  { role: 'PM', need: capacity.pmNeeded, hrs: capacity.totalHours.pm, key: 'pm', color: 'blue' },
+                ].map(r => `
+                  <div class="bg-${r.color}-500/20 rounded-xl p-4">
+                    <div class="flex items-center justify-between">
+                      <p class="text-${r.color}-300 text-sm">${r.role}</p>
+                      <p class="text-xs text-slate-400">$${getRate(r.key)}/hr</p>
+                    </div>
+                    <p class="text-3xl font-bold mt-1">${r.need}</p>
+                    <p class="text-slate-400 text-xs mt-1">${formatNumber(r.hrs)} hrs needed</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+
+        if (tab === 'engagements') {
+          return `
+            <div class="bg-gradient-to-r from-blue-600 to-emerald-600 rounded-xl p-6 text-white mb-6">
+              <h2 class="text-xl font-bold mb-2">Engagement Templates</h2>
+              <p class="text-blue-100">Pricing at ${pricingTiers[state.pricingTier].label} tier (${pricingTiers[state.pricingTier].discount})</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              ${Object.entries(engagementTemplates).map(([key, t]) => {
+                const journey = journeyDefs[t.journey];
+                return `
+                  <div class="bg-white rounded-xl border p-5">
+                    <div class="flex items-start justify-between mb-3">
+                      <div>
+                        <div class="flex items-center gap-2">
+                          <span class="px-2 py-0.5 rounded text-xs font-bold bg-${journey.color}-100 text-${journey.color}-700">${t.journey.toUpperCase()}</span>
+                          <h4 class="font-semibold">${t.name}</h4>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-1">${t.description}</p>
+                      </div>
+                      <span class="text-sm font-semibold text-slate-600">${t.weeks} wks</span>
+                    </div>
+                    <div class="grid grid-cols-4 gap-2 text-center text-sm mb-3">
+                      <div class="bg-emerald-50 rounded p-2">
+                        <p class="font-semibold text-emerald-700">${t.fdeHrs}h</p>
+                        <p class="text-xs text-slate-500">FDE</p>
+                        <p class="text-xs text-emerald-600">${formatCurrencyK(t.fdeHrs * getRate('fde'))}</p>
+                      </div>
+                      <div class="bg-amber-50 rounded p-2">
+                        <p class="font-semibold text-amber-700">${t.smeHrs}h</p>
+                        <p class="text-xs text-slate-500">SME</p>
+                        <p class="text-xs text-amber-600">${formatCurrencyK(t.smeHrs * getRate('sme'))}</p>
+                      </div>
+                      <div class="bg-violet-50 rounded p-2">
+                        <p class="font-semibold text-violet-700">${t.cxpHrs}h</p>
+                        <p class="text-xs text-slate-500">CXP</p>
+                        <p class="text-xs text-violet-600">${formatCurrencyK(t.cxpHrs * getRate('cxp'))}</p>
+                      </div>
+                      <div class="bg-blue-50 rounded p-2">
+                        <p class="font-semibold text-blue-700">${t.pmHrs}h</p>
+                        <p class="text-xs text-slate-500">PM</p>
+                        <p class="text-xs text-blue-600">${formatCurrencyK(t.pmHrs * getRate('pm'))}</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center justify-between pt-3 border-t">
+                      <div class="text-sm">
+                        <span class="text-slate-500">Platform: </span>
+                        <span class="font-medium">${formatCurrencyK(t.platformARR)}</span>
+                      </div>
+                      <div class="text-right">
+                        <p class="text-xl font-bold text-emerald-600">${formatCurrencyK(t.servicesRev)}</p>
+                        <p class="text-xs text-slate-400">Total: ${formatCurrencyK(t.servicesRev + t.platformARR)}</p>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `;
+        }
+
+        if (tab === 'roles') {
+          return `
+            <div class="bg-gradient-to-r from-violet-600 to-violet-700 rounded-xl p-6 text-white mb-6">
+              <h2 class="text-xl font-bold mb-2">Hiring Profiles</h2>
+              <p class="text-violet-200">Roles with named rate card owners.</p>
+            </div>
+
+            <div class="space-y-4">
+              ${hiringProfiles.map((p, i) => {
+                const role = roleCosts[p.role];
+                const rate = rateCard[p.role];
+                return `
+                  <div class="bg-white rounded-xl border p-6">
+                    <div class="flex items-start justify-between">
+                      <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center">
+                          ${renderIcon(p.icon, 24, 'text-slate-600')}
+                        </div>
+                        <div>
+                          <div class="flex items-center gap-3">
+                            <h4 class="font-semibold text-lg">${rate.title}</h4>
+                            <span class="px-2 py-0.5 bg-slate-100 rounded text-xs text-slate-600">${rate.person}</span>
+                          </div>
+                          <p class="text-sm text-slate-500 mt-1">${p.desc}</p>
+                        </div>
+                      </div>
+                      <div class="text-right">
+                        <div class="flex items-center gap-4 text-sm">
+                          <div class="text-slate-400">
+                            <p class="text-xs">Cost</p>
+                            <p>$${rate.cost}</p>
+                          </div>
+                          <div class="text-slate-400">
+                            <p class="text-xs">Partner</p>
+                            <p>$${rate.partner}</p>
+                          </div>
+                          <div class="text-blue-600">
+                            <p class="text-xs">Standard</p>
+                            <p class="font-medium">$${rate.standard}</p>
+                          </div>
+                          <div class="text-emerald-600">
+                            <p class="text-xs">List</p>
+                            <p class="font-bold">$${rate.list}</p>
+                          </div>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-2">${formatCurrency(role.fullyLoaded)} loaded</p>
+                      </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6 mt-4 pt-4 border-t">
+                      <div>
+                        <h5 class="font-medium text-sm text-slate-700 mb-2">Requirements</h5>
+                        <ul class="space-y-1">
+                          ${p.requirements.map(r => `
+                            <li class="text-sm text-slate-600 flex items-start gap-2">
+                              ${renderIcon('checkCircle', 14, 'text-emerald-500 mt-0.5 flex-shrink-0')}${r}
+                            </li>
+                          `).join('')}
+                        </ul>
+                      </div>
+                      <div>
+                        <h5 class="font-medium text-sm text-slate-700 mb-2">Success Metrics</h5>
+                        <ul class="space-y-1">
+                          ${p.metrics.map(m => `
+                            <li class="text-sm text-slate-600 flex items-start gap-2">
+                              ${renderIcon('target', 14, 'text-blue-500 mt-0.5 flex-shrink-0')}${m}
+                            </li>
+                          `).join('')}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `;
+        }
+
+        if (tab === 'timeline') {
+          return `
+            <div class="bg-gradient-to-r from-slate-800 to-slate-900 rounded-xl p-6 text-white mb-6">
+              <h2 class="text-xl font-bold mb-2">Hiring Timeline</h2>
+              <p class="text-slate-400">${activeScenario.label} · +${totalNewHires} hires needed</p>
+            </div>
+
+            <div class="space-y-4">
+              ${[
+                { phase: 'Q1', title: 'Foundation', color: 'emerald', hires: [
+                  gaps.fde > 0 && `+${Math.min(2, gaps.fde)} FDE (Jake model)`,
+                  gaps.pm > 0 && `+${Math.min(1, gaps.pm)} PM (Nina model)`,
+                  gaps.sme > 0 && `+${Math.min(1, gaps.sme)} SME (Bloom model)`,
+                ].filter(Boolean), focus: 'J3 Foundation capacity' },
+                { phase: 'Q2', title: 'Scale', color: 'blue', hires: [
+                  gaps.fde > 2 && `+${Math.min(2, gaps.fde - 2)} FDE`,
+                  gaps.cxp > 0 && `+${gaps.cxp} CXP (Amber model)`,
+                  gaps.csm > 0 && `+${gaps.csm} CSM`,
+                ].filter(Boolean), focus: 'J3 Scale + J4 expansion' },
+                { phase: 'Q3-Q4', title: 'Optimize', color: 'violet', hires: ['Contingent hires based on pipeline', 'Partner enablement'], focus: 'Evaluate and scale' },
+              ].map((q, i) => `
+                <div class="flex gap-6">
+                  <div class="w-20 flex-shrink-0">
+                    <span class="px-3 py-1 bg-${q.color}-500 text-white text-sm font-bold rounded">${q.phase}</span>
+                  </div>
+                  <div class="flex-1 bg-${q.color}-50 rounded-xl p-5">
+                    <h4 class="font-semibold text-${q.color}-800 mb-2">${q.title}</h4>
+                    <div class="grid grid-cols-3 gap-4">
+                      ${q.hires.map((h, j) => `
+                        <div class="bg-white p-3 rounded-lg text-sm">${h}</div>
+                      `).join('')}
+                    </div>
+                    <p class="mt-3 pt-3 border-t border-slate-200 text-sm text-${q.color}-700">Focus: ${q.focus}</p>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="bg-rose-50 border border-rose-200 rounded-xl p-6 mt-6">
+              <h3 class="font-semibold text-rose-800 mb-4 flex items-center gap-2">${renderIcon('alertTriangle', 18)}Risk Mitigation</h3>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-white p-4 rounded-lg">
+                  <h4 class="font-medium text-rose-700 mb-2">Hiring delays 60+ days</h4>
+                  <p class="text-sm text-rose-600">Activate contractors at Partner rates ($275-$375/hr). 3-month max.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg">
+                  <h4 class="font-medium text-rose-700 mb-2">Lower pipeline than projected</h4>
+                  <p class="text-sm text-rose-600">Redirect to J4 expansion. Pause Q2 services hires. Accelerate partner channel.</p>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        return '';
+      };
+
+      // Global functions for event handlers
+      window.setActiveTab = (tab) => {
+        state.activeTab = tab;
+        render();
+      };
+
+      window.setPricingTier = (tier) => {
+        state.pricingTier = tier;
+        render();
+      };
+
+      window.setScenario = (scenario) => {
+        state.scenario = scenario;
+        render();
+      };
+
+      window.setStaffingModel = (model) => {
+        state.staffingModel = model;
+        render();
+      };
+
+      window.setUtilization = (util) => {
+        state.utilization = Number(util);
+        render();
+      };
+
+      // Initial render
+      render();
+    });
+  </script>
+</body>
+</html>
