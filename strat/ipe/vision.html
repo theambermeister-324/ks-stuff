@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPE Strategic Playbook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .icon { width: 16px; height: 16px; display: inline-block; vertical-align: middle; }
+    .icon-sm { width: 14px; height: 14px; }
+    .icon-lg { width: 18px; height: 18px; }
+    .icon-xl { width: 20px; height: 20px; }
+    .icon-2xl { width: 24px; height: 24px; }
+  </style>
+</head>
+<body>
+  <div id="app" class="min-h-screen bg-slate-50 flex">
+    <!-- Sidebar -->
+    <nav class="w-64 bg-slate-900 text-white p-4 flex-shrink-0">
+      <div class="mb-6">
+        <h1 class="text-lg font-bold">IPE Strategic Playbook</h1>
+        <p class="text-xs text-slate-400 mt-1">v2.0 · January 2026</p>
+      </div>
+      <div class="space-y-1" id="sections-nav"></div>
+      <div class="mt-8 pt-4 border-t border-slate-700">
+        <p class="text-xs text-slate-500 mb-2">Quick Links</p>
+        <button onclick="toggleRateCard()" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Rate Card
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 overflow-auto">
+      <!-- Rate Card Modal -->
+      <div id="rate-card-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50" onclick="toggleRateCard()">
+        <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4" onclick="event.stopPropagation()">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-lg">Knapsack Rate Card</h3>
+            <button onclick="toggleRateCard()" class="text-slate-400 hover:text-slate-600">✕</button>
+          </div>
+          <table class="w-full text-sm">
+            <thead class="bg-slate-100">
+              <tr>
+                <th class="text-left px-3 py-2 rounded-tl">Role</th>
+                <th class="text-right px-3 py-2 rounded-tr">Hourly Rate</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y" id="rate-card-body"></tbody>
+          </table>
+          <p class="text-xs text-slate-500 mt-4">Effective January 2026. Value-based pricing—never quote hourly rates to customers.</p>
+        </div>
+      </div>
+
+      <!-- Content Sections -->
+      <div id="content-sections"></div>
+    </main>
+  </div>
+
+  <script>
+    // State management
+    let state = {
+      activeSection: 'vision',
+      selectedJourney: null,
+      selectedPhase: null,
+      selectedQuadrant: null,
+      showRateCard: false
+    };
+
+    // Data
+    const sections = [
+      { id: 'vision', label: 'Vision & Market', icon: 'target' },
+      { id: 'positioning', label: 'GTM Positioning', icon: 'zap' },
+      { id: 'commercial', label: 'Commercial Model', icon: 'trending-up' },
+      { id: 'deployment', label: 'Deployment Options', icon: 'shield' },
+      { id: 'maturity', label: 'Maturity Model', icon: 'layers' },
+      { id: 'assessment', label: 'Assessment Framework', icon: 'activity' },
+      { id: 'journeys', label: 'Investment Paths', icon: 'git-branch' },
+      { id: 'phases', label: 'Partnership Phases', icon: 'clock' },
+      { id: 'guidance', label: 'Operating Guidance', icon: 'shield' },
+      { id: 'metrics', label: 'Metrics', icon: 'bar-chart-3' },
+    ];
+
+    const rateCard = [
+      { role: 'Executive', person: 'Andrew', rate: 825 },
+      { role: 'SME', person: 'Bloom', rate: 750 },
+      { role: 'CX Partner', person: 'Amber', rate: 600 },
+      { role: 'Senior Solution Analyst (FDE)', person: 'Jake', rate: 550 },
+      { role: 'Solution Analyst', person: 'Britt', rate: 400 },
+      { role: 'Project Manager', person: 'Nina', rate: 400 },
+    ];
+
+    const deploymentTiers = [
+      { id: 'D1', name: 'Cloud Standard', target: 'Tech, SaaS, Mid-market', dataLocation: 'Knapsack multi-tenant', compliance: ['SOC 2'], deployTime: '2-4 weeks', platformPremium: '—', servicesPremium: '—', color: 'slate' },
+      { id: 'D2', name: 'Cloud Dedicated', target: 'Enterprise, some regulated', dataLocation: 'Single-tenant instance', compliance: ['SOC 2', 'GDPR'], deployTime: '4-8 weeks', platformPremium: '+25-40%', servicesPremium: '+$50-100K', color: 'blue' },
+      { id: 'D3', name: 'Private Cloud', target: 'Financial Services, Healthcare', dataLocation: 'Customer VPC / Private cloud', compliance: ['SOC 2', 'HIPAA-ready', 'PCI-DSS'], deployTime: '8-16 weeks', platformPremium: '+50-75%', servicesPremium: '+$175-275K', color: 'amber' },
+      { id: 'D4', name: 'Self-Hosted', target: 'Defense, Government, High-security', dataLocation: 'Customer data center', compliance: ['FedRAMP-ready', 'Custom'], deployTime: '16-24+ weeks', platformPremium: '+100%+', servicesPremium: '+$350-550K', color: 'rose' },
+    ];
+
+    const journeys = [
+      { id: 'path1', internal: 'J1', name: 'Foundation Path', extName: 'Product System Foundation Partnership', path: 'Diagnostic → Foundation → Governance', arr: '~10%', risk: 'low', color: 'slate', desc: 'For organizations without a system of record. Build before governing.', expansion: false, accounts: ['Early-stage design system orgs', 'No engineering ownership yet'], commercialNote: 'Start with Diagnostic only. Do not propose platform until foundation exists.', tcv: '$50-60K diagnostic → $350-450K foundation', deploymentTiers: ['D1', 'D2'], deploymentNote: 'Typically cloud deployment. Rarely requires Phase 0.', primary: false },
+      { id: 'path2', internal: 'J2', name: 'Acceleration Path', extName: 'IPE Activation Sprint', path: 'Diagnostic → Rapid Activation', arr: '~5%', risk: 'low', color: 'blue', desc: 'For mature orgs with sudden trigger. Fast activation, minimal services.', expansion: true, accounts: ['Adobe-profile accounts', 'Enterprise rollout triggers'], commercialNote: 'Compress timeline, premium pricing. They need speed, not education.', tcv: '$50K diagnostic → $225-325K sprint', deploymentTiers: ['D1', 'D2'], deploymentNote: 'Speed is critical. Cloud-first unless security blocks.', primary: false },
+      { id: 'path3', internal: 'J3', name: 'Activation Path', extName: 'Activation-Focused Partnership', path: 'Diagnostic → (Phase 0) → Foundation → Activation → Intelligence', arr: '~60%', risk: 'high', color: 'emerald', desc: 'For high-value accounts blocked on activation. Full transformation.', expansion: false, accounts: ['PNC', 'Edward Jones', 'DoubleVerify', 'Qualcomm', 'GSK US', 'HealthEdge', 'CVS Health'], commercialNote: 'Two-phase deal minimum. D3/D4 accounts require Phase 0 (add $175-450K + 8-16 weeks).', tcv: '$740K-1.6M over 40-68 weeks (deployment-dependent)', deploymentTiers: ['D2', 'D3', 'D4'], deploymentNote: 'Most regulated accounts are D3. Always confirm deployment tier in Diagnostic.', primary: true },
+      { id: 'path4', internal: 'J4', name: 'Intelligence Path', extName: 'Intelligence Expansion Partnership', path: 'Diagnostic → MCP Activation → Expansion', arr: '~25%', risk: 'medium', color: 'violet', desc: 'For implemented accounts ready for AI enablement. Expansion-focused.', expansion: true, accounts: ['The Home Depot', 'CSX', 'GSK Global', 'Crown Equipment'], commercialNote: 'Trigger-dependent. Have proposal ready. Move fast when timing aligns.', tcv: '$165-325K MCP + platform expansion', deploymentTiers: ['D1', 'D2', 'D3'], deploymentNote: 'Existing deployment inherited. May require upgrade for MCP features.', primary: false }
+    ];
+
+    // Icon helper
+    function getIcon(name, size = 16) {
+      const icons = {
+        target: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>',
+        zap: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>',
+        'trending-up': '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline>',
+        shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>',
+        layers: '<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline>',
+        activity: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>',
+        'git-branch': '<line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 01-9 9"></path>',
+        clock: '<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>',
+        'bar-chart-3': '<line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line>',
+        'check-circle-2': '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>',
+        'x-circle': '<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>',
+        'alert-triangle': '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line>',
+        lock: '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>',
+        unlock: '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><circle cx="12" cy="16" r="1"></circle><path d="M7 11V7a5 5 0 0 1 9.9-1"></path>',
+        'building-2': '<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M6 12h16"></path><path d="M6 6h4"></path><path d="M6 18h4"></path><path d="M10 10h4"></path><path d="M10 14h4"></path><path d="M10 22h4"></path>',
+        'arrow-right': '<line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>',
+        star: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>',
+        'chevron-right': '<polyline points="9 18 15 12 9 6"></polyline>',
+        'chevron-down': '<polyline points="6 9 12 15 18 9"></polyline>',
+      };
+      return `<svg class="icon" style="width: ${size}px; height: ${size}px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">${icons[name] || ''}</svg>`;
+    }
+
+    // State management functions
+    function setActiveSection(section) {
+      state.activeSection = section;
+      render();
+    }
+
+    function toggleRateCard() {
+      state.showRateCard = !state.showRateCard;
+      const modal = document.getElementById('rate-card-modal');
+      if (state.showRateCard) {
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    function toggleJourney(journeyId) {
+      state.selectedJourney = state.selectedJourney === journeyId ? null : journeyId;
+      render();
+    }
+
+    function togglePhase(phaseNum) {
+      state.selectedPhase = state.selectedPhase === phaseNum ? null : phaseNum;
+      render();
+    }
+
+    function toggleQuadrant(quadrant) {
+      state.selectedQuadrant = state.selectedQuadrant === quadrant ? null : quadrant;
+      render();
+    }
+
+    // Render functions
+    function renderNav() {
+      const nav = document.getElementById('sections-nav');
+      nav.innerHTML = sections.map(s => `
+        <button onclick="setActiveSection('${s.id}')" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all ${state.activeSection === s.id ? 'bg-emerald-600 text-white' : 'text-slate-300 hover:bg-slate-800'}">
+          ${getIcon(s.icon, 16)}
+          ${s.label}
+        </button>
+      `).join('');
+    }
+
+    function renderRateCard() {
+      const tbody = document.getElementById('rate-card-body');
+      tbody.innerHTML = rateCard.map(r => `
+        <tr>
+          <td class="px-3 py-2">${r.role}</td>
+          <td class="px-3 py-2 text-right font-semibold text-emerald-600">$${r.rate}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderContent() {
+      const container = document.getElementById('content-sections');
+      let html = '';
+
+      // Vision & Market
+      if (state.activeSection === 'vision') {
+        html = `
+          <div class="space-y-6 max-w-5xl">
+            <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6">
+              <p class="text-emerald-400 text-sm font-semibold mb-2">THE STRATEGIC NORTH STAR</p>
+              <h2 class="text-2xl font-bold mb-3">Knapsack is the governable control plane for AI-assisted product delivery.</h2>
+              <p class="text-slate-300">We convert fragmented product knowledge into executable intelligence that AI can use safely—giving enterprises the confidence to let AI act, not just advise.</p>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+                <p class="text-xs text-emerald-600 font-semibold mb-1">Market Position</p>
+                <p class="font-medium text-emerald-800">First-mover in "digital thread" category</p>
+              </div>
+              <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                <p class="text-xs text-blue-600 font-semibold mb-1">Primary ICP</p>
+                <p class="font-medium text-blue-800">Enterprise product teams at AI adoption inflection</p>
+              </div>
+              <div class="bg-violet-50 border border-violet-200 rounded-xl p-4">
+                <p class="text-xs text-violet-600 font-semibold mb-1">Core Differentiator</p>
+                <p class="font-medium text-violet-800">MCP + Governance = Safe AI execution</p>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4 flex items-center gap-2">${getIcon('target', 18)}<span class="text-emerald-600">Why Now? The AI Execution Gap</span></h3>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-rose-50 rounded-lg p-4">
+                  <p class="text-xs text-rose-600 font-semibold mb-2">THE PROBLEM</p>
+                  <p class="text-sm text-rose-700">AI can generate code and content at scale—but enterprises can't let it <em>act</em> without governance. The gap between "AI can do this" and "we'll let AI do this" is massive.</p>
+                </div>
+                <div class="bg-emerald-50 rounded-lg p-4">
+                  <p class="text-xs text-emerald-600 font-semibold mb-2">OUR SOLUTION</p>
+                  <p class="text-sm text-emerald-700">Knapsack provides the governance layer that makes AI execution safe. MCP bridges intent and action. The control plane enforces rules. Result: AI that enterprises actually trust.</p>
+                </div>
+              </div>
+            </div>
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
+              <h3 class="font-semibold text-amber-800 mb-2 flex items-center gap-2">${getIcon('alert-triangle', 18)} The Critical Insight</h3>
+              <p class="text-amber-800 font-medium">"Implemented" does not equal "Activated."</p>
+              <p class="text-sm text-amber-700 mt-2">Most of our existing customers have Knapsack installed but aren't extracting value. The path to revenue is activation (J3), not new logos. Services capacity is the bottleneck.</p>
+            </div>
+          </div>
+        `;
+      }
+
+      // GTM Positioning
+      if (state.activeSection === 'positioning') {
+        html = `
+          <div class="space-y-6 max-w-5xl">
+            <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl p-6">
+              <p class="text-emerald-200 text-sm font-semibold mb-2">POSITIONING FRAMEWORK</p>
+              <h2 class="text-xl font-bold mb-2">Speak to outcomes, not features. Sell governance, not design systems.</h2>
+              <p class="text-emerald-100">For regulated industries, lead with risk reduction and compliance. For tech, lead with velocity and AI enablement.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white rounded-xl border p-5">
+                <h3 class="font-semibold mb-3 text-emerald-700">✓ Language That Resonates</h3>
+                <div class="space-y-2 text-sm">
+                  ${['"Governable control plane"', '"Model Risk Management for product systems"', '"AI execution with enterprise guardrails"', '"From intent to production, governed"', '"Operational resilience through consistency"'].map(item => `
+                    <div class="flex items-center gap-2 text-slate-700">
+                      ${getIcon('check-circle-2', 14)}
+                      ${item}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+              <div class="bg-white rounded-xl border p-5">
+                <h3 class="font-semibold mb-3 text-rose-700">✗ Language to Avoid</h3>
+                <div class="space-y-2 text-sm">
+                  ${['"Design system management"', '"Component library"', '"Figma plugin"', '"Engagement model"', '"Meet you where you are"'].map(item => `
+                    <div class="flex items-center gap-2 text-slate-700">
+                      ${getIcon('x-circle', 14)}
+                      ${item}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Industry-Specific Messaging</h3>
+              <div class="grid grid-cols-2 gap-4">
+                ${[
+                  { industry: 'Financial Services', hook: 'Model Risk Management', message: 'Auditable AI governance for product delivery', regs: ['OCC Guidelines', 'SR 11-7', 'BCBS 239'] },
+                  { industry: 'Healthcare', hook: 'Operational Resilience', message: 'Consistent, compliant digital experiences at scale', regs: ['HIPAA', 'FDA 21 CFR Part 11', 'HITRUST'] },
+                  { industry: 'Enterprise Tech', hook: 'AI Velocity', message: 'Ship faster with governed AI execution', regs: ['SOC 2', 'ISO 27001', 'GDPR'] },
+                  { industry: 'Manufacturing', hook: 'Digital Thread', message: 'Connected product experience from design to delivery', regs: ['ISO 9001', 'IATF 16949'] }
+                ].map(item => `
+                  <div class="bg-slate-50 rounded-lg p-4">
+                    <p class="text-xs text-slate-500 mb-1">${item.industry}</p>
+                    <p class="font-semibold text-slate-800 mb-1">${item.hook}</p>
+                    <p class="text-sm text-slate-600 mb-2">${item.message}</p>
+                    <div class="flex flex-wrap gap-1">
+                      ${item.regs.map(reg => `<span class="text-xs px-2 py-0.5 bg-slate-200 rounded">${reg}</span>`).join('')}
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Commercial Model
+      if (state.activeSection === 'commercial') {
+        html = `
+          <div class="space-y-6 max-w-5xl">
+            <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl p-6">
+              <p class="text-emerald-200 text-sm font-semibold mb-2">COMMERCIAL FRAMEWORK</p>
+              <h2 class="text-xl font-bold mb-2">Value-based pricing. Phase-gated deals. Outcome-anchored proposals.</h2>
+              <p class="text-emerald-100">Never sell hours. Sell transformation phases with clear exit criteria and expansion triggers.</p>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Assessment → Investment Path</h3>
+              <div class="flex items-center gap-3 overflow-x-auto pb-2">
+                ${[
+                  { stage: 'DIAGNOSTIC', duration: '2-4 weeks', output: 'Readiness Score + Gap Analysis + Deployment Tier', price: '$50-60K', color: 'slate' },
+                  { stage: 'INVESTMENT PATH', duration: '1 week', output: 'Prioritized Roadmap + Deployment-Adjusted Proposal', price: 'Included', color: 'blue' },
+                  { stage: 'PARTNERSHIP', duration: '6-52 weeks', output: 'Phase 0 (if D3/D4) + Activation + Platform + Intelligence', price: '$350K-$2M+', color: 'emerald' }
+                ].map((s, i) => `
+                  ${i > 0 ? `<div class="flex-shrink-0">${getIcon('arrow-right', 24)}</div>` : ''}
+                  <div class="flex-shrink-0 rounded-lg p-4 min-w-56 ${s.color === 'slate' ? 'bg-slate-100' : s.color === 'blue' ? 'bg-blue-100' : 'bg-emerald-100'}">
+                    <p class="text-xs font-semibold mb-1 ${s.color === 'slate' ? 'text-slate-600' : s.color === 'blue' ? 'text-blue-600' : 'text-emerald-600'}">${s.stage}</p>
+                    <p class="text-xs text-slate-500 mb-2">${s.duration}</p>
+                    <p class="text-sm text-slate-700 mb-2">${s.output}</p>
+                    <p class="font-bold">${s.price}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Profile → Investment Path → TCV</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead class="bg-slate-50">
+                    <tr>
+                      <th class="text-left px-4 py-2">Customer Profile</th>
+                      <th class="text-left px-4 py-2">Gap</th>
+                      <th class="text-left px-4 py-2">Path</th>
+                      <th class="text-left px-4 py-2">Starting Point</th>
+                      <th class="text-right px-4 py-2">TCV Range</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y">
+                    ${[
+                      { profile: 'Foundation-Building', gap: 'No system of record, scattered components', path: 'Build → Govern → Activate', start: 'Design System Foundation Sprint', tcv: '$350-650K', color: 'slate' },
+                      { profile: 'Governance-Ready', gap: 'System exists but no decision authority', path: 'Govern → Activate → Scale', start: 'Control Plane Implementation', tcv: '$450-850K', color: 'blue' },
+                      { profile: 'Activation-Blocked', gap: 'Implemented but not producing value', path: 'Activate → Measure → Expand', start: 'Activation Accelerator', tcv: '$225-500K', color: 'amber' },
+                      { profile: 'Intelligence-Ready', gap: 'Governed but no AI enablement', path: 'Enable → Integrate → Optimize', start: 'MCP Activation + Analytics', tcv: '$165-325K', color: 'emerald' },
+                      { profile: 'Expansion-Ready', gap: 'Active and growing', path: 'Expand → Optimize → Innovate', start: 'Platform Expansion', tcv: '$75-150K ARR uplift', color: 'violet' }
+                    ].map((row, i) => `
+                      <tr class="${row.color === 'emerald' ? 'bg-emerald-50' : ''}">
+                        <td class="px-4 py-3 font-medium">${row.profile}</td>
+                        <td class="px-4 py-3 text-slate-600">${row.gap}</td>
+                        <td class="px-4 py-3"><span class="px-2 py-1 rounded text-xs font-medium ${row.color === 'slate' ? 'bg-slate-100 text-slate-700' : row.color === 'blue' ? 'bg-blue-100 text-blue-700' : row.color === 'amber' ? 'bg-amber-100 text-amber-700' : row.color === 'emerald' ? 'bg-emerald-100 text-emerald-700' : 'bg-violet-100 text-violet-700'}">${row.path}</span></td>
+                        <td class="px-4 py-3">${row.start}</td>
+                        <td class="px-4 py-3 text-right font-semibold">${row.tcv}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4 flex items-center gap-2">${getIcon('trending-up', 18)}<span class="text-violet-600">How to Price: Value-Based, Not Hours-Based</span></h3>
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="bg-rose-50 rounded-lg p-4">
+                  <p class="text-xs text-rose-600 font-semibold uppercase tracking-wide mb-2">Don't Say</p>
+                  <div class="space-y-2">
+                    ${['"Our FDE rate is $550/hour"', '"This engagement is 560 hours"', '"The SOW includes 40 weeks of effort"'].map(item => `
+                      <div class="flex items-center gap-2 text-sm text-rose-700">
+                        ${getIcon('x-circle', 14)}
+                        ${item}
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+                <div class="bg-emerald-50 rounded-lg p-4">
+                  <p class="text-xs text-emerald-600 font-semibold uppercase tracking-wide mb-2">Do Say</p>
+                  <div class="space-y-2">
+                    ${['"The Foundation Phase is $400K and includes..."', '"You\'ll have full AI governance in 6 months for $X"', '"The ROI at enterprise scale is 10-15x the investment"'].map(item => `
+                      <div class="flex items-center gap-2 text-sm text-emerald-700">
+                        ${getIcon('check-circle-2', 14)}
+                        ${item}
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              </div>
+              <div class="bg-slate-900 text-white rounded-lg p-4">
+                <h4 class="font-semibold mb-3">Pricing Philosophy</h4>
+                <div class="grid grid-cols-3 gap-4">
+                  ${[
+                    { principle: 'Anchor to Outcomes', desc: 'Price the value of governed AI execution, not the hours to get there', example: '"What\'s one production incident worth preventing?"' },
+                    { principle: 'Phase for Commitment', desc: 'Break large deals into phases that build trust and prove value', example: 'Foundation ($400K) → Scale ($275K) → Expand ($165K/yr)' },
+                    { principle: 'Tier by Urgency', desc: 'Premium pricing for fast timelines, standard for flexible ones', example: 'Standard: 20 weeks / Premium: 12 weeks (+30%)' }
+                  ].map(p => `
+                    <div class="bg-white/10 rounded-lg p-3">
+                      <p class="text-emerald-400 text-xs font-semibold mb-1">${p.principle}</p>
+                      <p class="text-slate-300 text-xs mb-2">${p.desc}</p>
+                      <p class="text-white text-xs italic">${p.example}</p>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Deal Packaging: Standard Offerings</h3>
+              <div class="grid grid-cols-4 gap-4">
+                ${[
+                  { name: 'IPE Readiness Diagnostic', desc: 'Current state baseline + gap analysis + investment path recommendation', price: '$50-60K', timeline: '2-4 weeks', includes: ['Stakeholder interviews', 'System audit', 'Readiness scorecard', 'Prioritized roadmap'], color: 'slate' },
+                  { name: 'Foundation Partnership', desc: 'For Activation-Blocked accounts. Build the system of record.', price: '$350-450K', timeline: '16-20 weeks', includes: ['Platform implementation', 'Governance framework', 'Team enablement', 'Production deployment'], color: 'blue' },
+                  { name: 'Activation Accelerator', desc: 'For Governance-Ready accounts. Unlock trapped value.', price: '$225-325K', timeline: '12-16 weeks', includes: ['Control plane setup', 'Signal instrumentation', 'MCP integration', 'ROI dashboard'], color: 'emerald' },
+                  { name: 'Intelligence Partnership', desc: 'For Intelligence-Ready accounts. Full IPE activation.', price: '$165-225K', timeline: '8-12 weeks', includes: ['MCP onboarding', 'AI workflow design', 'Governance policies', 'Analytics + reporting'], color: 'violet' }
+                ].map(pkg => `
+                  <div class="rounded-lg border-2 p-4 ${pkg.color === 'slate' ? 'border-slate-300' : pkg.color === 'blue' ? 'border-blue-300' : pkg.color === 'emerald' ? 'border-emerald-300' : 'border-violet-300'}">
+                    <h4 class="font-semibold text-sm mb-1 ${pkg.color === 'slate' ? 'text-slate-700' : pkg.color === 'blue' ? 'text-blue-700' : pkg.color === 'emerald' ? 'text-emerald-700' : 'text-violet-700'}">${pkg.name}</h4>
+                    <p class="text-xs text-slate-500 mb-3">${pkg.desc}</p>
+                    <div class="flex items-center justify-between mb-3">
+                      <span class="text-lg font-bold">${pkg.price}</span>
+                      <span class="text-xs text-slate-500">${pkg.timeline}</span>
+                    </div>
+                    <div class="space-y-1">
+                      ${pkg.includes.map(item => `
+                        <div class="flex items-center gap-1 text-xs text-slate-600">
+                          ${getIcon('check-circle-2', 10)}
+                          ${item}
+                        </div>
+                      `).join('')}
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
+              <h3 class="font-semibold text-amber-800 mb-2 flex items-center gap-2">${getIcon('alert-triangle', 18)} Pricing Guardrails</h3>
+              <div class="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <p class="font-medium text-amber-800 mb-2">Never discount below:</p>
+                  <div class="space-y-1 text-amber-700">
+                    ${['Diagnostic: $40K (floor)', 'Foundation: $275K (floor)', 'Platform ARR: $75K (floor)'].map(item => `<p>• ${item}</p>`).join('')}
+                  </div>
+                </div>
+                <div>
+                  <p class="font-medium text-amber-800 mb-2">Always require:</p>
+                  <div class="space-y-1 text-amber-700">
+                    ${['Executive sponsor identified', 'Engineering owner assigned', 'Success metrics agreed', 'Phase gates defined'].map(item => `<p>• ${item}</p>`).join('')}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Deployment Options
+      if (state.activeSection === 'deployment') {
+        html = `
+          <div class="space-y-6 max-w-5xl">
+            <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6">
+              <p class="text-emerald-400 text-sm font-semibold mb-2">THE DEPLOYMENT THESIS</p>
+              <h2 class="text-xl font-bold mb-2">Deployment complexity is a deal accelerator, not a blocker—if priced and scoped correctly.</h2>
+              <p class="text-slate-300">Regulated industries need governed AI more urgently than anyone. Their deployment requirements create premium pricing opportunities and deeper partnerships.</p>
+            </div>
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
+              <h3 class="font-semibold text-amber-800 mb-2 flex items-center gap-2">${getIcon('alert-triangle', 18)} Why Deployment Matters for IPE</h3>
+              <p class="text-sm text-amber-700 mb-3">For highly regulated industries (Financial Services, Healthcare, Defense), deployment is the first trust gate. Get it wrong, and activation never happens:</p>
+              <div class="grid grid-cols-3 gap-3">
+                ${[
+                  { issue: 'Data residency requirements', impact: 'Multi-tenant cloud is non-starter', solution: 'Private Cloud / Self-Hosted options' },
+                  { issue: 'Network isolation mandates', impact: 'Public endpoints blocked by InfoSec', solution: 'VPC deployment with private endpoints' },
+                  { issue: 'Vendor security reviews', impact: '3-6 month procurement cycles', solution: 'Pre-built compliance packages' }
+                ].map(item => `
+                  <div class="bg-white rounded-lg p-3">
+                    <p class="text-xs text-amber-600 font-semibold mb-1">${item.issue}</p>
+                    <p class="text-xs text-slate-600 mb-2">${item.impact}</p>
+                    <p class="text-xs text-emerald-700 font-medium">→ ${item.solution}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Deployment Tier Framework</h3>
+              <div class="space-y-4">
+                ${deploymentTiers.map(tier => `
+                  <div class="rounded-xl border-2 p-4 ${tier.color === 'slate' ? 'border-slate-200' : tier.color === 'blue' ? 'border-blue-200' : tier.color === 'amber' ? 'border-amber-200' : 'border-rose-200'}">
+                    <div class="flex items-start gap-4">
+                      <div class="w-12 h-12 rounded-lg flex items-center justify-center font-bold ${tier.color === 'slate' ? 'bg-slate-100 text-slate-700' : tier.color === 'blue' ? 'bg-blue-100 text-blue-700' : tier.color === 'amber' ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'}">
+                        ${tier.id}
+                      </div>
+                      <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                          <h4 class="font-semibold">${tier.name}</h4>
+                          <span class="text-xs text-slate-500">${tier.target}</span>
+                        </div>
+                        <div class="grid grid-cols-5 gap-4 text-sm">
+                          <div>
+                            <p class="text-xs text-slate-500">Data Location</p>
+                            <p class="text-slate-700">${tier.dataLocation}</p>
+                          </div>
+                          <div>
+                            <p class="text-xs text-slate-500">Compliance</p>
+                            <p class="text-slate-700">${tier.compliance.join(', ')}</p>
+                          </div>
+                          <div>
+                            <p class="text-xs text-slate-500">Deploy Time</p>
+                            <p class="text-slate-700">${tier.deployTime}</p>
+                          </div>
+                          <div>
+                            <p class="text-xs text-slate-500">Platform Premium</p>
+                            <p class="font-semibold text-emerald-600">${tier.platformPremium}</p>
+                          </div>
+                          <div>
+                            <p class="text-xs text-slate-500">Services Premium</p>
+                            <p class="font-semibold text-emerald-600">${tier.servicesPremium}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            <div class="bg-slate-900 text-white rounded-xl p-5">
+              <h3 class="font-semibold mb-4 flex items-center gap-2">${getIcon('shield', 18)}<span class="text-amber-400">Phase 0: Deployment & Security (D3/D4 Only)</span></h3>
+              <p class="text-slate-300 text-sm mb-4">For D3 (Private Cloud) and D4 (Self-Hosted) customers, Phase 0 is required before Foundation can begin. This is non-negotiable.</p>
+              <div class="grid grid-cols-3 gap-4">
+                <div class="bg-white/10 rounded-lg p-4">
+                  <p class="text-amber-400 text-xs font-semibold mb-2">Workstreams</p>
+                  <div class="space-y-1 text-sm text-slate-300">
+                    ${['Environment provisioning', 'Security architecture', 'SSO/SCIM implementation', 'Vendor security questionnaire', 'Penetration testing coordination'].map(item => `<p>• ${item}</p>`).join('')}
+                  </div>
+                </div>
+                <div class="bg-white/10 rounded-lg p-4">
+                  <p class="text-amber-400 text-xs font-semibold mb-2">Exit Criteria</p>
+                  <div class="space-y-1 text-sm text-slate-300">
+                    ${['Environment provisioned & accessible', 'Security review approved', 'Network connectivity validated', 'Compliance attestation complete', 'InfoSec sign-off obtained'].map(item => `<p>• ${item}</p>`).join('')}
+                  </div>
+                </div>
+                <div class="bg-white/10 rounded-lg p-4">
+                  <p class="text-amber-400 text-xs font-semibold mb-2">Commercial Terms</p>
+                  <div class="space-y-2 text-sm">
+                    <div class="flex justify-between"><span class="text-slate-300">D3 Phase 0:</span><span class="text-white font-semibold">$175-225K</span></div>
+                    <div class="flex justify-between"><span class="text-slate-300">D4 Phase 0:</span><span class="text-white font-semibold">$350-450K</span></div>
+                    <div class="flex justify-between"><span class="text-slate-300">Timing:</span><span class="text-white">Invoice at kickoff</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border-2 border-amber-300 p-5">
+              <h3 class="font-semibold mb-4 flex items-center gap-2">${getIcon('building-2', 18)}<span class="text-amber-600">Regulated Industry Pathway (Financial Services / Healthcare)</span></h3>
+              <p class="text-sm text-slate-600 mb-4">The complete commercial journey for accounts like PNC, Edward Jones, GSK, CVS Health:</p>
+              <div class="flex items-center gap-2 mb-4 overflow-x-auto pb-2">
+                ${[
+                  { phase: 'Diagnostic', price: '$50-60K', weeks: '3-4 wks', color: 'slate' },
+                  { phase: 'Phase 0: Deploy', price: '$175-350K', weeks: '8-16 wks', color: 'amber' },
+                  { phase: 'Phase 1: Foundation', price: '$350-450K', weeks: '16-20 wks', color: 'blue' },
+                  { phase: 'Phase 2: Activation', price: '$225-325K', weeks: '12-16 wks', color: 'emerald' },
+                  { phase: 'Phase 3: Intelligence', price: '$165-225K', weeks: '8-12 wks', color: 'violet' }
+                ].map((p, i) => `
+                  ${i > 0 ? `<div class="flex-shrink-0">${getIcon('arrow-right', 20)}</div>` : ''}
+                  <div class="flex-shrink-0 rounded-lg p-3 text-center min-w-28 ${p.color === 'slate' ? 'bg-slate-100' : p.color === 'amber' ? 'bg-amber-100' : p.color === 'blue' ? 'bg-blue-100' : p.color === 'emerald' ? 'bg-emerald-100' : 'bg-violet-100'}">
+                    <p class="text-xs font-semibold mb-1 ${p.color === 'slate' ? 'text-slate-600' : p.color === 'amber' ? 'text-amber-700' : p.color === 'blue' ? 'text-blue-700' : p.color === 'emerald' ? 'text-emerald-700' : 'text-violet-700'}">${p.phase}</p>
+                    <p class="font-bold text-sm">${p.price}</p>
+                    <p class="text-xs text-slate-500">${p.weeks}</p>
+                  </div>
+                `).join('')}
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-emerald-50 rounded-lg p-4">
+                  <p class="text-xs text-emerald-600 font-semibold mb-2">Total Regulated Pathway TCV</p>
+                  <p class="text-2xl font-bold text-emerald-700">$1.1M - $1.6M</p>
+                  <p class="text-xs text-emerald-600 mt-1">+ Platform ARR ($100-200K annually)</p>
+                </div>
+                <div class="bg-amber-50 rounded-lg p-4">
+                  <p class="text-xs text-amber-600 font-semibold mb-2">Total Timeline</p>
+                  <p class="text-2xl font-bold text-amber-700">47-68 weeks</p>
+                  <p class="text-xs text-amber-600 mt-1">Plan for 12-18 month engagement</p>
+                </div>
+              </div>
+            </div>
+            <div class="bg-rose-50 border border-rose-200 rounded-xl p-5">
+              <h3 class="font-semibold text-rose-800 mb-2 flex items-center gap-2">${getIcon('alert-triangle', 18)} Deployment Pricing Guardrails</h3>
+              <div class="grid grid-cols-3 gap-4 text-sm">
+                <div>
+                  <p class="font-medium text-rose-800 mb-2">Never discount below:</p>
+                  <div class="space-y-1 text-rose-700">
+                    ${['Phase 0 (D3): $125K floor', 'Phase 0 (D4): $275K floor', 'Platform premium: Non-negotiable'].map(item => `<p>• ${item}</p>`).join('')}
+                  </div>
+                </div>
+                <div>
+                  <p class="font-medium text-rose-800 mb-2">Always scope separately:</p>
+                  <div class="space-y-1 text-rose-700">
+                    ${['Phase 0 as standalone phase', 'Security review coordination', 'Compliance documentation'].map(item => `<p>• ${item}</p>`).join('')}
+                  </div>
+                </div>
+                <div>
+                  <p class="font-medium text-rose-800 mb-2">Red flags:</p>
+                  <div class="space-y-1 text-rose-700">
+                    ${['"Can we skip Phase 0?"', '"Just give us cloud for now"', '"Security will approve later"'].map(item => `<p>• ${item}</p>`).join('')}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Maturity Model
+      if (state.activeSection === 'maturity') {
+        html = `
+          <div class="space-y-6 max-w-5xl">
+            <div class="bg-gradient-to-r from-violet-600 to-violet-700 text-white rounded-xl p-6">
+              <p class="text-violet-200 text-sm font-semibold mb-2">MATURITY FRAMEWORK</p>
+              <h2 class="text-xl font-bold mb-2">Five levels from Fragmented to Intelligent. MCP unlocks at Level 5.</h2>
+              <p class="text-violet-100">Maturity determines readiness. Readiness determines investment path. Never skip levels.</p>
+            </div>
+            <div class="space-y-3">
+              ${[
+                { level: 1, name: 'Fragmented', desc: 'Scattered components. No system of record. Design and engineering disconnected.', sam: '~$200M', mcpStatus: 'locked', color: 'slate', indicators: ['Multiple unofficial component libraries', 'No governance structure', 'High inconsistency in products'] },
+                { level: 2, name: 'Emerging', desc: 'Initial system exists. Limited adoption. No governance.', sam: '~$600M', mcpStatus: 'locked', color: 'blue', indicators: ['Design system exists but not enforced', 'Limited engineering adoption', 'Governance conversations starting'] },
+                { level: 3, name: 'Operational', desc: 'System deployed. Teams using it. Governance forming.', sam: '~$500M', mcpStatus: 'locked', color: 'amber', indicators: ['Active governance committee', 'Engineering integration in progress', 'Contribution model emerging'] },
+                { level: 4, name: 'Governed', desc: 'Full governance. Decision authority. Metrics established.', sam: '~$400M', mcpStatus: 'prep', color: 'emerald', indicators: ['Governance model enforced', 'Cross-product decisions flow through system', 'MCP preparation possible'] },
+                { level: 5, name: 'Intelligent', desc: 'AI-assisted execution. MCP active. Continuous optimization.', sam: '~$300M', mcpStatus: 'unlocked', color: 'violet', indicators: ['MCP integration active', 'AI-assisted workflows operational', 'Predictive governance in place'] }
+              ].map(m => `
+                <div class="bg-white rounded-xl border-2 p-4 ${m.color === 'slate' ? 'border-slate-200' : m.color === 'blue' ? 'border-blue-200' : m.color === 'amber' ? 'border-amber-200' : m.color === 'emerald' ? 'border-emerald-200' : 'border-violet-200'}">
+                  <div class="flex items-start gap-4">
+                    <div class="w-14 h-14 rounded-lg flex flex-col items-center justify-center ${m.color === 'slate' ? 'bg-slate-100' : m.color === 'blue' ? 'bg-blue-100' : m.color === 'amber' ? 'bg-amber-100' : m.color === 'emerald' ? 'bg-emerald-100' : 'bg-violet-100'}">
+                      <span class="text-xl font-bold ${m.color === 'slate' ? 'text-slate-600' : m.color === 'blue' ? 'text-blue-600' : m.color === 'amber' ? 'text-amber-600' : m.color === 'emerald' ? 'text-emerald-600' : 'text-violet-600'}">${m.level}</span>
+                    </div>
+                    <div class="flex-1">
+                      <div class="flex items-center gap-3 mb-1">
+                        <h4 class="font-semibold text-lg">${m.name}</h4>
+                        <span class="text-xs px-2 py-0.5 rounded ${m.mcpStatus === 'locked' ? 'bg-slate-200 text-slate-600' : m.mcpStatus === 'prep' ? 'bg-amber-200 text-amber-700' : 'bg-emerald-200 text-emerald-700'}">
+                          ${m.mcpStatus === 'locked' ? `${getIcon('lock', 10)} MCP Locked` : m.mcpStatus === 'prep' ? 'MCP Prep' : `${getIcon('unlock', 10)} MCP Ready`}
+                        </span>
+                        <span class="text-xs text-slate-500">SAM: ${m.sam}</span>
+                      </div>
+                      <p class="text-sm text-slate-600 mb-2">${m.desc}</p>
+                      <div class="flex flex-wrap gap-2">
+                        ${m.indicators.map(ind => `<span class="text-xs px-2 py-1 bg-slate-100 rounded text-slate-600">${ind}</span>`).join('')}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
+              <h3 class="font-semibold text-amber-800 mb-2 flex items-center gap-2">${getIcon('alert-triangle', 18)} Critical Insight</h3>
+              <p class="text-amber-800 font-medium mb-2">"Implemented" ≠ "Activated"</p>
+              <p class="text-sm text-amber-700">Most customers are stuck between Level 2-3. They have the platform but aren't getting value. J3 (Services Transformation) is the path to activation. This is where we make our margin.</p>
+            </div>
+          </div>
+        `;
+      }
+
+      // Assessment Framework
+      if (state.activeSection === 'assessment') {
+        html = `
+          <div class="space-y-6 max-w-5xl">
+            <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl p-6">
+              <p class="text-blue-200 text-sm font-semibold mb-2">ASSESSMENT FRAMEWORK</p>
+              <h2 class="text-xl font-bold mb-2">Score every account. Route by quadrant. Never skip assessment.</h2>
+              <p class="text-blue-100">The IPE Readiness Score (0-100) determines investment path. Assessment is non-negotiable.</p>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">IPE Readiness Score Components</h3>
+              <div class="grid grid-cols-3 gap-4">
+                ${[
+                  { name: 'Product System Foundation', weight: '40%', maxPoints: 40, factors: ['Design system maturity', 'Engineering adoption', 'Governance structure', 'Documentation quality'] },
+                  { name: 'AI & Automation Readiness', weight: '30%', maxPoints: 30, factors: ['MCP compatibility', 'API maturity', 'Integration architecture', 'Data quality'] },
+                  { name: 'Organizational Readiness', weight: '30%', maxPoints: 30, factors: ['Executive sponsorship', 'Team capacity', 'Change management', 'Budget authority'] }
+                ].map(c => `
+                  <div class="bg-slate-50 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                      <h4 class="font-medium">${c.name}</h4>
+                      <span class="text-sm font-bold text-emerald-600">${c.weight}</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-3">Max ${c.maxPoints} points</p>
+                    <div class="space-y-1">
+                      ${c.factors.map(f => `
+                        <div class="flex items-center gap-2 text-xs text-slate-600">
+                          ${getIcon('check-circle-2', 10)}
+                          ${f}
+                        </div>
+                      `).join('')}
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Assessment Quadrant → Investment Path</h3>
+              <div class="grid grid-cols-2 gap-4">
+                ${[
+                  { quadrant: 'A', label: 'High Readiness + High Value', path: 'J4 (Intelligence)', color: 'violet', action: 'Fast-track to MCP', score: '70-100', desc: 'Ready for AI enablement' },
+                  { quadrant: 'B', label: 'Low Readiness + High Value', path: 'J3 (Activation)', color: 'emerald', action: 'Invest in transformation', score: '40-69', desc: 'Primary investment target' },
+                  { quadrant: 'C', label: 'High Readiness + Low Value', path: 'J2 (Acceleration)', color: 'blue', action: 'Quick activation sprint', score: '70-100', desc: 'Fast but limited scope' },
+                  { quadrant: 'D', label: 'Low Readiness + Low Value', path: 'J1 (Foundation)', color: 'slate', action: 'Diagnostic only', score: '0-39', desc: 'Monitor, don\'t invest' }
+                ].map(q => `
+                  <div onclick="toggleQuadrant('${q.quadrant}')" class="rounded-xl border-2 p-4 cursor-pointer transition-all ${q.color === 'violet' ? 'border-violet-300 hover:border-violet-400' : q.color === 'emerald' ? 'border-emerald-300 hover:border-emerald-400' : q.color === 'blue' ? 'border-blue-300 hover:border-blue-400' : 'border-slate-300 hover:border-slate-400'} ${state.selectedQuadrant === q.quadrant ? 'ring-2 ring-offset-2 ring-slate-300' : ''}">
+                    <div class="flex items-start gap-3">
+                      <div class="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-lg ${q.color === 'violet' ? 'bg-violet-100 text-violet-700' : q.color === 'emerald' ? 'bg-emerald-100 text-emerald-700' : q.color === 'blue' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-700'}">
+                        ${q.quadrant}
+                      </div>
+                      <div class="flex-1">
+                        <p class="text-xs text-slate-500">${q.label}</p>
+                        <p class="font-semibold">${q.path}</p>
+                        <p class="text-sm text-slate-600 mt-1">${q.desc}</p>
+                        <div class="flex items-center justify-between mt-2">
+                          <span class="text-xs px-2 py-1 bg-slate-100 rounded">Score: ${q.score}</span>
+                          <span class="text-xs font-medium ${q.color === 'emerald' ? 'text-emerald-600' : 'text-slate-500'}">${q.action}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Investment Paths (Journeys)
+      if (state.activeSection === 'journeys') {
+        html = `
+          <div class="space-y-6 max-w-5xl">
+            <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl p-6">
+              <p class="text-emerald-200 text-sm font-semibold mb-2">INVESTMENT PATHS</p>
+              <h2 class="text-xl font-bold mb-2">Four paths. One routing rule. J3 is the money.</h2>
+              <p class="text-emerald-100">The investment path is how they get to governed AI. The partnership is right-sized to their readiness, capacity, and deployment requirements.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+                <div class="flex items-center gap-3">
+                  ${getIcon('star', 20)}
+                  <div>
+                    <p class="font-semibold text-emerald-800">Path 3 (Activation-Focused) holds the majority of ARR and meaningful churn risk</p>
+                    <p class="text-sm text-emerald-700">Services capacity is the growth bottleneck—not top-of-funnel</p>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+                <div class="flex items-center gap-3">
+                  ${getIcon('shield', 20)}
+                  <div>
+                    <p class="font-semibold text-amber-800">Deployment tier (D1-D4) significantly impacts timeline and TCV</p>
+                    <p class="text-sm text-amber-700">Regulated industries (D3/D4) require Phase 0 before Foundation</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-4">
+              ${journeys.map(p => `
+                <div onclick="toggleJourney('${p.id}')" class="bg-white rounded-xl border-2 p-5 cursor-pointer transition-all ${p.primary ? 'border-emerald-500' : 'border-slate-200'} ${state.selectedJourney === p.id ? 'shadow-lg ring-2 ring-offset-2 ring-slate-300' : 'hover:shadow-md'}">
+                  <div class="flex items-start gap-4">
+                    <div class="w-14 h-14 rounded-lg flex flex-col items-center justify-center font-bold ${p.color === 'slate' ? 'bg-slate-100 text-slate-700' : p.color === 'blue' ? 'bg-blue-100 text-blue-700' : p.color === 'emerald' ? 'bg-emerald-100 text-emerald-700' : 'bg-violet-100 text-violet-700'} ${p.primary ? 'ring-2 ring-emerald-500' : ''}">
+                      <span class="text-lg">${p.internal}</span>
+                    </div>
+                    <div class="flex-1">
+                      <div class="flex items-center gap-2 mb-1">
+                        <h4 class="font-semibold text-lg">${p.name}</h4>
+                        ${p.primary ? '<span class="text-xs px-2 py-0.5 bg-emerald-500 text-white rounded">PRIMARY</span>' : ''}
+                        <span class="text-xs px-2 py-0.5 rounded ${p.risk === 'low' ? 'bg-slate-200 text-slate-600' : p.risk === 'medium' ? 'bg-amber-200 text-amber-700' : 'bg-rose-200 text-rose-700'}">${p.risk} risk</span>
+                        <span class="text-xs text-slate-500">ARR: ${p.arr}</span>
+                      </div>
+                      <p class="text-sm text-slate-600 mb-2">${p.desc}</p>
+                      <div class="flex items-center gap-4 text-sm">
+                        <span class="font-mono text-xs bg-slate-100 px-2 py-1 rounded">${p.path}</span>
+                        <span class="font-semibold ${p.expansion ? 'text-emerald-600' : 'text-rose-600'}">
+                          ${p.expansion ? `${getIcon('unlock', 12)} Expansion OK` : `${getIcon('lock', 12)} Expansion Blocked`}
+                        </span>
+                      </div>
+                      ${state.selectedJourney === p.id ? `
+                        <div class="mt-4 pt-4 border-t space-y-3">
+                          <div>
+                            <p class="text-xs text-slate-500 font-semibold">Example Accounts</p>
+                            <div class="flex flex-wrap gap-1 mt-1">
+                              ${p.accounts.map(a => `<span class="text-xs px-2 py-1 bg-slate-100 rounded">${a}</span>`).join('')}
+                            </div>
+                          </div>
+                          <div>
+                            <p class="text-xs text-slate-500 font-semibold">Commercial Note</p>
+                            <p class="text-sm text-slate-700">${p.commercialNote}</p>
+                          </div>
+                          <div class="flex items-center justify-between">
+                            <div>
+                              <p class="text-xs text-slate-500 font-semibold">TCV Range</p>
+                              <p class="text-lg font-bold text-emerald-600">${p.tcv}</p>
+                            </div>
+                            <div>
+                              <p class="text-xs text-slate-500 font-semibold">Deployment Tiers</p>
+                              <div class="flex gap-1 mt-1">
+                                ${p.deploymentTiers.map(t => `<span class="text-xs px-2 py-1 bg-slate-200 rounded font-mono">${t}</span>`).join('')}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ` : ''}
+                    </div>
+                    <div class="flex-shrink-0">
+                      ${getIcon('chevron-right', 20)}
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // Partnership Phases
+      if (state.activeSection === 'phases') {
+        html = `
+          <div class="space-y-6 max-w-5xl">
+            <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl p-6">
+              <p class="text-blue-200 text-sm font-semibold mb-2">PARTNERSHIP PHASES</p>
+              <h2 class="text-xl font-bold mb-2">Phase-gated delivery. Clear exit criteria. Never sell all phases upfront.</h2>
+              <p class="text-blue-100">Earn the right to the next phase. Each phase builds trust and proves value.</p>
+              <div class="grid grid-cols-4 gap-3 mt-4">
+                ${[
+                  { phase: 'Foundation', price: '$350-450K', weeks: '16-20' },
+                  { phase: 'Activation', price: '$225-325K', weeks: '12-16' },
+                  { phase: 'Intelligence', price: '$165-225K', weeks: '8-12' },
+                  { phase: 'Expansion', price: 'Platform ARR', weeks: 'Ongoing' }
+                ].map(p => `
+                  <div class="bg-white/10 rounded-lg p-3 text-center">
+                    <p class="text-blue-200 text-xs">${p.phase}</p>
+                    <p class="font-bold">${p.price}</p>
+                    <p class="text-blue-300 text-xs">${p.weeks}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            <div class="space-y-4">
+              ${[
+                { num: 1, name: 'Foundation Phase', extName: 'Product System Foundation', level: 'Maturity 3 → Operational', mcp: 'locked', color: 'blue', price: '$350-450K', weeks: '16-20 weeks', goal: 'Make the platform reliably usable for real teams, without heroics.', workstreams: ['Workspace deployment', 'Entitlement & access setup', 'Design-to-code connection', 'Governance framework draft'], exitCriteria: ['Teams can publish without intervention', 'Access no longer blocking work', 'First component shipped to production'], commercialTrigger: 'Invoice 50% at kickoff, 50% at Phase Gate 1 completion', upsell: 'Activation Phase proposal ready at week 14' },
+                { num: 2, name: 'Activation Phase', extName: 'Control Plane Activation', level: 'Maturity 3 → Level 4', mcp: 'locked', color: 'emerald', price: '$225-325K', weeks: '12-16 weeks', goal: 'Turn "systems" into a system of record with decision authority.', workstreams: ['Token strategy implementation', 'Governance model activation', 'Cross-system rules', 'Signal instrumentation'], exitCriteria: ['Token strategy approved & operating', 'Governance model active', 'Decisions flowing through system'], commercialTrigger: 'Propose Intelligence Phase at week 10', upsell: 'MCP readiness assessment included' },
+                { num: 3, name: 'Intelligence Phase', extName: 'AI Enablement Partnership', level: 'Level 4 → Level 5', mcp: 'prep', color: 'amber', price: '$165-225K', weeks: '8-12 weeks', goal: 'Prove that governed intent can safely become AI-assisted execution.', workstreams: ['MCP integration', 'AI workflow design', 'Testing architecture', 'Change validation framework'], exitCriteria: ['One AI-assisted change ships end-to-end', 'Teams trust the governed output', 'Exec ROI story documented'], commercialTrigger: 'Platform expansion proposal at week 8', upsell: 'Enterprise rollout scoping' },
+                { num: 4, name: 'Scale Phase', extName: 'Enterprise Expansion', level: 'Level 5 Operating', mcp: 'unlocked', color: 'violet', price: 'Platform ARR + Services', weeks: 'Ongoing', goal: 'Scale intelligence across the organization with measurable ROI.', workstreams: ['Additional team onboarding', 'Cross-BU deployment', 'Advanced analytics', 'Optimization cycles'], exitCriteria: ['10+ teams active', 'ROI metrics published', 'Self-service operating'], commercialTrigger: 'Annual platform renewal + expansion', upsell: 'Multi-year strategic partnership' }
+              ].map(phase => `
+                <div onclick="togglePhase(${phase.num})" class="bg-white rounded-xl border-2 p-5 cursor-pointer transition-all ${phase.color === 'blue' ? 'border-blue-200' : phase.color === 'emerald' ? 'border-emerald-200' : phase.color === 'amber' ? 'border-amber-200' : 'border-violet-200'} ${state.selectedPhase === phase.num ? 'shadow-lg' : 'hover:shadow-md'}">
+                  <div class="flex items-start gap-4">
+                    <div class="w-14 h-14 rounded-lg flex flex-col items-center justify-center ${phase.color === 'blue' ? 'bg-blue-100' : phase.color === 'emerald' ? 'bg-emerald-100' : phase.color === 'amber' ? 'bg-amber-100' : 'bg-violet-100'}">
+                      <span class="text-2xl font-bold ${phase.color === 'blue' ? 'text-blue-600' : phase.color === 'emerald' ? 'text-emerald-600' : phase.color === 'amber' ? 'text-amber-600' : 'text-violet-600'}">${phase.num}</span>
+                    </div>
+                    <div class="flex-1">
+                      <div class="flex items-center gap-3 mb-1">
+                        <h4 class="font-semibold text-lg">${phase.name}</h4>
+                        <span class="text-xs px-2 py-0.5 rounded ${phase.mcp === 'locked' ? 'bg-slate-200 text-slate-600' : phase.mcp === 'prep' ? 'bg-amber-200 text-amber-700' : 'bg-emerald-200 text-emerald-700'}">
+                          ${phase.mcp === 'locked' ? `${getIcon('lock', 10)} MCP Locked` : phase.mcp === 'prep' ? 'MCP Prep' : `${getIcon('unlock', 10)} MCP Active`}
+                        </span>
+                        <span class="text-xs text-slate-500">${phase.level}</span>
+                      </div>
+                      <div class="flex items-center gap-4 mb-2">
+                        <span class="text-lg font-bold text-emerald-600">${phase.price}</span>
+                        <span class="text-sm text-slate-500">${phase.weeks}</span>
+                      </div>
+                      <p class="text-sm text-slate-600">${phase.goal}</p>
+                      ${state.selectedPhase === phase.num ? `
+                        <div class="mt-4 pt-4 border-t grid grid-cols-2 gap-4">
+                          <div>
+                            <p class="text-xs text-slate-500 font-semibold mb-2">Workstreams</p>
+                            <div class="space-y-1">
+                              ${phase.workstreams.map(w => `<p class="text-sm text-slate-700">• ${w}</p>`).join('')}
+                            </div>
+                          </div>
+                          <div>
+                            <p class="text-xs text-slate-500 font-semibold mb-2">Exit Criteria</p>
+                            <div class="space-y-1">
+                              ${phase.exitCriteria.map(e => `
+                                <p class="text-sm text-slate-700 flex items-center gap-1">
+                                  ${getIcon('check-circle-2', 12)}
+                                  ${e}
+                                </p>
+                              `).join('')}
+                            </div>
+                          </div>
+                          <div class="col-span-2 bg-slate-50 rounded-lg p-3">
+                            <p class="text-xs text-slate-500 font-semibold">Commercial Trigger</p>
+                            <p class="text-sm text-slate-700">${phase.commercialTrigger}</p>
+                            <p class="text-xs text-emerald-600 mt-1">Upsell: ${phase.upsell}</p>
+                          </div>
+                        </div>
+                      ` : ''}
+                    </div>
+                    <div class="flex-shrink-0">
+                      ${getIcon('chevron-right', 20)}
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // Operating Guidance
+      if (state.activeSection === 'guidance') {
+        html = `
+          <div class="space-y-6 max-w-5xl">
+            <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6">
+              <p class="text-emerald-400 text-sm font-semibold mb-2">OPERATING GUIDANCE</p>
+              <h2 class="text-xl font-bold mb-2">Stop treating all accounts equally. Invest where it matters.</h2>
+              <p class="text-slate-300">Path 3 holds the majority of ARR and churn risk. Services capacity is the bottleneck. Focus there.</p>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Where to Place Bets</h3>
+              <div class="space-y-2">
+                ${[
+                  { path: 'Path 1 (Foundation)', desc: 'Diagnostic only. Monitor for maturation signals.', action: 'Minimal investment', primary: false },
+                  { path: 'Path 2 (Acceleration)', desc: 'Quick sprint when trigger fires. Premium pricing justified.', action: 'Compress timeline, charge premium', primary: false },
+                  { path: 'Path 3 (Activation)', desc: '60% of ARR, highest churn risk. Requires deep services investment.', action: 'PRIMARY FOCUS - scale services capacity', primary: true },
+                  { path: 'Path 4 (Intelligence)', desc: 'Expansion-ready when timing aligns. Have proposal ready.', action: 'Opportunistic, fast close', primary: false }
+                ].map(b => `
+                  <div class="flex items-center gap-3 p-3 rounded-lg ${b.primary ? 'bg-emerald-50 border border-emerald-200' : 'bg-slate-50'}">
+                    <span class="font-bold w-36 ${b.primary ? 'text-emerald-700' : 'text-slate-700'}">${b.path}</span>
+                    <span class="text-sm flex-1 ${b.primary ? 'text-emerald-700' : 'text-slate-600'}">${b.desc}</span>
+                    <span class="text-xs px-2 py-1 rounded ${b.primary ? 'bg-emerald-200 text-emerald-800' : 'bg-slate-200 text-slate-600'}">${b.action}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-rose-50 border border-rose-200 rounded-xl p-5">
+                <h3 class="font-semibold text-rose-800 mb-3 flex items-center gap-2">${getIcon('x-circle', 18)} What to STOP Doing</h3>
+                <div class="space-y-2">
+                  ${['Treating MCP Support as a substitute for activation', 'Treating "implemented" as "successful"', 'Running long implementations without ownership', 'Over-serving non-ICP accounts', 'Using internal language with customers', 'Selling hours instead of outcomes', 'Proposing all phases upfront', 'Discounting below floor pricing'].map(item => `
+                    <div class="flex items-start gap-2 text-sm text-rose-700">
+                      <span class="font-bold">✗</span>
+                      ${item}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+              <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5">
+                <h3 class="font-semibold text-emerald-800 mb-3 flex items-center gap-2">${getIcon('check-circle-2', 18)} What to START Doing</h3>
+                <div class="space-y-2">
+                  ${['Gate all work by maturity phase', 'Require Account State Flags in CRM', 'Apply the routing rule without exception', 'Invest services capacity in Path 3', 'Use governance language with customers', 'Price by value and outcome', 'Phase-gate every deal', 'Hold pricing floors firm'].map(item => `
+                    <div class="flex items-start gap-2 text-sm text-emerald-700">
+                      <span class="font-bold">✓</span>
+                      ${item}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Commercial Guardrails</h3>
+              <div class="grid grid-cols-3 gap-4">
+                <div class="bg-rose-50 rounded-lg p-4">
+                  <p class="text-xs text-rose-600 font-semibold mb-2">Pricing Floors</p>
+                  <div class="space-y-1 text-sm text-rose-700">
+                    <p>• Diagnostic: $40K minimum</p>
+                    <p>• Foundation: $275K minimum</p>
+                    <p>• Platform ARR: $75K minimum</p>
+                  </div>
+                </div>
+                <div class="bg-amber-50 rounded-lg p-4">
+                  <p class="text-xs text-amber-600 font-semibold mb-2">Deal Requirements</p>
+                  <div class="space-y-1 text-sm text-amber-700">
+                    <p>• Executive sponsor identified</p>
+                    <p>• Engineering owner assigned</p>
+                    <p>• Success metrics agreed</p>
+                  </div>
+                </div>
+                <div class="bg-emerald-50 rounded-lg p-4">
+                  <p class="text-xs text-emerald-600 font-semibold mb-2">Phase Gate Rules</p>
+                  <div class="space-y-1 text-sm text-emerald-700">
+                    <p>• Never skip assessment</p>
+                    <p>• Complete before expansion</p>
+                    <p>• Earn next phase</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Metrics
+      if (state.activeSection === 'metrics') {
+        html = `
+          <div class="space-y-6 max-w-5xl">
+            <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl p-6">
+              <p class="text-emerald-200 text-sm font-semibold mb-2">SUCCESS METRICS</p>
+              <h2 class="text-xl font-bold mb-2">Measure what matters. Activation depth, not vanity metrics.</h2>
+              <p class="text-emerald-100">Track progression through maturity levels, not just contract value.</p>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              ${[
+                { category: 'Activation Metrics', color: 'emerald', metrics: ['Time to first production use', 'Teams actively using platform', 'Governance decisions/month', 'Signal instrumentation %'] },
+                { category: 'Intelligence Metrics', color: 'violet', metrics: ['MCP integrations active', 'AI-assisted changes shipped', 'Governed execution rate', 'Error prevention rate'] },
+                { category: 'Business Metrics', color: 'blue', metrics: ['Services margin', 'Platform ARR expansion', 'Time to expansion readiness', 'Customer trust score'] }
+              ].map(cat => `
+                <div class="bg-white rounded-xl border-2 p-5 ${cat.color === 'emerald' ? 'border-emerald-200' : cat.color === 'violet' ? 'border-violet-200' : 'border-blue-200'}">
+                  <h4 class="font-semibold mb-3 ${cat.color === 'emerald' ? 'text-emerald-700' : cat.color === 'violet' ? 'text-violet-700' : 'text-blue-700'}">${cat.category}</h4>
+                  <div class="space-y-2">
+                    ${cat.metrics.map(m => `
+                      <div class="flex items-center gap-2 text-sm text-slate-700">
+                        ${getIcon('bar-chart-3', 14)}
+                        ${m}
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <div class="bg-slate-900 text-white rounded-xl p-6">
+              <h3 class="font-semibold mb-3">The Final Word</h3>
+              <p class="text-slate-300 mb-4">This playbook exists because "implemented" doesn't mean "activated." Our customers have the platform. What they need is the transformation to extract value from it.</p>
+              <div class="bg-emerald-500/20 rounded-lg p-4">
+                <p class="text-emerald-300 font-medium">The path to revenue is J3 activation, not new logos. Services capacity is the bottleneck. Every decision should flow from these two facts.</p>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    function render() {
+      renderNav();
+      renderContent();
+      renderRateCard();
+    }
+
+    // Initialize
+    render();
+  </script>
+</body>
+</html>
