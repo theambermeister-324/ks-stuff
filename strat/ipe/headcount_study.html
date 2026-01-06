@@ -3,891 +3,1220 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IPE GTM Headcount Study</title>
+  <title>IPE GTM Detailed Planning - Role Profiles, Budget & Risk Mitigation</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    [data-tab] { display: none; }
-    [data-tab].active { display: block; }
+    .icon { width: 16px; height: 16px; display: inline-block; vertical-align: middle; }
   </style>
 </head>
-<body class="min-h-screen bg-slate-50">
-  <div id="app"></div>
+<body>
+  <div id="app" class="min-h-screen bg-slate-50">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-6">
+      <div class="max-w-6xl mx-auto">
+        <p class="text-emerald-400 text-sm font-semibold mb-2">IPE GTM DETAILED PLANNING</p>
+        <h1 class="text-2xl font-bold mb-4">Role Profiles, Budget & Risk Mitigation</h1>
+        
+        <!-- Scenario Selector -->
+        <div class="flex gap-2" id="scenario-selector"></div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="bg-white border-b sticky top-0 z-10">
+      <div class="max-w-6xl mx-auto flex gap-1 p-2" id="tabs-nav"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto p-6">
+      <!-- Content Sections -->
+      <div id="content-sections"></div>
+    </div>
+  </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // State management
-      let state = {
-        activeTab: 'summary',
-        utilization: 75,
-        scenario: 'base',
-        staffingModel: 'hybrid',
-        pricingTier: 'standard'
-      };
+    // State management
+    let state = {
+      activeTab: 'roles',
+      activeScenario: '9m',
+      expandedRole: null
+    };
 
-      const WEEKS_PER_YEAR = 48;
-      const HOURS_PER_WEEK = 40;
-      const HOURS_PER_YEAR = WEEKS_PER_YEAR * HOURS_PER_WEEK;
-
-      // SVG Icons
+    // Icon helper
+    function getIcon(name, size = 16) {
       const icons = {
-        users: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-        dollarSign: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
-        trendingUp: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>',
-        calculator: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>',
-        target: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
-        alertTriangle: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
-        checkCircle: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
-        clock: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
-        briefcase: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
-        barChart: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>',
-        gitBranch: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>',
-        layers: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
-        userCheck: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>',
-        calendar: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-        code: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
-        messageSquare: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
-        zap: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
-        user: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'
+        users: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>',
+        'dollar-sign': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
+        'trending-up': '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline>',
+        'alert-triangle': '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line>',
+        'check-circle-2': '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>',
+        clock: '<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>',
+        'bar-chart-3': '<line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line>',
+        'arrow-right': '<line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>',
+        target: '<circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle>',
+        shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>',
+        calendar: '<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>',
+        'chevron-down': '<polyline points="6 9 12 15 18 9"></polyline>',
+        'chevron-right': '<polyline points="9 18 15 12 9 6"></polyline>',
+        code: '<polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>',
+        layers: '<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline>',
+        'message-square': '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>',
+        briefcase: '<rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>',
+        'user-check': '<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline>',
+        award: '<circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>',
+        'building-2': '<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M6 12h16"></path><path d="M6 6h4"></path><path d="M6 18h4"></path><path d="M10 10h4"></path><path d="M10 14h4"></path><path d="M10 22h4"></path>',
+        'file-text': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline>',
       };
+      return `<svg class="icon" style="width: ${size}px; height: ${size}px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">${icons[name] || ''}</svg>`;
+    }
 
-      // Data structures
-      const rateCard = {
-        cxp: { title: 'CX Partner', person: 'Amber', cost: 120, partner: 300, standard: 450, list: 600 },
-        fde: { title: 'Senior Solution Analyst', person: 'Jake', cost: 110, partner: 275, standard: 425, list: 550 },
-        analyst: { title: 'Solution Analyst', person: 'Britt', cost: 80, partner: 200, standard: 300, list: 400 },
-        pm: { title: 'Project Manager', person: 'Nina', cost: 80, partner: 200, standard: 300, list: 400 },
-        sme: { title: 'SME', person: 'Bloom', cost: 150, partner: 375, standard: 550, list: 750 },
-        executive: { title: 'Executive', person: 'Andrew', cost: 165, partner: 412.50, standard: 650, list: 825 },
-      };
+    // Data
+    const tabs = [
+      { id: 'gates', label: 'Gated Roadmap', icon: 'target' },
+      { id: 'roles', label: 'Role Profiles', icon: 'users' },
+      { id: 'budget', label: 'Quarterly Budget', icon: 'dollar-sign' },
+      { id: 'timeline', label: 'Hiring Timeline', icon: 'calendar' },
+      { id: 'risks', label: 'Risk Mitigation', icon: 'shield' },
+    ];
 
-      const pricingTiers = {
-        cost: { label: 'Cost', desc: 'Internal cost rate', discount: '~20% of list' },
-        partner: { label: 'Partner', desc: 'SI/Volume discount', discount: '50% of list' },
-        standard: { label: 'Standard', desc: 'Typical negotiated', discount: '~75% of list' },
-        list: { label: 'List', desc: 'Full enterprise rate', discount: '100%' },
-      };
+    const scenarios = {
+      '6m': { label: '$6M', color: 'slate', target: 6000000 },
+      '9m': { label: '$9M', color: 'emerald', target: 9000000 },
+      '12m': { label: '$12M', color: 'violet', target: 12000000 },
+    };
 
-      const roleCosts = {
-        fde: { title: 'Forward-Deployed Engineer', salary: 185000, fullyLoaded: 240000 },
-        sme: { title: 'Subject Matter Expert', salary: 160000, fullyLoaded: 210000 },
-        cxp: { title: 'CX Partner', salary: 125000, fullyLoaded: 165000 },
-        pm: { title: 'Project Manager', salary: 140000, fullyLoaded: 185000 },
-        csm: { title: 'Customer Success Manager', salary: 115000, fullyLoaded: 150000 },
-        ae: { title: 'Account Executive', salary: 150000, fullyLoaded: 275000 },
-        bdr: { title: 'Business Development Rep', salary: 75000, fullyLoaded: 115000 },
-      };
+    const roleProfiles = [
+      {
+        id: 'fde',
+        title: 'Forward-Deployed Engineer (FDE)',
+        aka: 'Senior Solution Analyst',
+        icon: 'code',
+        category: 'Services Delivery',
+        salary: { base: 160000, ote: 185000, loaded: 240000 },
+        billRate: 550,
+        hires: { '6m': 2, '9m': 4, '12m': 5 },
+        priority: 'Critical',
+        rampTime: '3 months',
+        utilization: '75%',
+        description: 'Owns technical implementation, architecture decisions, and code quality. Primary delivery resource for J2/J3 engagements. The binding constraint on services capacity.',
+        responsibilities: [
+          'Lead technical implementation of Knapsack platform',
+          'Design system architecture and integration patterns',
+          'Code review and quality assurance',
+          'Client-facing technical workshops and training',
+          'MCP integration and AI workflow implementation',
+          'Documentation and knowledge transfer'
+        ],
+        requirements: [
+          '7+ years full-stack development experience',
+          'Design system architecture expertise (Figma, Storybook, component libraries)',
+          'Enterprise integration experience (APIs, SSO, CI/CD)',
+          'Strong client-facing and communication skills',
+          'Experience with React, TypeScript, Node.js',
+          'Bonus: Financial services or healthcare background'
+        ],
+        successMetrics: [
+          'Implementation quality score > 95%',
+          'On-time delivery rate > 90%',
+          'Client satisfaction (CSAT) > 4.5/5',
+          'Utilization rate ≥ 75%',
+          'Knowledge articles published: 2/quarter'
+        ],
+        interviewProcess: [
+          'Recruiter screen (30 min)',
+          'Technical assessment - take-home (2-3 hrs)',
+          'Technical deep-dive with Engineering (60 min)',
+          'System design interview (60 min)',
+          'Client scenario roleplay with CX Partner (45 min)',
+          'Executive conversation with CEO (30 min)'
+        ],
+        hiringSource: ['LinkedIn Recruiter', 'Design systems community', 'Figma/Storybook conferences', 'Employee referrals'],
+      },
+      {
+        id: 'sme',
+        title: 'Subject Matter Expert (SME)',
+        aka: 'Design Systems Strategist',
+        icon: 'layers',
+        category: 'Services Delivery',
+        salary: { base: 140000, ote: 160000, loaded: 210000 },
+        billRate: 750,
+        hires: { '6m': 1, '9m': 2, '12m': 3 },
+        priority: 'High',
+        rampTime: '2 months',
+        utilization: '70%',
+        description: 'Design system and product methodology expert. Leads governance frameworks, change management, and strategic advisory. Critical for J3 Foundation and enterprise credibility.',
+        responsibilities: [
+          'Lead governance framework design and implementation',
+          'Facilitate stakeholder alignment workshops',
+          'Design contribution models and decision frameworks',
+          'Change management and organizational readiness',
+          'Thought leadership and content creation',
+          'Executive advisory and strategic planning'
+        ],
+        requirements: [
+          '10+ years in design systems, product design, or UX leadership',
+          'Experience building/scaling design systems at enterprise scale',
+          'Strong facilitation and workshop skills',
+          'Executive presence and communication skills',
+          'Published thought leadership (articles, talks, etc.)',
+          'Bonus: Consulting or professional services background'
+        ],
+        successMetrics: [
+          'Governance framework adoption rate > 80%',
+          'Stakeholder NPS > 50',
+          'Workshop effectiveness rating > 4.5/5',
+          'Content published: 1 piece/month',
+          'Speaking engagements: 2/quarter'
+        ],
+        interviewProcess: [
+          'Recruiter screen (30 min)',
+          'Portfolio review and case study (60 min)',
+          'Governance design exercise (60 min)',
+          'Workshop facilitation roleplay (45 min)',
+          'Executive conversation with CEO (30 min)'
+        ],
+        hiringSource: ['Design leadership networks', 'Conference speakers', 'Agency/consultancy alumni', 'Industry referrals'],
+      },
+      {
+        id: 'cxp',
+        title: 'CX Partner',
+        aka: 'Customer Experience Partner',
+        icon: 'message-square',
+        category: 'Services Delivery',
+        salary: { base: 120000, ote: 140000, loaded: 165000 },
+        billRate: 600,
+        hires: { '6m': 0, '9m': 1, '12m': 1 },
+        priority: 'Medium',
+        rampTime: '2 months',
+        utilization: '65%',
+        description: 'Owns customer relationship, expansion strategy, and engagement success. Bridge between delivery and commercial. Drives account growth and renewal.',
+        responsibilities: [
+          'Own customer relationship and success outcomes',
+          'Lead expansion and upsell opportunities',
+          'Coordinate cross-functional delivery teams',
+          'Executive stakeholder management',
+          'Renewal and contract negotiations',
+          'Voice of customer feedback loops'
+        ],
+        requirements: [
+          '5+ years in customer success, account management, or consulting',
+          'Enterprise B2B SaaS experience',
+          'Strong commercial acumen and negotiation skills',
+          'Executive communication and presence',
+          'Experience managing $500K+ accounts',
+          'Bonus: Design/product background'
+        ],
+        successMetrics: [
+          'Net Revenue Retention > 120%',
+          'Expansion rate > 30% of book',
+          'Client health score > 80',
+          'Renewal rate > 95%',
+          'Executive sponsor engagement: Monthly'
+        ],
+        interviewProcess: [
+          'Recruiter screen (30 min)',
+          'Experience deep-dive (60 min)',
+          'Account strategy case study (45 min)',
+          'Renewal negotiation roleplay (30 min)',
+          'Executive conversation (30 min)'
+        ],
+        hiringSource: ['SaaS customer success leaders', 'Consulting alumni', 'Enterprise account managers'],
+      },
+      {
+        id: 'pm',
+        title: 'Project Manager',
+        aka: 'Delivery Manager',
+        icon: 'file-text',
+        category: 'Services Delivery',
+        salary: { base: 115000, ote: 140000, loaded: 185000 },
+        billRate: 400,
+        hires: { '6m': 2, '9m': 2, '12m': 3 },
+        priority: 'High',
+        rampTime: '1 month',
+        utilization: '80%',
+        description: 'Owns delivery execution, timeline management, and resource coordination. Essential for J3 engagements which require 400-600 PM hours each.',
+        responsibilities: [
+          'Project planning and timeline management',
+          'Resource allocation and capacity planning',
+          'Client communication and status reporting',
+          'Risk identification and mitigation',
+          'Budget tracking and margin management',
+          'Process improvement and documentation'
+        ],
+        requirements: [
+          '5+ years project/program management experience',
+          'Professional services or consulting background',
+          'PMP or similar certification preferred',
+          'Experience with enterprise software implementations',
+          'Strong communication and stakeholder management',
+          'Proficiency in project management tools'
+        ],
+        successMetrics: [
+          'On-time delivery > 90%',
+          'Budget variance < 10%',
+          'Client satisfaction > 4.5/5',
+          'Resource utilization optimization',
+          'Risk mitigation effectiveness'
+        ],
+        interviewProcess: [
+          'Recruiter screen (30 min)',
+          'Experience review (45 min)',
+          'Project scenario case study (60 min)',
+          'Team collaboration interview (30 min)',
+          'Executive conversation (30 min)'
+        ],
+        hiringSource: ['Professional services firms', 'SaaS implementation teams', 'Consulting companies'],
+      },
+      {
+        id: 'csm',
+        title: 'Customer Success Manager',
+        aka: 'CSM',
+        icon: 'user-check',
+        category: 'GTM',
+        salary: { base: 100000, ote: 130000, loaded: 150000 },
+        billRate: null,
+        hires: { '6m': 1, '9m': 1, '12m': 2 },
+        priority: 'Medium',
+        rampTime: '2 months',
+        utilization: 'N/A',
+        description: 'Owns post-sale customer health, adoption, and retention. Manages 12 accounts per CSM. Identifies expansion opportunities and coordinates with CX Partners.',
+        responsibilities: [
+          'Customer onboarding and adoption',
+          'Health monitoring and intervention',
+          'Quarterly business reviews',
+          'Renewal preparation and support',
+          'Expansion opportunity identification',
+          'Product feedback aggregation'
+        ],
+        requirements: [
+          '3+ years customer success experience',
+          'B2B SaaS background required',
+          'Strong analytical and communication skills',
+          'Experience with CS platforms (Gainsight, ChurnZero)',
+          'Ability to manage 10-15 accounts effectively'
+        ],
+        successMetrics: [
+          'Gross retention > 90%',
+          'NPS > 50',
+          'Health score maintenance > 80',
+          'QBR completion rate 100%',
+          'Expansion pipeline contribution'
+        ],
+        interviewProcess: [
+          'Recruiter screen (30 min)',
+          'Experience review (45 min)',
+          'Customer scenario roleplay (30 min)',
+          'Team interview (30 min)'
+        ],
+        hiringSource: ['SaaS CS teams', 'Account management roles', 'Support-to-success transitions'],
+      },
+      {
+        id: 'ae',
+        title: 'Account Executive',
+        aka: 'AE',
+        icon: 'briefcase',
+        category: 'GTM',
+        salary: { base: 120000, ote: 240000, loaded: 275000 },
+        billRate: null,
+        hires: { '6m': 0, '9m': 1, '12m': 2 },
+        priority: 'Medium',
+        rampTime: '4 months',
+        utilization: 'N/A',
+        description: 'Owns new logo acquisition and expansion deals. Manages 6-8 qualified opportunities per quarter. Closes $150-300K average deal size.',
+        responsibilities: [
+          'New logo prospecting and qualification',
+          'Discovery and needs assessment',
+          'Solution presentation and demo',
+          'Proposal development and negotiation',
+          'Contract closure and handoff',
+          'Pipeline management and forecasting'
+        ],
+        requirements: [
+          '5+ years enterprise B2B sales experience',
+          '$500K+ annual quota achievement',
+          'Experience selling to design/engineering/product',
+          'Consultative selling approach',
+          'Strong discovery and qualification skills',
+          'Bonus: Design systems or DevTools background'
+        ],
+        successMetrics: [
+          'Quota attainment > 100%',
+          'Win rate > 25%',
+          'Average deal size > $150K',
+          'Pipeline coverage > 3x',
+          'Sales cycle < 90 days'
+        ],
+        interviewProcess: [
+          'Recruiter screen (30 min)',
+          'Sales experience deep-dive (60 min)',
+          'Mock discovery call (45 min)',
+          'Mock demo/pitch (45 min)',
+          'Executive conversation (30 min)'
+        ],
+        hiringSource: ['Enterprise SaaS sales', 'DevTools/design tools', 'Professional services sales'],
+      },
+      {
+        id: 'bdr',
+        title: 'Business Development Rep',
+        aka: 'BDR/SDR',
+        icon: 'target',
+        category: 'GTM',
+        salary: { base: 60000, ote: 90000, loaded: 115000 },
+        billRate: null,
+        hires: { '6m': 2, '9m': 1, '12m': 1 },
+        priority: 'Low',
+        rampTime: '2 months',
+        utilization: 'N/A',
+        description: 'Generates qualified pipeline for AE team. Targets 20 MQLs per month. Focus on outbound prospecting to ICP accounts.',
+        responsibilities: [
+          'Outbound prospecting and cold outreach',
+          'Inbound lead qualification',
+          'Account research and personalization',
+          'Meeting scheduling and handoff',
+          'CRM hygiene and reporting',
+          'ICP refinement feedback'
+        ],
+        requirements: [
+          '1-2 years sales or BD experience',
+          'Strong written and verbal communication',
+          'Persistence and resilience',
+          'CRM proficiency (Salesforce/HubSpot)',
+          'Research and personalization skills',
+          'Interest in design/product/engineering space'
+        ],
+        successMetrics: [
+          'MQLs generated > 20/month',
+          'SQL conversion > 30%',
+          'Activity metrics (calls, emails)',
+          'Pipeline contribution',
+          'AE satisfaction'
+        ],
+        interviewProcess: [
+          'Recruiter screen (20 min)',
+          'Experience/motivation review (30 min)',
+          'Cold call roleplay (15 min)',
+          'Team interview (30 min)'
+        ],
+        hiringSource: ['Entry-level sales programs', 'University recruiting', 'BDR bootcamps'],
+      },
+    ];
 
-      const journeyDefs = {
-        j1: { name: 'J1: Progressive Maturation', path: 'A → B → F → H', arrShare: 10, risk: 'low', color: 'slate', desc: 'Non-ICP or low readiness. Maintain relationship while they mature.', expansionAllowed: false },
-        j2: { name: 'J2: Independent Maturation', path: 'A → D → H', arrShare: 5, risk: 'low', color: 'blue', desc: 'Mature orgs with sudden trigger. Fast activation required.', expansionAllowed: true },
-        j3: { name: 'J3: Services Transformation', path: 'E → F/G → H', arrShare: 60, risk: 'high', color: 'emerald', desc: 'High-value ICP accounts blocked on activation + trust. Primary investment focus.', expansionAllowed: false },
-        j4: { name: 'J4: Timing Play', path: 'D → H', arrShare: 25, risk: 'medium', color: 'violet', desc: 'Mature systems with latent interest. Expansion-ready when trigger fires.', expansionAllowed: true },
-      };
+    const quarterlyBudget = {
+      '6m': {
+        q1: { hires: ['FDE #2', 'PM #1'], cost: 106250, revenue: 400000, cumHC: 8, notes: 'Foundation capacity' },
+        q2: { hires: ['FDE #3', 'SME #1', 'CSM #2'], cost: 148750, revenue: 800000, cumHC: 11, notes: 'Scale delivery' },
+        q3: { hires: ['PM #2', 'BDR #1'], cost: 75000, revenue: 1400000, cumHC: 13, notes: 'Support growth' },
+        q4: { hires: [], cost: 0, revenue: 2000000, cumHC: 13, notes: 'Optimize' },
+      },
+      '9m': {
+        q1: { hires: ['FDE #2', 'PM #1'], cost: 106250, revenue: 600000, cumHC: 8, notes: 'Critical foundation' },
+        q2: { hires: ['FDE #3', 'SME #1', 'CSM #2', 'AE #3'], cost: 217500, revenue: 1500000, cumHC: 12, notes: 'Scale capacity' },
+        q3: { hires: ['FDE #4', 'SME #2', 'PM #2'], cost: 158750, revenue: 2800000, cumHC: 15, notes: 'Full delivery' },
+        q4: { hires: ['FDE #5', 'BDR #1', 'CXP #2'], cost: 130000, revenue: 4500000, cumHC: 18, notes: 'Expansion mode' },
+      },
+      '12m': {
+        q1: { hires: ['FDE #2', 'FDE #3', 'PM #1', 'PM #2'], cost: 212500, revenue: 800000, cumHC: 10, notes: 'Aggressive ramp' },
+        q2: { hires: ['FDE #4', 'SME #1', 'SME #2', 'AE #3'], cost: 231250, revenue: 2200000, cumHC: 14, notes: 'Full team' },
+        q3: { hires: ['FDE #5', 'FDE #6', 'CSM #2', 'CSM #3'], cost: 195000, revenue: 4500000, cumHC: 18, notes: 'Scale operations' },
+        q4: { hires: ['SME #3', 'AE #4', 'BDR #1', 'PM #3'], cost: 196250, revenue: 7500000, cumHC: 22, notes: 'Full capacity' },
+      },
+    };
 
-      const scenarios = {
-        conservative: { label: 'Conservative ($3M)', targetRev: 3, newLogoWins: 2, winRate: 0.25, j1_assessment: 4, j2_sprint: 1, j3_foundation: 2, j3_scale: 1, j4_mcp: 3, existingAccounts: 12 },
-        base: { label: 'Base Case ($5M)', targetRev: 5, newLogoWins: 3, winRate: 0.30, j1_assessment: 5, j2_sprint: 1, j3_foundation: 3, j3_scale: 2, j4_mcp: 5, existingAccounts: 12 },
-        aggressive: { label: 'Aggressive ($8M)', targetRev: 8, newLogoWins: 5, winRate: 0.35, j1_assessment: 6, j2_sprint: 2, j3_foundation: 4, j3_scale: 3, j4_mcp: 8, existingAccounts: 12 },
-      };
+    const riskMitigation = [
+      {
+        risk: 'FDE Hiring Failure',
+        severity: 'Critical',
+        probability: 'Medium',
+        impact: 'Cannot deliver J3 engagements. Revenue at risk.',
+        mitigation: [
+          'Start recruiting in Q4 2025 for Q1 starts',
+          'Build contractor bench as backup (2-3 vetted contractors)',
+          'Offer signing bonuses and competitive equity',
+          'Leverage employee referral program ($10K bonus)',
+          'Partner with specialized recruiters (design systems focus)'
+        ],
+        contingency: 'Pause new J3 sales if capacity unavailable. Shift mix to J4 expansion.',
+        owner: 'Head of Engineering + HR',
+        color: 'rose'
+      },
+      {
+        risk: 'J3 Concentration Risk',
+        severity: 'High',
+        probability: 'Medium',
+        impact: 'J3 = 60-75% of services revenue. Single account slip impacts plan.',
+        mitigation: [
+          'Diversify engagement mix—increase J4 expansion focus',
+          'Phase-gate all J3 deals with clear exit criteria',
+          'Require executive sponsor + engineering owner before kickoff',
+          'Monthly account health reviews with early warning system',
+          'Build J2 Sprint capacity for quick wins'
+        ],
+        contingency: 'Accelerate J4 pipeline if J3 slips. Have 2x J4 opportunities in reserve.',
+        owner: 'CX Partner + Sales',
+        color: 'amber'
+      },
+      {
+        risk: 'Ramp Time Delays',
+        severity: 'Medium',
+        probability: 'High',
+        impact: 'New hires at 50% productivity for 3 months. Delivery backlog.',
+        mitigation: [
+          'Build comprehensive onboarding program (30-60-90 day plan)',
+          'Assign mentor/buddy for each new hire',
+          'Create self-service learning resources and documentation',
+          'Shadow existing engagements before leading',
+          'Hire ahead of demand—Q1 hires for Q2 capacity'
+        ],
+        contingency: 'Use contractors to bridge ramp gaps. Delay new engagement starts if needed.',
+        owner: 'Delivery Lead + HR',
+        color: 'amber'
+      },
+      {
+        risk: 'Services Margin Compression',
+        severity: 'Medium',
+        probability: 'High',
+        impact: 'Margin at 15-22% vs 70% target. Cash flow pressure.',
+        mitigation: [
+          'Value-based pricing—never quote hourly rates',
+          'Tier pricing by urgency (premium for fast timelines)',
+          'Increase J4 mix (higher margin, lower FDE intensity)',
+          'Offshore/nearshore leverage for non-client-facing work',
+          'Productize repeatable deliverables to reduce hours'
+        ],
+        contingency: 'Accept lower margin in growth phase. Model break-even at scale.',
+        owner: 'Finance + CX Partner',
+        color: 'blue'
+      },
+      {
+        risk: 'Pipeline Shortfall',
+        severity: 'Medium',
+        probability: 'Medium',
+        impact: 'Not enough qualified opportunities to hit new logo targets.',
+        mitigation: [
+          'BDR hire in Q1 for pipeline generation',
+          'Marketing investment in content and events',
+          'Partner channel development (SI partnerships)',
+          'Customer referral program',
+          'Targeted ABM campaigns to ICP accounts'
+        ],
+        contingency: 'Shift revenue mix to expansion if new logos slow. Accelerate J4.',
+        owner: 'Sales + Marketing',
+        color: 'blue'
+      },
+      {
+        risk: 'Key Person Dependency',
+        severity: 'High',
+        probability: 'Low',
+        impact: 'Loss of critical team member disrupts delivery.',
+        mitigation: [
+          'Cross-train team members on key accounts',
+          'Document tribal knowledge and processes',
+          'Competitive retention packages for key performers',
+          'Build redundancy in critical roles',
+          'Succession planning for leadership positions'
+        ],
+        contingency: 'Contractor backfill while recruiting replacement. Redistribute accounts.',
+        owner: 'Leadership Team',
+        color: 'amber'
+      },
+    ];
 
-      const staffingModels = {
-        fte: { label: 'Full-Time Employees', costMultiplier: 1, rampTime: 3, quality: 'highest', control: 'full', risk: 'low' },
-        hybrid: { label: 'Hybrid (FTE + Contract)', costMultiplier: 0.85, rampTime: 1.5, quality: 'high', control: 'high', risk: 'medium' },
-        contractor: { label: 'Contractor-Heavy', costMultiplier: 0.7, rampTime: 0.5, quality: 'variable', control: 'limited', risk: 'high' },
-      };
+    // Helper functions
+    function fmt(n) {
+      return n >= 1000000 ? `$${(n/1000000).toFixed(2)}M` : n >= 1000 ? `$${Math.round(n/1000)}K` : `$${n}`;
+    }
 
-      const currentState = { fde: 2, sme: 0, cxp: 1, pm: 1, csm: 2, ae: 2, bdr: 1 };
-
-      const tabs = [
-        { id: 'summary', label: 'Executive Summary', icon: 'barChart' },
-        { id: 'pricing', label: 'Rate Card & Pricing', icon: 'dollarSign' },
-        { id: 'journeys', label: 'Journey Capacity', icon: 'gitBranch' },
-        { id: 'engagements', label: 'Engagement Model', icon: 'layers' },
-        { id: 'roles', label: 'Hiring Profiles', icon: 'userCheck' },
-        { id: 'timeline', label: 'Hiring Timeline', icon: 'calendar' },
-      ];
-
-      const hiringProfiles = [
-        { role: 'fde', icon: 'code', desc: 'Owns technical implementation, architecture decisions, and code quality. Primary delivery resource for J2/J3 engagements.', requirements: ['7+ years full-stack development', 'Design system architecture experience', 'Enterprise integration skills', 'Client-facing delivery experience'], metrics: ['Implementation quality > 95%', 'On-time delivery > 90%', 'CSAT > 4.5/5'] },
-        { role: 'sme', icon: 'layers', desc: 'Design system and product methodology expert. Leads governance frameworks and change management.', requirements: ['10+ years design/product systems', 'Enterprise consulting background', 'Governance framework expertise', 'Executive stakeholder management'], metrics: ['Framework adoption > 80%', 'Stakeholder alignment score', 'Knowledge transfer effectiveness'] },
-        { role: 'cxp', icon: 'messageSquare', desc: 'Owns customer relationship, success planning, and expansion conversations within active engagements.', requirements: ['5+ years customer success', 'Enterprise software experience', 'Strong executive presence', 'Proven expansion track record'], metrics: ['NPS > 50', 'Health score maintenance', 'Expansion pipeline generated'] },
-        { role: 'pm', icon: 'briefcase', desc: 'Owns governance, RAID log, and steering committee. Ensures phase-gate execution.', requirements: ['5+ years technical PM', 'Enterprise implementation experience', 'PMP or equivalent preferred', 'Phase-gate delivery expertise'], metrics: ['On-time phase completion > 85%', 'Scope variance < 10%', 'Stakeholder satisfaction > 4/5'] },
-      ];
-
-      // Helper functions
-      const getRate = (role) => rateCard[role]?.[state.pricingTier] || 0;
-
-      const calcServicesRev = (fdeHrs, smeHrs, cxpHrs, pmHrs) => {
-        return (fdeHrs * getRate('fde')) + (smeHrs * getRate('sme')) + 
-               (cxpHrs * getRate('cxp')) + (pmHrs * getRate('pm'));
-      };
-
-      const getEngagementTemplates = () => {
-        const templates = {
-          j1_assessment: { name: 'Product System Readiness Assessment', journey: 'j1', description: 'Validation Workshop + Vision Definition + Strategic Recommendations', weeks: 4, fdeHrs: 40, smeHrs: 16, cxpHrs: 24, pmHrs: 16, platformARR: 25000 },
-          j2_sprint: { name: 'IPE Activation Sprint', journey: 'j2', description: 'Trigger-based fast activation for ready accounts', weeks: 6, fdeHrs: 160, smeHrs: 40, cxpHrs: 48, pmHrs: 60, platformARR: 150000 },
-          j3_foundation: { name: 'J3 Foundation Phase', journey: 'j3', description: 'Implementation + Onboarding (Weeks 1-20)', weeks: 20, fdeHrs: 560, smeHrs: 160, cxpHrs: 80, pmHrs: 400, platformARR: 100000 },
-          j3_scale: { name: 'J3 Scale Phase', journey: 'j3', description: 'Scaled Rollout + Optimization (Weeks 21-40)', weeks: 20, fdeHrs: 1200, smeHrs: 256, cxpHrs: 176, pmHrs: 200, platformARR: 50000 },
-          j3_full: { name: 'J3 Full Transformation', journey: 'j3', description: 'Foundation + Scale (40 weeks total)', weeks: 40, fdeHrs: 1760, smeHrs: 416, cxpHrs: 256, pmHrs: 600, platformARR: 150000 },
-          j4_mcp: { name: 'MCP Expansion', journey: 'j4', description: 'Existing customer MCP activation + expansion', weeks: 12, fdeHrs: 120, smeHrs: 60, cxpHrs: 60, pmHrs: 80, platformARR: 30000 },
-        };
-        // Calculate servicesRev for each template
-        Object.values(templates).forEach(t => {
-          t.servicesRev = calcServicesRev(t.fdeHrs, t.smeHrs, t.cxpHrs, t.pmHrs);
-        });
-        return templates;
-      };
-
-      const formatNumber = (n) => n?.toLocaleString() || '0';
-      const formatCurrency = (n) => '$' + (n?.toLocaleString() || '0');
-      const formatCurrencyK = (n) => n >= 1000000 ? `$${(n/1000000).toFixed(2)}M` : n >= 1000 ? `$${Math.round(n/1000)}K` : `$${n}`;
-
-      const calculateCapacity = () => {
-        const activeScenario = scenarios[state.scenario];
-        const effectiveHours = HOURS_PER_YEAR * (state.utilization / 100);
-        const engagementTemplates = getEngagementTemplates();
-        
-        const j1Hours = {
-          fde: activeScenario.j1_assessment * engagementTemplates.j1_assessment.fdeHrs,
-          sme: activeScenario.j1_assessment * engagementTemplates.j1_assessment.smeHrs,
-          cxp: activeScenario.j1_assessment * engagementTemplates.j1_assessment.cxpHrs,
-          pm: activeScenario.j1_assessment * engagementTemplates.j1_assessment.pmHrs,
-        };
-        const j2Hours = {
-          fde: activeScenario.j2_sprint * engagementTemplates.j2_sprint.fdeHrs,
-          sme: activeScenario.j2_sprint * engagementTemplates.j2_sprint.smeHrs,
-          cxp: activeScenario.j2_sprint * engagementTemplates.j2_sprint.cxpHrs,
-          pm: activeScenario.j2_sprint * engagementTemplates.j2_sprint.pmHrs,
-        };
-        const j3Hours = {
-          fde: (activeScenario.j3_foundation * engagementTemplates.j3_foundation.fdeHrs) + (activeScenario.j3_scale * engagementTemplates.j3_scale.fdeHrs),
-          sme: (activeScenario.j3_foundation * engagementTemplates.j3_foundation.smeHrs) + (activeScenario.j3_scale * engagementTemplates.j3_scale.smeHrs),
-          cxp: (activeScenario.j3_foundation * engagementTemplates.j3_foundation.cxpHrs) + (activeScenario.j3_scale * engagementTemplates.j3_scale.cxpHrs),
-          pm: (activeScenario.j3_foundation * engagementTemplates.j3_foundation.pmHrs) + (activeScenario.j3_scale * engagementTemplates.j3_scale.pmHrs),
-        };
-        const j4Hours = {
-          fde: activeScenario.j4_mcp * engagementTemplates.j4_mcp.fdeHrs,
-          sme: activeScenario.j4_mcp * engagementTemplates.j4_mcp.smeHrs,
-          cxp: activeScenario.j4_mcp * engagementTemplates.j4_mcp.cxpHrs,
-          pm: activeScenario.j4_mcp * engagementTemplates.j4_mcp.pmHrs,
-        };
-
-        const totalHours = {
-          fde: j1Hours.fde + j2Hours.fde + j3Hours.fde + j4Hours.fde,
-          sme: j1Hours.sme + j2Hours.sme + j3Hours.sme + j4Hours.sme,
-          cxp: j1Hours.cxp + j2Hours.cxp + j3Hours.cxp + j4Hours.cxp,
-          pm: j1Hours.pm + j2Hours.pm + j3Hours.pm + j4Hours.pm,
-        };
-
-        const platformRevenue = (
-          (activeScenario.j1_assessment * engagementTemplates.j1_assessment.platformARR) +
-          (activeScenario.j2_sprint * engagementTemplates.j2_sprint.platformARR) +
-          (activeScenario.j3_foundation * engagementTemplates.j3_foundation.platformARR) +
-          (activeScenario.j3_scale * engagementTemplates.j3_scale.platformARR) +
-          (activeScenario.j4_mcp * engagementTemplates.j4_mcp.platformARR)
-        );
-        const servicesRevenue = (
-          (activeScenario.j1_assessment * engagementTemplates.j1_assessment.servicesRev) +
-          (activeScenario.j2_sprint * engagementTemplates.j2_sprint.servicesRev) +
-          (activeScenario.j3_foundation * engagementTemplates.j3_foundation.servicesRev) +
-          (activeScenario.j3_scale * engagementTemplates.j3_scale.servicesRev) +
-          (activeScenario.j4_mcp * engagementTemplates.j4_mcp.servicesRev)
-        );
-
-        const totalEngagements = activeScenario.j1_assessment + activeScenario.j2_sprint + 
-          activeScenario.j3_foundation + activeScenario.j3_scale + activeScenario.j4_mcp;
-        const totalAccounts = totalEngagements + activeScenario.existingAccounts;
-
-        const fdeNeeded = Math.ceil(totalHours.fde / effectiveHours);
-        const smeNeeded = Math.ceil(totalHours.sme / effectiveHours);
-        const cxpNeeded = Math.ceil(totalHours.cxp / effectiveHours);
-        const pmNeeded = Math.ceil(totalHours.pm / effectiveHours);
-        const csmNeeded = Math.ceil(totalAccounts / 12);
-        const aeNeeded = Math.ceil((activeScenario.newLogoWins / activeScenario.winRate) / 6);
-        const bdrNeeded = Math.ceil(80 / 20);
-
-        return {
-          j1Hours, j2Hours, j3Hours, j4Hours, totalHours,
-          platformRevenue, servicesRevenue,
-          fdeNeeded, smeNeeded, cxpNeeded, pmNeeded, csmNeeded, aeNeeded, bdrNeeded,
-          totalAccounts, totalEngagements, effectiveHours
-        };
-      };
-
-      const calculateCosts = (capacity) => {
-        const activeStaffingModel = staffingModels[state.staffingModel];
-        const costMult = activeStaffingModel.costMultiplier;
-        const servicesTeamCost = (
-          (capacity.fdeNeeded * roleCosts.fde.fullyLoaded) +
-          (capacity.smeNeeded * roleCosts.sme.fullyLoaded) +
-          (capacity.cxpNeeded * roleCosts.cxp.fullyLoaded) +
-          (capacity.pmNeeded * roleCosts.pm.fullyLoaded)
-        ) * costMult;
-        const gtmTeamCost = (capacity.csmNeeded * roleCosts.csm.fullyLoaded) + 
-          (capacity.aeNeeded * roleCosts.ae.fullyLoaded) + 
-          (capacity.bdrNeeded * roleCosts.bdr.fullyLoaded);
-        const totalHCCost = servicesTeamCost + gtmTeamCost;
-        const totalHeadcount = capacity.fdeNeeded + capacity.smeNeeded + capacity.cxpNeeded + 
-          capacity.pmNeeded + capacity.csmNeeded + capacity.aeNeeded + capacity.bdrNeeded;
-        const revenuePerHead = (capacity.platformRevenue + capacity.servicesRevenue) / totalHeadcount;
-        const servicesMargin = (capacity.servicesRevenue - servicesTeamCost) / capacity.servicesRevenue;
-        return { servicesTeamCost, gtmTeamCost, totalHCCost, totalHeadcount, revenuePerHead, servicesMargin };
-      };
-
-      // Render functions
-      const renderIcon = (iconName, size = 16, className = '') => {
-        const icon = icons[iconName] || '';
-        return `<span class="inline-block ${className}" style="width: ${size}px; height: ${size}px;">${icon}</span>`;
-      };
-
-      const render = () => {
-        const capacity = calculateCapacity();
-        const costs = calculateCosts(capacity);
-        const activeScenario = scenarios[state.scenario];
-        const engagementTemplates = getEngagementTemplates();
-        
-        const gaps = {
-          fde: capacity.fdeNeeded - currentState.fde,
-          sme: capacity.smeNeeded - currentState.sme,
-          cxp: capacity.cxpNeeded - currentState.cxp,
-          pm: capacity.pmNeeded - currentState.pm,
-          csm: capacity.csmNeeded - currentState.csm,
-          ae: capacity.aeNeeded - currentState.ae,
-          bdr: capacity.bdrNeeded - currentState.bdr,
-        };
-        const totalNewHires = Object.values(gaps).reduce((sum, g) => sum + Math.max(0, g), 0);
-
-        const journeyDistribution = [
-          { journey: 'J1', hours: capacity.j1Hours.fde + capacity.j1Hours.sme + capacity.j1Hours.cxp + capacity.j1Hours.pm, color: 'slate', engagements: activeScenario.j1_assessment, revenue: activeScenario.j1_assessment * engagementTemplates.j1_assessment.servicesRev },
-          { journey: 'J2', hours: capacity.j2Hours.fde + capacity.j2Hours.sme + capacity.j2Hours.cxp + capacity.j2Hours.pm, color: 'blue', engagements: activeScenario.j2_sprint, revenue: activeScenario.j2_sprint * engagementTemplates.j2_sprint.servicesRev },
-          { journey: 'J3', hours: capacity.j3Hours.fde + capacity.j3Hours.sme + capacity.j3Hours.cxp + capacity.j3Hours.pm, color: 'emerald', engagements: activeScenario.j3_foundation + activeScenario.j3_scale, revenue: (activeScenario.j3_foundation * engagementTemplates.j3_foundation.servicesRev) + (activeScenario.j3_scale * engagementTemplates.j3_scale.servicesRev) },
-          { journey: 'J4', hours: capacity.j4Hours.fde + capacity.j4Hours.sme + capacity.j4Hours.cxp + capacity.j4Hours.pm, color: 'violet', engagements: activeScenario.j4_mcp, revenue: activeScenario.j4_mcp * engagementTemplates.j4_mcp.servicesRev },
-        ];
-
-        const app = document.getElementById('app');
-        app.innerHTML = `
-          <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-900 text-white px-6 py-4">
-            <div class="max-w-7xl mx-auto">
-              <div class="flex items-center justify-between">
-                <div>
-                  <div class="flex items-center gap-2">
-                    ${renderIcon('users', 24, 'text-emerald-400')}
-                    <h1 class="text-xl font-bold">IPE GTM Headcount Study</h1>
-                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 text-xs font-semibold rounded ml-2">v3.2 - Multi-Tier Pricing</span>
-                  </div>
-                  <p class="text-slate-400 text-sm mt-1">${WEEKS_PER_YEAR}-Week Year · ${pricingTiers[state.pricingTier].label} Rates · ${activeScenario.label}</p>
-                </div>
-                <span class="px-3 py-1 bg-rose-500/20 text-rose-300 text-xs font-semibold rounded">INTERNAL ONLY</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white border-b sticky top-0 z-10">
-            <div class="max-w-7xl mx-auto px-6 py-3">
-              <div class="flex items-center justify-between flex-wrap gap-3">
-                <div class="flex gap-1 overflow-x-auto">
-                  ${tabs.map(t => `
-                    <button onclick="window.setActiveTab('${t.id}')" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${state.activeTab === t.id ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'}">
-                      ${renderIcon(t.icon, 16)}${t.label}
-                    </button>
-                  `).join('')}
-                </div>
-                <div class="flex items-center gap-3 flex-wrap">
-                  <select onchange="window.setPricingTier(this.value)" class="border rounded-lg px-3 py-2 text-sm bg-emerald-50 border-emerald-200 text-emerald-800 font-medium">
-                    ${Object.entries(pricingTiers).map(([k,v]) => `<option value="${k}" ${state.pricingTier === k ? 'selected' : ''}>${v.label} (${v.discount})</option>`).join('')}
-                  </select>
-                  <select onchange="window.setScenario(this.value)" class="border rounded-lg px-3 py-2 text-sm">
-                    ${Object.entries(scenarios).map(([k,v]) => `<option value="${k}" ${state.scenario === k ? 'selected' : ''}>${v.label}</option>`).join('')}
-                  </select>
-                  <select onchange="window.setStaffingModel(this.value)" class="border rounded-lg px-3 py-2 text-sm">
-                    ${Object.entries(staffingModels).map(([k,v]) => `<option value="${k}" ${state.staffingModel === k ? 'selected' : ''}>${v.label}</option>`).join('')}
-                  </select>
-                  <div class="flex items-center gap-2">
-                    <span class="text-xs text-slate-500">Util:</span>
-                    <input type="range" min="60" max="85" value="${state.utilization}" oninput="window.setUtilization(this.value)" class="w-14" />
-                    <span class="text-sm font-semibold w-8">${state.utilization}%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <main class="max-w-7xl mx-auto px-6 py-6">
-            <div class="rounded-xl p-4 mb-6 flex items-center justify-between ${state.pricingTier === 'list' ? 'bg-emerald-100 border border-emerald-300' : state.pricingTier === 'standard' ? 'bg-blue-50 border border-blue-200' : state.pricingTier === 'partner' ? 'bg-amber-50 border border-amber-200' : 'bg-slate-100 border border-slate-300'}">
-              <div class="flex items-center gap-3">
-                ${renderIcon('dollarSign', 20, state.pricingTier === 'list' ? 'text-emerald-600' : state.pricingTier === 'standard' ? 'text-blue-600' : state.pricingTier === 'partner' ? 'text-amber-600' : 'text-slate-600')}
-                <div>
-                  <p class="font-semibold">${pricingTiers[state.pricingTier].label} Pricing Tier</p>
-                  <p class="text-sm text-slate-600">${pricingTiers[state.pricingTier].desc} — ${pricingTiers[state.pricingTier].discount}</p>
-                </div>
-              </div>
-              <div class="text-right">
-                <p class="text-2xl font-bold">${formatCurrencyK(capacity.servicesRevenue)}</p>
-                <p class="text-xs text-slate-500">Services Revenue</p>
-              </div>
-            </div>
-
-            ${renderTabContent(state.activeTab, capacity, costs, gaps, totalNewHires, journeyDistribution, activeScenario, engagementTemplates)}
-          </main>
-
-          <footer class="border-t bg-white mt-8">
-            <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between text-sm text-slate-500">
-              <span>Knapsack · IPE GTM Headcount Study v3.2 · ${pricingTiers[state.pricingTier].label} Pricing</span>
-              <span>${activeScenario.label} · ${WEEKS_PER_YEAR}-Week Year · ${state.utilization}% Util</span>
-            </div>
-          </footer>
-        `;
-      };
-
-      const renderTabContent = (tab, capacity, costs, gaps, totalNewHires, journeyDistribution, activeScenario, engagementTemplates) => {
-        if (tab === 'summary') {
-          return `
-            <div class="grid grid-cols-4 gap-4 mb-6">
-              <div class="bg-white rounded-xl border p-5">
-                <p class="text-sm text-slate-500 mb-1">Total Headcount</p>
-                <p class="text-3xl font-bold text-slate-900">${costs.totalHeadcount}</p>
-                <p class="text-sm text-emerald-600 mt-1">+${totalNewHires} new hires</p>
-              </div>
-              <div class="bg-white rounded-xl border p-5">
-                <p class="text-sm text-slate-500 mb-1">Total Revenue</p>
-                <p class="text-3xl font-bold text-slate-900">${formatCurrencyK(capacity.platformRevenue + capacity.servicesRevenue)}</p>
-                <p class="text-sm text-slate-500 mt-1">Platform + Services</p>
-              </div>
-              <div class="bg-white rounded-xl border p-5">
-                <p class="text-sm text-slate-500 mb-1">Services Margin</p>
-                <p class="text-3xl font-bold ${costs.servicesMargin > 0.4 ? 'text-emerald-600' : costs.servicesMargin > 0.2 ? 'text-amber-600' : 'text-rose-600'}">${(costs.servicesMargin * 100).toFixed(0)}%</p>
-                <p class="text-sm text-slate-500 mt-1">@ ${pricingTiers[state.pricingTier].label} rates</p>
-              </div>
-              <div class="bg-white rounded-xl border p-5">
-                <p class="text-sm text-slate-500 mb-1">Rev per Head</p>
-                <p class="text-3xl font-bold text-slate-900">${formatCurrencyK(Math.round(costs.revenuePerHead))}</p>
-                <p class="text-sm text-slate-500 mt-1">Efficiency</p>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-xl border p-6 mb-6">
-              <h3 class="font-semibold mb-4">Services Revenue by Journey @ ${pricingTiers[state.pricingTier].label} Rates</h3>
-              <div class="space-y-3">
-                ${journeyDistribution.map(j => `
-                  <div class="flex items-center gap-4">
-                    <span class="w-8 h-8 rounded-lg bg-${j.color}-100 text-${j.color}-700 flex items-center justify-center font-bold text-sm">${j.journey}</span>
-                    <div class="flex-1">
-                      <div class="flex items-center justify-between mb-1">
-                        <span class="text-sm font-medium">${journeyDefs[j.journey.toLowerCase()].name}</span>
-                        <span class="text-sm font-semibold">${formatCurrencyK(j.revenue)}</span>
-                      </div>
-                      <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="h-full bg-${j.color}-500 rounded-full" style="width: ${(j.revenue / capacity.servicesRevenue) * 100}%"></div>
-                      </div>
-                    </div>
-                    <span class="text-sm text-slate-500 w-20 text-right">${j.engagements} eng.</span>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-6">
-              <div class="bg-white rounded-xl border p-6">
-                <h3 class="font-semibold mb-4 flex items-center gap-2">${renderIcon('zap', 18, 'text-emerald-500')}Services Team</h3>
-                <div class="space-y-3">
-                  ${[
-                    { role: 'FDE', key: 'fde', current: currentState.fde, need: capacity.fdeNeeded, gap: gaps.fde },
-                    { role: 'SME', key: 'sme', current: currentState.sme, need: capacity.smeNeeded, gap: gaps.sme },
-                    { role: 'CXP', key: 'cxp', current: currentState.cxp, need: capacity.cxpNeeded, gap: gaps.cxp },
-                    { role: 'PM', key: 'pm', current: currentState.pm, need: capacity.pmNeeded, gap: gaps.pm },
-                  ].map(r => `
-                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                      <div class="flex items-center gap-3">
-                        <span class="font-medium">${r.role}</span>
-                        <span class="text-xs text-emerald-600">$${getRate(r.key)}/hr</span>
-                      </div>
-                      <div class="flex items-center gap-3">
-                        <span class="text-sm text-slate-500">${r.current} → ${r.need}</span>
-                        <span class="px-2 py-0.5 rounded text-xs font-semibold ${r.gap > 0 ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'}">
-                          ${r.gap > 0 ? `+${r.gap}` : r.gap}
-                        </span>
-                      </div>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-              <div class="bg-white rounded-xl border p-6">
-                <h3 class="font-semibold mb-4 flex items-center gap-2">${renderIcon('trendingUp', 18, 'text-blue-500')}GTM Team</h3>
-                <div class="space-y-3">
-                  ${[
-                    { role: 'CSM', current: currentState.csm, need: capacity.csmNeeded, gap: gaps.csm },
-                    { role: 'AE', current: currentState.ae, need: capacity.aeNeeded, gap: gaps.ae },
-                    { role: 'BDR', current: currentState.bdr, need: capacity.bdrNeeded, gap: gaps.bdr },
-                  ].map(r => `
-                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                      <span class="font-medium">${r.role}</span>
-                      <div class="flex items-center gap-3">
-                        <span class="text-sm text-slate-500">${r.current} → ${r.need}</span>
-                        <span class="px-2 py-0.5 rounded text-xs font-semibold ${r.gap > 0 ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'}">
-                          ${r.gap > 0 ? `+${r.gap}` : r.gap}
-                        </span>
-                      </div>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-            </div>
-          `;
-        }
-
-        if (tab === 'pricing') {
-          return `
-            <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-xl p-6 text-white mb-6">
-              <h2 class="text-xl font-bold mb-2">Knapsack Rate Card</h2>
-              <p class="text-emerald-100">Four pricing tiers for different customer segments and deal structures.</p>
-            </div>
-
-            <div class="bg-white rounded-xl border overflow-hidden mb-6">
-              <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                  <thead class="bg-slate-900 text-white">
-                    <tr>
-                      <th class="text-left px-4 py-3">Role</th>
-                      <th class="text-left px-4 py-3">Person</th>
-                      <th class="text-right px-4 py-3 ${state.pricingTier === 'cost' ? 'bg-emerald-700' : ''}">Cost</th>
-                      <th class="text-right px-4 py-3 ${state.pricingTier === 'partner' ? 'bg-emerald-700' : ''}">Partner</th>
-                      <th class="text-right px-4 py-3 ${state.pricingTier === 'standard' ? 'bg-emerald-700' : ''}">Standard</th>
-                      <th class="text-right px-4 py-3 ${state.pricingTier === 'list' ? 'bg-emerald-700' : ''}">List</th>
-                    </tr>
-                  </thead>
-                  <tbody class="divide-y">
-                    ${Object.entries(rateCard).map(([key, r]) => `
-                      <tr class="hover:bg-slate-50">
-                        <td class="px-4 py-3 font-medium">${r.title}</td>
-                        <td class="px-4 py-3">
-                          <div class="flex items-center gap-2">
-                            <div class="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center">
-                              ${renderIcon('user', 14, 'text-slate-500')}
-                            </div>
-                            <span class="text-slate-600">${r.person}</span>
-                          </div>
-                        </td>
-                        <td class="text-right px-4 py-3 ${state.pricingTier === 'cost' ? 'bg-emerald-50 font-bold text-emerald-700' : 'text-slate-500'}">$${r.cost}</td>
-                        <td class="text-right px-4 py-3 ${state.pricingTier === 'partner' ? 'bg-emerald-50 font-bold text-emerald-700' : 'text-slate-500'}">$${r.partner}</td>
-                        <td class="text-right px-4 py-3 ${state.pricingTier === 'standard' ? 'bg-emerald-50 font-bold text-emerald-700' : 'text-slate-500'}">$${r.standard}</td>
-                        <td class="text-right px-4 py-3 ${state.pricingTier === 'list' ? 'bg-emerald-50 font-bold text-emerald-700' : 'text-slate-500'}">$${r.list}</td>
-                      </tr>
-                    `).join('')}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-4 gap-4 mb-6">
-              ${Object.entries(pricingTiers).map(([key, tier]) => {
-                const tierCalc = (fdeHrs, smeHrs, cxpHrs, pmHrs) => {
-                  return (fdeHrs * rateCard.fde[key]) + (smeHrs * rateCard.sme[key]) + 
-                         (cxpHrs * rateCard.cxp[key]) + (pmHrs * rateCard.pm[key]);
-                };
-                const thisRevenue = (
-                  (activeScenario.j1_assessment * tierCalc(40, 16, 24, 16)) +
-                  (activeScenario.j2_sprint * tierCalc(160, 40, 48, 60)) +
-                  (activeScenario.j3_foundation * tierCalc(560, 160, 80, 400)) +
-                  (activeScenario.j3_scale * tierCalc(1200, 256, 176, 200)) +
-                  (activeScenario.j4_mcp * tierCalc(120, 60, 60, 80))
-                );
-                const isActive = state.pricingTier === key;
-                return `
-                  <div onclick="window.setPricingTier('${key}')" class="rounded-xl p-5 cursor-pointer transition-all ${isActive ? 'bg-emerald-100 border-2 border-emerald-500 ring-2 ring-emerald-200' : 'bg-white border hover:border-emerald-300'}">
-                    <div class="flex items-center justify-between mb-2">
-                      <span class="font-semibold ${isActive ? 'text-emerald-800' : ''}">${tier.label}</span>
-                      ${isActive ? renderIcon('checkCircle', 18, 'text-emerald-600') : ''}
-                    </div>
-                    <p class="text-2xl font-bold mb-1">${formatCurrencyK(thisRevenue)}</p>
-                    <p class="text-xs text-slate-500">${tier.desc}</p>
-                    <p class="text-xs text-slate-400 mt-1">${tier.discount}</p>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-
-            <div class="bg-white rounded-xl border overflow-hidden">
-              <div class="bg-slate-900 text-white px-6 py-4">
-                <h3 class="font-semibold">Journey Pricing @ ${pricingTiers[state.pricingTier].label} Rates</h3>
-              </div>
-              <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                  <thead class="bg-slate-50">
-                    <tr>
-                      <th class="text-left px-4 py-3">Engagement</th>
-                      <th class="text-center px-4 py-3">Weeks</th>
-                      <th class="text-right px-4 py-3">FDE @ $${getRate('fde')}</th>
-                      <th class="text-right px-4 py-3">SME @ $${getRate('sme')}</th>
-                      <th class="text-right px-4 py-3">CXP @ $${getRate('cxp')}</th>
-                      <th class="text-right px-4 py-3">PM @ $${getRate('pm')}</th>
-                      <th class="text-right px-4 py-3 bg-emerald-50 font-semibold">Services Price</th>
-                      <th class="text-right px-4 py-3">+ Platform</th>
-                    </tr>
-                  </thead>
-                  <tbody class="divide-y">
-                    ${Object.entries(engagementTemplates).map(([key, t]) => {
-                      const journey = journeyDefs[t.journey];
-                      return `
-                        <tr class="${t.journey === 'j3' ? 'bg-emerald-50/30' : ''}">
-                          <td class="px-4 py-3">
-                            <div class="flex items-center gap-2">
-                              <span class="px-2 py-0.5 rounded text-xs font-bold bg-${journey.color}-100 text-${journey.color}-700">${t.journey.toUpperCase()}</span>
-                              <span class="font-medium">${t.name}</span>
-                            </div>
-                          </td>
-                          <td class="text-center px-4 py-3 text-slate-500">${t.weeks}</td>
-                          <td class="text-right px-4 py-3">${t.fdeHrs}h = ${formatCurrencyK(t.fdeHrs * getRate('fde'))}</td>
-                          <td class="text-right px-4 py-3">${t.smeHrs}h = ${formatCurrencyK(t.smeHrs * getRate('sme'))}</td>
-                          <td class="text-right px-4 py-3">${t.cxpHrs}h = ${formatCurrencyK(t.cxpHrs * getRate('cxp'))}</td>
-                          <td class="text-right px-4 py-3">${t.pmHrs}h = ${formatCurrencyK(t.pmHrs * getRate('pm'))}</td>
-                          <td class="text-right px-4 py-3 bg-emerald-50 font-bold text-emerald-700">${formatCurrencyK(t.servicesRev)}</td>
-                          <td class="text-right px-4 py-3 text-slate-500">${formatCurrencyK(t.platformARR)}</td>
-                        </tr>
-                      `;
-                    }).join('')}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div class="bg-amber-50 border border-amber-200 rounded-xl p-6 mt-6">
-              <h3 class="font-semibold text-amber-900 mb-4 flex items-center gap-2">${renderIcon('calculator', 18)}Margin Analysis @ ${pricingTiers[state.pricingTier].label}</h3>
-              <div class="grid grid-cols-4 gap-4">
-                ${[
-                  { role: 'FDE', key: 'fde', cost: roleCosts.fde.fullyLoaded },
-                  { role: 'SME', key: 'sme', cost: roleCosts.sme.fullyLoaded },
-                  { role: 'CXP', key: 'cxp', cost: roleCosts.cxp.fullyLoaded },
-                  { role: 'PM', key: 'pm', cost: roleCosts.pm.fullyLoaded },
-                ].map(r => {
-                  const annualBillable = capacity.effectiveHours * getRate(r.key);
-                  const margin = ((annualBillable - r.cost) / annualBillable) * 100;
-                  return `
-                    <div class="bg-white p-4 rounded-lg">
-                      <div class="flex items-center justify-between mb-2">
-                        <span class="font-medium">${r.role}</span>
-                        <span class="text-emerald-600">$${getRate(r.key)}/hr</span>
-                      </div>
-                      <p class="text-xs text-slate-500">Annual billable: ${formatCurrencyK(annualBillable)}</p>
-                      <p class="text-xs text-slate-500">Loaded cost: ${formatCurrencyK(r.cost)}</p>
-                      <p class="text-lg font-bold mt-2 ${margin > 30 ? 'text-emerald-600' : margin > 0 ? 'text-amber-600' : 'text-rose-600'}">${margin.toFixed(0)}% margin</p>
-                    </div>
-                  `;
-                }).join('')}
-              </div>
-            </div>
-          `;
-        }
-
-        if (tab === 'journeys') {
-          return `
-            <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-xl p-6 text-white mb-6">
-              <h2 class="text-xl font-bold mb-2">Journey-Based Capacity Planning</h2>
-              <p class="text-emerald-100">Pricing at ${pricingTiers[state.pricingTier].label} tier. J3 = ~60% of ARR.</p>
-            </div>
-
-            ${Object.entries(journeyDefs).map(([key, j]) => {
-              const jNum = key.charAt(1);
-              const hourData = capacity[`j${jNum}Hours`];
-              const totalHours = hourData.fde + hourData.sme + hourData.cxp + hourData.pm;
-              const engagementCount = key === 'j3' ? activeScenario.j3_foundation + activeScenario.j3_scale :
-                                      key === 'j1' ? activeScenario.j1_assessment :
-                                      key === 'j2' ? activeScenario.j2_sprint : activeScenario.j4_mcp;
-              const journeyRev = journeyDistribution.find(jd => jd.journey === key.toUpperCase())?.revenue || 0;
-              return `
-                <div class="bg-white rounded-xl border ${j.color === 'emerald' ? 'border-emerald-300 ring-2 ring-emerald-100' : ''} p-5 mb-4">
-                  <div class="flex items-start justify-between">
-                    <div class="flex items-start gap-4">
-                      <div class="w-12 h-12 rounded-xl bg-${j.color}-100 flex items-center justify-center">
-                        <span class="text-${j.color}-700 font-bold text-lg">${key.toUpperCase()}</span>
-                      </div>
-                      <div>
-                        <h3 class="font-semibold text-lg">${j.name}</h3>
-                        <p class="text-sm text-slate-500 mt-0.5">${j.desc}</p>
-                        <div class="flex items-center gap-3 mt-2">
-                          <span class="px-2 py-0.5 rounded text-xs font-medium bg-${j.color}-100 text-${j.color}-700">${j.path}</span>
-                          <span class="text-xs text-slate-500">~${j.arrShare}% ARR</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="text-right">
-                      <p class="text-2xl font-bold text-emerald-600">${formatCurrencyK(journeyRev)}</p>
-                      <p class="text-sm text-slate-500">${engagementCount} engagements</p>
-                    </div>
-                  </div>
-                  
-                  <div class="mt-4 pt-4 border-t grid grid-cols-5 gap-4">
-                    <div class="text-center">
-                      <p class="text-lg font-bold">${formatNumber(totalHours)}</p>
-                      <p class="text-xs text-slate-500">Total Hours</p>
-                    </div>
-                    <div class="text-center">
-                      <p class="text-lg font-semibold text-emerald-600">${formatNumber(hourData.fde)}</p>
-                      <p class="text-xs text-slate-500">FDE @ $${getRate('fde')}</p>
-                    </div>
-                    <div class="text-center">
-                      <p class="text-lg font-semibold text-amber-600">${formatNumber(hourData.sme)}</p>
-                      <p class="text-xs text-slate-500">SME @ $${getRate('sme')}</p>
-                    </div>
-                    <div class="text-center">
-                      <p class="text-lg font-semibold text-violet-600">${formatNumber(hourData.cxp)}</p>
-                      <p class="text-xs text-slate-500">CXP @ $${getRate('cxp')}</p>
-                    </div>
-                    <div class="text-center">
-                      <p class="text-lg font-semibold text-blue-600">${formatNumber(hourData.pm)}</p>
-                      <p class="text-xs text-slate-500">PM @ $${getRate('pm')}</p>
-                    </div>
-                  </div>
-                </div>
-              `;
-            }).join('')}
-
-            <div class="bg-slate-900 rounded-xl p-6 text-white mt-6">
-              <h3 class="font-semibold mb-4">Headcount Required</h3>
-              <div class="grid grid-cols-4 gap-4">
-                ${[
-                  { role: 'FDE', need: capacity.fdeNeeded, hrs: capacity.totalHours.fde, key: 'fde', color: 'emerald' },
-                  { role: 'SME', need: capacity.smeNeeded, hrs: capacity.totalHours.sme, key: 'sme', color: 'amber' },
-                  { role: 'CXP', need: capacity.cxpNeeded, hrs: capacity.totalHours.cxp, key: 'cxp', color: 'violet' },
-                  { role: 'PM', need: capacity.pmNeeded, hrs: capacity.totalHours.pm, key: 'pm', color: 'blue' },
-                ].map(r => `
-                  <div class="bg-${r.color}-500/20 rounded-xl p-4">
-                    <div class="flex items-center justify-between">
-                      <p class="text-${r.color}-300 text-sm">${r.role}</p>
-                      <p class="text-xs text-slate-400">$${getRate(r.key)}/hr</p>
-                    </div>
-                    <p class="text-3xl font-bold mt-1">${r.need}</p>
-                    <p class="text-slate-400 text-xs mt-1">${formatNumber(r.hrs)} hrs needed</p>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          `;
-        }
-
-        if (tab === 'engagements') {
-          return `
-            <div class="bg-gradient-to-r from-blue-600 to-emerald-600 rounded-xl p-6 text-white mb-6">
-              <h2 class="text-xl font-bold mb-2">Engagement Templates</h2>
-              <p class="text-blue-100">Pricing at ${pricingTiers[state.pricingTier].label} tier (${pricingTiers[state.pricingTier].discount})</p>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-              ${Object.entries(engagementTemplates).map(([key, t]) => {
-                const journey = journeyDefs[t.journey];
-                return `
-                  <div class="bg-white rounded-xl border p-5">
-                    <div class="flex items-start justify-between mb-3">
-                      <div>
-                        <div class="flex items-center gap-2">
-                          <span class="px-2 py-0.5 rounded text-xs font-bold bg-${journey.color}-100 text-${journey.color}-700">${t.journey.toUpperCase()}</span>
-                          <h4 class="font-semibold">${t.name}</h4>
-                        </div>
-                        <p class="text-sm text-slate-500 mt-1">${t.description}</p>
-                      </div>
-                      <span class="text-sm font-semibold text-slate-600">${t.weeks} wks</span>
-                    </div>
-                    <div class="grid grid-cols-4 gap-2 text-center text-sm mb-3">
-                      <div class="bg-emerald-50 rounded p-2">
-                        <p class="font-semibold text-emerald-700">${t.fdeHrs}h</p>
-                        <p class="text-xs text-slate-500">FDE</p>
-                        <p class="text-xs text-emerald-600">${formatCurrencyK(t.fdeHrs * getRate('fde'))}</p>
-                      </div>
-                      <div class="bg-amber-50 rounded p-2">
-                        <p class="font-semibold text-amber-700">${t.smeHrs}h</p>
-                        <p class="text-xs text-slate-500">SME</p>
-                        <p class="text-xs text-amber-600">${formatCurrencyK(t.smeHrs * getRate('sme'))}</p>
-                      </div>
-                      <div class="bg-violet-50 rounded p-2">
-                        <p class="font-semibold text-violet-700">${t.cxpHrs}h</p>
-                        <p class="text-xs text-slate-500">CXP</p>
-                        <p class="text-xs text-violet-600">${formatCurrencyK(t.cxpHrs * getRate('cxp'))}</p>
-                      </div>
-                      <div class="bg-blue-50 rounded p-2">
-                        <p class="font-semibold text-blue-700">${t.pmHrs}h</p>
-                        <p class="text-xs text-slate-500">PM</p>
-                        <p class="text-xs text-blue-600">${formatCurrencyK(t.pmHrs * getRate('pm'))}</p>
-                      </div>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t">
-                      <div class="text-sm">
-                        <span class="text-slate-500">Platform: </span>
-                        <span class="font-medium">${formatCurrencyK(t.platformARR)}</span>
-                      </div>
-                      <div class="text-right">
-                        <p class="text-xl font-bold text-emerald-600">${formatCurrencyK(t.servicesRev)}</p>
-                        <p class="text-xs text-slate-400">Total: ${formatCurrencyK(t.servicesRev + t.platformARR)}</p>
-                      </div>
-                    </div>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-          `;
-        }
-
-        if (tab === 'roles') {
-          return `
-            <div class="bg-gradient-to-r from-violet-600 to-violet-700 rounded-xl p-6 text-white mb-6">
-              <h2 class="text-xl font-bold mb-2">Hiring Profiles</h2>
-              <p class="text-violet-200">Roles with named rate card owners.</p>
-            </div>
-
-            <div class="space-y-4">
-              ${hiringProfiles.map((p, i) => {
-                const role = roleCosts[p.role];
-                const rate = rateCard[p.role];
-                return `
-                  <div class="bg-white rounded-xl border p-6">
-                    <div class="flex items-start justify-between">
-                      <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center">
-                          ${renderIcon(p.icon, 24, 'text-slate-600')}
-                        </div>
-                        <div>
-                          <div class="flex items-center gap-3">
-                            <h4 class="font-semibold text-lg">${rate.title}</h4>
-                            <span class="px-2 py-0.5 bg-slate-100 rounded text-xs text-slate-600">${rate.person}</span>
-                          </div>
-                          <p class="text-sm text-slate-500 mt-1">${p.desc}</p>
-                        </div>
-                      </div>
-                      <div class="text-right">
-                        <div class="flex items-center gap-4 text-sm">
-                          <div class="text-slate-400">
-                            <p class="text-xs">Cost</p>
-                            <p>$${rate.cost}</p>
-                          </div>
-                          <div class="text-slate-400">
-                            <p class="text-xs">Partner</p>
-                            <p>$${rate.partner}</p>
-                          </div>
-                          <div class="text-blue-600">
-                            <p class="text-xs">Standard</p>
-                            <p class="font-medium">$${rate.standard}</p>
-                          </div>
-                          <div class="text-emerald-600">
-                            <p class="text-xs">List</p>
-                            <p class="font-bold">$${rate.list}</p>
-                          </div>
-                        </div>
-                        <p class="text-sm text-slate-500 mt-2">${formatCurrency(role.fullyLoaded)} loaded</p>
-                      </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-6 mt-4 pt-4 border-t">
-                      <div>
-                        <h5 class="font-medium text-sm text-slate-700 mb-2">Requirements</h5>
-                        <ul class="space-y-1">
-                          ${p.requirements.map(r => `
-                            <li class="text-sm text-slate-600 flex items-start gap-2">
-                              ${renderIcon('checkCircle', 14, 'text-emerald-500 mt-0.5 flex-shrink-0')}${r}
-                            </li>
-                          `).join('')}
-                        </ul>
-                      </div>
-                      <div>
-                        <h5 class="font-medium text-sm text-slate-700 mb-2">Success Metrics</h5>
-                        <ul class="space-y-1">
-                          ${p.metrics.map(m => `
-                            <li class="text-sm text-slate-600 flex items-start gap-2">
-                              ${renderIcon('target', 14, 'text-blue-500 mt-0.5 flex-shrink-0')}${m}
-                            </li>
-                          `).join('')}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-          `;
-        }
-
-        if (tab === 'timeline') {
-          return `
-            <div class="bg-gradient-to-r from-slate-800 to-slate-900 rounded-xl p-6 text-white mb-6">
-              <h2 class="text-xl font-bold mb-2">Hiring Timeline</h2>
-              <p class="text-slate-400">${activeScenario.label} · +${totalNewHires} hires needed</p>
-            </div>
-
-            <div class="space-y-4">
-              ${[
-                { phase: 'Q1', title: 'Foundation', color: 'emerald', hires: [
-                  gaps.fde > 0 && `+${Math.min(2, gaps.fde)} FDE (Jake model)`,
-                  gaps.pm > 0 && `+${Math.min(1, gaps.pm)} PM (Nina model)`,
-                  gaps.sme > 0 && `+${Math.min(1, gaps.sme)} SME (Bloom model)`,
-                ].filter(Boolean), focus: 'J3 Foundation capacity' },
-                { phase: 'Q2', title: 'Scale', color: 'blue', hires: [
-                  gaps.fde > 2 && `+${Math.min(2, gaps.fde - 2)} FDE`,
-                  gaps.cxp > 0 && `+${gaps.cxp} CXP (Amber model)`,
-                  gaps.csm > 0 && `+${gaps.csm} CSM`,
-                ].filter(Boolean), focus: 'J3 Scale + J4 expansion' },
-                { phase: 'Q3-Q4', title: 'Optimize', color: 'violet', hires: ['Contingent hires based on pipeline', 'Partner enablement'], focus: 'Evaluate and scale' },
-              ].map((q, i) => `
-                <div class="flex gap-6">
-                  <div class="w-20 flex-shrink-0">
-                    <span class="px-3 py-1 bg-${q.color}-500 text-white text-sm font-bold rounded">${q.phase}</span>
-                  </div>
-                  <div class="flex-1 bg-${q.color}-50 rounded-xl p-5">
-                    <h4 class="font-semibold text-${q.color}-800 mb-2">${q.title}</h4>
-                    <div class="grid grid-cols-3 gap-4">
-                      ${q.hires.map((h, j) => `
-                        <div class="bg-white p-3 rounded-lg text-sm">${h}</div>
-                      `).join('')}
-                    </div>
-                    <p class="mt-3 pt-3 border-t border-slate-200 text-sm text-${q.color}-700">Focus: ${q.focus}</p>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-
-            <div class="bg-rose-50 border border-rose-200 rounded-xl p-6 mt-6">
-              <h3 class="font-semibold text-rose-800 mb-4 flex items-center gap-2">${renderIcon('alertTriangle', 18)}Risk Mitigation</h3>
-              <div class="grid grid-cols-2 gap-4">
-                <div class="bg-white p-4 rounded-lg">
-                  <h4 class="font-medium text-rose-700 mb-2">Hiring delays 60+ days</h4>
-                  <p class="text-sm text-rose-600">Activate contractors at Partner rates ($275-$375/hr). 3-month max.</p>
-                </div>
-                <div class="bg-white p-4 rounded-lg">
-                  <h4 class="font-medium text-rose-700 mb-2">Lower pipeline than projected</h4>
-                  <p class="text-sm text-rose-600">Redirect to J4 expansion. Pause Q2 services hires. Accelerate partner channel.</p>
-                </div>
-              </div>
-            </div>
-          `;
-        }
-
-        return '';
-      };
-
-      // Global functions for event handlers
-      window.setActiveTab = (tab) => {
-        state.activeTab = tab;
-        render();
-      };
-
-      window.setPricingTier = (tier) => {
-        state.pricingTier = tier;
-        render();
-      };
-
-      window.setScenario = (scenario) => {
-        state.scenario = scenario;
-        render();
-      };
-
-      window.setStaffingModel = (model) => {
-        state.staffingModel = model;
-        render();
-      };
-
-      window.setUtilization = (util) => {
-        state.utilization = Number(util);
-        render();
-      };
-
-      // Initial render
+    function setActiveTab(tab) {
+      state.activeTab = tab;
       render();
-    });
+    }
+
+    function setActiveScenario(scenario) {
+      state.activeScenario = scenario;
+      render();
+    }
+
+    function toggleRole(roleId) {
+      state.expandedRole = state.expandedRole === roleId ? null : roleId;
+      render();
+    }
+
+    // Render functions
+    function renderScenarioSelector() {
+      const container = document.getElementById('scenario-selector');
+      container.innerHTML = Object.entries(scenarios).map(([k, s]) => `
+        <button onclick="setActiveScenario('${k}')" class="px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+          state.activeScenario === k 
+            ? 'bg-white text-slate-900' 
+            : 'bg-white/10 text-white hover:bg-white/20'
+        }">
+          ${s.label} Scenario
+        </button>
+      `).join('');
+    }
+
+    function renderTabs() {
+      const container = document.getElementById('tabs-nav');
+      container.innerHTML = tabs.map(t => `
+        <button onclick="setActiveTab('${t.id}')" class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+          state.activeTab === t.id 
+            ? 'bg-emerald-100 text-emerald-700' 
+            : 'text-slate-600 hover:bg-slate-100'
+        }">
+          ${getIcon(t.icon, 16)}
+          ${t.label}
+        </button>
+      `).join('');
+    }
+
+    function renderContent() {
+      const container = document.getElementById('content-sections');
+      let html = '';
+
+      // Gated Roadmap Tab
+      if (state.activeTab === 'gates') {
+        html = `
+          <div class="space-y-6">
+            <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6">
+              <p class="text-emerald-400 text-sm font-semibold mb-2">CEO DECISION FRAMEWORK</p>
+              <h2 class="text-xl font-bold mb-3">Gated Execution Roadmap: Hire Into Proof, Not Plans</h2>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                We will not "hire into a plan." We will hire into validated proof that J3 is repeatable, 
+                partner-augmentable, and supported by real pipeline—using hard gates that prevent over-hiring 
+                and protect margin and delivery quality.
+              </p>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Three Sequential Validations</h3>
+              <div class="grid grid-cols-3 gap-4">
+                <div class="rounded-xl border-2 border-emerald-300 bg-emerald-50 p-4">
+                  <div class="flex items-center gap-2 mb-2">
+                    <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">1</div>
+                    <h4 class="font-semibold text-emerald-800">Gate 1: J3 Proof</h4>
+                  </div>
+                  <p class="text-sm text-emerald-700">Can we deliver J3 Foundation predictably, on-budget, with repeatable outcomes (not heroics)?</p>
+                </div>
+                <div class="rounded-xl border-2 border-blue-300 bg-blue-50 p-4">
+                  <div class="flex items-center gap-2 mb-2">
+                    <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">2</div>
+                    <h4 class="font-semibold text-blue-800">Contractors/Partners</h4>
+                  </div>
+                  <p class="text-sm text-blue-700">Can we offload 40–50% of J1/J4 (and selected hybrid J3) without quality, margin, or PMO overhead blowing up?</p>
+                </div>
+                <div class="rounded-xl border-2 border-violet-300 bg-violet-50 p-4">
+                  <div class="flex items-center gap-2 mb-2">
+                    <div class="w-8 h-8 rounded-full bg-violet-600 text-white flex items-center justify-center font-bold text-sm">3</div>
+                    <h4 class="font-semibold text-violet-800">Pipeline Reality</h4>
+                  </div>
+                  <p class="text-sm text-violet-700">Do we have enough qualified J3 demand to justify 3–4 concurrent J3s and the related staffing?</p>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <div class="flex items-center gap-2 mb-4">
+                <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+                  ${getIcon('check-circle-2', 18)}
+                </div>
+                <h3 class="font-semibold">Gate 1 "Repeatability" Criteria (Hard Pass/Fail)</h3>
+              </div>
+              <p class="text-sm text-slate-600 mb-4">Gate 1 is considered a PASS only if we meet <strong>both</strong> delivery and scalability thresholds:</p>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  ${[
+                    { metric: 'FDE Hours', threshold: '≤ 360 total (≤12% variance from 320)', icon: 'clock' },
+                    { metric: 'PMO Overhead', threshold: '≤ 20% of FDE hours', icon: 'file-text' },
+                    { metric: 'Customer Independence', threshold: 'Executes core MCP workflows without Knapsack', icon: 'award' },
+                    { metric: 'Artifacts Complete', threshold: 'Required deliverables + documentation', icon: 'file-text' },
+                  ].map(item => `
+                    <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg">
+                      ${getIcon(item.icon, 16)}
+                      <div>
+                        <p class="font-medium text-sm">${item.metric}</p>
+                        <p class="text-xs text-slate-600">${item.threshold}</p>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+                <div class="bg-rose-50 border border-rose-200 rounded-lg p-4">
+                  <p class="text-sm font-semibold text-rose-800 mb-2">⚠️ Critical Rule</p>
+                  <p class="text-sm text-rose-700 mb-3">
+                    If we need <strong>hero performance</strong> to succeed, Gate 1 is treated as a <strong>FAIL</strong> for 
+                    scaling purposes—even if the customer is happy.
+                  </p>
+                  <div class="bg-white rounded p-3">
+                    <p class="text-xs text-rose-600 font-semibold mb-1">Required Signal</p>
+                    <p class="text-sm text-rose-800">Explicit "would buy again" sponsor confirmation</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <div class="flex items-center gap-2 mb-4">
+                <div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center">
+                  ${getIcon('alert-triangle', 18)}
+                </div>
+                <h3 class="font-semibold">Contractor "Kill Switch" (Mid-April Go/No-Go)</h3>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Contractor Pilot is a FAIL if:</p>
+                  <div class="space-y-2">
+                    ${['20% rework required by Knapsack', 'Schedule slip > 3 days', 'Customer exec review dissatisfaction', 'PMO overhead higher than Knapsack-delivered baseline'].map(item => `
+                      <div class="flex items-center gap-2 text-sm text-rose-700 bg-rose-50 p-2 rounded">
+                        <span class="text-rose-500">✗</span> ${item}
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">If FAIL:</p>
+                  <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                    <p class="text-sm text-amber-800">
+                      Stop scaling partners and shift to a narrower partner pool, offshore bench, or revised delivery design.
+                    </p>
+                    <p class="text-xs text-amber-600 mt-2 font-medium">
+                      Decision point: Mid-April (not late Q2)
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white rounded-xl border p-5">
+                <div class="flex items-center gap-2 mb-4">
+                  <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                    ${getIcon('users', 18)}
+                  </div>
+                  <h3 class="font-semibold">J3 Concurrency Ceiling</h3>
+                </div>
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                    <span class="text-sm font-medium">Max J3 per FDE</span>
+                    <span class="text-lg font-bold text-blue-700">1</span>
+                  </div>
+                  <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                    <span class="text-sm font-medium">Max concurrent J3 Foundations</span>
+                    <span class="text-lg font-bold text-blue-700">3</span>
+                  </div>
+                  <p class="text-xs text-slate-600">
+                    Cap lifts only after: 2 successful J3s delivered, hybrid J3 contractor pilot passes, PMO capacity confirmed
+                  </p>
+                  <div class="bg-slate-100 rounded p-2">
+                    <p class="text-xs text-slate-600"><strong>Exception:</strong> Requires explicit exec approval</p>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-white rounded-xl border p-5">
+                <div class="flex items-center gap-2 mb-4">
+                  <div class="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center">
+                    ${getIcon('trending-up', 18)}
+                  </div>
+                  <h3 class="font-semibold">FDE Hiring Velocity Cap</h3>
+                </div>
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between p-3 bg-violet-50 rounded-lg">
+                    <span class="text-sm font-medium">Max new FDE per quarter</span>
+                    <span class="text-lg font-bold text-violet-700">1</span>
+                  </div>
+                  <p class="text-xs text-slate-600 font-semibold">Exception requires ALL of:</p>
+                  <div class="space-y-1">
+                    ${['2 closed J3s', '≥60% utilization across existing FDEs', 'PMO bandwidth confirmed'].map(item => `
+                      <div class="flex items-center gap-2 text-xs text-slate-700">
+                        ${getIcon('check-circle-2', 12)} ${item}
+                      </div>
+                    `).join('')}
+                  </div>
+                  <div class="bg-violet-100 rounded p-2">
+                    <p class="text-xs text-violet-700">Prevents scaling faster than enablement + delivery maturity</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Split $9M Into Two Bands (Reduces Cliff Risk)</h3>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="rounded-xl border-2 border-emerald-400 bg-emerald-50 p-4">
+                  <div class="flex items-center justify-between mb-2">
+                    <h4 class="font-semibold text-emerald-800">Base+ Band</h4>
+                    <span class="text-xl font-bold text-emerald-700">$8.0–$8.5M</span>
+                  </div>
+                  <p class="text-sm text-emerald-700 mb-3">High confidence once gates pass</p>
+                  <div class="bg-white rounded-lg p-3">
+                    <p class="text-xs text-emerald-600 font-semibold mb-1">Unlocks</p>
+                    <p class="text-sm font-medium">4 FDEs total</p>
+                  </div>
+                </div>
+                <div class="rounded-xl border-2 border-violet-400 bg-violet-50 p-4">
+                  <div class="flex items-center justify-between mb-2">
+                    <h4 class="font-semibold text-violet-800">Stretch Band</h4>
+                    <span class="text-xl font-bold text-violet-700">$9.0–$9.5M</span>
+                  </div>
+                  <p class="text-sm text-violet-700 mb-3">Execution-sensitive</p>
+                  <div class="bg-white rounded-lg p-3">
+                    <p class="text-xs text-violet-600 font-semibold mb-1">Unlocks (only if signals sustain)</p>
+                    <p class="text-sm font-medium">5th FDE</p>
+                  </div>
+                </div>
+              </div>
+              <p class="text-sm text-slate-600 mt-4">This reduces over-hiring pressure and improves margin stability.</p>
+            </div>
+            <div class="bg-slate-900 text-white rounded-xl p-5">
+              <h3 class="font-semibold mb-4 flex items-center gap-2">
+                ${getIcon('briefcase', 18)}<span class="text-emerald-400">CEO Decision Framework</span>
+              </h3>
+              <div class="grid grid-cols-3 gap-4">
+                <div class="bg-emerald-500/20 rounded-lg p-4 border border-emerald-500/30">
+                  <p class="text-emerald-400 text-xs font-semibold mb-2">✓ APPROVE NOW (Q1 Foundation)</p>
+                  <ul class="space-y-2 text-sm">
+                    <li class="flex items-start gap-2">${getIcon('check-circle-2', 14)} FDE #2 + PM #1</li>
+                    <li class="flex items-start gap-2">${getIcon('check-circle-2', 14)} Contractor identification (15–20 → shortlist 2–3)</li>
+                    <li class="flex items-start gap-2">${getIcon('check-circle-2', 14)} Pipeline mapping (100+ accounts, J1–J4)</li>
+                  </ul>
+                </div>
+                <div class="bg-amber-500/20 rounded-lg p-4 border border-amber-500/30">
+                  <p class="text-amber-400 text-xs font-semibold mb-2">⏳ CONDITIONAL (Q2 Validation)</p>
+                  <p class="text-sm text-slate-300 mb-2">FDE #3 + SME #1 only if:</p>
+                  <ul class="space-y-1 text-xs text-slate-300">
+                    <li>• Gate 1 trending PASS at midpoint</li>
+                    <li>• Contractor pilot passes by mid-April</li>
+                    <li>• J3 pipeline ≥ $1.0M (probability-weighted)</li>
+                  </ul>
+                </div>
+                <div class="bg-violet-500/20 rounded-lg p-4 border border-violet-500/30">
+                  <p class="text-violet-400 text-xs font-semibold mb-2">🔓 EXPANSION (Q3/Q4 Scaling)</p>
+                  <ul class="space-y-2 text-xs text-slate-300">
+                    <li><strong class="text-white">FDE #4:</strong> Gate 1 PASS + pipeline supports concurrency</li>
+                    <li><strong class="text-white">FDE #5:</strong> Tracking Stretch band + system proven to absorb volume</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5">
+                <h3 class="font-semibold text-emerald-800 mb-3 flex items-center gap-2">
+                  ${getIcon('check-circle-2', 18)} If All Gates Pass (End of 2026)
+                </h3>
+                <ul class="space-y-2 text-sm text-emerald-700">
+                  <li class="flex items-start gap-2"><span>✓</span> 2–3 repeatable J3 Foundations delivered</li>
+                  <li class="flex items-start gap-2"><span>✓</span> Partners delivering majority of J1/J4 with low oversight</li>
+                  <li class="flex items-start gap-2"><span>✓</span> $8.0–$9.5M services achieved</li>
+                  <li class="flex items-start gap-2"><span>✓</span> 25–29% blended margin</li>
+                  <li class="flex items-start gap-2"><span>✓</span> Controlled burnout risk</li>
+                  <li class="flex items-start gap-2"><span>✓</span> J3 Scale becomes 2027 growth lever (earned)</li>
+                </ul>
+              </div>
+              <div class="bg-rose-50 border border-rose-200 rounded-xl p-5">
+                <h3 class="font-semibold text-rose-800 mb-3 flex items-center gap-2">
+                  ${getIcon('alert-triangle', 18)} If Any Gate Fails
+                </h3>
+                <ul class="space-y-2 text-sm text-rose-700">
+                  <li class="flex items-start gap-2"><span>✗</span> We do NOT keep hiring into the failure</li>
+                  <li class="flex items-start gap-2"><span>✗</span> Downgrade to $6–$7.5M plan</li>
+                  <li class="flex items-start gap-2"><span>✗</span> Reallocate to GTM + assessment volume</li>
+                  <li class="flex items-start gap-2"><span>✗</span> Fix failure mode (delivery, partners, or pipeline)</li>
+                </ul>
+                <div class="mt-4 bg-white rounded-lg p-3">
+                  <p class="text-xs text-rose-600 font-semibold">Failure Modes to Diagnose:</p>
+                  <p class="text-xs text-rose-700">Delivery (heroics required) • Partners (quality/overhead) • Pipeline (not enough J3 demand)</p>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4 flex items-center gap-2">
+                ${getIcon('arrow-right', 18)}<span class="text-emerald-600">Immediate Next Steps</span>
+              </h3>
+              <div class="grid grid-cols-3 gap-4">
+                <div class="bg-emerald-50 rounded-lg p-4">
+                  <p class="text-xs text-emerald-600 font-semibold mb-2">THIS WEEK</p>
+                  <ul class="space-y-1 text-sm text-emerald-800">
+                    <li>• Approve FDE #2 + PM #1 hiring</li>
+                    <li>• Kick off contractor identification</li>
+                    <li>• Begin pipeline probability mapping</li>
+                  </ul>
+                </div>
+                <div class="bg-blue-50 rounded-lg p-4">
+                  <p class="text-xs text-blue-600 font-semibold mb-2">BY END OF Q1</p>
+                  <ul class="space-y-1 text-sm text-blue-800">
+                    <li>• FDE #2 onboarded and in ramp</li>
+                    <li>• Gate 1 J3 engagement kicked off</li>
+                    <li>• Contractor shortlist finalized (2–3)</li>
+                    <li>• Contractor Pilot #1 (J1) launched</li>
+                  </ul>
+                </div>
+                <div class="bg-violet-50 rounded-lg p-4">
+                  <p class="text-xs text-violet-600 font-semibold mb-2">MID-APRIL CHECKPOINT</p>
+                  <ul class="space-y-1 text-sm text-violet-800">
+                    <li>• Gate 1 midpoint assessment</li>
+                    <li>• Contractor pilot go/no-go decision</li>
+                    <li>• Q2 hiring unlock decision</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Role Profiles Tab
+      if (state.activeTab === 'roles') {
+        const totalHires = roleProfiles.reduce((sum, r) => sum + r.hires[state.activeScenario], 0);
+        html = `
+          <div class="space-y-4">
+            <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 mb-6">
+              <p class="text-sm text-emerald-800">
+                <strong>Hiring for ${scenarios[state.activeScenario].label}:</strong> ${totalHires} total new hires needed
+              </p>
+            </div>
+            ${['Services Delivery', 'GTM'].map(category => `
+              <div>
+                <h2 class="text-lg font-semibold mb-3 text-slate-700">${category}</h2>
+                <div class="space-y-3">
+                  ${roleProfiles.filter(r => r.category === category).map(role => `
+                    <div class="bg-white rounded-xl border overflow-hidden">
+                      <button onclick="toggleRole('${role.id}')" class="w-full p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                        <div class="flex items-center gap-4">
+                          <div class="w-12 h-12 rounded-lg flex items-center justify-center ${
+                            role.priority === 'Critical' ? 'bg-rose-100' :
+                            role.priority === 'High' ? 'bg-amber-100' :
+                            'bg-blue-100'
+                          }">
+                            ${getIcon(role.icon, 24)}
+                          </div>
+                          <div class="text-left">
+                            <p class="font-semibold">${role.title}</p>
+                            <p class="text-sm text-slate-500">${role.aka}</p>
+                          </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                          <div class="text-right">
+                            <p class="text-sm font-medium">+${role.hires[state.activeScenario]} hires</p>
+                            <p class="text-xs text-slate-500">${fmt(role.salary.loaded)}/yr loaded</p>
+                          </div>
+                          <span class="px-2 py-1 rounded text-xs font-medium ${
+                            role.priority === 'Critical' ? 'bg-rose-100 text-rose-700' :
+                            role.priority === 'High' ? 'bg-amber-100 text-amber-700' :
+                            role.priority === 'Medium' ? 'bg-blue-100 text-blue-700' :
+                            'bg-slate-100 text-slate-700'
+                          }">${role.priority}</span>
+                          ${state.expandedRole === role.id ? getIcon('chevron-down', 20) : getIcon('chevron-right', 20)}
+                        </div>
+                      </button>
+                      ${state.expandedRole === role.id ? `
+                        <div class="border-t p-4 bg-slate-50">
+                          <p class="text-sm text-slate-700 mb-4">${role.description}</p>
+                          <div class="grid grid-cols-4 gap-4 mb-4">
+                            <div class="bg-white rounded-lg p-3">
+                              <p class="text-xs text-slate-500">Base Salary</p>
+                              <p class="font-semibold">${fmt(role.salary.base)}</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-3">
+                              <p class="text-xs text-slate-500">OTE</p>
+                              <p class="font-semibold">${fmt(role.salary.ote)}</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-3">
+                              <p class="text-xs text-slate-500">Fully Loaded</p>
+                              <p class="font-semibold">${fmt(role.salary.loaded)}</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-3">
+                              <p class="text-xs text-slate-500">Bill Rate</p>
+                              <p class="font-semibold">${role.billRate ? `$${role.billRate}/hr` : 'N/A'}</p>
+                            </div>
+                          </div>
+                          <div class="grid grid-cols-2 gap-4">
+                            <div>
+                              <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Responsibilities</p>
+                              <ul class="space-y-1">
+                                ${role.responsibilities.map(r => `
+                                  <li class="text-sm text-slate-700 flex items-start gap-2">
+                                    <span class="text-emerald-500 mt-1">•</span> ${r}
+                                  </li>
+                                `).join('')}
+                              </ul>
+                            </div>
+                            <div>
+                              <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Requirements</p>
+                              <ul class="space-y-1">
+                                ${role.requirements.map(r => `
+                                  <li class="text-sm text-slate-700 flex items-start gap-2">
+                                    <span class="text-blue-500 mt-1">•</span> ${r}
+                                  </li>
+                                `).join('')}
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="grid grid-cols-2 gap-4 mt-4">
+                            <div>
+                              <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Success Metrics</p>
+                              <ul class="space-y-1">
+                                ${role.successMetrics.map(m => `
+                                  <li class="text-sm text-slate-700 flex items-start gap-2">
+                                    ${getIcon('check-circle-2', 14)} ${m}
+                                  </li>
+                                `).join('')}
+                              </ul>
+                            </div>
+                            <div>
+                              <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Interview Process</p>
+                              <ol class="space-y-1">
+                                ${role.interviewProcess.map((s, i) => `
+                                  <li class="text-sm text-slate-700 flex items-start gap-2">
+                                    <span class="text-slate-400 font-mono text-xs">${i + 1}.</span> ${s}
+                                  </li>
+                                `).join('')}
+                              </ol>
+                            </div>
+                          </div>
+                          <div class="mt-4 pt-4 border-t">
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Hiring Sources</p>
+                            <div class="flex flex-wrap gap-2">
+                              ${role.hiringSource.map(s => `
+                                <span class="text-xs px-2 py-1 bg-white rounded border">${s}</span>
+                              `).join('')}
+                            </div>
+                          </div>
+                        </div>
+                      ` : ''}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      // Quarterly Budget Tab
+      if (state.activeTab === 'budget') {
+        const budget = quarterlyBudget[state.activeScenario];
+        const totalHiringCost = Object.values(budget).reduce((sum, q) => sum + q.cost, 0);
+        const totalHires = Object.values(budget).reduce((sum, q) => sum + q.hires.length, 0);
+        html = `
+          <div class="space-y-6">
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Quarterly P&L Projection: ${scenarios[state.activeScenario].label}</h3>
+              <table class="w-full text-sm">
+                <thead class="bg-slate-50">
+                  <tr>
+                    <th class="text-left px-4 py-2">Quarter</th>
+                    <th class="text-left px-4 py-2">New Hires</th>
+                    <th class="text-right px-4 py-2">Hiring Cost (Q)</th>
+                    <th class="text-right px-4 py-2">Cumulative HC</th>
+                    <th class="text-right px-4 py-2">Revenue (Cum)</th>
+                    <th class="text-left px-4 py-2">Notes</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y">
+                  ${Object.entries(budget).map(([q, data]) => `
+                    <tr>
+                      <td class="px-4 py-3 font-medium">${q.toUpperCase()} 2026</td>
+                      <td class="px-4 py-3">
+                        <div class="flex flex-wrap gap-1">
+                          ${data.hires.length > 0 ? data.hires.map(h => `
+                            <span class="text-xs px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded">${h}</span>
+                          `).join('') : '<span class="text-slate-400">—</span>'}
+                        </div>
+                      </td>
+                      <td class="px-4 py-3 text-right">${fmt(data.cost)}</td>
+                      <td class="px-4 py-3 text-right font-medium">${data.cumHC}</td>
+                      <td class="px-4 py-3 text-right text-emerald-600 font-medium">${fmt(data.revenue)}</td>
+                      <td class="px-4 py-3 text-slate-600">${data.notes}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+                <tfoot class="bg-slate-100">
+                  <tr>
+                    <td class="px-4 py-3 font-semibold">Total</td>
+                    <td class="px-4 py-3">${totalHires} hires</td>
+                    <td class="px-4 py-3 text-right font-semibold">${fmt(totalHiringCost)}</td>
+                    <td class="px-4 py-3 text-right font-semibold">${budget.q4.cumHC}</td>
+                    <td class="px-4 py-3 text-right font-semibold text-emerald-600">${fmt(scenarios[state.activeScenario].target)}</td>
+                    <td class="px-4 py-3"></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              ${Object.entries(scenarios).map(([k, s]) => {
+                const b = quarterlyBudget[k];
+                const thc = Object.values(b).reduce((sum, q) => sum + q.cost, 0);
+                const fhc = b.q4.cumHC;
+                return `
+                  <div class="rounded-xl border-2 p-4 ${
+                    state.activeScenario === k ? 'border-emerald-500 bg-emerald-50' : 'border-slate-200 bg-white'
+                  }">
+                    <h4 class="font-semibold mb-3">${s.label} Summary</h4>
+                    <div class="space-y-2 text-sm">
+                      <div class="flex justify-between">
+                        <span class="text-slate-600">Target Revenue</span>
+                        <span class="font-medium">${fmt(s.target)}</span>
+                      </div>
+                      <div class="flex justify-between">
+                        <span class="text-slate-600">Final Headcount</span>
+                        <span class="font-medium">${fhc}</span>
+                      </div>
+                      <div class="flex justify-between">
+                        <span class="text-slate-600">New Hire Cost (Q1)</span>
+                        <span class="font-medium">${fmt(thc)}</span>
+                      </div>
+                      <div class="flex justify-between">
+                        <span class="text-slate-600">Rev/Head</span>
+                        <span class="font-medium">${fmt(s.target / fhc)}</span>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // Hiring Timeline Tab
+      if (state.activeTab === 'timeline') {
+        const budget = quarterlyBudget[state.activeScenario];
+        html = `
+          <div class="space-y-6">
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">2026 Hiring Timeline: ${scenarios[state.activeScenario].label}</h3>
+              <div class="grid grid-cols-4 gap-4">
+                ${Object.entries(budget).map(([q, data], idx) => `
+                  <div class="rounded-xl border-2 p-4 ${
+                    idx === 0 ? 'border-rose-300 bg-rose-50' :
+                    idx === 1 ? 'border-amber-300 bg-amber-50' :
+                    idx === 2 ? 'border-blue-300 bg-blue-50' :
+                    'border-emerald-300 bg-emerald-50'
+                  }">
+                    <div class="flex items-center justify-between mb-3">
+                      <h4 class="font-semibold">${q.toUpperCase()} 2026</h4>
+                      <span class="text-xs px-2 py-0.5 rounded ${
+                        idx === 0 ? 'bg-rose-200 text-rose-700' :
+                        idx === 1 ? 'bg-amber-200 text-amber-700' :
+                        idx === 2 ? 'bg-blue-200 text-blue-700' :
+                        'bg-emerald-200 text-emerald-700'
+                      }">
+                        ${idx === 0 ? 'Critical' : idx === 1 ? 'High' : idx === 2 ? 'Medium' : 'Optimize'}
+                      </span>
+                    </div>
+                    <div class="space-y-2 mb-4">
+                      ${data.hires.length > 0 ? data.hires.map(h => `
+                        <div class="flex items-center gap-2 text-sm">
+                          ${getIcon('arrow-right', 14)}
+                          <span>${h}</span>
+                        </div>
+                      `).join('') : '<p class="text-sm text-slate-500 italic">No new hires planned</p>'}
+                    </div>
+                    <div class="pt-3 border-t text-xs text-slate-600">
+                      <p><strong>End of Q HC:</strong> ${data.cumHC}</p>
+                      <p><strong>Cum Revenue:</strong> ${fmt(data.revenue)}</p>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
+              <h3 class="font-semibold text-amber-800 mb-3 flex items-center gap-2">
+                ${getIcon('clock', 18)} Hiring Lead Times
+              </h3>
+              <div class="grid grid-cols-4 gap-4 text-sm">
+                <div class="bg-white rounded-lg p-3">
+                  <p class="font-medium">FDE</p>
+                  <p class="text-amber-700">8-12 weeks to hire</p>
+                  <p class="text-amber-700">3 months to ramp</p>
+                </div>
+                <div class="bg-white rounded-lg p-3">
+                  <p class="font-medium">SME</p>
+                  <p class="text-amber-700">6-10 weeks to hire</p>
+                  <p class="text-amber-700">2 months to ramp</p>
+                </div>
+                <div class="bg-white rounded-lg p-3">
+                  <p class="font-medium">AE</p>
+                  <p class="text-amber-700">8-12 weeks to hire</p>
+                  <p class="text-amber-700">4 months to ramp</p>
+                </div>
+                <div class="bg-white rounded-lg p-3">
+                  <p class="font-medium">Other Roles</p>
+                  <p class="text-amber-700">4-8 weeks to hire</p>
+                  <p class="text-amber-700">1-2 months to ramp</p>
+                </div>
+              </div>
+              <p class="text-sm text-amber-800 mt-4">
+                <strong>Implication:</strong> For Q1 productivity, begin recruiting in October 2025. For Q2, begin in January 2026.
+              </p>
+            </div>
+          </div>
+        `;
+      }
+
+      // Risk Mitigation Tab
+      if (state.activeTab === 'risks') {
+        html = `
+          <div class="space-y-4">
+            ${riskMitigation.map((risk, idx) => `
+              <div class="bg-white rounded-xl border-2 overflow-hidden ${
+                risk.color === 'rose' ? 'border-rose-200' :
+                risk.color === 'amber' ? 'border-amber-200' :
+                'border-blue-200'
+              }">
+                <div class="px-5 py-3 flex items-center justify-between ${
+                  risk.color === 'rose' ? 'bg-rose-50' :
+                  risk.color === 'amber' ? 'bg-amber-50' :
+                  'bg-blue-50'
+                }">
+                  <div class="flex items-center gap-3">
+                    ${getIcon('alert-triangle', 20)}
+                    <div>
+                      <h4 class="font-semibold">${risk.risk}</h4>
+                      <p class="text-sm text-slate-600">${risk.impact}</p>
+                    </div>
+                  </div>
+                  <div class="flex gap-2">
+                    <span class="text-xs px-2 py-1 rounded ${
+                      risk.severity === 'Critical' ? 'bg-rose-200 text-rose-700' :
+                      risk.severity === 'High' ? 'bg-amber-200 text-amber-700' :
+                      'bg-blue-200 text-blue-700'
+                    }">
+                      ${risk.severity} Severity
+                    </span>
+                    <span class="text-xs px-2 py-1 rounded bg-slate-200 text-slate-700">
+                      ${risk.probability} Probability
+                    </span>
+                  </div>
+                </div>
+                <div class="p-5">
+                  <div class="grid grid-cols-2 gap-6">
+                    <div>
+                      <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Mitigation Strategies</p>
+                      <ul class="space-y-1">
+                        ${risk.mitigation.map(m => `
+                          <li class="text-sm text-slate-700 flex items-start gap-2">
+                            ${getIcon('check-circle-2', 14)} ${m}
+                          </li>
+                        `).join('')}
+                      </ul>
+                    </div>
+                    <div>
+                      <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Contingency Plan</p>
+                      <p class="text-sm text-slate-700 bg-slate-50 rounded-lg p-3">${risk.contingency}</p>
+                      <p class="text-xs text-slate-500 mt-3"><strong>Owner:</strong> ${risk.owner}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    function render() {
+      renderScenarioSelector();
+      renderTabs();
+      renderContent();
+    }
+
+    // Initialize
+    render();
   </script>
 </body>
 </html>
