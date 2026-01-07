@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Knapsack Contribution Templates</title>
+  <title>Knapsack Contribution Framework</title>
   <style>
     * {
       margin: 0;
@@ -21,9 +21,44 @@
       max-width: 1400px;
       margin: 0 auto;
     }
+    .nav {
+      margin-bottom: 2rem;
+      display: flex;
+      gap: 1rem;
+      border-bottom: 2px solid #e0dee3;
+      padding-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .nav-button {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #645e6e;
+      background-color: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: -1rem;
+      padding-bottom: 1.75rem;
+    }
+    .nav-button:hover {
+      color: #28262c;
+    }
+    .nav-button.active {
+      font-weight: 600;
+      color: #28262c;
+      border-bottom-color: #eb8d0a;
+    }
+    .page {
+      display: none;
+    }
+    .page.active {
+      display: block;
+    }
     .header {
       margin-bottom: 2rem;
-      padding: 2rem;
+      padding: 1.5rem 2rem;
       background-color: #ffffff;
       border-radius: 12px;
       box-shadow: 0px 0px 0px 1px rgba(20, 19, 22, 0.04), 2px 2px 4px rgba(20, 19, 22, 0.08);
@@ -35,15 +70,51 @@
       color: #28262c;
       letter-spacing: -0.01em;
     }
+    .header h1.large {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
     .header p {
       margin: 0;
       font-size: 0.95rem;
       color: #645e6e;
+      line-height: 1.7;
     }
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0px 0px 0px 1px rgba(20, 19, 22, 0.04);
+    }
+    .card.bordered-left {
+      border-left: 4px solid;
+    }
+    .card.bordered-left.orange {
+      border-left-color: #eb8d0a;
+    }
+    .card.bordered-left.blue {
+      border-left-color: #05a2f0;
+    }
+    .card.bordered-left.green {
+      border-left-color: #36bf7f;
+    }
+    .card.bordered-left.gray {
+      border-left-color: #645e6e;
     }
     .column-header {
       margin-bottom: 1.5rem;
@@ -77,6 +148,12 @@
     }
     .section {
       margin-bottom: 1.5rem;
+    }
+    .section h2 {
+      margin: 0 0 1.5rem 0;
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: #28262c;
     }
     .section h3 {
       margin: 0 0 0.75rem 0;
@@ -136,6 +213,146 @@
       padding-left: 1.5rem;
       list-style-type: none;
     }
+    .growth-stage {
+      padding: 1.5rem;
+      background-color: #ffffff;
+      border: 1px solid;
+      border-left: 4px solid;
+      border-radius: 8px;
+      height: 100%;
+    }
+    .growth-stage.orange {
+      border-color: #eb8d0a;
+    }
+    .growth-stage.blue {
+      border-color: #05a2f0;
+    }
+    .growth-stage.green {
+      border-color: #36bf7f;
+    }
+    .growth-stage h3 {
+      margin: 0 0 1rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #28262c;
+      border: none;
+      padding: 0;
+    }
+    .growth-stage-goal {
+      margin-bottom: 1.25rem;
+      padding: 0.75rem;
+      border-left: 3px solid;
+      padding-left: 1rem;
+    }
+    .growth-stage-goal.orange {
+      background-color: rgba(235, 141, 10, 0.08);
+      border-color: #eb8d0a;
+    }
+    .growth-stage-goal.blue {
+      background-color: rgba(5, 162, 240, 0.08);
+      border-color: #05a2f0;
+    }
+    .growth-stage-goal.green {
+      background-color: rgba(54, 191, 127, 0.08);
+      border-color: #36bf7f;
+    }
+    .growth-stage-goal p {
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #28262c;
+      line-height: 1.5;
+    }
+    .growth-stage ul {
+      margin: 0;
+      padding-left: 1.5rem;
+      color: #645e6e;
+      line-height: 1.8;
+      font-size: 0.9rem;
+      list-style-type: disc;
+    }
+    .growth-stage li {
+      margin-bottom: 0.5rem;
+    }
+    .workflow-step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+    .step-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+      color: #ffffff;
+    }
+    .step-number.orange {
+      background-color: #eb8d0a;
+    }
+    .step-number.blue {
+      background-color: #05a2f0;
+    }
+    .step-number.green {
+      background-color: #36bf7f;
+    }
+    .step-number.gray {
+      background-color: #645e6e;
+    }
+    .step-content strong {
+      color: #28262c;
+      display: block;
+    }
+    .step-content p {
+      margin: 0.25rem 0 0 0;
+      color: #645e6e;
+      font-size: 0.9rem;
+    }
+    .philosophy-card {
+      padding: 1.5rem;
+      background-color: #ffffff;
+      border: 1px solid #e0dee3;
+      border-radius: 8px;
+    }
+    .philosophy-card.green {
+      background-color: #f0fff3;
+      border-color: #36bf7f;
+    }
+    .philosophy-card h3 {
+      margin: 0 0 1rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #28262c;
+      border: none;
+      padding: 0;
+    }
+    .philosophy-card p {
+      margin: 0 0 1rem 0;
+      font-size: 0.9rem;
+      color: #645e6e;
+      line-height: 1.7;
+    }
+    .philosophy-card ul {
+      margin: 1rem 0 0 0;
+      padding-left: 1.5rem;
+      color: #645e6e;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      list-style-type: disc;
+    }
+    .philosophy-card p:last-child {
+      margin-top: 1rem;
+      margin-bottom: 0;
+    }
+    .philosophy-card p strong {
+      color: #28262c;
+      font-weight: 500;
+    }
     .legend {
       margin-top: 2rem;
       padding: 1.5rem;
@@ -157,8 +374,131 @@
       color: #eb8d0a;
       font-weight: 600;
     }
+    .form-field {
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #e0dee3;
+    }
+    .form-field:last-child {
+      border-bottom: none;
+    }
+    .form-field-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .form-field-number {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #28262c;
+      background-color: #faf9fa;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .form-field-header h3 {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #28262c;
+      border: none;
+      padding: 0;
+    }
+    .form-field-header .required-star {
+      color: #eb8d0a;
+      margin-left: 0.25rem;
+    }
+    .form-field-details {
+      display: grid;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      padding-left: 2.5rem;
+    }
+    .form-field-details div {
+      font-size: 0.85rem;
+      color: #645e6e;
+    }
+    .form-field-details strong {
+      font-weight: 500;
+    }
+    .form-field-details ul {
+      margin: 0.25rem 0 0 0;
+      padding-left: 1.25rem;
+      list-style-type: disc;
+    }
+    .form-field-details li {
+      font-size: 0.85rem;
+    }
+    .form-field-details .help-text {
+      font-style: italic;
+      margin-top: 0.25rem;
+    }
+    .confirmation-section {
+      display: grid;
+      gap: 1rem;
+    }
+    .confirmation-item {
+      margin-bottom: 1rem;
+    }
+    .confirmation-item-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #28262c;
+      margin-bottom: 0.5rem;
+    }
+    .confirmation-item-value {
+      font-size: 0.9rem;
+      color: #645e6e;
+      line-height: 1.6;
+    }
+    .confirmation-item-value.large {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .slack-message {
+      background-color: #faf9fa;
+      border: 1px solid #e0dee3;
+      border-radius: 6px;
+      padding: 1rem;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #28262c;
+      line-height: 1.6;
+    }
+    .design-notes {
+      background-color: #f8f3e6;
+      border-left: 4px solid #eb8d0a;
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+    .design-notes h2 {
+      margin: 0 0 1rem 0;
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #28262c;
+    }
+    .design-notes ul {
+      margin: 0;
+      padding-left: 1.5rem;
+      color: #645e6e;
+      line-height: 1.8;
+      font-size: 0.9rem;
+      list-style-type: disc;
+    }
+    @media (max-width: 1200px) {
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
     @media (max-width: 900px) {
       .grid {
+        grid-template-columns: 1fr;
+      }
+      .grid-2 {
         grid-template-columns: 1fr;
       }
     }
@@ -166,408 +506,930 @@
 </head>
 <body>
   <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <h1>Knapsack Contribution Templates</h1>
-      <p>Complete checklists for both Pattern and Component contributions</p>
+    <!-- Navigation -->
+    <div class="nav">
+      <button class="nav-button active" onclick="showPage('overview')">Knapsack Contribution Framework</button>
+      <button class="nav-button" onclick="showPage('templates')">Contribution Templates</button>
+      <button class="nav-button" onclick="showPage('workflows')">Contribution Workflows</button>
+      <button class="nav-button" onclick="showPage('slack')">Slack Workflow</button>
     </div>
 
-    <!-- Two Column Layout -->
-    <div class="grid">
-      <!-- Pattern Template Column -->
-      <div>
-        <div class="column-header pattern">
-          <h2>Pattern Template</h2>
-          <p>For new patterns and design system contributions</p>
-        </div>
-        <div class="content-card">
-          <!-- Pattern Overview -->
-          <div class="section">
-            <h3>Pattern Overview <span class="required">(Required)</span></h3>
+    <!-- Overview Page -->
+    <div id="overview" class="page active">
+      <!-- Hero Section -->
+      <div class="header">
+        <h1 class="large">Contributing to Your Design System</h1>
+        <p>
+          Design systems evolve — and so do the ways teams contribute to them. If you're just getting started, our goal is simple: help you move fast and learn what matters. As your system grows and more teams rely on it, the contribution process naturally becomes a little more structured — not to slow you down, but to help you scale with confidence.
+        </p>
+      </div>
+
+      <!-- Three Growth Stages -->
+      <div class="section" style="margin-bottom: 2rem;">
+        <h2>Three Growth Stages</h2>
+        <div class="grid-3">
+          <div class="growth-stage orange">
+            <h3>Early On: Make It Easy to Contribute</h3>
+            <div class="growth-stage-goal orange">
+              <p>Goal: Encourage participation and quickly identify what's worth standardizing</p>
+            </div>
             <ul>
-              <li class="description">Purpose: Describe the user problem this pattern solves and why it belongs in the system</li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Contribution Type: ☐ Fundamental  ☐ Component  ☐ Pattern</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Status: Draft → Ready for Review → Ready for Dev → Ready</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Primary Owner: Name / Team</span>
-              </li>
+              <li>Speed and experimentation matter most</li>
+              <li>Contributions can start small</li>
+              <li>Documentation can be lightweight</li>
+              <li>Components may solve a narrow use case first</li>
+              <li>Iteration after publishing is expected</li>
             </ul>
           </div>
 
-          <!-- Intended Use -->
-          <div class="section">
-            <h3>Intended Use <span class="required">(Required)</span></h3>
+          <div class="growth-stage blue">
+            <h3>As You Grow: Make It Easier to Reuse</h3>
+            <div class="growth-stage-goal blue">
+              <p>Goal: Ensure components work reliably across multiple teams and use cases</p>
+            </div>
             <ul>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Use this pattern when:</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Do not use this pattern when:</span>
-              </li>
+              <li>More teams adopt your system</li>
+              <li>Components get reused in more places</li>
+              <li>Changes affect more products</li>
+              <li>Clear guidance becomes more important</li>
+              <li>Documentation becomes more detailed</li>
+              <li>Reviews focus more on reuse and consistency</li>
+              <li>Ownership and maintenance start to matter</li>
             </ul>
           </div>
 
-          <!-- Design Source -->
-          <div class="section">
-            <h3>Design Source <span class="required">(Required)</span></h3>
+          <div class="growth-stage green">
+            <h3>At Scale: Make It Safe to Trust</h3>
+            <div class="growth-stage-goal green">
+              <p>Goal: Maintain trust and reliability so teams can adopt with confidence</p>
+            </div>
             <ul>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Linked Figma file(s)</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Relevant Figma components or libraries</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Figma Variables used (if applicable)</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Composition -->
-          <div class="section">
-            <h3>Composition</h3>
-            <ul>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Component(s):</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Tokens:</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Content assets (if applicable):</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Accessibility Considerations -->
-          <div class="section">
-            <h3>Accessibility Considerations</h3>
-            <ul>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Keyboard behavior:</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Screen reader considerations:</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Color / contrast notes:</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Implementation Notes -->
-          <div class="section">
-            <h3>Implementation Notes</h3>
-            <ul>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Known constraints:</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Responsive behavior:</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Edge cases:</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Documentation Checklist -->
-          <div class="section">
-            <h3>Documentation Checklist (Required to Advance Status) <span class="required">(Required)</span></h3>
-            <ul>
-              <li class="subsection">
-                <div class="subsection-title">Pilot Minimum</div>
-                <ul>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Purpose documented</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Usage guidance included</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Design source linked</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Owner assigned</span>
-                  </li>
-                </ul>
-              </li>
-              <li class="subsection">
-                <div class="subsection-title">Mature Systems (Additional)</div>
-                <ul>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Edge cases documented</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Accessibility requirements verified</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Related patterns linked</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Maintenance expectations noted</span>
-                  </li>
-                </ul>
-              </li>
+              <li>Teams rely on shared components to move faster</li>
+              <li>"Ready" means safe to use anywhere</li>
+              <li>Contributions are built to last</li>
+              <li>Reviews protect downstream teams</li>
+              <li>Higher bar maintains trust in the system</li>
             </ul>
           </div>
         </div>
       </div>
 
-      <!-- Component Template Column -->
-      <div>
-        <div class="column-header component">
-          <h2>Component Template</h2>
-          <p>For coded component implementations</p>
+      <!-- Core Philosophy -->
+      <div class="grid-2" style="margin-bottom: 2rem;">
+        <div class="philosophy-card">
+          <h3>One Workflow, Flexible Standards</h3>
+          <p>
+            Knapsack supports the same contribution workflow at every stage — from early pilots to mature systems.
+          </p>
+          <p>
+            What changes over time isn't <em>how</em> you contribute, but what "good" looks like:
+          </p>
+          <ul>
+            <li>Early systems optimize for learning</li>
+            <li>Growing systems optimize for reuse</li>
+            <li>Mature systems optimize for reliability</li>
+          </ul>
+          <p>
+            You can adopt higher standards gradually, at your own pace.
+          </p>
         </div>
-        <div class="content-card">
-          <!-- Component Overview -->
-          <div class="section">
-            <h3>Component Overview <span class="required">(Required)</span></h3>
-            <ul>
-              <li class="description">What is this component? Brief description of what the component does and where it's used</li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Owner: Name / Team</span>
-              </li>
-            </ul>
-          </div>
 
-          <!-- API / Interface -->
-          <div class="section">
-            <h3>API / Interface <span class="required">(Required)</span></h3>
-            <ul>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Props / Parameters:</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Variants:</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>States:</span>
-              </li>
-            </ul>
-          </div>
+        <div class="philosophy-card green">
+          <h3>Our Goal</h3>
+          <p>
+            Contribution guidelines aren't about gatekeeping — they're about:
+          </p>
+          <ul>
+            <li>Reducing rework</li>
+            <li>Making components easier to adopt</li>
+            <li>Helping your system scale sustainably</li>
+          </ul>
+          <p>
+            <strong>Start simple. Improve as you go. Knapsack is built to support you at every stage.</strong>
+          </p>
+        </div>
+      </div>
+    </div>
 
-          <!-- Design Alignment -->
-          <div class="section">
-            <h3>Design Alignment <span class="required">(Required)</span></h3>
-            <ul>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Tokens used:</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Supported themes:</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Design constraints:</span>
-              </li>
-            </ul>
-          </div>
+    <!-- Templates Page -->
+    <div id="templates" class="page">
+      <div class="header">
+        <h1>Knapsack Contribution Templates</h1>
+        <p>Complete checklists for both Pattern and Component contributions</p>
+      </div>
 
-          <!-- Usage Guidelines -->
-          <div class="section">
-            <h3>Usage Guidelines</h3>
-            <ul>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Recommended use cases:</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Avoid:</span>
-              </li>
-            </ul>
+      <div class="grid">
+        <!-- Pattern Template Column -->
+        <div>
+          <div class="column-header pattern">
+            <h2>Pattern Template</h2>
+            <p>For new patterns and design system contributions</p>
           </div>
+          <div class="content-card">
+            <div class="section">
+              <h3>Pattern Overview <span class="required">(Required)</span></h3>
+              <ul>
+                <li class="description">Purpose: Describe the user problem this pattern solves and why it belongs in the system</li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Contribution Type: ☐ Fundamental  ☐ Component  ☐ Pattern</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Status: Draft → Ready for Review → Ready for Dev → Ready</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Primary Owner: Name / Team</span>
+                </li>
+              </ul>
+            </div>
 
-          <!-- Engineering Notes -->
-          <div class="section">
-            <h3>Engineering Notes</h3>
-            <ul>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Dependencies:</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Performance considerations:</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checkbox">☐</span>
-                <span>Known limitations:</span>
-              </li>
-            </ul>
+            <div class="section">
+              <h3>Intended Use <span class="required">(Required)</span></h3>
+              <ul>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Use this pattern when:</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Do not use this pattern when:</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h3>Design Source <span class="required">(Required)</span></h3>
+              <ul>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Linked Figma file(s)</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Relevant Figma components or libraries</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Figma Variables used (if applicable)</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h3>Composition</h3>
+              <ul>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Component(s):</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Tokens:</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Content assets (if applicable):</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h3>Accessibility Considerations</h3>
+              <ul>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Keyboard behavior:</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Screen reader considerations:</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Color / contrast notes:</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h3>Implementation Notes</h3>
+              <ul>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Known constraints:</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Responsive behavior:</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Edge cases:</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h3>Documentation Checklist (Required to Advance Status) <span class="required">(Required)</span></h3>
+              <ul>
+                <li class="subsection">
+                  <div class="subsection-title">Pilot Minimum</div>
+                  <ul>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Purpose documented</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Usage guidance included</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Design source linked</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Owner assigned</span>
+                    </li>
+                  </ul>
+                </li>
+                <li class="subsection">
+                  <div class="subsection-title">Mature Systems (Additional)</div>
+                  <ul>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Edge cases documented</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Accessibility requirements verified</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Related patterns linked</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Maintenance expectations noted</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
           </div>
+        </div>
 
-          <!-- Design Review Checklist -->
-          <div class="section">
-            <h3>Design Review Checklist <span class="required">(Required)</span></h3>
-            <ul>
-              <li class="subsection">
-                <div class="subsection-title">Pilot</div>
-                <ul>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Visuals align with system</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Variants and states defined</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Tokens applied</span>
-                  </li>
-                </ul>
-              </li>
-              <li class="subsection">
-                <div class="subsection-title">Mature</div>
-                <ul>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Fully tokenized</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Interaction states documented</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Accessibility verified</span>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+        <!-- Component Template Column -->
+        <div>
+          <div class="column-header component">
+            <h2>Component Template</h2>
+            <p>For coded component implementations</p>
           </div>
+          <div class="content-card">
+            <div class="section">
+              <h3>Component Overview <span class="required">(Required)</span></h3>
+              <ul>
+                <li class="description">What is this component? Brief description of what the component does and where it's used</li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Owner: Name / Team</span>
+                </li>
+              </ul>
+            </div>
 
-          <!-- Engineering Review Checklist -->
-          <div class="section">
-            <h3>Engineering Review Checklist <span class="required">(Required)</span></h3>
-            <ul>
-              <li class="subsection">
-                <div class="subsection-title">Pilot</div>
-                <ul>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Code follows system conventions</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>API is understandable</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>No obvious duplication</span>
-                  </li>
-                </ul>
-              </li>
-              <li class="subsection">
-                <div class="subsection-title">Mature</div>
-                <ul>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>API designed for extension</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Tests included</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Backwards compatibility considered</span>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+            <div class="section">
+              <h3>API / Interface <span class="required">(Required)</span></h3>
+              <ul>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Props / Parameters:</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Variants:</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>States:</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h3>Design Alignment <span class="required">(Required)</span></h3>
+              <ul>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Tokens used:</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Supported themes:</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Design constraints:</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h3>Usage Guidelines</h3>
+              <ul>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Recommended use cases:</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Avoid:</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h3>Engineering Notes</h3>
+              <ul>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Dependencies:</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Performance considerations:</span>
+                </li>
+                <li class="checklist-item">
+                  <span class="checkbox">☐</span>
+                  <span>Known limitations:</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h3>Design Review Checklist <span class="required">(Required)</span></h3>
+              <ul>
+                <li class="subsection">
+                  <div class="subsection-title">Pilot</div>
+                  <ul>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Visuals align with system</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Variants and states defined</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Tokens applied</span>
+                    </li>
+                  </ul>
+                </li>
+                <li class="subsection">
+                  <div class="subsection-title">Mature</div>
+                  <ul>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Fully tokenized</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Interaction states documented</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Accessibility verified</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h3>Engineering Review Checklist <span class="required">(Required)</span></h3>
+              <ul>
+                <li class="subsection">
+                  <div class="subsection-title">Pilot</div>
+                  <ul>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Code follows system conventions</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>API is understandable</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>No obvious duplication</span>
+                    </li>
+                  </ul>
+                </li>
+                <li class="subsection">
+                  <div class="subsection-title">Mature</div>
+                  <ul>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>API designed for extension</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Tests included</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Backwards compatibility considered</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h3>Ready to Publish Checklist <span class="required">(Required)</span></h3>
+              <ul>
+                <li class="subsection">
+                  <div class="subsection-title">Pilot</div>
+                  <ul>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Reviews completed</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Pattern status updated to Ready</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Owner confirmed</span>
+                    </li>
+                  </ul>
+                </li>
+                <li class="subsection">
+                  <div class="subsection-title">Mature</div>
+                  <ul>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Versioning impact reviewed</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Downstream impact communicated</span>
+                    </li>
+                    <li class="checklist-item">
+                      <span class="checkbox">☐</span>
+                      <span>Adoption plan documented</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
           </div>
+        </div>
+      </div>
 
-          <!-- Ready to Publish Checklist -->
-          <div class="section">
-            <h3>Ready to Publish Checklist <span class="required">(Required)</span></h3>
-            <ul>
-              <li class="subsection">
-                <div class="subsection-title">Pilot</div>
-                <ul>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Reviews completed</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Pattern status updated to Ready</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Owner confirmed</span>
-                  </li>
-                </ul>
-              </li>
-              <li class="subsection">
-                <div class="subsection-title">Mature</div>
-                <ul>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Versioning impact reviewed</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Downstream impact communicated</span>
-                  </li>
-                  <li class="checklist-item">
-                    <span class="checkbox">☐</span>
-                    <span>Adoption plan documented</span>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+      <div class="legend">
+        <strong>Legend:</strong>
+        <p>
+          <span class="required-label">(Required) labels</span> = Section must be completed before advancing status
+        </p>
+        <p>Both Pilot and Mature system requirements are displayed for reference</p>
+      </div>
+    </div>
+
+    <!-- Workflows Page -->
+    <div id="workflows" class="page">
+      <div class="header">
+        <h1>Contribution Workflows</h1>
+        <p>Four main pathways for contributing patterns and components</p>
+      </div>
+
+      <div style="display: grid; gap: 2rem;">
+        <!-- Designer Contribution -->
+        <div class="card bordered-left orange">
+          <h2 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 700; color: #28262c;">Designer Contribution Process</h2>
+          <p style="margin: 0 0 1rem 0; font-size: 0.9rem; color: #645e6e; line-height: 1.6;">
+            A designer creates a new component in Figma, works through design reviews, and hands off to the engineering team.
+          </p>
+          <div style="display: grid; gap: 0.75rem;">
+            <div class="workflow-step">
+              <div class="step-number orange">1</div>
+              <div class="step-content">
+                <strong>Designer identifies new component</strong>
+                <p>Component stems from system gaps or new project requirements</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number orange">2</div>
+              <div class="step-content">
+                <strong>Create Figma branch</strong>
+                <p>Isolate work from published library using shared libraries</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number orange">3</div>
+              <div class="step-content">
+                <strong>Iterate on component design</strong>
+                <p>Ensure alignment with existing components and design tokens</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number orange">4</div>
+              <div class="step-content">
+                <strong>Design review with system team</strong>
+                <p>Feedback on consistency, guidelines, and system alignment</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number orange">5</div>
+              <div class="step-content">
+                <strong>Merge to library</strong>
+                <p>System team merges branch, adds Figma Variables, notifies designer</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number orange">6</div>
+              <div class="step-content">
+                <strong>Trigger General Designer Workflow</strong>
+                <p>Proceed to pattern documentation and design system updates</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- General Designer Workflow -->
+        <div class="card bordered-left blue">
+          <h2 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 700; color: #28262c;">General Designer Workflow: New Pattern</h2>
+          <p style="margin: 0 0 1rem 0; font-size: 0.9rem; color: #645e6e; line-height: 1.6;">
+            Create pattern documentation in Knapsack with Figma design source and prepare for development.
+          </p>
+          <div style="display: grid; gap: 0.75rem;">
+            <div class="workflow-step">
+              <div class="step-number blue">1</div>
+              <div class="step-content">
+                <strong>Create new pattern in Knapsack</strong>
+                <p>Establish pathway for integrating new component</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number blue">2</div>
+              <div class="step-content">
+                <strong>Link Figma design source & Variables</strong>
+                <p>Ensure alignment between design and code assets</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number blue">3</div>
+              <div class="step-content">
+                <strong>Document pattern thoroughly</strong>
+                <p>Include purpose, rationale, UX considerations, and usage guidelines</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number blue">4</div>
+              <div class="step-content">
+                <strong>Request design review</strong>
+                <p>Collaborative review with design team for quality and consistency</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number blue">5</div>
+              <div class="step-content">
+                <strong>Update status to Ready for Dev</strong>
+                <p>Publish pattern and make available to development team</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number blue">6</div>
+              <div class="step-content">
+                <strong>Release (if Figma Variables updated)</strong>
+                <p>Semantic version release and token npm package update</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- General Engineering Workflow -->
+        <div class="card bordered-left green">
+          <h2 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 700; color: #28262c;">General Engineering Workflow: New Pattern</h2>
+          <p style="margin: 0 0 1rem 0; font-size: 0.9rem; color: #645e6e; line-height: 1.6;">
+            Implement, test, and release a coded component based on design specifications.
+          </p>
+          <div style="display: grid; gap: 0.75rem;">
+            <div class="workflow-step">
+              <div class="step-number green">1</div>
+              <div class="step-content">
+                <strong>Create component template</strong>
+                <p>Set up file structure, parameters, and link to pattern page</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number green">2</div>
+              <div class="step-content">
+                <strong>Use Figma design source & apply Variables</strong>
+                <p>Implement using design tokens for consistency</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number green">3</div>
+              <div class="step-content">
+                <strong>Refine implementation</strong>
+                <p>Ensure design alignment, performance, and coding best practices</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number green">4</div>
+              <div class="step-content">
+                <strong>Design review</strong>
+                <p>Validate visual and functional alignment with design</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number green">5</div>
+              <div class="step-content">
+                <strong>Engineering review via pull request</strong>
+                <p>Verify code quality, performance, and system standards</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number green">6</div>
+              <div class="step-content">
+                <strong>Update pattern status to Ready</strong>
+                <p>Signal readiness for use</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number green">7</div>
+              <div class="step-content">
+                <strong>Merge & release</strong>
+                <p>Merge to main, trigger semantic version release</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number green">8</div>
+              <div class="step-content">
+                <strong>Downstream adoption</strong>
+                <p>Teams update package.json and install latest version</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Engineer-Led Contribution -->
+        <div class="card bordered-left gray">
+          <h2 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 700; color: #28262c;">Engineering Contribution Process</h2>
+          <p style="margin: 0 0 1rem 0; font-size: 0.9rem; color: #645e6e; line-height: 1.6;">
+            An engineer identifies a component need, templates it in Knapsack, iterates with design, and ships.
+          </p>
+          <div style="display: grid; gap: 0.75rem;">
+            <div class="workflow-step">
+              <div class="step-number gray">1</div>
+              <div class="step-content">
+                <strong>Engineer identifies new component</strong>
+                <p>From project requirements, system gaps, or collaborative initiative</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number gray">2</div>
+              <div class="step-content">
+                <strong>Create component template in Knapsack</strong>
+                <p>Set up file structure, parameters, and link to pattern page</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number gray">3</div>
+              <div class="step-content">
+                <strong>Implement & refine component</strong>
+                <p>Code implementation with design tokens and best practices</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number gray">4</div>
+              <div class="step-content">
+                <strong>Design review</strong>
+                <p>Collaborate with designer to ensure accuracy and UX alignment</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number gray">5</div>
+              <div class="step-content">
+                <strong>Engineering review via pull request</strong>
+                <p>Formal code review for quality, performance, and standards</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number gray">6</div>
+              <div class="step-content">
+                <strong>Update pattern status to Ready</strong>
+                <p>Signal readiness for use</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number gray">7</div>
+              <div class="step-content">
+                <strong>Merge & release</strong>
+                <p>Merge to main, trigger semantic version release</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number gray">8</div>
+              <div class="step-content">
+                <strong>Downstream adoption</strong>
+                <p>Teams update package.json and install latest version</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Legend -->
-    <div class="legend">
-      <strong>Legend:</strong>
-      <p>
-        <span class="required-label">(Required) labels</span> = Section must be completed before advancing status
-      </p>
-      <p>Both Pilot and Mature system requirements are displayed for reference</p>
+    <!-- Slack Workflow Page -->
+    <div id="slack" class="page">
+      <div class="header">
+        <h1>Slack Workflow: Contribute to the Design System</h1>
+        <p>Start a new component, pattern, or fundamental and route it into Knapsack</p>
+      </div>
+
+      <div style="display: grid; gap: 1.5rem;">
+        <!-- Form Steps -->
+        <div class="card bordered-left orange">
+          <h2 style="margin: 0 0 1.5rem 0; font-size: 1.125rem; font-weight: 700; color: #28262c;">Form: Contribution Intake</h2>
+          <div style="display: grid; gap: 1.5rem;">
+            <div class="form-field">
+              <div class="form-field-header">
+                <div class="form-field-number">1</div>
+                <h3>What are you contributing?<span class="required-star">*</span></h3>
+              </div>
+              <div class="form-field-details">
+                <div><strong>Field type:</strong> Dropdown</div>
+                <div><strong>Options:</strong>
+                  <ul>
+                    <li>Component</li>
+                    <li>Pattern</li>
+                    <li>Fundamental</li>
+                  </ul>
+                </div>
+                <div class="help-text"><strong>Help text:</strong> Choose the option that best describes what you are adding to the system.</div>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <div class="form-field-header">
+                <div class="form-field-number">2</div>
+                <h3>What problem does this solve?<span class="required-star">*</span></h3>
+              </div>
+              <div class="form-field-details">
+                <div><strong>Field type:</strong> Long text</div>
+                <div><strong>Placeholder:</strong> Describe the user or product problem this contribution addresses.</div>
+                <div class="help-text"><strong>Help text:</strong> Focus on the problem, not the implementation. This helps reviewers evaluate reuse potential.</div>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <div class="form-field-header">
+                <div class="form-field-number">3</div>
+                <h3>Where is this used today?</h3>
+              </div>
+              <div class="form-field-details">
+                <div><strong>Field type:</strong> Short text</div>
+                <div><strong>Placeholder:</strong> Product, flow, or feature name</div>
+                <div class="help-text"><strong>Help text:</strong> If this is new, describe where you expect it to be used first. Optional for pilots, required for mature systems.</div>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <div class="form-field-header">
+                <div class="form-field-number">4</div>
+                <h3>Design source</h3>
+              </div>
+              <div class="form-field-details">
+                <div><strong>Field type:</strong> Short text</div>
+                <div><strong>Placeholder:</strong> Paste a Figma link or write "Not started yet"</div>
+                <div class="help-text"><strong>Help text:</strong> Link to existing design work, if available. It's okay to contribute before design is finalized.</div>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <div class="form-field-header">
+                <div class="form-field-number">5</div>
+                <h3>Who owns this contribution?<span class="required-star">*</span></h3>
+              </div>
+              <div class="form-field-details">
+                <div><strong>Field type:</strong> User picker</div>
+                <div class="help-text"><strong>Help text:</strong> This person is responsible for moving the contribution through review and keeping it up to date.</div>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <div class="form-field-header">
+                <div class="form-field-number">6</div>
+                <h3>Expected reuse</h3>
+              </div>
+              <div class="form-field-details">
+                <div><strong>Field type:</strong> Radio buttons</div>
+                <div><strong>Options:</strong>
+                  <ul>
+                    <li>Intended for a single product initially</li>
+                    <li>Intended for use across multiple products</li>
+                  </ul>
+                </div>
+                <div class="help-text"><strong>Help text:</strong> This helps reviewers understand the intended scope.</div>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <div class="form-field-header">
+                <div class="form-field-number">7</div>
+                <h3>Related existing components (if any)</h3>
+              </div>
+              <div class="form-field-details">
+                <div><strong>Field type:</strong> Short text</div>
+                <div><strong>Placeholder:</strong> List component or pattern names, if applicable</div>
+                <div class="help-text"><strong>Help text:</strong> Helps avoid duplication and encourages reuse.</div>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <div class="form-field-header">
+                <div class="form-field-number">8</div>
+                <h3>Accessibility considerations</h3>
+              </div>
+              <div class="form-field-details">
+                <div><strong>Field type:</strong> Long text</div>
+                <div><strong>Placeholder:</strong> Note any known accessibility requirements or concerns</div>
+                <div class="help-text"><strong>Help text:</strong> This can be high-level at first and refined during review.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Confirmation Screen -->
+        <div class="card bordered-left blue">
+          <h2 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 700; color: #28262c;">Confirmation Screen</h2>
+          <div class="confirmation-section">
+            <div class="confirmation-item">
+              <div class="confirmation-item-label">Title</div>
+              <div class="confirmation-item-value large">Contribution started</div>
+            </div>
+            <div class="confirmation-item">
+              <div class="confirmation-item-label">Body</div>
+              <div class="confirmation-item-value">Your contribution has been created as a draft in Knapsack. You can continue documenting, refining, and submitting it for review there.</div>
+            </div>
+            <div class="confirmation-item">
+              <div class="confirmation-item-label">Button</div>
+              <div class="confirmation-item-value">View in Knapsack</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Auto-Posted Message -->
+        <div class="card bordered-left green">
+          <h2 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 700; color: #28262c;">Auto-Posted Slack Message (Summary)</h2>
+          <div class="slack-message">
+            <div><strong>New design system contribution started</strong></div>
+            <div>Type: {Contribution Type}</div>
+            <div>Problem: {Problem Summary}</div>
+            <div>Owner: {Owner}</div>
+            <div>Status: Draft in Knapsack</div>
+            <div style="margin-top: 0.5rem;">Continue in Knapsack: {Link}</div>
+          </div>
+        </div>
+
+        <!-- Design Notes -->
+        <div class="design-notes">
+          <h2>Design Notes (Internal)</h2>
+          <ul>
+            <li>All fields map directly to Knapsack pattern or component metadata</li>
+            <li>Required fields stay minimal to encourage participation</li>
+            <li>Optional fields can be toggled on as systems mature</li>
+            <li>Validation should be advisory, not blocking, in pilot mode</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
+
+  <script>
+    function showPage(pageId) {
+      // Hide all pages
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(page => page.classList.remove('active'));
+
+      // Remove active class from all nav buttons
+      const buttons = document.querySelectorAll('.nav-button');
+      buttons.forEach(button => button.classList.remove('active'));
+
+      // Show selected page
+      document.getElementById(pageId).classList.add('active');
+
+      // Add active class to clicked button
+      event.target.classList.add('active');
+
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+  </script>
 </body>
 </html>
