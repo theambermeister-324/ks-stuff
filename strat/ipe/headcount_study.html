@@ -15,7 +15,8 @@
     <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-6">
       <div class="max-w-6xl mx-auto">
         <p class="text-emerald-400 text-sm font-semibold mb-2">IPE GTM DETAILED PLANNING</p>
-        <h1 class="text-2xl font-bold mb-4">Role Profiles, Budget & Risk Mitigation</h1>
+        <h1 class="text-2xl font-bold mb-2">Role Profiles, Budget & Risk Mitigation</h1>
+        <p class="text-slate-300 text-sm mb-4">Current Baseline: 1 FDE, 1 SME, 1 CX Partner delivering Legacy Knapsack (Starting HC: 3)</p>
         
         <!-- Scenario Selector -->
         <div class="flex gap-2" id="scenario-selector"></div>
@@ -402,22 +403,22 @@
 
     const quarterlyBudget = {
       '6m': {
-        q1: { hires: ['FDE #2', 'PM #1'], cost: 106250, revenue: 400000, cumHC: 8, notes: 'Foundation capacity' },
-        q2: { hires: ['FDE #3', 'SME #1', 'CSM #2'], cost: 148750, revenue: 800000, cumHC: 11, notes: 'Scale delivery' },
-        q3: { hires: ['PM #2', 'BDR #1'], cost: 75000, revenue: 1400000, cumHC: 13, notes: 'Support growth' },
-        q4: { hires: [], cost: 0, revenue: 2000000, cumHC: 13, notes: 'Optimize' },
+        q1: { hires: ['FDE #2', 'PM #1'], cost: 106250, revenue: 400000, cumHC: 5, notes: 'Foundation capacity (starting: 1 FDE, 1 SME, 1 CXP)' },
+        q2: { hires: ['CSM #1', 'BDR #1'], cost: 87500, revenue: 800000, cumHC: 7, notes: 'Scale delivery' },
+        q3: { hires: ['PM #2', 'BDR #2'], cost: 75000, revenue: 1400000, cumHC: 9, notes: 'Support growth' },
+        q4: { hires: [], cost: 0, revenue: 2000000, cumHC: 9, notes: 'Optimize' },
       },
       '9m': {
-        q1: { hires: ['FDE #2', 'PM #1'], cost: 106250, revenue: 600000, cumHC: 8, notes: 'Critical foundation' },
-        q2: { hires: ['FDE #3', 'SME #1', 'CSM #2', 'AE #3'], cost: 217500, revenue: 1500000, cumHC: 12, notes: 'Scale capacity' },
-        q3: { hires: ['FDE #4', 'SME #2', 'PM #2'], cost: 158750, revenue: 2800000, cumHC: 15, notes: 'Full delivery' },
-        q4: { hires: ['FDE #5', 'BDR #1', 'CXP #2'], cost: 130000, revenue: 4500000, cumHC: 18, notes: 'Expansion mode' },
+        q1: { hires: ['FDE #2', 'PM #1'], cost: 106250, revenue: 600000, cumHC: 5, notes: 'Critical foundation (starting: 1 FDE, 1 SME, 1 CXP)' },
+        q2: { hires: ['FDE #3', 'SME #2', 'CSM #1', 'AE #1'], cost: 217500, revenue: 1500000, cumHC: 9, notes: 'Scale capacity' },
+        q3: { hires: ['FDE #4', 'PM #2'], cost: 106250, revenue: 2800000, cumHC: 11, notes: 'Full delivery' },
+        q4: { hires: ['BDR #1', 'CXP #2'], cost: 87500, revenue: 4500000, cumHC: 13, notes: 'Expansion mode' },
       },
       '12m': {
-        q1: { hires: ['FDE #2', 'FDE #3', 'PM #1', 'PM #2'], cost: 212500, revenue: 800000, cumHC: 10, notes: 'Aggressive ramp' },
-        q2: { hires: ['FDE #4', 'SME #1', 'SME #2', 'AE #3'], cost: 231250, revenue: 2200000, cumHC: 14, notes: 'Full team' },
-        q3: { hires: ['FDE #5', 'FDE #6', 'CSM #2', 'CSM #3'], cost: 195000, revenue: 4500000, cumHC: 18, notes: 'Scale operations' },
-        q4: { hires: ['SME #3', 'AE #4', 'BDR #1', 'PM #3'], cost: 196250, revenue: 7500000, cumHC: 22, notes: 'Full capacity' },
+        q1: { hires: ['FDE #2', 'FDE #3', 'PM #1', 'PM #2'], cost: 212500, revenue: 800000, cumHC: 7, notes: 'Aggressive ramp (starting: 1 FDE, 1 SME, 1 CXP)' },
+        q2: { hires: ['FDE #4', 'SME #2', 'SME #3', 'AE #1'], cost: 231250, revenue: 2200000, cumHC: 11, notes: 'Full team' },
+        q3: { hires: ['FDE #5', 'FDE #6', 'CSM #1', 'CSM #2'], cost: 195000, revenue: 4500000, cumHC: 15, notes: 'Scale operations' },
+        q4: { hires: ['AE #2', 'BDR #1', 'PM #3'], cost: 151250, revenue: 7500000, cumHC: 18, notes: 'Full capacity' },
       },
     };
 
