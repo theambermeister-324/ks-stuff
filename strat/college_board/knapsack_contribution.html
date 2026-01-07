@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knapsack Contribution Templates</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      width: 100%;
+      min-height: 100vh;
+      background-color: #faf9fa;
+      padding: 2rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .header {
+      margin-bottom: 2rem;
+      padding: 2rem;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0px 0px 0px 1px rgba(20, 19, 22, 0.04), 2px 2px 4px rgba(20, 19, 22, 0.08);
+    }
+    .header h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #28262c;
+      letter-spacing: -0.01em;
+    }
+    .header p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #645e6e;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .column-header {
+      margin-bottom: 1.5rem;
+      padding: 1.5rem;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0px 0px 0px 1px rgba(20, 19, 22, 0.04);
+    }
+    .column-header.pattern {
+      border-top: 4px solid #eb8d0a;
+    }
+    .column-header.component {
+      border-top: 4px solid #05a2f0;
+    }
+    .column-header h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #28262c;
+    }
+    .column-header p {
+      margin: 0.5rem 0 0 0;
+      font-size: 0.9rem;
+      color: #645e6e;
+    }
+    .content-card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0px 0px 0px 1px rgba(20, 19, 22, 0.04);
+    }
+    .section {
+      margin-bottom: 1.5rem;
+    }
+    .section h3 {
+      margin: 0 0 0.75rem 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #28262c;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #eb8d0a;
+    }
+    .section h3 .required {
+      color: #eb8d0a;
+      margin-left: 0.5rem;
+    }
+    .section ul {
+      margin: 0;
+      padding-left: 1.5rem;
+      list-style-type: none;
+    }
+    .description {
+      margin-bottom: 0.75rem;
+      color: #645e6e;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      padding-left: 0;
+      font-style: italic;
+    }
+    .checklist-item {
+      padding-left: 0.5rem;
+      margin-bottom: 0.5rem;
+      color: #28262c;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .checklist-item .checkbox {
+      font-size: 1rem;
+      min-width: 1.25rem;
+      display: inline-block;
+      margin-top: -0.1rem;
+    }
+    .subsection {
+      margin-bottom: 1rem;
+      padding-left: 0.5rem;
+    }
+    .subsection-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #28262c;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid #e0dee3;
+    }
+    .subsection ul {
+      margin: 0;
+      padding-left: 1.5rem;
+      list-style-type: none;
+    }
+    .legend {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background-color: #f8f3e6;
+      border-left: 4px solid #eb8d0a;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: #645e6e;
+    }
+    .legend strong {
+      color: #28262c;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .legend p {
+      margin: 0.5rem 0;
+    }
+    .legend .required-label {
+      color: #eb8d0a;
+      font-weight: 600;
+    }
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Knapsack Contribution Templates</h1>
+      <p>Complete checklists for both Pattern and Component contributions</p>
+    </div>
+
+    <!-- Two Column Layout -->
+    <div class="grid">
+      <!-- Pattern Template Column -->
+      <div>
+        <div class="column-header pattern">
+          <h2>Pattern Template</h2>
+          <p>For new patterns and design system contributions</p>
+        </div>
+        <div class="content-card">
+          <!-- Pattern Overview -->
+          <div class="section">
+            <h3>Pattern Overview <span class="required">(Required)</span></h3>
+            <ul>
+              <li class="description">Purpose: Describe the user problem this pattern solves and why it belongs in the system</li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Contribution Type: ☐ Fundamental  ☐ Component  ☐ Pattern</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Status: Draft → Ready for Review → Ready for Dev → Ready</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Primary Owner: Name / Team</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Intended Use -->
+          <div class="section">
+            <h3>Intended Use <span class="required">(Required)</span></h3>
+            <ul>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Use this pattern when:</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Do not use this pattern when:</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Design Source -->
+          <div class="section">
+            <h3>Design Source <span class="required">(Required)</span></h3>
+            <ul>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Linked Figma file(s)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Relevant Figma components or libraries</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Figma Variables used (if applicable)</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Composition -->
+          <div class="section">
+            <h3>Composition</h3>
+            <ul>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Component(s):</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Tokens:</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Content assets (if applicable):</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Accessibility Considerations -->
+          <div class="section">
+            <h3>Accessibility Considerations</h3>
+            <ul>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Keyboard behavior:</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Screen reader considerations:</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Color / contrast notes:</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Implementation Notes -->
+          <div class="section">
+            <h3>Implementation Notes</h3>
+            <ul>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Known constraints:</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Responsive behavior:</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Edge cases:</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Documentation Checklist -->
+          <div class="section">
+            <h3>Documentation Checklist (Required to Advance Status) <span class="required">(Required)</span></h3>
+            <ul>
+              <li class="subsection">
+                <div class="subsection-title">Pilot Minimum</div>
+                <ul>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Purpose documented</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Usage guidance included</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Design source linked</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Owner assigned</span>
+                  </li>
+                </ul>
+              </li>
+              <li class="subsection">
+                <div class="subsection-title">Mature Systems (Additional)</div>
+                <ul>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Edge cases documented</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Accessibility requirements verified</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Related patterns linked</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Maintenance expectations noted</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Component Template Column -->
+      <div>
+        <div class="column-header component">
+          <h2>Component Template</h2>
+          <p>For coded component implementations</p>
+        </div>
+        <div class="content-card">
+          <!-- Component Overview -->
+          <div class="section">
+            <h3>Component Overview <span class="required">(Required)</span></h3>
+            <ul>
+              <li class="description">What is this component? Brief description of what the component does and where it's used</li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Owner: Name / Team</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- API / Interface -->
+          <div class="section">
+            <h3>API / Interface <span class="required">(Required)</span></h3>
+            <ul>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Props / Parameters:</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Variants:</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>States:</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Design Alignment -->
+          <div class="section">
+            <h3>Design Alignment <span class="required">(Required)</span></h3>
+            <ul>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Tokens used:</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Supported themes:</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Design constraints:</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Usage Guidelines -->
+          <div class="section">
+            <h3>Usage Guidelines</h3>
+            <ul>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Recommended use cases:</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Avoid:</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Engineering Notes -->
+          <div class="section">
+            <h3>Engineering Notes</h3>
+            <ul>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Dependencies:</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Performance considerations:</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checkbox">☐</span>
+                <span>Known limitations:</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Design Review Checklist -->
+          <div class="section">
+            <h3>Design Review Checklist <span class="required">(Required)</span></h3>
+            <ul>
+              <li class="subsection">
+                <div class="subsection-title">Pilot</div>
+                <ul>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Visuals align with system</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Variants and states defined</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Tokens applied</span>
+                  </li>
+                </ul>
+              </li>
+              <li class="subsection">
+                <div class="subsection-title">Mature</div>
+                <ul>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Fully tokenized</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Interaction states documented</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Accessibility verified</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Engineering Review Checklist -->
+          <div class="section">
+            <h3>Engineering Review Checklist <span class="required">(Required)</span></h3>
+            <ul>
+              <li class="subsection">
+                <div class="subsection-title">Pilot</div>
+                <ul>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Code follows system conventions</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>API is understandable</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>No obvious duplication</span>
+                  </li>
+                </ul>
+              </li>
+              <li class="subsection">
+                <div class="subsection-title">Mature</div>
+                <ul>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>API designed for extension</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Tests included</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Backwards compatibility considered</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Ready to Publish Checklist -->
+          <div class="section">
+            <h3>Ready to Publish Checklist <span class="required">(Required)</span></h3>
+            <ul>
+              <li class="subsection">
+                <div class="subsection-title">Pilot</div>
+                <ul>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Reviews completed</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Pattern status updated to Ready</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Owner confirmed</span>
+                  </li>
+                </ul>
+              </li>
+              <li class="subsection">
+                <div class="subsection-title">Mature</div>
+                <ul>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Versioning impact reviewed</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Downstream impact communicated</span>
+                  </li>
+                  <li class="checklist-item">
+                    <span class="checkbox">☐</span>
+                    <span>Adoption plan documented</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend">
+      <strong>Legend:</strong>
+      <p>
+        <span class="required-label">(Required) labels</span> = Section must be completed before advancing status
+      </p>
+      <p>Both Pilot and Mature system requirements are displayed for reference</p>
+    </div>
+  </div>
+</body>
+</html>
