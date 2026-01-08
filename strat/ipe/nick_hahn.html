@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enterprise Partnership Programs - Knapsack IPE</title>
+  <title>Enterprise Partnership Programs | Knapsack IPE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    .gradient-header { background: linear-gradient(to right, #0f172a, #1e293b, #0f172a); }
-    .gradient-card { background: linear-gradient(to right, #0f172a, #1e293b); }
-    .gradient-emerald { background: linear-gradient(to right, #ecfdf5, #d1fae5); }
+    .tab-active { border-color: #10b981; color: #047857; background: #ecfdf5; }
+    .phase-btn-active { background: rgba(255,255,255,0.1); }
+    .nav-active { background: white; color: #0f172a; }
   </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-slate-50 to-white">
-  <header class="gradient-header text-white">
-    <div class="max-w-6xl mx-auto px-4 py-6">
+  <header class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white">
+    <div class="max-w-6xl mx-auto px-4 py-4">
       <div class="flex items-center justify-between mb-4">
         <div class="flex items-center gap-2">
           <div class="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center">
@@ -24,27 +24,38 @@
         </div>
         <span class="text-xs text-slate-400">Enterprise Partnership Programs</span>
       </div>
-      <div id="company-tabs" class="flex gap-2 overflow-x-auto pb-2"></div>
+      <div class="flex gap-2">
+        <button onclick="setView('strategy')" id="nav-strategy" class="px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all nav-active">
+          <span class="flex items-center gap-2"><i data-lucide="compass" class="w-4 h-4"></i> IPE GTM Strategy</span>
+        </button>
+        <button onclick="setView('companies')" id="nav-companies" class="px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all bg-white/10 text-white hover:bg-white/20">
+          <span class="flex items-center gap-2"><i data-lucide="building-2" class="w-4 h-4"></i> Partnership Programs</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <div class="max-w-6xl mx-auto px-4 py-4">
+  <div id="company-nav" class="hidden bg-slate-100 border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 py-3">
+      <div class="flex items-center gap-4">
+        <span class="text-xs text-slate-500 font-medium">SELECT ACCOUNT:</span>
+        <div id="company-tabs" class="flex gap-2 overflow-x-auto"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sub-tabs" class="hidden max-w-6xl mx-auto px-4 py-3">
     <div class="flex gap-2 border-b border-slate-200">
-      <button onclick="setActiveTab('overview')" id="tab-overview" class="flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 border-emerald-500 text-emerald-700">
-        <i data-lucide="target" class="w-4 h-4"></i>
-        Partnership Overview
+      <button onclick="setActiveTab('overview')" id="tab-overview" class="flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 transition-all tab-active rounded-t-lg whitespace-nowrap">
+        <i data-lucide="target" class="w-4 h-4"></i> Partnership Overview
       </button>
-      <button onclick="setActiveTab('battlecard')" id="tab-battlecard" class="flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700">
-        <i data-lucide="flag" class="w-4 h-4"></i>
-        Battle Card
+      <button onclick="setActiveTab('battlecard')" id="tab-battlecard" class="flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 transition-all rounded-t-lg whitespace-nowrap">
+        <i data-lucide="flag" class="w-4 h-4"></i> Battle Card
       </button>
     </div>
   </div>
 
-  <main class="max-w-6xl mx-auto px-4 pb-8 space-y-8">
-    <div id="overview-content"></div>
-    <div id="battlecard-content" class="hidden"></div>
-  </main>
+  <main id="main-content" class="max-w-6xl mx-auto px-4 py-6 space-y-8"></main>
 
   <footer class="bg-slate-100 border-t border-slate-200">
     <div class="max-w-6xl mx-auto px-4 py-6">
@@ -53,8 +64,8 @@
           <p class="font-semibold text-slate-900 text-sm">Knapsack</p>
           <p class="text-xs text-slate-500">Intelligent Product Engine</p>
         </div>
-        <div class="text-right">
-          <p class="text-xs text-slate-500">Prepared for <span id="footer-company">Goldman Sachs</span> Partnership Team</p>
+        <div id="footer-company" class="text-right">
+          <p class="text-xs text-slate-500">IPE Strategic Framework</p>
           <p class="text-xs text-slate-400">Confidential</p>
         </div>
       </div>
@@ -63,86 +74,11 @@
 
 <script>
 const companies = [
-  {
-    id: 'kyndryl', name: 'Kyndryl', industry: 'Technology & IT Services', deploymentTier: 'D2', deploymentName: 'Cloud Dedicated',
-    compliance: ['SOC 2', 'ISO 27001', 'GDPR'], journey: 'J3', tcv: '$740K - $950K', timeline: '40-52 weeks',
-    currentState: [['System Maturity', 'Level 2 → early Level 3', 'Level 4: Scaled Product System'],['Implementation', 'Multiple internal design systems', 'Unified control plane'],['Governance', 'Siloed by business unit', 'Enterprise-wide governance'],['Control Plane', 'Not established', 'Active governance and enforcement']],
-    keyInsight: 'As a major IT services provider, Kyndryl operates across diverse client environments requiring consistent product experience delivery. The challenge is unifying internal systems to serve as a foundation for client-facing solutions.',
-    objectives: ['Consolidate fragmented design systems across business units','Establish governed CI/CD for enterprise applications','Enable AI-assisted product delivery for managed services','Create reusable patterns for client implementations'],
-    battleCard: {
-      idealBuyer: 'VP of Digital Experience, Head of Design Systems, CTO',
-      painPoints: ['Inconsistent client deliverables', 'Duplicate effort across BUs', 'No unified governance', 'AI adoption blocked by fragmentation'],
-      competitors: ['Internal tooling investments', 'Agency partnerships', 'Point solutions (Figma, Storybook)'],
-      differentiators: ['Enterprise-grade governance', 'MCP for AI enablement', 'Cross-BU unification'],
-      discoveryQuestions: ['How many distinct design systems exist across your business units today?','What percentage of engineering time is spent on consistency vs. innovation?','How do you currently propagate changes across client implementations?','What is your timeline for AI tooling adoption in product delivery?','Who owns design system governance decisions across the organization?'],
-      objections: [{objection:'We can build this internally',response:'Internal builds typically take 2-3x longer and lack the governance layer. What is the opportunity cost of 18+ months of fragmented delivery?'},{objection:'We already use Figma/Storybook',response:'Those are creation tools, not a control plane. How do you govern what gets built and ensure AI tools operate safely?'}],
-      successMetrics: ['Time to client delivery', 'Cross-BU reuse rate', 'Governance adoption', 'AI tooling activation']
-    }
-  },
-  {
-    id: 'goldman', name: 'Goldman Sachs', industry: 'Financial Services', deploymentTier: 'D3', deploymentName: 'Private Cloud',
-    compliance: ['SOC 2', 'PCI-DSS', 'FINRA', 'SEC', 'OCC Guidelines'], journey: 'J3', tcv: '$1.1M - $1.6M', timeline: '52-68 weeks',
-    currentState: [['System Maturity', 'Level 3 → early Level 4', 'Level 5: Intelligent System'],['Implementation', 'Marquee DS established', 'All platforms unified'],['Governance', 'Strong in trading; variable elsewhere', 'Cross-platform governance'],['Control Plane', 'Engineering-owned tooling', 'Governed control plane']],
-    keyInsight: "Goldman's Marquee design system provides a strong foundation, but AI governance requirements under SR 11-7 and model risk management demand a more sophisticated control plane for safe AI-assisted delivery.",
-    objectives: ['Extend Marquee governance to all digital platforms','Implement model risk management for AI-assisted delivery','Establish auditable change propagation','Enable compliant AI tooling adoption'],
-    battleCard: {
-      idealBuyer: 'Head of Engineering, Chief Digital Officer, VP Platform Engineering',
-      painPoints: ['SR 11-7 compliance for AI', 'Inconsistent governance outside trading', 'Audit trail gaps', 'AI adoption risk'],
-      competitors: ['Internal platform investments', 'Custom governance tooling', 'Consulting firm builds'],
-      differentiators: ['Model risk management integration', 'Auditable AI governance', 'Regulated industry expertise'],
-      discoveryQuestions: ['How are you currently addressing SR 11-7 requirements for AI-assisted product delivery?','What is the governance model for Marquee outside of core trading applications?','How do you audit changes that flow from design intent to production?','What is your current approach to AI tooling adoption for engineering teams?','Who is responsible for model risk management in product delivery workflows?'],
-      objections: [{objection:'Our internal platform team handles this',response:'Does your platform team have dedicated AI governance capabilities? How are they addressing SR 11-7 for AI-assisted delivery?'},{objection:'We need to see proof in regulated environments',response:'We work with PNC, Edward Jones, and other regulated institutions. Would a reference call help validate our approach?'}],
-      successMetrics: ['Audit compliance rate', 'AI governance coverage', 'Time to compliant deployment', 'Cross-platform adoption']
-    }
-  },
-  {
-    id: 'southwest', name: 'Southwest Airlines', industry: 'Transportation & Travel', deploymentTier: 'D2', deploymentName: 'Cloud Dedicated',
-    compliance: ['SOC 2', 'PCI-DSS', 'FAA Requirements'], journey: 'J3', tcv: '$740K - $950K', timeline: '40-52 weeks',
-    currentState: [['System Maturity', 'Level 2 → Level 3', 'Level 4: Scaled Product System'],['Implementation', 'Multiple digital touchpoints', 'Unified experience system'],['Governance', 'App-specific governance', 'Cross-channel governance'],['Control Plane', 'Limited coordination', 'Operational control plane']],
-    keyInsight: "Southwest's customer experience spans booking, check-in, gate operations, and in-flight systems. Consistency and reliability are critical for operational efficiency and customer satisfaction.",
-    objectives: ['Unify web, mobile, and kiosk experiences','Establish governance for operational interfaces','Enable safe updates across customer touchpoints','Prepare foundation for AI-assisted customer service'],
-    battleCard: {
-      idealBuyer: 'VP Digital Experience, Head of Product, CTO',
-      painPoints: ['Inconsistent cross-channel experience', 'Slow update cycles', 'Operational system fragility', 'Customer service AI readiness'],
-      competitors: ['Airline-specific vendors', 'Internal development', 'Travel tech platforms'],
-      differentiators: ['Cross-channel unification', 'Operational system governance', 'AI-ready foundation'],
-      discoveryQuestions: ['How do you ensure consistency between web, mobile, and kiosk experiences today?','What is your current process for propagating updates across customer touchpoints?','How do operational interfaces (gate, crew) relate to customer-facing systems?','What role do you see AI playing in customer service over the next 2 years?','How do you balance speed of updates with operational reliability?'],
-      objections: [{objection:'Our systems are too specialized',response:"Specialized systems need unified governance even more. How do you ensure a booking change doesn't break the kiosk experience?"},{objection:'We have other priorities post-operations issues',response:'A control plane prevents the fragmentation that causes operational issues. What was the root cause of recent system challenges?'}],
-      successMetrics: ['Cross-channel consistency score', 'Update deployment time', 'Incident reduction', 'Customer satisfaction']
-    }
-  },
-  {
-    id: 'usbank', name: 'US Bank', industry: 'Financial Services', deploymentTier: 'D3', deploymentName: 'Private Cloud',
-    compliance: ['SOC 2', 'PCI-DSS', 'OCC Guidelines', 'BCBS 239', 'FFIEC'], journey: 'J3', tcv: '$1.0M - $1.4M', timeline: '48-64 weeks',
-    currentState: [['System Maturity', 'Level 3', 'Level 4: Scaled Product System'],['Implementation', 'Internal DS in progress', 'Full platform coverage'],['Governance', 'Emerging governance model', 'Regulated governance operating'],['Control Plane', 'Early adoption', 'Active enforcement']],
-    keyInsight: "US Bank's digital transformation requires a governed approach to product delivery that satisfies regulatory requirements while enabling innovation velocity.",
-    objectives: ['Complete design system implementation across digital banking','Establish regulatory-compliant governance model','Enable governed AI tooling adoption','Create audit-ready change management'],
-    battleCard: {
-      idealBuyer: 'Chief Digital Officer, VP Engineering, Head of Design Systems',
-      painPoints: ['Incomplete DS implementation', 'Regulatory compliance burden', 'Slow innovation cycles', 'AI governance uncertainty'],
-      competitors: ['Internal platform teams', 'Big 4 consulting', 'Banking-specific vendors'],
-      differentiators: ['Regulated industry focus', 'Completion-to-activation expertise', 'AI governance framework'],
-      discoveryQuestions: ['What percentage of your digital products currently use the design system?','How do you demonstrate governance compliance to regulators today?','What is blocking broader design system adoption across the organization?','How are you planning to address AI governance requirements?','What is the relationship between your design system and engineering platforms?'],
-      objections: [{objection:"We're still implementing our design system",response:'Implementation without activation is the #1 cause of DS failure. How will you ensure teams actually adopt what you build?'},{objection:'Our consulting partner handles this',response:'Consulting builds but doesn\'t operate. Who governs the system after they leave? What is your long-term operational model?'}],
-      successMetrics: ['DS adoption rate', 'Regulatory audit readiness', 'Time to production', 'AI governance coverage']
-    }
-  },
-  {
-    id: 'bofa', name: 'Bank of America', industry: 'Financial Services', deploymentTier: 'D3', deploymentName: 'Private Cloud',
-    compliance: ['SOC 2', 'PCI-DSS', 'OCC Guidelines', 'BCBS 239', 'SR 11-7', 'CCAR'], journey: 'J3', tcv: '$1.2M - $1.6M', timeline: '52-68 weeks',
-    currentState: [['System Maturity', 'Level 3 → early Level 4', 'Level 5: Intelligent System'],['Implementation', 'Multiple DS initiatives', 'Unified enterprise system'],['Governance', 'Strong regulatory compliance', 'AI-enabled governance'],['Control Plane', 'Infrastructure in place', 'Full activation required']],
-    keyInsight: "Bank of America's scale requires enterprise-grade governance that can operate across consumer banking, wealth management, and institutional services while meeting rigorous regulatory standards.",
-    objectives: ['Unify design systems across all lines of business','Implement AI governance framework per SR 11-7','Establish cross-platform change propagation','Enable Erica AI integration patterns'],
-    battleCard: {
-      idealBuyer: 'Chief Digital Officer, SVP Platform Engineering, Head of AI Governance',
-      painPoints: ['Multiple DS initiatives lacking unification', 'SR 11-7 AI compliance', 'Cross-LOB governance gaps', 'Erica expansion complexity'],
-      competitors: ['Internal enterprise architecture', 'Big 4 consulting', 'AI governance vendors'],
-      differentiators: ['Enterprise-scale unification', 'AI governance for product delivery', 'Erica-compatible patterns'],
-      discoveryQuestions: ['How many design system initiatives currently exist across consumer, wealth, and institutional?','What is your current approach to SR 11-7 compliance for AI in product delivery?','How does Erica interact with your design system and component library?','What governance model exists for cross-LOB design decisions?','How do you propagate changes safely across all digital properties?'],
-      objections: [{objection:'We have dedicated enterprise architecture teams',response:'Enterprise architecture sets standards; a control plane enforces them. How do you ensure compliance at scale across 4,000+ applications?'},{objection:'Erica has its own technical stack',response:'AI assistants need governed context to operate safely. How do you ensure Erica recommendations align with current product capabilities?'}],
-      successMetrics: ['Cross-LOB adoption rate', 'AI governance compliance', 'Change propagation time', 'Erica integration success']
-    }
-  }
+  {id:'kyndryl',name:'Kyndryl',industry:'Technology & IT Services',deploymentTier:'D2',deploymentName:'Cloud Dedicated',compliance:['SOC 2','ISO 27001','GDPR'],journey:'J3',tcv:'$740K - $950K',timeline:'40-52 weeks',currentState:[['System Maturity','Level 2 → early Level 3','Level 4: Scaled Product System'],['Implementation','Multiple internal design systems','Unified control plane'],['Governance','Siloed by business unit','Enterprise-wide governance'],['Control Plane','Not established','Active governance and enforcement']],keyInsight:'As a major IT services provider, Kyndryl operates across diverse client environments requiring consistent product experience delivery.',objectives:['Consolidate fragmented design systems across business units','Establish governed CI/CD for enterprise applications','Enable AI-assisted product delivery for managed services','Create reusable patterns for client implementations'],battleCard:{idealBuyer:'VP of Digital Experience, Head of Design Systems, CTO',painPoints:['Inconsistent client deliverables','Duplicate effort across BUs','No unified governance','AI adoption blocked by fragmentation'],competitors:['Internal tooling investments','Agency partnerships','Point solutions (Figma, Storybook)'],differentiators:['Enterprise-grade governance','MCP for AI enablement','Cross-BU unification'],discoveryQuestions:['How many distinct design systems exist across your business units today?','What percentage of engineering time is spent on consistency vs. innovation?','How do you currently propagate changes across client implementations?','What is your timeline for AI tooling adoption in product delivery?','Who owns design system governance decisions across the organization?'],objections:[{objection:'We can build this internally',response:'Internal builds typically take 2-3x longer and lack the governance layer. What is the opportunity cost of 18+ months of fragmented delivery?'},{objection:'We already use Figma/Storybook',response:'Those are creation tools, not a control plane. How do you govern what gets built and ensure AI tools operate safely?'}],successMetrics:['Time to client delivery','Cross-BU reuse rate','Governance adoption','AI tooling activation']}},
+  {id:'goldman',name:'Goldman Sachs',industry:'Financial Services',deploymentTier:'D3',deploymentName:'Private Cloud',compliance:['SOC 2','PCI-DSS','FINRA','SEC','OCC Guidelines'],journey:'J3',tcv:'$1.1M - $1.6M',timeline:'52-68 weeks',currentState:[['System Maturity','Level 3 → early Level 4','Level 5: Intelligent System'],['Implementation','Marquee DS established','All platforms unified'],['Governance','Strong in trading; variable elsewhere','Cross-platform governance'],['Control Plane','Engineering-owned tooling','Governed control plane']],keyInsight:"Goldman's Marquee design system provides a strong foundation, but AI governance requirements under SR 11-7 demand a more sophisticated control plane.",objectives:['Extend Marquee governance to all digital platforms','Implement model risk management for AI-assisted delivery','Establish auditable change propagation','Enable compliant AI tooling adoption'],battleCard:{idealBuyer:'Head of Engineering, Chief Digital Officer, VP Platform Engineering',painPoints:['SR 11-7 compliance for AI','Inconsistent governance outside trading','Audit trail gaps','AI adoption risk'],competitors:['Internal platform investments','Custom governance tooling','Consulting firm builds'],differentiators:['Model risk management integration','Auditable AI governance','Regulated industry expertise'],discoveryQuestions:['How are you currently addressing SR 11-7 requirements for AI-assisted product delivery?','What is the governance model for Marquee outside of core trading applications?','How do you audit changes that flow from design intent to production?','What is your current approach to AI tooling adoption for engineering teams?','Who is responsible for model risk management in product delivery workflows?'],objections:[{objection:'Our internal platform team handles this',response:'Does your platform team have dedicated AI governance capabilities? How are they addressing SR 11-7 for AI-assisted delivery?'},{objection:'We need to see proof in regulated environments',response:'We work with PNC, Edward Jones, and other regulated institutions. Would a reference call help validate our approach?'}],successMetrics:['Audit compliance rate','AI governance coverage','Time to compliant deployment','Cross-platform adoption']}},
+  {id:'southwest',name:'Southwest Airlines',industry:'Transportation & Travel',deploymentTier:'D2',deploymentName:'Cloud Dedicated',compliance:['SOC 2','PCI-DSS','FAA Requirements'],journey:'J3',tcv:'$740K - $950K',timeline:'40-52 weeks',currentState:[['System Maturity','Level 2 → Level 3','Level 4: Scaled Product System'],['Implementation','Multiple digital touchpoints','Unified experience system'],['Governance','App-specific governance','Cross-channel governance'],['Control Plane','Limited coordination','Operational control plane']],keyInsight:"Southwest's customer experience spans booking, check-in, gate operations, and in-flight systems. Consistency and reliability are critical.",objectives:['Unify web, mobile, and kiosk experiences','Establish governance for operational interfaces','Enable safe updates across customer touchpoints','Prepare foundation for AI-assisted customer service'],battleCard:{idealBuyer:'VP Digital Experience, Head of Product, CTO',painPoints:['Inconsistent cross-channel experience','Slow update cycles','Operational system fragility','Customer service AI readiness'],competitors:['Airline-specific vendors','Internal development','Travel tech platforms'],differentiators:['Cross-channel unification','Operational system governance','AI-ready foundation'],discoveryQuestions:['How do you ensure consistency between web, mobile, and kiosk experiences today?','What is your current process for propagating updates across customer touchpoints?','How do operational interfaces (gate, crew) relate to customer-facing systems?','What role do you see AI playing in customer service over the next 2 years?','How do you balance speed of updates with operational reliability?'],objections:[{objection:'Our systems are too specialized',response:"Specialized systems need unified governance even more. How do you ensure a booking change doesn't break the kiosk experience?"},{objection:'We have other priorities post-operations issues',response:'A control plane prevents the fragmentation that causes operational issues. What was the root cause of recent system challenges?'}],successMetrics:['Cross-channel consistency score','Update deployment time','Incident reduction','Customer satisfaction']}},
+  {id:'usbank',name:'US Bank',industry:'Financial Services',deploymentTier:'D3',deploymentName:'Private Cloud',compliance:['SOC 2','PCI-DSS','OCC Guidelines','BCBS 239','FFIEC'],journey:'J3',tcv:'$1.0M - $1.4M',timeline:'48-64 weeks',currentState:[['System Maturity','Level 3','Level 4: Scaled Product System'],['Implementation','Internal DS in progress','Full platform coverage'],['Governance','Emerging governance model','Regulated governance operating'],['Control Plane','Early adoption','Active enforcement']],keyInsight:"US Bank's digital transformation requires a governed approach to product delivery that satisfies regulatory requirements while enabling innovation velocity.",objectives:['Complete design system implementation across digital banking','Establish regulatory-compliant governance model','Enable governed AI tooling adoption','Create audit-ready change management'],battleCard:{idealBuyer:'Chief Digital Officer, VP Engineering, Head of Design Systems',painPoints:['Incomplete DS implementation','Regulatory compliance burden','Slow innovation cycles','AI governance uncertainty'],competitors:['Internal platform teams','Big 4 consulting','Banking-specific vendors'],differentiators:['Regulated industry focus','Completion-to-activation expertise','AI governance framework'],discoveryQuestions:['What percentage of your digital products currently use the design system?','How do you demonstrate governance compliance to regulators today?','What is blocking broader design system adoption across the organization?','How are you planning to address AI governance requirements?','What is the relationship between your design system and engineering platforms?'],objections:[{objection:"We're still implementing our design system",response:'Implementation without activation is the #1 cause of DS failure. How will you ensure teams actually adopt what you build?'},{objection:'Our consulting partner handles this',response:"Consulting builds but doesn't operate. Who governs the system after they leave?"}],successMetrics:['DS adoption rate','Regulatory audit readiness','Time to production','AI governance coverage']}},
+  {id:'bofa',name:'Bank of America',industry:'Financial Services',deploymentTier:'D3',deploymentName:'Private Cloud',compliance:['SOC 2','PCI-DSS','OCC Guidelines','BCBS 239','SR 11-7','CCAR'],journey:'J3',tcv:'$1.2M - $1.6M',timeline:'52-68 weeks',currentState:[['System Maturity','Level 3 → early Level 4','Level 5: Intelligent System'],['Implementation','Multiple DS initiatives','Unified enterprise system'],['Governance','Strong regulatory compliance','AI-enabled governance'],['Control Plane','Infrastructure in place','Full activation required']],keyInsight:"Bank of America's scale requires enterprise-grade governance that can operate across consumer banking, wealth management, and institutional services.",objectives:['Unify design systems across all lines of business','Implement AI governance framework per SR 11-7','Establish cross-platform change propagation','Enable Erica AI integration patterns'],battleCard:{idealBuyer:'Chief Digital Officer, SVP Platform Engineering, Head of AI Governance',painPoints:['Multiple DS initiatives lacking unification','SR 11-7 AI compliance','Cross-LOB governance gaps','Erica expansion complexity'],competitors:['Internal enterprise architecture','Big 4 consulting','AI governance vendors'],differentiators:['Enterprise-scale unification','AI governance for product delivery','Erica-compatible patterns'],discoveryQuestions:['How many design system initiatives currently exist across consumer, wealth, and institutional?','What is your current approach to SR 11-7 compliance for AI in product delivery?','How does Erica interact with your design system and component library?','What governance model exists for cross-LOB design decisions?','How do you propagate changes safely across all digital properties?'],objections:[{objection:'We have dedicated enterprise architecture teams',response:'Enterprise architecture sets standards; a control plane enforces them. How do you ensure compliance at scale across 4,000+ applications?'},{objection:'Erica has its own technical stack',response:'AI assistants need governed context to operate safely. How do you ensure Erica recommendations align with current product capabilities?'}],successMetrics:['Cross-LOB adoption rate','AI governance compliance','Change propagation time','Erica integration success']}}
 ];
 
 const phases = [
@@ -153,9 +89,9 @@ const phases = [
 ];
 
 const deploymentTiers = {
-  D2: {name:'Cloud Dedicated',premium:'+$50-100K',time:'4-8 weeks',bg:'bg-blue-50',border:'border-blue-200',text:'text-blue-700'},
-  D3: {name:'Private Cloud',premium:'+$175-275K',time:'8-16 weeks',bg:'bg-amber-50',border:'border-amber-200',text:'text-amber-700'},
-  D4: {name:'Self-Hosted',premium:'+$350-550K',time:'16-24+ weeks',bg:'bg-rose-50',border:'border-rose-200',text:'text-rose-700'}
+  D2:{name:'Cloud Dedicated',premium:'+$50-100K',time:'4-8 weeks',bg:'bg-blue-50',border:'border-blue-200',text:'text-blue-700'},
+  D3:{name:'Private Cloud',premium:'+$175-275K',time:'8-16 weeks',bg:'bg-amber-50',border:'border-amber-200',text:'text-amber-700'},
+  D4:{name:'Self-Hosted',premium:'+$350-550K',time:'16-24+ weeks',bg:'bg-rose-50',border:'border-rose-200',text:'text-rose-700'}
 };
 
 const colorClasses = {
@@ -165,56 +101,308 @@ const colorClasses = {
   violet:{bg:'bg-violet-50',border:'border-violet-300',text:'text-violet-700',accent:'bg-violet-600'}
 };
 
+let currentView = 'strategy';
 let selectedCompany = 'goldman';
 let activePhase = null;
 let activeTab = 'overview';
 
-function setSelectedCompany(id) {
+function init() {
+  renderCompanyTabs();
+  render();
+  lucide.createIcons();
+}
+
+function setView(view) {
+  currentView = view;
+  document.getElementById('nav-strategy').className = `px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${view === 'strategy' ? 'nav-active' : 'bg-white/10 text-white hover:bg-white/20'}`;
+  document.getElementById('nav-companies').className = `px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${view === 'companies' ? 'nav-active' : 'bg-white/10 text-white hover:bg-white/20'}`;
+  document.getElementById('company-nav').className = view === 'companies' ? 'bg-slate-100 border-b border-slate-200' : 'hidden';
+  document.getElementById('sub-tabs').className = view === 'companies' ? 'max-w-6xl mx-auto px-4 py-3' : 'hidden';
+  render();
+  lucide.createIcons();
+}
+
+function renderCompanyTabs() {
+  document.getElementById('company-tabs').innerHTML = companies.map(c => `
+    <button onclick="selectCompany('${c.id}')" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedCompany === c.id ? 'bg-emerald-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-200'}">${c.name}</button>
+  `).join('');
+}
+
+function selectCompany(id) {
   selectedCompany = id;
   activePhase = null;
+  renderCompanyTabs();
   render();
+  lucide.createIcons();
 }
 
 function setActiveTab(tab) {
   activeTab = tab;
-  document.getElementById('tab-overview').className = tab === 'overview' 
-    ? 'flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 border-emerald-500 text-emerald-700'
-    : 'flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700';
-  document.getElementById('tab-battlecard').className = tab === 'battlecard'
-    ? 'flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 border-emerald-500 text-emerald-700'
-    : 'flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700';
-  document.getElementById('overview-content').classList.toggle('hidden', tab !== 'overview');
-  document.getElementById('battlecard-content').classList.toggle('hidden', tab !== 'battlecard');
+  document.getElementById('tab-overview').className = `flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 transition-all rounded-t-lg whitespace-nowrap ${tab === 'overview' ? 'tab-active' : 'border-transparent text-slate-500 hover:text-slate-700'}`;
+  document.getElementById('tab-battlecard').className = `flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 transition-all rounded-t-lg whitespace-nowrap ${tab === 'battlecard' ? 'tab-active' : 'border-transparent text-slate-500 hover:text-slate-700'}`;
+  render();
+  lucide.createIcons();
 }
 
 function togglePhase(id) {
   activePhase = activePhase === id ? null : id;
   render();
+  lucide.createIcons();
 }
 
 function render() {
   const company = companies.find(c => c.id === selectedCompany);
   const tier = deploymentTiers[company.deploymentTier];
-  document.getElementById('footer-company').textContent = company.name;
+  
+  if (currentView === 'strategy') {
+    document.getElementById('footer-company').innerHTML = `<p class="text-xs text-slate-500">IPE Strategic Framework</p><p class="text-xs text-slate-400">Confidential</p>`;
+  } else {
+    document.getElementById('footer-company').innerHTML = `<p class="text-xs text-slate-500">Prepared for ${company.name} Partnership Team</p><p class="text-xs text-slate-400">Confidential</p>`;
+  }
+  
+  const main = document.getElementById('main-content');
+  
+  if (currentView === 'strategy') {
+    main.innerHTML = renderStrategy();
+  } else if (activeTab === 'overview') {
+    main.innerHTML = renderOverview(company, tier);
+  } else {
+    main.innerHTML = renderBattleCard(company);
+  }
+}
 
-  // Render company tabs
-  document.getElementById('company-tabs').innerHTML = companies.map(c => `
-    <button onclick="setSelectedCompany('${c.id}')" class="px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedCompany === c.id ? 'bg-white text-slate-900' : 'bg-white/10 text-white hover:bg-white/20'}">${c.name}</button>
-  `).join('');
+function renderStrategy() {
+  return `
+    <section class="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl p-6 mb-2">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center"><i data-lucide="book-open" class="w-5 h-5"></i></div>
+        <div><p class="text-emerald-100 text-sm font-medium">READ THIS FIRST</p><h2 class="text-xl font-bold">IPE Go-to-Market Strategy</h2></div>
+      </div>
+      <p class="text-emerald-50">This strategic framework provides the foundational context needed to understand our customer partnership programs. Review this material before exploring individual account pages.</p>
+    </section>
 
-  // Render Overview
-  document.getElementById('overview-content').innerHTML = `
-    <section class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
-      <div class="gradient-card text-white p-6">
-        <div class="flex items-center gap-4 mb-4">
-          <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center">
-            <i data-lucide="building-2" class="w-7 h-7"></i>
+    <section class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6">
+      <p class="text-emerald-400 text-sm font-semibold mb-2">THE STRATEGIC NORTH STAR</p>
+      <h2 class="text-2xl font-bold mb-3">Knapsack is the governable control plane for AI-assisted product delivery.</h2>
+      <p class="text-slate-300 mb-4">We convert fragmented product knowledge into executable intelligence that AI can use safely—giving enterprises the confidence to let AI act, not just advise.</p>
+      <div class="grid grid-cols-3 gap-4 mt-4">
+        <div class="bg-white/10 rounded-lg p-3"><p class="text-emerald-400 text-xs font-semibold mb-1">Market Position</p><p class="text-white text-sm">First-mover in "digital thread" category</p></div>
+        <div class="bg-white/10 rounded-lg p-3"><p class="text-blue-400 text-xs font-semibold mb-1">Primary ICP</p><p class="text-white text-sm">Enterprise product teams at AI adoption inflection</p></div>
+        <div class="bg-white/10 rounded-lg p-3"><p class="text-violet-400 text-xs font-semibold mb-1">Core Differentiator</p><p class="text-white text-sm">MCP + Governance = Safe AI execution</p></div>
+      </div>
+    </section>
+
+    <section class="bg-amber-50 border border-amber-200 rounded-xl p-5">
+      <h3 class="font-semibold text-amber-800 mb-2 flex items-center gap-2"><i data-lucide="alert-triangle" class="w-5 h-5"></i>The Critical Insight</h3>
+      <p class="text-amber-800 font-medium text-lg">"Implemented" does not equal "Activated."</p>
+      <p class="text-sm text-amber-700 mt-2">Most of our existing customers have Knapsack installed but aren't extracting value. The path to revenue is activation (J3), not new logos. Services capacity is the bottleneck—not top-of-funnel GTM.</p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="clipboard-check" class="w-5 h-5 text-blue-600"></i>IPE Readiness Assessment</h2>
+      <p class="text-slate-600 mb-4">Score every account. Route by quadrant. Never skip assessment. The IPE Readiness Score (0-100) determines investment path hypothesis.</p>
+      
+      <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl p-5 mb-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center"><i data-lucide="gauge" class="w-5 h-5"></i></div>
+          <div><h3 class="font-bold">IPE Readiness Score</h3><p class="text-blue-100 text-sm">0-100 points across three weighted dimensions</p></div>
+        </div>
+        <p class="text-blue-100 text-sm">Assessment is non-negotiable. The diagnostic phase generates this score, which maps directly to investment path recommendation and expansion readiness indicators.</p>
+      </div>
+
+      <div class="bg-white rounded-xl border p-5 mb-4">
+        <h3 class="font-semibold mb-4">Readiness Score Components</h3>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-slate-50 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-2"><h4 class="font-medium text-sm">Product System Foundation</h4><span class="text-sm font-bold text-emerald-600">40%</span></div>
+            <p class="text-xs text-slate-500 mb-3">Max 40 points</p>
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check-circle-2" class="w-3 h-3 text-slate-400"></i>Design system maturity</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check-circle-2" class="w-3 h-3 text-slate-400"></i>Engineering adoption</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check-circle-2" class="w-3 h-3 text-slate-400"></i>Governance structure</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check-circle-2" class="w-3 h-3 text-slate-400"></i>Documentation quality</div>
+            </div>
           </div>
-          <div>
-            <h1 class="text-2xl font-bold">${company.name} Partnership Program</h1>
-            <p class="text-slate-300">${company.industry} | Intelligent Product Engine Activation</p>
+          <div class="bg-slate-50 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-2"><h4 class="font-medium text-sm">AI & Automation Readiness</h4><span class="text-sm font-bold text-emerald-600">30%</span></div>
+            <p class="text-xs text-slate-500 mb-3">Max 30 points</p>
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check-circle-2" class="w-3 h-3 text-slate-400"></i>MCP compatibility</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check-circle-2" class="w-3 h-3 text-slate-400"></i>API maturity</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check-circle-2" class="w-3 h-3 text-slate-400"></i>Integration architecture</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check-circle-2" class="w-3 h-3 text-slate-400"></i>Data quality</div>
+            </div>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-2"><h4 class="font-medium text-sm">Organizational Readiness</h4><span class="text-sm font-bold text-emerald-600">30%</span></div>
+            <p class="text-xs text-slate-500 mb-3">Max 30 points</p>
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check-circle-2" class="w-3 h-3 text-slate-400"></i>Executive sponsorship</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check-circle-2" class="w-3 h-3 text-slate-400"></i>Team capacity</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check-circle-2" class="w-3 h-3 text-slate-400"></i>Change management</div>
+              <div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check-circle-2" class="w-3 h-3 text-slate-400"></i>Budget authority</div>
+            </div>
           </div>
         </div>
+      </div>
+
+      <div class="bg-white rounded-xl border p-5 mb-4">
+        <h3 class="font-semibold mb-4">Assessment Quadrant → Investment Path Hypothesis</h3>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="rounded-xl border-2 border-violet-300 bg-violet-50 p-4">
+            <div class="flex items-center gap-3 mb-2"><div class="w-10 h-10 rounded-lg bg-violet-600 text-white flex items-center justify-center font-bold">A</div><div><p class="font-semibold text-violet-900">High Readiness + High Value</p><p class="text-xs text-violet-700">Score: 70-100</p></div></div>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-violet-200"><span class="text-sm font-medium text-violet-800">→ J4 (Intelligence)</span><span class="text-xs px-2 py-1 bg-violet-200 text-violet-800 rounded">Fast-track to MCP</span></div>
+          </div>
+          <div class="rounded-xl border-2 border-emerald-400 bg-emerald-50 p-4 ring-2 ring-emerald-200">
+            <div class="flex items-center gap-3 mb-2"><div class="w-10 h-10 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold">B</div><div><p class="font-semibold text-emerald-900">Low Readiness + High Value</p><p class="text-xs text-emerald-700">Score: 40-69</p></div><span class="text-xs px-2 py-0.5 bg-emerald-600 text-white rounded ml-auto">PRIMARY</span></div>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-emerald-200"><span class="text-sm font-medium text-emerald-800">→ J3 (Activation)</span><span class="text-xs px-2 py-1 bg-emerald-200 text-emerald-800 rounded">Invest in transformation</span></div>
+          </div>
+          <div class="rounded-xl border-2 border-blue-300 bg-blue-50 p-4">
+            <div class="flex items-center gap-3 mb-2"><div class="w-10 h-10 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold">C</div><div><p class="font-semibold text-blue-900">High Readiness + Low Value</p><p class="text-xs text-blue-700">Score: 70-100</p></div></div>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-blue-200"><span class="text-sm font-medium text-blue-800">→ J2 (Acceleration)</span><span class="text-xs px-2 py-1 bg-blue-200 text-blue-800 rounded">Quick activation sprint</span></div>
+          </div>
+          <div class="rounded-xl border-2 border-slate-300 bg-slate-50 p-4">
+            <div class="flex items-center gap-3 mb-2"><div class="w-10 h-10 rounded-lg bg-slate-600 text-white flex items-center justify-center font-bold">D</div><div><p class="font-semibold text-slate-900">Low Readiness + Low Value</p><p class="text-xs text-slate-700">Score: 0-39</p></div></div>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-slate-200"><span class="text-sm font-medium text-slate-800">→ J1 (Foundation)</span><span class="text-xs px-2 py-1 bg-slate-200 text-slate-700 rounded">Diagnostic only, monitor</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="git-branch" class="w-5 h-5 text-emerald-600"></i>Investment Paths (J1-J4)</h2>
+      <p class="text-slate-600 mb-4">Four paths to governed AI. The investment path is right-sized to customer readiness, capacity, and deployment requirements.</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-white rounded-xl border-2 border-slate-200 p-4">
+          <div class="flex items-start gap-3"><div class="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center font-bold text-slate-700">J1</div><div class="flex-1"><div class="flex items-center gap-2 mb-1"><h4 class="font-semibold">Foundation Path</h4><span class="text-xs px-2 py-0.5 bg-slate-200 text-slate-600 rounded">~10% ARR</span></div><p class="text-sm text-slate-600 mb-2">For organizations without a system of record. Build before governing.</p><p class="text-xs font-mono bg-slate-50 px-2 py-1 rounded text-slate-600">Diagnostic → Foundation → Governance</p><div class="mt-2 flex items-center justify-between"><span class="text-sm font-semibold text-emerald-600">$50-60K → $350-450K</span><span class="text-xs text-slate-500">D1, D2</span></div></div></div>
+        </div>
+        <div class="bg-white rounded-xl border-2 border-blue-200 p-4">
+          <div class="flex items-start gap-3"><div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center font-bold text-blue-700">J2</div><div class="flex-1"><div class="flex items-center gap-2 mb-1"><h4 class="font-semibold">Acceleration Path</h4><span class="text-xs px-2 py-0.5 bg-blue-200 text-blue-600 rounded">~5% ARR</span></div><p class="text-sm text-slate-600 mb-2">For mature orgs with sudden trigger. Fast activation, minimal services.</p><p class="text-xs font-mono bg-slate-50 px-2 py-1 rounded text-slate-600">Diagnostic → Rapid Activation</p><div class="mt-2 flex items-center justify-between"><span class="text-sm font-semibold text-emerald-600">$50K → $225-325K</span><span class="text-xs text-slate-500">D1, D2</span></div></div></div>
+        </div>
+        <div class="bg-white rounded-xl border-2 border-emerald-500 p-4 ring-2 ring-emerald-100">
+          <div class="flex items-start gap-3"><div class="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center font-bold text-emerald-700 ring-2 ring-emerald-500">J3</div><div class="flex-1"><div class="flex items-center gap-2 mb-1"><h4 class="font-semibold">Activation Path</h4><span class="text-xs px-2 py-0.5 bg-emerald-500 text-white rounded">PRIMARY</span><span class="text-xs px-2 py-0.5 bg-emerald-200 text-emerald-700 rounded">~60% ARR</span></div><p class="text-sm text-slate-600 mb-2">For high-value accounts blocked on activation. Full transformation.</p><p class="text-xs font-mono bg-slate-50 px-2 py-1 rounded text-slate-600">Diagnostic → (Phase 0) → Foundation → Activation → Intelligence</p><div class="mt-2 flex items-center justify-between"><span class="text-sm font-semibold text-emerald-600">$740K - $1.6M</span><span class="text-xs text-slate-500">D2, D3, D4</span></div></div></div>
+        </div>
+        <div class="bg-white rounded-xl border-2 border-violet-200 p-4">
+          <div class="flex items-start gap-3"><div class="w-12 h-12 rounded-lg bg-violet-100 flex items-center justify-center font-bold text-violet-700">J4</div><div class="flex-1"><div class="flex items-center gap-2 mb-1"><h4 class="font-semibold">Intelligence Path</h4><span class="text-xs px-2 py-0.5 bg-violet-200 text-violet-600 rounded">~25% ARR</span></div><p class="text-sm text-slate-600 mb-2">For implemented accounts ready for AI enablement. Expansion-focused.</p><p class="text-xs font-mono bg-slate-50 px-2 py-1 rounded text-slate-600">Diagnostic → MCP Activation → Expansion</p><div class="mt-2 flex items-center justify-between"><span class="text-sm font-semibold text-emerald-600">$165-325K + ARR</span><span class="text-xs text-slate-500">D1, D2, D3</span></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="shield" class="w-5 h-5 text-amber-600"></i>Deployment Tiers (D1-D4)</h2>
+      <p class="text-slate-600 mb-4">Deployment complexity is a deal accelerator, not a blocker—if priced and scoped correctly.</p>
+      
+      <div class="space-y-3">
+        <div class="bg-white rounded-xl border-2 border-slate-200 p-4">
+          <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center font-bold text-slate-700">D1</div><div class="flex-1"><div class="flex items-center gap-2 mb-1"><h4 class="font-semibold">Cloud Standard</h4><span class="text-xs text-slate-500">Tech, SaaS, Mid-market</span></div><div class="grid grid-cols-5 gap-4 text-sm mt-2"><div><p class="text-xs text-slate-500">Data Location</p><p class="text-slate-700">Multi-tenant</p></div><div><p class="text-xs text-slate-500">Compliance</p><p class="text-slate-700">SOC 2</p></div><div><p class="text-xs text-slate-500">Deploy Time</p><p class="text-slate-700">2-4 weeks</p></div><div><p class="text-xs text-slate-500">Platform Premium</p><p class="text-slate-600">—</p></div><div><p class="text-xs text-slate-500">Services Premium</p><p class="text-slate-600">—</p></div></div></div></div>
+        </div>
+        <div class="bg-white rounded-xl border-2 border-blue-200 p-4">
+          <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center font-bold text-blue-700">D2</div><div class="flex-1"><div class="flex items-center gap-2 mb-1"><h4 class="font-semibold">Cloud Dedicated</h4><span class="text-xs text-slate-500">Enterprise, some regulated</span></div><div class="grid grid-cols-5 gap-4 text-sm mt-2"><div><p class="text-xs text-slate-500">Data Location</p><p class="text-slate-700">Single-tenant</p></div><div><p class="text-xs text-slate-500">Compliance</p><p class="text-slate-700">SOC 2, GDPR</p></div><div><p class="text-xs text-slate-500">Deploy Time</p><p class="text-slate-700">4-8 weeks</p></div><div><p class="text-xs text-slate-500">Platform Premium</p><p class="font-semibold text-emerald-600">+25-40%</p></div><div><p class="text-xs text-slate-500">Services Premium</p><p class="font-semibold text-emerald-600">+$50-100K</p></div></div></div></div>
+        </div>
+        <div class="bg-white rounded-xl border-2 border-amber-200 p-4">
+          <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center font-bold text-amber-700">D3</div><div class="flex-1"><div class="flex items-center gap-2 mb-1"><h4 class="font-semibold">Private Cloud</h4><span class="text-xs text-slate-500">Financial Services, Healthcare</span><span class="text-xs px-2 py-0.5 bg-amber-200 text-amber-700 rounded">Phase 0 Required</span></div><div class="grid grid-cols-5 gap-4 text-sm mt-2"><div><p class="text-xs text-slate-500">Data Location</p><p class="text-slate-700">Customer VPC</p></div><div><p class="text-xs text-slate-500">Compliance</p><p class="text-slate-700">SOC 2, HIPAA, PCI-DSS</p></div><div><p class="text-xs text-slate-500">Deploy Time</p><p class="text-slate-700">8-16 weeks</p></div><div><p class="text-xs text-slate-500">Platform Premium</p><p class="font-semibold text-emerald-600">+50-75%</p></div><div><p class="text-xs text-slate-500">Services Premium</p><p class="font-semibold text-emerald-600">+$175-275K</p></div></div></div></div>
+        </div>
+        <div class="bg-white rounded-xl border-2 border-rose-200 p-4">
+          <div class="flex items-start gap-4"><div class="w-12 h-12 rounded-lg bg-rose-100 flex items-center justify-center font-bold text-rose-700">D4</div><div class="flex-1"><div class="flex items-center gap-2 mb-1"><h4 class="font-semibold">Self-Hosted</h4><span class="text-xs text-slate-500">Defense, Government, High-security</span><span class="text-xs px-2 py-0.5 bg-rose-200 text-rose-700 rounded">Phase 0 Required</span></div><div class="grid grid-cols-5 gap-4 text-sm mt-2"><div><p class="text-xs text-slate-500">Data Location</p><p class="text-slate-700">Customer data center</p></div><div><p class="text-xs text-slate-500">Compliance</p><p class="text-slate-700">FedRAMP-ready, Custom</p></div><div><p class="text-xs text-slate-500">Deploy Time</p><p class="text-slate-700">16-24+ weeks</p></div><div><p class="text-xs text-slate-500">Platform Premium</p><p class="font-semibold text-emerald-600">+100%+</p></div><div><p class="text-xs text-slate-500">Services Premium</p><p class="font-semibold text-emerald-600">+$350-550K</p></div></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="layers" class="w-5 h-5 text-violet-600"></i>Maturity Model (Levels 1-5)</h2>
+      <p class="text-slate-600 mb-4">Five levels from Fragmented to Intelligent. MCP unlocks at Level 5.</p>
+      
+      <div class="bg-white rounded-xl border p-4">
+        <div class="flex items-center gap-2 overflow-x-auto pb-2">
+          ${[{level:1,name:'Fragmented',mcp:'locked',color:'slate',desc:'No system of record'},{level:2,name:'Emerging',mcp:'locked',color:'slate',desc:'Initial system, limited adoption'},{level:3,name:'Operational',mcp:'locked',color:'blue',desc:'System deployed, governance forming'},{level:4,name:'Governed',mcp:'prep',color:'amber',desc:'Full governance, decision authority'},{level:5,name:'Intelligent',mcp:'unlocked',color:'emerald',desc:'AI-assisted, MCP active'}].map((m,i) => `
+            <div class="flex-shrink-0 flex flex-col items-center ${i < 4 ? 'mr-2' : ''}">
+              <div class="w-14 h-14 rounded-lg flex flex-col items-center justify-center ${m.color === 'slate' ? 'bg-slate-100' : m.color === 'blue' ? 'bg-blue-100' : m.color === 'amber' ? 'bg-amber-100' : 'bg-emerald-100'}">
+                <span class="text-lg font-bold ${m.color === 'slate' ? 'text-slate-600' : m.color === 'blue' ? 'text-blue-600' : m.color === 'amber' ? 'text-amber-600' : 'text-emerald-600'}">${m.level}</span>
+              </div>
+              <p class="text-xs font-semibold mt-1 text-center">${m.name}</p>
+              <p class="text-xs text-slate-500 text-center max-w-20">${m.desc}</p>
+              <span class="text-xs px-2 py-0.5 rounded mt-1 ${m.mcp === 'locked' ? 'bg-slate-200 text-slate-600' : m.mcp === 'prep' ? 'bg-amber-200 text-amber-700' : 'bg-emerald-200 text-emerald-700'}">${m.mcp === 'locked' ? 'MCP Locked' : m.mcp === 'prep' ? 'MCP Prep' : 'MCP Active'}</span>
+            </div>
+            ${i < 4 ? '<i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 flex-shrink-0 mx-1"></i>' : ''}
+          `).join('')}
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="package" class="w-5 h-5 text-violet-600"></i>Service Offerings</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="bg-white rounded-xl border-2 border-slate-300 p-5">
+          <div class="flex items-start justify-between mb-3"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center"><i data-lucide="search" class="w-5 h-5 text-slate-600"></i></div><div><h4 class="font-semibold text-slate-900">IPE Readiness Diagnostic</h4><p class="text-xs text-slate-500">Required first step for all paths</p></div></div><span class="text-xs px-2 py-1 bg-slate-200 text-slate-700 rounded">ALL PATHS</span></div>
+          <p class="text-sm text-slate-600 mb-3">Current state baseline + gap analysis + investment path recommendation</p>
+          <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-100"><span class="text-lg font-bold text-slate-900">$50-60K</span><span class="text-sm text-slate-500">2-4 weeks</span></div>
+          <div class="space-y-1.5"><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-slate-400"></i>Stakeholder interviews</div><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-slate-400"></i>System audit</div><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-slate-400"></i>IPE Readiness Scorecard (0-100)</div><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-slate-400"></i>Prioritized investment roadmap</div></div>
+        </div>
+        <div class="bg-white rounded-xl border-2 border-blue-300 p-5">
+          <div class="flex items-start justify-between mb-3"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center"><i data-lucide="layers" class="w-5 h-5 text-blue-600"></i></div><div><h4 class="font-semibold text-blue-900">Foundation Partnership</h4><p class="text-xs text-blue-600">For Activation-Blocked accounts</p></div></div><span class="text-xs px-2 py-1 bg-blue-200 text-blue-700 rounded">J1 / J3</span></div>
+          <p class="text-sm text-slate-600 mb-3">Build the system of record. Platform implementation + governance framework.</p>
+          <div class="flex items-center justify-between mb-3 pb-3 border-b border-blue-100"><span class="text-lg font-bold text-blue-900">$350-450K</span><span class="text-sm text-slate-500">16-20 weeks</span></div>
+          <div class="space-y-1.5"><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-blue-400"></i>Platform implementation</div><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-blue-400"></i>Governance framework</div><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-blue-400"></i>Team enablement</div><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-blue-400"></i>Production deployment</div></div>
+        </div>
+        <div class="bg-white rounded-xl border-2 border-emerald-300 p-5">
+          <div class="flex items-start justify-between mb-3"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center"><i data-lucide="zap" class="w-5 h-5 text-emerald-600"></i></div><div><h4 class="font-semibold text-emerald-900">Activation Accelerator</h4><p class="text-xs text-emerald-600">For Governance-Ready accounts</p></div></div><span class="text-xs px-2 py-1 bg-emerald-200 text-emerald-700 rounded">J2 / J3</span></div>
+          <p class="text-sm text-slate-600 mb-3">Unlock trapped value. Control plane setup + signal instrumentation.</p>
+          <div class="flex items-center justify-between mb-3 pb-3 border-b border-emerald-100"><span class="text-lg font-bold text-emerald-900">$225-325K</span><span class="text-sm text-slate-500">12-16 weeks</span></div>
+          <div class="space-y-1.5"><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-emerald-400"></i>Control plane setup</div><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-emerald-400"></i>Signal instrumentation</div><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-emerald-400"></i>MCP integration</div><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-emerald-400"></i>ROI dashboard</div></div>
+        </div>
+        <div class="bg-white rounded-xl border-2 border-violet-300 p-5">
+          <div class="flex items-start justify-between mb-3"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-violet-100 flex items-center justify-center"><i data-lucide="brain" class="w-5 h-5 text-violet-600"></i></div><div><h4 class="font-semibold text-violet-900">Intelligence Partnership</h4><p class="text-xs text-violet-600">For Intelligence-Ready accounts</p></div></div><span class="text-xs px-2 py-1 bg-violet-200 text-violet-700 rounded">J4</span></div>
+          <p class="text-sm text-slate-600 mb-3">Full IPE activation. MCP onboarding + AI workflow design.</p>
+          <div class="flex items-center justify-between mb-3 pb-3 border-b border-violet-100"><span class="text-lg font-bold text-violet-900">$165-225K</span><span class="text-sm text-slate-500">8-12 weeks</span></div>
+          <div class="space-y-1.5"><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-violet-400"></i>MCP onboarding</div><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-violet-400"></i>AI workflow design</div><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-violet-400"></i>Governance policies</div><div class="flex items-center gap-2 text-xs text-slate-600"><i data-lucide="check" class="w-3 h-3 text-violet-400"></i>Analytics + reporting</div></div>
+        </div>
+      </div>
+
+      <div class="bg-amber-50 rounded-xl border border-amber-200 p-4">
+        <h4 class="font-semibold text-amber-900 mb-3 flex items-center gap-2"><i data-lucide="shield-alert" class="w-4 h-4"></i>Phase 0: Deployment & Security (D3/D4 Only)</h4>
+        <p class="text-sm text-amber-800 mb-3">For regulated industries requiring Private Cloud (D3) or Self-Hosted (D4) deployment, Phase 0 is mandatory before Foundation can begin.</p>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-white rounded-lg p-3 border border-amber-100"><div class="flex items-center justify-between mb-2"><span class="font-medium text-amber-900 text-sm">D3: Private Cloud</span><span class="font-bold text-amber-800">+$175-275K</span></div><p class="text-xs text-slate-600">8-16 weeks | Customer VPC provisioning, security review, compliance validation</p></div>
+          <div class="bg-white rounded-lg p-3 border border-amber-100"><div class="flex items-center justify-between mb-2"><span class="font-medium text-amber-900 text-sm">D4: Self-Hosted</span><span class="font-bold text-amber-800">+$350-550K</span></div><p class="text-xs text-slate-600">16-24+ weeks | On-premise deployment, custom security, FedRAMP preparation</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="cpu" class="w-5 h-5 text-blue-600"></i>The Control Plane (IPE v1) - Current Focus</h2>
+      <div class="bg-blue-50 rounded-xl border border-blue-200 p-5">
+        <p class="text-blue-800 mb-3">The Control Plane is intelligence <strong>configuration</strong>, <strong>management</strong>, and <strong>delivery</strong> to AI agents.</p>
+        <div class="grid grid-cols-2 gap-4">
+          <div><h4 class="font-semibold text-blue-900 text-sm mb-2">Definition of Done</h4><ul class="text-sm text-blue-800 space-y-1"><li>• Control plane that ingests 2+ new sources</li><li>• Distribution of aggregated context via our MCP</li><li>• Measurable improvement in AI generated output</li></ul></div>
+          <div><h4 class="font-semibold text-blue-900 text-sm mb-2">Release Criteria (GO / NO-GO)</h4><p class="text-sm text-blue-800 italic">"Here is your output without the control plane [baseline]. Here, using the same prompt, is your output with 3 sources [improved]. Here is the metric that shows X% improvement."</p></div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-blue-200">
+          <p class="text-xs text-blue-600 font-semibold">Q1 2026 Focus (to Mar 31):</p>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <span class="text-xs px-2 py-1 bg-blue-200 text-blue-800 rounded">Source aggregation</span>
+            <span class="text-xs px-2 py-1 bg-blue-200 text-blue-800 rounded">Turn sources on/off</span>
+            <span class="text-xs px-2 py-1 bg-blue-200 text-blue-800 rounded">Flag source conflict</span>
+            <span class="text-xs px-2 py-1 bg-slate-200 text-slate-600 rounded line-through">Source ranking (de-scoped)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl p-6 text-white">
+      <h3 class="font-semibold mb-3 flex items-center gap-2"><i data-lucide="arrow-right-circle" class="w-5 h-5 text-emerald-400"></i>Ready to Explore Partnership Programs?</h3>
+      <p class="text-slate-300 mb-4">Now that you understand the strategic framework, explore individual account pages to see how these concepts apply to specific customer partnerships.</p>
+      <button onclick="setView('companies')" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-white font-medium transition-all flex items-center gap-2"><i data-lucide="building-2" class="w-4 h-4"></i>View Partnership Programs</button>
+    </section>
+  `;
+}
+
+function renderOverview(company, tier) {
+  return `
+    <section class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+      <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-6">
+        <div class="flex items-center gap-4 mb-4"><div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center"><i data-lucide="building-2" class="w-7 h-7"></i></div><div><h1 class="text-2xl font-bold">${company.name} Partnership Program</h1><p class="text-slate-300">${company.industry} | Intelligent Product Engine Activation</p></div></div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
           <div class="bg-white/10 rounded-lg p-3"><p class="text-xs text-slate-400 mb-1">Investment Path</p><p class="font-semibold">${company.journey} Activation</p></div>
           <div class="bg-white/10 rounded-lg p-3"><p class="text-xs text-slate-400 mb-1">Deployment Tier</p><p class="font-semibold">${company.deploymentTier}: ${company.deploymentName}</p></div>
@@ -223,11 +411,8 @@ function render() {
         </div>
       </div>
       <div class="p-6">
-        <div class="gradient-emerald border border-emerald-200 rounded-xl p-4">
-          <div class="flex items-start gap-3">
-            <i data-lucide="target" class="w-6 h-6 text-emerald-600 flex-shrink-0 mt-0.5"></i>
-            <div><h3 class="font-semibold text-emerald-900 mb-1">Shared Objective</h3><p class="text-emerald-800 text-sm">Enable ${company.name} to operate product systems as a governed engine—where change is safe, fast, and measurable across all platforms.</p></div>
-          </div>
+        <div class="bg-gradient-to-r from-emerald-50 to-emerald-100/50 border border-emerald-200 rounded-xl p-4">
+          <div class="flex items-start gap-3"><i data-lucide="target" class="w-6 h-6 text-emerald-600 flex-shrink-0 mt-0.5"></i><div><h3 class="font-semibold text-emerald-900 mb-1">Shared Objective</h3><p class="text-emerald-800 text-sm">Enable ${company.name} to operate product systems as a governed engine—where change is safe, fast, and measurable across all platforms.</p></div></div>
         </div>
       </div>
     </section>
@@ -236,16 +421,11 @@ function render() {
       <h2 class="text-xl font-bold text-slate-900 mb-4">Current State Assessment</h2>
       <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
         <div class="overflow-x-auto">
-          <table class="w-full">
-            <thead class="bg-slate-50"><tr><th class="text-left px-4 py-3 text-sm font-semibold text-slate-600">Dimension</th><th class="text-left px-4 py-3 text-sm font-semibold text-slate-600">Current State</th><th class="text-left px-4 py-3 text-sm font-semibold text-emerald-600">Target State</th></tr></thead>
-            <tbody class="divide-y divide-slate-100">
-              ${company.currentState.map(([dim,current,target]) => `<tr class="hover:bg-slate-50/50"><td class="px-4 py-3 font-medium text-slate-900 text-sm">${dim}</td><td class="px-4 py-3 text-slate-600 text-sm">${current}</td><td class="px-4 py-3 text-emerald-700 font-medium text-sm">${target}</td></tr>`).join('')}
-            </tbody>
+          <table class="w-full"><thead class="bg-slate-50"><tr><th class="text-left px-4 py-3 text-sm font-semibold text-slate-600">Dimension</th><th class="text-left px-4 py-3 text-sm font-semibold text-slate-600">Current State</th><th class="text-left px-4 py-3 text-sm font-semibold text-emerald-600">Target State</th></tr></thead>
+            <tbody class="divide-y divide-slate-100">${company.currentState.map(([dim,current,target]) => `<tr class="hover:bg-slate-50/50"><td class="px-4 py-3 font-medium text-slate-900 text-sm">${dim}</td><td class="px-4 py-3 text-slate-600 text-sm">${current}</td><td class="px-4 py-3 text-emerald-700 font-medium text-sm">${target}</td></tr>`).join('')}</tbody>
           </table>
         </div>
-        <div class="p-4 bg-slate-900 text-white">
-          <div class="flex items-start gap-3"><i data-lucide="layers" class="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5"></i><div><h3 class="font-semibold text-sm mb-1">Key Insight</h3><p class="text-slate-300 text-sm">${company.keyInsight}</p></div></div>
-        </div>
+        <div class="p-4 bg-slate-900 text-white"><div class="flex items-start gap-3"><i data-lucide="layers" class="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5"></i><div><h3 class="font-semibold text-sm mb-1">Key Insight</h3><p class="text-slate-300 text-sm">${company.keyInsight}</p></div></div></div>
       </div>
     </section>
 
@@ -253,27 +433,17 @@ function render() {
       <h2 class="text-xl font-bold text-slate-900 mb-4">Deployment & Compliance</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="${tier.bg} rounded-xl border ${tier.border} p-4">
-          <div class="flex items-center gap-3 mb-3">
-            <i data-lucide="${company.deploymentTier === 'D2' ? 'cloud' : company.deploymentTier === 'D3' ? 'database' : 'server'}" class="w-6 h-6 ${tier.text}"></i>
-            <div><h3 class="font-semibold ${tier.text}">${company.deploymentTier}: ${tier.name}</h3><p class="text-sm text-slate-600">Deployment Timeline: ${tier.time}</p></div>
-          </div>
+          <div class="flex items-center gap-3 mb-3"><i data-lucide="${company.deploymentTier === 'D2' ? 'cloud' : company.deploymentTier === 'D3' ? 'database' : 'server'}" class="w-6 h-6 ${tier.text}"></i><div><h3 class="font-semibold ${tier.text}">${company.deploymentTier}: ${tier.name}</h3><p class="text-sm text-slate-600">Deployment Timeline: ${tier.time}</p></div></div>
           <p class="text-sm text-slate-600 mb-2">Services Premium: <span class="font-semibold">${tier.premium}</span></p>
           ${company.deploymentTier !== 'D2' ? `<div class="bg-amber-100 border border-amber-300 rounded-lg p-3 mt-3"><div class="flex items-center gap-2"><i data-lucide="alert-triangle" class="w-4 h-4 text-amber-600"></i><p class="text-sm font-medium text-amber-800">Phase 0 Required</p></div><p class="text-xs text-amber-700 mt-1">Security review, environment provisioning, and compliance validation required before Phase 1.</p></div>` : ''}
         </div>
-        <div class="bg-white rounded-xl border border-slate-200 p-4">
-          <h3 class="font-semibold text-slate-900 mb-3 flex items-center gap-2"><i data-lucide="shield" class="w-5 h-5 text-slate-600"></i>Compliance Requirements</h3>
-          <div class="flex flex-wrap gap-2">${company.compliance.map(cert => `<span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium">${cert}</span>`).join('')}</div>
-        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-4"><h3 class="font-semibold text-slate-900 mb-3 flex items-center gap-2"><i data-lucide="shield" class="w-5 h-5 text-slate-600"></i>Compliance Requirements</h3><div class="flex flex-wrap gap-2">${company.compliance.map(cert => `<span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium">${cert}</span>`).join('')}</div></div>
       </div>
     </section>
 
     <section>
       <h2 class="text-xl font-bold text-slate-900 mb-4">Partnership Objectives</h2>
-      <div class="bg-white rounded-xl border border-slate-200 p-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-          ${company.objectives.map((obj,i) => `<div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg"><div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-sm font-bold flex-shrink-0">${i+1}</div><p class="text-sm text-slate-700">${obj}</p></div>`).join('')}
-        </div>
-      </div>
+      <div class="bg-white rounded-xl border border-slate-200 p-4"><div class="grid grid-cols-1 md:grid-cols-2 gap-3">${company.objectives.map((obj,i) => `<div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg"><div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-sm font-bold flex-shrink-0">${i+1}</div><p class="text-sm text-slate-700">${obj}</p></div>`).join('')}</div></div>
     </section>
 
     <section>
@@ -281,7 +451,7 @@ function render() {
       <div class="bg-slate-900 rounded-xl p-4 mb-4">
         <div class="flex items-center justify-between overflow-x-auto pb-2 gap-2">
           ${phases.map((phase,i) => `
-            <button onclick="togglePhase(${phase.id})" class="flex flex-col items-center gap-2 px-3 py-2 rounded-lg transition-all min-w-[100px] ${activePhase === phase.id ? 'bg-white/10' : 'hover:bg-white/5'}">
+            <button onclick="togglePhase(${phase.id})" class="flex flex-col items-center gap-2 px-3 py-2 rounded-lg transition-all min-w-[100px] ${activePhase === phase.id ? 'phase-btn-active' : 'hover:bg-white/5'}">
               <div class="w-10 h-10 rounded-full ${colorClasses[phase.color].accent} flex items-center justify-center"><i data-lucide="${phase.icon}" class="w-5 h-5 text-white"></i></div>
               <div class="text-center"><p class="text-white font-semibold text-xs">Phase ${phase.id}</p><p class="text-slate-400 text-xs truncate max-w-[80px]">${phase.name.split(' ')[0]}</p></div>
               <div class="text-xs px-2 py-0.5 rounded ${phase.mcp === 'locked' ? 'bg-rose-500/20 text-rose-300' : phase.mcp === 'prep' ? 'bg-amber-500/20 text-amber-300' : 'bg-emerald-500/20 text-emerald-300'}">${phase.mcp === 'locked' ? 'MCP Locked' : phase.mcp === 'prep' ? 'MCP Prep' : 'MCP Active'}</div>
@@ -340,9 +510,10 @@ function render() {
       </div>
     </section>
   `;
+}
 
-  // Render Battle Card
-  document.getElementById('battlecard-content').innerHTML = `
+function renderBattleCard(company) {
+  return `
     <section class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
       <div class="bg-gradient-to-r from-slate-800 to-slate-700 text-white p-4">
         <div class="flex items-center gap-3"><i data-lucide="flag" class="w-6 h-6"></i><div><h1 class="text-xl font-bold">${company.name} Battle Card</h1><p class="text-slate-300 text-sm">${company.industry} | ${company.journey} Activation Path</p></div></div>
@@ -356,33 +527,19 @@ function render() {
 
     <section>
       <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2"><i data-lucide="alert-triangle" class="w-5 h-5 text-rose-500"></i>Pain Points to Probe</h2>
-      <div class="bg-white rounded-xl border border-slate-200 p-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-          ${company.battleCard.painPoints.map((pain,i) => `<div class="flex items-start gap-3 p-3 bg-rose-50 rounded-lg border border-rose-100"><div class="w-5 h-5 rounded-full bg-rose-200 text-rose-700 flex items-center justify-center text-xs font-bold flex-shrink-0">${i+1}</div><p class="text-sm text-rose-900">${pain}</p></div>`).join('')}
-        </div>
-      </div>
+      <div class="bg-white rounded-xl border border-slate-200 p-4"><div class="grid grid-cols-1 md:grid-cols-2 gap-3">${company.battleCard.painPoints.map((pain,i) => `<div class="flex items-start gap-3 p-3 bg-rose-50 rounded-lg border border-rose-100"><div class="w-5 h-5 rounded-full bg-rose-200 text-rose-700 flex items-center justify-center text-xs font-bold flex-shrink-0">${i+1}</div><p class="text-sm text-rose-900">${pain}</p></div>`).join('')}</div></div>
     </section>
 
     <section>
       <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2"><i data-lucide="help-circle" class="w-5 h-5 text-blue-500"></i>Discovery Questions</h2>
-      <div class="bg-white rounded-xl border border-slate-200 p-4">
-        <div class="space-y-3">
-          ${company.battleCard.discoveryQuestions.map((q,i) => `<div class="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border border-blue-100"><div class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">Q${i+1}</div><p class="text-sm text-slate-800">${q}</p></div>`).join('')}
-        </div>
-      </div>
+      <div class="bg-white rounded-xl border border-slate-200 p-4"><div class="space-y-3">${company.battleCard.discoveryQuestions.map((q,i) => `<div class="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border border-blue-100"><div class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">Q${i+1}</div><p class="text-sm text-slate-800">${q}</p></div>`).join('')}</div></div>
     </section>
 
     <section>
       <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2"><i data-lucide="crosshair" class="w-5 h-5 text-emerald-500"></i>Competitive Landscape</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-white rounded-xl border border-slate-200 p-4">
-          <h3 class="font-semibold text-slate-700 mb-3 text-sm">Competitors</h3>
-          <div class="space-y-2">${company.battleCard.competitors.map(c => `<div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><div class="w-2 h-2 rounded-full bg-slate-400"></div><p class="text-sm text-slate-700">${c}</p></div>`).join('')}</div>
-        </div>
-        <div class="bg-emerald-50 rounded-xl border border-emerald-200 p-4">
-          <h3 class="font-semibold text-emerald-800 mb-3 text-sm">Our Differentiators</h3>
-          <div class="space-y-2">${company.battleCard.differentiators.map(d => `<div class="flex items-center gap-2 p-2 bg-white rounded-lg"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i><p class="text-sm text-emerald-900">${d}</p></div>`).join('')}</div>
-        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-4"><h3 class="font-semibold text-slate-700 mb-3 text-sm">Competitors</h3><div class="space-y-2">${company.battleCard.competitors.map(c => `<div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><div class="w-2 h-2 rounded-full bg-slate-400"></div><p class="text-sm text-slate-700">${c}</p></div>`).join('')}</div></div>
+        <div class="bg-emerald-50 rounded-xl border border-emerald-200 p-4"><h3 class="font-semibold text-emerald-800 mb-3 text-sm">Our Differentiators</h3><div class="space-y-2">${company.battleCard.differentiators.map(d => `<div class="flex items-center gap-2 p-2 bg-white rounded-lg"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i><p class="text-sm text-emerald-900">${d}</p></div>`).join('')}</div></div>
       </div>
     </section>
 
@@ -400,11 +557,7 @@ function render() {
 
     <section>
       <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-5 h-5 text-violet-500"></i>Success Metrics</h2>
-      <div class="bg-white rounded-xl border border-slate-200 p-4">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          ${company.battleCard.successMetrics.map(m => `<div class="p-3 bg-violet-50 rounded-lg border border-violet-100 text-center"><p class="text-sm text-violet-900 font-medium">${m}</p></div>`).join('')}
-        </div>
-      </div>
+      <div class="bg-white rounded-xl border border-slate-200 p-4"><div class="grid grid-cols-2 md:grid-cols-4 gap-3">${company.battleCard.successMetrics.map(m => `<div class="p-3 bg-violet-50 rounded-lg border border-violet-100 text-center"><p class="text-sm text-violet-900 font-medium">${m}</p></div>`).join('')}</div></div>
     </section>
 
     <section>
@@ -419,14 +572,9 @@ function render() {
       </div>
     </section>
   `;
-
-  lucide.createIcons();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  render();
-  lucide.createIcons();
-});
+document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
