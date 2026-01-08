@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enterprise Partnership Programs - Knapsack IPE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .icon { width: 16px; height: 16px; display: inline-block; vertical-align: middle; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .phase-content { display: none; }
+    .phase-content.active { display: block; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+  <script>
+    // Data
+    const companies = [
+      {
+        id: 'kyndryl',
+        name: 'Kyndryl',
+        industry: 'Technology & IT Services',
+        deploymentTier: 'D2',
+        deploymentName: 'Cloud Dedicated',
+        compliance: ['SOC 2', 'ISO 27001', 'GDPR'],
+        journey: 'J3',
+        tcv: '$740K - $950K',
+        timeline: '40-52 weeks',
+        currentState: [
+          ['System Maturity', 'Level 2 → early Level 3', 'Level 4: Scaled Product System'],
+          ['Implementation', 'Multiple internal design systems', 'Unified control plane'],
+          ['Governance', 'Siloed by business unit', 'Enterprise-wide governance'],
+          ['Control Plane', 'Not established', 'Active governance and enforcement']
+        ],
+        keyInsight: 'As a major IT services provider, Kyndryl operates across diverse client environments requiring consistent product experience delivery. The challenge is unifying internal systems to serve as a foundation for client-facing solutions.',
+        objectives: [
+          'Consolidate fragmented design systems across business units',
+          'Establish governed CI/CD for enterprise applications',
+          'Enable AI-assisted product delivery for managed services',
+          'Create reusable patterns for client implementations'
+        ],
+        battleCard: {
+          idealBuyer: 'VP of Digital Experience, Head of Design Systems, CTO',
+          painPoints: ['Inconsistent client deliverables', 'Duplicate effort across BUs', 'No unified governance', 'AI adoption blocked by fragmentation'],
+          competitors: ['Internal tooling investments', 'Agency partnerships', 'Point solutions (Figma, Storybook)'],
+          differentiators: ['Enterprise-grade governance', 'MCP for AI enablement', 'Cross-BU unification'],
+          discoveryQuestions: [
+            'How many distinct design systems exist across your business units today?',
+            'What percentage of engineering time is spent on consistency vs. innovation?',
+            'How do you currently propagate changes across client implementations?',
+            'What is your timeline for AI tooling adoption in product delivery?',
+            'Who owns design system governance decisions across the organization?'
+          ],
+          objections: [
+            { objection: 'We can build this internally', response: 'Internal builds typically take 2-3x longer and lack the governance layer. What is the opportunity cost of 18+ months of fragmented delivery?' },
+            { objection: 'We already use Figma/Storybook', response: 'Those are creation tools, not a control plane. How do you govern what gets built and ensure AI tools operate safely?' }
+          ],
+          successMetrics: ['Time to client delivery', 'Cross-BU reuse rate', 'Governance adoption', 'AI tooling activation']
+        }
+      },
+      {
+        id: 'goldman',
+        name: 'Goldman Sachs',
+        industry: 'Financial Services',
+        deploymentTier: 'D3',
+        deploymentName: 'Private Cloud',
+        compliance: ['SOC 2', 'PCI-DSS', 'FINRA', 'SEC', 'OCC Guidelines'],
+        journey: 'J3',
+        tcv: '$1.1M - $1.6M',
+        timeline: '52-68 weeks',
+        currentState: [
+          ['System Maturity', 'Level 3 → early Level 4', 'Level 5: Intelligent System'],
+          ['Implementation', 'Marquee DS established', 'All platforms unified'],
+          ['Governance', 'Strong in trading; variable elsewhere', 'Cross-platform governance'],
+          ['Control Plane', 'Engineering-owned tooling', 'Governed control plane']
+        ],
+        keyInsight: 'Goldman\'s Marquee design system provides a strong foundation, but AI governance requirements under SR 11-7 and model risk management demand a more sophisticated control plane for safe AI-assisted delivery.',
+        objectives: [
+          'Extend Marquee governance to all digital platforms',
+          'Implement model risk management for AI-assisted delivery',
+          'Establish auditable change propagation',
+          'Enable compliant AI tooling adoption'
+        ],
+        battleCard: {
+          idealBuyer: 'Head of Engineering, Chief Digital Officer, VP Platform Engineering',
+          painPoints: ['SR 11-7 compliance for AI', 'Inconsistent governance outside trading', 'Audit trail gaps', 'AI adoption risk'],
+          competitors: ['Internal platform investments', 'Custom governance tooling', 'Consulting firm builds'],
+          differentiators: ['Model risk management integration', 'Auditable AI governance', 'Regulated industry expertise'],
+          discoveryQuestions: [
+            'How are you currently addressing SR 11-7 requirements for AI-assisted product delivery?',
+            'What is the governance model for Marquee outside of core trading applications?',
+            'How do you audit changes that flow from design intent to production?',
+            'What is your current approach to AI tooling adoption for engineering teams?',
+            'Who is responsible for model risk management in product delivery workflows?'
+          ],
+          objections: [
+            { objection: 'Our internal platform team handles this', response: 'Does your platform team have dedicated AI governance capabilities? How are they addressing SR 11-7 for AI-assisted delivery?' },
+            { objection: 'We need to see proof in regulated environments', response: 'We work with PNC, Edward Jones, and other regulated institutions. Would a reference call help validate our approach?' }
+          ],
+          successMetrics: ['Audit compliance rate', 'AI governance coverage', 'Time to compliant deployment', 'Cross-platform adoption']
+        }
+      },
+      {
+        id: 'southwest',
+        name: 'Southwest Airlines',
+        industry: 'Transportation & Travel',
+        deploymentTier: 'D2',
+        deploymentName: 'Cloud Dedicated',
+        compliance: ['SOC 2', 'PCI-DSS', 'FAA Requirements'],
+        journey: 'J3',
+        tcv: '$740K - $950K',
+        timeline: '40-52 weeks',
+        currentState: [
+          ['System Maturity', 'Level 2 → Level 3', 'Level 4: Scaled Product System'],
+          ['Implementation', 'Multiple digital touchpoints', 'Unified experience system'],
+          ['Governance', 'App-specific governance', 'Cross-channel governance'],
+          ['Control Plane', 'Limited coordination', 'Operational control plane']
+        ],
+        keyInsight: 'Southwest\'s customer experience spans booking, check-in, gate operations, and in-flight systems. Consistency and reliability are critical for operational efficiency and customer satisfaction.',
+        objectives: [
+          'Unify web, mobile, and kiosk experiences',
+          'Establish governance for operational interfaces',
+          'Enable safe updates across customer touchpoints',
+          'Prepare foundation for AI-assisted customer service'
+        ],
+        battleCard: {
+          idealBuyer: 'VP Digital Experience, Head of Product, CTO',
+          painPoints: ['Inconsistent cross-channel experience', 'Slow update cycles', 'Operational system fragility', 'Customer service AI readiness'],
+          competitors: ['Airline-specific vendors', 'Internal development', 'Travel tech platforms'],
+          differentiators: ['Cross-channel unification', 'Operational system governance', 'AI-ready foundation'],
+          discoveryQuestions: [
+            'How do you ensure consistency between web, mobile, and kiosk experiences today?',
+            'What is your current process for propagating updates across customer touchpoints?',
+            'How do operational interfaces (gate, crew) relate to customer-facing systems?',
+            'What role do you see AI playing in customer service over the next 2 years?',
+            'How do you balance speed of updates with operational reliability?'
+          ],
+          objections: [
+            { objection: 'Our systems are too specialized', response: 'Specialized systems need unified governance even more. How do you ensure a booking change doesn\'t break the kiosk experience?' },
+            { objection: 'We have other priorities post-operations issues', response: 'A control plane prevents the fragmentation that causes operational issues. What was the root cause of recent system challenges?' }
+          ],
+          successMetrics: ['Cross-channel consistency score', 'Update deployment time', 'Incident reduction', 'Customer satisfaction']
+        }
+      },
+      {
+        id: 'usbank',
+        name: 'US Bank',
+        industry: 'Financial Services',
+        deploymentTier: 'D3',
+        deploymentName: 'Private Cloud',
+        compliance: ['SOC 2', 'PCI-DSS', 'OCC Guidelines', 'BCBS 239', 'FFIEC'],
+        journey: 'J3',
+        tcv: '$1.0M - $1.4M',
+        timeline: '48-64 weeks',
+        currentState: [
+          ['System Maturity', 'Level 3', 'Level 4: Scaled Product System'],
+          ['Implementation', 'Internal DS in progress', 'Full platform coverage'],
+          ['Governance', 'Emerging governance model', 'Regulated governance operating'],
+          ['Control Plane', 'Early adoption', 'Active enforcement']
+        ],
+        keyInsight: 'US Bank\'s digital transformation requires a governed approach to product delivery that satisfies regulatory requirements while enabling innovation velocity.',
+        objectives: [
+          'Complete design system implementation across digital banking',
+          'Establish regulatory-compliant governance model',
+          'Enable governed AI tooling adoption',
+          'Create audit-ready change management'
+        ],
+        battleCard: {
+          idealBuyer: 'Chief Digital Officer, VP Engineering, Head of Design Systems',
+          painPoints: ['Incomplete DS implementation', 'Regulatory compliance burden', 'Slow innovation cycles', 'AI governance uncertainty'],
+          competitors: ['Internal platform teams', 'Big 4 consulting', 'Banking-specific vendors'],
+          differentiators: ['Regulated industry focus', 'Completion-to-activation expertise', 'AI governance framework'],
+          discoveryQuestions: [
+            'What percentage of your digital products currently use the design system?',
+            'How do you demonstrate governance compliance to regulators today?',
+            'What is blocking broader design system adoption across the organization?',
+            'How are you planning to address AI governance requirements?',
+            'What is the relationship between your design system and engineering platforms?'
+          ],
+          objections: [
+            { objection: 'We\'re still implementing our design system', response: 'Implementation without activation is the #1 cause of DS failure. How will you ensure teams actually adopt what you build?' },
+            { objection: 'Our consulting partner handles this', response: 'Consulting builds but doesn\'t operate. Who governs the system after they leave? What is your long-term operational model?' }
+          ],
+          successMetrics: ['DS adoption rate', 'Regulatory audit readiness', 'Time to production', 'AI governance coverage']
+        }
+      },
+      {
+        id: 'bofa',
+        name: 'Bank of America',
+        industry: 'Financial Services',
+        deploymentTier: 'D3',
+        deploymentName: 'Private Cloud',
+        compliance: ['SOC 2', 'PCI-DSS', 'OCC Guidelines', 'BCBS 239', 'SR 11-7', 'CCAR'],
+        journey: 'J3',
+        tcv: '$1.2M - $1.6M',
+        timeline: '52-68 weeks',
+        currentState: [
+          ['System Maturity', 'Level 3 → early Level 4', 'Level 5: Intelligent System'],
+          ['Implementation', 'Multiple DS initiatives', 'Unified enterprise system'],
+          ['Governance', 'Strong regulatory compliance', 'AI-enabled governance'],
+          ['Control Plane', 'Infrastructure in place', 'Full activation required']
+        ],
+        keyInsight: 'Bank of America\'s scale requires enterprise-grade governance that can operate across consumer banking, wealth management, and institutional services while meeting rigorous regulatory standards.',
+        objectives: [
+          'Unify design systems across all lines of business',
+          'Implement AI governance framework per SR 11-7',
+          'Establish cross-platform change propagation',
+          'Enable Erica AI integration patterns'
+        ],
+        battleCard: {
+          idealBuyer: 'Chief Digital Officer, SVP Platform Engineering, Head of AI Governance',
+          painPoints: ['Multiple DS initiatives lacking unification', 'SR 11-7 AI compliance', 'Cross-LOB governance gaps', 'Erica expansion complexity'],
+          competitors: ['Internal enterprise architecture', 'Big 4 consulting', 'AI governance vendors'],
+          differentiators: ['Enterprise-scale unification', 'AI governance for product delivery', 'Erica-compatible patterns'],
+          discoveryQuestions: [
+            'How many design system initiatives currently exist across consumer, wealth, and institutional?',
+            'What is your current approach to SR 11-7 compliance for AI in product delivery?',
+            'How does Erica interact with your design system and component library?',
+            'What governance model exists for cross-LOB design decisions?',
+            'How do you propagate changes safely across all digital properties?'
+          ],
+          objections: [
+            { objection: 'We have dedicated enterprise architecture teams', response: 'Enterprise architecture sets standards; a control plane enforces them. How do you ensure compliance at scale across 4,000+ applications?' },
+            { objection: 'Erica has its own technical stack', response: 'AI assistants need governed context to operate safely. How do you ensure Erica recommendations align with current product capabilities?' }
+          ],
+          successMetrics: ['Cross-LOB adoption rate', 'AI governance compliance', 'Change propagation time', 'Erica integration success']
+        }
+      }
+    ];
+
+    const phases = [
+      {
+        id: 1,
+        name: 'Stabilize & Complete',
+        goal: 'Make the platform reliably usable for real teams, without heroics.',
+        accomplishments: [
+          'Complete workspace stabilization and readiness',
+          'Resolve entitlements, access, and publishing blockers',
+          'Establish deployment checklists and operational definitions',
+          'Enable teams to publish and update independently'
+        ],
+        exitCriteria: [
+          'Teams can publish and update without Knapsack intervention',
+          'All workspaces live or date-certain',
+          'All access and entitlement blockers resolved'
+        ],
+        deliverables: ['Workspace Go-Live Checklists', 'RACI Documentation', 'Deployment Definition of Done'],
+        color: 'slate',
+        mcp: 'locked'
+      },
+      {
+        id: 2,
+        name: 'Control Plane & Governance',
+        goal: 'Transform individual systems into a unified system of record with decision authority.',
+        accomplishments: [
+          'Establish comprehensive token strategy',
+          'Define and activate cross-system governance model',
+          'Create system-of-systems architecture documentation',
+          'Clarify decision rights across platforms'
+        ],
+        exitCriteria: [
+          'Token strategy approved and actively enforced',
+          'Governance model operating beyond initial scope',
+          'Clear, documented rules for cross-system interaction'
+        ],
+        deliverables: ['Control Plane Definition', 'Token Ownership Documentation', 'Cross-System Governance Model', 'System Charter'],
+        color: 'blue',
+        mcp: 'locked'
+      },
+      {
+        id: 3,
+        name: 'Execution Enablement',
+        goal: 'Prove that governed intent can safely become production change.',
+        accomplishments: [
+          'Establish governed CI/CD pipelines',
+          'Implement safe change propagation with quality gates',
+          'Plan and validate technology upgrade paths',
+          'Enable predictable, regression-free deployments'
+        ],
+        exitCriteria: [
+          'One meaningful change ships end-to-end via Knapsack',
+          'Upgrade path validated without regressions',
+          'Teams trust the system to enforce standards'
+        ],
+        deliverables: ['Governed Pipelines', 'Safe Propagation Mechanisms', 'Quality Gates', 'Upgrade Processes'],
+        color: 'emerald',
+        mcp: 'prep'
+      },
+      {
+        id: 4,
+        name: 'Signals & Intelligence',
+        goal: 'Introduce intelligence capabilities only after trust is fully established.',
+        accomplishments: [
+          'Deploy signal capture and health dashboards',
+          'Conduct maturity and AI readiness assessment',
+          'Launch scoped MCP pilot (1-2 use cases)',
+          'Establish ROI measurement framework'
+        ],
+        exitCriteria: [
+          'Signals demonstrate faster, safer change',
+          'MCP adds measurable value without introducing risk',
+          'Leadership can clearly articulate ROI and next investments'
+        ],
+        deliverables: ['Signal Dashboards', 'AI Readiness Assessment', 'MCP Pilot', 'ROI Framework'],
+        color: 'violet',
+        mcp: 'active'
+      }
+    ];
+
+    const deploymentTiers = {
+      D2: { name: 'Cloud Dedicated', premium: '+$50-100K', time: '4-8 weeks', bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-700' },
+      D3: { name: 'Private Cloud', premium: '+$175-275K', time: '8-16 weeks', bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-700' },
+      D4: { name: 'Self-Hosted', premium: '+$350-550K', time: '16-24+ weeks', bg: 'bg-rose-50', border: 'border-rose-200', text: 'text-rose-700' }
+    };
+
+    const getColorClasses = (color, type) => {
+      const colors = {
+        slate: { bg: 'bg-slate-100', border: 'border-slate-300', text: 'text-slate-700', accent: 'bg-slate-600' },
+        blue: { bg: 'bg-blue-50', border: 'border-blue-300', text: 'text-blue-700', accent: 'bg-blue-600' },
+        emerald: { bg: 'bg-emerald-50', border: 'border-emerald-300', text: 'text-emerald-700', accent: 'bg-emerald-600' },
+        violet: { bg: 'bg-violet-50', border: 'border-violet-300', text: 'text-violet-700', accent: 'bg-violet-600' }
+      };
+      return colors[color]?.[type] || '';
+    };
+
+    // Icon helper
+    function getIcon(name, size = 16) {
+      const icons = {
+        cpu: '<path d="M9 2v2M15 2v2M9 20v2M15 20v2M22 9h-2M22 15h-2M2 9h2M2 15h2M18 6h.01M18 18h.01M6 18H6.01M6 6H6.01"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/>',
+        building2: '<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12h16"/><path d="M6 6h4"/><path d="M6 18h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 22h4"/>',
+        target: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+        flag: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>',
+        layers: '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
+        shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+        settings: '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+        zap: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+        'bar-chart-3': '<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',
+        'check-circle-2': '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
+        circle: '<circle cx="12" cy="12" r="10"/>',
+        'chevron-right': '<polyline points="9 18 15 12 9 6"/>',
+        'arrow-right': '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
+        cloud: '<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>',
+        database: '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>',
+        server: '<rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>',
+        'alert-triangle': '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+        'help-circle': '<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+        'message-square': '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+        crosshair: '<circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/>',
+        handshake: '<path d="M11 12h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16"/><path d="m7 18 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.75l-4.2 4.2"/><path d="m2 15 6 6"/><path d="m8 21-6-6"/>'
+      };
+      return `<svg class="icon" style="width: ${size}px; height: ${size}px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">${icons[name] || ''}</svg>`;
+    }
+
+    // State
+    let selectedCompany = 'goldman';
+    let activePhase = null;
+    let activeTab = 'overview';
+
+    function setCompany(companyId) {
+      selectedCompany = companyId;
+      activePhase = null;
+      render();
+    }
+
+    function setTab(tabId) {
+      activeTab = tabId;
+      render();
+    }
+
+    function togglePhase(phaseId) {
+      activePhase = activePhase === phaseId ? null : phaseId;
+      render();
+    }
+
+    function render() {
+      const company = companies.find(c => c.id === selectedCompany);
+      const tier = deploymentTiers[company.deploymentTier];
+
+      // Render company buttons
+      document.getElementById('company-buttons').innerHTML = companies.map(c => `
+        <button
+          onclick="setCompany('${c.id}')"
+          class="px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+            selectedCompany === c.id 
+              ? 'bg-white text-slate-900' 
+              : 'bg-white/10 text-white hover:bg-white/20'
+          }"
+        >
+          ${c.name}
+        </button>
+      `).join('');
+
+      // Render tabs
+      document.getElementById('tabs').innerHTML = `
+        <button
+          onclick="setTab('overview')"
+          class="flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 transition-all ${
+            activeTab === 'overview'
+              ? 'border-emerald-500 text-emerald-700'
+              : 'border-transparent text-slate-500 hover:text-slate-700'
+          }"
+        >
+          ${getIcon('target', 16)}
+          Partnership Overview
+        </button>
+        <button
+          onclick="setTab('battlecard')"
+          class="flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 transition-all ${
+            activeTab === 'battlecard'
+              ? 'border-emerald-500 text-emerald-700'
+              : 'border-transparent text-slate-500 hover:text-slate-700'
+          }"
+        >
+          ${getIcon('flag', 16)}
+          Battle Card
+        </button>
+      `;
+
+      // Render footer
+      document.getElementById('footer-company').textContent = company.name;
+
+      // Render overview or battlecard
+      if (activeTab === 'overview') {
+        renderOverview(company, tier);
+      } else {
+        renderBattleCard(company, tier);
+      }
+    }
+
+    function renderOverview(company, tier) {
+      const overviewHTML = `
+        <section class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+          <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-6">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center">
+                ${getIcon('building2', 28)}
+              </div>
+              <div>
+                <h1 class="text-2xl font-bold">${company.name} Partnership Program</h1>
+                <p class="text-slate-300">${company.industry} | Intelligent Product Engine Activation</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+              <div class="bg-white/10 rounded-lg p-3">
+                <p class="text-xs text-slate-400 mb-1">Investment Path</p>
+                <p class="font-semibold">${company.journey} Activation</p>
+              </div>
+              <div class="bg-white/10 rounded-lg p-3">
+                <p class="text-xs text-slate-400 mb-1">Deployment Tier</p>
+                <p class="font-semibold">${company.deploymentTier}: ${company.deploymentName}</p>
+              </div>
+              <div class="bg-white/10 rounded-lg p-3">
+                <p class="text-xs text-slate-400 mb-1">Total Contract Value</p>
+                <p class="font-semibold text-emerald-400">${company.tcv}</p>
+              </div>
+              <div class="bg-white/10 rounded-lg p-3">
+                <p class="text-xs text-slate-400 mb-1">Timeline</p>
+                <p class="font-semibold">${company.timeline}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="p-6">
+            <div class="bg-gradient-to-r from-emerald-50 to-emerald-100/50 border border-emerald-200 rounded-xl p-4">
+              <div class="flex items-start gap-3">
+                ${getIcon('target', 24)}
+                <div>
+                  <h3 class="font-semibold text-emerald-900 mb-1">Shared Objective</h3>
+                  <p class="text-emerald-800 text-sm">Enable ${company.name} to operate product systems as a governed engine—where change is safe, fast, and measurable across all platforms.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-bold text-slate-900 mb-4">Current State Assessment</h2>
+          <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead class="bg-slate-50">
+                  <tr>
+                    <th class="text-left px-4 py-3 text-sm font-semibold text-slate-600">Dimension</th>
+                    <th class="text-left px-4 py-3 text-sm font-semibold text-slate-600">Current State</th>
+                    <th class="text-left px-4 py-3 text-sm font-semibold text-emerald-600">Target State</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  ${company.currentState.map(([dim, current, target]) => `
+                    <tr class="hover:bg-slate-50/50">
+                      <td class="px-4 py-3 font-medium text-slate-900 text-sm">${dim}</td>
+                      <td class="px-4 py-3 text-slate-600 text-sm">${current}</td>
+                      <td class="px-4 py-3 text-emerald-700 font-medium text-sm">${target}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+            <div class="p-4 bg-slate-900 text-white">
+              <div class="flex items-start gap-3">
+                ${getIcon('layers', 20)}
+                <div>
+                  <h3 class="font-semibold text-sm mb-1">Key Insight</h3>
+                  <p class="text-slate-300 text-sm">${company.keyInsight}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-bold text-slate-900 mb-4">Deployment & Compliance</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="${tier.bg} rounded-xl border ${tier.border} p-4">
+              <div class="flex items-center gap-3 mb-3">
+                ${company.deploymentTier === 'D2' ? getIcon('cloud', 24) : 
+                  company.deploymentTier === 'D3' ? getIcon('database', 24) :
+                  getIcon('server', 24)}
+                <div>
+                  <h3 class="font-semibold ${tier.text}">${company.deploymentTier}: ${tier.name}</h3>
+                  <p class="text-sm text-slate-600">Deployment Timeline: ${tier.time}</p>
+                </div>
+              </div>
+              <p class="text-sm text-slate-600 mb-2">Services Premium: <span class="font-semibold">${tier.premium}</span></p>
+              ${company.deploymentTier !== 'D2' ? `
+                <div class="bg-amber-100 border border-amber-300 rounded-lg p-3 mt-3">
+                  <div class="flex items-center gap-2">
+                    ${getIcon('alert-triangle', 16)}
+                    <p class="text-sm font-medium text-amber-800">Phase 0 Required</p>
+                  </div>
+                  <p class="text-xs text-amber-700 mt-1">Security review, environment provisioning, and compliance validation required before Phase 1.</p>
+                </div>
+              ` : ''}
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-4">
+              <h3 class="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                ${getIcon('shield', 20)}
+                Compliance Requirements
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                ${company.compliance.map(cert => `
+                  <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium">${cert}</span>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-bold text-slate-900 mb-4">Partnership Objectives</h2>
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              ${company.objectives.map((obj, i) => `
+                <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg">
+                  <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-sm font-bold flex-shrink-0">
+                    ${i + 1}
+                  </div>
+                  <p class="text-sm text-slate-700">${obj}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-bold text-slate-900 mb-4">Engagement Phases</h2>
+          <div class="bg-slate-900 rounded-xl p-4 mb-4">
+            <div class="flex items-center justify-between overflow-x-auto pb-2 gap-2">
+              ${phases.map((phase, i) => `
+                ${i > 0 ? `<div class="flex-shrink-0">${getIcon('arrow-right', 16)}</div>` : ''}
+                <button
+                  onclick="togglePhase(${phase.id})"
+                  class="flex flex-col items-center gap-2 px-3 py-2 rounded-lg transition-all min-w-[100px] ${
+                    activePhase === phase.id ? 'bg-white/10' : 'hover:bg-white/5'
+                  }"
+                >
+                  <div class="w-10 h-10 rounded-full ${getColorClasses(phase.color, 'accent')} flex items-center justify-center">
+                    ${phase.id === 1 ? getIcon('shield', 20) :
+                      phase.id === 2 ? getIcon('settings', 20) :
+                      phase.id === 3 ? getIcon('zap', 20) :
+                      getIcon('bar-chart-3', 20)}
+                  </div>
+                  <div class="text-center">
+                    <p class="text-white font-semibold text-xs">Phase ${phase.id}</p>
+                    <p class="text-slate-400 text-xs truncate max-w-[80px]">${phase.name.split(' ')[0]}</p>
+                  </div>
+                  <div class="text-xs px-2 py-0.5 rounded ${
+                    phase.mcp === 'locked' ? 'bg-rose-500/20 text-rose-300' :
+                    phase.mcp === 'prep' ? 'bg-amber-500/20 text-amber-300' :
+                    'bg-emerald-500/20 text-emerald-300'
+                  }">
+                    ${phase.mcp === 'locked' ? 'MCP Locked' : phase.mcp === 'prep' ? 'MCP Prep' : 'MCP Active'}
+                  </div>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            ${phases.map(phase => `
+              <div class="bg-white rounded-xl border overflow-hidden transition-all shadow-sm ${
+                activePhase === phase.id ? `${getColorClasses(phase.color, 'border')} shadow-lg` : 'border-slate-200'
+              }">
+                <button
+                  onclick="togglePhase(${phase.id})"
+                  class="w-full p-4 text-left flex items-center gap-3"
+                >
+                  <div class="w-10 h-10 rounded-lg ${getColorClasses(phase.color, 'bg')} flex items-center justify-center">
+                    ${phase.id === 1 ? getIcon('shield', 20) :
+                      phase.id === 2 ? getIcon('settings', 20) :
+                      phase.id === 3 ? getIcon('zap', 20) :
+                      getIcon('bar-chart-3', 20)}
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h3 class="font-semibold text-slate-900">Phase ${phase.id}: ${phase.name}</h3>
+                    <p class="text-slate-500 text-sm truncate">${phase.goal}</p>
+                  </div>
+                  <div style="transform: ${activePhase === phase.id ? 'rotate(90deg)' : 'none'}; transition: transform 0.2s;">
+                    ${getIcon('chevron-right', 20)}
+                  </div>
+                </button>
+
+                ${activePhase === phase.id ? `
+                  <div class="px-4 pb-4 border-t border-slate-100">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+                      <div>
+                        <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Accomplishments</h4>
+                        <ul class="space-y-1">
+                          ${phase.accomplishments.map(item => `
+                            <li class="flex items-start gap-2 text-sm text-slate-700">
+                              ${getIcon('check-circle-2', 16)}
+                              <span>${item}</span>
+                            </li>
+                          `).join('')}
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Exit Criteria</h4>
+                        <ul class="space-y-1">
+                          ${phase.exitCriteria.map(item => `
+                            <li class="flex items-start gap-2 text-sm text-slate-700">
+                              ${getIcon('circle', 16)}
+                              <span>${item}</span>
+                            </li>
+                          `).join('')}
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Deliverables</h4>
+                        <div class="flex flex-wrap gap-1">
+                          ${phase.deliverables.map(item => `
+                            <span class="px-2 py-1 rounded text-xs font-medium ${getColorClasses(phase.color, 'bg')} ${getColorClasses(phase.color, 'text')}">
+                              ${item}
+                            </span>
+                          `).join('')}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ` : ''}
+              </div>
+            `).join('')}
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-bold text-slate-900 mb-4">Engagement Model</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-emerald-50 rounded-xl border border-emerald-200 p-4">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center">
+                  ${getIcon('cpu', 16)}
+                </div>
+                <h3 class="font-semibold text-emerald-900">Knapsack Commitment</h3>
+              </div>
+              <div class="space-y-2">
+                <div class="bg-white rounded-lg p-3">
+                  <p class="font-medium text-emerald-900 text-sm">Principal Ownership</p>
+                  <p class="text-xs text-emerald-700">Program authority and strategic alignment</p>
+                </div>
+                <div class="bg-white rounded-lg p-3">
+                  <p class="font-medium text-emerald-900 text-sm">Forward-Deployed Engineering</p>
+                  <p class="text-xs text-emerald-700">Hands-on technical enablement</p>
+                </div>
+                <div class="bg-white rounded-lg p-3">
+                  <p class="font-medium text-emerald-900 text-sm">Change Enablement</p>
+                  <p class="text-xs text-emerald-700">Governance and adoption support</p>
+                </div>
+              </div>
+            </div>
+            <div class="bg-slate-100 rounded-xl border border-slate-200 p-4">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-8 h-8 rounded-lg bg-slate-700 flex items-center justify-center">
+                  ${getIcon('building2', 16)}
+                </div>
+                <h3 class="font-semibold text-slate-900">${company.name} Partnership</h3>
+              </div>
+              <div class="space-y-2">
+                <div class="bg-white rounded-lg p-3">
+                  <p class="font-medium text-slate-900 text-sm">Executive Sponsorship</p>
+                  <p class="text-xs text-slate-600">Strategic decisions and resource allocation</p>
+                </div>
+                <div class="bg-white rounded-lg p-3">
+                  <p class="font-medium text-slate-900 text-sm">Platform Ownership</p>
+                  <p class="text-xs text-slate-600">Technical authority and engineering commitment</p>
+                </div>
+                <div class="bg-white rounded-lg p-3">
+                  <p class="font-medium text-slate-900 text-sm">Governance Participation</p>
+                  <p class="text-xs text-slate-600">Cross-system decision-making engagement</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl p-6 text-white">
+            <div class="flex items-start gap-4">
+              ${getIcon('handshake', 32)}
+              <div>
+                <h3 class="font-semibold mb-2">Partnership Philosophy</h3>
+                <p class="text-slate-300 text-sm italic leading-relaxed">
+                  "We're not here to deliver features or AI experiments. We're here to help ${company.name} operate product systems as a governed engine. That means stabilizing first, governing second, executing third—and only then adding intelligence."
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+
+      document.getElementById('content').innerHTML = overviewHTML;
+    }
+
+    function renderBattleCard(company, tier) {
+      const battleCardHTML = `
+        <section class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+          <div class="bg-gradient-to-r from-slate-800 to-slate-700 text-white p-4">
+            <div class="flex items-center gap-3">
+              ${getIcon('flag', 24)}
+              <div>
+                <h1 class="text-xl font-bold">${company.name} Battle Card</h1>
+                <p class="text-slate-300 text-sm">${company.industry} | ${company.journey} Activation Path</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-emerald-50 rounded-lg p-4 border border-emerald-200">
+              <h3 class="font-semibold text-emerald-900 mb-2 text-sm">Ideal Buyer</h3>
+              <p class="text-sm text-emerald-800">${company.battleCard.idealBuyer}</p>
+            </div>
+            <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
+              <h3 class="font-semibold text-blue-900 mb-2 text-sm">TCV Range</h3>
+              <p class="text-sm text-blue-800 font-mono">${company.tcv}</p>
+            </div>
+            <div class="bg-violet-50 rounded-lg p-4 border border-violet-200">
+              <h3 class="font-semibold text-violet-900 mb-2 text-sm">Timeline</h3>
+              <p class="text-sm text-violet-800">${company.timeline}</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+            ${getIcon('alert-triangle', 20)}
+            Pain Points to Probe
+          </h2>
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              ${company.battleCard.painPoints.map((pain, i) => `
+                <div class="flex items-start gap-3 p-3 bg-rose-50 rounded-lg border border-rose-100">
+                  <div class="w-5 h-5 rounded-full bg-rose-200 text-rose-700 flex items-center justify-center text-xs font-bold flex-shrink-0">
+                    ${i + 1}
+                  </div>
+                  <p class="text-sm text-rose-900">${pain}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+            ${getIcon('help-circle', 20)}
+            Discovery Questions
+          </h2>
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <div class="space-y-3">
+              ${company.battleCard.discoveryQuestions.map((question, i) => `
+                <div class="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border border-blue-100">
+                  <div class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">
+                    Q${i + 1}
+                  </div>
+                  <p class="text-sm text-slate-800">${question}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+            ${getIcon('crosshair', 20)}
+            Competitive Landscape
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white rounded-xl border border-slate-200 p-4">
+              <h3 class="font-semibold text-slate-700 mb-3 text-sm">Competitors</h3>
+              <div class="space-y-2">
+                ${company.battleCard.competitors.map(comp => `
+                  <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
+                    <div class="w-2 h-2 rounded-full bg-slate-400"></div>
+                    <p class="text-sm text-slate-700">${comp}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            <div class="bg-emerald-50 rounded-xl border border-emerald-200 p-4">
+              <h3 class="font-semibold text-emerald-800 mb-3 text-sm">Our Differentiators</h3>
+              <div class="space-y-2">
+                ${company.battleCard.differentiators.map(diff => `
+                  <div class="flex items-center gap-2 p-2 bg-white rounded-lg">
+                    ${getIcon('check-circle-2', 16)}
+                    <p class="text-sm text-emerald-900">${diff}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+            ${getIcon('message-square', 20)}
+            Objection Handling
+          </h2>
+          <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+            ${company.battleCard.objections.map((obj, i) => `
+              <div class="p-4 ${i > 0 ? 'border-t border-slate-100' : ''}">
+                <div class="flex items-start gap-3 mb-3">
+                  <div class="px-2 py-1 bg-amber-100 text-amber-800 rounded text-xs font-semibold">OBJECTION</div>
+                  <p class="text-sm text-slate-800 font-medium">"${obj.objection}"</p>
+                </div>
+                <div class="flex items-start gap-3 ml-6">
+                  <div class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded text-xs font-semibold">RESPONSE</div>
+                  <p class="text-sm text-slate-700">${obj.response}</p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+            ${getIcon('bar-chart-3', 20)}
+            Success Metrics
+          </h2>
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+              ${company.battleCard.successMetrics.map(metric => `
+                <div class="p-3 bg-violet-50 rounded-lg border border-violet-100 text-center">
+                  <p class="text-sm text-violet-900 font-medium">${metric}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="bg-slate-900 rounded-xl p-4">
+            <h3 class="text-white font-semibold mb-3 text-sm">Quick Reference</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+              <div>
+                <p class="text-slate-400 text-xs">Deployment</p>
+                <p class="text-white font-medium">${company.deploymentTier}: ${company.deploymentName}</p>
+              </div>
+              <div>
+                <p class="text-slate-400 text-xs">Journey</p>
+                <p class="text-white font-medium">${company.journey} Activation</p>
+              </div>
+              <div>
+                <p class="text-slate-400 text-xs">Phase 0</p>
+                <p class="text-white font-medium">${company.deploymentTier !== 'D2' ? 'Required' : 'Not Required'}</p>
+              </div>
+              <div>
+                <p class="text-slate-400 text-xs">Key Compliance</p>
+                <p class="text-white font-medium">${company.compliance.slice(0, 2).join(', ')}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+
+      document.getElementById('content').innerHTML = battleCardHTML;
+    }
+
+    // Initialize
+    render();
+  </script>
+
+  <header class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white">
+    <div class="max-w-6xl mx-auto px-4 py-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M9 2v2M15 2v2M9 20v2M15 20v2M22 9h-2M22 15h-2M2 9h2M2 15h2M18 6h.01M18 18h.01M6 18H6.01M6 6H6.01"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/>
+            </svg>
+          </div>
+          <span class="font-semibold">Knapsack IPE</span>
+        </div>
+        <span class="text-xs text-slate-400">Enterprise Partnership Programs</span>
+      </div>
+      
+      <div class="flex gap-2 overflow-x-auto pb-2" id="company-buttons"></div>
+    </div>
+  </header>
+
+  <div class="max-w-6xl mx-auto px-4 py-4">
+    <div class="flex gap-2 border-b border-slate-200" id="tabs"></div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-4 pb-8 space-y-8">
+    <div id="content"></div>
+  </main>
+
+  <footer class="bg-slate-100 border-t border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 py-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-semibold text-slate-900 text-sm">Knapsack</p>
+          <p class="text-xs text-slate-500">Intelligent Product Engine</p>
+        </div>
+        <div class="text-right">
+          <p class="text-xs text-slate-500">Prepared for <span id="footer-company"></span> Partnership Team</p>
+          <p class="text-xs text-slate-400">Confidential</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
