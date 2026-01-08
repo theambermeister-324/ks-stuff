@@ -9,6 +9,17 @@
     .option-btn:hover { border-color: #34d399; background-color: #ecfdf5; }
     .option-btn:hover span.label { color: #047857; }
     .option-btn:hover svg { color: #059669; }
+    .help-panel { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+    .help-panel.open { max-height: 1000px; }
+    .signal-badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+    .signal-strong { background: #d1fae5; color: #065f46; }
+    .signal-moderate { background: #fef3c7; color: #92400e; }
+    .signal-weak { background: #fee2e2; color: #991b1b; }
+    .signal-blocker { background: #fee2e2; color: #991b1b; border: 1px solid #dc2626; }
+    .signal-j3 { background: #d1fae5; color: #065f46; }
+    .signal-j4 { background: #ede9fe; color: #5b21b6; }
+    .signal-j1 { background: #e2e8f0; color: #334155; }
+    .signal-j2 { background: #dbeafe; color: #1e40af; }
   </style>
 </head>
 <body class="bg-slate-50 min-h-screen">
@@ -17,6 +28,89 @@
   </div>
 
   <script>
+    const questionGuidance = {
+      champion: {
+        sampleQuestions: [
+          "Who internally is advocating for solving this problem?",
+          "Is there an executive sponsor driving this investment?"
+        ],
+        listenFor: "Specific name, their motivation, their influence. VP+ level, engineering vs. design leadership",
+        dataToCapture: ['Champion name', 'Champion role/title', 'Influencer names', 'Exec sponsor name'],
+        pathImplication: 'No champion = Foundation (J1); Strong champion = J3/J4',
+        tips: "Look for VP+ level sponsors. Influencer-only is a warning flag."
+      },
+      economic_buyer: {
+        sampleQuestions: [
+          "Who owns the budget for infrastructure investments like this?",
+          "Is budget allocated, or would this require finding new budget?"
+        ],
+        listenFor: "Specific name, title, VP+ level. 'We have budget' vs. 'we'd need to find budget'",
+        dataToCapture: ['Economic buyer name', 'Budget status (allocated vs. find)', 'Fiscal year timing'],
+        pathImplication: 'No EB identified = Foundation (J1); EB confirmed = proceed',
+        tips: "Must get specific name and title. 'Unknown' is a blocker."
+      },
+      pain: {
+        sampleQuestions: [
+          "What challenges are you facing with your design system today?",
+          "What happens when AI generates code that doesn't match your standards?"
+        ],
+        listenFor: "Adoption issues, governance gaps, inconsistency, slow velocity. 'It's a problem' vs. 'We don't track'",
+        dataToCapture: ['Primary pain points', 'Business impact of pain', 'Urgency level'],
+        pathImplication: 'Strong pain + urgency = J2/J3; Mild pain = J1/J4',
+        tips: '"Implemented but not activated" is the J3 sweet spot. Most customers have platform but aren\'t getting value.'
+      },
+      adoption: {
+        sampleQuestions: [
+          "What % of engineering teams use your design system?",
+          "How many teams are actively contributing components?"
+        ],
+        listenFor: "Specific percentage, number of teams, maturity indicators",
+        dataToCapture: ['Adoption percentage', 'Number of teams using DS', 'Maturity indicators'],
+        pathImplication: '<30% = J1; 30-70% = J3; >70% = J4',
+        tips: "This is a key Investment Path signal. Ask for specific numbers, not vague 'some teams'."
+      },
+      timeline: {
+        sampleQuestions: [
+          "Walk me through how decisions like this get made at your organization?",
+          "What's driving the urgency right now?"
+        ],
+        listenFor: "Approval chain, committees, procurement process. Trigger events, deadlines",
+        dataToCapture: ['Decision process steps', 'Key decision makers names', 'Procurement contact', 'Timeline'],
+        pathImplication: 'Complex process = longer timeline; Simple = accelerate. Urgent = J2',
+        tips: "Look for trigger events (reorg, new initiative, compliance deadline). Exploratory = nurture track."
+      },
+      deployment: {
+        sampleQuestions: [
+          "Do you require private connectivity or PCI/HIPAA compliance?",
+          "What are your security and infrastructure requirements?"
+        ],
+        listenFor: "Compliance requirements, security standards, connectivity needs",
+        dataToCapture: ['Compliance requirements', 'Security standards', 'Infrastructure preferences'],
+        pathImplication: 'D3/D4 = big premium (+$175-550K). Ask early!',
+        tips: "D3/D4 significantly impacts pricing. Ask this early in the conversation."
+      },
+      metrics: {
+        sampleQuestions: [
+          "How do you measure design system success today?",
+          "What would success look like 12 months from now?"
+        ],
+        listenFor: "Adoption rates, time-to-market, consistency scores, developer velocity. Specific KPIs, percentage improvements",
+        dataToCapture: ['Current success metrics', 'Target metrics', 'Measurement methods'],
+        pathImplication: 'Low/no metrics = J1 (Foundation); Clear metrics = J3/J4',
+        tips: "No metrics is a warning flag. They may struggle to prove ROI."
+      },
+      competition: {
+        sampleQuestions: [
+          "What other solutions are you considering?",
+          "Have you tried to solve this problem before?"
+        ],
+        listenFor: "Specific vendors, internal builds, status quo. Past attempts, what worked/didn't work",
+        dataToCapture: ['Competitors being evaluated', 'Status quo description', 'Past solution attempts'],
+        pathImplication: 'Active competition = differentiate on MCP/governance',
+        tips: "Status quo and internal builds are real competition. Differentiate on MCP capabilities."
+      }
+    };
+
     const questions = [
       {
         id: 'champion',
@@ -24,10 +118,10 @@
         question: 'Is there an identified champion or executive sponsor?',
         subtext: 'The person who will advocate internally for this purchase',
         options: [
-          { label: 'Executive sponsor confirmed (VP+)', value: 'exec', signal: 'strong' },
-          { label: 'Champion identified (Director-level)', value: 'champion', signal: 'moderate' },
-          { label: 'Influencer only (IC or Manager)', value: 'influencer', signal: 'weak' },
-          { label: 'No internal advocate identified', value: 'none', signal: 'blocker' }
+          { label: 'Executive sponsor confirmed (VP+)', value: 'exec', signal: 'strong', pathSignal: 'J3/J4' },
+          { label: 'Champion identified (Director-level)', value: 'champion', signal: 'moderate', pathSignal: 'J3' },
+          { label: 'Influencer only (IC or Manager)', value: 'influencer', signal: 'weak', pathSignal: 'J1', warning: 'Need to identify executive sponsor' },
+          { label: 'No internal advocate identified', value: 'none', signal: 'blocker', pathSignal: 'J1' }
         ]
       },
       {
@@ -36,10 +130,10 @@
         question: 'What is the budget status?',
         subtext: 'Who owns the budget and is it available?',
         options: [
-          { label: 'Budget allocated, EB identified by name', value: 'allocated', signal: 'strong' },
-          { label: 'Budget exists, needs approval', value: 'exists', signal: 'moderate' },
-          { label: 'Would need to find new budget', value: 'find', signal: 'weak' },
-          { label: 'Budget status unknown', value: 'unknown', signal: 'blocker' }
+          { label: 'Budget allocated, EB identified by name', value: 'allocated', signal: 'strong', pathSignal: 'J2/J3' },
+          { label: 'Budget exists, needs approval', value: 'exists', signal: 'moderate', pathSignal: 'J3' },
+          { label: 'Would need to find new budget', value: 'find', signal: 'weak', pathSignal: 'J1', warning: 'Longer sales cycle expected' },
+          { label: 'Budget status unknown', value: 'unknown', signal: 'blocker', pathSignal: 'J1' }
         ]
       },
       {
@@ -48,11 +142,11 @@
         question: 'Is there a clearly identified pain point?',
         subtext: 'The business problem they need to solve',
         options: [
-          { label: '"Implemented but not activated" - clear value gap', value: 'activation', signal: 'j3' },
-          { label: 'Specific blockers identified (consistency, velocity, governance)', value: 'blockers', signal: 'j3' },
-          { label: 'AI/automation gap - need MCP capabilities', value: 'ai_gap', signal: 'j4' },
-          { label: 'No design system - need foundation', value: 'no_ds', signal: 'j1' },
-          { label: 'Pain unclear or vague', value: 'unclear', signal: 'blocker' }
+          { label: '"Implemented but not activated" - clear value gap', value: 'activation', signal: 'j3', pathSignal: 'J3 ← 60% ARR' },
+          { label: 'Specific blockers identified (consistency, velocity, governance)', value: 'blockers', signal: 'j3', pathSignal: 'J3 ← 60% ARR' },
+          { label: 'AI/automation gap - need MCP capabilities', value: 'ai_gap', signal: 'j4', pathSignal: 'J4' },
+          { label: 'No design system - need foundation', value: 'no_ds', signal: 'j1', pathSignal: 'J1' },
+          { label: 'Pain unclear or vague', value: 'unclear', signal: 'blocker', pathSignal: 'J1' }
         ]
       },
       {
@@ -61,10 +155,10 @@
         question: 'What is the current design system adoption level?',
         subtext: 'Percentage of engineering teams actively using the design system',
         options: [
-          { label: 'High (>70%) - Mature, widely adopted', value: 'high', signal: 'j4' },
-          { label: 'Medium (30-70%) - Growing adoption', value: 'medium', signal: 'j3' },
-          { label: 'Low (<30%) - Limited adoption', value: 'low', signal: 'j1' },
-          { label: 'No design system exists', value: 'none', signal: 'j1' }
+          { label: 'High (>70%) - Mature, widely adopted', value: 'high', signal: 'j4', pathSignal: 'J4' },
+          { label: 'Medium (30-70%) - Growing adoption', value: 'medium', signal: 'j3', pathSignal: 'J3 ← 60% ARR' },
+          { label: 'Low (<30%) - Limited adoption', value: 'low', signal: 'j1', pathSignal: 'J1' },
+          { label: 'No design system exists', value: 'none', signal: 'j1', pathSignal: 'J1' }
         ]
       },
       {
@@ -73,10 +167,10 @@
         question: 'What is the expected decision timeline?',
         subtext: 'When do they need to make a decision?',
         options: [
-          { label: 'Urgent - Within 30 days (trigger event)', value: 'urgent', signal: 'j2' },
-          { label: 'Active - 1-3 months', value: 'active', signal: 'standard' },
-          { label: 'Planning - 3-6 months', value: 'planning', signal: 'nurture' },
-          { label: 'Exploratory - 6+ months or undefined', value: 'exploratory', signal: 'monitor' }
+          { label: 'Urgent - Within 30 days (trigger event)', value: 'urgent', signal: 'j2', pathSignal: 'J2' },
+          { label: 'Active - 1-3 months', value: 'active', signal: 'standard', pathSignal: 'Standard' },
+          { label: 'Planning - 3-6 months', value: 'planning', signal: 'nurture', pathSignal: 'Nurture' },
+          { label: 'Exploratory - 6+ months or undefined', value: 'exploratory', signal: 'monitor', pathSignal: 'Monitor', warning: 'Consider nurture track' }
         ]
       },
       {
@@ -85,11 +179,11 @@
         question: 'What are the compliance/infrastructure requirements?',
         subtext: 'This significantly impacts pricing and timeline',
         options: [
-          { label: 'Standard SaaS acceptable', value: 'd1', premium: 'None' },
-          { label: 'Need dedicated environment (SOC2)', value: 'd2', premium: '+$50-100K' },
-          { label: 'Private cloud required (PCI/HIPAA)', value: 'd3', premium: '+$175-275K' },
-          { label: 'Self-hosted/on-prem (FedRAMP)', value: 'd4', premium: '+$350-550K' },
-          { label: 'Unknown - need to validate', value: 'unknown', premium: 'TBD' }
+          { label: 'Standard SaaS acceptable', value: 'd1', premium: 'None', pathSignal: 'D1' },
+          { label: 'Need dedicated environment (SOC2)', value: 'd2', premium: '+$50-100K', pathSignal: 'D2' },
+          { label: 'Private cloud required (PCI/HIPAA)', value: 'd3', premium: '+$175-275K', pathSignal: 'D3', warning: 'Big premium - ask early!' },
+          { label: 'Self-hosted/on-prem (FedRAMP)', value: 'd4', premium: '+$350-550K', pathSignal: 'D4', warning: 'Big premium - ask early!' },
+          { label: 'Unknown - need to validate', value: 'unknown', premium: 'TBD', pathSignal: 'TBD' }
         ]
       },
       {
@@ -98,9 +192,9 @@
         question: 'Can they articulate success metrics?',
         subtext: 'How will they measure ROI?',
         options: [
-          { label: 'Clear KPIs defined (adoption %, velocity, consistency)', value: 'clear', signal: 'strong' },
-          { label: 'General goals but no specific metrics', value: 'general', signal: 'moderate' },
-          { label: 'No metrics identified', value: 'none', signal: 'weak' }
+          { label: 'Clear KPIs defined (adoption %, velocity, consistency)', value: 'clear', signal: 'strong', pathSignal: 'J3/J4' },
+          { label: 'General goals but no specific metrics', value: 'general', signal: 'moderate', pathSignal: 'J1/J3' },
+          { label: 'No metrics identified', value: 'none', signal: 'weak', pathSignal: 'J1', warning: 'May struggle to prove ROI' }
         ]
       },
       {
@@ -109,10 +203,10 @@
         question: 'What alternatives are they considering?',
         subtext: 'Including status quo and internal builds',
         options: [
-          { label: 'Knapsack is preferred/only option', value: 'preferred', signal: 'strong' },
-          { label: 'Evaluating 2-3 vendors including Knapsack', value: 'evaluating', signal: 'competitive' },
-          { label: 'May build internally or use status quo', value: 'internal', signal: 'risk' },
-          { label: 'Heavy competition from established vendor', value: 'competitor', signal: 'risk' }
+          { label: 'Knapsack is preferred/only option', value: 'preferred', signal: 'strong', pathSignal: 'Strong' },
+          { label: 'Evaluating 2-3 vendors including Knapsack', value: 'evaluating', signal: 'competitive', pathSignal: 'Competitive' },
+          { label: 'May build internally or use status quo', value: 'internal', signal: 'risk', pathSignal: 'Risk', warning: 'Differentiate on MCP/governance' },
+          { label: 'Heavy competition from established vendor', value: 'competitor', signal: 'risk', pathSignal: 'Risk', warning: 'Differentiate on MCP/governance' }
         ]
       }
     ];
@@ -130,7 +224,10 @@
       xSmall: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,
       alertSmall: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
       checkLarge: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
-      xLarge: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`
+      xLarge: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,
+      info: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`,
+      chevronDown: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`,
+      chevronUp: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>`
     };
 
     function calculateResult() {
@@ -174,19 +271,91 @@
       return { qualified, blockers, warnings, path, pathName, pathColor, tcv, motion, arrShare, tier, tierName, tierPremium };
     }
 
+    function toggleHelp(questionId) {
+      const panel = document.getElementById(`help-${questionId}`);
+      const btn = document.getElementById(`help-btn-${questionId}`);
+      if (panel.classList.contains('open')) {
+        panel.classList.remove('open');
+        btn.innerHTML = `${icons.info} Show Guidance`;
+      } else {
+        panel.classList.add('open');
+        btn.innerHTML = `${icons.chevronUp} Hide Guidance`;
+      }
+    }
+
+    function getSignalClass(signal) {
+      if (signal === 'strong' || signal === 'j3') return 'signal-strong';
+      if (signal === 'moderate' || signal === 'j4') return 'signal-moderate';
+      if (signal === 'weak' || signal === 'j1') return 'signal-weak';
+      if (signal === 'blocker') return 'signal-blocker';
+      if (signal === 'j2') return 'signal-j2';
+      return 'signal-moderate';
+    }
+
     function renderQuestion() {
       const q = questions[currentStep];
       const progress = ((currentStep + 1) / questions.length) * 100;
+      const guidance = questionGuidance[q.id] || {};
 
-      let optionsHtml = q.options.map((opt, i) => `
-        <button onclick="handleAnswer('${opt.value}')" class="option-btn w-full text-left p-4 rounded-lg border-2 border-slate-200 transition-all group">
-          <div class="flex items-center justify-between">
-            <span class="label text-sm font-medium text-slate-700">${opt.label}</span>
-            <span class="text-slate-400">${icons.arrowRight}</span>
+      let optionsHtml = q.options.map((opt, i) => {
+        const signalClass = getSignalClass(opt.signal);
+        return `
+          <button onclick="handleAnswer('${opt.value}')" class="option-btn w-full text-left p-4 rounded-lg border-2 border-slate-200 transition-all group relative">
+            <div class="flex items-center justify-between">
+              <div class="flex-1">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="label text-sm font-medium text-slate-700">${opt.label}</span>
+                  ${opt.pathSignal ? `<span class="signal-badge ${signalClass}">${opt.pathSignal}</span>` : ''}
+                </div>
+                ${opt.premium ? `<span class="text-xs text-slate-500 mt-1 block">Premium: ${opt.premium}</span>` : ''}
+                ${opt.warning ? `<span class="text-xs text-amber-600 mt-1 block flex items-center gap-1">${icons.alertSmall} ${opt.warning}</span>` : ''}
+              </div>
+              <span class="text-slate-400 ml-2">${icons.arrowRight}</span>
+            </div>
+          </button>
+        `;
+      }).join('');
+
+      const helpPanelHtml = guidance.sampleQuestions ? `
+        <div id="help-${q.id}" class="help-panel mt-4">
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-4">
+            ${guidance.tips ? `
+              <div class="bg-amber-50 border border-amber-200 rounded p-3">
+                <p class="text-xs font-semibold text-amber-800 mb-1">💡 Pro Tip</p>
+                <p class="text-sm text-amber-700">${guidance.tips}</p>
+              </div>
+            ` : ''}
+            <div>
+              <p class="text-xs font-semibold text-blue-800 mb-2">Sample Questions to Ask</p>
+              <ul class="space-y-1.5">
+                ${guidance.sampleQuestions.map(sq => `
+                  <li class="text-sm text-blue-700 flex items-start gap-2">
+                    <span class="text-blue-500 mt-0.5">"</span>
+                    <span>${sq}</span>
+                    <span class="text-blue-500">"</span>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-blue-800 mb-2">Listen For</p>
+              <p class="text-sm text-blue-700">${guidance.listenFor}</p>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-blue-800 mb-2">Data to Capture</p>
+              <ul class="text-sm text-blue-700 space-y-1">
+                ${guidance.dataToCapture.map(d => `<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>${d}</li>`).join('')}
+              </ul>
+            </div>
+            ${guidance.pathImplication ? `
+              <div class="bg-emerald-50 border border-emerald-200 rounded p-2">
+                <p class="text-xs font-semibold text-emerald-800 mb-1">Path Signal</p>
+                <p class="text-xs text-emerald-700">${guidance.pathImplication}</p>
+              </div>
+            ` : ''}
           </div>
-          ${opt.premium ? `<span class="text-xs text-slate-500 mt-1 block">Premium: ${opt.premium}</span>` : ''}
-        </button>
-      `).join('');
+        </div>
+      ` : '';
 
       document.getElementById('content').innerHTML = `
         <div class="mb-6">
@@ -203,21 +372,45 @@
           </div>
         </div>
         <div class="bg-white rounded-xl border shadow-sm p-6 mb-4">
-          <div class="flex items-center gap-2 mb-4">
-            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">${q.gate}</span>
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">${q.gate}</span>
+            </div>
+            ${guidance.sampleQuestions ? `
+              <button id="help-btn-${q.id}" onclick="toggleHelp('${q.id}')" class="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 px-2 py-1 rounded hover:bg-blue-50">
+                ${icons.info} Show Guidance
+              </button>
+            ` : ''}
           </div>
           <h2 class="text-lg font-semibold text-slate-900 mb-2">${q.question}</h2>
           <p class="text-sm text-slate-500 mb-6">${q.subtext}</p>
           <div class="space-y-3">${optionsHtml}</div>
+          ${helpPanelHtml}
         </div>
-        ${currentStep > 0 ? `<button onclick="goBack()" class="text-sm text-slate-500 hover:text-slate-700">← Back to previous question</button>` : ''}
+        ${currentStep > 0 ? `<button onclick="goBack()" class="text-sm text-slate-500 hover:text-slate-700 mb-4">← Back to previous question</button>` : ''}
         <div class="mt-8 p-4 bg-slate-100 rounded-lg">
-          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Investment Path Quick Reference</p>
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Investment Path Quick Reference</p>
           <div class="grid grid-cols-4 gap-2 text-xs">
-            <div class="bg-slate-200 rounded p-2"><span class="font-bold">J1</span> Foundation<br/>$50-60K</div>
-            <div class="bg-blue-100 rounded p-2"><span class="font-bold">J2</span> Acceleration<br/>$150-250K</div>
-            <div class="bg-emerald-100 rounded p-2"><span class="font-bold">J3</span> Activation<br/>$350-450K</div>
-            <div class="bg-violet-100 rounded p-2"><span class="font-bold">J4</span> Intelligence<br/>$165-325K</div>
+            <div class="bg-slate-200 rounded p-2.5">
+              <div class="font-bold text-slate-800 mb-1">J1 Foundation</div>
+              <div class="text-slate-600 font-semibold mb-1.5">$50-60K</div>
+              <div class="text-slate-600 leading-tight">No sponsor/budget. Light nurture only.</div>
+            </div>
+            <div class="bg-blue-100 rounded p-2.5">
+              <div class="font-bold text-blue-800 mb-1">J2 Acceleration</div>
+              <div class="text-blue-700 font-semibold mb-1.5">$150-250K</div>
+              <div class="text-blue-700 leading-tight">Urgent trigger + sponsor + budget.</div>
+            </div>
+            <div class="bg-emerald-100 rounded p-2.5 border-2 border-emerald-300">
+              <div class="font-bold text-emerald-800 mb-1">J3 Activation</div>
+              <div class="text-emerald-700 font-semibold mb-1.5">$350-450K <span class="text-emerald-800">← 60% ARR</span></div>
+              <div class="text-emerald-700 leading-tight">"Implemented ≠ Activated" - blocking pain.</div>
+            </div>
+            <div class="bg-violet-100 rounded p-2.5">
+              <div class="font-bold text-violet-800 mb-1">J4 Intelligence</div>
+              <div class="text-violet-700 font-semibold mb-1.5">$165-325K</div>
+              <div class="text-violet-700 leading-tight">Mature system + AI/MCP interest.</div>
+            </div>
           </div>
         </div>
       `;
@@ -308,6 +501,27 @@
               </div>
             </div>
           </div>
+        </div>
+
+        ${r.path === 'J3' ? `
+          <div class="bg-emerald-50 border-2 border-emerald-300 rounded-xl p-4 mb-4">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-emerald-600">${icons.checkLarge}</span>
+              <h3 class="font-bold text-emerald-800">Primary Target Path</h3>
+            </div>
+            <p class="text-sm text-emerald-700">J3 (Activation) represents 60% of ARR. This is the ideal path for customers with sponsor + budget + blocking pain.</p>
+          </div>
+        ` : ''}
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-4">
+          <h3 class="font-bold text-slate-800 mb-2 text-sm">Critical Reminders</h3>
+          <ul class="text-xs text-slate-700 space-y-1">
+            <li>• <strong>MEDDIC first</strong> — Complete all elements before handover</li>
+            <li>• <strong>J3 is 60% of ARR</strong> — This is the primary target path</li>
+            <li>• <strong>"Implemented ≠ Activated"</strong> — Most customers have platform but aren't getting value</li>
+            ${r.tier === 'D3' || r.tier === 'D4' ? '<li>• <strong>D3/D4 = big premium</strong> — Document compliance requirements clearly (+$175-550K)</li>' : ''}
+            <li>• <strong>Build the deal room</strong> — Required before handover</li>
+          </ul>
         </div>
 
         <button onclick="reset()" class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-lg font-medium hover:bg-slate-800">

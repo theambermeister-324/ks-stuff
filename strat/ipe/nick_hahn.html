@@ -52,6 +52,9 @@
       <button onclick="setActiveTab('battlecard')" id="tab-battlecard" class="flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 transition-all rounded-t-lg whitespace-nowrap">
         <i data-lucide="flag" class="w-4 h-4"></i> Battle Card
       </button>
+      <button onclick="setActiveTab('details')" id="tab-details" class="flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-700 transition-all rounded-t-lg whitespace-nowrap">
+        <i data-lucide="users" class="w-4 h-4"></i> Company Details
+      </button>
     </div>
   </div>
 
@@ -74,11 +77,11 @@
 
 <script>
 const companies = [
-  {id:'kyndryl',name:'Kyndryl',industry:'Technology & IT Services',deploymentTier:'D2',deploymentName:'Cloud Dedicated',compliance:['SOC 2','ISO 27001','GDPR'],journey:'J3',tcv:'$740K - $950K',timeline:'40-52 weeks',currentState:[['System Maturity','Level 2 → early Level 3','Level 4: Scaled Product System'],['Implementation','Multiple internal design systems','Unified control plane'],['Governance','Siloed by business unit','Enterprise-wide governance'],['Control Plane','Not established','Active governance and enforcement']],keyInsight:'As a major IT services provider, Kyndryl operates across diverse client environments requiring consistent product experience delivery.',objectives:['Consolidate fragmented design systems across business units','Establish governed CI/CD for enterprise applications','Enable AI-assisted product delivery for managed services','Create reusable patterns for client implementations'],battleCard:{idealBuyer:'VP of Digital Experience, Head of Design Systems, CTO',painPoints:['Inconsistent client deliverables','Duplicate effort across BUs','No unified governance','AI adoption blocked by fragmentation'],competitors:['Internal tooling investments','Agency partnerships','Point solutions (Figma, Storybook)'],differentiators:['Enterprise-grade governance','MCP for AI enablement','Cross-BU unification'],discoveryQuestions:['How many distinct design systems exist across your business units today?','What percentage of engineering time is spent on consistency vs. innovation?','How do you currently propagate changes across client implementations?','What is your timeline for AI tooling adoption in product delivery?','Who owns design system governance decisions across the organization?'],objections:[{objection:'We can build this internally',response:'Internal builds typically take 2-3x longer and lack the governance layer. What is the opportunity cost of 18+ months of fragmented delivery?'},{objection:'We already use Figma/Storybook',response:'Those are creation tools, not a control plane. How do you govern what gets built and ensure AI tools operate safely?'}],successMetrics:['Time to client delivery','Cross-BU reuse rate','Governance adoption','AI tooling activation']}},
-  {id:'goldman',name:'Goldman Sachs',industry:'Financial Services',deploymentTier:'D3',deploymentName:'Private Cloud',compliance:['SOC 2','PCI-DSS','FINRA','SEC','OCC Guidelines'],journey:'J3',tcv:'$1.1M - $1.6M',timeline:'52-68 weeks',currentState:[['System Maturity','Level 3 → early Level 4','Level 5: Intelligent System'],['Implementation','Marquee DS established','All platforms unified'],['Governance','Strong in trading; variable elsewhere','Cross-platform governance'],['Control Plane','Engineering-owned tooling','Governed control plane']],keyInsight:"Goldman's Marquee design system provides a strong foundation, but AI governance requirements under SR 11-7 demand a more sophisticated control plane.",objectives:['Extend Marquee governance to all digital platforms','Implement model risk management for AI-assisted delivery','Establish auditable change propagation','Enable compliant AI tooling adoption'],battleCard:{idealBuyer:'Head of Engineering, Chief Digital Officer, VP Platform Engineering',painPoints:['SR 11-7 compliance for AI','Inconsistent governance outside trading','Audit trail gaps','AI adoption risk'],competitors:['Internal platform investments','Custom governance tooling','Consulting firm builds'],differentiators:['Model risk management integration','Auditable AI governance','Regulated industry expertise'],discoveryQuestions:['How are you currently addressing SR 11-7 requirements for AI-assisted product delivery?','What is the governance model for Marquee outside of core trading applications?','How do you audit changes that flow from design intent to production?','What is your current approach to AI tooling adoption for engineering teams?','Who is responsible for model risk management in product delivery workflows?'],objections:[{objection:'Our internal platform team handles this',response:'Does your platform team have dedicated AI governance capabilities? How are they addressing SR 11-7 for AI-assisted delivery?'},{objection:'We need to see proof in regulated environments',response:'We work with PNC, Edward Jones, and other regulated institutions. Would a reference call help validate our approach?'}],successMetrics:['Audit compliance rate','AI governance coverage','Time to compliant deployment','Cross-platform adoption']}},
-  {id:'southwest',name:'Southwest Airlines',industry:'Transportation & Travel',deploymentTier:'D2',deploymentName:'Cloud Dedicated',compliance:['SOC 2','PCI-DSS','FAA Requirements'],journey:'J3',tcv:'$740K - $950K',timeline:'40-52 weeks',currentState:[['System Maturity','Level 2 → Level 3','Level 4: Scaled Product System'],['Implementation','Multiple digital touchpoints','Unified experience system'],['Governance','App-specific governance','Cross-channel governance'],['Control Plane','Limited coordination','Operational control plane']],keyInsight:"Southwest's customer experience spans booking, check-in, gate operations, and in-flight systems. Consistency and reliability are critical.",objectives:['Unify web, mobile, and kiosk experiences','Establish governance for operational interfaces','Enable safe updates across customer touchpoints','Prepare foundation for AI-assisted customer service'],battleCard:{idealBuyer:'VP Digital Experience, Head of Product, CTO',painPoints:['Inconsistent cross-channel experience','Slow update cycles','Operational system fragility','Customer service AI readiness'],competitors:['Airline-specific vendors','Internal development','Travel tech platforms'],differentiators:['Cross-channel unification','Operational system governance','AI-ready foundation'],discoveryQuestions:['How do you ensure consistency between web, mobile, and kiosk experiences today?','What is your current process for propagating updates across customer touchpoints?','How do operational interfaces (gate, crew) relate to customer-facing systems?','What role do you see AI playing in customer service over the next 2 years?','How do you balance speed of updates with operational reliability?'],objections:[{objection:'Our systems are too specialized',response:"Specialized systems need unified governance even more. How do you ensure a booking change doesn't break the kiosk experience?"},{objection:'We have other priorities post-operations issues',response:'A control plane prevents the fragmentation that causes operational issues. What was the root cause of recent system challenges?'}],successMetrics:['Cross-channel consistency score','Update deployment time','Incident reduction','Customer satisfaction']}},
-  {id:'usbank',name:'US Bank',industry:'Financial Services',deploymentTier:'D3',deploymentName:'Private Cloud',compliance:['SOC 2','PCI-DSS','OCC Guidelines','BCBS 239','FFIEC'],journey:'J3',tcv:'$1.0M - $1.4M',timeline:'48-64 weeks',currentState:[['System Maturity','Level 3','Level 4: Scaled Product System'],['Implementation','Internal DS in progress','Full platform coverage'],['Governance','Emerging governance model','Regulated governance operating'],['Control Plane','Early adoption','Active enforcement']],keyInsight:"US Bank's digital transformation requires a governed approach to product delivery that satisfies regulatory requirements while enabling innovation velocity.",objectives:['Complete design system implementation across digital banking','Establish regulatory-compliant governance model','Enable governed AI tooling adoption','Create audit-ready change management'],battleCard:{idealBuyer:'Chief Digital Officer, VP Engineering, Head of Design Systems',painPoints:['Incomplete DS implementation','Regulatory compliance burden','Slow innovation cycles','AI governance uncertainty'],competitors:['Internal platform teams','Big 4 consulting','Banking-specific vendors'],differentiators:['Regulated industry focus','Completion-to-activation expertise','AI governance framework'],discoveryQuestions:['What percentage of your digital products currently use the design system?','How do you demonstrate governance compliance to regulators today?','What is blocking broader design system adoption across the organization?','How are you planning to address AI governance requirements?','What is the relationship between your design system and engineering platforms?'],objections:[{objection:"We're still implementing our design system",response:'Implementation without activation is the #1 cause of DS failure. How will you ensure teams actually adopt what you build?'},{objection:'Our consulting partner handles this',response:"Consulting builds but doesn't operate. Who governs the system after they leave?"}],successMetrics:['DS adoption rate','Regulatory audit readiness','Time to production','AI governance coverage']}},
-  {id:'bofa',name:'Bank of America',industry:'Financial Services',deploymentTier:'D3',deploymentName:'Private Cloud',compliance:['SOC 2','PCI-DSS','OCC Guidelines','BCBS 239','SR 11-7','CCAR'],journey:'J3',tcv:'$1.2M - $1.6M',timeline:'52-68 weeks',currentState:[['System Maturity','Level 3 → early Level 4','Level 5: Intelligent System'],['Implementation','Multiple DS initiatives','Unified enterprise system'],['Governance','Strong regulatory compliance','AI-enabled governance'],['Control Plane','Infrastructure in place','Full activation required']],keyInsight:"Bank of America's scale requires enterprise-grade governance that can operate across consumer banking, wealth management, and institutional services.",objectives:['Unify design systems across all lines of business','Implement AI governance framework per SR 11-7','Establish cross-platform change propagation','Enable Erica AI integration patterns'],battleCard:{idealBuyer:'Chief Digital Officer, SVP Platform Engineering, Head of AI Governance',painPoints:['Multiple DS initiatives lacking unification','SR 11-7 AI compliance','Cross-LOB governance gaps','Erica expansion complexity'],competitors:['Internal enterprise architecture','Big 4 consulting','AI governance vendors'],differentiators:['Enterprise-scale unification','AI governance for product delivery','Erica-compatible patterns'],discoveryQuestions:['How many design system initiatives currently exist across consumer, wealth, and institutional?','What is your current approach to SR 11-7 compliance for AI in product delivery?','How does Erica interact with your design system and component library?','What governance model exists for cross-LOB design decisions?','How do you propagate changes safely across all digital properties?'],objections:[{objection:'We have dedicated enterprise architecture teams',response:'Enterprise architecture sets standards; a control plane enforces them. How do you ensure compliance at scale across 4,000+ applications?'},{objection:'Erica has its own technical stack',response:'AI assistants need governed context to operate safely. How do you ensure Erica recommendations align with current product capabilities?'}],successMetrics:['Cross-LOB adoption rate','AI governance compliance','Change propagation time','Erica integration success']}}
+  {id:'kyndryl',name:'Kyndryl',industry:'Technology & IT Services',deploymentTier:'D2',deploymentName:'Cloud Dedicated',compliance:['SOC 2','ISO 27001','GDPR'],journey:'J3',tcv:'$740K - $950K',timeline:'40-52 weeks',currentState:[['System Maturity','Level 2 → early Level 3','Level 4: Scaled Product System'],['Implementation','Multiple internal design systems','Unified control plane'],['Governance','Siloed by business unit','Enterprise-wide governance'],['Control Plane','Not established','Active governance and enforcement']],keyInsight:'As a major IT services provider, Kyndryl operates across diverse client environments requiring consistent product experience delivery.',objectives:['Consolidate fragmented design systems across business units','Establish governed CI/CD for enterprise applications','Enable AI-assisted product delivery for managed services','Create reusable patterns for client implementations'],battleCard:{idealBuyer:'VP of Digital Experience, Head of Design Systems, CTO',painPoints:['Inconsistent client deliverables','Duplicate effort across BUs','No unified governance','AI adoption blocked by fragmentation'],competitors:['Internal tooling investments','Agency partnerships','Point solutions (Figma, Storybook)'],differentiators:['Enterprise-grade governance','MCP for AI enablement','Cross-BU unification'],discoveryQuestions:['How many distinct design systems exist across your business units today?','What percentage of engineering time is spent on consistency vs. innovation?','How do you currently propagate changes across client implementations?','What is your timeline for AI tooling adoption in product delivery?','Who owns design system governance decisions across the organization?'],objections:[{objection:'We can build this internally',response:'Internal builds typically take 2-3x longer and lack the governance layer. What is the opportunity cost of 18+ months of fragmented delivery?'},{objection:'We already use Figma/Storybook',response:'Those are creation tools, not a control plane. How do you govern what gets built and ensure AI tools operate safely?'}],successMetrics:['Time to client delivery','Cross-BU reuse rate','Governance adoption','AI tooling activation']},companyDetails:{primaryContacts:[{name:'[Name TBD]',role:'[Role TBD]',email:'[Email TBD]',notes:'[Notes TBD]'}],designSystemTeam:{structure:'[Team structure TBD]',roles:[{role:'[Role]',count:'[Count]',location:'[Location in org]'}],organization:'[How team is organized TBD]',locationInOrg:'[Where team sits in broader org TBD]'},changeDesire:{orgLevel:'[Desire for change at org level TBD]',companyLevel:'[Desire for change at company level TBD]'},headwinds:['[Headwind 1 TBD]','[Headwind 2 TBD]'],tailwinds:['[Tailwind 1 TBD]','[Tailwind 2 TBD]'],improvementReasons:'[Why they are looking into improving product/design systems TBD]',currentRelationship:{status:'[Current relationship status TBD]',champions:[{name:'[Champion name TBD]',role:'[Champion role TBD]',influence:'[Influence level TBD]'}]},currentDesignSystems:[{name:'[Design system name TBD]',status:'[Status TBD]',scope:'[Scope TBD]',notes:'[Notes TBD]'}],governanceModel:{whoRuns:'[Who runs governance TBD]',formality:'[How formal is governance TBD]',changeRequest:'[How changes are requested TBD]',changeDevelopment:'[How changes are developed TBD]',changeRollout:'[How changes are rolled out TBD]',notes:'[Additional governance notes TBD]'}}},
+  {id:'goldman',name:'Goldman Sachs',industry:'Financial Services',deploymentTier:'D3',deploymentName:'Private Cloud',compliance:['SOC 2','PCI-DSS','FINRA','SEC','OCC Guidelines'],journey:'J3',tcv:'$1.1M - $1.6M',timeline:'52-68 weeks',currentState:[['System Maturity','Level 3 → early Level 4','Level 5: Intelligent System'],['Implementation','Marquee DS established','All platforms unified'],['Governance','Strong in trading; variable elsewhere','Cross-platform governance'],['Control Plane','Engineering-owned tooling','Governed control plane']],keyInsight:"Goldman's Marquee design system provides a strong foundation, but AI governance requirements under SR 11-7 demand a more sophisticated control plane.",objectives:['Extend Marquee governance to all digital platforms','Implement model risk management for AI-assisted delivery','Establish auditable change propagation','Enable compliant AI tooling adoption'],battleCard:{idealBuyer:'Head of Engineering, Chief Digital Officer, VP Platform Engineering',painPoints:['SR 11-7 compliance for AI','Inconsistent governance outside trading','Audit trail gaps','AI adoption risk'],competitors:['Internal platform investments','Custom governance tooling','Consulting firm builds'],differentiators:['Model risk management integration','Auditable AI governance','Regulated industry expertise'],discoveryQuestions:['How are you currently addressing SR 11-7 requirements for AI-assisted product delivery?','What is the governance model for Marquee outside of core trading applications?','How do you audit changes that flow from design intent to production?','What is your current approach to AI tooling adoption for engineering teams?','Who is responsible for model risk management in product delivery workflows?'],objections:[{objection:'Our internal platform team handles this',response:'Does your platform team have dedicated AI governance capabilities? How are they addressing SR 11-7 for AI-assisted delivery?'},{objection:'We need to see proof in regulated environments',response:'We work with PNC, Edward Jones, and other regulated institutions. Would a reference call help validate our approach?'}],successMetrics:['Audit compliance rate','AI governance coverage','Time to compliant deployment','Cross-platform adoption']},companyDetails:{primaryContacts:[{name:'[Name TBD]',role:'[Role TBD]',email:'[Email TBD]',notes:'[Notes TBD]'}],designSystemTeam:{structure:'[Team structure TBD]',roles:[{role:'[Role]',count:'[Count]',location:'[Location in org]'}],organization:'[How team is organized TBD]',locationInOrg:'[Where team sits in broader org TBD]'},changeDesire:{orgLevel:'[Desire for change at org level TBD]',companyLevel:'[Desire for change at company level TBD]'},headwinds:['[Headwind 1 TBD]','[Headwind 2 TBD]'],tailwinds:['[Tailwind 1 TBD]','[Tailwind 2 TBD]'],improvementReasons:'[Why they are looking into improving product/design systems TBD]',currentRelationship:{status:'[Current relationship status TBD]',champions:[{name:'[Champion name TBD]',role:'[Champion role TBD]',influence:'[Influence level TBD]'}]},currentDesignSystems:[{name:'Marquee Design System',status:'[Status TBD]',scope:'[Scope TBD]',notes:'[Notes TBD]'}],governanceModel:{whoRuns:'[Who runs governance TBD]',formality:'[How formal is governance TBD]',changeRequest:'[How changes are requested TBD]',changeDevelopment:'[How changes are developed TBD]',changeRollout:'[How changes are rolled out TBD]',notes:'[Additional governance notes TBD]'}}},
+  {id:'southwest',name:'Southwest Airlines',industry:'Transportation & Travel',deploymentTier:'D2',deploymentName:'Cloud Dedicated',compliance:['SOC 2','PCI-DSS','FAA Requirements'],journey:'J3',tcv:'$740K - $950K',timeline:'40-52 weeks',currentState:[['System Maturity','Level 2 → Level 3','Level 4: Scaled Product System'],['Implementation','Multiple digital touchpoints','Unified experience system'],['Governance','App-specific governance','Cross-channel governance'],['Control Plane','Limited coordination','Operational control plane']],keyInsight:"Southwest's customer experience spans booking, check-in, gate operations, and in-flight systems. Consistency and reliability are critical.",objectives:['Unify web, mobile, and kiosk experiences','Establish governance for operational interfaces','Enable safe updates across customer touchpoints','Prepare foundation for AI-assisted customer service'],battleCard:{idealBuyer:'VP Digital Experience, Head of Product, CTO',painPoints:['Inconsistent cross-channel experience','Slow update cycles','Operational system fragility','Customer service AI readiness'],competitors:['Airline-specific vendors','Internal development','Travel tech platforms'],differentiators:['Cross-channel unification','Operational system governance','AI-ready foundation'],discoveryQuestions:['How do you ensure consistency between web, mobile, and kiosk experiences today?','What is your current process for propagating updates across customer touchpoints?','How do operational interfaces (gate, crew) relate to customer-facing systems?','What role do you see AI playing in customer service over the next 2 years?','How do you balance speed of updates with operational reliability?'],objections:[{objection:'Our systems are too specialized',response:"Specialized systems need unified governance even more. How do you ensure a booking change doesn't break the kiosk experience?"},{objection:'We have other priorities post-operations issues',response:'A control plane prevents the fragmentation that causes operational issues. What was the root cause of recent system challenges?'}],successMetrics:['Cross-channel consistency score','Update deployment time','Incident reduction','Customer satisfaction']},companyDetails:{primaryContacts:[{name:'[Name TBD]',role:'[Role TBD]',email:'[Email TBD]',notes:'[Notes TBD]'}],designSystemTeam:{structure:'[Team structure TBD]',roles:[{role:'[Role]',count:'[Count]',location:'[Location in org]'}],organization:'[How team is organized TBD]',locationInOrg:'[Where team sits in broader org TBD]'},changeDesire:{orgLevel:'[Desire for change at org level TBD]',companyLevel:'[Desire for change at company level TBD]'},headwinds:['[Headwind 1 TBD]','[Headwind 2 TBD]'],tailwinds:['[Tailwind 1 TBD]','[Tailwind 2 TBD]'],improvementReasons:'[Why they are looking into improving product/design systems TBD]',currentRelationship:{status:'[Current relationship status TBD]',champions:[{name:'[Champion name TBD]',role:'[Champion role TBD]',influence:'[Influence level TBD]'}]},currentDesignSystems:[{name:'[Design system name TBD]',status:'[Status TBD]',scope:'[Scope TBD]',notes:'[Notes TBD]'}],governanceModel:{whoRuns:'[Who runs governance TBD]',formality:'[How formal is governance TBD]',changeRequest:'[How changes are requested TBD]',changeDevelopment:'[How changes are developed TBD]',changeRollout:'[How changes are rolled out TBD]',notes:'[Additional governance notes TBD]'}}},
+  {id:'usbank',name:'US Bank',industry:'Financial Services',deploymentTier:'D3',deploymentName:'Private Cloud',compliance:['SOC 2','PCI-DSS','OCC Guidelines','BCBS 239','FFIEC'],journey:'J3',tcv:'$1.0M - $1.4M',timeline:'48-64 weeks',currentState:[['System Maturity','Level 3','Level 4: Scaled Product System'],['Implementation','Internal DS in progress','Full platform coverage'],['Governance','Emerging governance model','Regulated governance operating'],['Control Plane','Early adoption','Active enforcement']],keyInsight:"US Bank's digital transformation requires a governed approach to product delivery that satisfies regulatory requirements while enabling innovation velocity.",objectives:['Complete design system implementation across digital banking','Establish regulatory-compliant governance model','Enable governed AI tooling adoption','Create audit-ready change management'],battleCard:{idealBuyer:'Chief Digital Officer, VP Engineering, Head of Design Systems',painPoints:['Incomplete DS implementation','Regulatory compliance burden','Slow innovation cycles','AI governance uncertainty'],competitors:['Internal platform teams','Big 4 consulting','Banking-specific vendors'],differentiators:['Regulated industry focus','Completion-to-activation expertise','AI governance framework'],discoveryQuestions:['What percentage of your digital products currently use the design system?','How do you demonstrate governance compliance to regulators today?','What is blocking broader design system adoption across the organization?','How are you planning to address AI governance requirements?','What is the relationship between your design system and engineering platforms?'],objections:[{objection:"We're still implementing our design system",response:'Implementation without activation is the #1 cause of DS failure. How will you ensure teams actually adopt what you build?'},{objection:'Our consulting partner handles this',response:"Consulting builds but doesn't operate. Who governs the system after they leave?"}],successMetrics:['DS adoption rate','Regulatory audit readiness','Time to production','AI governance coverage']},companyDetails:{primaryContacts:[{name:'[Name TBD]',role:'[Role TBD]',email:'[Email TBD]',notes:'[Notes TBD]'}],designSystemTeam:{structure:'[Team structure TBD]',roles:[{role:'[Role]',count:'[Count]',location:'[Location in org]'}],organization:'[How team is organized TBD]',locationInOrg:'[Where team sits in broader org TBD]'},changeDesire:{orgLevel:'[Desire for change at org level TBD]',companyLevel:'[Desire for change at company level TBD]'},headwinds:['[Headwind 1 TBD]','[Headwind 2 TBD]'],tailwinds:['[Tailwind 1 TBD]','[Tailwind 2 TBD]'],improvementReasons:'[Why they are looking into improving product/design systems TBD]',currentRelationship:{status:'[Current relationship status TBD]',champions:[{name:'[Champion name TBD]',role:'[Champion role TBD]',influence:'[Influence level TBD]'}]},currentDesignSystems:[{name:'[Design system name TBD]',status:'[Status TBD]',scope:'[Scope TBD]',notes:'[Notes TBD]'}],governanceModel:{whoRuns:'[Who runs governance TBD]',formality:'[How formal is governance TBD]',changeRequest:'[How changes are requested TBD]',changeDevelopment:'[How changes are developed TBD]',changeRollout:'[How changes are rolled out TBD]',notes:'[Additional governance notes TBD]'}}},
+  {id:'bofa',name:'Bank of America',industry:'Financial Services',deploymentTier:'D3',deploymentName:'Private Cloud',compliance:['SOC 2','PCI-DSS','OCC Guidelines','BCBS 239','SR 11-7','CCAR'],journey:'J3',tcv:'$1.2M - $1.6M',timeline:'52-68 weeks',currentState:[['System Maturity','Level 3 → early Level 4','Level 5: Intelligent System'],['Implementation','Multiple DS initiatives','Unified enterprise system'],['Governance','Strong regulatory compliance','AI-enabled governance'],['Control Plane','Infrastructure in place','Full activation required']],keyInsight:"Bank of America's scale requires enterprise-grade governance that can operate across consumer banking, wealth management, and institutional services.",objectives:['Unify design systems across all lines of business','Implement AI governance framework per SR 11-7','Establish cross-platform change propagation','Enable Erica AI integration patterns'],battleCard:{idealBuyer:'Chief Digital Officer, SVP Platform Engineering, Head of AI Governance',painPoints:['Multiple DS initiatives lacking unification','SR 11-7 AI compliance','Cross-LOB governance gaps','Erica expansion complexity'],competitors:['Internal enterprise architecture','Big 4 consulting','AI governance vendors'],differentiators:['Enterprise-scale unification','AI governance for product delivery','Erica-compatible patterns'],discoveryQuestions:['How many design system initiatives currently exist across consumer, wealth, and institutional?','What is your current approach to SR 11-7 compliance for AI in product delivery?','How does Erica interact with your design system and component library?','What governance model exists for cross-LOB design decisions?','How do you propagate changes safely across all digital properties?'],objections:[{objection:'We have dedicated enterprise architecture teams',response:'Enterprise architecture sets standards; a control plane enforces them. How do you ensure compliance at scale across 4,000+ applications?'},{objection:'Erica has its own technical stack',response:'AI assistants need governed context to operate safely. How do you ensure Erica recommendations align with current product capabilities?'}],successMetrics:['Cross-LOB adoption rate','AI governance compliance','Change propagation time','Erica integration success']},companyDetails:{primaryContacts:[{name:'[Name TBD]',role:'[Role TBD]',email:'[Email TBD]',notes:'[Notes TBD]'}],designSystemTeam:{structure:'[Team structure TBD]',roles:[{role:'[Role]',count:'[Count]',location:'[Location in org]'}],organization:'[How team is organized TBD]',locationInOrg:'[Where team sits in broader org TBD]'},changeDesire:{orgLevel:'[Desire for change at org level TBD]',companyLevel:'[Desire for change at company level TBD]'},headwinds:['[Headwind 1 TBD]','[Headwind 2 TBD]'],tailwinds:['[Tailwind 1 TBD]','[Tailwind 2 TBD]'],improvementReasons:'[Why they are looking into improving product/design systems TBD]',currentRelationship:{status:'[Current relationship status TBD]',champions:[{name:'[Champion name TBD]',role:'[Champion role TBD]',influence:'[Influence level TBD]'}]},currentDesignSystems:[{name:'[Design system name TBD]',status:'[Status TBD]',scope:'[Scope TBD]',notes:'[Notes TBD]'}],governanceModel:{whoRuns:'[Who runs governance TBD]',formality:'[How formal is governance TBD]',changeRequest:'[How changes are requested TBD]',changeDevelopment:'[How changes are developed TBD]',changeRollout:'[How changes are rolled out TBD]',notes:'[Additional governance notes TBD]'}}}
 ];
 
 const phases = [
@@ -140,6 +143,7 @@ function setActiveTab(tab) {
   activeTab = tab;
   document.getElementById('tab-overview').className = `flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 transition-all rounded-t-lg whitespace-nowrap ${tab === 'overview' ? 'tab-active' : 'border-transparent text-slate-500 hover:text-slate-700'}`;
   document.getElementById('tab-battlecard').className = `flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 transition-all rounded-t-lg whitespace-nowrap ${tab === 'battlecard' ? 'tab-active' : 'border-transparent text-slate-500 hover:text-slate-700'}`;
+  document.getElementById('tab-details').className = `flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 transition-all rounded-t-lg whitespace-nowrap ${tab === 'details' ? 'tab-active' : 'border-transparent text-slate-500 hover:text-slate-700'}`;
   render();
   lucide.createIcons();
 }
@@ -166,8 +170,10 @@ function render() {
     main.innerHTML = renderStrategy();
   } else if (activeTab === 'overview') {
     main.innerHTML = renderOverview(company, tier);
-  } else {
+  } else if (activeTab === 'battlecard') {
     main.innerHTML = renderBattleCard(company);
+  } else if (activeTab === 'details') {
+    main.innerHTML = renderCompanyDetails(company);
   }
 }
 
@@ -568,6 +574,234 @@ function renderBattleCard(company) {
           <div><p class="text-slate-400 text-xs">Journey</p><p class="text-white font-medium">${company.journey} Activation</p></div>
           <div><p class="text-slate-400 text-xs">Phase 0</p><p class="text-white font-medium">${company.deploymentTier !== 'D2' ? 'Required' : 'Not Required'}</p></div>
           <div><p class="text-slate-400 text-xs">Key Compliance</p><p class="text-white font-medium">${company.compliance.slice(0,2).join(', ')}</p></div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderCompanyDetails(company) {
+  const details = company.companyDetails || {};
+  const contacts = details.primaryContacts || [];
+  const team = details.designSystemTeam || {};
+  const relationship = details.currentRelationship || {};
+  const designSystems = details.currentDesignSystems || [];
+  const governance = details.governanceModel || {};
+  
+  return `
+    <section class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+      <div class="bg-gradient-to-r from-slate-800 to-slate-700 text-white p-4">
+        <div class="flex items-center gap-3"><i data-lucide="users" class="w-6 h-6"></i><div><h1 class="text-xl font-bold">${company.name} Company Details</h1><p class="text-slate-300 text-sm">Partnership Context & Organizational Intelligence</p></div></div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="user-circle" class="w-5 h-5 text-blue-600"></i>Primary Contacts</h2>
+      <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="space-y-3">
+          ${contacts.length > 0 ? contacts.map((contact, i) => `
+            <div class="flex items-start gap-4 p-3 bg-slate-50 rounded-lg">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="user" class="w-5 h-5 text-blue-600"></i>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-1">
+                  <p class="font-semibold text-slate-900">${contact.name}</p>
+                  <span class="text-sm text-slate-500">${contact.role}</span>
+                </div>
+                <p class="text-sm text-slate-600 mb-1">${contact.email}</p>
+                ${contact.notes ? `<p class="text-xs text-slate-500 italic">${contact.notes}</p>` : ''}
+              </div>
+            </div>
+          `).join('') : '<p class="text-slate-500 italic text-sm">[Primary contacts to be documented]</p>'}
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="users" class="w-5 h-5 text-emerald-600"></i>Design System Team</h2>
+      <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <h3 class="font-semibold text-slate-700 mb-2 text-sm">Team Structure</h3>
+            <p class="text-sm text-slate-600 bg-slate-50 p-3 rounded-lg">${team.structure || '[Team structure to be documented]'}</p>
+          </div>
+          <div>
+            <h3 class="font-semibold text-slate-700 mb-2 text-sm">Organization</h3>
+            <p class="text-sm text-slate-600 bg-slate-50 p-3 rounded-lg">${team.organization || '[How team is organized to be documented]'}</p>
+          </div>
+        </div>
+        <div class="mb-4">
+          <h3 class="font-semibold text-slate-700 mb-2 text-sm">Location in Broader Organization</h3>
+          <p class="text-sm text-slate-600 bg-slate-50 p-3 rounded-lg">${team.locationInOrg || '[Where team sits in broader org to be documented]'}</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-slate-700 mb-2 text-sm">Team Roles & Counts</h3>
+          ${team.roles && team.roles.length > 0 ? `
+            <div class="space-y-2">
+              ${team.roles.map(role => `
+                <div class="flex items-center justify-between p-2 bg-emerald-50 rounded-lg">
+                  <span class="text-sm font-medium text-emerald-900">${role.role}</span>
+                  <div class="flex items-center gap-4 text-xs text-emerald-700">
+                    <span>Count: ${role.count}</span>
+                    <span>Location: ${role.location}</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          ` : '<p class="text-slate-500 italic text-sm">[Team roles and counts to be documented]</p>'}
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="trending-up" class="w-5 h-5 text-violet-600"></i>Desire for Change</h2>
+      <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <h3 class="font-semibold text-slate-700 mb-2 text-sm">Organizational Level</h3>
+            <p class="text-sm text-slate-600 bg-violet-50 p-3 rounded-lg">${details.changeDesire?.orgLevel || '[Desire for change at org level to be documented]'}</p>
+          </div>
+          <div>
+            <h3 class="font-semibold text-slate-700 mb-2 text-sm">Company Level</h3>
+            <p class="text-sm text-slate-600 bg-violet-50 p-3 rounded-lg">${details.changeDesire?.companyLevel || '[Desire for change at company level to be documented]'}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="wind" class="w-5 h-5 text-amber-600"></i>Headwinds & Tailwinds</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-white rounded-xl border border-rose-200 p-4">
+          <h3 class="font-semibold text-rose-800 mb-3 flex items-center gap-2"><i data-lucide="alert-triangle" class="w-4 h-4"></i>Headwinds</h3>
+          ${details.headwinds && details.headwinds.length > 0 ? `
+            <div class="space-y-2">
+              ${details.headwinds.map(hw => `
+                <div class="flex items-start gap-2 p-2 bg-rose-50 rounded-lg">
+                  <i data-lucide="x-circle" class="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5"></i>
+                  <p class="text-sm text-rose-900">${hw}</p>
+                </div>
+              `).join('')}
+            </div>
+          ` : '<p class="text-slate-500 italic text-sm">[Headwinds to be documented]</p>'}
+        </div>
+        <div class="bg-white rounded-xl border border-emerald-200 p-4">
+          <h3 class="font-semibold text-emerald-800 mb-3 flex items-center gap-2"><i data-lucide="arrow-up-circle" class="w-4 h-4"></i>Tailwinds</h3>
+          ${details.tailwinds && details.tailwinds.length > 0 ? `
+            <div class="space-y-2">
+              ${details.tailwinds.map(tw => `
+                <div class="flex items-start gap-2 p-2 bg-emerald-50 rounded-lg">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5"></i>
+                  <p class="text-sm text-emerald-900">${tw}</p>
+                </div>
+              `).join('')}
+            </div>
+          ` : '<p class="text-slate-500 italic text-sm">[Tailwinds to be documented]</p>'}
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="target" class="w-5 h-5 text-blue-600"></i>Why Improving Product/Design Systems?</h2>
+      <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <p class="text-sm text-slate-700 bg-blue-50 p-4 rounded-lg">${details.improvementReasons || '[Reasons for improving product/design systems to be documented]'}</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="handshake" class="w-5 h-5 text-emerald-600"></i>Current Relationship</h2>
+      <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="mb-4">
+          <h3 class="font-semibold text-slate-700 mb-2 text-sm">Relationship Status</h3>
+          <p class="text-sm text-slate-600 bg-slate-50 p-3 rounded-lg">${relationship.status || '[Current relationship status to be documented]'}</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-slate-700 mb-2 text-sm">Champions</h3>
+          ${relationship.champions && relationship.champions.length > 0 ? `
+            <div class="space-y-2">
+              ${relationship.champions.map(champ => `
+                <div class="flex items-start gap-3 p-3 bg-emerald-50 rounded-lg">
+                  <div class="w-8 h-8 rounded-full bg-emerald-200 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="star" class="w-4 h-4 text-emerald-700"></i>
+                  </div>
+                  <div class="flex-1">
+                    <p class="font-medium text-emerald-900">${champ.name}</p>
+                    <p class="text-sm text-emerald-700">${champ.role}</p>
+                    <p class="text-xs text-emerald-600 mt-1">Influence: ${champ.influence}</p>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          ` : '<p class="text-slate-500 italic text-sm">[Champions to be documented]</p>'}
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="layers" class="w-5 h-5 text-violet-600"></i>Current Design Systems</h2>
+      <div class="bg-white rounded-xl border border-slate-200 p-4">
+        ${designSystems.length > 0 ? `
+          <div class="space-y-3">
+            ${designSystems.map((ds, i) => `
+              <div class="p-4 bg-violet-50 rounded-lg border border-violet-200">
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="font-semibold text-violet-900">${ds.name}</h3>
+                  <span class="text-xs px-2 py-1 bg-violet-200 text-violet-800 rounded">${ds.status}</span>
+                </div>
+                <p class="text-sm text-violet-700 mb-2"><strong>Scope:</strong> ${ds.scope}</p>
+                ${ds.notes ? `<p class="text-xs text-violet-600 italic">${ds.notes}</p>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        ` : '<p class="text-slate-500 italic text-sm">[Current design systems to be documented]</p>'}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="shield" class="w-5 h-5 text-amber-600"></i>Governance Model</h2>
+      <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="space-y-4">
+          <div>
+            <h3 class="font-semibold text-slate-700 mb-2 text-sm">Who Runs Governance</h3>
+            <p class="text-sm text-slate-600 bg-amber-50 p-3 rounded-lg">${governance.whoRuns || '[Who runs governance to be documented]'}</p>
+          </div>
+          <div>
+            <h3 class="font-semibold text-slate-700 mb-2 text-sm">Formality Level</h3>
+            <p class="text-sm text-slate-600 bg-amber-50 p-3 rounded-lg">${governance.formality || '[How formal is governance to be documented]'}</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <h3 class="font-semibold text-slate-700 mb-2 text-sm">Change Request Process</h3>
+              <p class="text-sm text-slate-600 bg-slate-50 p-3 rounded-lg">${governance.changeRequest || '[How changes are requested to be documented]'}</p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-slate-700 mb-2 text-sm">Change Development</h3>
+              <p class="text-sm text-slate-600 bg-slate-50 p-3 rounded-lg">${governance.changeDevelopment || '[How changes are developed to be documented]'}</p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-slate-700 mb-2 text-sm">Change Rollout</h3>
+              <p class="text-sm text-slate-600 bg-slate-50 p-3 rounded-lg">${governance.changeRollout || '[How changes are rolled out to be documented]'}</p>
+            </div>
+          </div>
+          ${governance.notes ? `
+            <div>
+              <h3 class="font-semibold text-slate-700 mb-2 text-sm">Additional Notes</h3>
+              <p class="text-sm text-slate-600 bg-slate-50 p-3 rounded-lg">${governance.notes}</p>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+        <div class="flex items-start gap-3">
+          <i data-lucide="info" class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5"></i>
+          <div>
+            <h3 class="font-semibold text-amber-800 mb-1">Documentation Status</h3>
+            <p class="text-sm text-amber-700">This section contains placeholder information that should be filled in with details from Knapsack sources. Update each field as information becomes available.</p>
+          </div>
         </div>
       </div>
     </section>
