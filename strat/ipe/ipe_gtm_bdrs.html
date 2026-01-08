@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPE Partnership Programs & Battle Cards</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .tab-active { border-color: #10b981; color: #047857; background: #ecfdf5; }
+    .nav-active { background: white; color: #0f172a; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 25px -5px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+  <header class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center">
+            <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+          <span class="font-semibold">Knapsack IPE</span>
+        </div>
+        <span class="text-xs text-slate-400">Enterprise Partnership Programs</span>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="setView('strategy')" id="nav-strategy" class="px-4 py-2 rounded-lg text-sm font-medium transition-all nav-active">
+          <span class="flex items-center gap-2"><i data-lucide="compass" class="w-4 h-4"></i> IPE GTM Strategy</span>
+        </button>
+        <button onclick="setView('accounts')" id="nav-accounts" class="px-4 py-2 rounded-lg text-sm font-medium transition-all bg-white/10 hover:bg-white/20">
+          <span class="flex items-center gap-2"><i data-lucide="building-2" class="w-4 h-4"></i> Account Battle Cards</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="max-w-7xl mx-auto px-4 py-6 space-y-6"></main>
+
+  <footer class="border-t border-slate-200 mt-8 py-4">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+      <p class="text-xs text-slate-500">Knapsack IPE Partnership Programs</p>
+      <p class="text-xs text-slate-400">Confidential - Internal Use Only</p>
+    </div>
+  </footer>
+
+<script>
+let currentView = 'strategy';
+let selectedAccount = null;
+let filterJourney = 'all';
+let filterRisk = 'all';
+
+const accounts = [
+  { id: 'accutech', name: 'Accutech', industry: 'Technology & Media', journey: 'J3', risk: 'Low', arr: 13500, tcv: '$269K', readiness: 65, band: 'B', deployed: true, trustStatus: 'Green', mcpInterest: true, deploymentTier: 'D2', segment: 'Technology & Media', dealAmount: 20000, stage: 'Expansion', owner: 'Angela Stevenson', churnReason: 'Non-ICP' },
+  { id: 'associated-press', name: 'Associated Press', industry: 'Technology & Media', journey: 'J1', risk: 'High', arr: 10000, tcv: '$158K', readiness: 52, band: 'C', deployed: true, trustStatus: 'Yellow', mcpInterest: false, deploymentTier: 'D1', segment: 'Technology & Media', dealAmount: 10000, stage: 'Pending Renewal', owner: '', churnReason: 'Non-ICP, Low Engagement' },
+  { id: 'bill', name: 'BILL', industry: 'Technology & Media', journey: 'J3', risk: 'Low', arr: 79750, tcv: '$269K', readiness: 65, band: 'B', deployed: false, trustStatus: 'Green', mcpInterest: true, deploymentTier: 'D2', segment: 'Technology & Media', dealAmount: 79750, stage: 'Stakeholder Alignment', owner: 'Jon Boush', churnReason: 'Poor support from Engineering' },
+  { id: 'bright-horizons', name: 'Bright Horizons', industry: 'Technology & Media', journey: 'J1', risk: 'High', arr: 34560, tcv: '$158K', readiness: 52, band: 'C', deployed: false, trustStatus: 'Yellow', mcpInterest: false, deploymentTier: 'D1', segment: 'Technology & Media', dealAmount: 28800, stage: 'At Risk', owner: 'Jon Boush', churnReason: 'Non-ICP, Low Engagement' },
+  { id: 'college-board', name: 'College Board', industry: 'Education', journey: 'J3', risk: 'Low', arr: 102600, tcv: '$269K', readiness: 65, band: 'B', deployed: true, trustStatus: 'Green', mcpInterest: true, deploymentTier: 'D2', segment: 'Education', dealAmount: 44000, stage: 'Closed Won', owner: 'Angela Stevenson', churnReason: 'Security vulnerability concern' },
+  { id: 'columbia', name: 'Columbia Sportswear', industry: 'Retail', journey: 'J3', risk: 'Medium', arr: 150000, tcv: '$171K', readiness: 58, band: 'C', deployed: true, trustStatus: 'Green', mcpInterest: false, deploymentTier: 'D1', segment: 'Technology & Media', dealAmount: 150000, stage: 'Stakeholder Alignment', owner: 'Jon Boush', churnReason: '' },
+  { id: 'crown', name: 'Crown Equipment', industry: 'Industrial', journey: 'J4', risk: 'Low', arr: 100000, tcv: '$166K', readiness: 61, band: 'C', deployed: true, trustStatus: 'Green', mcpInterest: true, deploymentTier: 'D1', segment: 'Industrial', dealAmount: 20000, stage: 'Stakeholder Alignment', owner: 'Jon Boush', churnReason: '' },
+  { id: 'csx', name: 'CSX', industry: 'Transportation', journey: 'J3', risk: 'Medium', arr: 54280, tcv: '$171K', readiness: 58, band: 'C', deployed: true, trustStatus: 'Yellow', mcpInterest: true, deploymentTier: 'D1', segment: 'Transportation', dealAmount: 40000, stage: 'Technical Feasibility', owner: 'Angela Stevenson', churnReason: 'Slow time to value' },
+  { id: 'doubleverify', name: 'DoubleVerify', industry: 'Technology & Media', journey: 'J3', risk: 'High', arr: 85000, tcv: '$158K', readiness: 52, band: 'C', deployed: false, trustStatus: 'Yellow', mcpInterest: false, deploymentTier: 'D1', segment: 'Technology & Media', dealAmount: 85000, stage: 'Pending Renewal', owner: 'Jon Boush', churnReason: 'Product Issues, Low Engagement, Non-ICP' },
+  { id: 'edward-jones', name: 'Edward Jones', industry: 'Financial Services', journey: 'J3', risk: 'Low', arr: 43260, tcv: '$292K', readiness: 65, band: 'B', deployed: false, trustStatus: 'Green', mcpInterest: true, deploymentTier: 'D3', segment: 'Financial Services', dealAmount: 45547, stage: 'Procurement', owner: 'Jon Boush', churnReason: 'Lost Champion, Org Changes' },
+  { id: 'farm-credit', name: 'Farm Credit Services', industry: 'Financial Services', journey: 'J3', risk: 'Low', arr: 0, tcv: '$209K', readiness: 63, band: 'C', deployed: false, trustStatus: 'Green', mcpInterest: false, deploymentTier: 'D3', segment: 'Financial Services', dealAmount: 100000, stage: 'Closed Won', owner: 'Jon Boush', churnReason: '' },
+  { id: 'gsk', name: 'GSK', industry: 'Healthcare', journey: 'J3', risk: 'Low', arr: 211048, tcv: '$209K', readiness: 58, band: 'C', deployed: true, trustStatus: 'Yellow', mcpInterest: true, deploymentTier: 'D3', segment: 'Healthcare', dealAmount: 20000, stage: 'Technical Feasibility', owner: 'Jon Boush', churnReason: 'Product frustrations' },
+  { id: 'healthedge', name: 'HealthEdge', industry: 'Healthcare', journey: 'J3', risk: 'Medium', arr: 49500, tcv: '$158K', readiness: 52, band: 'C', deployed: true, trustStatus: 'Yellow', mcpInterest: true, deploymentTier: 'D1', segment: 'Healthcare', dealAmount: 49500, stage: 'Pending Renewal', owner: 'Jon Boush', churnReason: 'Non-ICP, Product Issues' },
+  { id: 'iron-mountain', name: 'Iron Mountain', industry: 'Technology & Media', journey: 'J3', risk: 'High', arr: 78500, tcv: '$158K', readiness: 52, band: 'C', deployed: true, trustStatus: 'Yellow', mcpInterest: false, deploymentTier: 'D1', segment: 'Technology & Media', dealAmount: 24500, stage: 'Business Case', owner: 'Angela Stevenson', churnReason: 'Lost Champion, Org Changes, Low Engagement' },
+  { id: 'msk', name: 'Memorial Sloan Kettering', industry: 'Healthcare', journey: 'J3', risk: 'High', arr: 23100, tcv: '$158K', readiness: 52, band: 'C', deployed: true, trustStatus: 'Yellow', mcpInterest: false, deploymentTier: 'D1', segment: 'Healthcare', dealAmount: 23100, stage: 'Pending Renewal', owner: 'Angela Stevenson', churnReason: 'Low Engagement' },
+  { id: 'pnc', name: 'PNC Financial', industry: 'Financial Services', journey: 'J3', risk: 'Low', arr: 290000, tcv: '$209K', readiness: 58, band: 'C', deployed: false, trustStatus: 'Yellow', mcpInterest: true, deploymentTier: 'D3', segment: 'Financial Services', dealAmount: 290000, stage: 'Pending Renewal', owner: 'Angela Stevenson', churnReason: 'Slow + frustrating path to value' },
+  { id: 'qualcomm', name: 'Qualcomm', industry: 'Technology', journey: 'J3', risk: 'High', arr: 150000, tcv: '$158K', readiness: 52, band: 'C', deployed: false, trustStatus: 'Red', mcpInterest: true, deploymentTier: 'D1', segment: 'Technology', dealAmount: 150000, stage: 'At Risk', owner: 'Angela Stevenson', churnReason: 'Product Issues, Org Changes, Low Engagement' },
+  { id: 'shutterfly', name: 'Shutterfly', industry: 'Technology & Media', journey: 'J3', risk: 'Low', arr: 20250, tcv: '$288K', readiness: 68, band: 'B', deployed: true, trustStatus: 'Green', mcpInterest: true, deploymentTier: 'D2', segment: 'Technology & Media', dealAmount: 20000, stage: 'Discovery & Demos', owner: 'Jon Boush', churnReason: '' },
+  { id: 'sce', name: 'Southern California Edison', industry: 'Utilities', journey: 'J3', risk: 'Low', arr: 139200, tcv: '$209K', readiness: 58, band: 'C', deployed: true, trustStatus: 'Yellow', mcpInterest: true, deploymentTier: 'D3', segment: 'Utilities', dealAmount: 100000, stage: 'Stakeholder Alignment', owner: 'Angela Stevenson', churnReason: 'Low Engagement' },
+  { id: 'home-depot', name: 'The Home Depot', industry: 'Retail', journey: 'J4', risk: 'Low', arr: 125000, tcv: '$166K', readiness: 61, band: 'C', deployed: true, trustStatus: 'Green', mcpInterest: true, deploymentTier: 'D1', segment: 'Retail', dealAmount: 27000, stage: 'Buying Decision', owner: 'Jon Boush', churnReason: 'Org Changes' }
+];
+
+const journeyDetails = {
+  J1: { name: 'Progressive Maturation', color: 'amber', desc: 'Non-ICP or low readiness. Light-touch nurturing.', arrShare: '10%', risk: 'Low', motion: 'Monitor & Educate' },
+  J2: { name: 'Independent Maturation', color: 'blue', desc: 'Mature org with sudden trigger. Fast activation.', arrShare: '5%', risk: 'Low', motion: 'Rapid Sprint' },
+  J3: { name: 'Services Transformation', color: 'emerald', desc: 'High-value ICP blocked on activation. Primary focus.', arrShare: '60%', risk: 'High', motion: 'Full Transformation' },
+  J4: { name: 'Timing Play', color: 'violet', desc: 'Mature system, latent interest. Wait for trigger.', arrShare: '25%', risk: 'Medium', motion: 'Trigger-Based' }
+};
+
+const deploymentTiers = {
+  D1: { name: 'Cloud Standard', compliance: 'SOC 2', time: '2-4 weeks', premium: '—' },
+  D2: { name: 'Cloud Dedicated', compliance: 'SOC 2, HIPAA-ready', time: '4-6 weeks', premium: '+15%' },
+  D3: { name: 'Private Cloud', compliance: 'SOC 2, HIPAA, PCI', time: '8-12 weeks', premium: '+25%' },
+  D4: { name: 'Self-Hosted', compliance: 'FedRAMP, Defense', time: '12-16 weeks', premium: '+40%' }
+};
+
+function setView(view) {
+  currentView = view;
+  selectedAccount = null;
+  document.getElementById('nav-strategy').className = view === 'strategy' ? 'px-4 py-2 rounded-lg text-sm font-medium transition-all nav-active' : 'px-4 py-2 rounded-lg text-sm font-medium transition-all bg-white/10 hover:bg-white/20';
+  document.getElementById('nav-accounts').className = view === 'accounts' ? 'px-4 py-2 rounded-lg text-sm font-medium transition-all nav-active' : 'px-4 py-2 rounded-lg text-sm font-medium transition-all bg-white/10 hover:bg-white/20';
+  render();
+}
+
+function selectAccount(id) {
+  selectedAccount = id;
+  render();
+}
+
+function setFilter(type, value) {
+  if (type === 'journey') filterJourney = value;
+  if (type === 'risk') filterRisk = value;
+  render();
+}
+
+function render() {
+  const main = document.getElementById('main-content');
+  if (currentView === 'strategy') {
+    main.innerHTML = renderStrategy();
+  } else if (selectedAccount) {
+    main.innerHTML = renderBattleCard(accounts.find(a => a.id === selectedAccount));
+  } else {
+    main.innerHTML = renderAccountList();
+  }
+  lucide.createIcons();
+}
+
+function renderStrategy() {
+  return `
+    <section class="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center"><i data-lucide="book-open" class="w-6 h-6"></i></div>
+        <div>
+          <p class="text-emerald-100 text-sm font-medium">STRATEGIC FRAMEWORK</p>
+          <h1 class="text-2xl font-bold">IPE Go-to-Market Strategy</h1>
+        </div>
+      </div>
+      <p class="text-emerald-50 text-lg">Knapsack's Intelligent Product Engine transforms product knowledge into executable intelligence through the Model Context Protocol.</p>
+    </section>
+
+    <section class="bg-rose-50 border-2 border-rose-200 rounded-xl p-5">
+      <div class="flex items-start gap-3">
+        <i data-lucide="alert-triangle" class="w-6 h-6 text-rose-500 flex-shrink-0 mt-0.5"></i>
+        <div>
+          <h3 class="font-bold text-rose-800 text-lg">"Implemented" ≠ "Activated"</h3>
+          <p class="text-rose-700">Many customers are technically implemented but still operating without governance, signals, or MCP execution. This gap is the primary driver of unrealized value and churn.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="git-branch" class="w-5 h-5 text-emerald-600"></i>Customer Journey Framework (J1-J4)</h2>
+      <div class="grid grid-cols-2 gap-4">
+        ${Object.entries(journeyDetails).map(([key, j]) => `
+          <div class="bg-white rounded-xl border-2 border-${j.color}-200 p-5 card-hover transition-all">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-lg bg-${j.color}-100 flex items-center justify-center font-bold text-${j.color}-700">${key}</div>
+              <div>
+                <h3 class="font-semibold">${j.name}</h3>
+                <p class="text-xs text-slate-500">${j.arrShare} of ARR | ${j.risk} Risk</p>
+              </div>
+            </div>
+            <p class="text-sm text-slate-600 mb-3">${j.desc}</p>
+            <div class="bg-${j.color}-50 rounded-lg px-3 py-2">
+              <p class="text-xs text-${j.color}-700 font-medium">Motion: ${j.motion}</p>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="shield" class="w-5 h-5 text-amber-600"></i>Deployment Tiers (D1-D4)</h2>
+      <div class="grid grid-cols-4 gap-3">
+        ${Object.entries(deploymentTiers).map(([key, t]) => `
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <div class="font-bold text-lg mb-2">${key}</div>
+            <p class="font-medium text-slate-800">${t.name}</p>
+            <div class="mt-3 space-y-1 text-xs">
+              <p class="text-slate-500">Compliance: <span class="text-slate-700">${t.compliance}</span></p>
+              <p class="text-slate-500">Deploy: <span class="text-slate-700">${t.time}</span></p>
+              <p class="text-slate-500">Premium: <span class="text-emerald-600 font-medium">${t.premium}</span></p>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="target" class="w-5 h-5 text-blue-600"></i>IPE Readiness Score (0-100)</h2>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-slate-50 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="font-semibold">Product System Foundation</h4>
+            <span class="text-emerald-600 font-bold">40%</span>
+          </div>
+          <p class="text-xs text-slate-500 mb-2">Max 40 points</p>
+          <div class="space-y-1 text-xs text-slate-600">
+            <p>• Design system maturity</p>
+            <p>• Engineering adoption</p>
+            <p>• Governance structure</p>
+            <p>• Documentation quality</p>
+          </div>
+        </div>
+        <div class="bg-slate-50 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="font-semibold">AI & Automation Readiness</h4>
+            <span class="text-emerald-600 font-bold">30%</span>
+          </div>
+          <p class="text-xs text-slate-500 mb-2">Max 30 points</p>
+          <div class="space-y-1 text-xs text-slate-600">
+            <p>• MCP compatibility</p>
+            <p>• API maturity</p>
+            <p>• Integration architecture</p>
+            <p>• Data quality</p>
+          </div>
+        </div>
+        <div class="bg-slate-50 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="font-semibold">Organizational Readiness</h4>
+            <span class="text-emerald-600 font-bold">30%</span>
+          </div>
+          <p class="text-xs text-slate-500 mb-2">Max 30 points</p>
+          <div class="space-y-1 text-xs text-slate-600">
+            <p>• Executive sponsorship</p>
+            <p>• Team capacity</p>
+            <p>• Change management</p>
+            <p>• Budget authority</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="dollar-sign" class="w-5 h-5 text-emerald-600"></i>Commercial Framework</h2>
+      <div class="bg-white rounded-xl border p-5">
+        <div class="flex items-center gap-4 overflow-x-auto pb-2">
+          ${[{stage:'DIAGNOSTIC',dur:'2-4 weeks',out:'Readiness Score + Gap Analysis',price:'$50-60K',color:'slate'},
+             {stage:'INVESTMENT PATH',dur:'1 week',out:'Prioritized Roadmap + Proposal',price:'Included',color:'blue'},
+             {stage:'FOUNDATION',dur:'20 weeks',out:'Implementation + Onboarding',price:'$350-450K',color:'emerald'},
+             {stage:'SCALE',dur:'20 weeks',out:'Rollout + Optimization',price:'$400-600K',color:'violet'},
+             {stage:'INTELLIGENCE',dur:'Ongoing',out:'MCP Activation + AI Enablement',price:'$165-325K',color:'amber'}].map((s,i,arr) => `
+            <div class="flex items-center gap-3">
+              <div class="bg-${s.color}-100 rounded-lg p-3 min-w-[140px]">
+                <p class="text-xs font-semibold text-${s.color}-700">${s.stage}</p>
+                <p class="font-bold text-sm mt-1">${s.price}</p>
+                <p class="text-xs text-slate-500">${s.dur}</p>
+              </div>
+              ${i < arr.length - 1 ? '<i data-lucide="arrow-right" class="w-4 h-4 text-slate-300"></i>' : ''}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-slate-900 text-white rounded-xl p-6">
+      <h2 class="text-xl font-bold mb-4">Key Strategic Principles</h2>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-white/10 rounded-lg p-4">
+          <h4 class="font-semibold text-emerald-400 mb-2">Never Sell Hours</h4>
+          <p class="text-sm text-slate-300">Sell transformation phases with clear exit criteria and expansion triggers.</p>
+        </div>
+        <div class="bg-white/10 rounded-lg p-4">
+          <h4 class="font-semibold text-emerald-400 mb-2">Hire Into Proof</h4>
+          <p class="text-sm text-slate-300">Validate delivery models and pipeline before committing to headcount expansion.</p>
+        </div>
+        <div class="bg-white/10 rounded-lg p-4">
+          <h4 class="font-semibold text-emerald-400 mb-2">J3 is the Engine</h4>
+          <p class="text-sm text-slate-300">Services Transformation (J3) holds 60% of ARR and is the highest churn risk. Primary focus.</p>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderAccountList() {
+  const filtered = accounts.filter(a => {
+    if (filterJourney !== 'all' && a.journey !== filterJourney) return false;
+    if (filterRisk !== 'all' && a.risk !== filterRisk) return false;
+    return true;
+  });
+  
+  return `
+    <div class="flex items-center justify-between mb-4">
+      <h1 class="text-2xl font-bold text-slate-900">Account Battle Cards</h1>
+      <div class="flex gap-2">
+        <select onchange="setFilter('journey', this.value)" class="text-sm border rounded-lg px-3 py-2">
+          <option value="all">All Journeys</option>
+          <option value="J1" ${filterJourney==='J1'?'selected':''}>J1 - Progressive</option>
+          <option value="J3" ${filterJourney==='J3'?'selected':''}>J3 - Transformation</option>
+          <option value="J4" ${filterJourney==='J4'?'selected':''}>J4 - Timing Play</option>
+        </select>
+        <select onchange="setFilter('risk', this.value)" class="text-sm border rounded-lg px-3 py-2">
+          <option value="all">All Risk Levels</option>
+          <option value="Low" ${filterRisk==='Low'?'selected':''}>Low Risk</option>
+          <option value="Medium" ${filterRisk==='Medium'?'selected':''}>Medium Risk</option>
+          <option value="High" ${filterRisk==='High'?'selected':''}>High Risk</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+      ${filtered.map(a => {
+        const j = journeyDetails[a.journey];
+        const riskColor = a.risk === 'High' ? 'rose' : a.risk === 'Medium' ? 'amber' : 'emerald';
+        return `
+          <div onclick="selectAccount('${a.id}')" class="bg-white rounded-xl border border-slate-200 p-4 cursor-pointer card-hover transition-all">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h3 class="font-semibold text-slate-900">${a.name}</h3>
+                <p class="text-xs text-slate-500">${a.industry}</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-1 rounded text-xs font-medium bg-${j.color}-100 text-${j.color}-700">${a.journey}</span>
+                <span class="px-2 py-1 rounded text-xs font-medium bg-${riskColor}-100 text-${riskColor}-700">${a.risk}</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs mb-3">
+              <div><span class="text-slate-500">ARR:</span> <span class="font-medium">$${a.arr.toLocaleString()}</span></div>
+              <div><span class="text-slate-500">TCV:</span> <span class="font-medium">${a.tcv}</span></div>
+              <div><span class="text-slate-500">Readiness:</span> <span class="font-medium">${a.readiness}/100</span></div>
+              <div><span class="text-slate-500">Deploy:</span> <span class="font-medium">${a.deploymentTier}</span></div>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+              <span class="text-xs ${a.mcpInterest ? 'text-emerald-600' : 'text-slate-400'}">${a.mcpInterest ? '✓ MCP Interest' : '○ No MCP Interest'}</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+function renderBattleCard(account) {
+  const j = journeyDetails[account.journey];
+  const tier = deploymentTiers[account.deploymentTier];
+  const riskColor = account.risk === 'High' ? 'rose' : account.risk === 'Medium' ? 'amber' : 'emerald';
+  
+  const painPoints = getPainPoints(account);
+  const discoveryQuestions = getDiscoveryQuestions(account);
+  const objections = getObjections(account);
+  const competitors = getCompetitors(account);
+  const differentiators = getDifferentiators(account);
+  
+  return `
+    <button onclick="selectAccount(null)" class="flex items-center gap-2 text-slate-600 hover:text-slate-900 mb-4">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to all accounts
+    </button>
+
+    <section class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+      <div class="bg-gradient-to-r from-slate-800 to-slate-700 text-white p-5">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <i data-lucide="flag" class="w-8 h-8"></i>
+            <div>
+              <h1 class="text-2xl font-bold">${account.name}</h1>
+              <p class="text-slate-300">${account.industry} | ${account.segment}</p>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-${j.color}-500 text-white">${account.journey} - ${j.name}</span>
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-${riskColor}-500 text-white">${account.risk} Risk</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-5 grid grid-cols-4 gap-4">
+        <div class="bg-emerald-50 rounded-lg p-4 border border-emerald-200">
+          <p class="text-xs text-emerald-600 font-medium">Current ARR</p>
+          <p class="text-xl font-bold text-emerald-800">$${account.arr.toLocaleString()}</p>
+        </div>
+        <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
+          <p class="text-xs text-blue-600 font-medium">Potential TCV</p>
+          <p class="text-xl font-bold text-blue-800">${account.tcv}</p>
+        </div>
+        <div class="bg-violet-50 rounded-lg p-4 border border-violet-200">
+          <p class="text-xs text-violet-600 font-medium">Readiness Score</p>
+          <p class="text-xl font-bold text-violet-800">${account.readiness}/100 (Band ${account.band})</p>
+        </div>
+        <div class="bg-amber-50 rounded-lg p-4 border border-amber-200">
+          <p class="text-xs text-amber-600 font-medium">Deployment Tier</p>
+          <p class="text-xl font-bold text-amber-800">${account.deploymentTier} - ${tier.name}</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid grid-cols-2 gap-4">
+      <section class="bg-white rounded-xl border border-slate-200 p-5">
+        <h2 class="font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <i data-lucide="user" class="w-5 h-5 text-emerald-500"></i> Account Status
+        </h2>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between p-2 bg-slate-50 rounded"><span class="text-slate-600">Deployed:</span><span class="font-medium">${account.deployed ? 'Yes' : 'No'}</span></div>
+          <div class="flex justify-between p-2 bg-slate-50 rounded"><span class="text-slate-600">Trust Status:</span><span class="font-medium ${account.trustStatus === 'Green' ? 'text-emerald-600' : account.trustStatus === 'Yellow' ? 'text-amber-600' : 'text-rose-600'}">${account.trustStatus}</span></div>
+          <div class="flex justify-between p-2 bg-slate-50 rounded"><span class="text-slate-600">MCP Interest:</span><span class="font-medium ${account.mcpInterest ? 'text-emerald-600' : 'text-slate-500'}">${account.mcpInterest ? 'Yes' : 'No'}</span></div>
+          <div class="flex justify-between p-2 bg-slate-50 rounded"><span class="text-slate-600">Deal Stage:</span><span class="font-medium">${account.stage}</span></div>
+          <div class="flex justify-between p-2 bg-slate-50 rounded"><span class="text-slate-600">Owner:</span><span class="font-medium">${account.owner || 'Unassigned'}</span></div>
+          ${account.churnReason ? `<div class="p-2 bg-rose-50 rounded border border-rose-200"><span class="text-rose-700 text-xs font-medium">Risk: ${account.churnReason}</span></div>` : ''}
+        </div>
+      </section>
+
+      <section class="bg-white rounded-xl border border-slate-200 p-5">
+        <h2 class="font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <i data-lucide="shield" class="w-5 h-5 text-amber-500"></i> Deployment Requirements
+        </h2>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between p-2 bg-slate-50 rounded"><span class="text-slate-600">Tier:</span><span class="font-medium">${account.deploymentTier} - ${tier.name}</span></div>
+          <div class="flex justify-between p-2 bg-slate-50 rounded"><span class="text-slate-600">Compliance:</span><span class="font-medium">${tier.compliance}</span></div>
+          <div class="flex justify-between p-2 bg-slate-50 rounded"><span class="text-slate-600">Deploy Time:</span><span class="font-medium">${tier.time}</span></div>
+          <div class="flex justify-between p-2 bg-slate-50 rounded"><span class="text-slate-600">Premium:</span><span class="font-medium text-emerald-600">${tier.premium}</span></div>
+        </div>
+      </section>
+    </div>
+
+    <section>
+      <h2 class="font-bold text-slate-900 mb-3 flex items-center gap-2">
+        <i data-lucide="alert-triangle" class="w-5 h-5 text-rose-500"></i> Pain Points to Probe
+      </h2>
+      <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="grid grid-cols-2 gap-3">
+          ${painPoints.map((p, i) => `
+            <div class="flex items-start gap-3 p-3 bg-rose-50 rounded-lg border border-rose-100">
+              <div class="w-5 h-5 rounded-full bg-rose-200 text-rose-700 flex items-center justify-center text-xs font-bold flex-shrink-0">${i + 1}</div>
+              <p class="text-sm text-rose-900">${p}</p>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="font-bold text-slate-900 mb-3 flex items-center gap-2">
+        <i data-lucide="help-circle" class="w-5 h-5 text-blue-500"></i> Discovery Questions
+      </h2>
+      <div class="bg-white rounded-xl border border-slate-200 p-4">
+        <div class="space-y-3">
+          ${discoveryQuestions.map((q, i) => `
+            <div class="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border border-blue-100">
+              <div class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">Q${i + 1}</div>
+              <p class="text-sm text-slate-800">${q}</p>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+
+    <div class="grid grid-cols-2 gap-4">
+      <section class="bg-white rounded-xl border border-slate-200 p-4">
+        <h3 class="font-semibold text-slate-700 mb-3 text-sm flex items-center gap-2">
+          <i data-lucide="crosshair" class="w-4 h-4 text-slate-500"></i> Competitors
+        </h3>
+        <div class="space-y-2">
+          ${competitors.map(c => `
+            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
+              <div class="w-2 h-2 rounded-full bg-slate-400"></div>
+              <p class="text-sm text-slate-700">${c}</p>
+            </div>
+          `).join('')}
+        </div>
+      </section>
+      
+      <section class="bg-emerald-50 rounded-xl border border-emerald-200 p-4">
+        <h3 class="font-semibold text-emerald-800 mb-3 text-sm flex items-center gap-2">
+          <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i> Our Differentiators
+        </h3>
+        <div class="space-y-2">
+          ${differentiators.map(d => `
+            <div class="flex items-center gap-2 p-2 bg-white rounded-lg">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+              <p class="text-sm text-emerald-900">${d}</p>
+            </div>
+          `).join('')}
+        </div>
+      </section>
+    </div>
+
+    <section>
+      <h2 class="font-bold text-slate-900 mb-3 flex items-center gap-2">
+        <i data-lucide="message-square" class="w-5 h-5 text-amber-500"></i> Objection Handling
+      </h2>
+      <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+        ${objections.map((obj, i) => `
+          <div class="p-4 ${i > 0 ? 'border-t border-slate-100' : ''}">
+            <div class="flex items-start gap-3 mb-3">
+              <span class="px-2 py-1 bg-amber-100 text-amber-800 rounded text-xs font-semibold">OBJECTION</span>
+              <p class="text-sm text-slate-800 font-medium">"${obj.objection}"</p>
+            </div>
+            <div class="flex items-start gap-3 ml-6">
+              <span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded text-xs font-semibold">RESPONSE</span>
+              <p class="text-sm text-slate-700">${obj.response}</p>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+
+    <section class="bg-slate-900 text-white rounded-xl p-5">
+      <h2 class="font-bold mb-3 flex items-center gap-2">
+        <i data-lucide="target" class="w-5 h-5 text-emerald-400"></i> Recommended Approach
+      </h2>
+      <p class="text-slate-300">${getRecommendedApproach(account)}</p>
+    </section>
+  `;
+}
+
+function getPainPoints(account) {
+  const base = [
+    'Inconsistent design system adoption across engineering teams',
+    'AI tools generating code that doesn\'t match brand standards',
+    'No clear governance or ownership of design decisions'
+  ];
+  if (account.journey === 'J3') base.push('Investment in platform without realized activation value');
+  if (account.risk === 'High') base.push('Trust concerns from prior implementation challenges');
+  if (account.deploymentTier === 'D3' || account.deploymentTier === 'D4') base.push('Complex compliance and security requirements slowing adoption');
+  if (account.churnReason) base.push(`Historical issue: ${account.churnReason}`);
+  return base.slice(0, 4);
+}
+
+function getDiscoveryQuestions(account) {
+  const base = [
+    'How are your teams using AI coding tools today?',
+    'What happens when AI generates code that doesn\'t match your design system?',
+    'Who owns governance decisions that span multiple teams or products?'
+  ];
+  if (account.deploymentTier === 'D3' || account.deploymentTier === 'D4') {
+    base.push('Do you require private connectivity (PrivateLink/VPN/peering) and no public internet access?');
+    base.push('Which compliance frameworks must the deployment satisfy (PCI, HIPAA, SOC2)?');
+  }
+  if (account.journey === 'J3') base.push('What is blocking your teams from getting full value from the current implementation?');
+  if (account.mcpInterest) base.push('What role do you see AI playing in your product development workflow?');
+  return base.slice(0, 5);
+}
+
+function getObjections(account) {
+  const objections = [
+    { objection: 'We already have a design system', response: 'A design system is infrastructure. IPE is governance intelligence. How do you know when teams diverge from your standards?' },
+    { objection: 'Our engineering teams won\'t adopt another tool', response: 'IPE works through the tools they already use. MCP integration means Claude, Cursor, and Copilot automatically follow your standards.' },
+    { objection: 'We need to see ROI before investing more', response: 'The diagnostic quantifies exactly where value is blocked. Most customers see 40-60% faster development cycles once activated.' }
+  ];
+  if (account.risk === 'High') objections.push({ objection: 'We\'ve had issues with the platform before', response: 'Our J3 transformation program specifically addresses trust repair. We stabilize first, govern second, expand third.' });
+  if (account.deploymentTier === 'D3' || account.deploymentTier === 'D4') objections.push({ objection: 'Our security requirements are complex', response: 'We have pre-built compliance packages for your deployment tier. The premium pricing includes dedicated security validation and private cloud setup.' });
+  return objections;
+}
+
+function getCompetitors(account) {
+  const competitors = ['Internal platform team expansion', 'Agency/consulting firm engagements'];
+  if (account.industry === 'Technology' || account.industry === 'Technology & Media') competitors.push('Figma Variables + custom tooling');
+  if (account.industry === 'Financial Services') competitors.push('Vendor consolidation initiatives');
+  competitors.push('Point solution vendors (Storybook, Chromatic)');
+  return competitors.slice(0, 4);
+}
+
+function getDifferentiators(account) {
+  const diffs = [
+    'MCP-native: Only platform that makes AI tools governance-aware',
+    'Control plane architecture: Single source of truth for product intelligence',
+    'Phase-gated transformation: Clear exit criteria, not open-ended consulting'
+  ];
+  if (account.deploymentTier === 'D3' || account.deploymentTier === 'D4') diffs.push('Enterprise deployment expertise with compliance packages');
+  if (account.journey === 'J3') diffs.push('Trust repair methodology: Stabilize → Govern → Execute → Expand');
+  return diffs;
+}
+
+function getRecommendedApproach(account) {
+  const j = journeyDetails[account.journey];
+  if (account.journey === 'J1') return `Light-touch nurturing approach. Focus on educational content and monitoring for maturity signals. Do not over-invest until engineering sponsor is identified and platform ownership is established.`;
+  if (account.journey === 'J3') return `Services-led transformation. Begin with diagnostic ($50-60K) to quantify activation gaps. Progress to Foundation phase ($350-450K over 20 weeks) focused on implementation completion and trust repair. Do NOT sell expansion until production activation is achieved.`;
+  if (account.journey === 'J4') return `Trigger-based activation. ${account.name} is mature but waiting for the right moment. Monitor for: org consolidation, competitive pressure, AI initiative announcements, or budget cycle timing. When trigger fires, move to J2 sprint model for rapid deployment.`;
+  return `Standard ${j.motion} motion. Assess current state, identify gaps, and propose phased partnership aligned with ${account.deploymentTier} deployment requirements.`;
+}
+
+render();
+</script>
+</body>
+</html>
