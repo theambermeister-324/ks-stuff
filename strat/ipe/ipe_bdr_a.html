@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BDR Qualification Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .tab-btn.active { background: #1e293b; color: white; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 p-4">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-slate-800 to-slate-700 text-white rounded-xl p-4 mb-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-xl font-bold">BDR Qualification Guide</h1>
+          <p class="text-slate-300 text-sm">MEDDIC + Investment Path Framework</p>
+        </div>
+        <div class="text-right text-xs text-slate-400">
+          <p>Primary: MEDDIC</p>
+          <p>Supplemental: Investment Path</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex gap-2 mb-4 flex-wrap">
+      <button onclick="showTab('meddic')" class="tab-btn active flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-white text-slate-600 hover:bg-slate-100" data-tab="meddic">
+        <i data-lucide="clipboard-check" class="w-4 h-4"></i>
+        MEDDIC Framework
+      </button>
+      <button onclick="showTab('stages')" class="tab-btn flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-white text-slate-600 hover:bg-slate-100" data-tab="stages">
+        <i data-lucide="phone" class="w-4 h-4"></i>
+        BDR Stages
+      </button>
+      <button onclick="showTab('paths')" class="tab-btn flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-white text-slate-600 hover:bg-slate-100" data-tab="paths">
+        <i data-lucide="layers" class="w-4 h-4"></i>
+        Investment Paths
+      </button>
+      <button onclick="showTab('cheatsheet')" class="tab-btn flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-white text-slate-600 hover:bg-slate-100" data-tab="cheatsheet">
+        <i data-lucide="zap" class="w-4 h-4"></i>
+        Quick Cheatsheet
+      </button>
+    </div>
+
+    <!-- MEDDIC Tab -->
+    <div id="meddic" class="tab-content active space-y-4">
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
+        <h2 class="font-bold text-blue-800 mb-2">MEDDIC: Your Primary Qualification Framework</h2>
+        <p class="text-sm text-blue-700">Capture all MEDDIC elements before handover. Investment Path questions supplement—not replace—MEDDIC.</p>
+      </div>
+      <div id="meddic-elements"></div>
+    </div>
+
+    <!-- Stages Tab -->
+    <div id="stages" class="tab-content space-y-4">
+      <div class="bg-white rounded-xl border p-4">
+        <h2 class="font-bold text-slate-900 mb-3">BDR Pipeline Stages</h2>
+        <div class="flex items-center gap-2 text-sm text-slate-500 mb-4">
+          <i data-lucide="circle-dot" class="w-4 h-4 text-blue-500"></i>
+          <span>Your responsibility: Intro Call → Pre-Qualification → Handover</span>
+        </div>
+        <div id="stages-content" class="space-y-4"></div>
+      </div>
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+        <h3 class="font-bold text-amber-800 mb-2 flex items-center gap-2">
+          <i data-lucide="handshake" class="w-5 h-5"></i>
+          Handover Readiness Checklist
+        </h3>
+        <div class="grid grid-cols-2 gap-4 text-sm">
+          <div>
+            <p class="font-semibold text-amber-700 mb-1">MEDDIC Complete?</p>
+            <ul class="text-amber-700 text-xs space-y-0.5">
+              <li>☐ Metrics identified</li>
+              <li>☐ Economic Buyer named</li>
+              <li>☐ Decision Criteria captured</li>
+              <li>☐ Decision Process mapped</li>
+              <li>☐ Pain identified & quantified</li>
+              <li>☐ Champion confirmed</li>
+              <li>☐ Competition assessed</li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold text-amber-700 mb-1">Investment Path Ready?</p>
+            <ul class="text-amber-700 text-xs space-y-0.5">
+              <li>☐ Path hypothesis formed (J1-J4)</li>
+              <li>☐ Deployment tier identified (D1-D4)</li>
+              <li>☐ Path validation questions answered</li>
+              <li>☐ Red flags documented</li>
+              <li>☐ Deal room built</li>
+              <li>☐ Gong recording linked</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paths Tab -->
+    <div id="paths" class="tab-content space-y-4">
+      <div class="bg-white rounded-xl border p-4">
+        <h2 class="font-bold text-slate-900 mb-1">Investment Path Routing</h2>
+        <p class="text-sm text-slate-500 mb-4">Use MEDDIC signals to determine the right path. J3 is the primary target (60% of ARR).</p>
+        <div id="paths-content" class="space-y-3"></div>
+      </div>
+      <div class="bg-white rounded-xl border p-4">
+        <h2 class="font-bold text-slate-900 mb-3">Deployment Tiers (Ask Early!)</h2>
+        <div id="deployment-tiers" class="grid grid-cols-4 gap-2"></div>
+      </div>
+    </div>
+
+    <!-- Cheatsheet Tab -->
+    <div id="cheatsheet" class="tab-content space-y-4">
+      <div class="bg-white rounded-xl border p-4">
+        <h2 class="font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <i data-lucide="zap" class="w-5 h-5 text-amber-500"></i>
+          5 Must-Ask Questions (Every Call)
+        </h2>
+        <div id="must-ask" class="space-y-2"></div>
+      </div>
+      <div class="bg-white rounded-xl border p-4">
+        <h2 class="font-bold text-slate-900 mb-3">Quick Path Decision Tree</h2>
+        <div class="space-y-2 text-sm">
+          <div class="flex items-center gap-2 p-2 bg-slate-50 rounded">
+            <span class="font-medium text-slate-700">No sponsor OR no budget?</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400"></i>
+            <span class="bg-slate-600 text-white px-2 py-0.5 rounded text-xs font-bold">J1</span>
+          </div>
+          <div class="flex items-center gap-2 p-2 bg-blue-50 rounded">
+            <span class="font-medium text-slate-700">High readiness + urgent trigger?</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400"></i>
+            <span class="bg-blue-600 text-white px-2 py-0.5 rounded text-xs font-bold">J2</span>
+          </div>
+          <div class="flex items-center gap-2 p-2 bg-emerald-50 rounded">
+            <span class="font-medium text-slate-700">Sponsor + budget + blocking pain?</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400"></i>
+            <span class="bg-emerald-600 text-white px-2 py-0.5 rounded text-xs font-bold">J3</span>
+            <span class="text-emerald-700 text-xs font-medium">← 60% ARR</span>
+          </div>
+          <div class="flex items-center gap-2 p-2 bg-violet-50 rounded">
+            <span class="font-medium text-slate-700">Mature + AI interest + waiting for trigger?</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400"></i>
+            <span class="bg-violet-600 text-white px-2 py-0.5 rounded text-xs font-bold">J4</span>
+          </div>
+        </div>
+      </div>
+      <div class="bg-rose-50 border border-rose-200 rounded-xl p-4">
+        <h2 class="font-bold text-rose-800 mb-2 flex items-center gap-2">
+          <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+          Red Flags to Document
+        </h2>
+        <div class="grid grid-cols-2 gap-2 text-sm text-rose-700">
+          <div>
+            <p>• No executive sponsor identified</p>
+            <p>• Budget "needs to be found"</p>
+            <p>• Champion recently departed</p>
+          </div>
+          <div>
+            <p>• Prior implementation failures</p>
+            <p>• No clear decision timeline</p>
+            <p>• Vague or absent pain points</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+        <h2 class="font-bold text-amber-800 mb-2">Critical Reminders</h2>
+        <ul class="text-sm text-amber-700 space-y-1">
+          <li>• <strong>MEDDIC first</strong> — Complete all elements before handover</li>
+          <li>• <strong>J3 is 60% of ARR</strong> — This is the primary target path</li>
+          <li>• <strong>"Implemented ≠ Activated"</strong> — Most customers have platform but aren't getting value</li>
+          <li>• <strong>D3/D4 = big premium</strong> — Ask compliance questions early (+$175-550K)</li>
+          <li>• <strong>Build the deal room</strong> — Required before handover</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const meddicElements = [
+      { letter: 'M', name: 'Metrics', definition: 'Quantifiable measures of success the prospect uses to evaluate the investment', captureStage: 'Intro Call',
+        questions: [{ q: "How do you measure design system success today?", listen: "Adoption rates, time-to-market, consistency scores, developer velocity" }, { q: "What would success look like 12 months from now?", listen: "Specific KPIs, percentage improvements, business outcomes" }],
+        pathImplication: 'Low/no metrics = J1 (Foundation); Clear metrics = J3/J4', dataToCapture: ['Current success metrics', 'Target metrics', 'Measurement methods'] },
+      { letter: 'E', name: 'Economic Buyer', definition: 'The person with authority to approve budget and sign contracts', captureStage: 'Pre-Qualification',
+        questions: [{ q: "Who owns the budget for infrastructure investments like this?", listen: "Specific name, title, VP+ level" }, { q: "Is budget allocated, or would this require finding new budget?", listen: '"We have budget" vs. "we\'d need to find budget"' }],
+        pathImplication: 'No EB identified = Foundation (J1); EB confirmed = proceed', dataToCapture: ['Economic buyer name', 'Budget status (allocated vs. find)', 'Fiscal year timing'] },
+      { letter: 'D', name: 'Decision Criteria', definition: 'The formal requirements and evaluation factors used to compare solutions', captureStage: 'Pre-Qualification',
+        questions: [{ q: "What criteria will you use to evaluate solutions?", listen: "Technical requirements, integration needs, security, pricing" }, { q: "What would make this a successful partnership?", listen: "Specific outcomes, must-haves vs. nice-to-haves" }],
+        pathImplication: 'Criteria inform phase gates and SOW structure', dataToCapture: ['Evaluation criteria list', 'Must-haves vs. nice-to-haves', 'Technical requirements'] },
+      { letter: 'D', name: 'Decision Process', definition: 'The steps, stakeholders, and timeline involved in making a purchase decision', captureStage: 'Pre-Qualification',
+        questions: [{ q: "Walk me through how decisions like this get made at your organization?", listen: "Approval chain, committees, procurement process" }, { q: "Who else needs to be involved in evaluating this?", listen: "Technical evaluators, security, legal, procurement" }],
+        pathImplication: 'Complex process = longer timeline; Simple = accelerate', dataToCapture: ['Decision process steps', 'Key decision makers names', 'Procurement contact', 'Timeline'] },
+      { letter: 'I', name: 'Identify Pain', definition: 'The business problems and challenges driving the need for a solution', captureStage: 'Intro Call',
+        questions: [{ q: "What challenges are you facing with your design system today?", listen: "Adoption issues, governance gaps, inconsistency, slow velocity" }, { q: "What happens when AI generates code that doesn't match your standards?", listen: '"It\'s a problem" vs. "We don\'t track"' }],
+        pathImplication: 'Strong pain + urgency = J2/J3; Mild pain = J1/J4', dataToCapture: ['Primary pain points', 'Business impact of pain', 'Urgency level'] },
+      { letter: 'C', name: 'Champion', definition: 'An internal advocate who has influence and will sell on your behalf', captureStage: 'Intro Call → Pre-Qual',
+        questions: [{ q: "Who internally is advocating for solving this problem?", listen: "Specific name, their motivation, their influence" }, { q: "Is there an executive sponsor driving this investment?", listen: "VP+ level, engineering vs. design leadership" }],
+        pathImplication: 'No champion = Foundation (J1); Strong champion = J3/J4', dataToCapture: ['Champion name', 'Champion role/title', 'Influencer names', 'Exec sponsor name'] },
+      { letter: 'C', name: 'Competition', definition: 'Alternative solutions being evaluated, including status quo and internal builds', captureStage: 'Pre-Qualification',
+        questions: [{ q: "What other solutions are you considering?", listen: "Specific vendors, internal builds, status quo" }, { q: "Have you tried to solve this problem before?", listen: "Past attempts, what worked/didn't work" }],
+        pathImplication: 'Active competition = differentiate on MCP/governance', dataToCapture: ['Competitors being evaluated', 'Status quo description', 'Past solution attempts'] }
+    ];
+
+    const bdrStages = [
+      { stage: 'Intro Call', owner: 'BDR', goal: 'Initial introduction, provide Knapsack overview, identify initial fit signals',
+        exitCriteria: ['Pre-qualification call is scheduled'], meddic: ['Metrics (initial)', 'Identify Pain', 'Champion (influencer)'],
+        dataToCapture: ['Interest level', 'Buyer needs/pain points', 'Metrics for success', 'Influencer name', 'Champion name'],
+        investmentPathQuestions: [{ q: "Do you have a design system today?", signal: "No DS = J1; Mature = J3/J4" }, { q: "How are your teams using AI coding tools?", signal: "Active AI = higher urgency" }] },
+      { stage: 'Pre-Qualification', owner: 'BDR', goal: 'Complete MEDDIC data capture, confirm ICP fit, determine Investment Path',
+        exitCriteria: ['Deal room built', 'All MEDDIC data captured', 'Investment Path hypothesis formed'], meddic: ['Economic Buyer', 'Decision Criteria', 'Decision Process', 'Competition', 'Champion (exec sponsor)'],
+        dataToCapture: ['Economic buyer name', 'Exec sponsor name', 'Key decision makers', 'Decision process', 'Decision criteria', 'Competition'],
+        investmentPathQuestions: [{ q: "What % of engineering teams use your design system?", signal: "<30% = J1; 30-70% = J3; >70% = J4" }, { q: "What is blocking full value from your current implementation?", signal: "Clear blockers = J3" }, { q: "Do you require private connectivity or PCI/HIPAA compliance?", signal: "Yes = D3/D4 tier (+$175-550K)" }] },
+      { stage: 'Qualification Handover', owner: 'BDR → AE', goal: '30-min sync with AE, Sales Engineer, CX Partner to confirm qualification and Investment Path',
+        exitCriteria: ['Sync completed', 'Lead status: Qualified or Disqualified', 'Discovery call scheduled (if qualified)', 'Deal created and assigned to AE'], meddic: ['All elements reviewed'],
+        dataToCapture: ['Link to Gong call recording', 'Qualification decision rationale', 'Investment Path assignment'],
+        investmentPathQuestions: [{ q: "Does data support the Investment Path hypothesis?", signal: "Confirm or adjust J1-J4" }, { q: "Are there red flags that need AE attention?", signal: "Trust issues, champion risk, budget gaps" }] }
+    ];
+
+    const paths = [
+      { id: 'J1', name: 'Foundation', color: 'slate', tcv: '$50-60K', arrShare: '10%',
+        meddicSignals: ['No champion identified', 'No executive sponsor', 'No allocated budget', 'Vague/no metrics'],
+        keyQuestion: "Do you have a design system today?", action: 'Light-touch nurture. Do not over-invest until sponsor + budget confirmed.' },
+      { id: 'J2', name: 'Acceleration', color: 'blue', tcv: '$150-250K', arrShare: '5%',
+        meddicSignals: ['Strong champion with urgency', 'Budget allocated', 'Clear decision timeline', 'Trigger event identified'],
+        keyQuestion: "What's driving the urgency right now?", action: 'Fast activation. Confirm trigger is real and timeline achievable.' },
+      { id: 'J3', name: 'Activation', color: 'emerald', tcv: '$350-450K', arrShare: '60%',
+        meddicSignals: ['Champion + exec sponsor confirmed', 'Budget allocated or initiated', 'Clear pain: "implemented but not activated"', 'Mid-range adoption (30-70%)'],
+        keyQuestion: "What is blocking full value from your current implementation?", action: 'Services-led transformation. Begin with diagnostic ($50-60K).' },
+      { id: 'J4', name: 'Intelligence', color: 'violet', tcv: '$165-325K', arrShare: '25%',
+        meddicSignals: ['Mature system, high adoption (>70%)', 'AI/MCP interest expressed', 'Latent trigger (waiting for right moment)', 'Strong existing relationship'],
+        keyQuestion: "What would unlock the next level of value?", action: 'Monitor for trigger. When identified, propose Intelligence phase.' }
+    ];
+
+    const deploymentTiers = [
+      { tier: 'D1', name: 'Shared Cloud', premium: 'None', signal: 'Standard SaaS acceptable' },
+      { tier: 'D2', name: 'Dedicated', premium: '+$50-100K', signal: 'Dedicated environment needed' },
+      { tier: 'D3', name: 'Private Cloud', premium: '+$175-275K', signal: 'PCI/HIPAA + private connectivity' },
+      { tier: 'D4', name: 'Self-Hosted', premium: '+$350-550K', signal: 'FedRAMP / on-premises required' }
+    ];
+
+    const mustAsk = [
+      { q: "Who owns the budget for this?", meddic: "Economic Buyer", path: "No EB = J1" },
+      { q: "Is there an executive sponsor?", meddic: "Champion", path: "No sponsor = J1" },
+      { q: "What's blocking value today?", meddic: "Identify Pain", path: "Clear blockers = J3" },
+      { q: "What's the timeline for a decision?", meddic: "Decision Process", path: "Urgent = J2" },
+      { q: "How are teams using AI coding tools?", meddic: "Identify Pain", path: "Active AI = higher urgency" }
+    ];
+
+    const colorMap = {
+      slate: { bg: 'bg-slate-100', border: 'border-slate-300', text: 'text-slate-700', badge: 'bg-slate-600' },
+      blue: { bg: 'bg-blue-100', border: 'border-blue-300', text: 'text-blue-700', badge: 'bg-blue-600' },
+      emerald: { bg: 'bg-emerald-100', border: 'border-emerald-300', text: 'text-emerald-700', badge: 'bg-emerald-600' },
+      violet: { bg: 'bg-violet-100', border: 'border-violet-300', text: 'text-violet-700', badge: 'bg-violet-600' }
+    };
+
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+      lucide.createIcons();
+    }
+
+    function renderMeddic() {
+      const container = document.getElementById('meddic-elements');
+      container.innerHTML = meddicElements.map(el => `
+        <div class="bg-white rounded-xl border overflow-hidden">
+          <div class="bg-slate-100 p-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="w-10 h-10 rounded-lg bg-slate-800 text-white flex items-center justify-center font-bold text-lg">${el.letter}</span>
+              <div><h3 class="font-bold text-slate-800">${el.name}</h3><p class="text-xs text-slate-500">${el.definition}</p></div>
+            </div>
+            <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">${el.captureStage}</span>
+          </div>
+          <div class="p-4 grid grid-cols-2 gap-4">
+            <div>
+              <h4 class="text-xs font-semibold text-slate-500 uppercase mb-2">Questions to Ask</h4>
+              <div class="space-y-2">${el.questions.map(q => `<div class="text-sm"><p class="font-medium text-slate-800">"${q.q}"</p><p class="text-xs text-slate-500 mt-0.5">→ Listen for: ${q.listen}</p></div>`).join('')}</div>
+            </div>
+            <div>
+              <h4 class="text-xs font-semibold text-slate-500 uppercase mb-2">Data to Capture</h4>
+              <ul class="text-sm text-slate-700 space-y-1">${el.dataToCapture.map(d => `<li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-slate-400"></div>${d}</li>`).join('')}</ul>
+              <div class="mt-3 p-2 bg-emerald-50 rounded border border-emerald-200"><p class="text-xs text-emerald-700"><span class="font-semibold">Path Signal:</span> ${el.pathImplication}</p></div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderStages() {
+      const container = document.getElementById('stages-content');
+      const colors = ['bg-blue-50', 'bg-emerald-50', 'bg-violet-50'];
+      const badgeColors = ['bg-blue-600', 'bg-emerald-600', 'bg-violet-600'];
+      container.innerHTML = bdrStages.map((stage, i) => `
+        <div class="border rounded-lg overflow-hidden">
+          <div class="${colors[i]} p-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-white ${badgeColors[i]}">${i + 1}</span>
+              <div><h3 class="font-bold text-slate-800">${stage.stage}</h3><p class="text-xs text-slate-600">${stage.goal}</p></div>
+            </div>
+            <span class="px-2 py-1 bg-white rounded text-xs font-medium text-slate-600">Owner: ${stage.owner}</span>
+          </div>
+          <div class="p-4 grid grid-cols-2 gap-4">
+            <div>
+              <h4 class="text-xs font-semibold text-slate-500 uppercase mb-2">MEDDIC Elements</h4>
+              <div class="flex flex-wrap gap-1">${stage.meddic.map(m => `<span class="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-xs">${m}</span>`).join('')}</div>
+              <h4 class="text-xs font-semibold text-slate-500 uppercase mt-3 mb-2">Data to Capture</h4>
+              <ul class="text-xs text-slate-600 space-y-0.5">${stage.dataToCapture.map(d => `<li>• ${d}</li>`).join('')}</ul>
+            </div>
+            <div>
+              <h4 class="text-xs font-semibold text-emerald-600 uppercase mb-2">Investment Path Questions</h4>
+              <div class="space-y-2">${stage.investmentPathQuestions.map(q => `<div class="p-2 bg-emerald-50 rounded text-xs"><p class="font-medium text-slate-700">"${q.q}"</p><p class="text-emerald-600 mt-0.5">→ ${q.signal}</p></div>`).join('')}</div>
+              <h4 class="text-xs font-semibold text-slate-500 uppercase mt-3 mb-2">Exit Criteria</h4>
+              <ul class="text-xs text-slate-600 space-y-0.5">${stage.exitCriteria.map(c => `<li class="flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3 text-emerald-500"></i>${c}</li>`).join('')}</ul>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderPaths() {
+      const container = document.getElementById('paths-content');
+      container.innerHTML = paths.map(path => `
+        <div class="${colorMap[path.color].bg} ${colorMap[path.color].border} border-2 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <span class="${colorMap[path.color].badge} text-white w-12 h-12 rounded-lg flex items-center justify-center font-bold text-lg">${path.id}</span>
+              <div><h3 class="font-bold ${colorMap[path.color].text}">${path.name}</h3><p class="text-xs text-slate-500">${path.arrShare} of ARR • ${path.tcv}</p></div>
+            </div>
+            ${path.id === 'J3' ? '<span class="px-2 py-1 bg-emerald-600 text-white rounded text-xs font-bold">PRIMARY TARGET</span>' : ''}
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <h4 class="text-xs font-semibold text-slate-500 uppercase mb-2">MEDDIC Signals</h4>
+              <ul class="text-sm text-slate-700 space-y-1">${path.meddicSignals.map(s => `<li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 ${colorMap[path.color].text} mt-0.5 flex-shrink-0"></i>${s}</li>`).join('')}</ul>
+            </div>
+            <div>
+              <h4 class="text-xs font-semibold text-slate-500 uppercase mb-2">Key Question</h4>
+              <p class="text-sm font-medium text-slate-800 p-2 bg-white rounded border mb-3">"${path.keyQuestion}"</p>
+              <h4 class="text-xs font-semibold text-slate-500 uppercase mb-1">Action</h4>
+              <p class="text-xs text-slate-600">${path.action}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderDeploymentTiers() {
+      const container = document.getElementById('deployment-tiers');
+      const tierColors = ['bg-slate-500', 'bg-blue-500', 'bg-amber-500', 'bg-rose-500'];
+      container.innerHTML = deploymentTiers.map((tier, i) => `
+        <div class="p-3 rounded-lg text-center ${tier.tier === 'D3' || tier.tier === 'D4' ? 'bg-amber-50 border border-amber-200' : 'bg-slate-50'}">
+          <span class="inline-block w-8 h-8 rounded-lg text-white font-bold text-sm leading-8 ${tierColors[i]}">${tier.tier}</span>
+          <p class="font-medium text-slate-800 text-xs mt-1">${tier.name}</p>
+          <p class="text-xs font-bold mt-1 ${tier.premium === 'None' ? 'text-slate-400' : 'text-emerald-600'}">${tier.premium}</p>
+          <p class="text-xs text-slate-500 mt-1">${tier.signal}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderMustAsk() {
+      const container = document.getElementById('must-ask');
+      container.innerHTML = mustAsk.map((item, i) => `
+        <div class="flex items-center gap-3 p-2 bg-slate-50 rounded">
+          <span class="w-6 h-6 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs font-bold">${i + 1}</span>
+          <span class="flex-1 font-medium text-slate-800 text-sm">"${item.q}"</span>
+          <span class="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-xs">${item.meddic}</span>
+          <span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded text-xs">${item.path}</span>
+        </div>
+      `).join('');
+    }
+
+    // Initialize
+    renderMeddic();
+    renderStages();
+    renderPaths();
+    renderDeploymentTiers();
+    renderMustAsk();
+    lucide.createIcons();
+  </script>
+</body>
+</html>

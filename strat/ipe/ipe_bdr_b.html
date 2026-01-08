@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BDR IPE Qualification Tree - MEDDIC + Investment Path</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .option-btn:hover { border-color: #34d399; background-color: #ecfdf5; }
+    .option-btn:hover span.label { color: #047857; }
+    .option-btn:hover svg { color: #059669; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+  <div id="app" class="p-6">
+    <div class="max-w-2xl mx-auto" id="content"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        id: 'champion',
+        gate: 'MEDDIC: Champion',
+        question: 'Is there an identified champion or executive sponsor?',
+        subtext: 'The person who will advocate internally for this purchase',
+        options: [
+          { label: 'Executive sponsor confirmed (VP+)', value: 'exec', signal: 'strong' },
+          { label: 'Champion identified (Director-level)', value: 'champion', signal: 'moderate' },
+          { label: 'Influencer only (IC or Manager)', value: 'influencer', signal: 'weak' },
+          { label: 'No internal advocate identified', value: 'none', signal: 'blocker' }
+        ]
+      },
+      {
+        id: 'economic_buyer',
+        gate: 'MEDDIC: Economic Buyer',
+        question: 'What is the budget status?',
+        subtext: 'Who owns the budget and is it available?',
+        options: [
+          { label: 'Budget allocated, EB identified by name', value: 'allocated', signal: 'strong' },
+          { label: 'Budget exists, needs approval', value: 'exists', signal: 'moderate' },
+          { label: 'Would need to find new budget', value: 'find', signal: 'weak' },
+          { label: 'Budget status unknown', value: 'unknown', signal: 'blocker' }
+        ]
+      },
+      {
+        id: 'pain',
+        gate: 'MEDDIC: Identify Pain',
+        question: 'Is there a clearly identified pain point?',
+        subtext: 'The business problem they need to solve',
+        options: [
+          { label: '"Implemented but not activated" - clear value gap', value: 'activation', signal: 'j3' },
+          { label: 'Specific blockers identified (consistency, velocity, governance)', value: 'blockers', signal: 'j3' },
+          { label: 'AI/automation gap - need MCP capabilities', value: 'ai_gap', signal: 'j4' },
+          { label: 'No design system - need foundation', value: 'no_ds', signal: 'j1' },
+          { label: 'Pain unclear or vague', value: 'unclear', signal: 'blocker' }
+        ]
+      },
+      {
+        id: 'adoption',
+        gate: 'Investment Path: System Maturity',
+        question: 'What is the current design system adoption level?',
+        subtext: 'Percentage of engineering teams actively using the design system',
+        options: [
+          { label: 'High (>70%) - Mature, widely adopted', value: 'high', signal: 'j4' },
+          { label: 'Medium (30-70%) - Growing adoption', value: 'medium', signal: 'j3' },
+          { label: 'Low (<30%) - Limited adoption', value: 'low', signal: 'j1' },
+          { label: 'No design system exists', value: 'none', signal: 'j1' }
+        ]
+      },
+      {
+        id: 'timeline',
+        gate: 'MEDDIC: Decision Process',
+        question: 'What is the expected decision timeline?',
+        subtext: 'When do they need to make a decision?',
+        options: [
+          { label: 'Urgent - Within 30 days (trigger event)', value: 'urgent', signal: 'j2' },
+          { label: 'Active - 1-3 months', value: 'active', signal: 'standard' },
+          { label: 'Planning - 3-6 months', value: 'planning', signal: 'nurture' },
+          { label: 'Exploratory - 6+ months or undefined', value: 'exploratory', signal: 'monitor' }
+        ]
+      },
+      {
+        id: 'deployment',
+        gate: 'Investment Path: Deployment Tier',
+        question: 'What are the compliance/infrastructure requirements?',
+        subtext: 'This significantly impacts pricing and timeline',
+        options: [
+          { label: 'Standard SaaS acceptable', value: 'd1', premium: 'None' },
+          { label: 'Need dedicated environment (SOC2)', value: 'd2', premium: '+$50-100K' },
+          { label: 'Private cloud required (PCI/HIPAA)', value: 'd3', premium: '+$175-275K' },
+          { label: 'Self-hosted/on-prem (FedRAMP)', value: 'd4', premium: '+$350-550K' },
+          { label: 'Unknown - need to validate', value: 'unknown', premium: 'TBD' }
+        ]
+      },
+      {
+        id: 'metrics',
+        gate: 'MEDDIC: Metrics',
+        question: 'Can they articulate success metrics?',
+        subtext: 'How will they measure ROI?',
+        options: [
+          { label: 'Clear KPIs defined (adoption %, velocity, consistency)', value: 'clear', signal: 'strong' },
+          { label: 'General goals but no specific metrics', value: 'general', signal: 'moderate' },
+          { label: 'No metrics identified', value: 'none', signal: 'weak' }
+        ]
+      },
+      {
+        id: 'competition',
+        gate: 'MEDDIC: Competition',
+        question: 'What alternatives are they considering?',
+        subtext: 'Including status quo and internal builds',
+        options: [
+          { label: 'Knapsack is preferred/only option', value: 'preferred', signal: 'strong' },
+          { label: 'Evaluating 2-3 vendors including Knapsack', value: 'evaluating', signal: 'competitive' },
+          { label: 'May build internally or use status quo', value: 'internal', signal: 'risk' },
+          { label: 'Heavy competition from established vendor', value: 'competitor', signal: 'risk' }
+        ]
+      }
+    ];
+
+    let currentStep = 0;
+    let answers = {};
+
+    const icons = {
+      checkCircle: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+      xCircle: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,
+      alertTriangle: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+      arrowRight: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`,
+      rotateCcw: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>`,
+      checkSmall: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+      xSmall: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,
+      alertSmall: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+      checkLarge: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+      xLarge: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`
+    };
+
+    function calculateResult() {
+      const { champion, economic_buyer, pain, adoption, timeline, deployment, metrics, competition } = answers;
+      
+      let qualified = true;
+      let blockers = [];
+      let warnings = [];
+      
+      if (champion === 'none') { qualified = false; blockers.push('No champion or sponsor identified'); }
+      if (economic_buyer === 'unknown') { qualified = false; blockers.push('Budget status unknown - cannot size opportunity'); }
+      if (pain === 'unclear') { qualified = false; blockers.push('Pain not clearly identified'); }
+      
+      if (champion === 'influencer') warnings.push('Influencer-only: Need to identify executive sponsor');
+      if (economic_buyer === 'find') warnings.push('Budget not allocated: Longer sales cycle expected');
+      if (metrics === 'none') warnings.push('No success metrics: May struggle to prove ROI');
+      if (competition === 'internal' || competition === 'competitor') warnings.push('Competitive pressure: Differentiate on MCP/governance');
+      if (timeline === 'exploratory') warnings.push('Long timeline: Consider nurture track');
+
+      let path = 'J1', pathName = 'Foundation', pathColor = 'bg-slate-500', tcv = '$50-60K', motion = 'Light-touch nurturing. Monitor for maturity signals.', arrShare = '10%';
+
+      if (adoption === 'none' || adoption === 'low' || pain === 'no_ds') {
+        path = 'J1'; pathName = 'Foundation'; pathColor = 'bg-slate-500';
+        tcv = '$50-60K'; motion = 'Diagnostic only. Do not over-invest until sponsor + budget confirmed.'; arrShare = '10%';
+      } else if (timeline === 'urgent' && (champion === 'exec' || champion === 'champion') && economic_buyer === 'allocated') {
+        path = 'J2'; pathName = 'Acceleration'; pathColor = 'bg-blue-500';
+        tcv = '$150-250K'; motion = 'Fast activation sprint. Confirm trigger is real and timeline achievable.'; arrShare = '5%';
+      } else if ((adoption === 'medium' || pain === 'activation' || pain === 'blockers') && (champion === 'exec' || champion === 'champion')) {
+        path = 'J3'; pathName = 'Activation'; pathColor = 'bg-emerald-500';
+        tcv = '$350-450K'; motion = 'Services-led transformation. Begin with diagnostic ($50-60K).'; arrShare = '60%';
+      } else if (adoption === 'high' || pain === 'ai_gap') {
+        path = 'J4'; pathName = 'Intelligence'; pathColor = 'bg-violet-500';
+        tcv = '$165-325K'; motion = 'Monitor for trigger. When identified, propose MCP Intelligence phase.'; arrShare = '25%';
+      }
+
+      let tier = 'D1', tierName = 'Cloud Standard', tierPremium = 'None';
+      if (deployment === 'd2') { tier = 'D2'; tierName = 'Cloud Dedicated'; tierPremium = '+$50-100K'; }
+      if (deployment === 'd3') { tier = 'D3'; tierName = 'Private Cloud'; tierPremium = '+$175-275K'; }
+      if (deployment === 'd4') { tier = 'D4'; tierName = 'Self-Hosted'; tierPremium = '+$350-550K'; }
+
+      return { qualified, blockers, warnings, path, pathName, pathColor, tcv, motion, arrShare, tier, tierName, tierPremium };
+    }
+
+    function renderQuestion() {
+      const q = questions[currentStep];
+      const progress = ((currentStep + 1) / questions.length) * 100;
+
+      let optionsHtml = q.options.map((opt, i) => `
+        <button onclick="handleAnswer('${opt.value}')" class="option-btn w-full text-left p-4 rounded-lg border-2 border-slate-200 transition-all group">
+          <div class="flex items-center justify-between">
+            <span class="label text-sm font-medium text-slate-700">${opt.label}</span>
+            <span class="text-slate-400">${icons.arrowRight}</span>
+          </div>
+          ${opt.premium ? `<span class="text-xs text-slate-500 mt-1 block">Premium: ${opt.premium}</span>` : ''}
+        </button>
+      `).join('');
+
+      document.getElementById('content').innerHTML = `
+        <div class="mb-6">
+          <h1 class="text-xl font-bold text-slate-900 mb-1">BDR IPE Qualification Tree</h1>
+          <p class="text-slate-600 text-sm">MEDDIC + Investment Path Framework</p>
+        </div>
+        <div class="mb-6">
+          <div class="flex items-center justify-between text-xs text-slate-500 mb-2">
+            <span>Question ${currentStep + 1} of ${questions.length}</span>
+            <span>${Math.round(progress)}% complete</span>
+          </div>
+          <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+            <div class="h-full bg-emerald-500 transition-all duration-300" style="width: ${progress}%"></div>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl border shadow-sm p-6 mb-4">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">${q.gate}</span>
+          </div>
+          <h2 class="text-lg font-semibold text-slate-900 mb-2">${q.question}</h2>
+          <p class="text-sm text-slate-500 mb-6">${q.subtext}</p>
+          <div class="space-y-3">${optionsHtml}</div>
+        </div>
+        ${currentStep > 0 ? `<button onclick="goBack()" class="text-sm text-slate-500 hover:text-slate-700">← Back to previous question</button>` : ''}
+        <div class="mt-8 p-4 bg-slate-100 rounded-lg">
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Investment Path Quick Reference</p>
+          <div class="grid grid-cols-4 gap-2 text-xs">
+            <div class="bg-slate-200 rounded p-2"><span class="font-bold">J1</span> Foundation<br/>$50-60K</div>
+            <div class="bg-blue-100 rounded p-2"><span class="font-bold">J2</span> Acceleration<br/>$150-250K</div>
+            <div class="bg-emerald-100 rounded p-2"><span class="font-bold">J3</span> Activation<br/>$350-450K</div>
+            <div class="bg-violet-100 rounded p-2"><span class="font-bold">J4</span> Intelligence<br/>$165-325K</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderResult() {
+      const r = calculateResult();
+      
+      let blockersHtml = r.blockers.length > 0 ? `
+        <div class="bg-white rounded-lg p-4 mb-4">
+          <p class="text-xs font-semibold text-rose-600 uppercase tracking-wide mb-2">Blockers (Must Resolve)</p>
+          ${r.blockers.map(b => `<div class="flex items-center gap-2 text-sm text-rose-700 mb-1"><span class="text-rose-600">${icons.xSmall}</span> ${b}</div>`).join('')}
+        </div>
+      ` : '';
+
+      let warningsHtml = r.warnings.length > 0 ? `
+        <div class="bg-white rounded-lg p-4">
+          <p class="text-xs font-semibold text-amber-600 uppercase tracking-wide mb-2">Warnings (Flag for AE)</p>
+          ${r.warnings.map(w => `<div class="flex items-center gap-2 text-sm text-amber-700 mb-1"><span class="text-amber-600">${icons.alertSmall}</span> ${w}</div>`).join('')}
+        </div>
+      ` : '';
+
+      document.getElementById('content').innerHTML = `
+        <div class="${r.qualified ? 'bg-emerald-50 border-2 border-emerald-200' : 'bg-rose-50 border-2 border-rose-200'} rounded-xl p-6 mb-6">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="${r.qualified ? 'text-emerald-600' : 'text-rose-600'}">${r.qualified ? icons.checkLarge : icons.xLarge}</span>
+            <div>
+              <h2 class="text-xl font-bold ${r.qualified ? 'text-emerald-800' : 'text-rose-800'}">${r.qualified ? 'QUALIFIED' : 'NOT QUALIFIED'}</h2>
+              <p class="text-sm ${r.qualified ? 'text-emerald-600' : 'text-rose-600'}">${r.qualified ? 'Ready for AE handover' : 'Resolve blockers before handover'}</p>
+            </div>
+          </div>
+          ${blockersHtml}
+          ${warningsHtml}
+        </div>
+
+        <div class="bg-white rounded-xl border p-6 mb-4">
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Investment Path Assignment</p>
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-16 h-16 rounded-xl ${r.pathColor} flex items-center justify-center">
+              <span class="text-2xl font-bold text-white">${r.path}</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900">${r.pathName} Path</h3>
+              <p class="text-slate-600">${r.arrShare} of ARR • TCV: ${r.tcv}</p>
+            </div>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-4">
+            <p class="text-xs font-semibold text-slate-500 mb-1">RECOMMENDED MOTION</p>
+            <p class="text-sm text-slate-700">${r.motion}</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl border p-6 mb-4">
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Deployment Tier</p>
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-sm font-semibold text-slate-700">${r.tier}: ${r.tierName}</span>
+            </div>
+            <div class="text-right">
+              <p class="text-xs text-slate-500">Services Premium</p>
+              <p class="font-bold text-slate-900">${r.tierPremium}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-4">
+          <h3 class="font-bold text-amber-800 mb-3">Handover Checklist</h3>
+          <div class="grid grid-cols-2 gap-4 text-sm">
+            <div>
+              <p class="font-semibold text-amber-700 mb-2">MEDDIC Complete?</p>
+              <div class="space-y-1 text-amber-700">
+                <div class="flex items-center gap-2"><span class="text-amber-600">${icons.checkSmall}</span> Champion: ${answers.champion}</div>
+                <div class="flex items-center gap-2"><span class="text-amber-600">${icons.checkSmall}</span> Economic Buyer: ${answers.economic_buyer}</div>
+                <div class="flex items-center gap-2"><span class="text-amber-600">${icons.checkSmall}</span> Pain: ${answers.pain}</div>
+                <div class="flex items-center gap-2"><span class="text-amber-600">${icons.checkSmall}</span> Timeline: ${answers.timeline}</div>
+                <div class="flex items-center gap-2"><span class="text-amber-600">${icons.checkSmall}</span> Metrics: ${answers.metrics}</div>
+                <div class="flex items-center gap-2"><span class="text-amber-600">${icons.checkSmall}</span> Competition: ${answers.competition}</div>
+              </div>
+            </div>
+            <div>
+              <p class="font-semibold text-amber-700 mb-2">Investment Path Ready?</p>
+              <div class="space-y-1 text-amber-700">
+                <div class="flex items-center gap-2"><span class="text-amber-600">${icons.checkSmall}</span> Path: ${r.path} (${r.pathName})</div>
+                <div class="flex items-center gap-2"><span class="text-amber-600">${icons.checkSmall}</span> Tier: ${r.tier} (${r.tierName})</div>
+                <div class="flex items-center gap-2"><span class="text-amber-600">${icons.checkSmall}</span> Adoption: ${answers.adoption}</div>
+                <div class="flex items-center gap-2">☐ Deal room built</div>
+                <div class="flex items-center gap-2">☐ Gong recording linked</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="reset()" class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-lg font-medium hover:bg-slate-800">
+          ${icons.rotateCcw} Start New Qualification
+        </button>
+      `;
+    }
+
+    function handleAnswer(value) {
+      const q = questions[currentStep];
+      answers[q.id] = value;
+      if (currentStep < questions.length - 1) {
+        currentStep++;
+        renderQuestion();
+      } else {
+        renderResult();
+      }
+    }
+
+    function goBack() {
+      if (currentStep > 0) {
+        currentStep--;
+        renderQuestion();
+      }
+    }
+
+    function reset() {
+      currentStep = 0;
+      answers = {};
+      renderQuestion();
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
