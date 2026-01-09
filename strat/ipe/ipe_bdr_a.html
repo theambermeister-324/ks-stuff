@@ -73,7 +73,6 @@
             <p class="font-semibold text-amber-700 mb-1">Investment Path Ready?</p>
             <ul class="text-amber-700 text-xs space-y-0.5">
               <li>☐ Path hypothesis formed (J1-J4)</li>
-              <li>☐ Deployment tier identified (D1-D4)</li>
               <li>☐ Path validation questions answered</li>
               <li>☐ Red flags documented</li>
               <li>☐ Deal room built</li>
@@ -122,16 +121,6 @@
         <div id="onboarding-paths" class="space-y-3"></div>
       </div>
 
-      <!-- Deployment Tiers -->
-      <div class="bg-white rounded-xl border p-4">
-        <h3 class="font-bold text-slate-900 mb-3 flex items-center gap-2">
-          <i data-lucide="server" class="w-5 h-5 text-amber-600"></i>
-          Deployment Tiers (Ask Early!)
-        </h3>
-        <p class="text-sm text-slate-500 mb-3">Deployment tier determines pricing premium. Ask compliance questions early—D3/D4 adds $175-550K.</p>
-        <div id="onboarding-deployment-tiers" class="grid grid-cols-4 gap-2"></div>
-      </div>
-
       <!-- Quick Path Decision Framework -->
       <div class="bg-white rounded-xl border p-4">
         <h3 class="font-bold text-slate-900 mb-3 flex items-center gap-2">
@@ -175,7 +164,6 @@
         <ul class="text-sm text-amber-700 space-y-1">
           <li>• <strong>MEDDIC first</strong> — Complete all elements before handover. Investment Path questions supplement—not replace—MEDDIC.</li>
           <li>• <strong>J3 is 60% of ARR</strong> — This is the primary target path. Look for "implemented but not activated" signals.</li>
-          <li>• <strong>Ask deployment tier early</strong> — D3/D4 adds significant premium (+$175-550K). Ask compliance questions in Pre-Qualification.</li>
           <li>• <strong>AI roadmap = J4 signal</strong> — If AI/MCP is in their roadmap or a must-have requirement, this signals Intelligence path.</li>
           <li>• <strong>Build the deal room</strong> — Required before handover. Include Gong recording link and all MEDDIC data.</li>
         </ul>
@@ -200,7 +188,6 @@
         pathImplication: 'Criteria inform phase gates and SOW structure; AI as must-have = J4 signal', 
         dataToCapture: ['Evaluation criteria list', 'Must-haves vs. nice-to-haves', 'Technical requirements', 'AI/MCP capability requirements'],
         pathRoutingQuestions: [
-          { q: "Do you require private connectivity or PCI/HIPAA compliance?", signal: "Yes = D3/D4 tier (+$175-550K)", stage: 'Pre-Qualification' },
           { q: "Is AI/MCP integration a must-have requirement?", signal: "Must-have = J4 (Intelligence) signal", stage: 'Pre-Qualification' }
         ] },
       { letter: 'D', name: 'Decision Process', definition: 'The steps, stakeholders, and timeline involved in making a purchase decision', captureStage: 'Pre-Qualification',
@@ -231,7 +218,7 @@
       { stage: 'Pre-Qualification', owner: 'BDR', goal: 'Complete MEDDIC data capture, confirm ICP fit, determine Investment Path',
         exitCriteria: ['Deal room built', 'All MEDDIC data captured', 'Investment Path hypothesis formed'], meddic: ['Economic Buyer', 'Decision Criteria', 'Decision Process', 'Competition', 'Champion (exec sponsor)'],
         dataToCapture: ['Economic buyer name', 'Exec sponsor name', 'Key decision makers', 'Decision process', 'Decision criteria', 'Competition', 'AI/MCP capability requirements'],
-        investmentPathQuestions: [{ q: "What % of engineering teams use your design system?", signal: "<30% = J1; 30-70% = J3; >70% = J4" }, { q: "What is blocking full value from your current implementation?", signal: "Clear blockers = J3" }, { q: "Do you require private connectivity or PCI/HIPAA compliance?", signal: "Yes = D3/D4 tier (+$175-550K)" }] },
+        investmentPathQuestions: [{ q: "What % of engineering teams use your design system?", signal: "<30% = J1; 30-70% = J3; >70% = J4" }, { q: "What is blocking full value from your current implementation?", signal: "Clear blockers = J3" }] },
       { stage: 'Qualification Handover', owner: 'BDR → AE', goal: '30-min sync with AE, Sales Engineer, CX Partner to confirm qualification and Investment Path',
         exitCriteria: ['Sync completed', 'Lead status: Qualified or Disqualified', 'Discovery call scheduled (if qualified)', 'Deal created and assigned to AE'], meddic: ['All elements reviewed'],
         dataToCapture: ['Link to Gong call recording', 'Qualification decision rationale', 'Investment Path assignment'],
@@ -251,13 +238,6 @@
       { id: 'J4', name: 'Intelligence', color: 'violet', tcv: '$165-325K', arrShare: '25%',
         meddicSignals: ['Mature system, high adoption (>70%)', 'AI/MCP interest expressed', 'Latent trigger (waiting for right moment)', 'Strong existing relationship'],
         keyQuestion: "What would unlock the next level of value?", action: 'Monitor for trigger. When identified, propose Intelligence phase.' }
-    ];
-
-    const deploymentTiers = [
-      { tier: 'D1', name: 'Shared Cloud', premium: 'None', signal: 'Standard SaaS acceptable' },
-      { tier: 'D2', name: 'Dedicated', premium: '+$50-100K', signal: 'Dedicated environment needed' },
-      { tier: 'D3', name: 'Private Cloud', premium: '+$175-275K', signal: 'PCI/HIPAA + private connectivity' },
-      { tier: 'D4', name: 'Self-Hosted', premium: '+$350-550K', signal: 'FedRAMP / on-premises required' }
     ];
 
     const mustAsk = [
@@ -437,23 +417,9 @@
       `).join('');
     }
 
-    function renderOnboardingDeploymentTiers() {
-      const container = document.getElementById('onboarding-deployment-tiers');
-      const tierColors = ['bg-slate-500', 'bg-blue-500', 'bg-amber-500', 'bg-rose-500'];
-      container.innerHTML = deploymentTiers.map((tier, i) => `
-        <div class="p-3 rounded-lg text-center border ${tier.tier === 'D3' || tier.tier === 'D4' ? 'bg-amber-50 border-amber-300' : 'bg-slate-50 border-slate-200'}>
-          <span class="inline-block w-8 h-8 rounded-lg text-white font-bold text-sm leading-8 ${tierColors[i]}">${tier.tier}</span>
-          <p class="font-medium text-slate-800 text-xs mt-1">${tier.name}</p>
-          <p class="text-xs font-bold mt-1 ${tier.premium === 'None' ? 'text-slate-400' : 'text-emerald-600'}">${tier.premium}</p>
-          <p class="text-xs text-slate-500 mt-1">${tier.signal}</p>
-        </div>
-      `).join('');
-    }
-
     // Initialize
     renderStages();
     renderOnboardingPaths();
-    renderOnboardingDeploymentTiers();
     lucide.createIcons();
   </script>
 </body>
