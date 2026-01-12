@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aetna Properties Mapping - Anatomy Design System</title>
+  <style>
+    :root {
+      --primary: #CC0000;
+      --primary-light: #ffe6e6;
+      --secondary: #004C97;
+      --secondary-light: #e6f0f8;
+      --neutral-50: #fafafa;
+      --neutral-100: #f5f5f5;
+      --neutral-150: #e5e5e5;
+      --neutral-200: #d4d4d4;
+      --neutral-600: #404040;
+      --neutral-700: #333333;
+      --neutral-800: #1f1f1f;
+      --success: #268e6c;
+      --success-light: #e8f5f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--neutral-50);
+      padding: 40px 20px;
+      color: var(--neutral-700);
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--primary) 0%, #990000 100%);
+      color: white;
+      padding: 40px;
+      border-radius: 12px;
+      margin-bottom: 32px;
+    }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .header p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+    .card {
+      background: white;
+      border: 1px solid var(--neutral-150);
+      border-radius: 8px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--neutral-800);
+      margin-bottom: 20px;
+    }
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .property-card {
+      background: var(--neutral-50);
+      border: 1px solid var(--neutral-150);
+      border-radius: 6px;
+      padding: 16px;
+    }
+    .property-card.core {
+      border-left: 4px solid var(--primary);
+    }
+    .property-card.specialty {
+      border-left: 4px solid var(--secondary);
+    }
+    .property-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--neutral-800);
+      margin-bottom: 4px;
+    }
+    .property-type {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--neutral-600);
+      margin-bottom: 8px;
+    }
+    .property-desc {
+      font-size: 13px;
+      color: var(--neutral-600);
+      line-height: 1.5;
+    }
+    .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .stat-box {
+      background: var(--success-light);
+      border: 1px solid #c3ddd2;
+      border-radius: 6px;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--success);
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--neutral-600);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    table th {
+      text-align: left;
+      padding: 12px;
+      background: var(--neutral-100);
+      font-weight: 600;
+      color: var(--neutral-700);
+      border-bottom: 2px solid var(--neutral-150);
+    }
+    table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--neutral-150);
+      color: var(--neutral-600);
+    }
+    table tr:hover {
+      background: var(--neutral-50);
+    }
+    .category-header {
+      background: var(--primary-light);
+      padding: 8px 12px;
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Aetna Properties Mapping</h1>
+      <p>Properties Managed by Aetna Anatomy Design System Team</p>
+    </div>
+
+    <div class="card">
+      <h2>Property Overview</h2>
+      <div class="summary-stats">
+        <div class="stat-box">
+          <div class="stat-value">9</div>
+          <div class="stat-label">Total Properties</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">3</div>
+          <div class="stat-label">Core Properties</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">6</div>
+          <div class="stat-label">Specialty Properties</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Core Consumer-Facing Properties</h2>
+      <div class="property-grid">
+        <div class="property-card core">
+          <div class="property-type">Core Property</div>
+          <div class="property-name">Aetna.com</div>
+          <div class="property-desc">Primary consumer-facing website for Aetna health insurance products and services</div>
+        </div>
+        <div class="property-card core">
+          <div class="property-type">Core Property</div>
+          <div class="property-name">Aetna.com/Medicare</div>
+          <div class="property-desc">Dedicated Medicare portal for Medicare Advantage and Medicare Supplement plans</div>
+        </div>
+        <div class="property-card core">
+          <div class="property-type">Core Property</div>
+          <div class="property-name">Medicaid Web Portal</div>
+          <div class="property-desc">Internal audit portal for Medicaid program management and compliance</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Specialty & Program Properties</h2>
+      <div class="property-grid">
+        <div class="property-card specialty">
+          <div class="property-type">Specialty Property</div>
+          <div class="property-name">Aetna Better Health of Maryland</div>
+          <div class="property-desc">Medicaid managed care organization serving Maryland members</div>
+        </div>
+        <div class="property-card specialty">
+          <div class="property-type">Specialty Property</div>
+          <div class="property-name">Aetna Dental</div>
+          <div class="property-desc">Dental insurance products and services portal</div>
+        </div>
+        <div class="property-card specialty">
+          <div class="property-type">Specialty Property</div>
+          <div class="property-name">Aetna International Portal</div>
+          <div class="property-desc">Authenticated portal for international health insurance members</div>
+        </div>
+        <div class="property-card specialty">
+          <div class="property-type">Specialty Property</div>
+          <div class="property-name">Aetna International Public Site</div>
+          <div class="property-desc">Public-facing website for international health insurance products</div>
+        </div>
+        <div class="property-card specialty">
+          <div class="property-type">Specialty Property</div>
+          <div class="property-name">Aetna Medicare Micro site (Boeing)</div>
+          <div class="property-desc">Specialized Medicare site for Boeing employees and retirees</div>
+        </div>
+        <div class="property-card specialty">
+          <div class="property-type">Specialty Property</div>
+          <div class="property-name">Aetna Student Health Web (Unauthenticated)</div>
+          <div class="property-desc">Public-facing student health insurance information and resources</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Property Details Table</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Property Name</th>
+            <th>Category</th>
+            <th>Access Type</th>
+            <th>Primary Audience</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Aetna.com</strong></td>
+            <td>Core</td>
+            <td>Public</td>
+            <td>General consumers</td>
+          </tr>
+          <tr>
+            <td><strong>Aetna.com/Medicare</strong></td>
+            <td>Core</td>
+            <td>Public</td>
+            <td>Medicare-eligible consumers</td>
+          </tr>
+          <tr>
+            <td><strong>Medicaid Web Portal</strong></td>
+            <td>Core</td>
+            <td>Internal</td>
+            <td>Internal audit & compliance</td>
+          </tr>
+          <tr>
+            <td><strong>Aetna Better Health of Maryland</strong></td>
+            <td>Specialty</td>
+            <td>Public/Authenticated</td>
+            <td>Maryland Medicaid members</td>
+          </tr>
+          <tr>
+            <td><strong>Aetna Dental</strong></td>
+            <td>Specialty</td>
+            <td>Public/Authenticated</td>
+            <td>Dental plan members</td>
+          </tr>
+          <tr>
+            <td><strong>Aetna International Portal</strong></td>
+            <td>Specialty</td>
+            <td>Authenticated</td>
+            <td>International members</td>
+          </tr>
+          <tr>
+            <td><strong>Aetna International Public Site</strong></td>
+            <td>Specialty</td>
+            <td>Public</td>
+            <td>International prospects</td>
+          </tr>
+          <tr>
+            <td><strong>Aetna Medicare Micro site (Boeing)</strong></td>
+            <td>Specialty</td>
+            <td>Public/Authenticated</td>
+            <td>Boeing employees/retirees</td>
+          </tr>
+          <tr>
+            <td><strong>Aetna Student Health Web (Unauthenticated)</strong></td>
+            <td>Specialty</td>
+            <td>Public</td>
+            <td>Students & educational institutions</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>Design System Coverage</h2>
+      <div style="background: var(--success-light); border-left: 4px solid var(--success); padding: 20px; border-radius: 0 8px 8px 0;">
+        <div style="font-size: 14px; font-weight: 600; color: var(--success); margin-bottom: 8px;">Aetna Anatomy Design System Scope</div>
+        <p style="font-size: 14px; color: var(--neutral-700); line-height: 1.7; margin-bottom: 12px;">The Aetna Anatomy Design System Team manages design system governance, components, and documentation across all 9 properties listed above. These properties span multiple audiences (consumers, members, internal), access types (public, authenticated, internal), and program types (Medicare, Medicaid, Dental, International, Student Health).</p>
+        <div style="font-size: 13px; font-weight: 600; color: var(--success); margin-top: 12px;">Key Challenge:</div>
+        <p style="font-size: 13px; color: var(--neutral-700); line-height: 1.6;">Managing design system consistency and component usage across this diverse portfolio requires unified governance and better management tools.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Property Groupings</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+          <div class="category-header">Core Properties (3)</div>
+          <ul style="padding: 16px; font-size: 13px; color: var(--neutral-700); line-height: 1.8;">
+            <li>Aetna.com</li>
+            <li>Aetna.com/Medicare</li>
+            <li>Medicaid Web Portal</li>
+          </ul>
+        </div>
+        <div>
+          <div class="category-header">Specialty Properties (6)</div>
+          <ul style="padding: 16px; font-size: 13px; color: var(--neutral-700); line-height: 1.8;">
+            <li>Aetna Better Health of Maryland</li>
+            <li>Aetna Dental</li>
+            <li>Aetna International Portal</li>
+            <li>Aetna International Public Site</li>
+            <li>Aetna Medicare Micro site (Boeing)</li>
+            <li>Aetna Student Health Web (Unauthenticated)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

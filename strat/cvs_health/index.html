@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aetna Healthcare - Knapsack Strategic Documents</title>
+    <style>
+        :root {
+            --primary: #CC0000;
+            --secondary: #004C97;
+            --neutral-50: #fafafa;
+            --neutral-100: #f5f5f5;
+            --neutral-200: #eaeaea;
+            --neutral-600: #6e6e6e;
+            --neutral-700: #404040;
+            --neutral-800: #1f1f1f;
+            --success: #268e6c;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--neutral-50);
+            padding: 40px 20px;
+            color: var(--neutral-800);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #990000 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 32px;
+        }
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid var(--neutral-200);
+            padding-bottom: 0;
+        }
+        .tab {
+            padding: 12px 24px;
+            background: var(--neutral-100);
+            border: none;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--neutral-700);
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+        }
+        .tab:hover {
+            background: var(--neutral-200);
+        }
+        .tab.active {
+            background: white;
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            font-weight: 600;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .document-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .doc-card {
+            background: white;
+            border: 1px solid var(--neutral-200);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.2s;
+        }
+        .doc-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .doc-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--neutral-800);
+            margin-bottom: 8px;
+        }
+        .doc-card p {
+            font-size: 14px;
+            color: var(--neutral-600);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .doc-card a {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .doc-card a:hover {
+            background: #990000;
+        }
+        .doc-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: var(--success);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+        .doc-badge.hypothesis {
+            background: #da7b11;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Aetna Healthcare</h1>
+            <p>Knapsack Strategic Documents & Artifacts</p>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('all')">All Documents</button>
+            <button class="tab" onclick="showTab('strategic')">Strategic</button>
+            <button class="tab" onclick="showTab('internal')">Internal</button>
+            <button class="tab" onclick="showTab('reference')">Reference</button>
+        </div>
+        
+        <div id="all" class="tab-content active">
+            <div class="document-grid">
+                <div class="doc-card" data-category="strategic">
+                    <div class="doc-badge">Customer-Facing</div>
+                    <h3>Strategic Partnership Playbook</h3>
+                    <p>Customer-facing strategic partnership document outlining challenges, solutions, business outcomes, and implementation approach for Aetna Design System Team.</p>
+                    <a href="aetna_strategic_playbook.html">View Document</a>
+                </div>
+                
+                <div class="doc-card" data-category="internal">
+                    <div class="doc-badge">Internal</div>
+                    <h3>Battle Card</h3>
+                    <p>Internal sales enablement tool for Knapsack AEs, providing quick reference on account context, WIN themes, objections, and ROI for Aetna.</p>
+                    <a href="aetna_battle_card.html">View Document</a>
+                </div>
+                
+                <div class="doc-card" data-category="strategic">
+                    <div class="doc-badge">Implementation</div>
+                    <h3>System Charter</h3>
+                    <p>Knapsack pilot implementation charter defining scope, governance, success criteria, and workstream structure for deploying Knapsack platform to Aetna.</p>
+                    <a href="aetna_health_systemcharter.html">View Document</a>
+                </div>
+                
+                <div class="doc-card" data-category="reference">
+                    <div class="doc-badge hypothesis">Hypothesis</div>
+                    <h3>Design System Charter</h3>
+                    <p>Draft system charter hypothesis for the Aetna Anatomy Design System itself—defining the design system's purpose, scope, governance, and how Knapsack enables better management.</p>
+                    <a href="aetna_anatomy_design_system_charter.html">View Document</a>
+                </div>
+                
+                <div class="doc-card" data-category="reference">
+                    <div class="doc-badge">Reference</div>
+                    <h3>Properties Mapping</h3>
+                    <p>Comprehensive mapping of the 9 Aetna properties managed by the Anatomy Design System Team, organized by core and specialty categories.</p>
+                    <a href="aetna_properties_mapping.html">View Document</a>
+                </div>
+            </div>
+        </div>
+        
+        <div id="strategic" class="tab-content">
+            <div class="document-grid">
+                <div class="doc-card">
+                    <div class="doc-badge">Customer-Facing</div>
+                    <h3>Strategic Partnership Playbook</h3>
+                    <p>Customer-facing strategic partnership document outlining challenges, solutions, business outcomes, and implementation approach for Aetna Design System Team.</p>
+                    <a href="aetna_strategic_playbook.html">View Document</a>
+                </div>
+                
+                <div class="doc-card">
+                    <div class="doc-badge">Implementation</div>
+                    <h3>System Charter</h3>
+                    <p>Knapsack pilot implementation charter defining scope, governance, success criteria, and workstream structure for deploying Knapsack platform to Aetna.</p>
+                    <a href="aetna_health_systemcharter.html">View Document</a>
+                </div>
+            </div>
+        </div>
+        
+        <div id="internal" class="tab-content">
+            <div class="document-grid">
+                <div class="doc-card">
+                    <div class="doc-badge">Internal</div>
+                    <h3>Battle Card</h3>
+                    <p>Internal sales enablement tool for Knapsack AEs, providing quick reference on account context, WIN themes, objections, and ROI for Aetna.</p>
+                    <a href="aetna_battle_card.html">View Document</a>
+                </div>
+            </div>
+        </div>
+        
+        <div id="reference" class="tab-content">
+            <div class="document-grid">
+                <div class="doc-card">
+                    <div class="doc-badge hypothesis">Hypothesis</div>
+                    <h3>Design System Charter</h3>
+                    <p>Draft system charter hypothesis for the Aetna Anatomy Design System itself—defining the design system's purpose, scope, governance, and how Knapsack enables better management.</p>
+                    <a href="aetna_anatomy_design_system_charter.html">View Document</a>
+                </div>
+                
+                <div class="doc-card">
+                    <div class="doc-badge">Reference</div>
+                    <h3>Properties Mapping</h3>
+                    <p>Comprehensive mapping of the 9 Aetna properties managed by the Anatomy Design System Team, organized by core and specialty categories.</p>
+                    <a href="aetna_properties_mapping.html">View Document</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
+

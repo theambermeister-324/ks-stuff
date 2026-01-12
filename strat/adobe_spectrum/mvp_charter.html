@@ -81,20 +81,25 @@ tr:nth-child(odd),tr:nth-child(even),.callout,.metric-card,.comparison-col,.scop
 </div>
 <div style="text-align:right">
 <div class="logo">Adobe</div>
-<div style="font-size:11px;color:var(--spectrum-gray-600);margin-top:4px">Version 1.0 | January 2025</div>
+<div style="font-size:11px;color:var(--spectrum-gray-600);margin-top:4px">Version 1.1 | January 2025</div>
 </div>
 </div>
 
 <div class="section-label">Executive Summary</div>
 <h2>1. Mission and Objective</h2>
 
-<p><strong>Mission Statement:</strong> Migrate the existing Spectrum documentation platform to Knapsack to enable safe decommissioning of the legacy CMS by April 2026.</p>
+<p><strong>Mission Statement:</strong> MVP1 is a Phase 1 proof-and-validation release whose sole purpose is to enable safe CMS cutover by April by migrating existing Adobe Spectrum documentation into Knapsack with sufficient governance, permissions, and operational clarity to go live.</p>
 
-<p><strong>Core Question Answered:</strong> "Can we replace the existing site?"</p>
+<p><strong>Core Question Answered:</strong> "Can we replace the existing site?" MVP1 proves CMS fit, de-risks cutover, and validates that Knapsack can replace the current system of record.</p>
 
 <div class="callout critical">
 <div class="callout-title">Guardrail Principle</div>
-<p><strong>If it is not required to turn off the current CMS, it is not MVP1.</strong></p>
+<p><strong>If it is not required to turn off the current CMS, it is not MVP1.</strong> MVP1 is not about optimization, transformation, or future-state workflows—it is about proving CMS fit and enabling safe cutover.</p>
+</div>
+
+<div class="callout blue">
+<div class="callout-title">Phase Framing</div>
+<p><strong>Phase 1 = Proof + Validation (now → March)</strong> | <strong>Phase 2 = Enhancements post–GoLive</strong></p>
 </div>
 
 <div class="three-col">
@@ -131,7 +136,7 @@ tr:nth-child(odd),tr:nth-child(even),.callout,.metric-card,.comparison-col,.scop
 </div>
 
 <div class="footer">
-<span>Adobe Confidential - MVP1 System Charter v1.0</span>
+<span>Adobe Confidential - MVP1 System Charter v1.1</span>
 <span>Page 1 of 6</span>
 </div>
 </div>
@@ -161,24 +166,27 @@ tr:nth-child(odd),tr:nth-child(even),.callout,.metric-card,.comparison-col,.scop
 <table class="comparison-table">
 <tr><td>Primary Goal</td><td>Switch off the current CMS safely</td><td>Unlock long-term value of Knapsack</td></tr>
 <tr><td>Core Question</td><td>Can we replace the existing site?</td><td>How do teams use, extend, and improve this?</td></tr>
-<tr><td>Content</td><td>Migrate existing content as-is</td><td>Improve, evolve, and expand content</td></tr>
-<tr><td>Content Volume</td><td>~90 existing items (68-69 components + guidelines)</td><td>Net-new content, refactors, consolidations</td></tr>
-<tr><td>Migration Approach</td><td>Scripted ingestion + limited manual fixes</td><td>No bulk migration; incremental authoring</td></tr>
-<tr><td>AI Usage</td><td>Context enrichment only (non-authoritative)</td><td>AI-assisted workflows, automation, insights</td></tr>
+<tr><td>Phase Framing</td><td>Phase 1: Proof + Validation</td><td>Phase 2: Enhancements post–GoLive</td></tr>
+<tr><td>Content</td><td>Migrate existing content as-is (no structural refactors)</td><td>Improve, evolve, and expand content</td></tr>
+<tr><td>Content Volume</td><td>~90 existing items (68-69 components + guidelines); 85/90 confirmed</td><td>Net-new content, refactors, consolidations</td></tr>
+<tr><td>Migration Approach</td><td>Migration scripting is primary path (JSON/YAML automation); manual for exceptions only</td><td>No bulk migration; incremental authoring</td></tr>
+<tr><td>CMS Fit Validation</td><td>Explicit MVP1 requirement (URL structure, permissions, navigation, layout)</td><td>Ongoing optimization</td></tr>
+<tr><td>Governance Readiness</td><td>Minimum viable governance required (ownership, roles, editorial boundaries)</td><td>Advanced workflows, approval chains</td></tr>
+<tr><td>AI Usage</td><td>Context enrichment only (non-authoritative, no IPE)</td><td>AI-assisted workflows, automation, insights</td></tr>
 <tr><td>Design Changes</td><td>None</td><td>Possible restructuring, new patterns</td></tr>
 <tr><td>Workflows</td><td>Minimal (admin-only)</td><td>Contribution, review, governance workflows</td></tr>
 <tr><td>Permissions</td><td>Basic (read vs edit)</td><td>Advanced roles, approval models</td></tr>
 <tr><td>Integrations</td><td>Figma + 1 implementation (minimum)</td><td>Expanded integrations (tokens, MCP, tooling)</td></tr>
 <tr><td>Audience</td><td>Admins and internal maintainers</td><td>Broader Adobe teams + partners</td></tr>
-<tr><td>Success Metric</td><td>Legacy CMS can be shut off</td><td>Knapsack becomes the system of record</td></tr>
+<tr><td>Success Metric</td><td>Legacy CMS can be shut off; CMS Fit risks proven acceptable or mitigated</td><td>Knapsack becomes the system of record</td></tr>
 <tr><td>Timeline Driver</td><td>April CMS switch-off</td><td>Business priorities and roadmap</td></tr>
 <tr><td>Risk Tolerance</td><td>Very low (must be stable)</td><td>Higher (iterative improvement)</td></tr>
 </table>
 
 <div class="two-col">
 <div class="callout blue">
-<div class="callout-title">MVP1 in One Line</div>
-<p>"Move what we have so we can turn the old thing off."</p>
+<div class="callout-title">MVP1 in One Sentence</div>
+<p><strong>MVP1 proves Knapsack can replace the current CMS without breaking content, governance, or operations — and makes the April cutover a responsible decision.</strong></p>
 </div>
 <div class="callout" style="background:#f3e8ff;border-left:4px solid var(--spectrum-purple-600)">
 <div class="callout-title" style="color:var(--spectrum-purple-600)">MVP2 in One Line</div>
@@ -187,7 +195,7 @@ tr:nth-child(odd),tr:nth-child(even),.callout,.metric-card,.comparison-col,.scop
 </div>
 
 <div class="footer">
-<span>Adobe Confidential - MVP1 System Charter v1.0</span>
+<span>Adobe Confidential - MVP1 System Charter v1.1</span>
 <span>Page 2 of 6</span>
 </div>
 </div>
@@ -214,23 +222,29 @@ tr:nth-child(odd),tr:nth-child(even),.callout,.metric-card,.comparison-col,.scop
 <h3>In Scope (MVP1)</h3>
 <table>
 <tr><th>Category</th><th>Deliverables</th></tr>
-<tr><td>Content Migration</td><td>68-69 components, guidelines, resources (~90 items total) migrated as-is</td></tr>
-<tr><td>Platform Foundation</td><td>Knapsack instance deployed, Adobe SSO integrated, deployment pipeline operational</td></tr>
-<tr><td>Minimum Integrations</td><td>Figma plugin + 1 implementation (Web Components)</td></tr>
-<tr><td>Permissions</td><td>Basic access model (read vs edit)</td></tr>
+<tr><td>Content Migration</td><td>~90 existing content items (68-69 components + guidelines + resources); 85/90 items have confirmed migration actions. Content migrated as-is with no structural refactors, rewrites, or IA redesign.</td></tr>
+<tr><td>Migration Execution</td><td>Migration scripting is the primary execution path (JSON/YAML-based automation dependency). Manual effort reserved for IA edge cases and exceptions surfaced during testing.</td></tr>
+<tr><td>CMS Fit Validation</td><td>Explicit MVP1 requirement: Prove or explicitly surface risk across URL structure & fixed path constraints, page hierarchy and nesting limits, role-based permission model, navigation scalability, layout flexibility, and bulk editing/migration automation feasibility. These are Phase 1 Go/No-Go criteria.</td></tr>
+<tr><td>Governance & Editorial Readiness</td><td>Minimum viable governance required: Clear ownership for migrated content, admin vs editor role clarity, editorial decision boundaries. Validated via KS POC, reverse demos, and editorial workflow workshops. Governance clarity is a release gate.</td></tr>
+<tr><td>Platform Foundation</td><td>Knapsack workspace configured, Adobe SSO integrated, deployment pipeline operational, staging environment validated prior to GoLive</td></tr>
+<tr><td>Minimum Integrations</td><td>Figma connected + at least one implementation validated (Web Components)</td></tr>
+<tr><td>Permissions</td><td>Basic access model (read vs edit) enforced</td></tr>
 <tr><td>Workflows</td><td>Admin-only content management</td></tr>
-<tr><td>AI Capabilities</td><td>Context enrichment only (non-authoritative, no IPE)</td></tr>
+<tr><td>AI Capabilities</td><td>Context enrichment only (non-authoritative, no IPE, no AI-driven rewriting)</td></tr>
 </table>
 
-<h3>Explicitly Out of Scope (Deferred to MVP2+)</h3>
+<h3>Explicitly Out of Scope (Deferred to Phase 2)</h3>
 <table>
 <tr><th>Category</th><th>Deferred To</th></tr>
-<tr><td>Content improvements, restructuring, or expansion</td><td>MVP2</td></tr>
-<tr><td>Contribution, review, governance workflows</td><td>MVP2</td></tr>
-<tr><td>Advanced roles and approval models</td><td>MVP2</td></tr>
-<tr><td>Expanded integrations (tokens, MCP, additional tooling)</td><td>MVP2</td></tr>
-<tr><td>AI-assisted workflows, automation, insights</td><td>MVP2</td></tr>
-<tr><td>Partner ecosystem enablement</td><td>MVP2/R2</td></tr>
+<tr><td>IA redesign or navigation optimization</td><td>Phase 2</td></tr>
+<tr><td>Content improvements, restructuring, or expansion</td><td>Phase 2</td></tr>
+<tr><td>Git-based editorial workflows</td><td>Phase 2</td></tr>
+<tr><td>Advanced role hierarchies or approval chains</td><td>Phase 2</td></tr>
+<tr><td>Token theme inheritance strategies</td><td>Phase 2</td></tr>
+<tr><td>MCP / advanced AI features</td><td>Phase 2</td></tr>
+<tr><td>Net-new content authoring</td><td>Phase 2</td></tr>
+<tr><td>Bulk editorial improvements</td><td>Phase 2</td></tr>
+<tr><td>Partner ecosystem enablement</td><td>Phase 2/R2</td></tr>
 <tr><td>Mobile platforms (iOS, Android)</td><td>R4 (June 2026+)</td></tr>
 </table>
 
@@ -240,11 +254,11 @@ tr:nth-child(odd),tr:nth-child(even),.callout,.metric-card,.comparison-col,.scop
 
 <div class="callout success">
 <div class="callout-title">Definition of Done (MVP1 Complete)</div>
-<p>Platform accessible via Adobe SSO. Web Components catalog live with 68+ components. All ~90 content items migrated with rendering parity. Pilot users actively using platform weekly (count per DEC-04). NPS survey completed with score of 30 or higher. No unresolved P1 bugs. Legacy CMS redirect plan approved.</p>
+<p><strong>1.</strong> All agreed MVP1 content is live in Knapsack (~90 items, 85/90 confirmed). <strong>2.</strong> Top CMS Fit risks are either proven acceptable or explicitly documented with mitigations (URL structure, permissions, navigation, layout, bulk editing). <strong>3.</strong> Governance and editorial ownership are clear enough to operate (validated via KS POC, reverse demos, editorial workshops). <strong>4.</strong> Stakeholders approve Phase 1 exit via Go/No-Go criteria. <strong>5.</strong> Platform accessible via Adobe SSO. Web Components catalog live with 68+ components. All content items migrated with rendering parity. Pilot users actively using platform weekly (count per DEC-04). NPS survey completed with score of 30 or higher. No unresolved P1 bugs. Legacy CMS redirect plan approved.</p>
 </div>
 
 <div class="footer">
-<span>Adobe Confidential - MVP1 System Charter v1.0</span>
+<span>Adobe Confidential - MVP1 System Charter v1.1</span>
 <span>Page 3 of 6</span>
 </div>
 </div>
@@ -295,7 +309,7 @@ tr:nth-child(odd),tr:nth-child(even),.callout,.metric-card,.comparison-col,.scop
 
 <div class="callout critical">
 <div class="callout-title">Critical Decision Point - March 27</div>
-<p>The March 27 Hard Phase Gate is the approval point for CMS cutover. Steering Committee must validate: migration complete, pilot feedback positive (NPS 30+), no P1 bugs, and rollback plan documented. Approval authorizes legacy CMS decommissioning.</p>
+<p>The March 27 Hard Phase Gate is the approval point for CMS cutover via Go/No-Go criteria. Steering Committee must validate: migration complete, CMS Fit risks proven acceptable or mitigated, governance clarity sufficient, pilot feedback positive (NPS 30+), no P1 bugs, and rollback plan documented. Approval authorizes legacy CMS decommissioning.</p>
 </div>
 
 <h2>7. Milestone Dependencies</h2>
@@ -309,7 +323,7 @@ tr:nth-child(odd),tr:nth-child(even),.callout,.metric-card,.comparison-col,.scop
 </table>
 
 <div class="footer">
-<span>Adobe Confidential - MVP1 System Charter v1.0</span>
+<span>Adobe Confidential - MVP1 System Charter v1.1</span>
 <span>Page 4 of 6</span>
 </div>
 </div>
@@ -376,7 +390,7 @@ tr:nth-child(odd),tr:nth-child(even),.callout,.metric-card,.comparison-col,.scop
 </table>
 
 <div class="footer">
-<span>Adobe Confidential - MVP1 System Charter v1.0</span>
+<span>Adobe Confidential - MVP1 System Charter v1.1</span>
 <span>Page 5 of 6</span>
 </div>
 </div>
@@ -398,9 +412,16 @@ tr:nth-child(odd),tr:nth-child(even),.callout,.metric-card,.comparison-col,.scop
 <table>
 <tr><th>ID</th><th>Risk</th><th>Prob</th><th>Impact</th><th>Mitigation</th><th>Owner</th></tr>
 <tr><td>R-04</td><td>Repo setup/migration strategy unclear</td><td>Med</td><td><span class="badge badge-red">Critical</span></td><td>R0 gate requires ADR approval</td><td>Tech Lead</td></tr>
+<tr><td>R-09</td><td>Migration Automation Dependency</td><td>High</td><td><span class="badge badge-red">Critical</span></td><td>JSON/YAML scripting is primary path; manual exceptions only</td><td>Tech Lead</td></tr>
+<tr><td>R-CMS-01</td><td>CMS Fit: URL structure & fixed path constraints</td><td>Med</td><td><span class="badge badge-red">Critical</span></td><td>Explicit validation in MVP1; Go/No-Go criteria</td><td>Tech Lead</td></tr>
+<tr><td>R-CMS-02</td><td>CMS Fit: Page hierarchy and nesting limits</td><td>Med</td><td><span class="badge badge-red">Critical</span></td><td>Explicit validation in MVP1; Go/No-Go criteria</td><td>Tech Lead</td></tr>
+<tr><td>R-CMS-03</td><td>CMS Fit: Role-based permission model (read vs edit)</td><td>Med</td><td><span class="badge badge-red">Critical</span></td><td>Explicit validation in MVP1; Go/No-Go criteria</td><td>Tech Lead</td></tr>
+<tr><td>R-CMS-04</td><td>CMS Fit: Navigation scalability</td><td>Med</td><td><span class="badge badge-orange">Medium</span></td><td>Explicit validation in MVP1; Go/No-Go criteria</td><td>Tech Lead</td></tr>
+<tr><td>R-CMS-05</td><td>CMS Fit: Layout flexibility within Knapsack</td><td>Med</td><td><span class="badge badge-orange">Medium</span></td><td>Explicit validation in MVP1; Go/No-Go criteria</td><td>Tech Lead</td></tr>
 <tr><td>R-15</td><td>Security review delayed</td><td>Med</td><td><span class="badge badge-red">Critical</span></td><td>Parallel workstream; escalation path</td><td>Security Team</td></tr>
 <tr><td>R-16</td><td>SARB approval delayed</td><td>Med</td><td><span class="badge badge-red">Critical</span></td><td>Early engagement; exec escalation</td><td>Allison Shaw</td></tr>
 <tr><td>R-17</td><td>Pilot NPS below threshold</td><td>Low</td><td><span class="badge badge-orange">Medium</span></td><td>Early feedback loops; weekly check-ins</td><td>DS Lead</td></tr>
+<tr><td>R-GOV-01</td><td>Governance clarity insufficient for GoLive</td><td>Med</td><td><span class="badge badge-red">Critical</span></td><td>KS POC, reverse demos, editorial workshops; release gate</td><td>Aaron Brownlee</td></tr>
 </table>
 
 <h2>12. Key Assumptions</h2>
@@ -435,11 +456,16 @@ tr:nth-child(odd),tr:nth-child(even),.callout,.metric-card,.comparison-col,.scop
 
 <div class="callout warning">
 <div class="callout-title">R0 Gate Blockers</div>
-<p><strong>Must resolve before R1 start:</strong> R-04 (Repo strategy), R-10 (Workspace architecture), R-15/R-16 (Security/SARB), DEC-01 (SSO), DEC-02 (Repository ADR), DEC-04 (Pilot user count). <strong>January Critical:</strong> DEP-04 (Procurement complete).</p>
+<p><strong>Must resolve before R1 start:</strong> R-04 (Repo strategy), R-09 (Migration automation), R-10 (Workspace architecture), R-15/R-16 (Security/SARB), DEC-01 (SSO), DEC-02 (Repository ADR), DEC-04 (Pilot user count). <strong>January Critical:</strong> DEP-04 (Procurement complete).</p>
+</div>
+
+<div class="callout critical">
+<div class="callout-title">CMS Fit Validation - Phase 1 Go/No-Go Criteria</div>
+<p><strong>MVP1 must prove or explicitly surface risk for:</strong> URL structure & fixed paths, page hierarchy/nesting, role-based permissions, navigation scalability, layout flexibility, bulk editing automation. These are not "nice to have" checks—they are Phase 1 Go/No-Go criteria that must be validated before March 27 Phase Gate.</p>
 </div>
 
 <div class="footer">
-<span>Adobe Confidential - MVP1 System Charter v1.0</span>
+<span>Adobe Confidential - MVP1 System Charter v1.1</span>
 <span>Page 6 of 6</span>
 </div>
 </div>

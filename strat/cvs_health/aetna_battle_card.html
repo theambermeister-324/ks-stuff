@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aetna + Knapsack Battle Card</title>
+  <style>
+    :root {
+      --primary: #CC0000;
+      --primary-dark: #990000;
+      --primary-light: #ffe6e6;
+      --secondary: #004C97;
+      --secondary-light: #e6f0f8;
+      --action: #268e6c;
+      --action-light: #e8f5f0;
+      --success: #268e6c;
+      --success-light: #e8f5f0;
+      --success-dark: #1a6b52;
+      --warning: #da7b11;
+      --warning-light: #fef5eb;
+      --warning-dark: #b8650e;
+      --neutral-50: #fafafa;
+      --neutral-100: #f5f5f5;
+      --neutral-150: #e5e5e5;
+      --neutral-200: #d4d4d4;
+      --neutral-500: #525252;
+      --neutral-600: #404040;
+      --neutral-700: #333333;
+      --neutral-800: #1f1f1f;
+      --neutral-900: #0a0a0a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--neutral-50);
+      display: flex;
+      min-height: 100vh;
+    }
+    nav {
+      width: 220px;
+      background: white;
+      border-right: 1px solid var(--neutral-150);
+      padding: 20px 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .nav-header {
+      padding: 0 16px 20px;
+      border-bottom: 1px solid var(--neutral-150);
+    }
+    .nav-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .nav-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--neutral-900);
+    }
+    .nav-subtitle {
+      font-size: 11px;
+      color: var(--neutral-400);
+      margin-top: 4px;
+    }
+    .nav-items { padding: 12px 8px; }
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 8px 10px;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--neutral-600);
+      font-size: 12px;
+      font-weight: 400;
+      cursor: pointer;
+      text-align: left;
+      margin-bottom: 1px;
+      transition: all 0.15s;
+    }
+    .nav-btn:hover { background: var(--neutral-100); }
+    .nav-btn.active {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .nav-num {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      background: var(--neutral-200);
+      color: var(--neutral-500);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+    }
+    .nav-btn.active .nav-num {
+      background: var(--primary);
+      color: white;
+    }
+    main {
+      flex: 1;
+      padding: 28px;
+      max-width: 900px;
+      margin: 0 auto 0 220px;
+    }
+    .section { display: none; }
+    .section.active { display: block; }
+    .card {
+      background: white;
+      border: 1px solid var(--neutral-150);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 36px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-accent {
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 60%;
+      height: 200%;
+      background: rgba(255,255,255,0.05);
+      transform: rotate(15deg);
+    }
+    .hero-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      opacity: 0.8;
+      margin-bottom: 10px;
+    }
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .hero p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+    .hero .sub {
+      font-size: 13px;
+      opacity: 0.7;
+      margin-top: 14px;
+    }
+    h1.section-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--neutral-900);
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+    .section-subtitle {
+      font-size: 15px;
+      color: var(--neutral-500);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    h2.heading {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--neutral-800);
+      margin-bottom: 14px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-primary { background: var(--primary-light); color: var(--primary); }
+    .badge-action { background: var(--action-light); color: var(--action); }
+    .badge-success { background: var(--success-light); color: var(--success-dark); }
+    .badge-warning { background: var(--warning-light); color: var(--warning-dark); }
+    .badge-secondary { background: var(--secondary-light); color: var(--secondary); }
+    .alert {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .alert-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .alert-success {
+      background: var(--success-light);
+      border: 1px solid var(--success);
+    }
+    .alert-success .alert-icon {
+      background: var(--success);
+      color: white;
+    }
+    .alert-success h3, .alert-success p {
+      color: var(--success-dark);
+    }
+    .alert-warning {
+      background: var(--warning-light);
+      border: 1px solid var(--warning);
+    }
+    .alert-warning .alert-icon {
+      background: var(--warning);
+      color: white;
+    }
+    .alert-warning h3, .alert-warning p {
+      color: var(--warning-dark);
+    }
+    .alert-secondary {
+      background: var(--secondary-light);
+      border: 2px solid var(--secondary);
+    }
+    .alert-secondary .alert-icon {
+      background: var(--secondary);
+      color: white;
+    }
+    .alert-secondary h3 {
+      color: var(--secondary);
+    }
+    .alert h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .alert p {
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 0;
+    }
+    .callout {
+      background: var(--primary-light);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 12px 12px 0;
+    }
+    .callout-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .callout p {
+      font-size: 16px;
+      color: var(--neutral-700);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .grid {
+      display: grid;
+      gap: 10px;
+    }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .grid-item {
+      display: flex;
+      gap: 10px;
+      padding: 12px;
+      background: var(--neutral-50);
+      border-radius: 8px;
+    }
+    .grid-item .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--success);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+    .grid-item .title {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--neutral-800);
+      margin-bottom: 2px;
+    }
+    .grid-item .desc {
+      font-size: 12px;
+      color: var(--neutral-500);
+    }
+    .metric-card {
+      padding: 16px;
+      background: var(--action-light);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .metric-card .value {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--action);
+      margin-bottom: 4px;
+    }
+    .metric-card .label {
+      font-size: 12px;
+      color: var(--neutral-600);
+    }
+    .theme-card {
+      display: flex;
+      gap: 14px;
+    }
+    .theme-num {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .theme-content h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--neutral-900);
+      margin-bottom: 6px;
+    }
+    .theme-content p {
+      font-size: 13px;
+      color: var(--neutral-600);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .win-box {
+      background: var(--success-light);
+      border-left: 3px solid var(--success);
+      padding: 10px;
+      border-radius: 0 6px 6px 0;
+    }
+    .win-box span:first-child {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--success-dark);
+    }
+    .win-box span:last-child {
+      font-size: 12px;
+      color: var(--success-dark);
+    }
+    .factor-item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--neutral-100);
+    }
+    .factor-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .factor-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+      color: white;
+    }
+    .factor-num.critical { background: var(--primary); }
+    .factor-num.high { background: var(--action); }
+    .factor-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .factor-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--neutral-800);
+    }
+    .factor-desc {
+      font-size: 13px;
+      color: var(--neutral-600);
+      margin: 0;
+    }
+    .objection {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--neutral-100);
+    }
+    .objection:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .objection-q {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--secondary);
+      margin-bottom: 6px;
+    }
+    .objection-a {
+      font-size: 12px;
+      color: var(--neutral-600);
+      margin: 0 0 8px 0;
+    }
+    .question-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      background: var(--neutral-50);
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .question-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .question-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--neutral-800);
+      margin-bottom: 4px;
+    }
+    .question-answer {
+      font-size: 11px;
+      color: var(--success-dark);
+    }
+    .table-header {
+      display: grid;
+      gap: 8px;
+      padding: 10px 14px;
+      background: var(--neutral-50);
+      border-radius: 6px;
+      font-weight: 600;
+      color: var(--neutral-500);
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    .table-row {
+      display: grid;
+      gap: 8px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--neutral-100);
+      font-size: 12px;
+    }
+    .table-3col {
+      grid-template-columns: 140px 1fr 1fr;
+    }
+    .text-secondary { color: var(--secondary); }
+    .text-success { color: var(--success-dark); }
+    .text-primary { color: var(--primary); }
+    .text-neutral { color: var(--neutral-700); }
+    .fw-600 { font-weight: 600; }
+    .timeline-item {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-track {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .timeline-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .timeline-line {
+      width: 2px;
+      flex: 1;
+      background: var(--neutral-200);
+      margin-top: 6px;
+    }
+    .timeline-content { flex: 1; }
+    .timeline-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .timeline-date {
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .timeline-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--neutral-800);
+    }
+    .timeline-desc {
+      font-size: 13px;
+      color: var(--neutral-600);
+      margin: 0;
+    }
+    .roi-hero {
+      background: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .roi-hero .label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 3px;
+    }
+    .roi-hero .value {
+      font-size: 28px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-header">
+      <div class="nav-label">Internal AE Tool</div>
+      <div class="nav-title">Aetna Battle Card</div>
+      <div class="nav-subtitle">90-Day Pilot Target</div>
+    </div>
+    <div class="nav-items">
+      <button class="nav-btn active" data-section="overview"><span class="nav-num">1</span><span>Executive Overview</span></button>
+      <button class="nav-btn" data-section="context"><span class="nav-num">2</span><span>Account Context</span></button>
+      <button class="nav-btn" data-section="win-themes"><span class="nav-num">3</span><span>WIN Themes</span></button>
+      <button class="nav-btn" data-section="deal-strategy"><span class="nav-num">4</span><span>What Wins This Deal</span></button>
+      <button class="nav-btn" data-section="objections"><span class="nav-num">5</span><span>Objection Handling</span></button>
+      <button class="nav-btn" data-section="roi"><span class="nav-num">6</span><span>Quick ROI</span></button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- OVERVIEW SECTION -->
+    <div class="section active" id="overview">
+      <div class="hero">
+        <div class="hero-accent"></div>
+        <div class="hero-label">Design System Management Partnership</div>
+        <h1>Aetna + Knapsack</h1>
+        <p>Better Design System Management</p>
+        <p class="sub">Aetna Healthcare — Aetna Anatomy Design System</p>
+      </div>
+
+      <div class="card alert alert-success">
+        <div class="alert-icon">+</div>
+        <div>
+          <h3>Deal Assessment: HIGH CONFIDENCE</h3>
+          <p>Aetna Design System Team needs better design system management. Market forces (regulatory compliance, $1.2B cost-cutting initiative) create urgency. Our job: Help them better manage Aetna Anatomy Design System across 9+ properties, prove value through a focused use case (e.g., accessibility), and create expansion model for Caremark/CVS Pharmacy.</p>
+        </div>
+      </div>
+
+      <div class="card alert alert-warning">
+        <div class="alert-icon">!</div>
+        <div>
+          <h3>Primary Budget Threat: Cost-Cutting Initiative</h3>
+          <p>Aetna is executing a $1.2B cost-cutting initiative. Budget is tight, but better design system management reduces operational costs—aligning with cost reduction goals. Position as efficiency improvement, not new spend.</p>
+        </div>
+      </div>
+
+      <div class="card callout">
+        <div class="callout-label">Purpose</div>
+        <p>To help Aetna Design System Team better manage their Aetna Anatomy Design System across 9+ digital properties, improving governance, consistency, and operational efficiency. Accessibility governance may serve as a valuable use case to demonstrate value.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Why This Deal Is Special</h2>
+        <div class="grid grid-2">
+          <div class="grid-item">
+            <div class="dot"></div>
+            <div>
+              <div class="title">Design system maturity need</div>
+              <div class="desc">Aetna Anatomy Design System needs better management across 9+ properties</div>
+            </div>
+          </div>
+          <div class="grid-item">
+            <div class="dot"></div>
+            <div>
+              <div class="title">Cost reduction mandate</div>
+              <div class="desc">$1.2B initiative creates urgency for efficiency solutions</div>
+            </div>
+          </div>
+          <div class="grid-item">
+            <div class="dot"></div>
+            <div>
+              <div class="title">Clear property boundaries</div>
+              <div class="desc">Nathan Frank portfolio provides focused scope</div>
+            </div>
+          </div>
+          <div class="grid-item">
+            <div class="dot"></div>
+            <div>
+              <div class="title">Expansion model</div>
+              <div class="desc">Success with Aetna creates replicable approach</div>
+            </div>
+          </div>
+          <div class="grid-item">
+            <div class="dot"></div>
+            <div>
+              <div class="title">Fragmented properties</div>
+              <div class="desc">9+ properties need unified design system management</div>
+            </div>
+          </div>
+          <div class="grid-item">
+            <div class="dot"></div>
+            <div>
+              <div class="title">Use case opportunity</div>
+              <div class="desc">Accessibility governance could demonstrate value</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Success Metrics (Aetna Definition)</h2>
+        <div class="grid grid-3">
+          <div class="metric-card">
+            <div class="value">Better</div>
+            <div class="label">Design system management</div>
+          </div>
+          <div class="metric-card">
+            <div class="value">9+</div>
+            <div class="label">Properties unified</div>
+          </div>
+          <div class="metric-card">
+            <div class="value">Value</div>
+            <div class="label">Proven through use case</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTEXT SECTION -->
+    <div class="section" id="context">
+      <h1 class="section-title">Account Context</h1>
+      <p class="section-subtitle">Aetna's current state and why now</p>
+
+      <div class="card">
+        <h2 class="heading">Market Forces Creating Urgency</h2>
+        <div class="grid grid-2">
+          <div style="background: var(--secondary-light); padding: 16px; border-radius: 8px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--secondary); margin-bottom: 8px; text-transform: uppercase;">Regulatory Pressure</div>
+            <ul style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; padding-left: 20px;">
+              <li>TiC non-compliance scrutiny (Dec 2025)</li>
+              <li>Accessibility lawsuits increasing</li>
+              <li>Compliance costs exceed $1B annually</li>
+            </ul>
+          </div>
+          <div style="background: var(--warning-light); padding: 16px; border-radius: 8px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--warning); margin-bottom: 8px; text-transform: uppercase;">Financial Pressure</div>
+            <ul style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; padding-left: 20px;">
+              <li>$924M ACA losses (2024)</li>
+              <li>$1.2B cost-cutting initiative</li>
+              <li>MLR volatility (85.7% to 95.2%)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Aetna Design System Team's Pain Points</h2>
+        <div class="table-header table-3col">
+          <span>Pain Point</span>
+          <span>Market Evidence</span>
+          <span>Impact</span>
+        </div>
+        <div class="table-row table-3col">
+          <span class="fw-600 text-neutral">Fragmented Design System Management</span>
+          <span class="text-secondary">9+ properties, multiple tech stacks, inconsistent usage</span>
+          <span class="text-success">CRITICAL: Core value proposition</span>
+        </div>
+        <div class="table-row table-3col">
+          <span class="fw-600 text-neutral">Operational Inefficiency</span>
+          <span class="text-secondary">$1.2B cost-cutting; manual processes</span>
+          <span class="text-success">HIGH: Better management reduces costs</span>
+        </div>
+        <div class="table-row table-3col">
+          <span class="fw-600 text-neutral">Lack of Governance</span>
+          <span class="text-secondary">No unified governance across properties</span>
+          <span class="text-success">HIGH: Governance enables consistency</span>
+        </div>
+        <div class="table-row table-3col">
+          <span class="fw-600 text-neutral">Use Case Opportunities</span>
+          <span class="text-secondary">Accessibility, consistency, component usage tracking</span>
+          <span class="text-success">MEDIUM: Demonstrates value through focused POC</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Aetna Properties in Scope</h2>
+        <div style="background: var(--success-light); padding: 16px; border-radius: 8px;">
+          <div style="font-size: 12px; font-weight: 600; color: var(--success-dark); margin-bottom: 8px;">Aetna Anatomy Design System Coverage (9 Properties)</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 12px; color: var(--neutral-700); margin-bottom: 12px;">
+            <div>
+              <strong>Core Properties (3):</strong>
+              <ul style="margin-top: 4px; padding-left: 16px; line-height: 1.6;">
+                <li>Aetna.com</li>
+                <li>Aetna.com/Medicare</li>
+                <li>Medicaid Web Portal</li>
+              </ul>
+            </div>
+            <div>
+              <strong>Specialty Properties (6):</strong>
+              <ul style="margin-top: 4px; padding-left: 16px; line-height: 1.6;">
+                <li>Aetna Better Health of Maryland</li>
+                <li>Aetna Dental</li>
+                <li>Aetna International Portal</li>
+                <li>Aetna International Public Site</li>
+                <li>Aetna Medicare Micro site (Boeing)</li>
+                <li>Aetna Student Health Web</li>
+              </ul>
+            </div>
+          </div>
+          <div style="padding-top: 12px; border-top: 1px solid #c3ddd2; font-size: 11px; color: var(--neutral-600);">
+            <strong>Note:</strong> Design system management across all 9 properties. Accessibility governance may serve as a use case to demonstrate value.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Headwinds vs. Tailwinds</h2>
+        <div class="grid grid-2">
+          <div>
+            <div style="font-size: 12px; font-weight: 600; color: var(--secondary); margin-bottom: 8px;">Headwinds</div>
+            <ul style="font-size: 12px; color: var(--neutral-600); line-height: 1.6; padding-left: 20px;">
+              <li>Budget constraints ($1.2B initiative)</li>
+              <li>Potential CVS breakup uncertainty</li>
+              <li>Regulatory compliance urgency</li>
+              <li>Organizational restructuring</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size: 12px; font-weight: 600; color: var(--success-dark); margin-bottom: 8px;">Tailwinds</div>
+            <ul style="font-size: 12px; color: var(--neutral-600); line-height: 1.6; padding-left: 20px;">
+              <li>Cost reduction mandate creates urgency</li>
+              <li>Clear property ownership (Nathan Frank)</li>
+              <li>Proven Aetna Anatomy Design System foundation</li>
+              <li>Expansion model potential</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WIN THEMES SECTION -->
+    <div class="section" id="win-themes">
+      <h1 class="section-title">WIN Themes</h1>
+      <p class="section-subtitle">Six strategic positioning themes for Aetna engagement</p>
+
+      <div class="card">
+        <div class="theme-card">
+          <div class="theme-num">1</div>
+          <div class="theme-content">
+            <h3>Unified Design System Management</h3>
+            <p>Better manage Aetna Anatomy Design System across Aetna's 9+ properties. Single source of truth for components, documentation, and governance—reducing fragmentation and improving consistency.</p>
+            <div class="win-box">
+              <span>Why it wins: </span>
+              <span>Design system team needs better management tools. Knapsack provides unified platform for governance, documentation, and component management.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="theme-card">
+          <div class="theme-num">2</div>
+          <div class="theme-content">
+            <h3>Governance Across Fragmented Properties</h3>
+            <p>Establish governance framework across Aetna's 9+ properties and multiple tech stacks (React/Angular/native). Enable pattern recognition, component usage tracking, and consistency validation.</p>
+            <div class="win-box">
+              <span>Why it wins: </span>
+              <span>Core value proposition. Aetna can't currently manage design system consistently across properties—governance enables unified management.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="theme-card">
+          <div class="theme-num">3</div>
+          <div class="theme-content">
+            <h3>Operational Efficiency & Cost Reduction</h3>
+            <p>Better design system management reduces manual processes, improves consistency, and eliminates waste. Directly addresses $1.2B cost-cutting initiative through efficiency gains.</p>
+            <div class="win-box">
+              <span>Why it wins: </span>
+              <span>Position as efficiency improvement, not new spend. Budget constraints require ROI proof—better management delivers measurable operational savings.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="theme-card">
+          <div class="theme-num">4</div>
+          <div class="theme-content">
+            <h3>Use Case-Driven Value Demonstration</h3>
+            <p>Prove value through focused use cases (e.g., accessibility governance, component usage tracking, consistency validation). Use cases demonstrate ROI and build confidence for broader adoption.</p>
+            <div class="win-box">
+              <span>Why it wins: </span>
+              <span>Design system team can start with specific use cases to prove value. Accessibility governance is one potential use case among many.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="theme-card">
+          <div class="theme-num">5</div>
+          <div class="theme-content">
+            <h3>Aetna-First Expansion Model</h3>
+            <p>Prove value with Aetna's Aetna Anatomy Design System first, then replicate proven management approach for Caremark, CVS Pharmacy, and other CVS Health entities.</p>
+            <div class="win-box">
+              <span>Why it wins: </span>
+              <span>Respects organizational boundaries (Aetna/Caremark firewalls) while establishing replicable approach. Success with Aetna creates expansion pathway.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="theme-card">
+          <div class="theme-num">6</div>
+          <div class="theme-content">
+            <h3>Faster Time-to-Value</h3>
+            <p>Focused use case (e.g., accessibility governance) delivers auditable metrics showing value. Fast time-to-value critical given budget constraints and potential CVS restructuring.</p>
+            <div class="win-box">
+              <span>Why it wins: </span>
+              <span>Organizational uncertainty requires quick proof. Use case POC establishes baseline and demonstrates value before potential restructuring.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEAL STRATEGY SECTION -->
+    <div class="section" id="deal-strategy">
+      <h1 class="section-title">What Wins This Deal</h1>
+      <p class="section-subtitle">Critical success factors and engagement approach</p>
+
+      <div class="card" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white;">
+        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; opacity: 0.8; margin-bottom: 12px;">The #1 Lever</div>
+        <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Better Design System Management</h3>
+        <p style="font-size: 14px; opacity: 0.9; line-height: 1.5; margin: 0;">Help Aetna Design System Team better manage Aetna Anatomy Design System across 9+ properties. Position as efficiency improvement aligned with $1.2B cost-cutting initiative—better management reduces operational costs and improves consistency.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Five Winning Factors</h2>
+        <div class="factor-item">
+          <div class="factor-num critical">1</div>
+          <div>
+            <div class="factor-header">
+              <span class="factor-title">Design System Management Focus</span>
+              <span class="badge badge-primary">Critical</span>
+            </div>
+            <p class="factor-desc">Frame as helping design system team better manage Aetna Anatomy Design System, not just accessibility</p>
+          </div>
+        </div>
+        <div class="factor-item">
+          <div class="factor-num high">2</div>
+          <div>
+            <div class="factor-header">
+              <span class="factor-title">Use Case Demonstration</span>
+              <span class="badge badge-action">High</span>
+            </div>
+            <p class="factor-desc">Accessibility governance as one use case to prove value—not the only focus</p>
+          </div>
+        </div>
+        <div class="factor-item">
+          <div class="factor-num high">3</div>
+          <div>
+            <div class="factor-header">
+              <span class="factor-title">Operational Efficiency</span>
+              <span class="badge badge-action">High</span>
+            </div>
+            <p class="factor-desc">Better management reduces manual processes and improves consistency</p>
+          </div>
+        </div>
+        <div class="factor-item">
+          <div class="factor-num high">4</div>
+          <div>
+            <div class="factor-header">
+              <span class="factor-title">Unified Governance</span>
+              <span class="badge badge-action">High</span>
+            </div>
+            <p class="factor-desc">Core value proposition—unified design system management across 9+ properties</p>
+          </div>
+        </div>
+        <div class="factor-item">
+          <div class="factor-num high" style="background: var(--warning);">5</div>
+          <div>
+            <div class="factor-header">
+              <span class="factor-title">Aetna-First Stability</span>
+              <span class="badge badge-warning">Essential</span>
+            </div>
+            <p class="factor-desc">Respects organizational boundaries while proving value before potential CVS restructuring</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJECTIONS SECTION -->
+    <div class="section" id="objections">
+      <h1 class="section-title">Objection Handling</h1>
+      <p class="section-subtitle">Common objections and winning responses</p>
+
+      <div class="card">
+        <h2 class="heading">Top Objections</h2>
+        <div class="objection">
+          <div class="objection-q">"We don't have budget for new tools"</div>
+          <p class="objection-a">Better design system management reduces operational costs and improves efficiency. This is efficiency improvement aligned with your $1.2B initiative, not new spend.</p>
+          <div class="win-box">
+            <span>Reframe: </span>
+            <span>What's the cost of fragmented design system management? Better management reduces waste and improves consistency.</span>
+          </div>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"We need to focus on other priorities"</div>
+          <p class="objection-a">Design system management is foundational—better management enables all other priorities. Start with a focused use case (e.g., accessibility) to prove value.</p>
+          <div class="win-box">
+            <span>Reframe: </span>
+            <span>Better design system management isn't a distraction—it's an enabler for everything else.</span>
+          </div>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"What if CVS restructures?"</div>
+          <p class="objection-a">Aetna-first approach provides stability. Success with Aetna's Aetna Anatomy Design System creates value independent of corporate structure and establishes expansion model.</p>
+          <div class="win-box">
+            <span>Reframe: </span>
+            <span>Use case POC proves value quickly—before potential restructuring impacts budget.</span>
+          </div>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"We already manage our design system"</div>
+          <p class="objection-a">Current management is fragmented across 9+ properties. Knapsack provides unified governance, better documentation, and component usage tracking—improving what you already do.</p>
+          <div class="win-box">
+            <span>Reframe: </span>
+            <span>If properties aren't consistently using Aetna Anatomy Design System, management needs improvement—Knapsack helps.</span>
+          </div>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"This requires too much change"</div>
+          <p class="objection-a">Use case POC operates as sandbox—demonstrates value without requiring full network integration. Minimal disruption, maximum proof.</p>
+          <div class="win-box">
+            <span>Reframe: </span>
+            <span>Focused use case POC is low-risk, high-reward. Proves value before committing to broader implementation.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Killer Questions</h2>
+        <div class="question-item">
+          <div class="question-icon">?</div>
+          <div>
+            <div class="question-text">"How do you currently manage Aetna Anatomy Design System across 9+ properties?"</div>
+            <div class="question-answer">Fragmented approach. Knapsack provides unified management, governance, and component usage tracking across all properties.</div>
+          </div>
+        </div>
+        <div class="question-item">
+          <div class="question-icon">?</div>
+          <div>
+            <div class="question-text">"What's the cost of fragmented design system management?"</div>
+            <div class="question-answer">Inconsistent usage, manual processes, wasted effort. Better management reduces operational costs and improves consistency.</div>
+          </div>
+        </div>
+        <div class="question-item">
+          <div class="question-icon">?</div>
+          <div>
+            <div class="question-text">"How can we prove value quickly?"</div>
+            <div class="question-answer">Start with a focused use case (e.g., accessibility governance) to demonstrate value. Use case POC proves ROI before broader adoption.</div>
+          </div>
+        </div>
+        <div class="question-item">
+          <div class="question-icon">?</div>
+          <div>
+            <div class="question-text">"How does this align with cost-cutting goals?"</div>
+            <div class="question-answer">Better design system management reduces manual processes and improves efficiency. This is operational improvement, not new spend.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROI SECTION -->
+    <div class="section" id="roi">
+      <h1 class="section-title">Quick ROI Talking Points</h1>
+      <p class="section-subtitle">Key metrics for sales conversations</p>
+
+      <div class="card roi-hero">
+        <div>
+          <div class="label">90-Day Pilot</div>
+          <div class="value">Baseline Established</div>
+        </div>
+        <div style="text-align: right;">
+          <div class="label">Value Delivered</div>
+          <div class="value">Cost Reduction</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Key ROI Metrics</h2>
+        <div class="grid grid-2">
+          <div style="background: var(--action-light); padding: 16px; border-radius: 8px;">
+            <div style="font-size: 11px; font-weight: 600; color: var(--action); margin-bottom: 6px; text-transform: uppercase;">Operational Efficiency</div>
+            <div style="font-size: 18px; font-weight: 700; color: var(--action); margin-bottom: 4px;">Reduced Manual Processes</div>
+            <div style="font-size: 12px; color: var(--neutral-600);">Better design system management reduces manual work and improves consistency across properties</div>
+          </div>
+          <div style="background: var(--secondary-light); padding: 16px; border-radius: 8px;">
+            <div style="font-size: 11px; font-weight: 600; color: var(--secondary); margin-bottom: 6px; text-transform: uppercase;">Value Demonstration</div>
+            <div style="font-size: 18px; font-weight: 700; color: var(--secondary); margin-bottom: 4px;">Use Case POC</div>
+            <div style="font-size: 12px; color: var(--neutral-600);">Focused use case (e.g., accessibility) demonstrates value and ROI before broader adoption</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Use Case POC Targets</h2>
+        <div class="grid grid-3">
+          <div class="metric-card">
+            <div class="value">Better</div>
+            <div class="label">Design system management</div>
+          </div>
+          <div class="metric-card">
+            <div class="value">Use Case</div>
+            <div class="label">Value demonstrated</div>
+          </div>
+          <div class="metric-card">
+            <div class="value">9+</div>
+            <div class="label">Properties unified</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="background: var(--primary-light);">
+        <div style="font-size: 12px; font-weight: 600; color: var(--primary); margin-bottom: 6px;">The ROI Narrative</div>
+        <p style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin: 0;">"Better design system management reduces operational costs and improves consistency across Aetna's 9+ properties. This aligns with your $1.2B cost-cutting initiative—better management is efficiency improvement, not new spend. Use case POC (e.g., accessibility governance) demonstrates value and establishes foundation for broader adoption."</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(btn.dataset.section).classList.add('active');
+        window.scrollTo(0, 0);
+      });
+    });
+  </script>
+</body>
+</html>
+

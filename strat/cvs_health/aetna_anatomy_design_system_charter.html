@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Charter Hypothesis - Aetna Anatomy Design System</title>
+    <style>
+        /* CVS Health Brand Colors */
+        :root {
+            --cvs-red: #CC0000;
+            --cvs-blue: #004C97;
+            --cvs-gray-50: #ffffff;
+            --cvs-gray-100: #f5f5f5;
+            --cvs-gray-200: #eaeaea;
+            --cvs-gray-300: #e1e1e1;
+            --cvs-gray-600: #6e6e6e;
+            --cvs-gray-800: #4b4b4b;
+            --cvs-gray-900: #2c2c2c;
+            --cvs-green: #268e6c;
+            --cvs-orange: #da7b11;
+            --cvs-font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--cvs-font-family);
+            font-size: 8.5pt;
+            line-height: 1.4;
+            color: var(--cvs-gray-900);
+            background: var(--cvs-gray-200);
+        }
+        
+        .container { max-width: 1100px; margin: 0 auto; }
+        
+        .page {
+            width: 11in;
+            min-height: 8.5in;
+            padding: 0.45in 0.55in;
+            margin: 20px auto;
+            background: var(--cvs-gray-50);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            page-break-after: always;
+            position: relative;
+        }
+        
+        @media print {
+            body { background: white; }
+            .page { box-shadow: none; margin: 0; }
+            @page { size: 11in 8.5in landscape; margin: 0; }
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--cvs-red);
+        }
+        
+        .page-header h1 {
+            font-size: 20pt;
+            font-weight: 700;
+            color: var(--cvs-gray-900);
+        }
+        
+        .subtitle {
+            font-size: 10pt;
+            color: var(--cvs-gray-600);
+            margin-top: 2px;
+        }
+        
+        .hypothesis-badge {
+            background: var(--cvs-orange);
+            color: white;
+            font-size: 7pt;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-left: 8px;
+        }
+        
+        .meta {
+            font-size: 8pt;
+            color: var(--cvs-gray-600);
+            text-align: right;
+        }
+        
+        .section-label {
+            background: var(--cvs-gray-100);
+            color: var(--cvs-gray-700);
+            font-size: 7pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        
+        h2 {
+            font-size: 10pt;
+            font-weight: 700;
+            color: var(--cvs-gray-900);
+            margin-top: 16px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid var(--cvs-gray-300);
+            padding-bottom: 4px;
+        }
+        
+        h3 {
+            font-size: 9pt;
+            font-weight: 600;
+            color: var(--cvs-gray-800);
+            margin-top: 12px;
+            margin-bottom: 6px;
+        }
+        
+        h4 {
+            font-size: 8.5pt;
+            font-weight: 600;
+            color: var(--cvs-gray-700);
+            margin-top: 8px;
+            margin-bottom: 4px;
+        }
+        
+        p {
+            margin-bottom: 8px;
+            text-align: justify;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+        
+        li {
+            margin-bottom: 4px;
+        }
+        
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+        
+        .callout {
+            background: var(--cvs-gray-100);
+            border-left: 4px solid var(--cvs-blue);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .callout.success {
+            border-left-color: var(--cvs-green);
+        }
+        
+        .callout.warning {
+            border-left-color: var(--cvs-orange);
+        }
+        
+        .callout-title {
+            font-weight: 600;
+            color: var(--cvs-gray-800);
+            margin-bottom: 6px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 8pt;
+        }
+        
+        table th {
+            background: var(--cvs-gray-100);
+            padding: 6px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid var(--cvs-gray-300);
+        }
+        
+        table td {
+            padding: 6px;
+            border: 1px solid var(--cvs-gray-300);
+        }
+        
+        .footer {
+            position: absolute;
+            bottom: 0.3in;
+            left: 0.55in;
+            right: 0.55in;
+            font-size: 7pt;
+            color: var(--cvs-gray-600);
+            border-top: 1px solid var(--cvs-gray-300);
+            padding-top: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .property-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 7.5pt;
+        }
+        
+        .property-list ul {
+            margin-left: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- PAGE 1: EXECUTIVE SUMMARY -->
+        <div class="page">
+            <div class="page-header">
+                <div>
+                    <h1>Aetna Anatomy Design System<span class="hypothesis-badge">DRAFT HYPOTHESIS</span></h1>
+                    <div class="subtitle">System Charter Hypothesis | Design System Governance & Management</div>
+                </div>
+                <div class="meta">
+                    <div>Aetna Healthcare</div>
+                    <div>November 2025</div>
+                    <div>Draft for Discussion</div>
+                </div>
+            </div>
+            
+            <div class="section-label">Executive Summary</div>
+            
+            <h2>1. Charter Purpose</h2>
+            <p>This document outlines a <strong>hypothetical system charter</strong> for the <strong>Aetna Anatomy Design System</strong>—the design system that serves as the foundation for consistent user experiences across Aetna Healthcare's 9 digital properties. This charter hypothesis defines the design system's purpose, scope, governance model, and how it enables better management, consistency, and operational efficiency across Aetna's diverse portfolio.</p>
+            
+            <div class="callout success">
+                <div class="callout-title">Design System Vision</div>
+                <p><strong>Aetna Anatomy Design System</strong> provides a unified design language, component library, and governance framework that enables consistent, accessible, and efficient digital experiences across all Aetna properties—from core consumer-facing sites (Aetna.com, Aetna.com/Medicare) to specialty portals (Dental, International, Student Health, Better Health of Maryland).</p>
+            </div>
+            
+            <h2>2. Strategic Context</h2>
+            <h3>Why This Design System Exists</h3>
+            <p>Aetna Healthcare operates 9 distinct digital properties serving diverse audiences (consumers, Medicare members, Medicaid members, international members, students, dental plan members). Without a unified design system:</p>
+            <ul>
+                <li><strong>Inconsistency:</strong> Each property develops its own patterns, creating brand fragmentation</li>
+                <li><strong>Duplication:</strong> Teams rebuild similar components across properties, wasting engineering capacity</li>
+                <li><strong>Accessibility Risk:</strong> Inconsistent implementation increases compliance risk and defect rates</li>
+                <li><strong>Operational Cost:</strong> Manual processes, fragmented governance, and lack of visibility increase operational overhead</li>
+                <li><strong>Velocity Impact:</strong> Teams spend time on rework instead of innovation</li>
+            </ul>
+            
+            <h3>Market Forces</h3>
+            <div class="two-col">
+                <div>
+                    <h4>Headwinds</h4>
+                    <ul>
+                        <li>$1.2B cost-cutting initiative</li>
+                        <li>Regulatory compliance scrutiny</li>
+                        <li>Accessibility lawsuit escalation</li>
+                        <li>Organizational restructuring</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Tailwinds</h4>
+                    <ul>
+                        <li>Cost reduction mandate creates urgency for efficiency</li>
+                        <li>Proven design system foundation exists</li>
+                        <li>Clear property ownership (9 properties)</li>
+                        <li>Expansion model potential</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h2>3. Design System Scope</h2>
+            <h3>Properties Served</h3>
+            <div class="property-list">
+                <div>
+                    <strong>Core Properties (3):</strong>
+                    <ul>
+                        <li>Aetna.com</li>
+                        <li>Aetna.com/Medicare</li>
+                        <li>Medicaid Web Portal</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>Specialty Properties (6):</strong>
+                    <ul>
+                        <li>Aetna Better Health of Maryland</li>
+                        <li>Aetna Dental</li>
+                        <li>Aetna International Portal</li>
+                        <li>Aetna International Public Site</li>
+                        <li>Aetna Medicare Micro site (Boeing)</li>
+                        <li>Aetna Student Health Web</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Design System Components</h3>
+            <ul>
+                <li><strong>Design Tokens:</strong> Colors, typography, spacing, elevation, motion</li>
+                <li><strong>Component Library:</strong> UI components (buttons, forms, navigation, cards, etc.)</li>
+                <li><strong>Patterns & Guidelines:</strong> Usage patterns, accessibility standards, content guidelines</li>
+                <li><strong>Documentation:</strong> Component documentation, usage examples, design principles</li>
+                <li><strong>Code Implementation:</strong> React, Angular, and native implementations</li>
+            </ul>
+            
+            <div class="footer">
+                <span>Aetna Healthcare Confidential | Design System Charter Hypothesis v1.0</span>
+                <span>Page 1 of 6</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 2: GOVERNANCE & OWNERSHIP -->
+        <div class="page">
+            <div class="section-label">Governance & Ownership</div>
+            
+            <h2>4. Design System Governance Model</h2>
+            <h3>Ownership Structure</h3>
+            <p>The <strong>Aetna Design System Team</strong> owns and manages the Aetna Anatomy Design System. This team is responsible for:</p>
+            <ul>
+                <li>Design system strategy and roadmap</li>
+                <li>Component design and development</li>
+                <li>Governance and quality standards</li>
+                <li>Documentation and developer enablement</li>
+                <li>Usage tracking and compliance</li>
+            </ul>
+            
+            <h3>Governance Principles</h3>
+            <div class="two-col">
+                <div>
+                    <h4>Design System Team Authority</h4>
+                    <ul>
+                        <li>Final approval on component additions/modifications</li>
+                        <li>Governance enforcement across properties</li>
+                        <li>Quality standards definition</li>
+                        <li>Accessibility compliance oversight</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Property Team Responsibilities</h4>
+                    <ul>
+                        <li>Adhere to design system standards</li>
+                        <li>Report component gaps and needs</li>
+                        <li>Participate in design system reviews</li>
+                        <li>Provide usage feedback</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Contribution Model</h3>
+            <p>Property teams can propose new components or modifications, but all changes must go through the Design System Team's governance process:</p>
+            <ol>
+                <li><strong>Proposal:</strong> Property team submits component request</li>
+                <li><strong>Review:</strong> Design System Team evaluates need, scope, and impact</li>
+                <li><strong>Design:</strong> Design System Team designs component (or approves property design)</li>
+                <li><strong>Development:</strong> Design System Team develops component (or approves property implementation)</li>
+                <li><strong>Documentation:</strong> Component documented in design system</li>
+                <li><strong>Distribution:</strong> Component made available to all properties</li>
+            </ol>
+            
+            <h2>5. Design System Management Challenges</h2>
+            <h3>Current State Pain Points</h3>
+            <table>
+                <tr>
+                    <th>Challenge</th>
+                    <th>Impact</th>
+                    <th>Current Approach</th>
+                </tr>
+                <tr>
+                    <td><strong>Fragmented Management</strong></td>
+                    <td>Inconsistent usage, duplication, drift</td>
+                    <td>Manual tracking, spreadsheets, ad-hoc communication</td>
+                </tr>
+                <tr>
+                    <td><strong>Limited Visibility</strong></td>
+                    <td>Can't track component usage across properties</td>
+                    <td>No centralized usage analytics</td>
+                </tr>
+                <tr>
+                    <td><strong>Documentation Scattered</strong></td>
+                    <td>Designers and developers use different sources</td>
+                    <td>Figma files, separate docs, code repos</td>
+                </tr>
+                <tr>
+                    <td><strong>Governance Manual</strong></td>
+                    <td>Time-consuming reviews, inconsistent enforcement</td>
+                    <td>Email, meetings, manual audits</td>
+                </tr>
+                <tr>
+                    <td><strong>Multi-Stack Complexity</strong></td>
+                    <td>React/Angular/native implementations diverge</td>
+                    <td>Separate codebases, manual sync</td>
+                </tr>
+            </table>
+            
+            <h3>What Better Management Enables</h3>
+            <div class="callout success">
+                <div class="callout-title">Knapsack Platform Value</div>
+                <p>A unified design system management platform (like Knapsack) would enable:</p>
+                <ul>
+                    <li><strong>Single Source of Truth:</strong> Design and code live together, synchronized</li>
+                    <li><strong>Usage Tracking:</strong> See how components are used across all 9 properties</li>
+                    <li><strong>Automated Governance:</strong> Quality gates, approval workflows, compliance checks</li>
+                    <li><strong>Unified Documentation:</strong> Designers and developers use the same platform</li>
+                    <li><strong>Cross-Property Insights:</strong> Identify patterns, gaps, and opportunities</li>
+                </ul>
+            </div>
+            
+            <div class="footer">
+                <span>Aetna Healthcare Confidential | Design System Charter Hypothesis v1.0</span>
+                <span>Page 2 of 6</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 3: DESIGN SYSTEM CAPABILITIES -->
+        <div class="page">
+            <div class="section-label">Design System Capabilities</div>
+            
+            <h2>6. Design System Deliverables</h2>
+            <h3>Design Assets</h3>
+            <ul>
+                <li><strong>Figma Component Library:</strong> Design system components in Figma</li>
+                <li><strong>Design Tokens:</strong> Colors, typography, spacing, elevation</li>
+                <li><strong>Pattern Library:</strong> Usage patterns, layouts, templates</li>
+                <li><strong>Accessibility Guidelines:</strong> WCAG compliance standards, accessibility patterns</li>
+            </ul>
+            
+            <h3>Code Implementation</h3>
+            <div class="two-col">
+                <div>
+                    <h4>React Components</h4>
+                    <ul>
+                        <li>Component library (npm package)</li>
+                        <li>TypeScript definitions</li>
+                        <li>Storybook documentation</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Angular Components</h4>
+                    <ul>
+                        <li>Component library (npm package)</li>
+                        <li>TypeScript definitions</li>
+                        <li>Documentation</li>
+                    </ul>
+                </div>
+            </div>
+            <ul>
+                <li><strong>Native Components:</strong> iOS and Android implementations (where applicable)</li>
+            </ul>
+            
+            <h3>Documentation</h3>
+            <ul>
+                <li><strong>Component Documentation:</strong> Usage guidelines, props, examples</li>
+                <li><strong>Design Principles:</strong> Brand guidelines, design philosophy</li>
+                <li><strong>Developer Guides:</strong> Getting started, contribution process</li>
+                <li><strong>Accessibility Documentation:</strong> WCAG compliance, accessibility patterns</li>
+            </ul>
+            
+            <h2>7. Use Cases & Value Drivers</h2>
+            <h3>Primary Use Cases</h3>
+            <table>
+                <tr>
+                    <th>Use Case</th>
+                    <th>Value</th>
+                    <th>Properties Impacted</th>
+                </tr>
+                <tr>
+                    <td><strong>Design System Management</strong></td>
+                    <td>Unified governance, consistency, reduced fragmentation</td>
+                    <td>All 9 properties</td>
+                </tr>
+                <tr>
+                    <td><strong>Component Usage Tracking</strong></td>
+                    <td>Visibility into adoption, identify gaps and duplication</td>
+                    <td>All 9 properties</td>
+                </tr>
+                <tr>
+                    <td><strong>Accessibility Governance</strong></td>
+                    <td>Reduce defects, ensure WCAG compliance, reduce legal risk</td>
+                    <td>All 9 properties</td>
+                </tr>
+                <tr>
+                    <td><strong>Developer Enablement</strong></td>
+                    <td>Faster development, reduced rework, better onboarding</td>
+                    <td>All 9 properties</td>
+                </tr>
+                <tr>
+                    <td><strong>Design-Dev Alignment</strong></td>
+                    <td>Reduce drift, improve collaboration, faster handoffs</td>
+                    <td>All 9 properties</td>
+                </tr>
+            </table>
+            
+            <h3>Value Metrics</h3>
+            <div class="two-col">
+                <div>
+                    <h4>Efficiency Gains</h4>
+                    <ul>
+                        <li>Reduced component duplication</li>
+                        <li>Faster development cycles</li>
+                        <li>Less rework and drift</li>
+                        <li>Improved onboarding time</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Quality Improvements</h4>
+                    <ul>
+                        <li>Reduced accessibility defects</li>
+                        <li>Improved consistency</li>
+                        <li>Better compliance</li>
+                        <li>Reduced technical debt</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <span>Aetna Healthcare Confidential | Design System Charter Hypothesis v1.0</span>
+                <span>Page 3 of 6</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 4: TECHNICAL ARCHITECTURE -->
+        <div class="page">
+            <div class="section-label">Technical Architecture</div>
+            
+            <h2>8. Design System Architecture</h2>
+            <h3>Current Architecture</h3>
+            <div class="two-col">
+                <div>
+                    <h4>Design Layer</h4>
+                    <ul>
+                        <li>Figma component library</li>
+                        <li>Design tokens (Figma variables)</li>
+                        <li>Design documentation</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Code Layer</h4>
+                    <ul>
+                        <li>React component library (npm)</li>
+                        <li>Angular component library (npm)</li>
+                        <li>Native implementations</li>
+                        <li>Code repositories</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Integration Points</h3>
+            <ul>
+                <li><strong>Property Applications:</strong> Each property consumes design system components via npm packages</li>
+                <li><strong>CI/CD:</strong> Design system updates trigger property builds</li>
+                <li><strong>Design Tools:</strong> Figma integration for design-to-code traceability</li>
+                <li><strong>Documentation:</strong> Component documentation accessible to all teams</li>
+            </ul>
+            
+            <h2>9. Platform Requirements (Hypothesis)</h2>
+            <h3>What a Design System Management Platform Should Provide</h3>
+            <div class="callout">
+                <div class="callout-title">Knapsack Platform Capabilities</div>
+                <p>Based on Knapsack's platform capabilities, a design system management platform should enable:</p>
+            </div>
+            
+            <h4>Unified Design & Code</h4>
+            <ul>
+                <li><strong>Design-Code Sync:</strong> Figma components automatically sync with code implementations</li>
+                <li><strong>Single Source of Truth:</strong> Design and code live together, reducing drift</li>
+                <li><strong>Component Catalog:</strong> Unified view of all components across design and code</li>
+            </ul>
+            
+            <h4>Governance & Workflows</h4>
+            <ul>
+                <li><strong>Approval Workflows:</strong> Component changes go through review process</li>
+                <li><strong>Quality Gates:</strong> Automated checks for accessibility, code quality, design compliance</li>
+                <li><strong>Version Control:</strong> Track component versions and changes</li>
+                <li><strong>Usage Tracking:</strong> See where components are used across properties</li>
+            </ul>
+            
+            <h4>Documentation & Enablement</h4>
+            <ul>
+                <li><strong>Living Documentation:</strong> Documentation stays in sync with code</li>
+                <li><strong>Interactive Examples:</strong> Developers can see components in action</li>
+                <li><strong>Usage Guidelines:</strong> Design and development guidelines together</li>
+                <li><strong>Search & Discovery:</strong> Easy to find components and patterns</li>
+            </ul>
+            
+            <h4>Analytics & Insights</h4>
+            <ul>
+                <li><strong>Usage Analytics:</strong> Track component adoption across properties</li>
+                <li><strong>Drift Detection:</strong> Identify when implementations diverge</li>
+                <li><strong>Gap Analysis:</strong> Identify missing components or patterns</li>
+                <li><strong>Property-Level Insights:</strong> See how each property uses the design system</li>
+            </ul>
+            
+            <h2>10. Accessibility as a Use Case</h2>
+            <h3>Why Accessibility Governance Matters</h3>
+            <p>Accessibility compliance is a critical requirement for healthcare digital properties. The design system can serve as the foundation for "accessible by design" practices:</p>
+            <ul>
+                <li><strong>Component-Level Compliance:</strong> Design system components built to WCAG standards</li>
+                <li><strong>Usage Validation:</strong> Track how components are used to ensure accessibility</li>
+                <li><strong>Defect Prevention:</strong> Identify accessibility issues before they reach production</li>
+                <li><strong>Compliance Reporting:</strong> Demonstrate compliance across properties</li>
+            </ul>
+            
+            <div class="callout warning">
+                <div class="callout-title">Use Case Hypothesis</div>
+                <p>Accessibility governance could serve as a focused use case to demonstrate the value of better design system management. By tracking component usage and accessibility compliance across properties, the design system team can identify patterns, prevent defects, and demonstrate ROI before broader platform adoption.</p>
+            </div>
+            
+            <div class="footer">
+                <span>Aetna Healthcare Confidential | Design System Charter Hypothesis v1.0</span>
+                <span>Page 4 of 6</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 5: SUCCESS METRICS & OUTCOMES -->
+        <div class="page">
+            <div class="section-label">Success Metrics & Outcomes</div>
+            
+            <h2>11. Design System Success Criteria</h2>
+            <h3>Adoption Metrics</h3>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Current State (Hypothesis)</th>
+                    <th>Target State</th>
+                </tr>
+                <tr>
+                    <td><strong>Component Usage Rate</strong></td>
+                    <td>30-70% (varies by property)</td>
+                    <td>>80% across all properties</td>
+                </tr>
+                <tr>
+                    <td><strong>Design-Code Alignment</strong></td>
+                    <td>Manual sync, frequent drift</td>
+                    <td>Automated sync, <5% drift</td>
+                </tr>
+                <tr>
+                    <td><strong>Documentation Coverage</strong></td>
+                    <td>Partial, scattered</td>
+                    <td>100% component coverage</td>
+                </tr>
+                <tr>
+                    <td><strong>Accessibility Compliance</strong></td>
+                    <td>Inconsistent, defects common</td>
+                    <td>WCAG 2.1 AA compliant</td>
+                </tr>
+            </table>
+            
+            <h3>Operational Metrics</h3>
+            <div class="two-col">
+                <div>
+                    <h4>Efficiency</h4>
+                    <ul>
+                        <li>Reduced component duplication</li>
+                        <li>Faster development cycles</li>
+                        <li>Reduced manual processes</li>
+                        <li>Improved onboarding time</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Quality</h4>
+                    <ul>
+                        <li>Reduced accessibility defects</li>
+                        <li>Improved consistency</li>
+                        <li>Better compliance</li>
+                        <li>Reduced technical debt</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h2>12. Business Outcomes</h2>
+            <h3>Short-Term Outcomes (0-6 months)</h3>
+            <ul>
+                <li><strong>Better Visibility:</strong> Design system team can see component usage across properties</li>
+                <li><strong>Reduced Fragmentation:</strong> Identify and consolidate duplicate components</li>
+                <li><strong>Improved Documentation:</strong> Unified documentation accessible to all teams</li>
+                <li><strong>Use Case Proof:</strong> Demonstrate value through focused use case (e.g., accessibility)</li>
+            </ul>
+            
+            <h3>Medium-Term Outcomes (6-12 months)</h3>
+            <ul>
+                <li><strong>Increased Adoption:</strong> Component usage increases across properties</li>
+                <li><strong>Reduced Defects:</strong> Accessibility and consistency issues decrease</li>
+                <li><strong>Operational Efficiency:</strong> Manual processes automated, time saved</li>
+                <li><strong>Better Governance:</strong> Quality gates and workflows established</li>
+            </ul>
+            
+            <h3>Long-Term Outcomes (12+ months)</h3>
+            <ul>
+                <li><strong>Sustainable Management:</strong> Design system management becomes routine</li>
+                <li><strong>Expansion Model:</strong> Proven approach can scale to other CVS Health entities</li>
+                <li><strong>Competitive Advantage:</strong> Faster delivery, better quality, lower costs</li>
+                <li><strong>AI Readiness:</strong> Design system foundation enables AI-assisted development</li>
+            </ul>
+            
+            <h2>13. Risk Mitigation</h2>
+            <h3>Design System Risks</h3>
+            <table>
+                <tr>
+                    <th>Risk</th>
+                    <th>Mitigation</th>
+                </tr>
+                <tr>
+                    <td><strong>Low Adoption</strong></td>
+                    <td>Better management tools, clear value proposition, developer enablement</td>
+                </tr>
+                <tr>
+                    <td><strong>Design-Code Drift</strong></td>
+                    <td>Automated sync, governance workflows, regular audits</td>
+                </tr>
+                <tr>
+                    <td><strong>Fragmentation</strong></td>
+                    <td>Usage tracking, consolidation efforts, governance enforcement</td>
+                </tr>
+                <tr>
+                    <td><strong>Accessibility Defects</strong></td>
+                    <td>Component-level compliance, usage validation, defect tracking</td>
+                </tr>
+                <tr>
+                    <td><strong>Operational Overhead</strong></td>
+                    <td>Automated workflows, self-service documentation, reduced manual processes</td>
+                </tr>
+            </table>
+            
+            <div class="footer">
+                <span>Aetna Healthcare Confidential | Design System Charter Hypothesis v1.0</span>
+                <span>Page 5 of 6</span>
+            </div>
+        </div>
+        
+        <!-- PAGE 6: NEXT STEPS & CONCLUSION -->
+        <div class="page">
+            <div class="section-label">Next Steps & Conclusion</div>
+            
+            <h2>14. Design System Roadmap Hypothesis</h2>
+            <h3>Phase 1: Foundation (Months 1-3)</h3>
+            <ul>
+                <li>Establish design system management platform</li>
+                <li>Component inventory and mapping</li>
+                <li>Documentation consolidation</li>
+                <li>Governance framework definition</li>
+            </ul>
+            
+            <h3>Phase 2: Use Case Demonstration (Months 4-6)</h3>
+            <ul>
+                <li>Implement focused use case (e.g., accessibility governance)</li>
+                <li>Track component usage across properties</li>
+                <li>Demonstrate value and ROI</li>
+                <li>Gather feedback and iterate</li>
+            </ul>
+            
+            <h3>Phase 3: Expansion (Months 7-12)</h3>
+            <ul>
+                <li>Expand platform capabilities</li>
+                <li>Increase adoption across properties</li>
+                <li>Automate workflows and processes</li>
+                <li>Establish sustainable operations</li>
+            </ul>
+            
+            <h2>15. How Knapsack Enables This Charter</h2>
+            <h3>Platform Capabilities Alignment</h3>
+            <div class="callout success">
+                <div class="callout-title">Knapsack Platform Value</div>
+                <p>Knapsack's platform provides the infrastructure needed to realize this design system charter:</p>
+            </div>
+            
+            <h4>Unified Management</h4>
+            <ul>
+                <li><strong>Single Source of Truth:</strong> Design and code synchronized in one platform</li>
+                <li><strong>Component Catalog:</strong> Unified view of all components</li>
+                <li><strong>Cross-Property Visibility:</strong> See usage across all 9 properties</li>
+            </ul>
+            
+            <h4>Governance & Quality</h4>
+            <ul>
+                <li><strong>Approval Workflows:</strong> Component changes go through review</li>
+                <li><strong>Quality Gates:</strong> Automated accessibility and compliance checks</li>
+                <li><strong>Usage Tracking:</strong> Monitor component adoption and usage</li>
+            </ul>
+            
+            <h4>Operational Efficiency</h4>
+            <ul>
+                <li><strong>Automated Documentation:</strong> Documentation stays in sync with code</li>
+                <li><strong>Reduced Manual Work:</strong> Automated workflows replace manual processes</li>
+                <li><strong>Better Insights:</strong> Analytics and reporting capabilities</li>
+            </ul>
+            
+            <h2>16. Conclusion</h2>
+            <p>The <strong>Aetna Anatomy Design System</strong> serves as the foundation for consistent, accessible, and efficient digital experiences across Aetna Healthcare's 9 properties. This charter hypothesis outlines:</p>
+            <ul>
+                <li><strong>Purpose:</strong> Unified design language and component library</li>
+                <li><strong>Scope:</strong> 9 properties across core and specialty segments</li>
+                <li><strong>Governance:</strong> Design System Team ownership with property team participation</li>
+                <li><strong>Value:</strong> Consistency, efficiency, quality, and compliance</li>
+                <li><strong>Management:</strong> Need for better tools and processes</li>
+            </ul>
+            
+            <div class="callout">
+                <div class="callout-title">Next Steps</div>
+                <p>This charter hypothesis should be validated with the Aetna Design System Team to ensure accuracy and alignment. Once validated, it can serve as the foundation for:</p>
+                <ul>
+                    <li>Design system management platform selection</li>
+                    <li>Governance framework implementation</li>
+                    <li>Use case prioritization</li>
+                    <li>Success metrics definition</li>
+                </ul>
+            </div>
+            
+            <div class="footer">
+                <span>Aetna Healthcare Confidential | Design System Charter Hypothesis v1.0</span>
+                <span>Page 6 of 6</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
