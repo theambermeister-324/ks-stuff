@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allegion × Knapsack Executive Presentation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .deck {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .slide {
+            background: linear-gradient(145deg, #16213e 0%, #1a1a2e 100%);
+            border-radius: 16px;
+            padding: 48px;
+            margin-bottom: 32px;
+            min-height: 560px;
+            position: relative;
+            border: 1px solid rgba(100, 54, 191, 0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 28px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+        }
+        .logo-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #6436bf 0%, #42247f 100%);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff 0%, #e0d4f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #fff;
+        }
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #a78bfa;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 32px 0;
+        }
+        .metric-card {
+            background: rgba(100, 54, 191, 0.15);
+            border: 1px solid rgba(100, 54, 191, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #a78bfa;
+            margin-bottom: 4px;
+        }
+        .metric-value.green { color: #4ade80; }
+        .metric-label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.3;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 24px;
+        }
+        .content-box {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .content-box h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #a78bfa;
+            margin-bottom: 12px;
+        }
+        .content-box p, .content-box li {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+        }
+        .content-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .content-box li {
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+        .content-box li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #6436bf;
+            font-weight: 700;
+        }
+        .challenge-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+        .challenge-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(228, 58, 92, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .challenge-icon.solution {
+            background: rgba(74, 222, 128, 0.2);
+        }
+        .challenge-text h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .challenge-text p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.5;
+        }
+        .timeline-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 32px;
+        }
+        .timeline-year {
+            flex: 1;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(100, 54, 191, 0.3);
+            position: relative;
+        }
+        .timeline-year::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: -20px;
+            width: 20px;
+            height: 2px;
+            background: #6436bf;
+        }
+        .timeline-year:last-child::before {
+            display: none;
+        }
+        .year-badge {
+            display: inline-block;
+            background: #6436bf;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .year-badge.y2 { background: #4ade80; color: #000; }
+        .year-badge.y3 { background: #3b82f6; }
+        .timeline-year h4 {
+            font-size: 0.95rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .timeline-year p {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.4;
+        }
+        .timeline-year .cost {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #a78bfa;
+            margin-top: 12px;
+        }
+        .roi-chart {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 32px;
+            margin-top: 24px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .bar-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .bar-label {
+            width: 120px;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+        }
+        .bar-track {
+            flex: 1;
+            height: 32px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .bar-fill.cost {
+            background: linear-gradient(90deg, #e43a5c 0%, #ff6b6b 100%);
+            width: 15%;
+        }
+        .bar-fill.value {
+            background: linear-gradient(90deg, #4ade80 0%, #22c55e 100%);
+            width: 85%;
+        }
+        .cta-box {
+            background: linear-gradient(135deg, #6436bf 0%, #42247f 100%);
+            border-radius: 12px;
+            padding: 32px;
+            margin-top: 32px;
+            text-align: center;
+        }
+        .cta-box h3 {
+            color: #fff;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .cta-box p {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.95rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .comparison-table {
+            width: 100%;
+            margin-top: 24px;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .comparison-table th {
+            background: rgba(100, 54, 191, 0.3);
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .comparison-table th:first-child { border-radius: 8px 0 0 0; }
+        .comparison-table th:last-child { border-radius: 0 8px 0 0; }
+        .comparison-table td {
+            padding: 12px 16px;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.8);
+        }
+        .comparison-table tr:last-child td:first-child { border-radius: 0 0 0 8px; }
+        .comparison-table tr:last-child td:last-child { border-radius: 0 0 8px 0; }
+        .comparison-table tr:nth-child(even) td {
+            background: rgba(255,255,255,0.02);
+        }
+        .check { color: #4ade80; font-weight: 700; }
+        .x { color: #f87171; font-weight: 700; }
+        .total-row td {
+            background: rgba(74, 222, 128, 0.15) !important;
+            font-weight: 700;
+            color: #4ade80;
+        }
+        .actions-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .action-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 3px solid #6436bf;
+        }
+        .action-item h4 {
+            font-size: 0.95rem;
+            color: #a78bfa;
+            margin-bottom: 8px;
+        }
+        .action-item p {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="deck">
+        <!-- SLIDE 1: Title -->
+        <div class="slide">
+            <div class="logo-badge">KNAPSACK × ALLEGION</div>
+            <h1>AI-Driven Product Delivery</h1>
+            <p class="subtitle">Intelligent Product Engine: AI enabled by design, governed by intent</p>
+            
+            <div class="quote-box" style="background: rgba(100, 54, 191, 0.1); border-left: 4px solid #6436bf; padding: 24px 28px; border-radius: 0 12px 12px 0; margin: 32px 0;">
+                <p style="font-size: 1.25rem; font-style: italic; color: rgba(255,255,255,0.9); line-height: 1.5; margin-bottom: 12px;">"Allegion— it's a place where our values drive real impact and innovation."</p>
+                <p style="font-size: 0.9rem; color: #a78bfa; font-weight: 600;">— Ashly, Software Engineer</p>
+            </div>
+            
+            <div class="content-box" style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 28px; border: 1px solid rgba(255,255,255,0.08); margin-top: 24px;">
+                <h4 style="font-size: 1.1rem; color: #fff; margin-bottom: 12px;">Knapsack: The Governable Control Plane for AI-Assisted Product Delivery</h4>
+                <p style="font-size: 0.95rem; color: rgba(255,255,255,0.8); line-height: 1.7;">Allegion's commitment to impact and innovation deserves an AI foundation built on the same principles. Knapsack's Intelligent Product Engine converts your fragmented product knowledge into executable intelligence that AI can use safely—giving you the confidence to let AI <em>act</em>, not just advise. <strong style="color: #a78bfa;">This is AI that builds the way you build—governed, consistent, and true to who you are.</strong></p>
+            </div>
+            
+            <div class="cta-box" style="margin-top: 32px;">
+                <h3>Knapsack: The Operating System for Allegion's Intelligent Design Future</h3>
+            </div>
+            <div class="slide-number">1</div>
+        </div>
+        
+        <!-- SLIDE 2: ROI Summary -->
+        <div class="slide">
+            <h3>Investment Summary</h3>
+            <h2>Compelling ROI with Low Year 1 Entry</h2>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value green">$8.4M</div>
+                    <div class="metric-label">3-Year Net Advantage</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">835%</div>
+                    <div class="metric-label">Return on Investment</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value green">&lt;12mo</div>
+                    <div class="metric-label">Payback Period</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">$105K</div>
+                    <div class="metric-label">Net New Year 1 Spend</div>
+                </div>
+            </div>
+            
+            <div class="content-grid" style="margin-top: 32px;">
+                <div class="content-box">
+                    <h4>Year 1: Low-Risk Entry</h4>
+                    <ul>
+                        <li><strong>$105K</strong> net new Knapsack investment</li>
+                        <li>Figma maintained in parallel ($126K existing)</li>
+                        <li>No workflow disruption during transition</li>
+                        <li>Break-even by Month 5</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>Years 2-3: Full Value Realization</h4>
+                    <ul>
+                        <li><strong>$255K/year</strong> full platform + services</li>
+                        <li>Figma eliminated, budget reallocated</li>
+                        <li>$1.7M+ annual capability value</li>
+                        <li>AI-augmented design operations</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.3); border-radius: 12px; padding: 20px; margin-top: 24px; text-align: center;">
+                <p style="font-size: 1rem; color: rgba(255,255,255,0.9);"><strong style="color: #4ade80;">3-Year Total Investment: $615K</strong> → <strong style="color: #4ade80;">$4.8M Value Created</strong></p>
+            </div>
+            <div class="slide-number">2</div>
+        </div>
+
+        <!-- SLIDE 2: The Challenge -->
+        <div class="slide">
+            <h3>The Problem</h3>
+            <h2>AI Without Governance Creates Risk</h2>
+            
+            <div style="margin-top: 32px;">
+                <div class="challenge-item">
+                    <div class="challenge-icon">1</div>
+                    <div class="challenge-text">
+                        <h4>Inconsistent AI Output</h4>
+                        <p>AI-generated UIs lack enforcement of Allegion's design system. No component standards or governance checks means variance and quality issues across every generation.</p>
+                    </div>
+                </div>
+                <div class="challenge-item">
+                    <div class="challenge-icon">2</div>
+                    <div class="challenge-text">
+                        <h4>Fragmented Design Tools</h4>
+                        <p>Assets scattered across Figma, Storybook, ZeroHeight, and code repos. No single source of truth for AI or teams to reference—leading to duplicated effort and drift.</p>
+                    </div>
+                </div>
+                <div class="challenge-item">
+                    <div class="challenge-icon">3</div>
+                    <div class="challenge-text">
+                        <h4>AI Knowledge Gap</h4>
+                        <p>LLM-based tools don't know which components are approved or how to use them correctly. AI lacks context about Allegion's guidelines, causing misuse and extensive rework.</p>
+                    </div>
+                </div>
+                <div class="challenge-item">
+                    <div class="challenge-icon">4</div>
+                    <div class="challenge-text">
+                        <h4>Compounding Technical Debt</h4>
+                        <p>Without a governing layer, rapid AI adoption results in brand inconsistency, compliance gaps, and unapproved component proliferation—debt that slows future delivery.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">3</div>
+        </div>
+
+        <!-- SLIDE 4: The Solution -->
+        <div class="slide">
+            <h3>The Solution</h3>
+            <h2>Knapsack Intelligent Product Engine</h2>
+            
+            <div style="margin-top: 32px;">
+                <div class="challenge-item">
+                    <div class="challenge-icon solution">1</div>
+                    <div class="challenge-text">
+                        <h4>AI Control Plane</h4>
+                        <p>Knapsack's IPE acts as a centralized "brain" between Allegion's design ecosystem and AI tools. It aggregates design system data into a unified, AI-ready format with built-in rules and constraints.</p>
+                    </div>
+                </div>
+                <div class="challenge-item">
+                    <div class="challenge-icon solution">2</div>
+                    <div class="challenge-text">
+                        <h4>Unified Design Source</h4>
+                        <p>IPE ingests assets from Figma, Storybook, GitHub, and token files—normalizing into a single source of truth. AI has full context of approved components, themes, and implementations.</p>
+                    </div>
+                </div>
+                <div class="challenge-item">
+                    <div class="challenge-icon solution">3</div>
+                    <div class="challenge-text">
+                        <h4>Governed AI Execution via MCP</h4>
+                        <p>Via Knapsack's Model Context Protocol (MCP), AI-generated code "knows" Allegion's design language. AI can safely generate components, update tokens, and create patterns—all within approved guardrails. Outputs use correct components, tokens, and standards by default, with validation built-in.</p>
+                    </div>
+                </div>
+                <div class="challenge-item">
+                    <div class="challenge-icon solution">4</div>
+                    <div class="challenge-text">
+                        <h4>Enterprise Compliance & Risk Reduction</h4>
+                        <p>Embedded compliance and accessibility rules ensure AI designs meet regulatory and branding requirements. The control plane enforces rules, prevents violations, and maintains audit trails. AI builds exactly what you would—but faster—under governance that reduces model risk.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">4</div>
+        </div>
+
+        <!-- SLIDE 5: MCP Use Cases -->
+        <div class="slide">
+            <h3>AI Enablement</h3>
+            <h2>Model Context Protocol: Safe AI Execution</h2>
+            
+            <div class="content-grid" style="margin-top: 24px;">
+                <div class="content-box">
+                    <h4>Component Generation</h4>
+                    <p>AI generates new components using approved patterns, tokens, and accessibility standards. MCP ensures outputs match Allegion's design system before code is written.</p>
+                </div>
+                <div class="content-box">
+                    <h4>Token Updates</h4>
+                    <p>AI proposes token changes across platforms (CSS, JS, iOS, Android) with governance checks. Changes propagate consistently with validation at each step.</p>
+                </div>
+                <div class="content-box">
+                    <h4>Pattern Documentation</h4>
+                    <p>AI creates usage documentation from code, ensuring docs stay current. MCP maintains context between code, design, and documentation automatically.</p>
+                </div>
+                <div class="content-box">
+                    <h4>Design-to-Code Translation</h4>
+                    <p>AI converts design specs into production-ready code using approved components. Governance layer prevents deviations from standards.</p>
+                </div>
+            </div>
+            
+            <div style="background: rgba(100, 54, 191, 0.15); border-left: 4px solid #6436bf; padding: 20px 24px; border-radius: 0 12px 12px 0; margin-top: 24px;">
+                <p style="font-size: 0.9rem; color: rgba(255,255,255,0.9); line-height: 1.6;"><strong style="color: #a78bfa;">The Gap We Bridge:</strong> AI can generate code at scale—but enterprises can't let it <em>act</em> without governance. Knapsack's MCP provides the control plane that makes AI execution safe, bridging the gap between "AI can do this" and "we'll let AI do this."</p>
+            </div>
+            <div class="slide-number">5</div>
+        </div>
+
+        <!-- SLIDE 6: Key Outcomes -->
+        <div class="slide">
+            <h3>Business Impact</h3>
+            <h2>Key Outcomes & Benefits</h2>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>Higher-Quality Output</h4>
+                    <p>AI-generated UIs align 1:1 with Allegion's design system. Designs come out right the first time, with far fewer review corrections or accessibility errors.</p>
+                </div>
+                <div class="content-box">
+                    <h4>Faster Release Cycles</h4>
+                    <p>Move from quarterly to weekly releases. AI delivers code that is ~90% complete and 100% on-guidelines, shipping features in days instead of weeks.</p>
+                </div>
+                <div class="content-box">
+                    <h4>Reduced Rework</h4>
+                    <p>Cut regeneration cycles and iteration churn. Teams spend less time fixing AI outputs—fewer validation failures means more time building value.</p>
+                </div>
+                <div class="content-box">
+                    <h4>Higher Code Acceptance</h4>
+                    <p>Developers use AI-generated code directly more often. Pre-approved patterns mean engineers accept AI output at higher rates, accelerating the entire SDLC.</p>
+                </div>
+                <div class="content-box">
+                    <h4>Risk Reduction</h4>
+                    <p>Governance layer prevents brand violations, accessibility gaps, and compliance issues before they reach production. AI execution becomes auditable and safe.</p>
+                </div>
+                <div class="content-box">
+                    <h4>Maturity Progression</h4>
+                    <p>Move from fragmented design systems to intelligent, AI-assisted operations. Knapsack enables progression through maturity levels with measurable outcomes.</p>
+                </div>
+            </div>
+            
+            <div class="metrics-grid" style="margin-top: 32px;">
+                <div class="metric-card">
+                    <div class="metric-value green">90%</div>
+                    <div class="metric-label">AI Output Completeness</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value green">4×</div>
+                    <div class="metric-label">Faster Release Cycles</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value green">75%</div>
+                    <div class="metric-label">Reduced Design Overhead (Y3)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value green">100%</div>
+                    <div class="metric-label">On-Brand Compliance</div>
+                </div>
+            </div>
+            <div class="slide-number">6</div>
+        </div>
+
+        <!-- SLIDE 7: Capability Value -->
+        <div class="slide">
+            <h3>Quantified Value</h3>
+            <h2>$1.71M Annual Capability Value</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Capability</th>
+                        <th>Knapsack</th>
+                        <th>ZeroHeight</th>
+                        <th>Annual Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Automated Code-Doc Sync</td>
+                        <td><span class="check">✓</span> Auto-updates</td>
+                        <td><span class="x">✗</span> Manual</td>
+                        <td>$156,000</td>
+                    </tr>
+                    <tr>
+                        <td>Multi-Platform Token Engine</td>
+                        <td><span class="check">✓</span> CSS/JS/iOS/Android</td>
+                        <td><span class="x">✗</span> Display only</td>
+                        <td>$122,400</td>
+                    </tr>
+                    <tr>
+                        <td>Live Component Rendering</td>
+                        <td><span class="check">✓</span> Production code</td>
+                        <td><span class="x">✗</span> Embed only</td>
+                        <td>$265,200</td>
+                    </tr>
+                    <tr>
+                        <td>Git-Based Developer Workflow</td>
+                        <td><span class="check">✓</span> PR integration</td>
+                        <td><span class="x">✗</span> Web UI only</td>
+                        <td>$459,000</td>
+                    </tr>
+                    <tr>
+                        <td>AI/MCP Integration</td>
+                        <td><span class="check">✓</span> Production-ready</td>
+                        <td><span class="x">✗</span> None</td>
+                        <td>$200,000</td>
+                    </tr>
+                    <tr>
+                        <td>Multi-System Governance (10+ brands)</td>
+                        <td><span class="check">✓</span> Built-in</td>
+                        <td><span class="x">✗</span> Single system</td>
+                        <td>$117,000</td>
+                    </tr>
+                    <tr>
+                        <td>Figma Replacement (Y2+)</td>
+                        <td><span class="check">✓</span> Code-based design</td>
+                        <td><span class="x">✗</span> Requires Figma</td>
+                        <td>$126,000</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3"><strong>Total Annual Capability Value</strong></td>
+                        <td><strong>$1,712,600</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="slide-number">7</div>
+        </div>
+
+        <!-- SLIDE 8: Phase-Gated Engagement Model -->
+        <div class="slide">
+            <h3>Partnership Approach</h3>
+            <h2>Phase-Gated Delivery: Earn the Right to the Next Phase</h2>
+            
+            <div style="background: rgba(100, 54, 191, 0.1); border-left: 4px solid #6436bf; padding: 20px 24px; border-radius: 0 12px 12px 0; margin-bottom: 24px;">
+                <p style="font-size: 0.9rem; color: rgba(255,255,255,0.9); line-height: 1.6;">Each phase builds trust and proves value before advancing. Clear exit criteria ensure measurable outcomes at every milestone.</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px;">
+                <div style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 20px; position: relative;">
+                    <div style="display: inline-block; background: #3b82f6; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 12px;">PHASE 1</div>
+                    <h4 style="font-size: 0.95rem; color: #fff; margin-bottom: 8px; font-weight: 600;">Foundation</h4>
+                    <p style="font-size: 0.75rem; color: rgba(255,255,255,0.7); margin-bottom: 12px; line-height: 1.4;">Product System Foundation</p>
+                    <div style="font-size: 1.1rem; font-weight: 700; color: #93c5fd; margin-bottom: 4px;">$350-450K</div>
+                    <p style="font-size: 0.7rem; color: rgba(255,255,255,0.5);">16-20 weeks</p>
+                    <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">
+                        <p style="font-size: 0.7rem; color: rgba(255,255,255,0.6); font-weight: 600; margin-bottom: 4px;">Exit Criteria:</p>
+                        <ul style="font-size: 0.65rem; color: rgba(255,255,255,0.6); padding-left: 16px; line-height: 1.4;">
+                            <li>Teams publish without intervention</li>
+                            <li>First component to production</li>
+                            <li>Access no longer blocking</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(74, 222, 128, 0.15); border: 1px solid rgba(74, 222, 128, 0.3); border-radius: 12px; padding: 20px; position: relative;">
+                    <div style="display: inline-block; background: #4ade80; color: #000; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 12px;">PHASE 2</div>
+                    <h4 style="font-size: 0.95rem; color: #fff; margin-bottom: 8px; font-weight: 600;">Activation</h4>
+                    <p style="font-size: 0.75rem; color: rgba(255,255,255,0.7); margin-bottom: 12px; line-height: 1.4;">Control Plane Activation</p>
+                    <div style="font-size: 1.1rem; font-weight: 700; color: #86efac; margin-bottom: 4px;">$225-325K</div>
+                    <p style="font-size: 0.7rem; color: rgba(255,255,255,0.5);">12-16 weeks</p>
+                    <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">
+                        <p style="font-size: 0.7rem; color: rgba(255,255,255,0.6); font-weight: 600; margin-bottom: 4px;">Exit Criteria:</p>
+                        <ul style="font-size: 0.65rem; color: rgba(255,255,255,0.6); padding-left: 16px; line-height: 1.4;">
+                            <li>Token strategy operating</li>
+                            <li>Governance model active</li>
+                            <li>Decisions flow through system</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 12px; padding: 20px; position: relative;">
+                    <div style="display: inline-block; background: #fbbf24; color: #000; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 12px;">PHASE 3</div>
+                    <h4 style="font-size: 0.95rem; color: #fff; margin-bottom: 8px; font-weight: 600;">Intelligence</h4>
+                    <p style="font-size: 0.75rem; color: rgba(255,255,255,0.7); margin-bottom: 12px; line-height: 1.4;">AI Enablement</p>
+                    <div style="font-size: 1.1rem; font-weight: 700; color: #fde047; margin-bottom: 4px;">$165-225K</div>
+                    <p style="font-size: 0.7rem; color: rgba(255,255,255,0.5);">8-12 weeks</p>
+                    <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">
+                        <p style="font-size: 0.7rem; color: rgba(255,255,255,0.6); font-weight: 600; margin-bottom: 4px;">Exit Criteria:</p>
+                        <ul style="font-size: 0.65rem; color: rgba(255,255,255,0.6); padding-left: 16px; line-height: 1.4;">
+                            <li>AI-assisted change ships</li>
+                            <li>Teams trust governed output</li>
+                            <li>ROI story documented</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 12px; padding: 20px; position: relative;">
+                    <div style="display: inline-block; background: #8b5cf6; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 12px;">PHASE 4</div>
+                    <h4 style="font-size: 0.95rem; color: #fff; margin-bottom: 8px; font-weight: 600;">Scale</h4>
+                    <p style="font-size: 0.75rem; color: rgba(255,255,255,0.7); margin-bottom: 12px; line-height: 1.4;">Enterprise Expansion</p>
+                    <div style="font-size: 1.1rem; font-weight: 700; color: #c4b5fd; margin-bottom: 4px;">Platform ARR</div>
+                    <p style="font-size: 0.7rem; color: rgba(255,255,255,0.5);">Ongoing</p>
+                    <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">
+                        <p style="font-size: 0.7rem; color: rgba(255,255,255,0.6); font-weight: 600; margin-bottom: 4px;">Exit Criteria:</p>
+                        <ul style="font-size: 0.65rem; color: rgba(255,255,255,0.6); padding-left: 16px; line-height: 1.4;">
+                            <li>10+ teams active</li>
+                            <li>ROI metrics published</li>
+                            <li>Self-service operating</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-box" style="margin-top: 24px;">
+                <h4>Why Phase-Gated?</h4>
+                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.8); line-height: 1.6;">Each phase must prove value before advancing. This ensures Allegion sees measurable ROI at every milestone, reduces risk, and builds organizational trust in the platform. We earn the right to the next phase through demonstrated outcomes.</p>
+            </div>
+            <div class="slide-number">8</div>
+        </div>
+
+        <!-- SLIDE 9: Implementation Roadmap -->
+        <div class="slide">
+            <h3>Implementation</h3>
+            <h2>3-Year Roadmap: Mapped to Partnership Phases</h2>
+            
+            <div class="timeline-container">
+                <div class="timeline-year">
+                    <span class="year-badge">YEAR 1</span>
+                    <h4>Foundation Phase</h4>
+                    <p><strong>Phase 1:</strong> Stand up Knapsack platform. Migrate components & tokens. Train teams. Figma runs in parallel—no disruption.</p>
+                    <div class="cost">$231K</div>
+                    <p style="font-size: 0.7rem; margin-top: 4px; color: rgba(255,255,255,0.5);">$105K Knapsack + $126K Figma</p>
+                    <p style="font-size: 0.7rem; margin-top: 8px; color: rgba(100, 54, 191, 0.8); font-weight: 600;">Exit: Teams publishing, first production component</p>
+                </div>
+                <div class="timeline-year">
+                    <span class="year-badge y2">YEAR 2</span>
+                    <h4>Activation → Intelligence</h4>
+                    <p><strong>Phase 2:</strong> Figma eliminated. Control plane operational. <strong>Phase 3:</strong> MCP integrated. AI workflows active. Single source of truth operational.</p>
+                    <div class="cost">$255K</div>
+                    <p style="font-size: 0.7rem; margin-top: 4px; color: rgba(255,255,255,0.5);">Full platform + services</p>
+                    <p style="font-size: 0.7rem; margin-top: 8px; color: rgba(100, 54, 191, 0.8); font-weight: 600;">Exit: Governance active, AI-assisted changes shipping</p>
+                </div>
+                <div class="timeline-year">
+                    <span class="year-badge y3">YEAR 3</span>
+                    <h4>Scale Phase</h4>
+                    <p><strong>Phase 4:</strong> AI-assisted component generation. Intelligent audits. ~75% reduction in design overhead achievable. Enterprise-wide expansion.</p>
+                    <div class="cost">$255K</div>
+                    <p style="font-size: 0.7rem; margin-top: 4px; color: rgba(255,255,255,0.5);">Steady state</p>
+                    <p style="font-size: 0.7rem; margin-top: 8px; color: rgba(100, 54, 191, 0.8); font-weight: 600;">Exit: 10+ teams active, ROI metrics published</p>
+                </div>
+            </div>
+            
+            <div class="content-box" style="margin-top: 32px;">
+                <h4>Key Milestones & Phase Gates</h4>
+                <ul>
+                    <li><strong>Month 5:</strong> Foundation Phase exit criteria met; break-even achieved</li>
+                    <li><strong>Month 12:</strong> Activation Phase begins; Figma contract non-renewed</li>
+                    <li><strong>Month 18:</strong> Intelligence Phase exit; MCP server integrated; AI workflows operational</li>
+                    <li><strong>Year 3:</strong> Scale Phase active; AI-augmented design ops vision fully realized</li>
+                </ul>
+            </div>
+            <div class="slide-number">9</div>
+        </div>
+
+        <!-- SLIDE 10: ROI -->
+        <div class="slide">
+            <h3>Financial Impact</h3>
+            <h2>Return on Investment</h2>
+            
+            <div class="roi-chart">
+                <div class="bar-container">
+                    <div class="bar-label">3-Year Cost</div>
+                    <div class="bar-track">
+                        <div class="bar-fill cost">$615K</div>
+                    </div>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-label">3-Year Value</div>
+                    <div class="bar-track">
+                        <div class="bar-fill value">$4.8M</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="metrics-grid" style="margin-top: 32px;">
+                <div class="metric-card">
+                    <div class="metric-value green">$4.8M</div>
+                    <div class="metric-label">3-Year Value Created</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value green">$8.4M</div>
+                    <div class="metric-label">Net Advantage vs ZeroHeight</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">5 mo</div>
+                    <div class="metric-label">Break-Even Point</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value green">835%</div>
+                    <div class="metric-label">Year 2+ ROI</div>
+                </div>
+            </div>
+            
+            <div class="content-grid" style="margin-top: 24px;">
+                <div class="content-box">
+                    <h4>Budget Strategy</h4>
+                    <p>After Year 1 investment, <strong>no additional budget needed</strong> beyond current design tooling spend. Program is budget-neutral by Year 2 by repurposing Figma.</p>
+                </div>
+                <div class="content-box">
+                    <h4>vs. Status Quo</h4>
+                    <p>ZeroHeight + Figma = <span class="x">$4.3M cost</span> with zero added value. Knapsack = <span class="check">$4.0M net gain</span>. That's an <strong>$8.4M swing</strong> in Allegion's favor.</p>
+                </div>
+            </div>
+            <div class="slide-number">9</div>
+        </div>
+
+        <!-- SLIDE 11: Recommendation -->
+        <div class="slide">
+            <h3>Recommendation</h3>
+            <h2>Approve Year 1 Investment</h2>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>Strategic Alignment</h4>
+                    <p>Knapsack is the <strong>only platform</strong> supporting Allegion's 2026 vision for AI-driven design operations. It bridges current state to autonomous, AI-augmented product development. IPE is AI enabled by design—not retrofitted.</p>
+                </div>
+                <div class="content-box">
+                    <h4>Phase-Gated Risk Reduction</h4>
+                    <p>Parallel operation in Year 1 with Figma as safety net. Teams maintain current output while setting stage for exponential gains in Year 2+. Each phase has clear exit criteria—we prove value before advancing.</p>
+                </div>
+                <div class="content-box">
+                    <h4>From Intent to Production, Governed</h4>
+                    <p>Knapsack converts design intent into executable intelligence. MCP enables AI to act safely within approved guardrails, reducing the gap between "AI can do this" and "we'll let AI do this."</p>
+                </div>
+                <div class="content-box">
+                    <h4>Operational Resilience</h4>
+                    <p>Consistency through governance reduces technical debt and brand risk. AI-assisted operations maintain quality at scale, ensuring Allegion's values are reflected in every output.</p>
+                </div>
+            </div>
+            
+            <div class="actions-list">
+                <div class="action-item">
+                    <h4>1. Execute Foundation Phase</h4>
+                    <p>Year 1 commitment: $105K net new. Phase 1 establishes platform foundation with clear exit criteria.</p>
+                </div>
+                <div class="action-item">
+                    <h4>2. Maintain Figma (Year 1)</h4>
+                    <p>Continue existing $126K contract for parallel operation during Foundation Phase transition</p>
+                </div>
+                <div class="action-item">
+                    <h4>3. Gate to Activation Phase</h4>
+                    <p>Upon Foundation Phase exit criteria met, advance to Phase 2. Plan Figma non-renewal for Year 2 start.</p>
+                </div>
+                <div class="action-item">
+                    <h4>4. Track Phase Metrics</h4>
+                    <p>Monitor phase-specific success metrics: Foundation (production use), Activation (governance decisions), Intelligence (AI-assisted changes)</p>
+                </div>
+            </div>
+            
+            <div class="cta-box">
+                <h3>$105K Net-New Year 1 Investment → $8.4M 3-Year Upside</h3>
+                <p>Modernize product delivery. Secure Allegion's competitive edge in an AI-first era.</p>
+            </div>
+            <div class="slide-number">11</div>
+        </div>
+    </div>
+</body>
+</html>
