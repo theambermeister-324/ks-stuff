@@ -4,246 +4,319 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product System Maturity & AI Readiness Assessment</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #fff;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .card {
+      background: linear-gradient(145deg, #16213e 0%, #1a1a2e 100%);
+      border-radius: 16px;
+      padding: 32px 48px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(100, 54, 191, 0.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
     .progress-bar { transition: width 0.3s ease; }
-    .option-card { transition: all 0.2s; }
-    .option-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    .option-card.selected { border-color: #10b981; background: #ecfdf5; }
+    .option-card { 
+      transition: all 0.2s; 
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(100, 54, 191, 0.3);
+      color: rgba(255,255,255,0.8);
+    }
+    .option-card:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 4px 12px rgba(100, 54, 191, 0.3);
+      border-color: rgba(100, 54, 191, 0.5);
+    }
+    .option-card.selected { 
+      border-color: #6436bf; 
+      background: rgba(100, 54, 191, 0.15);
+    }
     .fade-in { animation: fadeIn 0.3s ease-in; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 0%, #e0d4f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: #fff;
+    }
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #a78bfa;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .logo-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #6436bf 0%, #42247f 100%);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #6436bf 0%, #42247f 100%);
+      color: white;
+      padding: 12px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(100, 54, 191, 0.4);
+    }
+    .content-box {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .text-muted { color: rgba(255,255,255,0.6); }
+    .text-light { color: rgba(255,255,255,0.8); }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-slate-50 to-white">
-  <!-- Header -->
-  <header class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white">
-    <div class="max-w-4xl mx-auto px-4 py-6">
-      <div class="flex items-center gap-3 mb-2">
-        <div class="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center">
-          <i data-lucide="activity" class="w-5 h-5 text-emerald-400"></i>
-        </div>
-        <div>
-          <h1 class="text-2xl font-bold">Product System Maturity & AI Readiness</h1>
-          <p class="text-slate-300 text-sm">Benchmark your maturity and discover your path to AI-accelerated product delivery</p>
-        </div>
-      </div>
-    </div>
-  </header>
-
+<body>
   <!-- Main Content -->
-  <main id="app" class="max-w-4xl mx-auto px-4 py-8">
+  <main id="app" class="container">
     <!-- Intro Section (shown before assessment starts) -->
-    <div id="intro-container" class="space-y-6">
+    <div id="intro-container">
       <!-- Hero Section -->
-      <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white rounded-xl p-8 shadow-lg text-center">
-        <h2 class="text-3xl font-bold mb-3">Assess Your Product System Maturity & AI Readiness</h2>
-        <p class="text-lg text-slate-300 mb-6 max-w-2xl mx-auto">Benchmark your organization against industry standards and discover your personalized path to AI-accelerated product delivery.</p>
-        <button onclick="startAssessment()" class="bg-emerald-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-emerald-600 transition-colors inline-flex items-center gap-2 shadow-lg">
+      <div class="card" style="text-align: center;">
+        <div class="logo-badge">KNAPSACK ASSESSMENT</div>
+        <h1>Assess Your Product System Maturity & AI Readiness</h1>
+        <p class="subtitle" style="max-width: 600px; margin: 0 auto 32px;">Benchmark your organization against industry standards and discover your personalized path to AI-accelerated product delivery.</p>
+        <button onclick="startAssessment()" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; font-size: 1rem; padding: 16px 32px;">
           <span>Start Assessment</span>
-          <i data-lucide="arrow-right" class="w-5 h-5"></i>
+          <i data-lucide="arrow-right" style="width: 20px; height: 20px;"></i>
         </button>
-        <p class="text-sm text-slate-400 mt-4">Takes 5 minutes • No email required • Compare to 50+ enterprise organizations</p>
+        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.5); margin-top: 24px;">Takes 5 minutes • No email required • Compare to 50+ enterprise organizations</p>
       </div>
 
       <!-- Quick Value Props -->
-      <div class="grid grid-cols-3 gap-4">
-        <div class="bg-white rounded-lg p-5 border border-slate-200 text-center">
-          <i data-lucide="bar-chart-3" class="w-8 h-8 text-emerald-600 mx-auto mb-3"></i>
-          <p class="font-semibold text-slate-900 mb-1">Benchmark Score</p>
-          <p class="text-sm text-slate-600">Compare to industry standards</p>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;">
+        <div class="content-box" style="text-align: center;">
+          <i data-lucide="bar-chart-3" style="width: 32px; height: 32px; color: #a78bfa; margin: 0 auto 12px; display: block;"></i>
+          <p style="font-weight: 600; color: #fff; margin-bottom: 4px;">Benchmark Score</p>
+          <p style="font-size: 0.875rem; color: rgba(255,255,255,0.6);">Compare to industry standards</p>
         </div>
-        <div class="bg-white rounded-lg p-5 border border-slate-200 text-center">
-          <i data-lucide="git-branch" class="w-8 h-8 text-blue-600 mx-auto mb-3"></i>
-          <p class="font-semibold text-slate-900 mb-1">Personalized Path</p>
-          <p class="text-sm text-slate-600">Get matched to your journey</p>
+        <div class="content-box" style="text-align: center;">
+          <i data-lucide="git-branch" style="width: 32px; height: 32px; color: #3b82f6; margin: 0 auto 12px; display: block;"></i>
+          <p style="font-weight: 600; color: #fff; margin-bottom: 4px;">Personalized Path</p>
+          <p style="font-size: 0.875rem; color: rgba(255,255,255,0.6);">Get matched to your journey</p>
         </div>
-        <div class="bg-white rounded-lg p-5 border border-slate-200 text-center">
-          <i data-lucide="arrow-right" class="w-8 h-8 text-violet-600 mx-auto mb-3"></i>
-          <p class="font-semibold text-slate-900 mb-1">Action Plan</p>
-          <p class="text-sm text-slate-600">Clear next steps</p>
+        <div class="content-box" style="text-align: center;">
+          <i data-lucide="arrow-right" style="width: 32px; height: 32px; color: #a78bfa; margin: 0 auto 12px; display: block;"></i>
+          <p style="font-weight: 600; color: #fff; margin-bottom: 4px;">Action Plan</p>
+          <p style="font-size: 0.875rem; color: rgba(255,255,255,0.6);">Clear next steps</p>
         </div>
       </div>
 
       <!-- Competitive Differentiation -->
-      <div class="bg-gradient-to-r from-emerald-50 to-blue-50 border-2 border-emerald-200 rounded-xl p-6">
-        <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-          <i data-lucide="sparkles" class="w-5 h-5 text-emerald-600"></i>
+      <div class="card" style="background: rgba(100, 54, 191, 0.1); border: 2px solid rgba(100, 54, 191, 0.3);">
+        <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+          <i data-lucide="sparkles" style="width: 20px; height: 20px;"></i>
           Why This Assessment is Different
         </h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="bg-white rounded-lg p-4 border border-emerald-200">
-            <p class="text-sm font-semibold text-slate-900 mb-2">vs. Tool-Specific Assessments</p>
-            <p class="text-xs text-slate-600">Storybook and Chromatic focus on tool adoption. We evaluate governance, activation, and AI readiness—the real drivers of value.</p>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+          <div class="content-box">
+            <p style="font-size: 0.875rem; font-weight: 600; color: #fff; margin-bottom: 8px;">vs. Tool-Specific Assessments</p>
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Storybook and Chromatic focus on tool adoption. We evaluate governance, activation, and AI readiness—the real drivers of value.</p>
           </div>
-          <div class="bg-white rounded-lg p-4 border border-emerald-200">
-            <p class="text-sm font-semibold text-slate-900 mb-2">vs. Design-Focused Evaluations</p>
-            <p class="text-xs text-slate-600">Figma assessments measure design consistency. We assess engineering execution and AI-assisted delivery capabilities.</p>
+          <div class="content-box">
+            <p style="font-size: 0.875rem; font-weight: 600; color: #fff; margin-bottom: 8px;">vs. Design-Focused Evaluations</p>
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Figma assessments measure design consistency. We assess engineering execution and AI-assisted delivery capabilities.</p>
           </div>
-          <div class="bg-white rounded-lg p-4 border border-emerald-200">
-            <p class="text-sm font-semibold text-slate-900 mb-2">vs. Generic Maturity Models</p>
-            <p class="text-xs text-slate-600">Most frameworks give you a score. We provide a personalized investment path with timelines, budgets, and success criteria.</p>
+          <div class="content-box">
+            <p style="font-size: 0.875rem; font-weight: 600; color: #fff; margin-bottom: 8px;">vs. Generic Maturity Models</p>
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Most frameworks give you a score. We provide a personalized investment path with timelines, budgets, and success criteria.</p>
           </div>
-          <div class="bg-white rounded-lg p-4 border border-emerald-200">
-            <p class="text-sm font-semibold text-slate-900 mb-2">vs. Consulting Assessments</p>
-            <p class="text-xs text-slate-600">Agency assessments take weeks and cost $50K+. Get actionable insights in 5 minutes, then connect with experts.</p>
+          <div class="content-box">
+            <p style="font-size: 0.875rem; font-weight: 600; color: #fff; margin-bottom: 8px;">vs. Consulting Assessments</p>
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Agency assessments take weeks and cost $50K+. Get actionable insights in 5 minutes, then connect with experts.</p>
           </div>
         </div>
       </div>
 
       <!-- Benchmarking Context -->
-      <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-            <i data-lucide="users" class="w-6 h-6 text-blue-600"></i>
+      <div class="card">
+        <div style="display: flex; align-items: flex-start; gap: 16px;">
+          <div style="width: 48px; height: 48px; background: rgba(59, 130, 246, 0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <i data-lucide="users" style="width: 24px; height: 24px; color: #3b82f6;"></i>
           </div>
-          <div class="flex-1">
-            <h3 class="text-lg font-bold text-slate-900 mb-2">Benchmarked Against Industry Leaders</h3>
-            <p class="text-sm text-slate-700 mb-3">This assessment is based on analysis of 50+ enterprise product systems, including organizations like PNC, Edward Jones, The Home Depot, and CSX.</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-medium">Financial Services</span>
-              <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-medium">Retail</span>
-              <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-medium">Technology</span>
-              <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-medium">Healthcare</span>
+          <div style="flex: 1;">
+            <h3 style="font-size: 1.125rem; font-weight: 700; color: #fff; margin-bottom: 8px;">Benchmarked Against Industry Leaders</h3>
+            <p style="font-size: 0.875rem; color: rgba(255,255,255,0.7); margin-bottom: 12px;">This assessment is based on analysis of 50+ enterprise product systems, including organizations like PNC, Edward Jones, The Home Depot, and CSX.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <span style="padding: 4px 12px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); border-radius: 8px; font-size: 0.75rem; font-weight: 500;">Financial Services</span>
+              <span style="padding: 4px 12px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); border-radius: 8px; font-size: 0.75rem; font-weight: 500;">Retail</span>
+              <span style="padding: 4px 12px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); border-radius: 8px; font-size: 0.75rem; font-weight: 500;">Technology</span>
+              <span style="padding: 4px 12px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); border-radius: 8px; font-size: 0.75rem; font-weight: 500;">Healthcare</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- What is Assessed -->
-      <div class="bg-slate-50 rounded-xl p-6 border border-slate-200">
-        <p class="text-sm text-slate-600 text-center mb-2">
-          This assessment evaluates your <span class="font-semibold text-slate-900">Product System</span> foundation, AI readiness, and organizational capacity to help you identify the right path forward.
+      <div class="card" style="background: rgba(255,255,255,0.03);">
+        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.6); text-align: center; margin-bottom: 8px;">
+          This assessment evaluates your <span style="font-weight: 600; color: #fff;">Product System</span> foundation, AI readiness, and organizational capacity to help you identify the right path forward.
         </p>
-        <p class="text-xs text-slate-500 text-center">
+        <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); text-align: center;">
           The only assessment that evaluates AI readiness alongside product system maturity—because governance without AI execution is incomplete.
         </p>
       </div>
     </div>
 
     <!-- Assessment Form -->
-    <div id="assessment-container" class="hidden space-y-6">
+    <div id="assessment-container" style="display: none;">
       <!-- Progress Indicator -->
-      <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-sm font-medium text-slate-600">Assessment Progress</span>
-          <span class="text-sm text-slate-500" id="progress-text">0%</span>
+      <div class="card" style="padding: 24px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+          <span style="font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.6);">Assessment Progress</span>
+          <span style="font-size: 0.875rem; color: rgba(255,255,255,0.5);" id="progress-text">0%</span>
         </div>
-        <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
-          <div id="progress-bar" class="h-full bg-emerald-500 progress-bar" style="width: 0%"></div>
+        <div style="height: 8px; background: rgba(255,255,255,0.1); border-radius: 9999px; overflow: hidden;">
+          <div id="progress-bar" class="progress-bar" style="height: 100%; background: linear-gradient(90deg, #6436bf 0%, #a78bfa 100%); width: 0%;"></div>
         </div>
       </div>
 
       <!-- Current Question -->
-      <div id="question-container" class="space-y-4"></div>
+      <div id="question-container"></div>
     </div>
 
     <!-- Results -->
-    <div id="results-container" class="hidden space-y-6">
+    <div id="results-container" style="display: none;">
       <!-- Overall Score -->
-      <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl p-6">
-        <div class="flex items-center justify-between mb-4">
+      <div class="card" style="background: linear-gradient(135deg, #6436bf 0%, #42247f 100%); padding: 32px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
           <div>
-            <p class="text-emerald-100 text-sm font-medium mb-1">YOUR READINESS SCORE</p>
-            <h2 class="text-4xl font-bold" id="overall-score">0</h2>
-            <p class="text-emerald-100 text-sm mt-1">out of 100 • Benchmark against 50+ enterprises</p>
+            <p style="color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; margin-bottom: 4px;">YOUR READINESS SCORE</p>
+            <h2 style="font-size: 3rem; font-weight: 700; color: #fff; margin: 0;" id="overall-score">0</h2>
+            <p style="color: rgba(255,255,255,0.8); font-size: 0.875rem; margin-top: 4px;">out of 100 • Benchmark against 50+ enterprises</p>
           </div>
-          <div class="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center">
-            <i data-lucide="target" class="w-12 h-12"></i>
+          <div style="width: 96px; height: 96px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;">
+            <i data-lucide="target" style="width: 48px; height: 48px; color: #fff;"></i>
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-4 mt-4">
-          <div class="bg-white/10 rounded-lg p-3">
-            <p class="text-xs text-emerald-200 mb-1">Product System Foundation</p>
-            <p class="text-xl font-bold" id="foundation-score">0</p>
-            <p class="text-xs text-emerald-200">/ 40</p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px;">
+          <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 12px;">
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.8); margin-bottom: 4px;">Product System Foundation</p>
+            <p style="font-size: 1.5rem; font-weight: 700; color: #fff;" id="foundation-score">0</p>
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.8);">/ 40</p>
           </div>
-          <div class="bg-white/10 rounded-lg p-3">
-            <p class="text-xs text-emerald-200 mb-1">AI & Automation Readiness</p>
-            <p class="text-xl font-bold" id="ai-score">0</p>
-            <p class="text-xs text-emerald-200">/ 30</p>
+          <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 12px;">
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.8); margin-bottom: 4px;">AI & Automation Readiness</p>
+            <p style="font-size: 1.5rem; font-weight: 700; color: #fff;" id="ai-score">0</p>
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.8);">/ 30</p>
           </div>
-          <div class="bg-white/10 rounded-lg p-3">
-            <p class="text-xs text-emerald-200 mb-1">Organizational Readiness</p>
-            <p class="text-xl font-bold" id="org-score">0</p>
-            <p class="text-xs text-emerald-200">/ 30</p>
+          <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 12px;">
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.8); margin-bottom: 4px;">Organizational Readiness</p>
+            <p style="font-size: 1.5rem; font-weight: 700; color: #fff;" id="org-score">0</p>
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.8);">/ 30</p>
           </div>
         </div>
       </div>
 
       <!-- Investment Path Recommendation -->
-      <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
-        <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-          <i data-lucide="git-branch" class="w-5 h-5 text-emerald-600"></i>
+      <div class="card">
+        <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px;">
+          <i data-lucide="git-branch" style="width: 20px; height: 20px; color: #a78bfa;"></i>
           Recommended Investment Path
         </h3>
-        <div id="path-recommendation" class="space-y-4"></div>
+        <div id="path-recommendation"></div>
       </div>
 
       <!-- Deployment Tier -->
-      <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
-        <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-          <i data-lucide="server" class="w-5 h-5 text-amber-600"></i>
+      <div class="card">
+        <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px;">
+          <i data-lucide="server" style="width: 20px; height: 20px; color: #fbbf24;"></i>
           Deployment Tier Assessment
         </h3>
         <div id="deployment-recommendation"></div>
       </div>
 
       <!-- Detailed Breakdown -->
-      <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
-        <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-          <i data-lucide="bar-chart-3" class="w-5 h-5 text-blue-600"></i>
+      <div class="card">
+        <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px;">
+          <i data-lucide="bar-chart-3" style="width: 20px; height: 20px; color: #3b82f6;"></i>
           Assessment Breakdown
         </h3>
-        <div id="breakdown-details" class="space-y-4"></div>
+        <div id="breakdown-details"></div>
       </div>
 
       <!-- Benchmark Comparison -->
-      <div id="benchmark-comparison" class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm"></div>
+      <div id="benchmark-comparison" class="card"></div>
 
       <!-- Next Steps -->
-      <div class="bg-emerald-50 border-2 border-emerald-200 rounded-xl p-6">
-        <h3 class="text-lg font-bold text-emerald-900 mb-4 flex items-center gap-2">
-          <i data-lucide="arrow-right" class="w-5 h-5 text-emerald-600"></i>
+      <div class="card" style="background: rgba(100, 54, 191, 0.1); border: 2px solid rgba(100, 54, 191, 0.3);">
+        <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px; color: #fff;">
+          <i data-lucide="arrow-right" style="width: 20px; height: 20px; color: #a78bfa;"></i>
           Recommended Next Steps
         </h3>
-        <div id="next-steps" class="space-y-3"></div>
+        <div id="next-steps"></div>
       </div>
 
       <!-- Personalized Insights -->
-      <div id="personalized-insights" class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm"></div>
+      <div id="personalized-insights" class="card"></div>
 
       <!-- Cost of Inaction -->
-      <div id="cost-of-inaction" class="bg-gradient-to-r from-rose-50 to-orange-50 border-2 border-rose-200 rounded-xl p-6 shadow-sm"></div>
+      <div id="cost-of-inaction" class="card" style="background: rgba(228, 58, 92, 0.1); border: 2px solid rgba(228, 58, 92, 0.3);"></div>
 
       <!-- Connect with Knapsack CTA -->
-      <div class="bg-gradient-to-r from-emerald-600 to-blue-600 text-white rounded-xl p-8 shadow-lg">
-        <div class="flex flex-col md:flex-row items-center gap-6">
-          <div class="flex-1">
-            <h3 class="text-2xl font-bold mb-2">Ready to take the next step?</h3>
-            <p class="text-emerald-100 mb-4">Schedule a personalized consultation with our IPE experts to discuss your assessment results and explore how the Intelligent Product Engine can accelerate your product delivery.</p>
-            <div class="flex flex-wrap gap-3 text-sm">
-              <div class="flex items-center gap-2 bg-white/20 rounded-lg px-3 py-2">
-                <i data-lucide="calendar" class="w-4 h-4"></i>
+      <div class="card" style="background: linear-gradient(135deg, #6436bf 0%, #3b82f6 100%); padding: 32px;">
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          <div style="flex: 1;">
+            <h3 style="font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 8px;">Ready to take the next step?</h3>
+            <p style="color: rgba(255,255,255,0.85); margin-bottom: 16px;">Schedule a personalized consultation with our IPE experts to discuss your assessment results and explore how the Intelligent Product Engine can accelerate your product delivery.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.875rem;">
+              <div style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.2); border-radius: 8px; padding: 8px 12px;">
+                <i data-lucide="calendar" style="width: 16px; height: 16px;"></i>
                 <span>30-minute consultation</span>
               </div>
-              <div class="flex items-center gap-2 bg-white/20 rounded-lg px-3 py-2">
-                <i data-lucide="file-text" class="w-4 h-4"></i>
+              <div style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.2); border-radius: 8px; padding: 8px 12px;">
+                <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
                 <span>Detailed roadmap</span>
               </div>
-              <div class="flex items-center gap-2 bg-white/20 rounded-lg px-3 py-2">
-                <i data-lucide="users" class="w-4 h-4"></i>
+              <div style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.2); border-radius: 8px; padding: 8px 12px;">
+                <i data-lucide="users" style="width: 16px; height: 16px;"></i>
                 <span>Expert guidance</span>
               </div>
             </div>
           </div>
-          <div class="flex flex-col gap-3">
-            <a href="mailto:ipe@knapsack.cloud?subject=Product System Maturity Assessment Results - Consultation Request" class="bg-white text-emerald-600 px-6 py-3 rounded-lg font-semibold hover:bg-emerald-50 transition-colors flex items-center justify-center gap-2 text-center">
-              <i data-lucide="mail" class="w-5 h-5"></i>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="mailto:ipe@knapsack.cloud?subject=Product System Maturity Assessment Results - Consultation Request" style="background: #fff; color: #6436bf; padding: 12px 24px; border-radius: 8px; font-weight: 600; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; text-align: center;">
+              <i data-lucide="mail" style="width: 20px; height: 20px;"></i>
               <span>Schedule Consultation</span>
             </a>
-            <button onclick="downloadResults()" class="bg-white/20 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/30 transition-colors flex items-center justify-center gap-2 border border-white/30">
-              <i data-lucide="download" class="w-5 h-5"></i>
+            <button onclick="downloadResults()" style="background: rgba(255,255,255,0.2); color: #fff; padding: 12px 24px; border-radius: 8px; font-weight: 500; border: 1px solid rgba(255,255,255,0.3); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i data-lucide="download" style="width: 20px; height: 20px;"></i>
               <span>Download Results</span>
             </button>
           </div>
@@ -251,8 +324,8 @@
       </div>
 
       <!-- Restart Button -->
-      <button onclick="resetAssessment()" class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-lg font-medium hover:bg-slate-800 transition-colors">
-        <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+      <button onclick="resetAssessment()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; background: rgba(255,255,255,0.1); color: #fff; border-radius: 8px; font-weight: 500; border: 1px solid rgba(100, 54, 191, 0.3); cursor: pointer; transition: all 0.2s; margin-bottom: 24px;">
+        <i data-lucide="refresh-cw" style="width: 20px; height: 20px;"></i>
         Start New Assessment
       </button>
     </div>
@@ -470,41 +543,47 @@
 
       const color = categoryColors[question.category] || 'slate';
 
+      const colorMap = {
+        'emerald': { bg: 'rgba(16, 185, 129, 0.15)', border: 'rgba(16, 185, 129, 0.3)', text: '#10b981' },
+        'violet': { bg: 'rgba(100, 54, 191, 0.15)', border: 'rgba(100, 54, 191, 0.3)', text: '#a78bfa' },
+        'blue': { bg: 'rgba(59, 130, 246, 0.15)', border: 'rgba(59, 130, 246, 0.3)', text: '#3b82f6' },
+        'amber': { bg: 'rgba(251, 191, 36, 0.15)', border: 'rgba(251, 191, 36, 0.3)', text: '#fbbf24' },
+        'slate': { bg: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.1)', text: '#fff' }
+      };
+      const colorStyle = colorMap[color] || colorMap.slate;
+
       const optionsHtml = question.options.map((opt, idx) => {
         const isSelected = answers[currentQuestionIndex] === opt.value;
         return `
           <button
             onclick="selectOption(${idx})"
-            class="option-card w-full text-left p-4 rounded-lg border-2 transition-all ${
-              isSelected 
-                ? 'border-emerald-500 bg-emerald-50' 
-                : 'border-slate-200 bg-white hover:border-slate-300'
-            }"
+            class="option-card"
+            style="width: 100%; text-align: left; padding: 16px; border-radius: 8px; border: 2px solid ${isSelected ? '#6436bf' : 'rgba(100, 54, 191, 0.3)'}; background: ${isSelected ? 'rgba(100, 54, 191, 0.15)' : 'rgba(255,255,255,0.03)'}; margin-bottom: 12px; cursor: pointer;"
           >
-            <div class="flex items-center justify-between">
-              <span class="text-sm font-medium text-slate-700">${opt.text}</span>
-              ${isSelected ? '<i data-lucide="check-circle" class="w-5 h-5 text-emerald-600"></i>' : ''}
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.8);">${opt.text}</span>
+              ${isSelected ? '<i data-lucide="check-circle" style="width: 20px; height: 20px; color: #6436bf;"></i>' : ''}
             </div>
           </button>
         `;
       }).join('');
 
       document.getElementById('question-container').innerHTML = `
-        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm fade-in">
-          <div class="flex items-center gap-2 mb-4">
-            <span class="px-3 py-1 bg-${color}-100 text-${color}-700 rounded-lg text-xs font-semibold">
+        <div class="card fade-in">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+            <span style="padding: 4px 12px; background: ${colorStyle.bg}; color: ${colorStyle.text}; border-radius: 8px; font-size: 0.75rem; font-weight: 600;">
               ${question.category}
             </span>
-            ${question.weight > 0 ? `<span class="text-xs text-slate-500">${question.weight} points max</span>` : ''}
+            ${question.weight > 0 ? `<span style="font-size: 0.75rem; color: rgba(255,255,255,0.5);">${question.weight} points max</span>` : ''}
           </div>
-          <h2 class="text-lg font-semibold text-slate-900 mb-4">${question.question}</h2>
-          <div class="space-y-3">${optionsHtml}</div>
+          <h2 style="font-size: 1.125rem; font-weight: 600; color: #fff; margin-bottom: 16px;">${question.question}</h2>
+          <div style="display: flex; flex-direction: column; gap: 12px;">${optionsHtml}</div>
           ${currentQuestionIndex > 0 ? `
             <button
               onclick="goBack()"
-              class="mt-4 text-sm text-slate-500 hover:text-slate-700 flex items-center gap-1"
+              style="margin-top: 16px; font-size: 0.875rem; color: rgba(255,255,255,0.5); display: flex; align-items: center; gap: 4px; background: none; border: none; cursor: pointer;"
             >
-              <i data-lucide="arrow-left" class="w-4 h-4"></i> Previous question
+              <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Previous question
             </button>
           ` : ''}
         </div>
@@ -573,8 +652,8 @@
       }
 
       // Display results
-      document.getElementById('assessment-container').classList.add('hidden');
-      document.getElementById('results-container').classList.remove('hidden');
+      document.getElementById('assessment-container').style.display = 'none';
+      document.getElementById('results-container').style.display = 'block';
       // Scroll to top of results
       window.scrollTo({ top: 0, behavior: 'smooth' });
       
@@ -586,73 +665,81 @@
       const journey = journeyDetails[recommendedPath];
       const tier = deploymentTiers[deploymentTier];
 
+      const journeyColorMap = {
+        'slate': { bg: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.1)', text: '#fff', badge: '#64748b' },
+        'blue': { bg: 'rgba(59, 130, 246, 0.15)', border: 'rgba(59, 130, 246, 0.3)', text: '#93c5fd', badge: '#3b82f6' },
+        'emerald': { bg: 'rgba(16, 185, 129, 0.15)', border: 'rgba(16, 185, 129, 0.3)', text: '#6ee7b7', badge: '#10b981' },
+        'violet': { bg: 'rgba(100, 54, 191, 0.15)', border: 'rgba(100, 54, 191, 0.3)', text: '#c4b5fd', badge: '#6436bf' }
+      };
+      const journeyColor = journeyColorMap[journey.color] || journeyColorMap.slate;
+
       // Investment Path Recommendation
       document.getElementById('path-recommendation').innerHTML = `
-        <div class="bg-${journey.color}-50 border-2 border-${journey.color}-200 rounded-xl p-5">
-          <div class="flex items-center gap-4 mb-4">
-            <div class="w-16 h-16 rounded-lg bg-${journey.color}-600 flex items-center justify-center text-white font-bold text-xl">
+        <div style="background: ${journeyColor.bg}; border: 2px solid ${journeyColor.border}; border-radius: 12px; padding: 20px;">
+          <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+            <div style="width: 64px; height: 64px; border-radius: 8px; background: ${journeyColor.badge}; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 1.25rem;">
               ${recommendedPath}
             </div>
-            <div class="flex-1">
-              <h4 class="text-xl font-bold text-${journey.color}-900">${journey.name}</h4>
-              <p class="text-sm text-${journey.color}-700">${journey.description}</p>
+            <div style="flex: 1;">
+              <h4 style="font-size: 1.25rem; font-weight: 700; color: #fff;">${journey.name}</h4>
+              <p style="font-size: 0.875rem; color: ${journeyColor.text};">${journey.description}</p>
             </div>
           </div>
-          <div class="grid grid-cols-2 gap-4 mb-4">
-            <div class="bg-white rounded-lg p-3">
-              <p class="text-xs text-slate-500 mb-1">TCV Range</p>
-              <p class="font-bold text-slate-900">${journey.tcv}</p>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px;">
+            <div class="content-box">
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 4px;">TCV Range</p>
+              <p style="font-weight: 700; color: #fff;">${journey.tcv}</p>
             </div>
-            <div class="bg-white rounded-lg p-3">
-              <p class="text-xs text-slate-500 mb-1">ARR Share</p>
-              <p class="font-bold text-slate-900">${journey.arrShare}</p>
+            <div class="content-box">
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 4px;">ARR Share</p>
+              <p style="font-weight: 700; color: #fff;">${journey.arrShare}</p>
             </div>
-            <div class="bg-white rounded-lg p-3">
-              <p class="text-xs text-slate-500 mb-1">Risk Level</p>
-              <p class="font-bold text-slate-900">${journey.risk}</p>
+            <div class="content-box">
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Risk Level</p>
+              <p style="font-weight: 700; color: #fff;">${journey.risk}</p>
             </div>
-            <div class="bg-white rounded-lg p-3">
-              <p class="text-xs text-slate-500 mb-1">Path</p>
-              <p class="font-bold text-slate-900 text-xs">${journey.path}</p>
+            <div class="content-box">
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Path</p>
+              <p style="font-weight: 700; color: #fff; font-size: 0.75rem;">${journey.path}</p>
             </div>
           </div>
-          <div class="bg-white rounded-lg p-3">
-            <p class="text-xs text-slate-500 mb-1">Recommended Motion</p>
-            <p class="text-sm text-slate-700">${journey.motion}</p>
+          <div class="content-box">
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Recommended Motion</p>
+            <p style="font-size: 0.875rem; color: rgba(255,255,255,0.8);">${journey.motion}</p>
           </div>
         </div>
       `;
 
       // Deployment Tier
       document.getElementById('deployment-recommendation').innerHTML = `
-        <div class="bg-amber-50 border-2 border-amber-200 rounded-xl p-5">
-          <div class="flex items-center gap-4 mb-4">
-            <div class="w-16 h-16 rounded-lg bg-amber-600 flex items-center justify-center text-white font-bold text-xl">
+        <div style="background: rgba(251, 191, 36, 0.15); border: 2px solid rgba(251, 191, 36, 0.3); border-radius: 12px; padding: 20px;">
+          <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+            <div style="width: 64px; height: 64px; border-radius: 8px; background: #fbbf24; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 700; font-size: 1.25rem;">
               ${deploymentTier}
             </div>
-            <div class="flex-1">
-              <h4 class="text-xl font-bold text-amber-900">${tier.name}</h4>
-              <p class="text-sm text-amber-700">${tier.compliance}</p>
+            <div style="flex: 1;">
+              <h4 style="font-size: 1.25rem; font-weight: 700; color: #fff;">${tier.name}</h4>
+              <p style="font-size: 0.875rem; color: #fde047;">${tier.compliance}</p>
             </div>
           </div>
-          <div class="grid grid-cols-3 gap-4">
-            <div class="bg-white rounded-lg p-3">
-              <p class="text-xs text-slate-500 mb-1">Deploy Time</p>
-              <p class="font-bold text-slate-900">${tier.time}</p>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+            <div class="content-box">
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Deploy Time</p>
+              <p style="font-weight: 700; color: #fff;">${tier.time}</p>
             </div>
-            <div class="bg-white rounded-lg p-3">
-              <p class="text-xs text-slate-500 mb-1">Services Premium</p>
-              <p class="font-bold text-emerald-600">${tier.premium}</p>
+            <div class="content-box">
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Services Premium</p>
+              <p style="font-weight: 700; color: #4ade80;">${tier.premium}</p>
             </div>
-            <div class="bg-white rounded-lg p-3">
-              <p class="text-xs text-slate-500 mb-1">Compliance</p>
-              <p class="font-bold text-slate-900 text-xs">${tier.compliance}</p>
+            <div class="content-box">
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Compliance</p>
+              <p style="font-weight: 700; color: #fff; font-size: 0.75rem;">${tier.compliance}</p>
             </div>
           </div>
           ${deploymentTier === 'D3' || deploymentTier === 'D4' ? `
-            <div class="mt-4 bg-amber-100 rounded-lg p-3">
-              <p class="text-xs font-semibold text-amber-800 mb-1">⚠️ Phase 0 Required</p>
-              <p class="text-sm text-amber-700">D3/D4 deployments require Phase 0 (Deployment & Security) before Foundation can begin. This adds $175-450K and 8-16 weeks.</p>
+            <div style="margin-top: 16px; background: rgba(251, 191, 36, 0.2); border-radius: 8px; padding: 12px;">
+              <p style="font-size: 0.75rem; font-weight: 600; color: #fde047; margin-bottom: 4px;">⚠️ Phase 0 Required</p>
+              <p style="font-size: 0.875rem; color: #fde047;">D3/D4 deployments require Phase 0 (Deployment & Security) before Foundation can begin. This adds $175-450K and 8-16 weeks.</p>
             </div>
           ` : ''}
         </div>
@@ -660,30 +747,30 @@
 
       // Breakdown Details
       document.getElementById('breakdown-details').innerHTML = `
-        <div class="grid grid-cols-3 gap-4">
-          <div class="bg-emerald-50 rounded-lg p-4 border border-emerald-200">
-            <h4 class="font-semibold text-emerald-900 mb-2">Product System Foundation</h4>
-            <p class="text-2xl font-bold text-emerald-700 mb-1">${foundationScore}/40</p>
-            <div class="h-2 bg-emerald-200 rounded-full overflow-hidden mt-2">
-              <div class="h-full bg-emerald-600" style="width: ${(foundationScore/40)*100}%"></div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+          <div style="background: rgba(16, 185, 129, 0.15); border-radius: 12px; padding: 16px; border: 1px solid rgba(16, 185, 129, 0.3);">
+            <h4 style="font-weight: 600; color: #6ee7b7; margin-bottom: 8px;">Product System Foundation</h4>
+            <p style="font-size: 1.5rem; font-weight: 700; color: #6ee7b7; margin-bottom: 4px;">${foundationScore}/40</p>
+            <div style="height: 8px; background: rgba(16, 185, 129, 0.2); border-radius: 9999px; overflow: hidden; margin-top: 8px;">
+              <div style="height: 100%; background: #10b981; width: ${(foundationScore/40)*100}%"></div>
             </div>
-            <p class="text-xs text-emerald-700 mt-2">${foundationScore >= 30 ? 'Strong foundation' : foundationScore >= 15 ? 'Moderate foundation' : 'Foundation needed'}</p>
+            <p style="font-size: 0.75rem; color: #6ee7b7; margin-top: 8px;">${foundationScore >= 30 ? 'Strong foundation' : foundationScore >= 15 ? 'Moderate foundation' : 'Foundation needed'}</p>
           </div>
-          <div class="bg-violet-50 rounded-lg p-4 border border-violet-200">
-            <h4 class="font-semibold text-violet-900 mb-2">AI & Automation Readiness</h4>
-            <p class="text-2xl font-bold text-violet-700 mb-1">${aiScore}/30</p>
-            <div class="h-2 bg-violet-200 rounded-full overflow-hidden mt-2">
-              <div class="h-full bg-violet-600" style="width: ${(aiScore/30)*100}%"></div>
+          <div style="background: rgba(100, 54, 191, 0.15); border-radius: 12px; padding: 16px; border: 1px solid rgba(100, 54, 191, 0.3);">
+            <h4 style="font-weight: 600; color: #c4b5fd; margin-bottom: 8px;">AI & Automation Readiness</h4>
+            <p style="font-size: 1.5rem; font-weight: 700; color: #c4b5fd; margin-bottom: 4px;">${aiScore}/30</p>
+            <div style="height: 8px; background: rgba(100, 54, 191, 0.2); border-radius: 9999px; overflow: hidden; margin-top: 8px;">
+              <div style="height: 100%; background: #6436bf; width: ${(aiScore/30)*100}%"></div>
             </div>
-            <p class="text-xs text-violet-700 mt-2">${aiScore >= 20 ? 'AI-ready' : aiScore >= 10 ? 'Moderate readiness' : 'AI prep needed'}</p>
+            <p style="font-size: 0.75rem; color: #c4b5fd; margin-top: 8px;">${aiScore >= 20 ? 'AI-ready' : aiScore >= 10 ? 'Moderate readiness' : 'AI prep needed'}</p>
           </div>
-          <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
-            <h4 class="font-semibold text-blue-900 mb-2">Organizational Readiness</h4>
-            <p class="text-2xl font-bold text-blue-700 mb-1">${orgScore}/30</p>
-            <div class="h-2 bg-blue-200 rounded-full overflow-hidden mt-2">
-              <div class="h-full bg-blue-600" style="width: ${(orgScore/30)*100}%"></div>
+          <div style="background: rgba(59, 130, 246, 0.15); border-radius: 12px; padding: 16px; border: 1px solid rgba(59, 130, 246, 0.3);">
+            <h4 style="font-weight: 600; color: #93c5fd; margin-bottom: 8px;">Organizational Readiness</h4>
+            <p style="font-size: 1.5rem; font-weight: 700; color: #93c5fd; margin-bottom: 4px;">${orgScore}/30</p>
+            <div style="height: 8px; background: rgba(59, 130, 246, 0.2); border-radius: 9999px; overflow: hidden; margin-top: 8px;">
+              <div style="height: 100%; background: #3b82f6; width: ${(orgScore/30)*100}%"></div>
             </div>
-            <p class="text-xs text-blue-700 mt-2">${orgScore >= 20 ? 'Strong org readiness' : orgScore >= 10 ? 'Moderate readiness' : 'Org prep needed'}</p>
+            <p style="font-size: 0.75rem; color: #93c5fd; margin-top: 8px;">${orgScore >= 20 ? 'Strong org readiness' : orgScore >= 10 ? 'Moderate readiness' : 'Org prep needed'}</p>
           </div>
         </div>
       `;
@@ -691,55 +778,55 @@
       // Benchmark Comparison
       const benchmarkData = generateBenchmarkComparison(totalScore, foundationScore, aiScore, orgScore, recommendedPath);
       document.getElementById('benchmark-comparison').innerHTML = `
-        <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-          <i data-lucide="trending-up" class="w-5 h-5 text-blue-600"></i>
+        <h3 style="font-size: 1.125rem; font-weight: 700; color: #fff; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <i data-lucide="trending-up" style="width: 20px; height: 20px; color: #3b82f6;"></i>
           How You Compare to Similar Organizations
         </h3>
-        <div class="space-y-4">
-          <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
-            <div class="flex items-center justify-between mb-3">
-              <p class="font-semibold text-blue-900">Your Overall Score</p>
-              <p class="text-2xl font-bold text-blue-700">${totalScore}/100</p>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="background: rgba(59, 130, 246, 0.15); border-radius: 12px; padding: 16px; border: 1px solid rgba(59, 130, 246, 0.3);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+              <p style="font-weight: 600; color: #93c5fd;">Your Overall Score</p>
+              <p style="font-size: 1.5rem; font-weight: 700; color: #93c5fd;">${totalScore}/100</p>
             </div>
-            <div class="space-y-2">
-              <div class="flex items-center justify-between text-sm">
-                <span class="text-slate-600">Industry Average</span>
-                <span class="font-medium text-slate-700">${benchmarkData.industryAvg}/100</span>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.875rem;">
+                <span style="color: rgba(255,255,255,0.6);">Industry Average</span>
+                <span style="font-weight: 500; color: rgba(255,255,255,0.8);">${benchmarkData.industryAvg}/100</span>
               </div>
-              <div class="h-2 bg-blue-200 rounded-full overflow-hidden">
-                <div class="h-full bg-blue-400" style="width: ${benchmarkData.industryAvg}%"></div>
+              <div style="height: 8px; background: rgba(59, 130, 246, 0.2); border-radius: 9999px; overflow: hidden;">
+                <div style="height: 100%; background: #60a5fa; width: ${benchmarkData.industryAvg}%"></div>
               </div>
-              <div class="flex items-center justify-between text-sm">
-                <span class="text-slate-600">Top Quartile</span>
-                <span class="font-medium text-slate-700">${benchmarkData.topQuartile}/100</span>
+              <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.875rem;">
+                <span style="color: rgba(255,255,255,0.6);">Top Quartile</span>
+                <span style="font-weight: 500; color: rgba(255,255,255,0.8);">${benchmarkData.topQuartile}/100</span>
               </div>
-              <div class="h-2 bg-blue-200 rounded-full overflow-hidden">
-                <div class="h-full bg-blue-600" style="width: ${benchmarkData.topQuartile}%"></div>
+              <div style="height: 8px; background: rgba(59, 130, 246, 0.2); border-radius: 9999px; overflow: hidden;">
+                <div style="height: 100%; background: #3b82f6; width: ${benchmarkData.topQuartile}%"></div>
               </div>
             </div>
-            <div class="mt-3 pt-3 border-t border-blue-300">
-              <p class="text-xs text-blue-800">
-                <span class="font-semibold">${benchmarkData.comparison}</span> ${benchmarkData.comparisonDetail}
+            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(59, 130, 246, 0.3);">
+              <p style="font-size: 0.75rem; color: #93c5fd;">
+                <span style="font-weight: 600;">${benchmarkData.comparison}</span> ${benchmarkData.comparisonDetail}
               </p>
             </div>
           </div>
-          <div class="grid grid-cols-3 gap-3">
-            <div class="bg-slate-50 rounded-lg p-3 border border-slate-200">
-              <p class="text-xs text-slate-500 mb-1">Foundation</p>
-              <p class="text-sm font-semibold text-slate-900">${foundationScore >= 30 ? 'Top 25%' : foundationScore >= 20 ? 'Top 50%' : foundationScore >= 10 ? 'Bottom 50%' : 'Bottom 25%'}</p>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+            <div class="content-box">
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Foundation</p>
+              <p style="font-size: 0.875rem; font-weight: 600; color: #fff;">${foundationScore >= 30 ? 'Top 25%' : foundationScore >= 20 ? 'Top 50%' : foundationScore >= 10 ? 'Bottom 50%' : 'Bottom 25%'}</p>
             </div>
-            <div class="bg-slate-50 rounded-lg p-3 border border-slate-200">
-              <p class="text-xs text-slate-500 mb-1">AI Readiness</p>
-              <p class="text-sm font-semibold text-slate-900">${aiScore >= 20 ? 'Top 25%' : aiScore >= 10 ? 'Top 50%' : aiScore >= 5 ? 'Bottom 50%' : 'Bottom 25%'}</p>
+            <div class="content-box">
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 4px;">AI Readiness</p>
+              <p style="font-size: 0.875rem; font-weight: 600; color: #fff;">${aiScore >= 20 ? 'Top 25%' : aiScore >= 10 ? 'Top 50%' : aiScore >= 5 ? 'Bottom 50%' : 'Bottom 25%'}</p>
             </div>
-            <div class="bg-slate-50 rounded-lg p-3 border border-slate-200">
-              <p class="text-xs text-slate-500 mb-1">Org Readiness</p>
-              <p class="text-sm font-semibold text-slate-900">${orgScore >= 20 ? 'Top 25%' : orgScore >= 10 ? 'Top 50%' : orgScore >= 5 ? 'Bottom 50%' : 'Bottom 25%'}</p>
+            <div class="content-box">
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Org Readiness</p>
+              <p style="font-size: 0.875rem; font-weight: 600; color: #fff;">${orgScore >= 20 ? 'Top 25%' : orgScore >= 10 ? 'Top 50%' : orgScore >= 5 ? 'Bottom 50%' : 'Bottom 25%'}</p>
             </div>
           </div>
-          <div class="bg-slate-50 rounded-lg p-3 border border-slate-200">
-            <p class="text-xs text-slate-600">
-              <span class="font-semibold">Based on analysis of 50+ enterprise organizations</span> including PNC, Edward Jones, The Home Depot, CSX, and others across Financial Services, Retail, Technology, and Healthcare industries.
+          <div class="content-box">
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">
+              <span style="font-weight: 600;">Based on analysis of 50+ enterprise organizations</span> including PNC, Edward Jones, The Home Depot, CSX, and others across Financial Services, Retail, Technology, and Healthcare industries.
             </p>
           </div>
         </div>
@@ -780,38 +867,47 @@
       }
 
       document.getElementById('next-steps').innerHTML = nextSteps.filter(s => s).map((step, idx) => `
-        <div class="flex items-start gap-3 p-3 bg-white rounded-lg border border-emerald-200">
-          <div class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">${idx + 1}</div>
-          <p class="text-sm text-emerald-900">${step}</p>
+        <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(100, 54, 191, 0.3); margin-bottom: 12px;">
+          <div style="width: 24px; height: 24px; border-radius: 50%; background: #6436bf; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0;">${idx + 1}</div>
+          <p style="font-size: 0.875rem; color: rgba(255,255,255,0.9);">${step}</p>
         </div>
       `).join('');
 
       // Personalized Insights
       const insights = generatePersonalizedInsights(foundationScore, aiScore, orgScore, totalScore, recommendedPath);
       if (insights.length > 0) {
+        const insightColorMap = {
+          'emerald': { bg: 'rgba(16, 185, 129, 0.15)', border: 'rgba(16, 185, 129, 0.3)', text: '#6ee7b7', badge: '#10b981' },
+          'violet': { bg: 'rgba(100, 54, 191, 0.15)', border: 'rgba(100, 54, 191, 0.3)', text: '#c4b5fd', badge: '#6436bf' },
+          'blue': { bg: 'rgba(59, 130, 246, 0.15)', border: 'rgba(59, 130, 246, 0.3)', text: '#93c5fd', badge: '#3b82f6' },
+          'amber': { bg: 'rgba(251, 191, 36, 0.15)', border: 'rgba(251, 191, 36, 0.3)', text: '#fde047', badge: '#fbbf24' }
+        };
         document.getElementById('personalized-insights').innerHTML = `
-          <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-            <i data-lucide="lightbulb" class="w-5 h-5 text-amber-600"></i>
+          <h3 style="font-size: 1.125rem; font-weight: 700; color: #fff; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="lightbulb" style="width: 20px; height: 20px; color: #fbbf24;"></i>
             Personalized Insights for Your Organization
           </h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            ${insights.map(insight => `
-              <div class="bg-${insight.color}-50 rounded-lg p-4 border border-${insight.color}-200">
-                <div class="flex items-start gap-3 mb-3">
-                  <div class="w-10 h-10 rounded-lg bg-${insight.color}-600 flex items-center justify-center flex-shrink-0">
-                    <i data-lucide="${insight.icon}" class="w-5 h-5 text-white"></i>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+            ${insights.map(insight => {
+              const colors = insightColorMap[insight.color] || insightColorMap.emerald;
+              return `
+              <div style="background: ${colors.bg}; border-radius: 12px; padding: 16px; border: 1px solid ${colors.border};">
+                <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+                  <div style="width: 40px; height: 40px; border-radius: 8px; background: ${colors.badge}; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <i data-lucide="${insight.icon}" style="width: 20px; height: 20px; color: #fff;"></i>
                   </div>
-                  <div class="flex-1">
-                    <h4 class="font-semibold text-${insight.color}-900 mb-1">${insight.title}</h4>
-                    <p class="text-sm text-${insight.color}-800 mb-2">${insight.text}</p>
-                    <div class="bg-white rounded p-2 border border-${insight.color}-200">
-                      <p class="text-xs font-semibold text-${insight.color}-700 mb-1">Value Insight</p>
-                      <p class="text-xs text-${insight.color}-800">${insight.value}</p>
+                  <div style="flex: 1;">
+                    <h4 style="font-weight: 600; color: #fff; margin-bottom: 4px;">${insight.title}</h4>
+                    <p style="font-size: 0.875rem; color: ${colors.text}; margin-bottom: 8px;">${insight.text}</p>
+                    <div style="background: rgba(255,255,255,0.05); border-radius: 8px; padding: 8px; border: 1px solid ${colors.border};">
+                      <p style="font-size: 0.75rem; font-weight: 600; color: ${colors.text}; margin-bottom: 4px;">Value Insight</p>
+                      <p style="font-size: 0.75rem; color: ${colors.text};">${insight.value}</p>
                     </div>
                   </div>
                 </div>
               </div>
-            `).join('')}
+            `;
+            }).join('')}
           </div>
         `;
       } else {
@@ -821,30 +917,30 @@
       // Cost of Inaction
       const inactionCosts = generateCostOfInaction(foundationScore, aiScore, orgScore, totalScore, recommendedPath);
       document.getElementById('cost-of-inaction').innerHTML = `
-        <h3 class="text-lg font-bold text-rose-900 mb-4 flex items-center gap-2">
-          <i data-lucide="alert-triangle" class="w-5 h-5 text-rose-600"></i>
+        <h3 style="font-size: 1.125rem; font-weight: 700; color: #fff; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <i data-lucide="alert-triangle" style="width: 20px; height: 20px; color: #f87171;"></i>
           The Cost of Not Taking Action
         </h3>
-        <p class="text-sm text-rose-800 mb-4">Based on your assessment, here's what happens if you delay IPE activation:</p>
-        <div class="space-y-3">
+        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.8); margin-bottom: 16px;">Based on your assessment, here's what happens if you delay IPE activation:</p>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
           ${inactionCosts.map(cost => `
-            <div class="bg-white rounded-lg p-4 border border-rose-200">
-              <div class="flex items-start gap-3">
-                <div class="w-8 h-8 rounded-lg bg-rose-600 flex items-center justify-center flex-shrink-0">
-                  <i data-lucide="${cost.icon}" class="w-4 h-4 text-white"></i>
+            <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 16px; border: 1px solid rgba(228, 58, 92, 0.3);">
+              <div style="display: flex; align-items: flex-start; gap: 12px;">
+                <div style="width: 32px; height: 32px; border-radius: 8px; background: #e43a5c; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <i data-lucide="${cost.icon}" style="width: 16px; height: 16px; color: #fff;"></i>
                 </div>
-                <div class="flex-1">
-                  <h4 class="font-semibold text-rose-900 mb-1">${cost.title}</h4>
-                  <p class="text-sm text-rose-800">${cost.description}</p>
-                  ${cost.impact ? `<p class="text-xs font-semibold text-rose-700 mt-2">Impact: ${cost.impact}</p>` : ''}
+                <div style="flex: 1;">
+                  <h4 style="font-weight: 600; color: #fff; margin-bottom: 4px;">${cost.title}</h4>
+                  <p style="font-size: 0.875rem; color: rgba(255,255,255,0.8);">${cost.description}</p>
+                  ${cost.impact ? `<p style="font-size: 0.75rem; font-weight: 600; color: #f87171; margin-top: 8px;">Impact: ${cost.impact}</p>` : ''}
                 </div>
               </div>
             </div>
           `).join('')}
         </div>
-        <div class="mt-4 bg-rose-100 rounded-lg p-4 border border-rose-300">
-          <p class="text-sm font-semibold text-rose-900 mb-1">The Opportunity Cost</p>
-          <p class="text-sm text-rose-800">${getOpportunityCostMessage(recommendedPath, totalScore)} Organizations that act now see measurable improvements within 8-12 weeks.</p>
+        <div style="margin-top: 16px; background: rgba(228, 58, 92, 0.15); border-radius: 12px; padding: 16px; border: 1px solid rgba(228, 58, 92, 0.3);">
+          <p style="font-size: 0.875rem; font-weight: 600; color: #fff; margin-bottom: 4px;">The Opportunity Cost</p>
+          <p style="font-size: 0.875rem; color: rgba(255,255,255,0.8);">${getOpportunityCostMessage(recommendedPath, totalScore)} Organizations that act now see measurable improvements within 8-12 weeks.</p>
         </div>
       `;
 
@@ -852,8 +948,8 @@
     }
 
     function startAssessment() {
-      document.getElementById('intro-container').classList.add('hidden');
-      document.getElementById('assessment-container').classList.remove('hidden');
+      document.getElementById('intro-container').style.display = 'none';
+      document.getElementById('assessment-container').style.display = 'block';
       renderQuestion();
     }
 
@@ -861,9 +957,9 @@
       currentQuestionIndex = 0;
       answers = {};
       deploymentTier = 'D1';
-      document.getElementById('intro-container').classList.remove('hidden');
-      document.getElementById('assessment-container').classList.add('hidden');
-      document.getElementById('results-container').classList.add('hidden');
+      document.getElementById('intro-container').style.display = 'block';
+      document.getElementById('assessment-container').style.display = 'none';
+      document.getElementById('results-container').style.display = 'none';
       // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }

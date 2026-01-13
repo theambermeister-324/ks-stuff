@@ -342,6 +342,58 @@
             color: rgba(255,255,255,0.7);
             line-height: 1.5;
         }
+        /* Compact layout for recommendation slide */
+        .slide.recommendation-slide {
+            padding: 32px 40px;
+        }
+        .slide.recommendation-slide h3 {
+            margin-bottom: 8px;
+        }
+        .slide.recommendation-slide h2 {
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+        }
+        .slide.recommendation-slide .content-grid {
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .slide.recommendation-slide .content-box {
+            padding: 16px;
+        }
+        .slide.recommendation-slide .content-box h4 {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        .slide.recommendation-slide .content-box p {
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        .slide.recommendation-slide .actions-list {
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .slide.recommendation-slide .action-item {
+            padding: 16px;
+        }
+        .slide.recommendation-slide .action-item h4 {
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+        .slide.recommendation-slide .action-item p {
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+        .slide.recommendation-slide .cta-box {
+            padding: 24px;
+            margin-top: 20px;
+        }
+        .slide.recommendation-slide .cta-box h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .slide.recommendation-slide .cta-box p {
+            font-size: 0.85rem;
+        }
     </style>
 </head>
 <body>
@@ -455,6 +507,52 @@
                 </div>
             </div>
             <div class="slide-number">3</div>
+        </div>
+
+        <!-- SLIDE 3.5: Assessment Discovery -->
+        <div class="slide">
+            <h3>Discovery</h3>
+            <h2>Benchmark Your Current State</h2>
+            
+            <div style="background: rgba(100, 54, 191, 0.1); border-left: 4px solid #6436bf; padding: 24px 28px; border-radius: 0 12px 12px 0; margin: 24px 0;">
+                <p style="font-size: 1rem; color: rgba(255,255,255,0.9); line-height: 1.6; margin-bottom: 12px;"><strong style="color: #a78bfa;">Validate these recommendations with your own data.</strong> Our Product System Maturity & AI Readiness Assessment benchmarks Allegion against 50+ enterprise organizations and provides a personalized investment path.</p>
+            </div>
+            
+            <div class="content-grid" style="margin-top: 24px;">
+                <div class="content-box">
+                    <h4>5-Minute Assessment</h4>
+                    <p>Evaluate your Product System Foundation, AI Readiness, and Organizational Capacity. Compare your scores to industry benchmarks from PNC, Edward Jones, The Home Depot, and CSX.</p>
+                </div>
+                <div class="content-box">
+                    <h4>Personalized Investment Path</h4>
+                    <p>Get matched to one of four investment journeys (Foundation, Acceleration, Activation, Intelligence) with specific TCV ranges, timelines, and success criteria tailored to your maturity level.</p>
+                </div>
+            </div>
+            
+            <div style="background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.3); border-radius: 12px; padding: 24px; margin-top: 24px;">
+                <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                    <div style="width: 48px; height: 48px; background: rgba(74, 222, 128, 0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">📊</div>
+                    <div style="flex: 1;">
+                        <h4 style="font-size: 1.1rem; color: #fff; margin-bottom: 4px; font-weight: 600;">What You'll Get</h4>
+                        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.5;">Benchmark scores, deployment tier assessment, cost-of-inaction analysis, and a detailed roadmap aligned with your organization's readiness level.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <a href="../ipe/ipe_assessment.html" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #6436bf 0%, #42247f 100%); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: transform 0.2s;">
+                        <span>Take Assessment Now</span>
+                        <span style="font-size: 0.8rem;">→</span>
+                    </a>
+                    <span style="display: inline-flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.6); font-size: 0.85rem; padding: 12px 0;">
+                        <span>⏱</span>
+                        <span>Takes 5 minutes • No email required</span>
+                    </span>
+                </div>
+            </div>
+            
+            <div style="margin-top: 24px; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6; text-align: center;"><strong style="color: #a78bfa;">Why This Matters:</strong> The assessment validates whether Allegion is positioned for the Foundation Path (J1), Acceleration Path (J2), Activation Path (J3), or Intelligence Path (J4). Each path has different investment profiles, timelines, and success criteria—ensuring recommendations match your actual readiness.</p>
+            </div>
+            <div class="slide-number">3.5</div>
         </div>
 
         <!-- SLIDE 4: The Solution -->
@@ -819,11 +917,11 @@
                     <p>ZeroHeight + Figma = <span class="x">$4.3M cost</span> with zero added value. Knapsack = <span class="check">$4.0M net gain</span>. That's an <strong>$8.4M swing</strong> in Allegion's favor.</p>
                 </div>
             </div>
-            <div class="slide-number">9</div>
+            <div class="slide-number">10</div>
         </div>
 
         <!-- SLIDE 11: Recommendation -->
-        <div class="slide">
+        <div class="slide recommendation-slide">
             <h3>Recommendation</h3>
             <h2>Approve Year 1 Investment</h2>
             
@@ -847,6 +945,10 @@
             </div>
             
             <div class="actions-list">
+                <div class="action-item" style="border-left-color: #a78bfa; background: rgba(167, 139, 250, 0.05);">
+                    <h4>0. Validate with Assessment (Optional)</h4>
+                    <p>Take the 5-minute Product System Maturity & AI Readiness Assessment to benchmark Allegion's current state and validate investment path recommendations. <a href="../ipe/ipe_assessment.html" target="_blank" style="color: #a78bfa; font-weight: 600; text-decoration: none; border-bottom: 1px solid #a78bfa;">Start assessment →</a></p>
+                </div>
                 <div class="action-item">
                     <h4>1. Execute Foundation Phase</h4>
                     <p>Year 1 commitment: $105K net new. Phase 1 establishes platform foundation with clear exit criteria.</p>
