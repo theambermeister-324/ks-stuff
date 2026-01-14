@@ -179,6 +179,14 @@
             <div class="callout-text">Transform Astro's proven success into enterprise-wide deployment through a strategic roadshow pilot—validating demand, building champions, and securing commitment for cross-factory expansion.</div>
           </div>
 
+          <div class="card" style="background: var(--action-light); border: 2px solid var(--action); margin-bottom: 20px;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--action); margin-bottom: 10px;">Program Status Update</div>
+            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6;">
+              <div style="margin-bottom: 8px;"><strong style="color: var(--action);">Funding Status:</strong> Awaiting Senate hearing/bill discussion for funding decision. Decision pending legislative process.</div>
+              <div><strong style="color: var(--action);">Team Update:</strong> New engineer onboarding in progress. Historical context documentation being prepared to support seamless transition.</div>
+            </div>
+          </div>
+
           <div class="stat-banner" style="margin-bottom: 24px;">
             <div class="stat-item">
               <div class="stat-label">Astro Pilot</div>
@@ -577,7 +585,7 @@
                 { week: 'Week 1-2', title: 'Success Story Documentation', desc: 'Compile quantified metrics from Astro: 7-9 applications unified, quarterly MVP cadence, Super Coders results, stakeholder testimonials', deliverable: 'Astro Case Study Document' },
                 { week: 'Week 2-3', title: 'Demo Environment Build', desc: 'Create live, interactive demonstration showcasing component library, Figma integration, design-to-code workflow, and IPE preview', deliverable: 'Live Demo Environment' },
                 { week: 'Week 3-4', title: 'Target Factory Identification', desc: 'Prioritize 3-5 factories based on selection criteria; map stakeholders, identify potential champions', deliverable: 'Prioritized Target List' },
-                { week: 'Week 4', title: 'Materials Finalization', desc: 'Executive presentation, technical deep-dive deck, workflow-level benefits analysis, leave-behind materials', deliverable: 'Complete Roadshow Kit' },
+                { week: 'Week 4', title: 'Materials Finalization', desc: 'Executive presentation, technical deep-dive deck, workflow-level benefits analysis, leave-behind materials, historical context navigation, hackathon proposal shell', deliverable: 'Complete Roadshow Kit + Historical Context + Hackathon Shell' },
               ].map(w => `<div style="position: relative; margin-bottom: 20px;"><div style="position: absolute; left: -24px; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--success); border: 3px solid white; box-shadow: 0 0 0 2px var(--success);"></div><div style="font-size: 11px; font-weight: 700; color: var(--success); text-transform: uppercase; margin-bottom: 4px;">${w.week}</div><div style="font-size: 14px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">${w.title}</div><div style="font-size: 13px; color: var(--neutral-600); margin-bottom: 8px;">${w.desc}</div><div style="font-size: 11px; font-weight: 600; color: var(--success);">Deliverable: ${w.deliverable}</div></div>`).join('')}
             </div>
           </div>
@@ -591,7 +599,7 @@
               </div>
               <div style="padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px;">
                 <div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 12px;">Demo & Leave-Behind</div>
-                ${['Live Demo Environment (secure access)', 'Component Library Walkthrough Script', 'Figma Integration Demo', 'IPE / AI Capabilities Preview', 'One-Pager + FAQ Document', 'Efficiency Benchmarks Summary'].map(i => `<div style="font-size: 12px; color: var(--neutral-600); padding: 6px 0; border-bottom: 1px solid var(--neutral-150); display: flex; align-items: center; gap: 8px;"><span style="color: var(--space);">☐</span>${i}</div>`).join('')}
+                ${['Live Demo Environment (secure access)', 'Component Library Walkthrough Script', 'Figma Integration Demo', 'IPE / AI Capabilities Preview (Claude integration)', 'One-Pager + FAQ Document', 'Efficiency Benchmarks Summary', 'Historical Context Navigation (for onboarding)', 'Hackathon Proposal Shell'].map(i => `<div style="font-size: 12px; color: var(--neutral-600); padding: 6px 0; border-bottom: 1px solid var(--neutral-150); display: flex; align-items: center; gap: 8px;"><span style="color: var(--space);">☐</span>${i}</div>`).join('')}
               </div>
             </div>
           </div>
@@ -820,9 +828,9 @@
           <div class="pillar">
             <div class="pillar-num">2</div>
             <div class="pillar-title">Intelligent Product Engine (IPE)</div>
-            <div class="pillar-desc">AI control plane that aggregates design system, brand guidelines, and accessibility requirements—providing context to AI coding tools via MCP. Generated code matches standards without rework. Key roadshow differentiator.</div>
+            <div class="pillar-desc">AI control plane that aggregates design system, brand guidelines, and accessibility requirements—providing context to AI coding tools via MCP. Generated code matches standards without rework. Key roadshow differentiator. <strong>Note:</strong> IPE integrates with Claude (preferred AI tool) and focuses on <strong>design tokens</strong> (visual design system tokens), not LLM tokens.</div>
             <div class="tag-grid">
-              ${['MCP integration', 'Context weighting', 'Multi-source aggregation', 'Quality analytics', 'Human-in-loop validation'].map(t => `<span class="tag">${t}</span>`).join('')}
+              ${['MCP integration', 'Claude integration', 'Design token management', 'Context weighting', 'Multi-source aggregation', 'Quality analytics', 'Human-in-loop validation'].map(t => `<span class="tag">${t}</span>`).join('')}
             </div>
           </div>
 
@@ -851,10 +859,14 @@
                 { layer: 'Design Layer', tech: 'Figma, Tokens Studio', desc: 'Live in roadshow demo' },
                 { layer: 'Platform Layer', tech: 'Knapsack Cloud', desc: 'Core demo environment' },
                 { layer: 'Code Layer', tech: 'React, Git, CI/CD', desc: 'Production components' },
-                { layer: 'AI Layer', tech: 'MCP, Control Plane', desc: 'IPE preview demo' },
+                { layer: 'AI Layer', tech: 'MCP, Claude, IPE', desc: 'IPE preview demo with Claude integration' },
                 { layer: 'Integration Layer', tech: 'REST API, Webhooks', desc: 'Enterprise connectivity' },
                 { layer: 'Analytics Layer', tech: 'Workspace Analytics', desc: 'Adoption metrics' },
               ].map(t => `<div style="padding: 14px; background: var(--space-light); border-radius: 6px;"><div style="font-size: 12px; font-weight: 700; color: var(--space); margin-bottom: 4px;">${t.layer}</div><div style="font-size: 11px; font-weight: 600; color: var(--neutral-800); margin-bottom: 2px;">${t.tech}</div><div style="font-size: 10px; color: var(--neutral-600);">${t.desc}</div></div>`).join('')}
+            </div>
+            <div style="margin-top: 16px; padding: 14px; background: var(--primary-light); border: 1px solid var(--primary); border-radius: 6px;">
+              <div style="font-size: 12px; font-weight: 600; color: var(--primary); margin-bottom: 6px;">Workspace Integration Approach</div>
+              <div style="font-size: 12px; color: var(--neutral-700);">Working within existing workspace to understand jobs to be done—ensuring alignment with current workflows and maximizing existing investment before expanding.</div>
             </div>
           </div>
 
@@ -886,7 +898,12 @@
                   { role: 'Technical Architect', resp: 'Demo lead, technical deep dive, Q&A support' },
                   { role: 'Design System Lead', resp: 'Designer audience engagement, Figma workflow demo' },
                   { role: 'Training Lead', resp: 'Super Coders pitch, enablement preview' },
+                  { role: 'Federal Lead / Channel Partner', resp: 'Federal market positioning, partnership development, strategic alignment' },
                 ].map(r => `<div style="background: white; padding: 10px; border-radius: 4px; margin-bottom: 8px;"><div style="font-size: 12px; font-weight: 600; color: var(--neutral-800);">${r.role}</div><div style="font-size: 11px; color: var(--neutral-600);">${r.resp}</div></div>`).join('')}
+                <div style="margin-top: 12px; padding: 10px; background: var(--warning-light); border-radius: 4px; border: 1px solid #fde68a;">
+                  <div style="font-size: 11px; font-weight: 600; color: var(--warning); margin-bottom: 4px;">Team Update</div>
+                  <div style="font-size: 11px; color: var(--neutral-700);">New engineer onboarding in progress. Historical context documentation being prepared to support seamless knowledge transfer and accelerate ramp-up.</div>
+                </div>
               </div>
               <div style="padding: 18px; background: var(--primary-light); border: 1px solid var(--primary); border-radius: 8px;">
                 <div style="font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 12px;">Time Allocation (90 Days)</div>
@@ -1094,11 +1111,11 @@
             <div class="grid-2">
               <div style="padding: 16px; background: var(--primary-light); border: 1px solid var(--primary); border-radius: 8px;">
                 <div style="font-size: 13px; font-weight: 600; color: var(--primary); margin-bottom: 12px;">Immediate Actions</div>
-                ${['Confirm roadshow team assignments', 'Schedule 30-min recurring sync', 'Begin Astro success documentation', 'Draft initial target factory list', 'Identify demo environment requirements'].map((i, idx) => `<div style="font-size: 12px; color: var(--neutral-700); padding: 6px 0; display: flex; align-items: center; gap: 8px;"><span style="width: 20px; height: 20px; background: var(--primary); color: white; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">${idx + 1}</span>${i}</div>`).join('')}
+                ${['Confirm roadshow team assignments', 'Schedule 30-min recurring sync', 'Begin Astro success documentation', 'Draft initial target factory list', 'Identify demo environment requirements', 'Prepare historical context navigation for onboarding', 'Develop hackathon proposal shell'].map((i, idx) => `<div style="font-size: 12px; color: var(--neutral-700); padding: 6px 0; display: flex; align-items: center; gap: 8px;"><span style="width: 20px; height: 20px; background: var(--primary); color: white; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">${idx + 1}</span>${i}</div>`).join('')}
               </div>
               <div style="padding: 16px; background: var(--warning-light); border: 1px solid #fde68a; border-radius: 8px;">
                 <div style="font-size: 13px; font-weight: 600; color: var(--warning); margin-bottom: 12px;">Decisions Needed</div>
-                ${['In-person vs. virtual roadshow format', 'Target factory prioritization criteria weights', 'Demo environment access approach', 'Executive sponsor for roadshow program', 'Travel logistics (if applicable)'].map(i => `<div style="font-size: 12px; color: var(--neutral-700); padding: 6px 0; display: flex; align-items: center; gap: 8px;"><span style="color: var(--warning);">?</span>${i}</div>`).join('')}
+                ${['In-person vs. virtual roadshow format', 'Target factory prioritization criteria weights', 'Demo environment access approach', 'Executive sponsor for roadshow program', 'Travel logistics (if applicable)', 'Funding decision timeline (pending Senate hearing)'].map(i => `<div style="font-size: 12px; color: var(--neutral-700); padding: 6px 0; display: flex; align-items: center; gap: 8px;"><span style="color: var(--warning);">?</span>${i}</div>`).join('')}
               </div>
             </div>
           </div>
