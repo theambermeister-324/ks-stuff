@@ -100,6 +100,20 @@
     }
     .text-muted { color: rgba(255,255,255,0.6); }
     .text-light { color: rgba(255,255,255,0.8); }
+    .form-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .form-label { font-size: 0.75rem; font-weight: 600; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 1px; }
+    .form-input {
+      margin-top: 8px;
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(100, 54, 191, 0.4);
+      background: rgba(255,255,255,0.03);
+      color: #fff;
+      font-size: 0.9rem;
+    }
+    .form-input:focus { outline: 2px solid rgba(100, 54, 191, 0.6); border-color: rgba(100, 54, 191, 0.8); }
+    .form-helper { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 8px; }
   </style>
 </head>
 <body>
@@ -116,7 +130,7 @@
           <span>Start Assessment</span>
           <i data-lucide="arrow-right" style="width: 20px; height: 20px;"></i>
         </button>
-        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.5); margin-top: 24px;">Takes 5 minutes • No email required • Compare to 50+ enterprise organizations</p>
+        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.5); margin-top: 24px;">Takes 5 minutes • Compare to 50+ enterprise organizations</p>
       </div>
 
       <!-- Quick Value Props -->
@@ -213,6 +227,50 @@
 
     <!-- Results -->
     <div id="results-container" style="display: none;">
+      <!-- Lead Capture -->
+      <div id="lead-form-container" class="card" style="background: rgba(255,255,255,0.03);">
+        <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+          <i data-lucide="mail" style="width: 20px; height: 20px; color: #a78bfa;"></i>
+          Get Your Results
+        </h3>
+        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.7); margin-bottom: 16px;">
+          Share a few details and we’ll reveal your full readiness score and recommendations.
+        </p>
+        <form id="lead-form" onsubmit="submitLeadForm(event)">
+          <div class="form-row">
+            <label class="form-label">
+              First Name
+              <input class="form-input" name="firstName" type="text" autocomplete="given-name" required>
+            </label>
+            <label class="form-label">
+              Last Name
+              <input class="form-input" name="lastName" type="text" autocomplete="family-name" required>
+            </label>
+          </div>
+          <div class="form-row" style="margin-top: 16px;">
+            <label class="form-label">
+              Work Email
+              <input class="form-input" name="workEmail" type="email" autocomplete="email" required>
+            </label>
+            <label class="form-label">
+              Company
+              <input class="form-input" name="company" type="text" autocomplete="organization" required>
+            </label>
+          </div>
+          <div class="form-row" style="margin-top: 16px;">
+            <label class="form-label">
+              Role
+              <input class="form-input" name="role" type="text" autocomplete="organization-title">
+            </label>
+          </div>
+          <p class="form-helper">We’ll only use this to personalize your assessment results.</p>
+          <button type="submit" class="btn-primary" style="margin-top: 16px; width: 100%;">
+            Reveal My Results
+          </button>
+        </form>
+      </div>
+
+      <div id="results-content" style="display: none;">
       <!-- Overall Score -->
       <div class="card" style="background: linear-gradient(135deg, #6436bf 0%, #42247f 100%); padding: 32px;">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
@@ -328,6 +386,7 @@
         <i data-lucide="refresh-cw" style="width: 20px; height: 20px;"></i>
         Start New Assessment
       </button>
+      </div>
     </div>
   </main>
 
@@ -467,6 +526,7 @@
     let answers = {};
     let deploymentTier = 'D1';
     let recommendedPath = 'J1';
+    let pendingResults = null;
 
     const journeyDetails = {
       J1: {
@@ -651,11 +711,22 @@
         recommendedPath = 'J1';
       }
 
-      // Display results
+      // Display lead form before results
+      pendingResults = { foundationScore, aiScore, orgScore, totalScore };
       document.getElementById('assessment-container').style.display = 'none';
       document.getElementById('results-container').style.display = 'block';
-      // Scroll to top of results
+      document.getElementById('lead-form-container').style.display = 'block';
+      document.getElementById('results-content').style.display = 'none';
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderResults(results) {
+      if (!results) return;
+
+      const { foundationScore, aiScore, orgScore, totalScore } = results;
+
+      document.getElementById('lead-form-container').style.display = 'none';
+      document.getElementById('results-content').style.display = 'block';
       
       document.getElementById('overall-score').textContent = totalScore;
       document.getElementById('foundation-score').textContent = foundationScore;
@@ -957,11 +1028,25 @@
       currentQuestionIndex = 0;
       answers = {};
       deploymentTier = 'D1';
+      pendingResults = null;
       document.getElementById('intro-container').style.display = 'block';
       document.getElementById('assessment-container').style.display = 'none';
       document.getElementById('results-container').style.display = 'none';
+      document.getElementById('lead-form-container').style.display = 'block';
+      document.getElementById('results-content').style.display = 'none';
+      const leadForm = document.getElementById('lead-form');
+      if (leadForm) {
+        leadForm.reset();
+      }
       // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function submitLeadForm(event) {
+      event.preventDefault();
+      const form = event.target;
+      if (!form.reportValidity()) return;
+      renderResults(pendingResults);
     }
 
     function downloadResults() {

@@ -120,7 +120,7 @@
     <div class="nav-footer">
       <div class="nav-footer-label">Prepared for</div>
       <div class="nav-footer-title">Edward Jones</div>
-      <div class="nav-footer-date">December 2025</div>
+      <div class="nav-footer-date"></div>
     </div>
   </nav>
   <main id="mainContent" role="main"></main>
@@ -133,8 +133,9 @@
       { id: 'charter', label: 'Team & System Charter' },
       { id: 'beta', label: 'IPE Beta Opportunity' },
       { id: 'outcomes', label: 'Business Outcomes' },
-      { id: 'timeline', label: 'Implementation Timeline' },
+      { id: 'timeline', label: 'Activation Timeline' },
       { id: 'technical', label: 'Technical Integration' },
+      { id: 'changes', label: 'Change Log' },
       { id: 'next-steps', label: 'Next Steps' },
     ];
     
@@ -267,7 +268,7 @@
           </div>
           <div class="card summary-card">
             <div class="summary-label">Executive Summary</div>
-            <p class="summary-text">Edward Jones faces a critical opportunity: consolidate fragmented design libraries across the firm while supporting offshore team expansion and organizational transformation. Knapsack provides the platform infrastructure to establish design authority, accelerate product delivery, and prepare for future AI-enabled workflows—meeting Edward Jones where they are today while positioning for tomorrow.</p>
+            <p class="summary-text">Edward Jones faces a critical opportunity: activate Knapsack for broader engagement while supporting offshore expansion, accessibility leadership, and organizational change. Knapsack provides the enablement and governance to establish design authority, accelerate product delivery, and prepare for AI-enabled workflows—meeting Edward Jones where they are today while positioning for tomorrow.</p>
           </div>
           <div class="card">
             <h2 class="heading">Strategic Value for Edward Jones</h2>
@@ -324,7 +325,7 @@
           <div class="card" style="background: var(--primary); color: white; border: none;">
             <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">Core Value Proposition</div>
             <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">Orchestration Layer + Future-Ready Foundation</h3>
-            <p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">Knapsack consolidates Edward Jones' fragmented systems into unified platform while complementing existing tools and workflows. Establish design authority today while building MCP foundation for AI-enabled capabilities when your organization is ready—no forced timelines.</p>
+            <p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">Knapsack orchestrates existing systems into a unified platform while complementing current tools and workflows. With implementation in place, the focus is on activation and design authority, while building MCP foundation for AI-enabled capabilities when your organization is ready—no forced timelines.</p>
           </div>
           <div class="card">
             <h2 class="heading">How Knapsack Addresses Edward Jones' Challenges</h2>
@@ -347,9 +348,9 @@
                 { title: 'Figma Remains Primary', desc: 'Designers continue working in Figma as main design tool—no workflow disruption' },
                 { title: 'Existing Tools Stay', desc: 'Current design and development tools remain in place, Knapsack orchestrates between them' },
                 { title: 'Constraints Enable Creativity', desc: 'System provides guard rails that free teams to focus on innovation, not recreation' },
-                { title: 'Designer Workflow Intact', desc: 'Initial implementation does not drastically change how designers work day-to-day' },
+                { title: 'Designer Workflow Intact', desc: 'Activation does not drastically change how designers work day-to-day' },
                 { title: 'Design Ops Focused', desc: 'Platform configured primarily for Design Ops as central maintenance point' },
-                { title: 'Gradual Evolution', desc: 'Changes roll out incrementally based on organizational readiness, not forced adoption' },
+                { title: 'Gradual Evolution', desc: 'Enhancements progress incrementally based on organizational readiness, not forced adoption' },
               ].map(i => `<div class="check-item"><span class="check-icon">✓</span><div><div class="check-title">${i.title}</div><div class="check-desc">${i.desc}</div></div></div>`).join('')}
             </div>
           </div>
@@ -472,15 +473,15 @@
           <!-- Success Measurement Framework -->
           <div class="card">
             <h2 class="heading">Success Measurement Framework</h2>
-            <p style="font-size: 14px; color: var(--neutral-700); margin-bottom: 20px; line-height: 1.6;">Establish baseline measurements during Foundation phase, track progress quarterly, and report outcomes to Design System Council for strategic alignment.</p>
+            <p style="font-size: 14px; color: var(--neutral-700); margin-bottom: 20px; line-height: 1.6;">Establish baseline measurements during Activation, track progress quarterly, and report outcomes to Design System Council for strategic alignment.</p>
             
             <div style="background: var(--primary-light); border: 1px solid var(--primary); border-radius: 8px; padding: 20px; margin-bottom: 20px;">
               <h3 style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 12px;">Measurement Phases</h3>
               <div class="grid-2">
                 ${[
-                  { phase: 'Foundation (0-60 days)', activities: 'Establish baseline metrics, configure analytics dashboards, define measurement methodology, identify key stakeholders for each metric' },
-                  { phase: 'Integration (90 days)', activities: 'First measurement cycle, identify early wins, adjust targets based on adoption patterns, share initial results with Council' },
-                  { phase: 'Expansion (6-12 months)', activities: 'Quarterly reviews, ROI reporting, success story documentation for internal advocacy, offshore team metrics integration' },
+                  { phase: 'Activation (0-90 days)', activities: 'Baseline metrics, analytics dashboards, adoption targets, and key stakeholder ownership' },
+                  { phase: 'Engagement (90-180 days)', activities: 'First measurement cycle, identify early wins, adjust targets based on usage patterns, share results with Council' },
+                  { phase: 'Expansion (6-12 months)', activities: 'Quarterly reviews, ROI reporting, offshore team metrics integration, adoption storytelling' },
                   { phase: 'Optimization (Ongoing)', activities: 'Continuous improvement cycles, benchmark against industry standards, expand measurement scope, annual strategic review' },
                 ].map(p => '<div style="padding: 16px; background: white; border: 1px solid var(--neutral-150); border-radius: 6px;"><div style="font-size: 13px; font-weight: 600; color: var(--primary); margin-bottom: 6px;">' + p.phase + '</div><div style="font-size: 12px; color: var(--neutral-600); line-height: 1.5;">' + p.activities + '</div></div>').join('')}
               </div>
@@ -505,7 +506,7 @@
           
           <div class="card summary-card">
             <div class="summary-label">Charter Vision</div>
-            <p class="summary-text">Transform Edward Jones' fragmented design ecosystem into a unified design system that delivers experience unity and accelerates product development—establishing design authority, enabling offshore teams, and positioning the firm for future AI-powered workflows when organizationally ready.</p>
+            <p class="summary-text">Activate Edward Jones' unified design system to deliver experience unity and accelerate product development—establishing design authority, enabling offshore teams, and positioning the firm for future AI-powered workflows when organizationally ready.</p>
           </div>
 
           <div class="card">
@@ -519,9 +520,21 @@
                 { obj: 'Design Authority', desc: 'Transition Design Ops from influence-only to accountability-based leadership with clear governance' },
                 { obj: 'Offshore Enablement', desc: 'Provide centralized design system that scales to support growing offshore design and development teams' },
                 { obj: 'Business Alignment', desc: 'Connect design system to business ownership structure, completing the three-legged stool' },
-                { obj: 'AI Foundation', desc: 'Establish MCP infrastructure in secure environment to enable future AI workflows when organization is ready' },
+                { obj: 'AI Foundation', desc: 'Enable MCP infrastructure in secure environment for future AI workflows when the organization is ready' },
                 { obj: 'Scalable Operations', desc: 'Create "collect and curate" contribution model that extracts best work from product teams into system' },
               ].map(o => `<div style="padding: 14px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px;"><div style="font-size: 14px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">${o.obj}</div><div style="font-size: 12px; color: var(--neutral-600);">${o.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Change Management Focus</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Shared Context First', desc: 'Align on goals, constraints, and success metrics before tooling decisions' },
+                { title: 'Co-Creation Over Handoff', desc: 'Workshops and working sessions to build shared ownership across teams' },
+                { title: 'Low-Disruption Adoption', desc: 'Meet current workflows where they are, with phased enablement' },
+                { title: 'Transparent Decisioning', desc: 'Clear governance, escalation paths, and visible tradeoffs' },
+              ].map(p => `<div class="check-item"><span class="check-icon">→</span><div><div class="check-title">${p.title}</div><div class="check-desc">${p.desc}</div></div></div>`).join('')}
             </div>
           </div>
 
@@ -534,7 +547,7 @@
                 ${[
                   { role: 'Design System Lead (Sal)', resp: 'Overall strategy, stakeholder management, tools and systems team leadership, business connection, staffing and culture' },
                   { role: 'Design Ops Manager', resp: 'Day-to-day operations, governance enforcement, contribution workflow management, offshore team coordination' },
-                  { role: 'Technical Lead', resp: 'Architecture decisions, Knapsack integration, MCP implementation, AI workflow enablement planning' },
+                  { role: 'Technical Lead', resp: 'Architecture decisions, Knapsack operations, MCP enablement, AI workflow planning' },
                   { role: 'Documentation Lead', resp: 'Content strategy, knowledge management, onboarding materials, training programs for offshore teams' },
                 ].map(r => `<div style="background: white; padding: 12px; border-radius: 4px;"><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">${r.role}</div><div style="font-size: 12px; color: var(--neutral-600);">${r.resp}</div></div>`).join('')}
               </div>
@@ -563,6 +576,30 @@
           </div>
 
           <div class="card">
+            <h2 class="heading">Stakeholder Map & Working Group</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); margin-bottom: 16px; line-height: 1.6;">Primary partners and responsibilities aligned to the call outcomes.</p>
+            <div class="grid-2">
+              <div>
+                <div class="summary-label" style="margin-bottom: 12px;">Ed Jones Roles</div>
+                ${[
+                  { member: 'Wendi Moseley (Accessibility)', role: 'Accessibility requirements, validation, and compliance alignment' },
+                  { member: 'Matt Marino (Experience Ops)', role: 'Operational enablement, onboarding coordination, feedback loop' },
+                  { member: 'Elizabeth + Sal (Design System)', role: 'Design system vision, governance, and tool strategy' },
+                ].map(m => `<div class="check-item"><span class="check-icon">✓</span><div><div class="check-title">${m.member}</div><div class="check-desc">${m.role}</div></div></div>`).join('')}
+              </div>
+              <div>
+                <div class="summary-label" style="margin-bottom: 12px;">Knapsack Roles</div>
+                ${[
+                  { member: 'Jake Love (Advanced Onboarding + Training)', role: 'Enablement plan, training delivery, adoption support' },
+                  { member: 'Angie Stevenson (Account Management)', role: 'Account coordination, success planning, onsite alignment' },
+                  { member: 'Amber Atkins (Design Strategy and Change Management)', role: 'Charter co-creation, change management, workshop facilitation' },
+                  { member: 'Christopher Bloom (Senior System Engineer)', role: 'Stakeholder feedback and alignment support' },
+                ].map(m => `<div class="check-item"><span class="check-icon">✓</span><div><div class="check-title">${m.member}</div><div class="check-desc">${m.role}</div></div></div>`).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
             <h2 class="heading">Guiding Principles</h2>
             <div class="grid-3">
               ${[
@@ -576,6 +613,18 @@
                 'Strategic talent focus',
                 'Transparency in decisions',
               ].map(p => `<div style="display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; font-size: 13px; color: var(--neutral-700);"><span style="width: 6px; height: 6px; background: var(--success); border-radius: 50%; flex-shrink: 0;"></span> ${p}</div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Accessibility as Operating Principle</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); margin-bottom: 16px; line-height: 1.6;">Accessibility is a requirement, not an enhancement. The system and workflows will be shaped to support accessible outcomes from design through delivery.</p>
+            <div class="grid-3">
+              ${[
+                { title: 'Standards Alignment', desc: 'Define baseline compliance targets (e.g., WCAG/Section 508) and verification approach' },
+                { title: 'System Enforcement', desc: 'Embed accessibility into tokens, components, and review criteria' },
+                { title: 'Training + QA', desc: 'Provide enablement sessions and consistent testing expectations for teams' },
+              ].map(a => `<div class="check-item"><span class="check-icon">✓</span><div><div class="check-title">${a.title}</div><div class="check-desc">${a.desc}</div></div></div>`).join('')}
             </div>
           </div>
 
@@ -647,7 +696,7 @@
           <div class="card" style="background: var(--primary-light); border: 1px solid var(--primary);">
             <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); margin-bottom: 14px;">No Pressure Timeline</div>
             <h3 style="font-size: 22px; font-weight: 700; color: var(--neutral-900); margin-bottom: 12px;">AI When You're Ready</h3>
-            <p style="font-size: 16px; color: var(--neutral-700); line-height: 1.7;">The Intelligent Product Engine represents Knapsack's vision for AI-powered product delivery. We're building MCP foundation into the platform today so you're prepared when your organization is ready to explore these capabilities—whether that's next year or three years from now.</p>
+            <p style="font-size: 16px; color: var(--neutral-700); line-height: 1.7;">The Intelligent Product Engine represents Knapsack's vision for AI-powered product delivery. MCP foundation is already in the platform so you're prepared when your organization is ready to explore these capabilities—whether that's next year or three years from now.</p>
           </div>
 
           <div class="card">
@@ -665,59 +714,78 @@
           </div>
 
           <div class="card">
-            <h2 class="heading">IPE Roadmap: Foundation to Capabilities</h2>
+            <h2 class="heading">IPE Roadmap: Activation to Capabilities</h2>
             ${[
-              { phase: 'NOW', title: 'MCP Foundation (Available Today)', desc: 'Model Context Protocol connects design system to AI tools in secure environment. Can be implemented within Edward Jones closed network with no external exposure required.', color: 'var(--success)', badge: 'Available' },
+              { phase: 'NOW', title: 'MCP Foundation (Available Today)', desc: 'Model Context Protocol connects the design system to AI tools in a secure environment. Can operate within Edward Jones closed network with no external exposure required.', color: 'var(--success)', badge: 'Available' },
               { phase: 'NEXT', title: 'Smart Workflows (When Ready)', desc: 'AI-powered gap analysis, component drift detection, automated documentation generation—pilot capabilities that address specific pain points in secure environment.', color: 'var(--action)', badge: 'Pilot When Ready' },
-              { phase: 'LATER', title: 'Prompt-to-Prototype (Future)', desc: 'Full prompt-to-prototype capabilities for rapid ideation and validation. Requires organizational readiness assessment and phased rollout based on your timeline.', color: 'var(--primary)', badge: 'Future State' },
+              { phase: 'LATER', title: 'Prompt-to-Prototype (Future)', desc: 'Full prompt-to-prototype capabilities for rapid ideation and validation. Requires organizational readiness assessment and phased activation based on your timeline.', color: 'var(--primary)', badge: 'Future State' },
             ].map((p, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${p.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ${p.color}">${p.phase}</span><span class="badge" style="background: ${p.color}15; color: ${p.color}; border: 1px solid ${p.color}40;">${p.badge}</span></div><div class="timeline-title">${p.title}</div><p class="timeline-desc">${p.desc}</p></div></div>`).join('')}
           </div>
         `,
         
         outcomes: `
           <h1 class="section-title">Business Outcomes</h1>
-          <p class="section-subtitle">Measurable impact aligned with Edward Jones' strategic priorities</p>
+          <p class="section-subtitle">Activation-focused outcomes now that Knapsack is implemented</p>
+
+          <div class="card summary-card">
+            <div class="summary-label">Activation Goal</div>
+            <p class="summary-text">The next milestone is broad engagement: move from initial adoption to sustained, organization-wide usage with measurable adoption, reuse, and delivery impact.</p>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Activation KPIs (First 90 Days)</h2>
+            <div class="grid-3">
+              ${[
+                { title: 'Team Adoption', value: '60%+', desc: 'Product teams onboarded and active in Knapsack' },
+                { title: 'Component Reuse', value: '70%+', desc: 'New UI built with system components' },
+                { title: 'Monthly Active Users', value: '3x', desc: 'MAU growth vs. current baseline' },
+                { title: 'Design-to-Dev Handoff', value: '40% faster', desc: 'Reduction in time from approved design to build' },
+                { title: 'Accessibility Coverage', value: '90%+', desc: 'Core components validated to target standards' },
+                { title: 'Defect Reduction', value: '30%+', desc: 'Decrease in UI regressions and rework' },
+              ].map(k => `<div class="check-item"><span class="check-icon">✓</span><div><div class="check-title">${k.title} — ${k.value}</div><div class="check-desc">${k.desc}</div></div></div>`).join('')}
+            </div>
+          </div>
           
           ${[
-            { num: 1, title: 'Design Authority Established', outcome: 'Single source of truth across entire firm', desc: 'Consolidate shadow design libraries, establish Design Ops team as central authority with clear governance framework and escalation paths. Transition from influence-based to accountability-based design leadership that supports offshore team expansion.' },
-            { num: 2, title: 'Offshore Team Enablement', outcome: 'Scalable system for growing offshore design and development', desc: 'Centralized design system provides consistent guidance and standards that enable offshore teams to work effectively without constant oversight. Reduces communication overhead while maintaining quality standards.' },
-            { num: 3, title: 'Three-Legged Stool Completed', outcome: 'Design, engineering, and business ownership aligned', desc: 'Unified platform and governance model connects all three legs of product development. Clear decision-making authority and accountability across design, engineering, and business stakeholders.' },
-            { num: 4, title: 'Experience Unity Delivered', outcome: 'Consistent user experiences across all products', desc: '"Collect and curate" contribution model ensures best work from product teams flows into system while maintaining quality standards. Constraints enable creativity rather than blocking innovation.' },
-          ].map(o => `<div class="card"><div style="display: flex; gap: 20px; margin-bottom: 20px;"><div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0;">${o.num}</div><div style="flex: 1;"><h3 style="font-size: 17px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px;">${o.title}</h3><div style="background: var(--success-light); border: 1px solid #c3ddd2; padding: 8px 14px; border-radius: 4px; display: inline-block; margin-bottom: 10px; font-size: 13px; font-weight: 600; color: var(--success);">${o.outcome}</div><p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6;">${o.desc}</p></div></div></div>`).join('')}
+            { num: 1, title: 'Design Authority Activated', outcome: 'Single source of truth operating at scale', desc: 'Expand active usage across teams with governance, contribution workflow, and visible system ownership.', metrics: ['80%+ of new UI starts in the system', 'Council + Review Board operating on cadence', 'System change requests resolved within 10 business days'] },
+            { num: 2, title: 'Offshore Team Enablement', outcome: 'Consistent delivery across distributed teams', desc: 'Activate offshore teams with clear standards, documentation, and access to the same system assets.', metrics: ['Offshore teams onboarded within 2 weeks', '50% reduction in clarification requests', 'Onshore/offshore UI parity score 85%+'] },
+            { num: 3, title: 'Cross-Functional Alignment', outcome: 'Design, engineering, and business owners aligned', desc: 'Increase shared artifacts and decision velocity through living prototypes and governed components.', metrics: ['Stakeholder approvals 40% faster', 'PRD page count reduced 30%', 'Quarterly alignment survey 4.2/5+'] },
+            { num: 4, title: 'Experience Unity Delivered', outcome: 'Consistent experiences across products', desc: 'Reduce fragmentation by standardizing key patterns and enforcing accessibility requirements.', metrics: ['Top 10 patterns standardized across products', 'UI variance reduced 50%', 'Accessibility audit pass rate 90%+'] },
+          ].map(o => `<div class="card"><div style="display: flex; gap: 20px; margin-bottom: 20px;"><div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0;">${o.num}</div><div style="flex: 1;"><h3 style="font-size: 17px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px;">${o.title}</h3><div style="background: var(--success-light); border: 1px solid #c3ddd2; padding: 8px 14px; border-radius: 4px; display: inline-block; margin-bottom: 10px; font-size: 13px; font-weight: 600; color: var(--success);">${o.outcome}</div><p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6; margin-bottom: 12px;">${o.desc}</p><div class="grid-3">${o.metrics.map(m => `<div class="metric-item"><div class="metric-label">${m}</div></div>`).join('')}</div></div></div></div>`).join('')}
         `,
         
         timeline: `
-          <h1 class="section-title">Implementation Timeline</h1>
-          <p class="section-subtitle">Phased approach based on organizational readiness</p>
+          <h1 class="section-title">Activation Timeline</h1>
+          <p class="section-subtitle">Phased approach to broaden engagement now that Knapsack is implemented</p>
           
           <div class="card" style="background: var(--primary-light); border-left: 4px solid var(--primary); margin-bottom: 24px;">
-            <p style="font-size: 14px; font-style: italic; color: var(--neutral-700); line-height: 1.6;">Timeline is dependent on Security Reviews, Infrastructure Assessment, and Technical Implementation Planning as outlined in Knapsack's Reference Architecture.</p>
+            <p style="font-size: 14px; font-style: italic; color: var(--neutral-700); line-height: 1.6;">Timeline is dependent on access expansion, governance readiness, and stakeholder availability for activation work.</p>
           </div>
           
           <div class="card">
             ${[
-              { phase: 'Foundation', days: '30-60 days', color: 'var(--primary)', items: ['Shadow library audit and documentation', 'Platform configuration for Design Ops authority', 'Governance framework establishment', 'Team structure and role definition', 'Initial offshore team coordination planning', 'Baseline metrics establishment'] },
-              { phase: 'Integration', days: '90 days', color: 'var(--action)', items: ['Knapsack integration with existing tools', 'Contribution workflow implementation', '"Collect and curate" process definition', 'Component Review Board activation', 'Design System Council regular cadence', 'Offshore enablement documentation', 'First measurement cycle'] },
-              { phase: 'Expansion', days: '6-12 months', color: 'var(--success)', items: ['Firm-wide adoption and training', 'Offshore team full integration', 'Business ownership alignment', 'MCP foundation assessment (when ready)', 'Continuous improvement cycles', 'AI capability pilots (if/when appropriate)', 'ROI reporting and success documentation'] },
+              { phase: 'Activation', days: '0-90 days', color: 'var(--primary)', items: ['Expand access to priority teams', 'Baseline usage + adoption analytics', 'Governance cadence activated', 'Core accessibility validation for key components', 'Initial enablement and training activation', 'First measurement cycle'] },
+              { phase: 'Engagement', days: '3-6 months', color: 'var(--action)', items: ['Broaden team onboarding', 'Contribution workflow operating at scale', 'Documentation + enablement refinement', 'Offshore team onboarding and support', 'Reuse targets tracked and reported'] },
+              { phase: 'Optimization', days: '6-12 months', color: 'var(--success)', items: ['System health audits and continuous improvement', 'UI consistency improvements across products', 'ROI reporting and success storytelling', 'AI capability pilots (if/when appropriate)'] },
             ].map((p, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${p.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: ${p.color}15; color: ${p.color}; border: 1px solid ${p.color}40;">${p.phase}</span><span class="timeline-date" style="color: ${p.color}">${p.days}</span></div><div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; padding: 16px 20px; margin-top: 12px;">${p.items.map(i => `<div style="font-size: 13px; color: var(--neutral-600); padding: 5px 0; padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: var(--neutral-500);">—</span> ${i}</div>`).join('')}</div></div></div>`).join('')}
           </div>
         `,
         
         technical: `
           <h1 class="section-title">Technical Integration</h1>
-          <p class="section-subtitle">Architecture options and security-first approach</p>
+          <p class="section-subtitle">Operational focus now that Knapsack is implemented</p>
           
           <div class="card">
-            <h2 class="heading">Implementation Architecture Options</h2>
+            <h2 class="heading">Operational Architecture Context</h2>
             
             <div style="background: var(--warning-light); border: 1px solid var(--warning); padding: 16px; border-radius: 6px; margin-bottom: 24px;">
               <h3 style="font-size: 14px; font-weight: 600; color: var(--warning); margin-bottom: 8px;">Security-First Approach</h3>
-              <p style="font-size: 13px; color: var(--neutral-700); line-height: 1.6;">MCP capabilities can be implemented within Edward Jones' closed network environment. AI workflows remain within your secure infrastructure, with no external network exposure required for initial implementation.</p>
+              <p style="font-size: 13px; color: var(--neutral-700); line-height: 1.6;">MCP capabilities can operate within Edward Jones' closed network environment. AI workflows remain within your secure infrastructure, with no external network exposure required.</p>
             </div>
             
             <div style="margin-bottom: 24px;">
-              <h3 style="font-size: 16px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px;">Option 1: Standard Implementation (Knapsack-Hosted)</h3>
-              <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 12px;">Knapsack hosts and manages the deployed workspace, while Edward Jones hosts and manages Git repositories, CI, and workstations.</p>
+              <h3 style="font-size: 16px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px;">Knapsack-Hosted (Current or Available)</h3>
+              <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 12px;">Knapsack hosts and manages the deployed workspace, while Edward Jones hosts and manages Git repositories, CI, and workstations. Changes are only needed if scale or compliance requires them.</p>
               <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); padding: 14px; border-radius: 6px;">
                 <div style="font-size: 12px; font-weight: 600; color: var(--neutral-600); text-transform: uppercase; margin-bottom: 8px;">Benefits</div>
                 ${['Faster time to value', 'Reduced infrastructure overhead', 'Managed updates and security', 'Enterprise SLA included', 'MCP capabilities available in closed network'].map(b => `<div style="font-size: 13px; color: var(--neutral-700); padding: 3px 0; padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: var(--success); font-weight: 600;">✓</span> ${b}</div>`).join('')}
@@ -725,8 +793,8 @@
             </div>
             
             <div style="margin-bottom: 24px;">
-              <h3 style="font-size: 16px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px;">Option 2: Customer-Hosted Implementation</h3>
-              <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 12px;">Edward Jones hosts and manages both the deployed workspace and the Git repositories, CI, and workstations for maximum control.</p>
+              <h3 style="font-size: 16px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px;">Customer-Hosted (If Future Change Required)</h3>
+              <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 12px;">Edward Jones hosts and manages both the deployed workspace and the Git repositories, CI, and workstations for maximum control. Consider only if security or compliance needs change.</p>
               <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); padding: 14px; border-radius: 6px;">
                 <div style="font-size: 12px; font-weight: 600; color: var(--neutral-600); text-transform: uppercase; margin-bottom: 8px;">Benefits</div>
                 ${['Maximum infrastructure control', 'Custom security requirements', 'Internal compliance alignment', 'Data residency control', 'Complete network isolation possible'].map(b => `<div style="font-size: 13px; color: var(--neutral-700); padding: 3px 0; padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: var(--success); font-weight: 600;">✓</span> ${b}</div>`).join('')}
@@ -735,16 +803,50 @@
           </div>
           
           <div class="card">
-            <h2 class="heading">Integration Requirements</h2>
+            <h2 class="heading">Activation Requirements</h2>
             <div class="grid-2">
               ${[
-                { req: 'Platform Assessment', note: 'Evaluate technical infrastructure for Knapsack capabilities and readiness' },
-                { req: 'Security Review', note: 'Identify requirements for closed network MCP implementation and data handling' },
-                { req: 'SSO Authentication', note: 'Identity provider integration for enterprise access control' },
-                { req: 'Git Repository Sync', note: 'Component source code and workspace data synchronization approach' },
-                { req: 'Figma Integration', note: 'Asset sync and token alignment with existing Figma workspace (non-disruptive)' },
-                { req: 'Offshore Access', note: 'Ensure offshore teams have appropriate access and documentation support' },
+                { req: 'Toolchain & Workflow Discovery', note: 'Map current tools, logins, and handoffs to remove friction for broader engagement' },
+                { req: 'Access Expansion', note: 'Provision access for priority teams and define onboarding path' },
+                { req: 'SSO Validation', note: 'Confirm identity provider and access control are operating as expected' },
+                { req: 'Repo Sync Health', note: 'Verify component source and workspace data synchronization' },
+                { req: 'Figma Sync Health', note: 'Confirm asset sync and token alignment with current Figma workspace' },
+                { req: 'Usage Analytics Baseline', note: 'Establish adoption and reuse metrics for activation tracking' },
+                { req: 'Offshore Enablement', note: 'Ensure offshore teams have access, documentation, and support' },
               ].map(r => `<div style="display: flex; gap: 12px; padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px;"><div style="width: 4px; background: var(--action); border-radius: 2px; flex-shrink: 0;"></div><div><div style="font-size: 14px; font-weight: 600; color: var(--neutral-800);">${r.req}</div><div style="font-size: 13px; color: var(--neutral-600); margin-top: 2px;">${r.note}</div></div></div>`).join('')}
+            </div>
+          </div>
+        `,
+
+        changes: `
+          <h1 class="section-title">Change Log</h1>
+          <p class="section-subtitle">Track updates, decisions, and ownership for the Ed Jones team</p>
+
+          <div class="card">
+            <h2 class="heading">Playbook Change Tracker</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); margin-bottom: 16px; line-height: 1.6;">Use this section to document edits made to the playbook after stakeholder review. Keep entries concise and decision-focused.</p>
+            <div style="display: grid; grid-template-columns: 120px 180px 1fr 120px; gap: 12px; font-size: 13px; align-items: start;">
+              <div style="font-weight: 600; color: var(--neutral-800);">Date</div>
+              <div style="font-weight: 600; color: var(--neutral-800);">Owner</div>
+              <div style="font-weight: 600; color: var(--neutral-800);">Update</div>
+              <div style="font-weight: 600; color: var(--neutral-800);">Status</div>
+
+              <div>Jan 20, 2026</div>
+              <div>Knapsack</div>
+              <div>Integrated accessibility emphasis, enablement workstream, toolchain discovery, onsite planning, and stakeholder map based on Jan 16 call.</div>
+              <div><span class="badge" style="background: var(--success-light); color: var(--success); border: 1px solid #c3ddd2;">Logged</span></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Decision Log</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); margin-bottom: 16px; line-height: 1.6;">Capture notable decisions with rationale, even if scope is still evolving.</p>
+            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 12px; font-size: 13px;">
+              ${[
+                { decision: 'Onsite workshop target', detail: 'Aim for early March pending stakeholder availability and readiness milestones' },
+                { decision: 'Enablement owner', detail: 'Jake Love to lead training plan and adoption sessions' },
+                { decision: 'Accessibility priority', detail: 'Accessibility treated as requirement across system and workflows' },
+              ].map(d => `<div style="font-weight: 600; color: var(--neutral-800);">${d.decision}</div><div style="color: var(--neutral-600);">${d.detail}</div>`).join('')}
             </div>
           </div>
         `,
@@ -760,11 +862,13 @@
           </div>
 
           <div class="card">
-            <h2 class="heading">Immediate Next Steps (January 2026)</h2>
+            <h2 class="heading">Activation Next Steps (Feb–Mar 2026)</h2>
             ${[
-              { when: 'Step 1', title: 'Product Roadmap Review with Robin', desc: 'Understand Knapsack IPE evolution, AI capabilities roadmap, and provide feedback on features in development', color: 'var(--action)', status: 'Priority' },
-              { when: 'Step 2', title: 'Design System Maturity & Readiness Assessment', desc: 'Fast assessment (not 9-week engagement) to understand current state and organizational readiness for platform capabilities', color: 'var(--primary)', status: 'Next' },
-              { when: 'Step 3', title: 'Team & System Charter Co-Creation', desc: 'Collaborative session to refine vision, mission, and governance based on Edward Jones strategy work in progress', color: 'var(--success)', status: 'After Assessment' },
+              { when: 'Step 1', title: 'Toolchain & Workflow Discovery', desc: 'Map current tools, logins, and handoffs to remove friction for broader engagement', color: 'var(--action)', status: 'Priority' },
+              { when: 'Step 2', title: 'Product Roadmap Review with Robin', desc: 'Align on IPE evolution, AI roadmap, and timing that fits organizational readiness', color: 'var(--primary)', status: 'Next' },
+              { when: 'Step 3', title: 'Enablement + Stakeholder 1:1s (Jake + Team)', desc: 'Training plan, onboarding schedule, and targeted interviews with key stakeholders', color: 'var(--success)', status: 'In Parallel' },
+              { when: 'Step 4', title: 'Readiness Assessment + Charter Co-Creation', desc: 'Fast assessment to understand current state and refine vision, governance, and operating model', color: 'var(--primary)', status: 'After Interviews' },
+              { when: 'Step 5', title: 'Onsite Workshop (Target: Early March)', desc: 'Change management session to build shared context and accelerate alignment', color: 'var(--action)', status: 'Target' },
             ].map((m, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${m.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ${m.color}">${m.when}</span><span class="badge" style="background: ${m.color}15; color: ${m.color}; border: 1px solid ${m.color}40;">${m.status}</span></div><div class="timeline-title">${m.title}</div><p class="timeline-desc">${m.desc}</p></div></div>`).join('')}
           </div>
 
@@ -777,8 +881,31 @@
                 { title: 'Organizational Change', desc: 'Assess readiness for governance, contribution models, and new processes' },
                 { title: 'Current Workflow Analysis', desc: 'Review existing design system strategy and contribution approach' },
                 { title: 'Offshore Enablement Needs', desc: 'Understand requirements for supporting expanding offshore teams' },
-                { title: 'Security & Compliance', desc: 'Identify requirements for closed network MCP implementation' },
+                { title: 'Security & Compliance', desc: 'Identify requirements for closed network MCP operations' },
+                { title: 'Accessibility Requirements', desc: 'Confirm standards, testing approach, and ownership for accessibility outcomes' },
               ].map(o => `<div style="padding: 14px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px;"><div style="font-size: 14px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">${o.title}</div><div style="font-size: 12px; color: var(--neutral-600);">${o.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Enablement & Training Workstream</h2>
+            <div class="grid-3">
+              ${[
+                { title: 'Training Sessions', desc: 'Jake Love-led enablement sessions tailored to role-specific needs' },
+                { title: 'Onboarding Materials', desc: 'Documentation, quick-start guides, and working examples' },
+                { title: 'Adoption Support', desc: 'Office hours and feedback loops to remove blockers quickly' },
+              ].map(t => `<div class="check-item"><span class="check-icon">✓</span><div><div class="check-title">${t.title}</div><div class="check-desc">${t.desc}</div></div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Communication & Cadence</h2>
+            <div class="grid-3">
+              ${[
+                { cadence: 'Bi-weekly', audience: 'Working Group', content: 'Progress, blockers, and training coordination' },
+                { cadence: 'Monthly', audience: 'Design System Council', content: 'Strategic decisions, roadmap alignment, resourcing' },
+                { cadence: 'Quarterly', audience: 'Executive Sponsors', content: 'ROI and business impact reporting' },
+              ].map(r => `<div style="background: white; padding: 14px; border-radius: 6px; border: 1px solid var(--neutral-150);"><div style="font-size: 12px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">${r.cadence}</div><div style="font-size: 14px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">${r.audience}</div><div style="font-size: 12px; color: var(--neutral-600);">${r.content}</div></div>`).join('')}
             </div>
           </div>
 
@@ -798,7 +925,7 @@
           <div class="card" style="background: var(--success-light); border: 1px solid var(--success);">
             <h2 class="heading">Ready to Partner</h2>
             <p style="font-size: 15px; color: var(--neutral-700); line-height: 1.7; margin-bottom: 16px;">Edward Jones has strong design system strategy work already in progress. Knapsack provides the platform infrastructure and partnership approach to bring that vision to life—complementing your existing tools (Figma), supporting your offshore expansion, and preparing your organization for AI-enabled workflows on your timeline.</p>
-            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6;">We'll take the holidays to let you review this document with your team, then reconvene in January to align on readiness assessment and product roadmap discussion with Robin.</p>
+            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6;">We will reconvene in February to align on readiness assessment, training schedule, and the onsite plan targeted for early March.</p>
           </div>
         `,
       };
