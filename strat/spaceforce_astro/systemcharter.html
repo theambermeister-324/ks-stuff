@@ -122,12 +122,10 @@
     </div>
     <div class="nav-section-label">Executive Overview</div>
     <div class="nav-items" id="navItems1"></div>
-    <div class="nav-section-label">Phase 1: Roadshow Pilot</div>
+    <div class="nav-section-label">Phased Delivery</div>
     <div class="nav-items" id="navItems2"></div>
     <div class="nav-section-label">Technical & Management</div>
     <div class="nav-items" id="navItems3"></div>
-    <div class="nav-section-label">Value & Sustainment</div>
-    <div class="nav-items" id="navItems4"></div>
     <div class="nav-footer">
       <div class="nav-footer-label">In Partnership With</div>
       <div class="nav-footer-title">Joseph & Associates (J&A)</div>
@@ -137,12 +135,11 @@
   <main id="mainContent"></main>
   <script>
     const sectionGroups = [
-      [{ id: 'exec-summary', label: 'Executive Summary' }, { id: 'land-expand', label: 'Land & Expand Strategy' }, { id: 'case-studies', label: 'Enterprise Proof Points' }],
-      [{ id: 'roadshow-overview', label: 'Roadshow Program' }, { id: 'roadshow-prepare', label: 'Package & Prepare' }, { id: 'roadshow-engage', label: 'Engage & Validate' }, { id: 'roadshow-synthestic', label: 'Synthesize & Plan' }],
-      [{ id: 'technical', label: 'Technical Approach' }, { id: 'management', label: 'Management & Governance' }, { id: 'risk', label: 'Risk Management' }],
-      [{ id: 'value', label: 'Projected Value' }, { id: 'security', label: 'Security & Compliance' }, { id: 'next-steps', label: 'Execute Forward' }]
+      [{ id: 'system-charter', label: 'System Charter' }, { id: 'value-commercial', label: 'Value & Commercial' }],
+      [{ id: 'phase1-roadshow', label: 'Phase 1: Roadshow + Hackathon' }, { id: 'phase2-expansion', label: 'Phase 2: Expansion & Scale' }, { id: 'phase3-stabilize', label: 'Phase 3: Stabilize & Evolve' }],
+      [{ id: 'technical-integration', label: 'Technical & Integration' }, { id: 'security-compliance', label: 'Security & Compliance' }, { id: 'governance-enablement', label: 'Governance & Enablement' }]
     ];
-    let activeSection = 'exec-summary';
+    let activeSection = 'system-charter';
 
     function renderNav() {
       sectionGroups.forEach((group, gi) => {
@@ -166,7 +163,7 @@
 
     function renderContent() {
       const main = document.getElementById('mainContent');
-      const content = {
+      const baseContent = {
         'exec-summary': `
           <div class="hero">
             <div class="hero-label">Strategic Playbook v4.0</div>
@@ -261,6 +258,409 @@
             <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--space-accent); margin-bottom: 12px;">Enterprise Vision</div>
             <p style="font-size: 18px; line-height: 1.7; margin-bottom: 16px;">Where AI, design systems, and secure automation converge to help the DoD <strong>design, build, and deploy digital experiences at the speed of mission.</strong></p>
             <p style="font-size: 14px; opacity: 0.8;">The roadshow validates that vision with real stakeholders before scaling investment.</p>
+          </div>
+        `,
+
+        'problem-users': `
+          <h1 class="section-title">Problem & User Needs</h1>
+          <p class="section-subtitle">North star framing of the pain points and how Knapsack solves them for each factory role</p>
+
+          <div class="callout">
+            <div class="callout-label">Problem Statement</div>
+            <div class="callout-text">Space Force teams are building in parallel with inconsistent components, repeated UX debates, and limited reusable assets—slowing delivery, increasing rework, and making enterprise scale difficult.</div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Top Pain Points</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Fragmented Standards', desc: 'No single source of truth across factories and applications' },
+                { title: 'Repeated UX Debates', desc: 'Teams re-litigate patterns instead of reusing components' },
+                { title: 'Prototype Bottlenecks', desc: 'Limited components slow mockups and MVPs' },
+                { title: 'Adoption Friction', desc: 'Past design systems lacked sustained teams and governance' },
+                { title: 'Funding & Staffing Risk', desc: 'Budget uncertainty and personnel churn disrupt continuity' },
+                { title: 'AI Pressure', desc: 'Top-down push to use AI without governance context' },
+              ].map(p => `<div class="value-item"><div class="value-marker" style="background: var(--warning);"></div><div><div class="value-title">${p.title}</div><div class="value-desc">${p.desc}</div></div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">User Needs by Role</h2>
+            <div class="grid-2">
+              ${[
+                { role: 'Product Owners', need: 'Rapid delivery and measurable outcomes', solution: 'Reusable components, value metrics, and roadshow decision gates' },
+                { role: 'Designers', need: 'Consistent patterns and design-to-code fidelity', solution: 'Tokens + component governance with shared source of truth' },
+                { role: 'UX Researchers', need: 'Fast prototyping and evidence capture', solution: 'Prototype-first workflow with structured feedback capture' },
+                { role: 'Developers', need: 'Production-ready components and reliable integration', solution: 'Governed components, CI/CD alignment, and stack compatibility' },
+              ].map(u => `<div style="padding: 14px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px;"><div style="font-size: 13px; font-weight: 700; color: var(--neutral-800); margin-bottom: 6px;">${u.role}</div><div style="font-size: 12px; color: var(--neutral-600); margin-bottom: 6px;"><strong>Need:</strong> ${u.need}</div><div style="font-size: 12px; color: var(--neutral-600);"><strong>Knapsack:</strong> ${u.solution}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card" style="background: var(--space-light); border: 1px solid var(--space);">
+            <h2 class="heading" style="color: var(--space);">North Star Outcome</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); line-height: 1.7;">Every factory ships faster with shared components, governed tokens, and a repeatable activation model—reducing rework and accelerating mission delivery across Space Force and Air Force.</p>
+          </div>
+        `,
+
+        'charter-purpose': `
+          <h1 class="section-title">System Charter Purpose</h1>
+          <p class="section-subtitle">Define scope, governance, success criteria, and decision gates for scaling Astro across factories</p>
+
+          <div class="card">
+            <h2 class="heading">Charter Purpose</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); line-height: 1.7;">Establish a shared, executable plan for deploying Knapsack to unify design, development, and governance across Space Force software factories—delivering measurable outcomes while de-risking expansion.</p>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Primary Objectives</h2>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.8;">
+              <div>• Establish Astro as the authoritative design system across Space Force and Air Force</div>
+              <div>• Reduce design-dev drift with a single source of truth</div>
+              <div>• Deliver repeatable, rapid prototypes within 60 days</div>
+              <div>• Build sustainable governance and knowledge transfer</div>
+              <div>• Enable AI-ready workflows with compliant context</div>
+            </div>
+          </div>
+        `,
+
+        'success-metrics': `
+          <h1 class="section-title">Success Metrics</h1>
+          <p class="section-subtitle">Measured outcomes by horizon to prove value and guide decisions</p>
+
+          <div class="card">
+            <h2 class="heading">Operational (0-90 Days)</h2>
+            <table class="risk-table">
+              <thead><tr><th>Metric</th><th>Target</th></tr></thead>
+              <tbody>
+                <tr><td>Time-to-first workflow screen</td><td>&lt; 60 minutes</td></tr>
+                <tr><td>Factories engaged</td><td>3-5</td></tr>
+                <tr><td>Champion identified</td><td>1 per factory</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Product (12 Months)</h2>
+            <table class="risk-table">
+              <thead><tr><th>Metric</th><th>Target</th></tr></thead>
+              <tbody>
+                <tr><td>Component reuse rate</td><td>70%+</td></tr>
+                <tr><td>Quarterly release cadence</td><td>4x per year</td></tr>
+                <tr><td>Design-dev drift</td><td>&lt; 20%</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Strategic (24 Months)</h2>
+            <table class="risk-table">
+              <thead><tr><th>Metric</th><th>Target</th></tr></thead>
+              <tbody>
+                <tr><td>Cross-factory adoption</td><td>Enterprise-wide</td></tr>
+                <tr><td>Efficiency gain</td><td>50%+</td></tr>
+                <tr><td>Time savings per developer</td><td>1+ hour/week</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+
+        'scope-definition': `
+          <h1 class="section-title">Scope Definition</h1>
+          <p class="section-subtitle">Clear boundaries for what is included, excluded, and shared</p>
+
+          <div class="grid-2">
+            <div class="card">
+              <h2 class="heading">In Scope</h2>
+              <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.8;">
+                <div>• Knapsack workspace configuration + governance</div>
+                <div>• Design tokens + component library</div>
+                <div>• Prototype-first workflows + roadshow enablement</div>
+                <div>• Integration with approved repos and CI/CD</div>
+              </div>
+            </div>
+            <div class="card">
+              <h2 class="heading">Out of Scope</h2>
+              <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.8;">
+                <div>• Full refactors of legacy applications</div>
+                <div>• Non-standard tech stacks outside approved toolchain</div>
+                <div>• Enterprise-wide AI policy governance</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Shared Responsibilities</h2>
+            <table class="risk-table">
+              <thead><tr><th>Area</th><th>Shared With</th></tr></thead>
+              <tbody>
+                <tr><td>Component documentation</td><td>USSF design system lead</td></tr>
+                <tr><td>Security compliance</td><td>Security/Compliance office</td></tr>
+                <tr><td>Training & enablement</td><td>Super Coders program</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Key Decisions Required</h2>
+            <table class="risk-table">
+              <thead><tr><th>Decision</th><th>Owner</th><th>Timing</th></tr></thead>
+              <tbody>
+                <tr><td>GovCloud integration approach</td><td>Security + Tech Lead</td><td>Phase 1</td></tr>
+                <tr><td>Access model for factories</td><td>Program Lead</td><td>Phase 1</td></tr>
+                <tr><td>Phase 2 resourcing</td><td>Governance Council</td><td>Phase 1 close</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+
+        'phase-gates': `
+          <h1 class="section-title">Phase Gate Criteria</h1>
+          <p class="section-subtitle">Decision gates with owners and acceptance criteria</p>
+
+          <div class="card">
+            <table class="risk-table">
+              <thead><tr><th>Gate</th><th>Owner</th><th>Criteria</th></tr></thead>
+              <tbody>
+                <tr><td>Gate 1 (Week 4)</td><td>Program Lead</td><td>Materials complete + targets confirmed</td></tr>
+                <tr><td>Gate 2 (Week 8)</td><td>Technical Lead</td><td>Champion + workflow outcome delivered</td></tr>
+                <tr><td>Gate 3 (Week 12)</td><td>Governance Council</td><td>2+ commitments + expansion plan</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+
+        'governance-structure': `
+          <h1 class="section-title">Governance Structure</h1>
+          <p class="section-subtitle">Decision bodies, cadence, and escalation paths</p>
+
+          <div class="grid-2">
+            <div class="card">
+              <h2 class="heading">Governance Council</h2>
+              <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.8;">
+                <div>• Executive sponsor</div>
+                <div>• Design system lead (chair)</div>
+                <div>• Engineering lead</div>
+                <div>• Security/compliance</div>
+              </div>
+              <div style="font-size: 11px; color: var(--neutral-500); margin-top: 6px;"><strong>Cadence:</strong> Monthly + phase gates</div>
+            </div>
+            <div class="card">
+              <h2 class="heading">Working Group</h2>
+              <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.8;">
+                <div>• Program lead</div>
+                <div>• Technical architect</div>
+                <div>• Design system lead</div>
+                <div>• Training lead</div>
+              </div>
+              <div style="font-size: 11px; color: var(--neutral-500); margin-top: 6px;"><strong>Cadence:</strong> Weekly</div>
+            </div>
+          </div>
+        `,
+
+        'workstreams-resourcing': `
+          <h1 class="section-title">Workstreams & Resourcing</h1>
+          <p class="section-subtitle">Clear owners and focus areas for delivery</p>
+
+          <div class="card">
+            <table class="risk-table">
+              <thead><tr><th>Workstream</th><th>Lead</th><th>Focus</th></tr></thead>
+              <tbody>
+                <tr><td>Platform & Integrations</td><td>Technical Architect</td><td>Repo, CI/CD, GovCloud</td></tr>
+                <tr><td>Design System Delivery</td><td>Design System Lead</td><td>Tokens, components, docs</td></tr>
+                <tr><td>Enablement</td><td>Training Lead</td><td>Super Coders + onboarding</td></tr>
+                <tr><td>Governance</td><td>Program Lead</td><td>Decisions, gates, cadence</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+
+        'stakeholder-map': `
+          <h1 class="section-title">Stakeholder Map</h1>
+          <p class="section-subtitle">Primary and secondary stakeholders with interest areas</p>
+
+          <div class="card">
+            <h2 class="heading">Primary Stakeholders</h2>
+            <table class="risk-table">
+              <thead><tr><th>Group</th><th>Interest</th></tr></thead>
+              <tbody>
+                <tr><td>Product Owners</td><td>Delivery speed + outcomes</td></tr>
+                <tr><td>Designers</td><td>Consistency + workflow fidelity</td></tr>
+                <tr><td>Developers</td><td>Reusable components + integrations</td></tr>
+                <tr><td>Program Leadership</td><td>Budget + governance</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Secondary Stakeholders</h2>
+            <table class="risk-table">
+              <thead><tr><th>Group</th><th>Interest</th></tr></thead>
+              <tbody>
+                <tr><td>Security/Compliance</td><td>Risk mitigation</td></tr>
+                <tr><td>Procurement</td><td>Contracting + timelines</td></tr>
+                <tr><td>Air Force Partners</td><td>Interoperability</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+
+        'raid-summary': `
+          <h1 class="section-title">RAID Summary</h1>
+          <p class="section-subtitle">Risks, assumptions, issues, and dependencies (compact)</p>
+
+          <div class="card">
+            <table class="risk-table">
+              <thead><tr><th>Type</th><th>Item</th><th>Owner</th></tr></thead>
+              <tbody>
+                <tr><td>Risk</td><td>Funding delays impact cadence</td><td>Program Lead</td></tr>
+                <tr><td>Assumption</td><td>Factories adopt common tokens</td><td>Design System Lead</td></tr>
+                <tr><td>Issue</td><td>Component gaps slow prototyping</td><td>Technical Architect</td></tr>
+                <tr><td>Dependency</td><td>GovCloud integration readiness</td><td>Security</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+
+        'actions-decisions': `
+          <h1 class="section-title">Actions & Decisions</h1>
+          <p class="section-subtitle">Active action items and decision log</p>
+
+          <div class="card">
+            <h2 class="heading">Action Items</h2>
+            <table class="risk-table">
+              <thead><tr><th>Action</th><th>Owner</th><th>Due</th></tr></thead>
+              <tbody>
+                <tr><td>Finalize target factory list</td><td>Program Lead</td><td>Week 2</td></tr>
+                <tr><td>Confirm demo environment access</td><td>Technical Architect</td><td>Week 3</td></tr>
+                <tr><td>Schedule roadshow sessions</td><td>Program Lead</td><td>Week 4</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Decision Log</h2>
+            <table class="risk-table">
+              <thead><tr><th>Decision</th><th>Owner</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Hackathon format (virtual vs in-person)</td><td>Program Lead</td><td>Open</td></tr>
+                <tr><td>Phase 2 factory selection</td><td>Governance Council</td><td>Pending</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+
+        'comms-plan': `
+          <h1 class="section-title">Communication Plan</h1>
+          <p class="section-subtitle">Who gets updates, how often, and by whom</p>
+
+          <div class="card">
+            <table class="risk-table">
+              <thead><tr><th>Audience</th><th>Message</th><th>Cadence</th><th>Owner</th></tr></thead>
+              <tbody>
+                <tr><td>Governance Council</td><td>Status, risks, decisions</td><td>Monthly</td><td>Program Lead</td></tr>
+                <tr><td>Factory Teams</td><td>Roadshow updates, outcomes</td><td>Bi-weekly</td><td>Design System Lead</td></tr>
+                <tr><td>Leadership</td><td>Executive summary, ROI</td><td>Quarterly</td><td>Program Lead</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+
+        'glossary-approvals': `
+          <h1 class="section-title">Glossary & Approvals</h1>
+          <p class="section-subtitle">Shared terminology and formal sign-off</p>
+
+          <div class="card">
+            <h2 class="heading">Glossary</h2>
+            <table class="risk-table">
+              <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+              <tbody>
+                <tr><td>MCP</td><td>Model Context Protocol for AI tooling</td></tr>
+                <tr><td>IPE</td><td>Intelligent Product Engine (AI control plane)</td></tr>
+                <tr><td>cATO</td><td>Continuous Authority to Operate</td></tr>
+                <tr><td>FedRAMP</td><td>Federal Risk and Authorization Management Program</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Charter Approval</h2>
+            <table class="risk-table">
+              <thead><tr><th>Role</th><th>Name</th><th>Date</th></tr></thead>
+              <tbody>
+                <tr><td>Executive Sponsor</td><td></td><td></td></tr>
+                <tr><td>Design System Lead</td><td></td><td></td></tr>
+                <tr><td>Engineering Lead</td><td></td><td></td></tr>
+                <tr><td>Knapsack Partner Lead</td><td></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+
+        'funding-path': `
+          <h1 class="section-title">Funding & Decision Path</h1>
+          <p class="section-subtitle">Scenario-based plan to maintain momentum despite budget and acquisition uncertainty</p>
+
+          <div class="callout">
+            <div class="callout-label">Operating Principle</div>
+            <div class="callout-text">Design the Phase 1 roadmap to move forward in any funding scenario while preserving continuity of work.</div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Three Funding Scenarios</h2>
+            <div class="grid-3">
+              ${[
+                { title: 'Funded', desc: 'Proceed with full roadshow cadence and Phase 2 commitments', color: 'var(--success)' },
+                { title: 'Delayed', desc: 'Activate 60/90-day pilot clause with staged deliverables', color: 'var(--warning)' },
+                { title: 'Blocked', desc: 'Pause without rework; preserve assets and decision log', color: 'var(--danger)' },
+              ].map(s => `<div style="padding: 16px; border-radius: 8px; border: 2px solid ${s.color}; background: ${s.color}15;"><div style="font-size: 13px; font-weight: 700; color: ${s.color}; margin-bottom: 6px;">${s.title}</div><div style="font-size: 12px; color: var(--neutral-700);">${s.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Decision Gates</h2>
+            <table class="risk-table">
+              <thead><tr><th>Gate</th><th>Trigger</th><th>Outcome</th></tr></thead>
+              <tbody>
+                <tr><td>Gate 1</td><td>Funding status clarity</td><td>Confirm scope and pilot clause</td></tr>
+                <tr><td>Gate 2</td><td>Hackathon results</td><td>Adoption signal + champion identified</td></tr>
+                <tr><td>Gate 3</td><td>Roadshow midpoint</td><td>2+ factories commit to Phase 2</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card" style="background: var(--action-light); border: 2px solid var(--action);">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--action); margin-bottom: 10px;">Procurement-Safe Options</div>
+            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6;">
+              <div>• 60/90-day no-commitment evaluation clause</div>
+              <div>• Phased deliverables aligned to contract vehicles</div>
+              <div>• Pause/restart protocol with preserved artifacts</div>
+            </div>
+          </div>
+        `,
+
+        'change-enablement': `
+          <h1 class="section-title">Change Enablement</h1>
+          <p class="section-subtitle">Tactics to reduce internal resistance and accelerate adoption across factories</p>
+
+          <div class="card">
+            <h2 class="heading">Enablement Moves</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Stakeholder Map', desc: 'Identify champions, skeptics, and decision owners by factory' },
+                { title: 'Decision Log', desc: 'Close repetitive UX debates with documented outcomes' },
+                { title: 'Champion Loop', desc: 'Recognize and empower champions after each engagement' },
+                { title: 'Executive Narrative', desc: 'Translate outcomes into leadership-ready wins' },
+              ].map(i => `<div class="value-item"><div class="value-marker" style="background: var(--space);"></div><div><div class="value-title">${i.title}</div><div class="value-desc">${i.desc}</div></div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card" style="background: var(--space-light); border: 1px solid var(--space);">
+            <h2 class="heading" style="color: var(--space);">Adoption Friction Playbook</h2>
+            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.7;">
+              <div><strong>Not Invented Here:</strong> emphasize local extensions and federated governance</div>
+              <div><strong>Political Resistance:</strong> align to mission outcomes and executive priorities</div>
+              <div><strong>UX Debate Fatigue:</strong> institute a consistent token + component review cadence</div>
+            </div>
           </div>
         `,
 
@@ -393,13 +793,97 @@
           </div>
         `,
 
+        'phase1-field-guide': `
+          <h1 class="section-title">Phase 1 Field Guide</h1>
+          <p class="section-subtitle">How to run the roadshow as an active, repeatable playbook</p>
+
+          <div class="card">
+            <h2 class="heading">Phase Intent</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); line-height: 1.7;">Validate expansion demand, build champions, and de-risk Phase 2 by delivering a tangible outcome in 60 days.</p>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Primary Outcomes</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Working Workflow Screen', desc: 'Demonstrates value in a real factory context' },
+                { title: 'Named Champion', desc: 'Committed advocate in each target factory' },
+                { title: 'Component Gap List', desc: 'Prioritized backlog for Phase 2' },
+                { title: 'Commitment Signals', desc: '2+ factories ready for expansion' },
+              ].map(o => `<div class="value-item"><div class="value-marker" style="background: var(--action);"></div><div><div class="value-title">${o.title}</div><div class="value-desc">${o.desc}</div></div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Key Activities (by Window)</h2>
+            <table class="risk-table">
+              <thead><tr><th>Window</th><th>Focus</th><th>Outputs</th></tr></thead>
+              <tbody>
+                <tr><td>Weeks 1-4</td><td>Package & Prepare</td><td>Roadshow kit, demo, target list</td></tr>
+                <tr><td>Weeks 5-8</td><td>Engage & Validate</td><td>Events, feedback, champions</td></tr>
+                <tr><td>Weeks 9-12</td><td>Synthesize & Plan</td><td>Expansion plan + go/no-go</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Tasks Checklist</h2>
+            <div class="grid-2">
+              ${[
+                'Finalize success story + demo',
+                'Schedule and run roadshow sessions',
+                'Capture objections and adoption signals',
+                'Deliver working workflow screen',
+                'Produce expansion plan + resourcing',
+                'Secure leadership go/no-go',
+              ].map(t => `<div style="font-size: 12px; color: var(--neutral-700); padding: 6px 0;">▸ ${t}</div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Roles in Scope</h2>
+            <div class="grid-2">
+              ${[
+                { role: 'Program Lead', focus: 'Schedule, decisions, gate ownership' },
+                { role: 'Technical Architect', focus: 'Demo, integration Q&A, feasibility' },
+                { role: 'Design System Lead', focus: 'Patterns, component gaps, governance' },
+                { role: 'Research Lead', focus: 'Feedback capture and synthesis' },
+              ].map(r => `<div style="padding: 12px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px;"><div style="font-size: 12px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">${r.role}</div><div style="font-size: 12px; color: var(--neutral-600);">${r.focus}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Success Criteria</h2>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.8;">
+              <div>• 3-5 factories engaged with active participation</div>
+              <div>• Champion identified per factory</div>
+              <div>• Tangible result delivered in 60 days</div>
+              <div>• 2+ expansion commitments captured</div>
+            </div>
+          </div>
+
+          <div class="card" style="background: var(--space); color: white; border: none;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--space-accent); margin-bottom: 12px;">Exit Criteria</div>
+            <p style="font-size: 14px; line-height: 1.7;">Executive go/no-go decision, expansion plan approved, and resource needs documented.</p>
+          </div>
+        `,
+
         'roadshow-overview': `
           <h1 class="section-title">Phase 1: Roadshow Pilot Program</h1>
           <p class="section-subtitle">90-day program to validate expansion strategy through stakeholder engagement</p>
 
           <div class="callout">
             <div class="callout-label">Program Objective</div>
-            <div class="callout-text">Transform proven Astro results into a repeatable engagement that generates stakeholder commitment and validates the land-and-expand strategy for enterprise deployment. Tangible results in 60 days.</div>
+            <div class="callout-text">Transform proven Astro results into a repeatable engagement that generates stakeholder commitment and validates the land-and-expand strategy for enterprise deployment. Tangible results in 60 days = 1 working workflow screen, a named champion commitment, and a documented component gap list.</div>
+          </div>
+
+          <div class="card" style="background: var(--space-light); border: 1px solid var(--space);">
+            <h2 class="heading" style="color: var(--space);">Phase 1 Alignment</h2>
+            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.7;">
+              <div>• Hackathon = Day 1 activation + research capture</div>
+              <div>• Roadshow = 90-day expansion engine</div>
+              <div>• Outputs feed Funding & Decision Path gates</div>
+            </div>
           </div>
 
           <div class="stat-banner" style="margin-bottom: 24px;">
@@ -509,6 +993,31 @@
           </div>
 
           <div class="card">
+            <h2 class="heading">Decision Gate Alignment</h2>
+            <table class="risk-table">
+              <thead><tr><th>Gate</th><th>Timing</th><th>Roadshow Output</th></tr></thead>
+              <tbody>
+                <tr><td>Gate 1</td><td>Week 4</td><td>Materials complete + schedule locked</td></tr>
+                <tr><td>Gate 2</td><td>Week 8</td><td>Champion identified + tangible result delivered</td></tr>
+                <tr><td>Gate 3</td><td>Week 12</td><td>2+ factory commitments + expansion plan</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Stakeholder Alignment</h2>
+            <div class="grid-2">
+              ${[
+                { role: 'Product & Strategy', name: 'Savin Joseph', focus: 'Executive narrative + expansion sponsorship' },
+                { role: 'Technical Validation', name: 'Dennis Rankin', focus: 'Integration feasibility + stability' },
+                { role: 'Program & Procurement', name: 'Wuan Perkins', focus: 'Contract path + decision gates' },
+                { role: 'Design + Budget', name: 'Paul Miranda', focus: 'Roadshow value case + ROI framing' },
+                { role: 'UX Leadership', name: 'Lindsey Slutz', focus: 'Component audit + user needs' },
+              ].map(s => `<div style="padding: 12px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px;"><div style="font-size: 12px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">${s.role}</div><div style="font-size: 12px; color: var(--neutral-600); margin-bottom: 6px;">${s.name}</div><div style="font-size: 11px; color: var(--neutral-500);">${s.focus}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
             <h2 class="heading">Super Coders Program: Roadshow Leverage</h2>
             <div class="grid-2">
               <div style="padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px;">
@@ -549,8 +1058,6 @@
             <div class="grid-2">
               <div style="padding: 16px; background: var(--success-light); border: 1px solid #a7f3d0; border-radius: 8px;">
                 <div style="font-size: 12px; font-weight: 700; color: var(--success); text-transform: uppercase; margin-bottom: 12px;">Quantitative Targets</div>
-                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Factories Engaged: 3-5</div>
-                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Roadshow Sessions: 6-10</div>
                 <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Total Attendees: 50+</div>
                 <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Champions Identified: 1 per factory</div>
                 <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Follow-up Requests: 80%+ factories</div>
@@ -626,13 +1133,18 @@
 
           <div class="card" style="background: var(--space); color: white; border: none;">
             <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--space-accent); margin-bottom: 12px;">Week 4 Gate</div>
-            <p style="font-size: 15px; line-height: 1.6;">Before proceeding to engagement phase: All materials complete, demo environment tested, target factories confirmed, roadshow schedule locked.</p>
+            <p style="font-size: 15px; line-height: 1.6;">Before proceeding to engagement phase: All materials complete, demo environment tested, target factories confirmed, roadshow schedule locked, and funding/pilot clause alignment confirmed.</p>
           </div>
         `,
 
         'roadshow-engage': `
           <h1 class="section-title">Weeks 5-8: Engage & Validate</h1>
           <p class="section-subtitle">Executing roadshow events and building the champion network</p>
+
+          <div class="callout">
+            <div class="callout-label">Gate 2 Signal</div>
+            <div class="callout-text">By end of Week 8: champion identified, tangible result delivered, and follow-up commitment secured.</div>
+          </div>
 
           <div class="card">
             <h2 class="heading">Roadshow Event Structure</h2>
@@ -738,9 +1250,297 @@
           </div>
         `,
 
+        'roadshow-hackathon': `
+          <h1 class="section-title">One-Day Hackathon: Factory Activation</h1>
+          <p class="section-subtitle">Repeatable, high-energy onboarding event to create rapid buy-in, adoption, and engagement</p>
+
+          <div class="callout">
+            <div class="callout-label">Objective</div>
+            <div class="callout-text">Activate a software factory in one day by delivering a tangible outcome in 60 minutes or less and mapping the team to a 90-day roadshow path.</div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Who This Is For</h2>
+            <div class="grid-4">
+              ${[
+                { title: 'Product Owners', desc: 'Define priority workflows and success metrics', color: 'var(--action)' },
+                { title: 'Designers', desc: 'Translate patterns into reusable components', color: 'var(--primary)' },
+                { title: 'UX Researchers', desc: 'Validate usability and adoption signals', color: 'var(--success)' },
+                { title: 'Developers', desc: 'Implement components with governed tokens', color: 'var(--space)' },
+              ].map(a => `<div class="metric-card"><div class="metric-value" style="color: ${a.color};">✓</div><div class="metric-label">${a.title}</div><div class="metric-desc">${a.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Pre-Work (2-3 days before)</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Select a Real Workflow', desc: 'Choose 1 high-friction user journey from the factory (ex: intake, approvals, or reporting)' },
+                { title: 'Prepare Assets', desc: 'Provide existing UI, design tokens, and sample data for the workflow' },
+                { title: 'Access Setup', desc: 'Provision Figma + Knapsack workspace access and demo repo' },
+                { title: 'Success Criteria', desc: 'Define a 60-minute measurable outcome and acceptance criteria' },
+              ].map(p => `<div class="value-item"><div class="value-marker" style="background: var(--action);"></div><div><div class="value-title">${p.title}</div><div class="value-desc">${p.desc}</div></div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Day-Of Agenda (8 hours)</h2>
+            <table class="risk-table">
+              <thead>
+                <tr><th>Time</th><th>Session</th><th>Outcome</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>09:00 - 09:30</td><td>Mission Brief + Goals</td><td>Align on workflow, success metrics, and roles</td></tr>
+                <tr><td>09:30 - 10:30</td><td>Pattern Discovery Sprint</td><td>Identify reusable components + token gaps</td></tr>
+                <tr><td>10:30 - 12:00</td><td>Design System Mapping</td><td>Map workflow screens to Astro components</td></tr>
+                <tr><td>12:00 - 13:00</td><td>Working Lunch: Live Demo</td><td>Figma-to-code + Knapsack workflows</td></tr>
+                <tr><td>13:00 - 15:00</td><td>Build Sprint</td><td>Implement 1-2 screens using governed components</td></tr>
+                <tr><td>15:00 - 16:00</td><td>Research & Validation</td><td>Rapid usability testing + feedback capture</td></tr>
+                <tr><td>16:00 - 17:00</td><td>Showcase + Commitments</td><td>Demo outcome, capture adoption signals</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Tangible Outcomes (By End of Day)</h2>
+            <div class="grid-3">
+              ${[
+                { title: 'Working Prototype', desc: '1-2 screens implemented with Astro components' },
+                { title: 'Component Gap List', desc: 'Prioritized list of missing tokens/components' },
+                { title: 'Adoption Signals', desc: 'Champion identified + next steps scheduled' },
+              ].map(o => `<div style="padding: 14px; background: var(--success-light); border: 1px solid #a7f3d0; border-radius: 6px;"><div style="font-size: 13px; font-weight: 600; color: var(--success); margin-bottom: 4px;">${o.title}</div><div style="font-size: 12px; color: var(--neutral-600);">${o.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Role-Specific Tracks</h2>
+            <div class="grid-2">
+              <div style="padding: 16px; background: var(--primary-light); border: 1px solid var(--primary); border-radius: 8px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 10px;">Product Owners</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Define KPI impact and workflow scope</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Prioritize component gaps for Phase 2</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Commit to 60-day value targets</div>
+              </div>
+              <div style="padding: 16px; background: var(--success-light); border: 1px solid #a7f3d0; border-radius: 8px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--success); text-transform: uppercase; margin-bottom: 10px;">Designers + UX Researchers</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Validate patterns with users</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Align on accessibility + consistency</div>
+                <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Capture evidence for adoption narrative</div>
+              </div>
+            </div>
+            <div style="margin-top: 12px; padding: 16px; background: var(--space-light); border: 1px solid var(--space); border-radius: 8px;">
+              <div style="font-size: 12px; font-weight: 700; color: var(--space); text-transform: uppercase; margin-bottom: 10px;">Developers</div>
+              <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Implement component variants with tokens</div>
+              <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Validate CI/CD + repo integration</div>
+              <div style="font-size: 12px; color: var(--neutral-700); padding: 4px 0;">• Document build steps for repeatability</div>
+            </div>
+          </div>
+
+          <div class="card" style="background: var(--space); color: white; border: none;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--space-accent); margin-bottom: 12px;">Repeatable Formula</div>
+            <p style="font-size: 14px; line-height: 1.7; margin-bottom: 12px;">One workflow + one day + one outcome = one activated factory. Repeat weekly across 3-5 target factories to fuel Phase 1 engagement.</p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <span style="padding: 6px 12px; background: rgba(255,255,255,0.12); border-radius: 4px; font-size: 11px; font-weight: 600;">60-minute outcome</span>
+              <span style="padding: 6px 12px; background: rgba(255,255,255,0.12); border-radius: 4px; font-size: 11px; font-weight: 600;">Champion identified</span>
+              <span style="padding: 6px 12px; background: rgba(255,255,255,0.12); border-radius: 4px; font-size: 11px; font-weight: 600;">Phase 1 ready</span>
+            </div>
+          </div>
+        `,
+
+        'hackathon-research': `
+          <h1 class="section-title">Hackathon Research Capture</h1>
+          <p class="section-subtitle">Structured evidence collection to inform roadshow messaging and Phase 2 planning</p>
+
+          <div class="callout">
+            <div class="callout-label">Purpose</div>
+            <div class="callout-text">Turn the hackathon into actionable research: capture objections, quantify wins, and document component gaps.</div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Research Outputs</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Problem Map', desc: 'Top workflow blockers and root causes' },
+                { title: 'Component Gap List', desc: 'Missing tokens/components prioritized by impact' },
+                { title: 'Adoption Signals', desc: 'Champion identified, enthusiasm score, follow-up commitment' },
+                { title: 'AI Readiness Notes', desc: 'Where AI accelerates or needs guardrails' },
+              ].map(r => `<div style="padding: 14px; background: white; border: 1px solid var(--neutral-150); border-radius: 6px;"><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">${r.title}</div><div style="font-size: 12px; color: var(--neutral-600);">${r.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Evidence Capture Framework</h2>
+            <table class="risk-table">
+              <thead><tr><th>Signal</th><th>How Captured</th><th>Used For</th></tr></thead>
+              <tbody>
+                <tr><td>Enthusiasm Score</td><td>1-5 survey after demo</td><td>Roadshow prioritization</td></tr>
+                <tr><td>Objection Themes</td><td>Structured notes</td><td>Messaging refinement</td></tr>
+                <tr><td>Time-to-Outcome</td><td>Stopwatch to first working screen</td><td>Value narrative</td></tr>
+                <tr><td>Champion Commitment</td><td>Signed follow-up plan</td><td>Phase 2 readiness</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+
+        'phase2-field-guide': `
+          <h1 class="section-title">Phase 2 Field Guide</h1>
+          <p class="section-subtitle">How to scale across factories with governed components and shared enablement</p>
+
+          <div class="card">
+            <h2 class="heading">Phase Intent</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); line-height: 1.7;">Onboard committed factories, expand the component library, and operationalize governance for enterprise scale.</p>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Primary Outcomes</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Factory Onboarding', desc: '2+ factories activated with repeatable playbook' },
+                { title: 'Expanded Component Library', desc: 'Gap backlog delivered into production' },
+                { title: 'Governance Cadence', desc: 'Cross-factory review and release process' },
+                { title: 'Enablement at Scale', desc: 'Super Coders expanded and trained' },
+              ].map(o => `<div class="value-item"><div class="value-marker" style="background: var(--success);"></div><div><div class="value-title">${o.title}</div><div class="value-desc">${o.desc}</div></div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Key Activities</h2>
+            <table class="risk-table">
+              <thead><tr><th>Stream</th><th>Focus</th><th>Outputs</th></tr></thead>
+              <tbody>
+                <tr><td>Onboarding</td><td>Factory activation</td><td>Activation plans + timelines</td></tr>
+                <tr><td>Component Roadmap</td><td>Gap delivery</td><td>Release backlog + milestones</td></tr>
+                <tr><td>Governance</td><td>Policy + cadence</td><td>Review process + approvals</td></tr>
+                <tr><td>Enablement</td><td>Training scale</td><td>Super Coders rollout</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Tasks Checklist</h2>
+            <div class="grid-2">
+              ${[
+                'Finalize onboarding plans per factory',
+                'Deliver prioritized component backlog',
+                'Stand up governance council cadence',
+                'Launch scaled enablement sessions',
+                'Track adoption and reuse metrics',
+              ].map(t => `<div style="font-size: 12px; color: var(--neutral-700); padding: 6px 0;">▸ ${t}</div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Roles in Scope</h2>
+            <div class="grid-2">
+              ${[
+                { role: 'Governance Council', focus: 'Policy, approvals, cross-factory alignment' },
+                { role: 'Factory Leads', focus: 'Local onboarding and adoption' },
+                { role: 'Design System Team', focus: 'Component delivery and quality' },
+                { role: 'Enablement Lead', focus: 'Training and certification' },
+              ].map(r => `<div style="padding: 12px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px;"><div style="font-size: 12px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">${r.role}</div><div style="font-size: 12px; color: var(--neutral-600);">${r.focus}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Success Criteria</h2>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.8;">
+              <div>• 2+ factories onboarded and shipping</div>
+              <div>• Component reuse rate increasing</div>
+              <div>• Governance cadence sustained</div>
+              <div>• Quarterly releases maintained</div>
+            </div>
+          </div>
+
+          <div class="card" style="background: var(--space); color: white; border: none;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--space-accent); margin-bottom: 12px;">Exit Criteria</div>
+            <p style="font-size: 14px; line-height: 1.7;">Enterprise rollout plan approved with sustained adoption metrics and resourcing in place.</p>
+          </div>
+        `,
+
+        'phase2-expansion': `
+          <h1 class="section-title">Phase 2: Expansion Plan</h1>
+          <p class="section-subtitle">Scale across committed factories with governed components and shared enablement</p>
+
+          <div class="callout">
+            <div class="callout-label">Hackathon → Phase 2</div>
+            <div class="callout-text">The hackathon delivers the first working workflow, a named champion, and a component gap list—these are the prerequisites for Phase 2 onboarding and expansion.</div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Phase 2 Objectives</h2>
+            <div class="grid-3">
+              ${[
+                { title: 'Onboard Committed Factories', desc: 'Activate 2+ factories with a repeatable playbook' },
+                { title: 'Expand Component Library', desc: 'Prioritize gaps discovered during hackathon + roadshow' },
+                { title: 'Establish Governance', desc: 'Operationalize multi-brand governance and release cadence' },
+              ].map(o => `<div style="padding: 14px; background: var(--success-light); border: 1px solid #a7f3d0; border-radius: 6px;"><div style="font-size: 13px; font-weight: 600; color: var(--success); margin-bottom: 4px;">${o.title}</div><div style="font-size: 12px; color: var(--neutral-600);">${o.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Phase 2 Workstreams</h2>
+            <table class="risk-table">
+              <thead><tr><th>Workstream</th><th>Inputs from Hackathon</th><th>Phase 2 Output</th></tr></thead>
+              <tbody>
+                <tr><td>Factory Onboarding</td><td>Champion + workflow prototype</td><td>Factory activation plan</td></tr>
+                <tr><td>Component Roadmap</td><td>Gap list + usage evidence</td><td>Prioritized build backlog</td></tr>
+                <tr><td>Enablement</td><td>Role insights + feedback</td><td>Training plan + Super Coders rollout</td></tr>
+                <tr><td>Governance</td><td>Objection themes + decisions</td><td>Policy + review cadence</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card" style="background: var(--space); color: white; border: none;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--space-accent); margin-bottom: 12px;">Phase 2 Success Signals</div>
+            <p style="font-size: 14px; line-height: 1.7; margin-bottom: 12px;">Two or more factories onboarded, component reuse rate increasing, and quarterly releases maintained with measurable time savings.</p>
+          </div>
+        `,
+
+        'phase3-stabilize': `
+          <h1 class="section-title">Phase 3: Stabilize & Evolve</h1>
+          <p class="section-subtitle">Sustain adoption, evolve components, and mature governance over time</p>
+
+          <div class="card">
+            <h2 class="heading">Phase Intent</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); line-height: 1.7;">Lock in enterprise adoption, continuously improve components, and ensure long-term compliance and resilience.</p>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Primary Outcomes</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Sustained Adoption', desc: 'Factories regularly shipping with shared components' },
+                { title: 'Mature Governance', desc: 'Stable release cadence and policy enforcement' },
+                { title: 'Evolved Component Library', desc: 'Ongoing upgrades and accessibility improvements' },
+                { title: 'Enterprise Readiness', desc: 'Security posture and compliance milestones met' },
+              ].map(o => `<div class="value-item"><div class="value-marker" style="background: var(--space);"></div><div><div class="value-title">${o.title}</div><div class="value-desc">${o.desc}</div></div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Success Criteria</h2>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.8;">
+              <div>• Cross-factory reuse consistently increasing</div>
+              <div>• Governance council operating on cadence</div>
+              <div>• Security/compliance roadmap on track</div>
+              <div>• Roadmap aligned to mission priorities</div>
+            </div>
+          </div>
+
+          <div class="card" style="background: var(--space); color: white; border: none;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--space-accent); margin-bottom: 12px;">Exit Criteria</div>
+            <p style="font-size: 14px; line-height: 1.7;">Enterprise design system is institutionalized with measurable efficiency gains and sustainable governance.</p>
+          </div>
+        `,
+
         'roadshow-synthestic': `
           <h1 class="section-title">Weeks 9-12: Synthesize & Plan</h1>
           <p class="section-subtitle">Converting roadshow learnings into expansion strategy and executive decision</p>
+
+          <div class="callout">
+            <div class="callout-label">Gate 3 Signal</div>
+            <div class="callout-text">Phase 2 go decision requires 2+ factory commitments, a validated expansion plan, and documented resource needs.</div>
+          </div>
 
           <div class="card">
             <h2 class="heading">Weekly Activities</h2>
@@ -884,6 +1684,90 @@
           </div>
         `,
 
+        'prototype-workflow': `
+          <h1 class="section-title">Prototype-First Workflow</h1>
+          <p class="section-subtitle">Move beyond Figma-only prototypes with multi-page, code-backed flows</p>
+
+          <div class="callout">
+            <div class="callout-label">Positioning</div>
+            <div class="callout-text">Figma is supported but not required. Prototypes are built from governed components and can be edited directly in code.</div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Four-Step Prototype Flow</h2>
+            <div class="grid-4">
+              ${[
+                { step: '1', title: 'Define Flow', desc: 'Select 1-2 critical user journeys' },
+                { step: '2', title: 'Assemble Screens', desc: 'Use Astro components + tokens' },
+                { step: '3', title: 'Generate Code', desc: 'Export editable, versioned output' },
+                { step: '4', title: 'Validate', desc: 'Test with users and capture evidence' },
+              ].map(p => `<div style="padding: 12px; background: var(--space-light); border-radius: 6px; text-align: center;"><div style="font-size: 18px; font-weight: 800; color: var(--space);">${p.step}</div><div style="font-size: 12px; font-weight: 600; color: var(--neutral-800);">${p.title}</div><div style="font-size: 11px; color: var(--neutral-600); margin-top: 4px;">${p.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">AI Enablement</h2>
+            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.7;">
+              <div>• Claude-ready context via MCP for compliant generation</div>
+              <div>• Prompt-based and UI-based prototype creation</div>
+              <div>• Token-safe outputs for design-system fidelity</div>
+            </div>
+          </div>
+        `,
+
+        'integration-matrix': `
+          <h1 class="section-title">Integration Matrix</h1>
+          <p class="section-subtitle">Explicit compatibility across Space Force and Air Force technology stacks</p>
+
+          <div class="card">
+            <h2 class="heading">Stack Compatibility</h2>
+            <table class="risk-table">
+              <thead><tr><th>Area</th><th>Current Stack</th><th>Knapsack Approach</th></tr></thead>
+              <tbody>
+                <tr><td>Source Control</td><td>GitHub / GitHub Enterprise</td><td>Direct repo integration with audit logging</td></tr>
+                <tr><td>Frameworks</td><td>React, Vue, Bootstrap</td><td>Multi-framework rendering + tokens</td></tr>
+                <tr><td>Packages</td><td>Private npm</td><td>Secure registry integration</td></tr>
+                <tr><td>CI/CD</td><td>Existing pipelines</td><td>Component build + release automation</td></tr>
+                <tr><td>Domains</td><td>Custom domains</td><td>Supported with SSO + governance</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card" style="background: var(--primary-light); border: 1px solid var(--primary);">
+            <h2 class="heading" style="color: var(--primary);">Multi-Brand & Theme Support</h2>
+            <p style="font-size: 13px; color: var(--neutral-700); line-height: 1.6;">Token inheritance enables Space Force, Air Force, and mission-specific themes without duplicating core components.</p>
+          </div>
+        `,
+
+        'fedramp-gate': `
+          <h1 class="section-title">FedRAMP & Cloud Readiness Gate</h1>
+          <p class="section-subtitle">Decision alignment on compliance requirements and deployment pathway</p>
+
+          <div class="card">
+            <h2 class="heading">Readiness Checklist</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'SOC2 Type II', desc: 'Current baseline for immediate deployment' },
+                { title: 'GovCloud Connector', desc: 'Secure Git integration pathway' },
+                { title: 'FedRAMP Timeline', desc: 'Defined milestones for authorization' },
+                { title: 'AI Tool Approval', desc: 'Claude + MCP alignment for compliance' },
+              ].map(c => `<div style="padding: 12px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px;"><div style="font-size: 12px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">${c.title}</div><div style="font-size: 11px; color: var(--neutral-600);">${c.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Gate Criteria</h2>
+            <table class="risk-table">
+              <thead><tr><th>Criterion</th><th>Required For</th><th>Decision Impact</th></tr></thead>
+              <tbody>
+                <tr><td>SOC2 + SSO</td><td>Phase 1 roadshow</td><td>Go</td></tr>
+                <tr><td>GovCloud Connector</td><td>Phase 2 expansion</td><td>Conditional go</td></tr>
+                <tr><td>FedRAMP Authorized</td><td>Enterprise-wide rollout</td><td>Final go</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+
         'management': `
           <h1 class="section-title">Management & Governance</h1>
           <p class="section-subtitle">Organizational structure supporting Phase 1 roadshow and Phase 2 expansion</p>
@@ -948,6 +1832,60 @@
                 <div style="font-size: 12px; color: var(--neutral-600); padding: 4px 0;">• Shared Slack/Teams channel</div>
               </div>
             </div>
+          </div>
+        `,
+
+        'knowledge-transfer': `
+          <h1 class="section-title">Knowledge Transfer Kit</h1>
+          <p class="section-subtitle">Reduce ramp-up time and mitigate personnel churn across factories</p>
+
+          <div class="card">
+            <h2 class="heading">Core Deliverables</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Onboarding Guide', desc: 'Roles, workflows, access, and working agreements' },
+                { title: 'Architecture Summary', desc: 'System map, dependencies, and integration points' },
+                { title: 'Component Ownership', desc: 'Who owns what and escalation paths' },
+                { title: 'Decision Log', desc: 'Key design and governance decisions' },
+              ].map(d => `<div class="value-item"><div class="value-marker" style="background: var(--success);"></div><div><div class="value-title">${d.title}</div><div class="value-desc">${d.desc}</div></div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card" style="background: var(--success-light); border: 1px solid #a7f3d0;">
+            <h2 class="heading" style="color: var(--success);">Training Artifacts</h2>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.7;">
+              <div>• Recorded walkthroughs of workflows and component usage</div>
+              <div>• Repeatable enablement decks and scripts</div>
+              <div>• Office hours schedule for new engineers</div>
+            </div>
+          </div>
+        `,
+
+        'multibrand-governance': `
+          <h1 class="section-title">Multi-Brand Governance</h1>
+          <p class="section-subtitle">Scale across Space Force and Air Force without fragmenting design standards</p>
+
+          <div class="card">
+            <h2 class="heading">Governance Model</h2>
+            <div class="grid-3">
+              ${[
+                { title: 'Core System', desc: 'Central components + tokens' },
+                { title: 'Brand Layers', desc: 'Space Force, Air Force, mission-specific themes' },
+                { title: 'Local Extensions', desc: 'Factory-specific needs with review gates' },
+              ].map(g => `<div style="padding: 14px; background: var(--space-light); border-radius: 6px;"><div style="font-size: 13px; font-weight: 600; color: var(--space); margin-bottom: 4px;">${g.title}</div><div style="font-size: 12px; color: var(--neutral-600);">${g.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Release & Approval Flow</h2>
+            <table class="risk-table">
+              <thead><tr><th>Change Type</th><th>Owner</th><th>Approval</th></tr></thead>
+              <tbody>
+                <tr><td>Core component update</td><td>Design system lead</td><td>Governance council</td></tr>
+                <tr><td>Brand token update</td><td>Brand steward</td><td>Core team review</td></tr>
+                <tr><td>Factory extension</td><td>Factory lead</td><td>Compatibility check</td></tr>
+              </tbody>
+            </table>
           </div>
         `,
 
@@ -1064,6 +2002,97 @@
           </div>
         `,
 
+        'training-metrics': `
+          <h1 class="section-title">Training & Adoption Metrics</h1>
+          <p class="section-subtitle">Quantified outcomes for Super Coders and cross-factory enablement</p>
+
+          <div class="card">
+            <h2 class="heading">Training Success KPIs</h2>
+            <table class="risk-table">
+              <thead><tr><th>Metric</th><th>Target</th><th>Why It Matters</th></tr></thead>
+              <tbody>
+                <tr><td>Certified Contributors</td><td>10+ per factory</td><td>Scalable adoption</td></tr>
+                <tr><td>Time-to-First Contribution</td><td>&lt; 2 weeks</td><td>Rapid onboarding</td></tr>
+                <tr><td>Component Reuse Rate</td><td>70%+</td><td>Reduced custom UI</td></tr>
+                <tr><td>Quarterly Release Velocity</td><td>4x per year</td><td>Predictable delivery</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card" style="background: var(--success-light); border: 1px solid #a7f3d0;">
+            <h2 class="heading" style="color: var(--success);">Adoption Evidence</h2>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.7;">
+              <div>• Reduction in custom component creation</div>
+              <div>• Increase in standardized tokens usage</div>
+              <div>• Documented time savings per workflow</div>
+            </div>
+          </div>
+        `,
+
+        'pricing-evaluation': `
+          <h1 class="section-title">Pricing & Evaluation</h1>
+          <p class="section-subtitle">Three-tier package framing with a structured evaluation plan</p>
+
+          <div class="card">
+            <h2 class="heading">Package Options</h2>
+            <div class="grid-3">
+              ${[
+                { tier: 'Essential', desc: 'Pilot-focused scope for single factory and limited renders', color: 'var(--neutral-600)' },
+                { tier: 'Standard', desc: 'Multi-factory deployment with SSO, onboarding, and 3 renders', color: 'var(--action)' },
+                { tier: 'Supreme', desc: 'Enterprise-wide scope, unlimited renders, expansion-ready', color: 'var(--space)' },
+              ].map(p => `<div style="padding: 16px; border-radius: 8px; border: 2px solid ${p.color}; background: ${p.color}10;"><div style="font-size: 13px; font-weight: 700; color: ${p.color}; margin-bottom: 6px;">${p.tier}</div><div style="font-size: 12px; color: var(--neutral-700);">${p.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Evaluation Milestones</h2>
+            <table class="risk-table">
+              <thead><tr><th>Milestone</th><th>Timing</th><th>Decision Signal</th></tr></thead>
+              <tbody>
+                <tr><td>Hackathon Outcome</td><td>Week 1</td><td>Prototype + component gaps</td></tr>
+                <tr><td>Roadshow Midpoint</td><td>Week 6</td><td>Champion commitment</td></tr>
+                <tr><td>Phase 1 Close</td><td>Week 12</td><td>Go/No-Go for Phase 2</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card" style="background: var(--action-light); border: 2px solid var(--action);">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--action); margin-bottom: 10px;">Evaluation Clause</div>
+            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6;">
+              60/90-day no-commitment clause with clear exit criteria and retained artifacts.
+            </div>
+          </div>
+        `,
+
+        'competitive-position': `
+          <h1 class="section-title">Competitive Positioning</h1>
+          <p class="section-subtitle">How Knapsack differentiates vs. design-only and documentation-only solutions</p>
+
+          <div class="card">
+            <h2 class="heading">Differentiators</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Design + Code Bridge', desc: 'Governed components sync across design and engineering' },
+                { title: 'AI-Ready Context', desc: 'MCP + Claude integration for compliant generation' },
+                { title: 'Multi-Framework Rendering', desc: 'Serve React, Vue, and Web Components from one source' },
+                { title: 'Enterprise Governance', desc: 'Versioning, auditing, and role-based access' },
+              ].map(d => `<div class="value-item"><div class="value-marker" style="background: var(--primary);"></div><div><div class="value-title">${d.title}</div><div class="value-desc">${d.desc}</div></div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Positioning vs. Alternatives</h2>
+            <table class="risk-table">
+              <thead><tr><th>Alternative</th><th>Gap</th><th>Knapsack Advantage</th></tr></thead>
+              <tbody>
+                <tr><td>Figma-only systems</td><td>Design-first, limited code governance</td><td>Production-ready components + tokens</td></tr>
+                <tr><td>Storybook-only</td><td>Code docs without design alignment</td><td>Unified design-to-code workflow</td></tr>
+                <tr><td>Zeroheight/Envision</td><td>Documentation heavy</td><td>Integrated build + governance</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+
         'security': `
           <h1 class="section-title">Security & Compliance</h1>
           <p class="section-subtitle">Government-grade security posture supporting DoD stakeholder confidence</p>
@@ -1153,7 +2182,37 @@
         `,
       };
 
-      main.innerHTML = content[activeSection] || content['exec-summary'];
+      const combineSections = (ids) => ids.map((id) => baseContent[id]).join('');
+      const content = {
+        'system-charter': combineSections([
+          'exec-summary',
+          'problem-users',
+          'charter-purpose',
+          'success-metrics',
+          'scope-definition',
+          'phase-gates',
+          'governance-structure',
+          'workstreams-resourcing',
+          'stakeholder-map',
+          'raid-summary',
+          'actions-decisions',
+          'comms-plan',
+          'glossary-approvals',
+          'land-expand',
+          'case-studies',
+          'funding-path',
+          'change-enablement'
+        ]),
+        'value-commercial': combineSections(['value', 'pricing-evaluation', 'competitive-position', 'next-steps']),
+        'phase1-roadshow': combineSections(['phase1-field-guide', 'roadshow-overview', 'roadshow-hackathon', 'hackathon-research']),
+        'phase2-expansion': combineSections(['phase2-field-guide', 'phase2-expansion']),
+        'phase3-stabilize': combineSections(['phase3-stabilize']),
+        'technical-integration': combineSections(['technical', 'prototype-workflow', 'integration-matrix']),
+        'security-compliance': combineSections(['security', 'fedramp-gate']),
+        'governance-enablement': combineSections(['management', 'knowledge-transfer', 'multibrand-governance', 'training-metrics', 'risk'])
+      };
+
+      main.innerHTML = content[activeSection] || content['system-charter'];
     }
 
     renderNav();

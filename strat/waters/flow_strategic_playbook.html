@@ -354,6 +354,14 @@
     .deliverable-desc { font-size: 13px; color: var(--neutral-600); }
     .ready-card { background: var(--success-light); border: 1px solid #c3ddd2; }
     .ready-card p { font-size: 15px; color: var(--neutral-700); line-height: 1.7; }
+    .workshop-figure { margin-top: 14px; }
+    .workshop-figure img { width: 100%; border-radius: 8px; border: 1px solid var(--neutral-150); background: white; }
+    .workshop-figure figcaption { font-size: 12px; color: var(--neutral-500); margin-top: 8px; }
+    .workshop-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+    .workshop-detail-card { background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; padding: 16px; }
+    .workshop-detail-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--neutral-500); margin-bottom: 8px; }
+    .workshop-detail-item { font-size: 13px; color: var(--neutral-600); padding: 4px 0; padding-left: 16px; position: relative; }
+    .workshop-detail-item::before { content: "—"; position: absolute; left: 0; color: var(--neutral-500); }
     @media (max-width: 900px) {
       nav { display: none; }
       main { margin-left: 0; padding: 24px; }
@@ -649,6 +657,34 @@
             <div class="next-hero-label">Recommended First Step</div>
             <h3>Onsite Discovery Workshop</h3>
             <p>A half-day collaborative session at Waters' Milford, MA facility to align on goals, map current workflows, and co-create the implementation approach. This ensures the engagement is tailored to Waters' specific needs and constraints.</p>
+          </div>
+          <div class="card">
+            <h2 class="heading">1-Day Workshop Flow</h2>
+            <p class="section-subtitle" style="margin-bottom: 12px;">Clear view of the workshop arc, activities, and outputs for Day 1.</p>
+            <figure class="workshop-figure">
+              <img src="assets/waters_one_day_workshop.png" alt="1-day onsite workshop flow for Waters and Knapsack">
+              <figcaption>Visual agenda for the onsite workshop: kickoff, discovery activities, and wrap-up deliverables.</figcaption>
+            </figure>
+            <div class="workshop-detail-grid">
+              <div class="workshop-detail-card">
+                <div class="workshop-detail-title">What We Cover</div>
+                ${[
+                  'Alignment on goals, scope, and success criteria',
+                  'Current-state journey mapping (design + dev)',
+                  'Architecture and integration review (Figma, Storybook, AI)',
+                  'Governance checkpoints and ownership model',
+                ].map(i => `<div class="workshop-detail-item">${i}</div>`).join('')}
+              </div>
+              <div class="workshop-detail-card">
+                <div class="workshop-detail-title">What You Leave With</div>
+                ${[
+                  'Systems Charter with vision and maturity path',
+                  'Work Breakdown Structure with milestones',
+                  'Technical integration approach and priorities',
+                  'Updated business case for leadership review',
+                ].map(i => `<div class="workshop-detail-item">${i}</div>`).join('')}
+              </div>
+            </div>
           </div>
           <div class="card">
             <h2 class="heading">Proposed Timeline</h2>

@@ -16,7 +16,7 @@
       <div class="max-w-6xl mx-auto">
         <p class="text-emerald-400 text-sm font-semibold mb-2">IPE GTM DETAILED PLANNING</p>
         <h1 class="text-2xl font-bold mb-2">Role Profiles, Budget & Risk Mitigation</h1>
-        <p class="text-slate-300 text-sm mb-4">Current Baseline: 1 FDE, 1 SME, 1 CX Partner delivering Legacy Knapsack (Starting HC: 3)</p>
+        <p class="text-slate-300 text-sm mb-4">Current Baseline: 1 FDE, 1 Pre-Sales SE, 1 CX Partner delivering Legacy Knapsack (Starting HC: 3)</p>
         
         <!-- Scenario Selector -->
         <div class="flex gap-2" id="scenario-selector"></div>
@@ -77,6 +77,8 @@
       { id: 'budget', label: 'Quarterly Budget', icon: 'dollar-sign' },
       { id: 'timeline', label: 'Hiring Timeline', icon: 'calendar' },
       { id: 'risks', label: 'Risk Mitigation', icon: 'shield' },
+      { id: 'raci', label: 'Governance (RACI)', icon: 'file-text' },
+      { id: 'forecast', label: 'Pipeline Forecast', icon: 'bar-chart-3' },
     ];
 
     const scenarios = {
@@ -133,49 +135,94 @@
         hiringSource: ['LinkedIn Recruiter', 'Design systems community', 'Figma/Storybook conferences', 'Employee referrals'],
       },
       {
-        id: 'sme',
-        title: 'Subject Matter Expert (SME)',
-        aka: 'Design Systems Strategist',
+        id: 'pse',
+        title: 'Pre-Sales Solutions Engineer (SE)',
+        aka: 'Pre-Sales SE',
         icon: 'layers',
-        category: 'Services Delivery',
+        category: 'GTM',
         salary: { base: 140000, ote: 160000, loaded: 210000 },
-        billRate: 750,
+        billRate: null,
         hires: { '6m': 1, '9m': 2, '12m': 3 },
         priority: 'High',
         rampTime: '2 months',
-        utilization: '70%',
-        description: 'Design system and product methodology expert. Leads governance frameworks, change management, and strategic advisory. Critical for J3 Foundation and enterprise credibility.',
+        utilization: 'N/A',
+        description: 'Pre-sales technical partner who supports investment path selection, deployment tiering, and technical feasibility. Consulted by CX Partner/Engagement Lead and FDEs to reduce execution risk before kickoff.',
         responsibilities: [
-          'Lead governance framework design and implementation',
-          'Facilitate stakeholder alignment workshops',
-          'Design contribution models and decision frameworks',
-          'Change management and organizational readiness',
-          'Thought leadership and content creation',
-          'Executive advisory and strategic planning'
+          'Support investment path selection with solution feasibility analysis',
+          'Advise on deployment tier determination and risk tradeoffs',
+          'Partner with FDEs on technical feasibility and integration constraints',
+          'Shape scope, assumptions, and readiness criteria for phase gates',
+          'Run technical discovery, demos, and solution walkthroughs',
+          'Document solution approaches and handoff artifacts'
         ],
         requirements: [
-          '10+ years in design systems, product design, or UX leadership',
-          'Experience building/scaling design systems at enterprise scale',
-          'Strong facilitation and workshop skills',
-          'Executive presence and communication skills',
-          'Published thought leadership (articles, talks, etc.)',
-          'Bonus: Consulting or professional services background'
+          '7+ years in solutions engineering, technical pre-sales, or architecture',
+          'Experience with enterprise integration, SSO, APIs, and security reviews',
+          'Ability to translate customer goals into feasible delivery scope',
+          'Strong discovery, demo, and stakeholder communication skills',
+          'Comfort partnering with FDEs and CX Partner on deal shaping',
+          'Bonus: Design systems or developer tooling background'
         ],
         successMetrics: [
-          'Governance framework adoption rate > 80%',
-          'Stakeholder NPS > 50',
-          'Workshop effectiveness rating > 4.5/5',
-          'Content published: 1 piece/month',
-          'Speaking engagements: 2/quarter'
+          'Deployment tier decisions completed within 5 business days',
+          'Feasibility assessments completed pre-SOW for 100% of J3 deals',
+          'Pre-sale risk flags resolved before kickoff > 90%',
+          'Win rate contribution on supported opportunities > 25%',
+          'Handoff quality rating from delivery team > 4.5/5'
         ],
         interviewProcess: [
           'Recruiter screen (30 min)',
-          'Portfolio review and case study (60 min)',
-          'Governance design exercise (60 min)',
-          'Workshop facilitation roleplay (45 min)',
+          'Technical discovery walkthrough (45 min)',
+          'Solution design exercise (60 min)',
+          'Mock demo and objection handling (45 min)',
           'Executive conversation with CEO (30 min)'
         ],
-        hiringSource: ['Design leadership networks', 'Conference speakers', 'Agency/consultancy alumni', 'Industry referrals'],
+        hiringSource: ['Enterprise solutions engineering', 'DevTools pre-sales', 'Consulting technical leads', 'Industry referrals'],
+      },
+      {
+        id: 'deploy',
+        title: 'Deployment Specialist (Partner)',
+        aka: 'Security & Infrastructure Partner',
+        icon: 'shield',
+        category: 'Partner Roles',
+        salary: { base: null, ote: null, loaded: null },
+        billRate: null,
+        hires: { '6m': 0, '9m': 0, '12m': 0 },
+        priority: 'High',
+        rampTime: 'N/A',
+        utilization: 'N/A',
+        description: 'Delivery partner for D3/D4 customers. Owns Phase 0 deployment and security readiness to unblock Phase 1-3 execution.',
+        responsibilities: [
+          'Lead Phase 0 deployment planning for D3/D4 accounts',
+          'Design security architecture and network connectivity',
+          'Implement SSO/SCIM and enterprise access controls',
+          'Coordinate vendor security reviews and questionnaires',
+          'Guide penetration testing and compliance attestations',
+          'Provide deployment handoff package to delivery team'
+        ],
+        requirements: [
+          '7+ years in enterprise infrastructure or security engineering',
+          'Experience with private cloud, VPC, and on-prem deployments',
+          'SSO/SCIM implementation experience (Okta, Azure AD, etc.)',
+          'Familiarity with SOC2, ISO 27001, and vendor security reviews',
+          'Strong documentation and cross-functional coordination skills',
+          'Bonus: SaaS security or regulated industry background'
+        ],
+        successMetrics: [
+          'Phase 0 exit criteria met on schedule',
+          'Security review approval on first pass',
+          'Zero critical findings in pen test',
+          'Deployment handoff quality > 4.5/5',
+          'Phase 1 kickoff within 2 weeks of Phase 0 close'
+        ],
+        interviewProcess: [
+          'Partner qualification screen (30 min)',
+          'Security architecture review (60 min)',
+          'Deployment scenario exercise (60 min)',
+          'Reference checks (2)',
+          'Executive approval (30 min)'
+        ],
+        hiringSource: ['Security consulting firms', 'Cloud infrastructure partners', 'Enterprise SSO specialists', 'Compliance advisory firms'],
       },
       {
         id: 'cxp',
@@ -227,14 +274,14 @@
         title: 'Project Manager',
         aka: 'Delivery Manager',
         icon: 'file-text',
-        category: 'Services Delivery',
+        category: 'Partner Roles',
         salary: { base: 115000, ote: 140000, loaded: 185000 },
         billRate: 400,
         hires: { '6m': 2, '9m': 2, '12m': 3 },
         priority: 'High',
         rampTime: '1 month',
         utilization: '80%',
-        description: 'Owns delivery execution, timeline management, and resource coordination. Essential for J3 engagements which require 400-600 PM hours each.',
+        description: 'Partner PM owns delivery execution, timeline management, and resource coordination. Essential for complex engagements that require 400-600 PM hours each.',
         responsibilities: [
           'Project planning and timeline management',
           'Resource allocation and capacity planning',
@@ -269,8 +316,8 @@
       },
       {
         id: 'csm',
-        title: 'Customer Success Manager',
-        aka: 'CSM',
+        title: 'Account Manager',
+        aka: 'AM',
         icon: 'user-check',
         category: 'GTM',
         salary: { base: 100000, ote: 130000, loaded: 150000 },
@@ -279,7 +326,7 @@
         priority: 'Medium',
         rampTime: '2 months',
         utilization: 'N/A',
-        description: 'Owns post-sale customer health, adoption, and retention. Manages 12 accounts per CSM. Identifies expansion opportunities and coordinates with CX Partners.',
+        description: 'Owns post-sale account health, adoption, and retention. Manages 12 accounts per AM. Identifies expansion opportunities and coordinates with CX Partners.',
         responsibilities: [
           'Customer onboarding and adoption',
           'Health monitoring and intervention',
@@ -289,10 +336,10 @@
           'Product feedback aggregation'
         ],
         requirements: [
-          '3+ years customer success experience',
+          '3+ years account management or customer success experience',
           'B2B SaaS background required',
           'Strong analytical and communication skills',
-          'Experience with CS platforms (Gainsight, ChurnZero)',
+          'Experience with CRM/CS platforms (Salesforce, Gainsight, ChurnZero)',
           'Ability to manage 10-15 accounts effectively'
         ],
         successMetrics: [
@@ -308,7 +355,7 @@
           'Customer scenario roleplay (30 min)',
           'Team interview (30 min)'
         ],
-        hiringSource: ['SaaS CS teams', 'Account management roles', 'Support-to-success transitions'],
+        hiringSource: ['Enterprise account management', 'SaaS CS teams', 'Account management roles'],
       },
       {
         id: 'ae',
@@ -403,21 +450,21 @@
 
     const quarterlyBudget = {
       '6m': {
-        q1: { hires: ['FDE #2', 'PM #1'], cost: 106250, revenue: 400000, cumHC: 5, notes: 'Foundation capacity (starting: 1 FDE, 1 SME, 1 CXP)' },
-        q2: { hires: ['CSM #1', 'BDR #1'], cost: 87500, revenue: 800000, cumHC: 7, notes: 'Scale delivery' },
+        q1: { hires: ['FDE #2', 'PM #1'], cost: 106250, revenue: 400000, cumHC: 5, notes: 'Foundation capacity (starting: 1 FDE, 1 Pre-Sales SE, 1 CXP)' },
+        q2: { hires: ['Account Manager #1', 'BDR #1'], cost: 87500, revenue: 800000, cumHC: 7, notes: 'Scale delivery' },
         q3: { hires: ['PM #2', 'BDR #2'], cost: 75000, revenue: 1400000, cumHC: 9, notes: 'Support growth' },
         q4: { hires: [], cost: 0, revenue: 2000000, cumHC: 9, notes: 'Optimize' },
       },
       '9m': {
-        q1: { hires: ['FDE #2', 'PM #1'], cost: 106250, revenue: 600000, cumHC: 5, notes: 'Critical foundation (starting: 1 FDE, 1 SME, 1 CXP)' },
-        q2: { hires: ['FDE #3', 'SME #2', 'CSM #1', 'AE #1'], cost: 217500, revenue: 1500000, cumHC: 9, notes: 'Scale capacity' },
+        q1: { hires: ['FDE #2', 'PM #1'], cost: 106250, revenue: 600000, cumHC: 5, notes: 'Critical foundation (starting: 1 FDE, 1 Pre-Sales SE, 1 CXP)' },
+        q2: { hires: ['FDE #3', 'Pre-Sales SE #2', 'Account Manager #1', 'AE #1'], cost: 217500, revenue: 1500000, cumHC: 9, notes: 'Scale capacity' },
         q3: { hires: ['FDE #4', 'PM #2'], cost: 106250, revenue: 2800000, cumHC: 11, notes: 'Full delivery' },
         q4: { hires: ['BDR #1', 'CXP #2'], cost: 87500, revenue: 4500000, cumHC: 13, notes: 'Expansion mode' },
       },
       '12m': {
-        q1: { hires: ['FDE #2', 'FDE #3', 'PM #1', 'PM #2'], cost: 212500, revenue: 800000, cumHC: 7, notes: 'Aggressive ramp (starting: 1 FDE, 1 SME, 1 CXP)' },
-        q2: { hires: ['FDE #4', 'SME #2', 'SME #3', 'AE #1'], cost: 231250, revenue: 2200000, cumHC: 11, notes: 'Full team' },
-        q3: { hires: ['FDE #5', 'FDE #6', 'CSM #1', 'CSM #2'], cost: 195000, revenue: 4500000, cumHC: 15, notes: 'Scale operations' },
+        q1: { hires: ['FDE #2', 'FDE #3', 'PM #1', 'PM #2'], cost: 212500, revenue: 800000, cumHC: 7, notes: 'Aggressive ramp (starting: 1 FDE, 1 Pre-Sales SE, 1 CXP)' },
+        q2: { hires: ['FDE #4', 'Pre-Sales SE #2', 'Pre-Sales SE #3', 'AE #1'], cost: 231250, revenue: 2200000, cumHC: 11, notes: 'Full team' },
+        q3: { hires: ['FDE #5', 'FDE #6', 'Account Manager #1', 'Account Manager #2'], cost: 195000, revenue: 4500000, cumHC: 15, notes: 'Scale operations' },
         q4: { hires: ['AE #2', 'BDR #1', 'PM #3'], cost: 151250, revenue: 7500000, cumHC: 18, notes: 'Full capacity' },
       },
     };
@@ -521,8 +568,143 @@
       },
     ];
 
+    const raciDecisions = [
+      {
+        decision: 'Investment Path Selection',
+        authority: 'CX Partner / Engagement Lead',
+        consulted: ['AE', 'Pre-Sales SE', 'FDE'],
+      },
+      {
+        decision: 'Deployment Tier Determination',
+        authority: 'CX Partner / Engagement Lead',
+        consulted: ['Pre-Sales SE', 'FDE', 'Security'],
+      },
+      {
+        decision: 'Technical Feasibility',
+        authority: 'FDE',
+        consulted: ['Pre-Sales SE', 'PM'],
+      },
+      {
+        decision: 'Timeline & Milestones',
+        authority: 'PM',
+        consulted: ['CX Partner / Engagement Lead', 'FDE'],
+      },
+      {
+        decision: 'Scope & Engagement Health',
+        authority: 'CX Partner / Engagement Lead',
+        consulted: ['AE', 'PM'],
+      },
+      {
+        decision: 'Phase Gate Approval',
+        authority: 'CX Partner / Engagement Lead',
+        consulted: ['FDE', 'PM'],
+      },
+      {
+        decision: 'MCP Unlock Authorization',
+        authority: 'CX Partner / Engagement Lead',
+        consulted: ['FDE', 'Executive'],
+      },
+      {
+        decision: 'Commercial Terms & Pricing',
+        authority: 'AE',
+        consulted: ['CX Partner / Engagement Lead', 'Finance'],
+      },
+      {
+        decision: 'Escalation Resolution',
+        authority: 'Executive',
+        consulted: ['CX Partner / Engagement Lead', 'FDE'],
+      },
+    ];
+
+    const forecastRollups = {
+      potential: {
+        platformArr: 39906000,
+        fdeArr: 31537000,
+        cxArr: 13071000,
+        acvRecurring: 84509000,
+        oneTimeFees: 16132000,
+        tcvYear1: 100618000,
+        attachPct: 0.5278491048290714
+      },
+      expected: {
+        platformArr: 28857000,
+        fdeArr: 22815000,
+        cxArr: 9452000,
+        acvRecurring: 61142000,
+        oneTimeFees: 10351000,
+        tcvYear1: 71479000,
+        attachPct: 0.5277387066173825
+      }
+    };
+
+    const tier1Companies = [
+      'Atlassian', 'Datadog', 'Figma', 'HubSpot', 'MongoDB', 'Salesforce', 'ServiceNow',
+      'Twilio', 'Workday', 'Zendesk', 'BlackRock', 'Fidelity Investments', 'JPMorgan Chase',
+      'PayPal', 'Plaid', 'Robinhood', 'Square/Block', 'Stripe', 'Elevance Health (Anthem)',
+      'Johnson & Johnson', 'Pfizer', 'UnitedHealth Group', 'DoorDash', 'Instacart',
+      'Shopify', 'Target', 'Wayfair'
+    ];
+
+    const tier1Rollup = {
+      platformArrPotential: 14802000
+    };
+
+    const tier1CompanyData = [
+      { company: 'Atlassian', journey: 'J2', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.25 },
+      { company: 'BlackRock', journey: 'J3', deployment: 'Private Cloud (Customer-managed VPC)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Datadog', journey: 'J3', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'DoorDash', journey: 'J3', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Elevance Health (Anthem)', journey: 'J3', deployment: 'Private Cloud (Customer-managed VPC)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Fidelity Investments', journey: 'J3', deployment: 'Private Cloud (Customer-managed VPC)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Figma', journey: 'J3', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'HubSpot', journey: 'J3', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Instacart', journey: 'J3', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'JPMorgan Chase', journey: 'J3', deployment: 'Private Cloud (Customer-managed VPC)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Johnson & Johnson', journey: 'J3', deployment: 'Private Cloud (Customer-managed VPC)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'MongoDB', journey: 'J3', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'PayPal', journey: 'J3', deployment: 'Private Cloud (Customer-managed VPC)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Pfizer', journey: 'J3', deployment: 'Private Cloud (Customer-managed VPC)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Plaid', journey: 'J3', deployment: 'Private Cloud (Customer-managed VPC)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Robinhood', journey: 'J3', deployment: 'Private Cloud (Customer-managed VPC)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Salesforce', journey: 'J2', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.25 },
+      { company: 'ServiceNow', journey: 'J3', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Shopify', journey: 'J2', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.25 },
+      { company: 'Square/Block', journey: 'J3', deployment: 'Private Cloud (Customer-managed VPC)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Stripe', journey: 'J3', deployment: 'Private Cloud (Customer-managed VPC)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Target', journey: 'J3', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Twilio', journey: 'J2', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.25 },
+      { company: 'UnitedHealth Group', journey: 'J3', deployment: 'Private Cloud (Customer-managed VPC)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Wayfair', journey: 'J3', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.5 },
+      { company: 'Workday', journey: 'J2', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.25 },
+      { company: 'Zendesk', journey: 'J2', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.25 },
+    ];
+
+    const journeyPodDefaults = {
+      J1: { fde: 0.25, cx: 0.1, pm: 0.1 },
+      J2: { fde: 1.0, cx: 0.25, pm: 0.25 },
+      J3: { fde: 1.0, cx: 0.5, pm: 0.5 },
+      J4: { fde: 0.5, cx: 0.25, pm: 0.25 },
+    };
+
+    function deploymentSpecialistFte(model) {
+      if (!model) return 0;
+      if (model.includes('Private Cloud')) return 1.0;
+      if (model.includes('On-prem')) return 1.0;
+      if (model.includes('Dedicated')) return 0.5;
+      return 0.25;
+    }
+
+    const forecastAssumptions = [
+      { label: 'Tier scope', value: 'Tier 1 Target Accounts only (Master sheet)' },
+      { label: 'Allocation', value: 'Tier 1 platform ARR allocated evenly across Tier 1 targets' },
+      { label: 'ACV definition', value: 'Recurring only = Platform + required FDE + CX PMO' },
+      { label: 'Attach rate', value: 'Uses overall attach % from model rollups' },
+      { label: 'Rounding', value: 'All forecast dollars rounded to nearest $1,000' },
+    ];
+
     // Helper functions
     function fmt(n) {
+      if (n === null || n === undefined) return 'N/A';
       return n >= 1000000 ? `$${(n/1000000).toFixed(2)}M` : n >= 1000 ? `$${Math.round(n/1000)}K` : `$${n}`;
     }
 
@@ -601,7 +783,7 @@
                     <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">2</div>
                     <h4 class="font-semibold text-blue-800">Contractors/Partners</h4>
                   </div>
-                  <p class="text-sm text-blue-700">Can we offload 40–50% of J1/J4 (and selected hybrid J3) without quality, margin, or PMO overhead blowing up?</p>
+                  <p class="text-sm text-blue-700">Can we offload 40–50% of Phase 0 (D3/D4) and J1/J4 work (plus select hybrid J3) without quality, margin, or PMO overhead blowing up?</p>
                 </div>
                 <div class="rounded-xl border-2 border-violet-300 bg-violet-50 p-4">
                   <div class="flex items-center gap-2 mb-2">
@@ -775,7 +957,7 @@
                 </div>
                 <div class="bg-amber-500/20 rounded-lg p-4 border border-amber-500/30">
                   <p class="text-amber-400 text-xs font-semibold mb-2">⏳ CONDITIONAL (Q2 Validation)</p>
-                  <p class="text-sm text-slate-300 mb-2">FDE #3 + SME #1 only if:</p>
+                  <p class="text-sm text-slate-300 mb-2">FDE #3 + Pre-Sales SE #1 only if:</p>
                   <ul class="space-y-1 text-xs text-slate-300">
                     <li>• Gate 1 trending PASS at midpoint</li>
                     <li>• Contractor pilot passes by mid-April</li>
@@ -798,7 +980,7 @@
                 </h3>
                 <ul class="space-y-2 text-sm text-emerald-700">
                   <li class="flex items-start gap-2"><span>✓</span> 2–3 repeatable J3 Foundations delivered</li>
-                  <li class="flex items-start gap-2"><span>✓</span> Partners delivering majority of J1/J4 with low oversight</li>
+                  <li class="flex items-start gap-2"><span>✓</span> Partners delivering majority of Phase 0 (D3/D4) and J1/J4 with low oversight</li>
                   <li class="flex items-start gap-2"><span>✓</span> $8.0–$9.5M services achieved</li>
                   <li class="flex items-start gap-2"><span>✓</span> 25–29% blended margin</li>
                   <li class="flex items-start gap-2"><span>✓</span> Controlled burnout risk</li>
@@ -867,7 +1049,7 @@
                 <strong>Hiring for ${scenarios[state.activeScenario].label}:</strong> ${totalHires} total new hires needed
               </p>
             </div>
-            ${['Services Delivery', 'GTM'].map(category => `
+            ${['Services Delivery', 'GTM', 'Partner Roles'].map(category => `
               <div>
                 <h2 class="text-lg font-semibold mb-3 text-slate-700">${category}</h2>
                 <div class="space-y-3">
@@ -1124,7 +1306,7 @@
                   <p class="text-amber-700">3 months to ramp</p>
                 </div>
                 <div class="bg-white rounded-lg p-3">
-                  <p class="font-medium">SME</p>
+                  <p class="font-medium">Pre-Sales SE</p>
                   <p class="text-amber-700">6-10 weeks to hire</p>
                   <p class="text-amber-700">2 months to ramp</p>
                 </div>
@@ -1203,6 +1385,255 @@
                 </div>
               </div>
             `).join('')}
+          </div>
+        `;
+      }
+
+      // Governance (RACI) Tab
+      if (state.activeTab === 'raci') {
+        html = `
+          <div class="space-y-6">
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Delivery Governance RACI</h3>
+              <table class="w-full text-sm">
+                <thead class="bg-slate-50">
+                  <tr>
+                    <th class="text-left px-4 py-2">Decision Area</th>
+                    <th class="text-left px-4 py-2">Final Authority</th>
+                    <th class="text-left px-4 py-2">Consulted Roles</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y">
+                  ${raciDecisions.map(row => `
+                    <tr>
+                      <td class="px-4 py-3 font-medium">${row.decision}</td>
+                      <td class="px-4 py-3">
+                        <span class="text-xs px-2 py-1 rounded bg-emerald-100 text-emerald-700">${row.authority}</span>
+                      </td>
+                      <td class="px-4 py-3">
+                        <div class="flex flex-wrap gap-1">
+                          ${row.consulted.map(role => `
+                            <span class="text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-700">${role}</span>
+                          `).join('')}
+                        </div>
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
+                <h4 class="font-semibold text-amber-800 mb-3">Coverage Gaps vs Headcount Plan</h4>
+                <p class="text-sm text-amber-800 mb-3">
+                  The RACI includes functions not modeled as hires in this plan. Ensure capacity is explicitly assigned.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  ${['Pre-Sales SE', 'Deployment Specialist (Security)', 'Executive', 'Finance'].map(role => `
+                    <span class="text-xs px-2 py-1 rounded bg-white border border-amber-200 text-amber-700">${role}</span>
+                  `).join('')}
+                </div>
+                <div class="mt-4 bg-white rounded-lg p-3 border border-amber-200">
+                  <p class="text-xs text-amber-700 font-semibold mb-1">Coverage Plan (Default)</p>
+                  <p class="text-xs text-amber-800">Pre-Sales SE: 0.5–1.0 FTE • Deployment Specialist: partner bench (1–2) • Executive: named sponsor per account • Finance: named approver + 48-hr SLA</p>
+                </div>
+              </div>
+              <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
+                <h4 class="font-semibold text-blue-800 mb-3">Capacity Assignments & SLAs</h4>
+                <div class="space-y-2 text-xs text-blue-800">
+                  <div class="bg-white rounded-lg p-3 border border-blue-200">
+                    <p class="font-semibold">Pre-Sales SE</p>
+                    <p>Owner: Named SE • Coverage: 0.5–1.0 FTE • SLA: 5 business days for feasibility + tiering</p>
+                  </div>
+                  <div class="bg-white rounded-lg p-3 border border-blue-200">
+                    <p class="font-semibold">Deployment Specialist (Security)</p>
+                    <p>Owner: Partner bench (1–2) • Trigger: D3/D4 or “Needs Security Validation = Yes” • SLA: Phase 0 kickoff within 2 weeks</p>
+                  </div>
+                  <div class="bg-white rounded-lg p-3 border border-blue-200">
+                    <p class="font-semibold">Executive Sponsor</p>
+                    <p>Owner: Named exec per Tier 1 account • Responsibility: MCP unlock + escalations • Cadence: monthly 30‑min review</p>
+                  </div>
+                  <div class="bg-white rounded-lg p-3 border border-blue-200">
+                    <p class="font-semibold">Finance Approver</p>
+                    <p>Owner: Named finance approver • Responsibility: pricing + commercial terms • SLA: 48‑hour turn</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Pipeline Forecast Tab (Tier 1 Targets only)
+      if (state.activeTab === 'forecast') {
+        const pct = (n) => `${(n * 100).toFixed(1)}%`;
+        const companyCount = tier1Companies.length;
+        const expectedRatio = forecastRollups.expected.platformArr / forecastRollups.potential.platformArr;
+        const tier1PlatformPotential = tier1Rollup.platformArrPotential;
+        const tier1PlatformExpected = tier1PlatformPotential * expectedRatio;
+        const tier1AcvPotential = tier1PlatformPotential / (1 - forecastRollups.potential.attachPct);
+        const tier1AcvExpected = tier1PlatformExpected / (1 - forecastRollups.expected.attachPct);
+        const perCompanyPlatformPotential = tier1PlatformPotential / companyCount;
+        const perCompanyPlatformExpected = tier1PlatformExpected / companyCount;
+        const perCompanyAcvPotential = tier1AcvPotential / companyCount;
+        const perCompanyAcvExpected = tier1AcvExpected / companyCount;
+
+        html = `
+          <div class="space-y-6">
+            <div class="bg-white rounded-xl border p-5">
+              <h3 class="font-semibold mb-4">Tier 1 Target Pipeline (TAM Subset)</h3>
+              <div class="grid grid-cols-3 gap-4 text-sm">
+                <div class="bg-slate-50 rounded-lg p-3">
+                  <p class="text-xs text-slate-500">Tier 1 Targets</p>
+                  <p class="font-semibold">${companyCount} companies</p>
+                </div>
+                <div class="bg-emerald-50 rounded-lg p-3">
+                  <p class="text-xs text-emerald-700">Tier 1 Platform ARR (Potential)</p>
+                  <p class="font-semibold text-emerald-800">${fmt(tier1PlatformPotential)}</p>
+                </div>
+                <div class="bg-blue-50 rounded-lg p-3">
+                  <p class="text-xs text-blue-700">Tier 1 Platform ARR (Expected)</p>
+                  <p class="font-semibold text-blue-800">${fmt(tier1PlatformExpected)}</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+                <div class="bg-emerald-50 rounded-lg p-3">
+                  <p class="text-xs text-emerald-700">Tier 1 ACV (Potential)</p>
+                  <p class="font-semibold text-emerald-800">${fmt(tier1AcvPotential)}</p>
+                </div>
+                <div class="bg-blue-50 rounded-lg p-3">
+                  <p class="text-xs text-blue-700">Tier 1 ACV (Expected)</p>
+                  <p class="font-semibold text-blue-800">${fmt(tier1AcvExpected)}</p>
+                </div>
+              </div>
+              <p class="text-xs text-slate-500 mt-3">Expected ratio is derived from overall platform ARR expected vs potential.</p>
+            </div>
+
+            ${Object.entries(scenarios).map(([k, s]) => {
+              const finalHc = quarterlyBudget[k].q4.cumHC;
+              const targetPerHc = s.target / finalHc;
+              const perCompanyRevPerHcExpected = perCompanyAcvExpected / finalHc;
+              return `
+                <div class="bg-white rounded-xl border p-5">
+                  <div class="flex items-center justify-between mb-4">
+                    <h4 class="font-semibold">Scenario ${s.label}: Tier 1 Company Breakdown</h4>
+                    <div class="text-xs text-slate-500">Final HC: ${finalHc} • Target Rev/HC: ${fmt(targetPerHc)}</div>
+                  </div>
+                  <div class="max-h-80 overflow-auto border rounded-lg">
+                    <table class="w-full text-sm">
+                      <thead class="bg-slate-50 sticky top-0">
+                        <tr>
+                          <th class="text-left px-4 py-2">Company</th>
+                          <th class="text-left px-4 py-2">Journey</th>
+                          <th class="text-left px-4 py-2">Deployment</th>
+                          <th class="text-right px-4 py-2">FDE</th>
+                          <th class="text-right px-4 py-2">CX Partner</th>
+                          <th class="text-right px-4 py-2">PM</th>
+                          <th class="text-right px-4 py-2">Deploy Spec</th>
+                          <th class="text-right px-4 py-2">Platform ARR</th>
+                          <th class="text-right px-4 py-2">ACV Rev/HC</th>
+                        </tr>
+                      </thead>
+                      <tbody class="divide-y">
+                        ${tier1CompanyData.map(row => {
+                          const defaults = journeyPodDefaults[row.journey] || journeyPodDefaults.J3;
+                          const fde = defaults.fde;
+                          const cx = row.cxPmo ?? defaults.cx;
+                          const pm = defaults.pm;
+                          const dep = deploymentSpecialistFte(row.deployment);
+                          return `
+                            <tr>
+                              <td class="px-4 py-2">${row.company}</td>
+                              <td class="px-4 py-2">${row.journey}</td>
+                              <td class="px-4 py-2">${row.deployment}</td>
+                              <td class="px-4 py-2 text-right">${fde.toFixed(2)}</td>
+                              <td class="px-4 py-2 text-right">${Number(cx).toFixed(2)}</td>
+                              <td class="px-4 py-2 text-right">${pm.toFixed(2)}</td>
+                              <td class="px-4 py-2 text-right">${dep.toFixed(2)}</td>
+                              <td class="px-4 py-2 text-right">${fmt(perCompanyPlatformExpected)}</td>
+                              <td class="px-4 py-2 text-right ${perCompanyRevPerHcExpected >= targetPerHc ? 'text-emerald-700 font-semibold' : 'text-amber-700'}">${fmt(perCompanyRevPerHcExpected)}</td>
+                            </tr>
+                          `;
+                        }).join('')}
+                      </tbody>
+                    </table>
+                  </div>
+                  <p class="text-xs text-slate-500 mt-3">Platform ARR and ACV Rev/HC are evenly allocated across Tier 1 targets due to no per-account revenue values in the model.</p>
+                </div>
+              `;
+            }).join('')}
+
+            <div class="bg-white rounded-xl border p-5">
+              <h4 class="font-semibold mb-4">Scenario Capacity Utilization (Staggered J3)</h4>
+              <div class="grid grid-cols-3 gap-4 text-sm mb-4">
+                <div class="bg-slate-50 rounded-lg p-3">
+                  <p class="text-xs text-slate-500">Concurrency Rule</p>
+                  <p class="font-semibold">Max 1 J3 at a time</p>
+                </div>
+                <div class="bg-slate-50 rounded-lg p-3">
+                  <p class="text-xs text-slate-500">Assumed J3 Duration</p>
+                  <p class="font-semibold">6 months (24 weeks)</p>
+                </div>
+                <div class="bg-slate-50 rounded-lg p-3">
+                  <p class="text-xs text-slate-500">Delivery Pod (J3)</p>
+                  <p class="font-semibold">1.0 FDE • 0.5 CX • 0.5 PM</p>
+                </div>
+              </div>
+              <table class="w-full text-sm">
+                <thead class="bg-slate-50">
+                  <tr>
+                    <th class="text-left px-4 py-2">Scenario</th>
+                    <th class="text-right px-4 py-2">Final HC</th>
+                    <th class="text-right px-4 py-2">Max J3/Year</th>
+                    <th class="text-right px-4 py-2">FDE Util%</th>
+                    <th class="text-right px-4 py-2">CX Util%</th>
+                    <th class="text-right px-4 py-2">PM Util%</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y">
+                  ${Object.entries(scenarios).map(([k, s]) => {
+                    const hiresByRole = roleProfiles.reduce((acc, r) => {
+                      acc[r.id] = r.hires[k] || 0;
+                      return acc;
+                    }, {});
+                    const startingFde = 1;
+                    const startingCx = 1;
+                    const startingPm = 0;
+                    const fdeHc = startingFde + (hiresByRole.fde || 0);
+                    const cxHc = startingCx + (hiresByRole.cxp || 0);
+                    const pmHc = startingPm + (hiresByRole.pm || 0);
+                    const maxJ3PerYear = 2; // 6 months each, sequential
+                    const fdeUtil = (1.0 / fdeHc);
+                    const cxUtil = (0.5 / cxHc);
+                    const pmUtil = pmHc > 0 ? (0.5 / pmHc) : 1.0;
+                    return `
+                      <tr>
+                        <td class="px-4 py-3 font-medium">${s.label} Scenario</td>
+                        <td class="px-4 py-3 text-right">${quarterlyBudget[k].q4.cumHC}</td>
+                        <td class="px-4 py-3 text-right">${maxJ3PerYear}</td>
+                        <td class="px-4 py-3 text-right">${pct(fdeUtil)}</td>
+                        <td class="px-4 py-3 text-right">${pct(cxUtil)}</td>
+                        <td class="px-4 py-3 text-right">${pct(pmUtil)}</td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+              <p class="text-xs text-slate-500 mt-3">Utilization shows the share of each role’s capacity consumed by a single concurrent J3 pod. Month‑over‑month capacity is managed by sequencing J3 starts every 6 months and filling remaining capacity with J2/J4 work.</p>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
+              <h4 class="font-semibold text-amber-800 mb-3">Forecast Assumptions (Model Inputs)</h4>
+              <div class="grid grid-cols-2 gap-4 text-sm text-amber-900">
+                ${forecastAssumptions.map(a => `
+                  <div class="bg-white rounded-lg p-3 border border-amber-200">
+                    <p class="text-xs text-amber-700 font-semibold mb-1">${a.label}</p>
+                    <p class="text-sm text-amber-900">${a.value}</p>
+                  </div>
+                `).join('')}
+              </div>
+              <p class="text-xs text-amber-800 mt-3">Source: IPE forecast model rollups and Master Tier 1 target list.</p>
+            </div>
           </div>
         `;
       }
