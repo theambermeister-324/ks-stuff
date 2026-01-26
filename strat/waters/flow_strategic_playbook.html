@@ -398,6 +398,7 @@
       { id: 'roi', label: 'ROI & Business Case' },
       { id: 'risks', label: 'Risk Mitigation' },
       { id: 'next-steps', label: 'Next Steps' },
+      { id: 'workshop-agenda', label: '1-Day Workshop Agenda' },
     ];
     let activeSection = 'overview';
     function renderNav() {
@@ -573,6 +574,168 @@
             { num: 5, title: 'AI Enablement', outcome: 'AI-ready patterns and automation frameworks', activities: ['Automation scope', 'Schema definition', 'Pattern generation', 'Governance rules'] },
             { num: 6, title: 'Rollout Planning', outcome: 'Comprehensive launch and change management plan', activities: ['Training plan', 'Onboarding content', 'KPI definitions', 'Communication strategy'] },
           ].map(w => `<div class="card"><div class="workshop-card"><div class="workshop-num">${w.num}</div><div><h3 class="workshop-title">${w.title}</h3><p class="workshop-outcome">${w.outcome}</p><div class="workshop-activities">${w.activities.map(a => `<span class="workshop-tag">${a}</span>`).join('')}</div></div></div></div>`).join('')}`,
+        'workshop-agenda': `
+          <h1 class="section-title">Waters × Knapsack On-Site Workshop</h1>
+          <p class="section-subtitle">Flow Design System Alignment & Execution</p>
+          <div class="card summary-card">
+            <div class="summary-text">
+              <p><strong>Date:</strong> February 4, 2026</p>
+              <p><strong>Time:</strong> <strong>9:30am – 3:00pm ET</strong></p>
+              <p><strong>Location:</strong> On-site (Waters)</p>
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Workshop Purpose</h2>
+            <p class="section-subtitle" style="margin-bottom: 12px;">This working session brings together Waters and Knapsack to align on the <strong>problem space, goals, risks, and near-term execution plan</strong> for evolving the Flow design system at scale.</p>
+            <p class="section-subtitle" style="margin-bottom: 16px;">By the end of the session, participants will have shared clarity on:</p>
+            <div class="phase-list">
+              ${[
+                'What must improve first',
+                'How success will be measured',
+                'How Flow can evolve safely within current constraints',
+                'What happens in the first 90 days',
+              ].map(i => `<div class="phase-item">${i}</div>`).join('')}
+            </div>
+            <p class="section-subtitle" style="margin-top: 16px; margin-bottom: 0;">This is <strong>not</strong> a tool training or procurement session. It is a focused, decision-oriented working workshop.</p>
+          </div>
+          <div class="card">
+            <h2 class="heading">What to Expect</h2>
+            <div class="phase-list">
+              ${[
+                'Structured, collaborative working sessions',
+                'Clear decision points and documented outcomes',
+                'Balanced focus on <strong>delivery reality</strong>, <strong>business value</strong>, and <strong>risk</strong>',
+                'Pragmatic scope appropriate for a half-day session',
+              ].map(i => `<div class="phase-item">${i}</div>`).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Pre-Work Summary</h2>
+            <p class="section-subtitle" style="margin-bottom: 12px;"><em>Requested from Waters; details shared separately</em></p>
+            <p class="section-subtitle" style="margin-bottom: 16px;">To ensure the workshop is focused on alignment and decision-making, the Waters team will share a small set of <strong>high-level, existing materials</strong> in advance. These inputs will be used to pre-seed discussions and avoid spending workshop time on discovery.</p>
+            <div class="phase-list">
+              ${[
+                'A <strong>current design system architecture diagram</strong>, showing data flows between existing tools',
+                'A brief <strong>“as-is” workflow overview</strong> describing how Flow is used today from design through release',
+                'Any available <strong>adoption or usage signals</strong> to inform the metrics discussion',
+              ].map(i => `<div class="phase-item">${i}</div>`).join('')}
+            </div>
+            <p class="section-subtitle" style="margin-top: 16px; margin-bottom: 0;">These materials do not need to be perfect or exhaustive; “good enough” is ideal.</p>
+          </div>
+          <div class="card">
+            <h2 class="heading">Logistics & Site Information</h2>
+            <p class="section-subtitle" style="margin-bottom: 12px;"><em>To be completed by Waters site host</em></p>
+            <div class="phase-list">
+              ${[
+                '<strong>Building / Room:</strong>',
+                '<strong>Arrival Instructions & Site Access:</strong>',
+                '<strong>Wi-Fi Access:</strong>',
+                '<strong>Coffee & Refreshments:</strong>',
+                '<strong>Lunch:</strong>',
+                '<strong>On-Site Contact:</strong>',
+              ].map(i => `<div class="phase-item">${i}</div>`).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Agenda Overview (9:30am – 3:00pm)</h2>
+            ${[
+              {
+                time: '9:30 – 9:40',
+                title: 'Welcome & Context Setting',
+                desc: 'Align on the goals of the workshop, intended outcomes, and how decisions will be made.',
+                outcomes: ['Shared understanding of purpose and scope', 'Clear expectations for participation'],
+              },
+              {
+                time: '9:40 – 10:55',
+                title: 'Current State Working Session: Flow at Scale',
+                note: '(Design, Development, Product – required)',
+                desc: 'A collaborative working session to establish a shared understanding of how Flow is used today across <strong>40+ applications</strong>, where friction exists, and what constraints must be respected.',
+                outcomes: ['Shared “As-Is” view of Flow in practice', 'Agreed list of high-impact pain points', 'Explicit constraints to guide all future decisions'],
+              },
+              {
+                time: '10:55 – 11:30',
+                title: 'Synthesis & Priority Focus Areas',
+                note: '(Core workshop team; cross-functional attendees may drop after this)',
+                desc: 'Consolidate insights from the morning and identify the most important problems to address.',
+                outcomes: ['Prioritized problem statements', 'Alignment on what must improve first', 'Clear inputs for architecture and execution planning'],
+              },
+              {
+                time: '11:30 – 12:00',
+                title: 'Architecture & Integration Options',
+                desc: 'Review Flow’s current technical architecture and discuss Knapsack integration options, including GitHub-based workflows and hosting considerations.',
+                outcomes: ['Shared understanding of viable integration patterns', 'Identified risks, open questions, and IT/procurement follow-ups'],
+              },
+              {
+                time: '12:00 – 12:35',
+                title: 'Defining Success & Measuring Value',
+                desc: 'Define how success will be measured in the first 90 days and beyond, including adoption signals, confidence indicators, and operational metrics.',
+                outcomes: ['Agreed success criteria', 'Initial metrics framework'],
+              },
+              {
+                time: '12:35 – 12:45',
+                title: 'Break',
+              },
+              {
+                time: '12:45 – 1:15',
+                title: 'Governance, Contribution & AI Guardrails',
+                desc: 'Define ownership, contribution pathways, and governance principles—including guardrails for AI-assisted content and workflows.',
+                outcomes: ['Clear roles and responsibilities', 'Contribution and review pathways', 'Shared principles for AI readiness and oversight'],
+              },
+              {
+                time: '1:15 – 1:35',
+                title: 'Pre-Mortem: What Could Go Wrong?',
+                desc: 'Run a structured pre-mortem to surface technical, organizational, and adoption risks that could undermine success.',
+                outcomes: ['Identified risks and failure modes', 'Inputs to a phased, lower-risk execution approach'],
+              },
+              {
+                time: '1:35 – 2:30',
+                title: 'Execution Planning & Near-Term Commitments',
+                desc: 'Translate the day’s decisions into a concrete near-term plan, including priorities, ownership, and checkpoints.',
+                outcomes: ['90-day execution plan', 'Clear owners and next steps'],
+              },
+              {
+                time: '2:30 – 3:00',
+                title: 'Wrap-Up & Executive Playback',
+                desc: 'Review decisions made, confirm commitments, and outline what happens after the workshop.',
+                outcomes: ['Shared understanding of decisions and risks', 'Confidence in the path forward'],
+              },
+            ].map(item => `
+              <div class="check-item" style="margin-bottom: 10px;">
+                <span class="check-icon">•</span>
+                <div>
+                  <div class="check-title">${item.time}</div>
+                  <div class="check-desc"><strong>${item.title}</strong>${item.note ? ` <em>${item.note}</em>` : ''}</div>
+                  ${item.desc ? `<div class="check-desc">${item.desc}</div>` : ''}
+                  ${item.outcomes ? `<div class="phase-list" style="margin-top: 10px;">${item.outcomes.map(o => `<div class="phase-item">${o}</div>`).join('')}</div>` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="card">
+            <h2 class="heading">Workshop Deliverables</h2>
+            <div class="phase-list">
+              ${[
+                '<strong>Systems Charter</strong> — Vision, outcomes, success criteria, and guiding principles',
+                '<strong>Work Breakdown Structure (WBS)</strong> — Detailed breakdown of workstreams to inform implementation timeline, resourcing, and budget planning',
+                '<strong>High-Level 90-Day Execution Plan</strong> — Near-term priorities, sequencing, and ownership',
+                '<strong>Architecture & Integration Alignment Summary</strong> — Documented integration options, constraints, and IT/procurement follow-ups',
+                '<strong>Updated Business Case</strong> — Refined value model grounded in agreed metrics, scope, and execution approach',
+              ].map(i => `<div class="phase-item">${i}</div>`).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Important Notes</h2>
+            <div class="phase-list">
+              ${[
+                'Some outcomes will require <strong>follow-up validation with IT and procurement</strong>; these dependencies will be documented.',
+                'The goal is <strong>alignment and direction</strong>, not finalizing every technical detail in one session.',
+              ].map(i => `<div class="phase-item">${i}</div>`).join('')}
+            </div>
+          </div>
+          <div class="card ready-card">
+            <h2 class="heading">Final Thought</h2>
+            <p>Participants should leave with <strong>clarity, alignment, and confidence</strong> in how Flow will evolve, how success will be measured, and how execution will be planned responsibly.</p>
+          </div>`,
         governance: `
           <h1 class="section-title">Governance Framework</h1>
           <p class="section-subtitle">Sustainable processes for long-term design system success</p>
@@ -602,24 +765,24 @@
           </div>`,
         technical: `
           <h1 class="section-title">Technical Integration</h1>
-          <p class="section-subtitle">How Knapsack fits Waters' existing technology stack</p>
+          <p class="section-subtitle">How Knapsack fits Waters' existing technology stack, with priorities validated in the technical working session</p>
           <div class="card">
             <h2 class="heading">Current Stack Compatibility</h2>
             <div class="grid-2">
-              <div class="stack-card"><div class="stack-label">Design Tools</div>${['Figma (primary design tool)', 'Figma Make (AI-powered design)'].map(t => `<div class="stack-item"><span class="stack-check">✓</span> ${t}</div>`).join('')}</div>
-              <div class="stack-card"><div class="stack-label">Development</div>${['Angular + Web Components (primary)', 'React (secondary)', 'Storybook (documentation)', 'Chromatic (visual testing)'].map(t => `<div class="stack-item"><span class="stack-check">✓</span> ${t}</div>`).join('')}</div>
+              <div class="stack-card"><div class="stack-label">Design Tools</div>${['Figma (primary design tool)', 'Figma Make (AI-powered design)', 'MCP-ready metadata and schemas'].map(t => `<div class="stack-item"><span class="stack-check">✓</span> ${t}</div>`).join('')}</div>
+              <div class="stack-card"><div class="stack-label">Development</div>${['Angular + Web Components (primary)', 'React (secondary)', 'Storybook (documentation + testing hub)', 'Chromatic (visual testing)', 'GitHub-based workflows'].map(t => `<div class="stack-item"><span class="stack-check">✓</span> ${t}</div>`).join('')}</div>
             </div>
           </div>
           <div class="card">
-            <h2 class="heading">Integration Architecture</h2>
+            <h2 class="heading">Integration Architecture Priorities</h2>
             <div class="grid-2">
               ${[
-                { req: 'Storybook Integration', note: 'Year 1 priority—deep sync with existing setup' },
-                { req: 'Angular + Web Components', note: 'Full support for primary development stack' },
-                { req: 'Multi-Brand Architecture', note: 'Separate spaces for acquired organizations' },
-                { req: 'Security-Approved', note: 'Enterprise-grade infrastructure, SOC 2 compliant' },
-                { req: 'Figma Orchestration', note: 'Complement and extend, not replace' },
-                { req: 'AI Schema Support', note: 'Structured data for Figma Make & MCPs' },
+                { req: 'As-Is Architecture Validation', note: 'Confirm Flow’s current data flows to place Knapsack at the right layer' },
+                { req: 'Storybook Integration', note: 'Maintain Storybook as the testing hub while enabling Knapsack sync' },
+                { req: 'GitHub Workflow Alignment', note: 'Clarify repo structure, hosting constraints, and release paths' },
+                { req: 'Phased 90-Day Focus', note: 'Prioritize the highest impact integration points first' },
+                { req: 'AI Schema + Guardrails', note: 'MCP-ready metadata with governance for AI-assisted workflows' },
+                { req: 'Security + Procurement Readiness', note: 'Document IT dependencies, approvals, and open questions' },
               ].map(r => `<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">${r.req}</div><div class="integration-note">${r.note}</div></div></div>`).join('')}
             </div>
           </div>`,
@@ -657,34 +820,6 @@
             <div class="next-hero-label">Recommended First Step</div>
             <h3>Onsite Discovery Workshop</h3>
             <p>A half-day collaborative session at Waters' Milford, MA facility to align on goals, map current workflows, and co-create the implementation approach. This ensures the engagement is tailored to Waters' specific needs and constraints.</p>
-          </div>
-          <div class="card">
-            <h2 class="heading">1-Day Workshop Flow</h2>
-            <p class="section-subtitle" style="margin-bottom: 12px;">Clear view of the workshop arc, activities, and outputs for Day 1.</p>
-            <figure class="workshop-figure">
-              <img src="assets/waters_one_day_workshop.png" alt="1-day onsite workshop flow for Waters and Knapsack">
-              <figcaption>Visual agenda for the onsite workshop: kickoff, discovery activities, and wrap-up deliverables.</figcaption>
-            </figure>
-            <div class="workshop-detail-grid">
-              <div class="workshop-detail-card">
-                <div class="workshop-detail-title">What We Cover</div>
-                ${[
-                  'Alignment on goals, scope, and success criteria',
-                  'Current-state journey mapping (design + dev)',
-                  'Architecture and integration review (Figma, Storybook, AI)',
-                  'Governance checkpoints and ownership model',
-                ].map(i => `<div class="workshop-detail-item">${i}</div>`).join('')}
-              </div>
-              <div class="workshop-detail-card">
-                <div class="workshop-detail-title">What You Leave With</div>
-                ${[
-                  'Systems Charter with vision and maturity path',
-                  'Work Breakdown Structure with milestones',
-                  'Technical integration approach and priorities',
-                  'Updated business case for leadership review',
-                ].map(i => `<div class="workshop-detail-item">${i}</div>`).join('')}
-              </div>
-            </div>
           </div>
           <div class="card">
             <h2 class="heading">Proposed Timeline</h2>
