@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Centene Partnership Program</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      body {
+        font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      /* Darken text tones for consistent legibility across the artifact. */
+      body {
+        color: #0f172a;
+      }
+      .text-slate-600 {
+        color: #1e293b !important;
+      }
+      .text-slate-500,
+      .text-slate-400 {
+        color: #334155 !important;
+      }
+      .text-slate-300 {
+        color: #475569 !important;
+      }
+      details > summary {
+        list-style: none;
+      }
+      details > summary::-webkit-details-marker {
+        display: none;
+      }
+      .chevron {
+        transition: transform 150ms ease;
+      }
+      details[open] .chevron {
+        transform: rotate(180deg);
+      }
+      @media print {
+        @page {
+          size: A4;
+          margin: 6mm;
+        }
+        html,
+        body {
+          height: 100%;
+        }
+        body {
+          font-size: 11px;
+        }
+        .text-slate-600 {
+          color: #1e293b !important;
+        }
+        .text-slate-500,
+        .text-slate-400,
+        .text-slate-300 {
+          color: #334155 !important;
+        }
+        header {
+          padding-bottom: 0;
+        }
+        main {
+          padding-top: 8px !important;
+          padding-bottom: 8px !important;
+        }
+        section {
+          padding: 12px !important;
+        }
+        .space-y-8 > :not([hidden]) ~ :not([hidden]) {
+          margin-top: 0.5rem !important;
+        }
+        .gap-6 {
+          gap: 0.75rem !important;
+        }
+        .gap-4 {
+          gap: 0.5rem !important;
+        }
+        .text-lg {
+          font-size: 0.95rem !important;
+        }
+        .text-xl {
+          font-size: 1.05rem !important;
+        }
+        .text-3xl {
+          font-size: 1.35rem !important;
+        }
+        .py-10 {
+          padding-top: 0.6rem !important;
+          padding-bottom: 0.6rem !important;
+        }
+        .mt-8 {
+          margin-top: 0.5rem !important;
+        }
+        .mt-4 {
+          margin-top: 0.35rem !important;
+        }
+        .p-6 {
+          padding: 0.75rem !important;
+        }
+        .px-6 {
+          padding-left: 0.75rem !important;
+          padding-right: 0.75rem !important;
+        }
+        .rounded-2xl {
+          border-radius: 0.75rem !important;
+        }
+        .rounded-lg {
+          border-radius: 0.5rem !important;
+        }
+        main {
+          padding-top: 6px !important;
+          padding-bottom: 6px !important;
+        }
+        header {
+          padding-bottom: 0 !important;
+        }
+        section {
+          padding: 10px !important;
+        }
+        .space-y-8 > :not([hidden]) ~ :not([hidden]) {
+          margin-top: 0.4rem !important;
+        }
+        .gap-6 {
+          gap: 0.6rem !important;
+        }
+        .gap-4 {
+          gap: 0.4rem !important;
+        }
+        .grid {
+          break-inside: avoid !important;
+        }
+        footer {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 text-slate-900 antialiased">
+    <header class="bg-gradient-to-r from-slate-900 to-slate-800 text-white">
+      <div class="max-w-5xl mx-auto px-6 py-10">
+        <div class="mb-4">
+          <p class="text-xs uppercase tracking-[0.3em] text-emerald-300">Knapsack</p>
+        </div>
+        <p class="text-xs uppercase tracking-[0.2em] text-white">Executive Partnership Brief</p>
+        <h1 class="text-3xl font-bold mt-2">Centene Corporation</h1>
+        <p class="text-white text-lg">Partnership Program for Enterprise Product System Governance</p>
+        <div class="mt-6 rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
+          <p class="text-xs uppercase tracking-[0.2em] text-white mb-2">Value Proposition</p>
+          <p class="text-white text-sm leading-relaxed">
+            Knapsack’s Intelligent Product Engine (IPE) is for Centene design system owners, engineers,
+            and product teams who must ship across hundreds of properties without losing consistency.
+            It solves fragmentation and design‑dev drift by making tokens, components, and documentation
+            a governed system of record that scales.
+          </p>
+          <div class="mt-3 grid gap-3 sm:grid-cols-2 text-sm text-white">
+            <div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+              <p class="text-xs text-white mb-1">Quantifiable Value</p>
+              <p class="font-semibold text-white">Reuse rate > 60% and 40–60% faster UI delivery</p>
+            </div>
+            <div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+              <p class="text-xs text-white mb-1">What Sets Knapsack Apart</p>
+              <p class="font-semibold text-white">Control plane + governance + CI/CD validation, not just a library</p>
+            </div>
+          </div>
+        </div>
+        </div>
+      </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-10 space-y-8">
+      <section class="bg-white rounded-2xl border border-slate-200/80 p-6">
+        <div class="grid gap-6 md:grid-cols-2">
+          <div>
+            <h3 class="text-lg font-semibold text-slate-900 mb-3">Centene Context & Objectives</h3>
+            <p class="text-sm text-slate-600">
+              Large, fragmented portfolio (300+ properties) requires governance that prevents drift
+              without blocking delivery.
+            </p>
+            <ul class="mt-4 space-y-2 text-sm text-slate-600">
+              <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span>Token & theming operations at scale</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span>Governed change management</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span>Documentation integrity</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span>Cross-functional enablement</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-slate-900 mb-3">Strategy Alignment</h3>
+            <p class="text-sm text-slate-600">
+              Stabilize governance first, prove value via a Foundation pilot, then scale change propagation.
+            </p>
+            <ul class="mt-4 space-y-2 text-sm text-slate-600">
+              <li class="flex items-start gap-2"><span class="text-blue-500 mt-1">•</span>Lock token taxonomy and roles early</li>
+              <li class="flex items-start gap-2"><span class="text-blue-500 mt-1">•</span>Pilot in Phase 1 to validate reuse and speed</li>
+              <li class="flex items-start gap-2"><span class="text-blue-500 mt-1">•</span>Scale approvals and validation in CI/CD</li>
+              <li class="flex items-start gap-2"><span class="text-blue-500 mt-1">•</span>Prepare IPE context for AI workflows</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200/80 p-6">
+        <h2 class="text-lg font-semibold text-slate-900 mb-3">Capability → Outcome Map & Success Metrics</h2>
+        <div class="grid gap-3 md:grid-cols-2 text-sm text-slate-700">
+          <div class="rounded-lg border border-slate-200/60 bg-slate-50 px-4 py-3">
+            <p class="text-xs uppercase tracking-[0.1em] text-slate-500 mb-1">Token & Theme Control + Governance</p>
+            <p>Consistent theming across 300+ properties with faster approvals and lower fragmentation.</p>
+            <p class="mt-2 text-xs uppercase tracking-[0.08em] text-slate-500">Success metrics</p>
+            <p class="text-xs text-slate-600">Reuse Rate > 60% · Governance < 48 hours</p>
+          </div>
+          <div class="rounded-lg border border-slate-200/60 bg-slate-50 px-4 py-3">
+            <p class="text-xs uppercase tracking-[0.1em] text-slate-500 mb-1">Documentation + Quality Gates</p>
+            <p>Higher documentation accuracy, AI-ready context, and consistent member experiences.</p>
+            <p class="mt-2 text-xs uppercase tracking-[0.08em] text-slate-500">Success metrics</p>
+            <p class="text-xs text-slate-600">Doc Accuracy > 95% · Cycle Time 40–60% faster</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="bg-slate-100 border-t border-slate-200">
+      <div class="max-w-5xl mx-auto px-6 py-6">
+        <div class="flex items-center justify-end">
+          <div class="text-right">
+            <p class="text-xs text-slate-500">Centene Partnership Program</p>
+            <p class="text-xs text-slate-400">Confidential</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

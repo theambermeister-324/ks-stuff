@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Holler House Manual</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --text: #3e3a35;
+        --muted: #6f6a63;
+        --accent: #6f7c68;
+        --border: #d9d2c8;
+        --bg: #f6f1eb;
+        --card: #fbf8f3;
+      }
+
+      body {
+        font-family: "Avenir Next", "Gill Sans", "Helvetica Neue", Arial, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        margin: 0;
+        line-height: 1.7;
+      }
+
+      .page {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 56px 28px 80px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 28px;
+      }
+
+      h1 {
+        font-family: "Georgia", "Times New Roman", serif;
+        font-size: 3rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: 0.2rem;
+      }
+
+      h2 {
+        margin: 0 0 0.6rem;
+        font-size: 1.15rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      h3 {
+        margin-top: 1.4rem;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+      }
+
+      p {
+        margin: 0.6rem 0;
+      }
+
+      .lede {
+        font-size: 1.05rem;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .meta {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        margin-top: 16px;
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--card);
+      }
+
+      .meta strong {
+        display: block;
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+
+      .meta span {
+        font-size: 1.05rem;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+        background: var(--card);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      th {
+        background: #efe8de;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      ul {
+        padding-left: 20px;
+        margin: 0.4rem 0 0;
+      }
+
+      .section {
+        padding: 24px 0;
+        border-top: 1px dashed var(--border);
+      }
+
+      .section:first-of-type {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .grid-2 {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        align-items: start;
+      }
+
+      .rules-list {
+        list-style: disc;
+        color: var(--text);
+      }
+
+      .media-split {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        align-items: center;
+      }
+
+      .media-photo {
+        min-height: 280px;
+      }
+
+      .media-photo img {
+        height: 100%;
+        object-position: center;
+      }
+
+      .photo-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      }
+
+      .photo-card img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        aspect-ratio: 4 / 3;
+        object-position: center;
+      }
+
+      .photo-card figcaption {
+        padding: 10px 12px 12px;
+        font-size: 0.85rem;
+        color: var(--muted);
+        letter-spacing: 0.02em;
+      }
+
+      .media-break {
+        margin-top: 16px;
+      }
+
+      .media-break img {
+        width: 100%;
+        height: 360px;
+        display: block;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      @media (min-width: 900px) {
+        .media-break img {
+          height: 420px;
+        }
+      }
+
+      .contact {
+        font-size: 1.35rem;
+        font-weight: 600;
+        color: var(--accent);
+        margin-top: 8px;
+        letter-spacing: 0.08em;
+      }
+
+      footer {
+        margin-top: 36px;
+        font-style: italic;
+        color: var(--muted);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>Welcome to The Holler</h1>
+      <p class="lede">A Special Place to Be</p>
+      </header>
+
+      <p>
+        We're so glad you're here. The Holler isn't just a rental—it's a
+        gathering place we've poured our hearts into, and we hope you'll feel
+        that the moment you walk through the door. Whether you're here for a
+        family reunion, a friend getaway, or just a quiet escape to the
+        mountains, we want your stay to be memorable.
+      </p>
+      <p>
+        To help you settle in and make the most of your time, we've put together
+        this guide. It covers the practical stuff, but also a few requests that
+        help us keep The Holler special for every guest who comes through.
+      </p>
+
+      <figure class="photo-card media-break">
+        <img src="IMG_1206.JPG" alt="Exterior view of The Holler across the lawn" />
+        <figcaption>The Holler from the lawn</figcaption>
+      </figure>
+
+      <section class="section">
+        <h2>Getting In</h2>
+        <div class="grid-2">
+          <div>
+            <div class="meta">
+              <div>
+                <strong>Check-in</strong>
+                <span>3:00 PM</span>
+              </div>
+              <div>
+                <strong>Check-out</strong>
+                <span>10:00 AM</span>
+              </div>
+              <div>
+                <strong>Front Door Code</strong>
+                <span>1482</span>
+              </div>
+              <div>
+                <strong>WiFi Network</strong>
+                <span>The Holler_guest</span>
+              </div>
+              <div>
+                <strong>WiFi Password</strong>
+                <span>4021pisgah!</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3>Room Access</h3>
+            <p>
+              Each bedroom has its own keypad. Enter the code, turn the knob,
+              and push. If it doesn't budge, re-enter the code and turn the knob
+              the <em>other</em> direction—these locks can be finicky.
+            </p>
+            <table aria-label="Bedroom codes">
+              <thead>
+                <tr>
+                  <th scope="col">Room</th>
+                  <th scope="col">Code</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Southern Comfort</td>
+                  <td>C289</td>
+                </tr>
+                <tr>
+                  <td>Hornets Nest</td>
+                  <td>C125</td>
+                </tr>
+                <tr>
+                  <td>Queen Bee</td>
+                  <td>C247</td>
+                </tr>
+                <tr>
+                  <td>Trash Panda</td>
+                  <td>C267</td>
+                </tr>
+                <tr>
+                  <td>The Den</td>
+                  <td>C248</td>
+                </tr>
+                <tr>
+                  <td>Class Room</td>
+                  <td>C389</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <figure class="photo-card media-break">
+          <img src="IMG_1198.JPG" alt="The Holler sign at the brick entry" />
+          <figcaption>Welcome sign at the entrance</figcaption>
+        </figure>
+      </section>
+
+      <section class="section">
+        <div class="media-split">
+          <div>
+            <h2>Living at The Holler</h2>
+            <h3>The Spirit of This Place</h3>
+            <p>
+              We've hosted families celebrating milestones, friends reconnecting
+              after years apart, and strangers who left as lifelong friends. The
+              Holler works best when guests treat it like a beloved family cabin
+              rather than a hotel. That means enjoying it fully—<em>and</em> leaving
+              it ready for the next crew to do the same.
+            </p>
+
+            <h3>A Few Requests</h3>
+            <ul class="rules-list">
+              <li><strong>Be kind to the septic system.</strong> Mountain living means a sensitive septic. Please only flush toilet paper—no food, tampons, paper towels, or (we've learned to specify) goldfish.</li>
+              <li><strong>Keep smoke outside.</strong> Feel free to enjoy the porches and fire pit, but no smoking indoors.</li>
+              <li><strong>The pool table is sacred.</strong> No drinks on or near it, please. We've learned this lesson the hard way.</li>
+              <li><strong>Fires are welcome, but be responsible.</strong> Keep fires contained, never leave them unattended, and make sure they're fully extinguished before you turn in.</li>
+              <li><strong>Furniture has a home.</strong> If you rearrange things for your gathering, we just ask that you put everything back before you leave.</li>
+              <li><strong>Respect quiet hours (10 PM – 7 AM).</strong> We have neighbors who appreciate the mountain peace as much as you do.</li>
+              <li><strong>Park on the driveway, not the lawn.</strong> The grass thanks you in advance.</li>
+              <li><strong>Pets are welcome—and so is cleaning up after them.</strong> We love furry guests. Just keep an eye on any messes, inside or out.</li>
+            </ul>
+          </div>
+          <figure class="photo-card media-photo">
+            <img src="IMG_1202.JPG" alt="Front porch with rocking chairs at sunset" />
+            <figcaption>Front porch rocking chairs</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="media-split">
+          <div>
+            <h2>Around the Property</h2>
+            <p>
+              The Holler sits on beautiful land with plenty to explore. You'll find a
+              disc golf course on the property, cozy gathering spaces inside, and a
+              fire pit perfect for evening conversations under the stars.
+            </p>
+            <p>
+              Nearby, the Pisgah National Forest offers hiking, waterfalls, and some
+              of the best whitewater rafting in the region (check out NOC if you're
+              feeling adventurous).
+            </p>
+          </div>
+          <figure class="photo-card media-photo">
+            <img src="IMG_1390.jpeg" alt="Disc golf basket near the fire pit" />
+            <figcaption>Disc golf + fire pit hangout</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="media-split">
+          <div>
+            <h2>Local Attractions</h2>
+            <p>Favorite spots around Andrews, NC for quick outings and day trips, organized by distance from The Holler.</p>
+            <h3>Close By (0–25 miles)</h3>
+            <p><strong>Fires Creek Recreation Area (≈ 20 min).</strong> A winding, scenic drive that opens into a peaceful, creekside playground—ideal for a morning hike, a quiet picnic, or a dip in a cold mountain swimming hole.</p>
+            <p><strong>Heritage Park Trail & Disc Golf Course (≈ 5 min).</strong> An easy, in-town stroll that’s perfect for sunset laps or a low-key game of disc golf before dinner.</p>
+            <p><strong>Local history spots (≈ 5 min).</strong> The Franklin Pierce Cover House and the Valleytown Cultural Arts Center are quick stops that add a little local color to your day.</p>
+            <h3>Easy Day Trip (25–60 miles)</h3>
+            <p><strong>Lake Nantahala (≈ 45 min).</strong> Sparkling water, mountain views, and a relaxed pace—perfect for a kayak rental, a picnic by the shore, or a lazy afternoon on the dock.</p>
+            <p><strong>Nantahala Outdoor Center (NOC) (≈ 55 min).</strong> The region’s go-to spot for whitewater rafting, riverside hangs, and post-adventure snacks.</p>
+            <p><strong>Wayah Bald & Bartram Trail (≈ 55 min).</strong> Classic Appalachian views with cool breezes at the top—great for sunrise or sunset hikers.</p>
+            <p><strong>Great Smoky Mountains Railroad (Bryson City) (≈ 45 min).</strong> A scenic train ride that follows the river and delivers effortless mountain magic.</p>
+            <p><strong>Cherohala Skyway (≈ 50 min to Robbinsville access).</strong> One of the most beautiful drives in the Southeast, with overlooks that beg for photo stops.</p>
+            <h3>Full Day Trip (60–120 miles)</h3>
+            <p><strong>Great Smoky Mountains National Park (≈ 1 hr 20 min to Cherokee/Oconaluftee).</strong> Waterfalls, wildlife, and iconic trailheads—pack a lunch and make a day of it.</p>
+            <p><strong>Tail of the Dragon (≈ 1 hr 20 min to Deals Gap).</strong> A legendary, curvy mountain drive for car and motorcycle lovers looking for a thrill.</p>
+            <p class="lede">Tip: Drive times are one-way estimates from Andrews. Mountain roads, traffic, and weather can add time—double-check with GPS before you go.</p>
+          </div>
+          <figure class="photo-card media-photo">
+            <img src="IMG_1312.jpeg" alt="Waterfall in the nearby forest" />
+            <figcaption>Nearby waterfall hike</figcaption>
+          </figure>
+        </div>
+        <figure class="photo-card media-break">
+          <img src="B1B3BCD9-B94C-42BA-9B98-834DE4748330.jpg" alt="Whitewater rafting on the river" />
+          <figcaption>Whitewater rafting at NOC</figcaption>
+        </figure>
+      </section>
+
+      <section class="section">
+        <h2>Before You Go</h2>
+        <p>We don't expect you to deep clean, but a little tidiness goes a long way:</p>
+        <ul>
+          <li>Wash and put away any dishes you used</li>
+          <li>Bag up trash and leave it by the cans</li>
+          <li>Strip the beds and leave linens in a pile</li>
+          <li>Do a quick walkthrough for any personal items</li>
+          <li>Lock up and make sure all doors are secure</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Need Anything?</h2>
+        <p>I'm just a call or text away—truly, anytime.</p>
+        <p class="contact">720-301-4130</p>
+        <p>
+          Whether it's a lockout, a question about the area, or something that
+          needs fixing, don't hesitate to reach out. I want your stay to be
+          seamless.
+        </p>
+      </section>
+
+      <footer>
+        Thank you for choosing The Holler. We hope it becomes one of those
+        places you talk about long after you leave—and that you'll come back to
+        make more memories.
+      </footer>
+    </div>
+  </body>
+</html>
