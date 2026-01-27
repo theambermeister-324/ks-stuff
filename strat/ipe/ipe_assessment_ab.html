@@ -322,32 +322,6 @@
               </select>
             </label>
           </div>
-          <div class="form-row" style="margin-top: 16px;">
-            <label class="form-label">
-              Product Areas Supported
-              <input class="form-input" name="productCount" type="number" min="1" placeholder="e.g., 6">
-            </label>
-            <label class="form-label">
-              Release Cadence
-              <select class="form-input" name="releaseCadence">
-                <option value="" disabled selected>Select cadence</option>
-                <option value="Weekly or faster">Weekly or faster</option>
-                <option value="Bi-weekly">Bi-weekly</option>
-                <option value="Monthly">Monthly</option>
-                <option value="Quarterly">Quarterly</option>
-              </select>
-            </label>
-          </div>
-          <div class="form-row" style="margin-top: 16px;">
-            <label class="form-label">
-              Developer Team Size
-              <input class="form-input" name="devTeamSize" type="number" min="1" placeholder="e.g., 120">
-            </label>
-            <label class="form-label">
-              Evidence Link (optional)
-              <input class="form-input" name="evidenceLink" type="url" placeholder="Link to governance policy or system of record">
-            </label>
-          </div>
           <label class="form-label" style="margin-top: 16px;">
             Additional Context (optional)
             <textarea class="form-input" name="context" rows="4" placeholder="Share any context that could help interpret your results."></textarea>
@@ -360,25 +334,27 @@
       </div>
 
       <div id="results-content" style="display: none;">
-      <!-- Benchmark Comparison -->
-      <div id="benchmark-comparison" class="card"></div>
-
-      <!-- Benchmark Visualization -->
-      <div id="benchmark-visuals" class="card"></div>
-
-      <!-- Journey Toward AI-Ready Delivery -->
+      <!-- Overall Score -->
       <div class="card" style="background: linear-gradient(135deg, #6436bf 0%, #42247f 100%); padding: 32px;">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
           <div>
-            <p style="color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; margin-bottom: 4px;">JOURNEY TOWARD AI-READY DELIVERY</p>
+            <p style="color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; margin-bottom: 4px;">READINESS TIER</p>
             <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;">
               <h2 style="font-size: 2.2rem; font-weight: 700; color: #fff; margin: 0;" id="readiness-tier">Foundation</h2>
+              <span id="overall-grade" style="font-size: 1rem; font-weight: 700; color: #e0d4f7;">Grade —</span>
               <span style="font-size: 0.875rem; color: rgba(255,255,255,0.7);">Score <span id="overall-score">0</span>/100</span>
             </div>
             <p id="tier-outcome" style="color: rgba(255,255,255,0.85); font-size: 0.875rem; margin-top: 8px;">—</p>
-            <p style="color: rgba(255,255,255,0.7); font-size: 0.75rem; margin-top: 6px;">
-              Intelligent Product Engine is the governable control plane that turns AI from advisory to production-safe execution.
-            </p>
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.75rem; margin-top: 6px;">Implemented ≠ activated. Activation is the unlock for measurable outcomes.</p>
+            <div style="margin-top: 12px; display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border-radius: 999px; padding: 6px 10px;">
+              <span style="font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.7);">MCP Readiness</span>
+              <span id="mcp-readiness" style="font-size: 0.75rem; font-weight: 700; color: #fff;">—</span>
+            </div>
+            <div style="margin-top: 12px; background: rgba(59, 130, 246, 0.2); border-radius: 8px; padding: 10px; border: 1px solid rgba(59, 130, 246, 0.4);">
+              <p style="font-size: 0.8rem; color: #bfdbfe;">
+                Intelligent Product Engine is the governable control plane that turns AI from advisory to production-safe execution.
+              </p>
+            </div>
           </div>
           <div style="width: 96px; height: 96px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;">
             <i data-lucide="target" style="width: 48px; height: 48px; color: #fff;"></i>
@@ -403,9 +379,6 @@
         </div>
       </div>
 
-      <!-- Narrative Summary -->
-      <div id="narrative-summary" class="card"></div>
-
       <!-- Investment Path Recommendation -->
       <div class="card">
         <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px;">
@@ -413,6 +386,62 @@
           Recommended Program
         </h3>
         <div id="path-recommendation"></div>
+      </div>
+
+      <!-- Deployment Tier -->
+      <div class="card">
+        <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px;">
+          <i data-lucide="server" style="width: 20px; height: 20px; color: #fbbf24;"></i>
+          Deployment Tier Assessment
+        </h3>
+        <div id="deployment-recommendation"></div>
+      </div>
+
+      <!-- Trust & Governance Gate -->
+      <div class="card" id="trust-governance"></div>
+
+      <!-- Narrative Summary -->
+      <div id="narrative-summary" class="card"></div>
+
+      <!-- Intelligent Product Engine Principles -->
+      <div class="card" style="background: rgba(59, 130, 246, 0.08); border: 2px solid rgba(59, 130, 246, 0.25);">
+        <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: #fff;">
+          <i data-lucide="sparkles" style="width: 20px; height: 20px; color: #60a5fa;"></i>
+          Intelligent Product Engine Principles
+        </h3>
+        <div class="content-box" style="margin-bottom: 12px;">
+          <p style="font-size: 0.875rem; color: rgba(255,255,255,0.85);">
+            Intelligent Product Engine closes the AI execution gap with a governable control plane that moves teams from intent to safe production.
+          </p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px;">
+          <div class="content-box">
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-bottom: 4px;">Intent</p>
+            <p style="font-weight: 700; color: #fff;">Business goals</p>
+          </div>
+          <div class="content-box">
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-bottom: 4px;">Governed Context</p>
+            <p style="font-weight: 700; color: #fff;">Rules + metadata</p>
+          </div>
+          <div class="content-box">
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-bottom: 4px;">Safe Execution</p>
+            <p style="font-weight: 700; color: #fff;">Production-ready AI</p>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: rgba(255,255,255,0.85);">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #60a5fa;"></span>
+            Governance > generation: AI is valuable only when it can act safely.
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: rgba(255,255,255,0.85);">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #60a5fa;"></span>
+            Context > prompts: rules and metadata are the durable advantage.
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: rgba(255,255,255,0.85);">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #60a5fa;"></span>
+            Activation > implementation: value comes from governed adoption.
+          </div>
+        </div>
       </div>
 
       <!-- Detailed Breakdown -->
@@ -424,8 +453,14 @@
         <div id="breakdown-details"></div>
       </div>
 
-      <!-- ROI Business Case -->
-      <div id="roi-business-case" class="card" style="background: rgba(16, 185, 129, 0.12); border: 2px solid rgba(16, 185, 129, 0.3);"></div>
+      <!-- Benchmark Comparison -->
+      <div id="benchmark-comparison" class="card"></div>
+
+      <!-- Benchmark Visualization -->
+      <div id="benchmark-visuals" class="card"></div>
+
+      <!-- AI-Ready Next Step -->
+      <div id="ai-ready-next-step" class="card" style="background: rgba(59, 130, 246, 0.12); border: 2px solid rgba(59, 130, 246, 0.35);"></div>
 
       <!-- Next Steps -->
       <div class="card" style="background: rgba(100, 54, 191, 0.1); border: 2px solid rgba(100, 54, 191, 0.3);">
@@ -629,7 +664,6 @@
     let recommendedPath = 'J1';
     let pendingResults = null;
     let selectedIndustry = 'Cross-industry';
-    let assessmentInputs = {};
 
     const journeyDetails = {
       J1: {
@@ -879,10 +913,12 @@
       
       document.getElementById('overall-score').textContent = totalScore;
       document.getElementById('readiness-tier').textContent = journey.shortName;
+      document.getElementById('overall-grade').textContent = `Grade ${getLetterGrade(totalScore)}`;
       document.getElementById('foundation-score').textContent = foundationScore;
       document.getElementById('ai-score').textContent = aiScore;
       document.getElementById('org-score').textContent = orgScore;
       document.getElementById('tier-outcome').textContent = getTierOutcome(recommendedPath);
+      document.getElementById('mcp-readiness').textContent = getMcpReadinessStatus(foundationScore, aiScore);
 
       const journeyColorMap = {
         'slate': { bg: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.1)', text: '#fff', badge: '#64748b' },
@@ -953,6 +989,19 @@
               <p style="font-size: 0.875rem; color: #fde047;">D3/D4 deployments require Phase 0 (Deployment & Security) before Foundation can begin. This adds $175-450K and 8-16 weeks.</p>
             </div>
           ` : ''}
+        </div>
+      `;
+
+      // Trust & Governance Gate
+      const trustGate = getTrustGovernanceGate(deploymentTier, tier);
+      document.getElementById('trust-governance').innerHTML = `
+        <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+          <i data-lucide="shield" style="width: 20px; height: 20px; color: #60a5fa;"></i>
+          Trust & Governance Gate
+        </h3>
+        <div class="content-box">
+          <p style="font-size: 0.875rem; color: rgba(255,255,255,0.85); margin-bottom: 8px;">${trustGate.summary}</p>
+          <p style="font-size: 0.75rem; color: rgba(255,255,255,0.65);">${trustGate.detail}</p>
         </div>
       `;
 
@@ -1106,41 +1155,16 @@
         </div>
       `;
 
-      // ROI Business Case
-      const roiCase = getRoiBusinessCase(recommendedPath);
-      document.getElementById('roi-business-case').innerHTML = `
+      // AI-Ready Next Step
+      const nextStep = getAiReadyNextStep(recommendedPath);
+      document.getElementById('ai-ready-next-step').innerHTML = `
         <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: #fff;">
-          <i data-lucide="trending-up" style="width: 20px; height: 20px; color: #34d399;"></i>
-          Intelligent Product Engine ROI Business Case
+          <i data-lucide="sparkles" style="width: 20px; height: 20px; color: #60a5fa;"></i>
+          Intelligent Product Engine Next Step
         </h3>
-        <div class="content-box" style="margin-bottom: 16px;">
-          <p style="font-size: 0.875rem; color: rgba(255,255,255,0.9); margin-bottom: 6px;">${roiCase.summary}</p>
-          <p style="font-size: 0.75rem; color: rgba(255,255,255,0.65);">${roiCase.assumption}</p>
-          ${getRoiInputsLine(assessmentInputs)}
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px;">
-          <div class="content-box">
-            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-bottom: 4px;">Annual ROI Range</p>
-            <p style="font-size: 1.4rem; font-weight: 700; color: #fff;">${roiCase.annual}</p>
-          </div>
-          <div class="content-box">
-            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-bottom: 4px;">3-Year Total Return</p>
-            <p style="font-size: 1.4rem; font-weight: 700; color: #fff;">${roiCase.threeYear}</p>
-          </div>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
-          ${roiCase.drivers.map(driver => `
-            <div class="content-box">
-              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-bottom: 4px;">${driver.title}</p>
-              <p style="font-size: 0.85rem; color: rgba(255,255,255,0.85);">${driver.desc}</p>
-            </div>
-          `).join('')}
-        </div>
-        <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
-          <a href="${getRoiCalculatorUrl()}" target="_blank" rel="noopener noreferrer" style="background: #fff; color: #059669; padding: 10px 16px; border-radius: 8px; font-weight: 600; text-decoration: none;">
-            Open ROI Calculator
-          </a>
-          <span style="font-size: 0.75rem; color: rgba(255,255,255,0.6); align-self: center;">Use the calculator to tailor this estimate for your org.</span>
+        <p style="font-size: 0.9rem; color: rgba(255,255,255,0.9); margin-bottom: 12px;">${nextStep.title}</p>
+        <div class="content-box" style="border-color: rgba(59, 130, 246, 0.35);">
+          <p style="font-size: 0.85rem; color: rgba(255,255,255,0.85);">${nextStep.detail}</p>
         </div>
       `;
 
@@ -1184,12 +1208,6 @@
           <p style="font-size: 0.875rem; color: rgba(255,255,255,0.9);">${step}</p>
         </div>
       `).join('');
-      document.getElementById('next-steps').insertAdjacentHTML('beforeend', `
-        <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px dashed rgba(100, 54, 191, 0.4); margin-bottom: 12px;">
-          <div style="width: 24px; height: 24px; border-radius: 50%; background: rgba(100, 54, 191, 0.2); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0;">+</div>
-          <p style="font-size: 0.875rem; color: rgba(255,255,255,0.85);">Reassess in 90 days to track activation progress and ROI improvements.</p>
-        </div>
-      `);
 
       // Personalized Insights
       const insights = generatePersonalizedInsights(foundationScore, aiScore, orgScore, totalScore, recommendedPath);
@@ -1237,7 +1255,7 @@
       document.getElementById('cost-of-inaction').innerHTML = `
         <h3 style="font-size: 1.125rem; font-weight: 700; color: #fff; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
           <i data-lucide="alert-triangle" style="width: 20px; height: 20px; color: #f87171;"></i>
-          The Cost of Not Taking Action
+          What Delays Cost in AI-Assisted Delivery
         </h3>
         <p style="font-size: 0.875rem; color: rgba(255,255,255,0.8); margin-bottom: 16px;">Based on your assessment, here's what happens if you delay IPE activation:</p>
         <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -1297,12 +1315,6 @@
       if (industryInput && industryInput.value) {
         selectedIndustry = industryInput.value;
       }
-      assessmentInputs = {
-        productCount: form.elements.namedItem('productCount')?.value || '',
-        releaseCadence: form.elements.namedItem('releaseCadence')?.value || '',
-        devTeamSize: form.elements.namedItem('devTeamSize')?.value || '',
-        evidenceLink: form.elements.namedItem('evidenceLink')?.value || ''
-      };
       renderResults(pendingResults);
     }
 
@@ -1518,77 +1530,6 @@
       return messages[recommendedPath] || 'Every quarter you delay, you\'re missing out on significant value and competitive advantage.';
     }
 
-    function getRoiBusinessCase(recommendedPath) {
-      const cases = {
-        J1: {
-          summary: 'Foundation-focused organizations typically see early ROI from reduced rework and faster enablement.',
-          annual: '$150K – $350K',
-          threeYear: '$450K – $1.1M',
-          assumption: 'Based on conservative productivity and governance gains in the first 12 months.',
-          drivers: [
-            { title: 'Rework reduction', desc: 'Fewer one-off components and duplicated effort.' },
-            { title: 'Faster onboarding', desc: 'Teams ramp on shared patterns sooner.' },
-            { title: 'Governance efficiency', desc: 'Clear decision flow reduces delays.' }
-          ]
-        },
-        J2: {
-          summary: 'Acceleration paths capture near-term gains when timing is critical.',
-          annual: '$300K – $700K',
-          threeYear: '$900K – $2.1M',
-          assumption: 'Based on compressing delivery timelines during an active trigger window.',
-          drivers: [
-            { title: 'Release velocity', desc: 'Compressed timelines for launch-critical work.' },
-            { title: 'Fewer escalations', desc: 'Clear guardrails reduce back-and-forth.' },
-            { title: 'Time-to-market', desc: 'Earlier launches drive revenue impact.' }
-          ]
-        },
-        J3: {
-          summary: 'Activation programs deliver the largest measurable gains across teams.',
-          annual: '$900K – $1.7M',
-          threeYear: '$2.7M – $5.1M',
-          assumption: 'Based on typical activation outcomes in regulated or complex environments.',
-          drivers: [
-            { title: 'Cycle-time reduction', desc: '40–60% faster delivery cycles with governed context.' },
-            { title: 'AI output quality', desc: 'Higher signal-to-noise in AI-assisted code.' },
-            { title: 'Adoption depth', desc: 'More teams shipping with the system of record.' }
-          ]
-        },
-        J4: {
-          summary: 'Intelligence paths convert readiness into AI-assisted execution.',
-          annual: '$500K – $1.2M',
-          threeYear: '$1.5M – $3.6M',
-          assumption: 'Based on MCP activation and expansion of governed AI workflows.',
-          drivers: [
-            { title: 'Governed AI workflows', desc: 'AI that can act safely at scale.' },
-            { title: 'Policy automation', desc: 'Rules enforce consistency without manual review.' },
-            { title: 'Faster iteration', desc: 'More changes shipped with confidence.' }
-          ]
-        }
-      };
-      return cases[recommendedPath] || cases.J1;
-    }
-
-    function getRoiCalculatorUrl() {
-      return 'https://knapsack.cloud/roi';
-    }
-
-    function getRoiInputsLine(inputs) {
-      const parts = [];
-      if (inputs.devTeamSize) parts.push(`Dev team: ${inputs.devTeamSize}`);
-      if (inputs.productCount) parts.push(`Product areas: ${inputs.productCount}`);
-      if (inputs.releaseCadence) parts.push(`Cadence: ${inputs.releaseCadence}`);
-      if (parts.length === 0) return '';
-      return `<p style="font-size: 0.75rem; color: rgba(255,255,255,0.65); margin-top: 6px;">Inputs used: ${parts.join(' • ')}</p>`;
-    }
-
-    function getPeerPosition(score, maxScore) {
-      const ratio = score / maxScore;
-      if (ratio >= 0.75) return { label: 'Above ~75% of peers', percent: 75 };
-      if (ratio >= 0.5) return { label: 'Above ~60% of peers', percent: 60 };
-      if (ratio >= 0.25) return { label: 'Below ~60% of peers', percent: 40 };
-      return { label: 'Below ~75% of peers', percent: 25 };
-    }
-
     function generateBenchmarkComparison(totalScore, foundationScore, aiScore, orgScore, recommendedPath, industry) {
       const benchmarks = getIndustryBenchmarks(industry);
       const industryAvg = benchmarks.industryAvg;
@@ -1665,6 +1606,55 @@
         J4: 'This tier accelerates AI-enabled delivery by applying governed context to production workflows.'
       };
       return outcomes[recommendedPath] || 'This tier focuses on measurable delivery improvements and readiness acceleration.';
+    }
+
+    function getMcpReadinessStatus(foundationScore, aiScore) {
+      if (foundationScore >= 30 && aiScore >= 20) return 'Ready';
+      if (foundationScore >= 20 && aiScore >= 10) return 'Prep';
+      return 'Locked';
+    }
+
+    function getTrustGovernanceGate(deploymentTier, tier) {
+      if (deploymentTier === 'D3' || deploymentTier === 'D4') {
+        return {
+          summary: 'Deployment is the first trust gate for AI-assisted delivery. Your tier indicates a regulated environment where governance must be proven before activation.',
+          detail: `Expect Phase 0 requirements (security, networking, compliance) before activation. ${tier.time} is typical for deployment readiness.`
+        };
+      }
+      return {
+        summary: 'Deployment is the first trust gate for AI-assisted delivery. Your tier supports faster path to governed activation.',
+        detail: `Cloud-first deployment typically enables activation in ${tier.time}. Governance remains the primary unlock.`
+      };
+    }
+
+    function getAiReadyNextStep(recommendedPath) {
+      const nextSteps = {
+        J1: {
+          title: 'Start with a Readiness Diagnostic to establish governance and system-of-record foundations.',
+          detail: 'This creates the baseline AI context and rules needed to accelerate safely later.'
+        },
+        J2: {
+          title: 'Run a focused Activation Sprint to capture timing-sensitive gains.',
+          detail: 'Compress the timeline and move quickly while the trigger window is open.'
+        },
+        J3: {
+          title: 'Begin Activation to move from “implemented” to “activated.”',
+          detail: 'Governance + activation unlock the largest delivery gains and measurable outcomes.'
+        },
+        J4: {
+          title: 'Activate MCP to operationalize AI workflows with governed context.',
+          detail: 'Apply rules and context so AI output meets production standards from day one.'
+        }
+      };
+      return nextSteps[recommendedPath] || nextSteps.J1;
+    }
+
+    function getPeerPosition(score, maxScore) {
+      const ratio = score / maxScore;
+      if (ratio >= 0.75) return { label: 'Above ~75% of peers', percent: 75 };
+      if (ratio >= 0.5) return { label: 'Above ~60% of peers', percent: 60 };
+      if (ratio >= 0.25) return { label: 'Below ~60% of peers', percent: 40 };
+      return { label: 'Below ~75% of peers', percent: 25 };
     }
 
     function getBenchmarkStory(foundationScore, aiScore, orgScore) {
