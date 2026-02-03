@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Knapsack Contribution Framework</title>
+  <title>Design System Contribution Framework</title>
   <style>
     * {
       margin: 0;
@@ -489,6 +489,28 @@
       font-size: 0.9rem;
       list-style-type: disc;
     }
+    .markdown h1,
+    .markdown h2,
+    .markdown h3 {
+      margin: 0 0 0.75rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #28262c;
+    }
+    .markdown p {
+      margin: 0 0 0.75rem 0;
+      color: #645e6e;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .markdown ul,
+    .markdown ol {
+      margin: 0 0 0.75rem 0;
+      padding-left: 1.5rem;
+      color: #645e6e;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
     @media (max-width: 1200px) {
       .grid-3 {
         grid-template-columns: 1fr;
@@ -508,10 +530,10 @@
   <div class="container">
     <!-- Navigation -->
     <div class="nav">
-      <button class="nav-button active" onclick="showPage('overview')">Knapsack Contribution Framework</button>
+      <button class="nav-button active" onclick="showPage('overview')">Design System Contribution Framework</button>
       <button class="nav-button" onclick="showPage('templates')">Contribution Templates</button>
       <button class="nav-button" onclick="showPage('workflows')">Contribution Workflows</button>
-      <button class="nav-button" onclick="showPage('slack')">Slack Workflow</button>
+      <button class="nav-button" onclick="showPage('launch')">Launch Kit</button>
     </div>
 
     <!-- Overview Page -->
@@ -579,7 +601,7 @@
         <div class="philosophy-card">
           <h3>One Workflow, Flexible Standards</h3>
           <p>
-            Knapsack supports the same contribution workflow at every stage — from early pilots to mature systems.
+            Lunch Box supports the Design System contribution workflow at every stage — from early pilots to mature systems.
           </p>
           <p>
             What changes over time isn't <em>how</em> you contribute, but what "good" looks like:
@@ -605,7 +627,7 @@
             <li>Helping your system scale sustainably</li>
           </ul>
           <p>
-            <strong>Start simple. Improve as you go. Knapsack is built to support you at every stage.</strong>
+            <strong>Start simple. Improve as you go. Lunch Box is built to support your Design System at every stage.</strong>
           </p>
         </div>
       </div>
@@ -614,7 +636,7 @@
     <!-- Templates Page -->
     <div id="templates" class="page">
       <div class="header">
-        <h1>Knapsack Contribution Templates</h1>
+        <h1>Lunch Box Contribution Templates</h1>
         <p>Complete checklists for both Pattern and Component contributions</p>
       </div>
 
@@ -1063,13 +1085,13 @@
         <div class="card bordered-left blue">
           <h2 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 700; color: #28262c;">General Designer Workflow: New Pattern</h2>
           <p style="margin: 0 0 1rem 0; font-size: 0.9rem; color: #645e6e; line-height: 1.6;">
-            Create pattern documentation in Knapsack with Figma design source and prepare for development.
+            Create pattern documentation in Lunch Box with Figma design source and prepare for development.
           </p>
           <div style="display: grid; gap: 0.75rem;">
             <div class="workflow-step">
               <div class="step-number blue">1</div>
               <div class="step-content">
-                <strong>Create new pattern in Knapsack</strong>
+                <strong>Create new pattern in Lunch Box</strong>
                 <p>Establish pathway for integrating new component</p>
               </div>
             </div>
@@ -1181,7 +1203,7 @@
         <div class="card bordered-left gray">
           <h2 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 700; color: #28262c;">Engineering Contribution Process</h2>
           <p style="margin: 0 0 1rem 0; font-size: 0.9rem; color: #645e6e; line-height: 1.6;">
-            An engineer identifies a component need, templates it in Knapsack, iterates with design, and ships.
+            An engineer identifies a component need, templates it in Lunch Box, iterates with design, and ships.
           </p>
           <div style="display: grid; gap: 0.75rem;">
             <div class="workflow-step">
@@ -1194,7 +1216,7 @@
             <div class="workflow-step">
               <div class="step-number gray">2</div>
               <div class="step-content">
-                <strong>Create component template in Knapsack</strong>
+                <strong>Create component template in Lunch Box</strong>
                 <p>Set up file structure, parameters, and link to pattern page</p>
               </div>
             </div>
@@ -1245,170 +1267,37 @@
       </div>
     </div>
 
-    <!-- Slack Workflow Page -->
-    <div id="slack" class="page">
+    <!-- Launch Kit Page -->
+    <div id="launch" class="page">
       <div class="header">
-        <h1>Slack Workflow: Contribute to the Design System</h1>
-        <p>Start a new component, pattern, or fundamental and route it into Knapsack</p>
+        <h1>Launch Kit</h1>
+        <p>Kickoff memo, Slack announcements, and a one-page contributor handbook</p>
       </div>
 
-      <div style="display: grid; gap: 1.5rem;">
-        <!-- Form Steps -->
-        <div class="card bordered-left orange">
-          <h2 style="margin: 0 0 1.5rem 0; font-size: 1.125rem; font-weight: 700; color: #28262c;">Form: Contribution Intake</h2>
-          <div style="display: grid; gap: 1.5rem;">
-            <div class="form-field">
-              <div class="form-field-header">
-                <div class="form-field-number">1</div>
-                <h3>What are you contributing?<span class="required-star">*</span></h3>
-              </div>
-              <div class="form-field-details">
-                <div><strong>Field type:</strong> Dropdown</div>
-                <div><strong>Options:</strong>
-                  <ul>
-                    <li>Component</li>
-                    <li>Pattern</li>
-                    <li>Fundamental</li>
-                  </ul>
-                </div>
-                <div class="help-text"><strong>Help text:</strong> Choose the option that best describes what you are adding to the system.</div>
-              </div>
-            </div>
-
-            <div class="form-field">
-              <div class="form-field-header">
-                <div class="form-field-number">2</div>
-                <h3>What problem does this solve?<span class="required-star">*</span></h3>
-              </div>
-              <div class="form-field-details">
-                <div><strong>Field type:</strong> Long text</div>
-                <div><strong>Placeholder:</strong> Describe the user or product problem this contribution addresses.</div>
-                <div class="help-text"><strong>Help text:</strong> Focus on the problem, not the implementation. This helps reviewers evaluate reuse potential.</div>
-              </div>
-            </div>
-
-            <div class="form-field">
-              <div class="form-field-header">
-                <div class="form-field-number">3</div>
-                <h3>Where is this used today?</h3>
-              </div>
-              <div class="form-field-details">
-                <div><strong>Field type:</strong> Short text</div>
-                <div><strong>Placeholder:</strong> Product, flow, or feature name</div>
-                <div class="help-text"><strong>Help text:</strong> If this is new, describe where you expect it to be used first. Optional for pilots, required for mature systems.</div>
-              </div>
-            </div>
-
-            <div class="form-field">
-              <div class="form-field-header">
-                <div class="form-field-number">4</div>
-                <h3>Design source</h3>
-              </div>
-              <div class="form-field-details">
-                <div><strong>Field type:</strong> Short text</div>
-                <div><strong>Placeholder:</strong> Paste a Figma link or write "Not started yet"</div>
-                <div class="help-text"><strong>Help text:</strong> Link to existing design work, if available. It's okay to contribute before design is finalized.</div>
-              </div>
-            </div>
-
-            <div class="form-field">
-              <div class="form-field-header">
-                <div class="form-field-number">5</div>
-                <h3>Who owns this contribution?<span class="required-star">*</span></h3>
-              </div>
-              <div class="form-field-details">
-                <div><strong>Field type:</strong> User picker</div>
-                <div class="help-text"><strong>Help text:</strong> This person is responsible for moving the contribution through review and keeping it up to date.</div>
-              </div>
-            </div>
-
-            <div class="form-field">
-              <div class="form-field-header">
-                <div class="form-field-number">6</div>
-                <h3>Expected reuse</h3>
-              </div>
-              <div class="form-field-details">
-                <div><strong>Field type:</strong> Radio buttons</div>
-                <div><strong>Options:</strong>
-                  <ul>
-                    <li>Intended for a single product initially</li>
-                    <li>Intended for use across multiple products</li>
-                  </ul>
-                </div>
-                <div class="help-text"><strong>Help text:</strong> This helps reviewers understand the intended scope.</div>
-              </div>
-            </div>
-
-            <div class="form-field">
-              <div class="form-field-header">
-                <div class="form-field-number">7</div>
-                <h3>Related existing components (if any)</h3>
-              </div>
-              <div class="form-field-details">
-                <div><strong>Field type:</strong> Short text</div>
-                <div><strong>Placeholder:</strong> List component or pattern names, if applicable</div>
-                <div class="help-text"><strong>Help text:</strong> Helps avoid duplication and encourages reuse.</div>
-              </div>
-            </div>
-
-            <div class="form-field">
-              <div class="form-field-header">
-                <div class="form-field-number">8</div>
-                <h3>Accessibility considerations</h3>
-              </div>
-              <div class="form-field-details">
-                <div><strong>Field type:</strong> Long text</div>
-                <div><strong>Placeholder:</strong> Note any known accessibility requirements or concerns</div>
-                <div class="help-text"><strong>Help text:</strong> This can be high-level at first and refined during review.</div>
-              </div>
-            </div>
+      <div style="display: grid; gap: 2rem;">
+        <div class="content-card">
+          <div class="section">
+            <h2>Kickoff Memo</h2>
+            <div class="markdown" data-md-src="contribution_kickoff_memo.md">Loading kickoff memo...</div>
           </div>
         </div>
 
-        <!-- Confirmation Screen -->
-        <div class="card bordered-left blue">
-          <h2 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 700; color: #28262c;">Confirmation Screen</h2>
-          <div class="confirmation-section">
-            <div class="confirmation-item">
-              <div class="confirmation-item-label">Title</div>
-              <div class="confirmation-item-value large">Contribution started</div>
-            </div>
-            <div class="confirmation-item">
-              <div class="confirmation-item-label">Body</div>
-              <div class="confirmation-item-value">Your contribution has been created as a draft in Knapsack. You can continue documenting, refining, and submitting it for review there.</div>
-            </div>
-            <div class="confirmation-item">
-              <div class="confirmation-item-label">Button</div>
-              <div class="confirmation-item-value">View in Knapsack</div>
-            </div>
+        <div class="content-card">
+          <div class="section">
+            <h2>Slack Announcements</h2>
+            <div class="markdown" data-md-src="contribution_slack_announcements.md">Loading Slack announcements...</div>
           </div>
         </div>
 
-        <!-- Auto-Posted Message -->
-        <div class="card bordered-left green">
-          <h2 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 700; color: #28262c;">Auto-Posted Slack Message (Summary)</h2>
-          <div class="slack-message">
-            <div><strong>New design system contribution started</strong></div>
-            <div>Type: {Contribution Type}</div>
-            <div>Problem: {Problem Summary}</div>
-            <div>Owner: {Owner}</div>
-            <div>Status: Draft in Knapsack</div>
-            <div style="margin-top: 0.5rem;">Continue in Knapsack: {Link}</div>
+        <div class="content-card">
+          <div class="section">
+            <h2>Contributor Handbook (One Page)</h2>
+            <div class="markdown" data-md-src="contributor_handbook.md">Loading handbook...</div>
           </div>
-        </div>
-
-        <!-- Design Notes -->
-        <div class="design-notes">
-          <h2>Design Notes (Internal)</h2>
-          <ul>
-            <li>All fields map directly to Knapsack pattern or component metadata</li>
-            <li>Required fields stay minimal to encourage participation</li>
-            <li>Optional fields can be toggled on as systems mature</li>
-            <li>Validation should be advisory, not blocking, in pilot mode</li>
-          </ul>
         </div>
       </div>
     </div>
+
   </div>
 
   <script>
@@ -1430,6 +1319,113 @@
       // Scroll to top
       window.scrollTo(0, 0);
     }
+
+    function markdownToHtml(markdown) {
+      const lines = markdown.replace(/\r\n/g, '\n').split('\n');
+      let html = '';
+      let paragraph = [];
+      let inUl = false;
+      let inOl = false;
+
+      const flushParagraph = () => {
+        if (!paragraph.length) return;
+        html += `<p>${inlineFormat(paragraph.join(' '))}</p>`;
+        paragraph = [];
+      };
+
+      const closeLists = () => {
+        if (inUl) {
+          html += '</ul>';
+          inUl = false;
+        }
+        if (inOl) {
+          html += '</ol>';
+          inOl = false;
+        }
+      };
+
+      const inlineFormat = (text) =>
+        text
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+      lines.forEach((line) => {
+        const trimmed = line.trim();
+        if (!trimmed) {
+          flushParagraph();
+          closeLists();
+          return;
+        }
+
+        const headingMatch = trimmed.match(/^(#{1,3})\s+(.*)$/);
+        if (headingMatch) {
+          flushParagraph();
+          closeLists();
+          const level = headingMatch[1].length + 1;
+          html += `<h${level}>${inlineFormat(headingMatch[2])}</h${level}>`;
+          return;
+        }
+
+        const orderedMatch = trimmed.match(/^(\d+)[.)]\s+(.*)$/);
+        if (orderedMatch) {
+          flushParagraph();
+          if (!inOl) {
+            if (inUl) {
+              html += '</ul>';
+              inUl = false;
+            }
+            html += '<ol>';
+            inOl = true;
+          }
+          html += `<li>${inlineFormat(orderedMatch[2])}</li>`;
+          return;
+        }
+
+        const unorderedMatch = trimmed.match(/^-+\s+(.*)$/);
+        if (unorderedMatch) {
+          flushParagraph();
+          if (!inUl) {
+            if (inOl) {
+              html += '</ol>';
+              inOl = false;
+            }
+            html += '<ul>';
+            inUl = true;
+          }
+          html += `<li>${inlineFormat(unorderedMatch[1])}</li>`;
+          return;
+        }
+
+        paragraph.push(trimmed);
+      });
+
+      flushParagraph();
+      closeLists();
+
+      return html;
+    }
+
+    function loadMarkdownContent() {
+      const blocks = document.querySelectorAll('[data-md-src]');
+      blocks.forEach((block) => {
+        const src = block.getAttribute('data-md-src');
+        fetch(src)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`Failed to load ${src}`);
+            }
+            return response.text();
+          })
+          .then((markdown) => {
+            block.innerHTML = markdownToHtml(markdown);
+          })
+          .catch(() => {
+            block.innerHTML = '<p>Unable to load content.</p>';
+          });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadMarkdownContent);
   </script>
 </body>
 </html>
