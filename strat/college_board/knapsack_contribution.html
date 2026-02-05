@@ -50,6 +50,41 @@
       color: #28262c;
       border-bottom-color: #eb8d0a;
     }
+    .launch-tabs {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #e0dee3;
+      padding-bottom: 0.75rem;
+    }
+    .launch-tab-button {
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #645e6e;
+      background-color: #ffffff;
+      border: 1px solid #e0dee3;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .launch-tab-button:hover {
+      color: #28262c;
+      border-color: #c8c3cc;
+    }
+    .launch-tab-button.active {
+      color: #28262c;
+      font-weight: 600;
+      border-color: #eb8d0a;
+      box-shadow: 0 0 0 1px rgba(235, 141, 10, 0.2);
+    }
+    .launch-tab-content {
+      display: none;
+    }
+    .launch-tab-content.active {
+      display: block;
+    }
     .page {
       display: none;
     }
@@ -511,6 +546,63 @@
       font-size: 0.9rem;
       line-height: 1.7;
     }
+    /* Decision/Question item styling */
+    #launch-decisions .markdown ul,
+    #launch-questions .markdown ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    #launch-decisions .markdown li,
+    #launch-questions .markdown li {
+      background: #ffffff;
+      border: 1px solid #e0dee3;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    #launch-decisions .markdown li {
+      border-left: 4px solid #eb8d0a;
+    }
+    #launch-questions .markdown li {
+      border-left: 4px solid #05a2f0;
+    }
+    #launch-decisions .markdown li strong,
+    #launch-questions .markdown li strong {
+      display: block;
+      color: #28262c;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+    /* Validated assumptions styling */
+    #launch-assumptions .markdown ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    #launch-assumptions .markdown li {
+      background: #f8fdf9;
+      border: 1px solid #c8e6c9;
+      border-left: 4px solid #36bf7f;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    #launch-assumptions .markdown li strong {
+      color: #2e7d32;
+    }
+    /* Action badge for decisions */
+    .action-needed-badge {
+      display: inline-block;
+      background: #eb8d0a;
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-left: 0.5rem;
+    }
     @media (max-width: 1200px) {
       .grid-3 {
         grid-template-columns: 1fr;
@@ -530,14 +622,14 @@
   <div class="container">
     <!-- Navigation -->
     <div class="nav">
-      <button class="nav-button active" onclick="showPage('overview')">Design System Contribution Framework</button>
+      <button class="nav-button active" onclick="showPage('launch')">🚀 Launch Kit</button>
+      <button class="nav-button" onclick="showPage('overview')">Framework Overview</button>
       <button class="nav-button" onclick="showPage('templates')">Contribution Templates</button>
       <button class="nav-button" onclick="showPage('workflows')">Contribution Workflows</button>
-      <button class="nav-button" onclick="showPage('launch')">Launch Kit</button>
     </div>
 
     <!-- Overview Page -->
-    <div id="overview" class="page active">
+    <div id="overview" class="page">
       <!-- Hero Section -->
       <div class="header">
         <h1 class="large">Contributing to Your Design System</h1>
@@ -1268,32 +1360,77 @@
     </div>
 
     <!-- Launch Kit Page -->
-    <div id="launch" class="page">
-      <div class="header">
-        <h1>Launch Kit</h1>
-        <p>Kickoff memo, Slack announcements, and a one-page contributor handbook</p>
+    <div id="launch" class="page active">
+      <div class="header" style="border-left: 4px solid #eb8d0a; background: linear-gradient(135deg, #ffffff 0%, #fff8ed 100%);">
+        <h1 class="large">🚀 Pilot Launch Kit</h1>
+        <p style="font-size: 1rem; margin-bottom: 1rem;">
+          <strong>Action Required:</strong> Review the decisions and questions below to finalize the College Board contribution pilot.
+        </p>
+        <p>
+          The tabs below contain everything needed to launch: decisions that need your sign-off, open questions to resolve, validated assumptions from discovery, and ready-to-use launch materials.
+        </p>
       </div>
 
-      <div style="display: grid; gap: 2rem;">
-        <div class="content-card">
-          <div class="section">
-            <h2>Kickoff Memo</h2>
-            <div class="markdown" data-md-src="contribution_kickoff_memo.md">Loading kickoff memo...</div>
-          </div>
-        </div>
+      <div class="launch-tabs">
+        <button class="launch-tab-button active" onclick="showLaunchTab('launch-decisions', event)" style="background-color: #fff3e0; border-color: #eb8d0a;">⚡ Decisions Needed</button>
+        <button class="launch-tab-button" onclick="showLaunchTab('launch-questions', event)" style="background-color: #e3f2fd; border-color: #05a2f0;">❓ Open Questions</button>
+        <button class="launch-tab-button" onclick="showLaunchTab('launch-assumptions', event)">✓ Validated Assumptions</button>
+        <button class="launch-tab-button" onclick="showLaunchTab('launch-kickoff', event)">Kickoff Memo</button>
+        <button class="launch-tab-button" onclick="showLaunchTab('launch-slack', event)">Slack Announcements</button>
+        <button class="launch-tab-button" onclick="showLaunchTab('launch-handbook', event)">Contributor Handbook</button>
+      </div>
 
-        <div class="content-card">
-          <div class="section">
-            <h2>Slack Announcements</h2>
-            <div class="markdown" data-md-src="contribution_slack_announcements.md">Loading Slack announcements...</div>
+      <div class="content-card launch-tab-content active" id="launch-decisions" style="border-left: 4px solid #eb8d0a;">
+        <div class="section">
+          <div style="background: linear-gradient(135deg, #fff8ed 0%, #fff3e0 100%); padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <h2 style="color: #b36b00; margin-bottom: 0.5rem;">⚡ Decisions Needed from College Board</h2>
+            <p style="margin: 0; color: #645e6e; font-size: 0.9rem;">Each item below requires a final decision. Discovery notes from Lindsey and Amber are included to inform your choice.</p>
           </div>
+          <div class="markdown" data-md-src="pilot_validation_decisions.md">Loading decisions...</div>
         </div>
+      </div>
 
-        <div class="content-card">
-          <div class="section">
-            <h2>Contributor Handbook (One Page)</h2>
-            <div class="markdown" data-md-src="contributor_handbook.md">Loading handbook...</div>
+      <div class="content-card launch-tab-content" id="launch-questions" style="border-left: 4px solid #05a2f0;">
+        <div class="section">
+          <div style="background: linear-gradient(135deg, #e8f4fd 0%, #e3f2fd 100%); padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <h2 style="color: #0277bd; margin-bottom: 0.5rem;">❓ Open Questions to Resolve</h2>
+            <p style="margin: 0; color: #645e6e; font-size: 0.9rem;">These questions need answers before the pilot can proceed. Discovery notes are included to help guide the discussion.</p>
           </div>
+          <div class="markdown" data-md-src="pilot_validation_questions.md">Loading questions...</div>
+        </div>
+      </div>
+
+      <div class="content-card launch-tab-content" id="launch-assumptions" style="border-left: 4px solid #36bf7f;">
+        <div class="section">
+          <div style="background: linear-gradient(135deg, #e8f5e9 0%, #e0f2f1 100%); padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <h2 style="color: #2e7d32; margin-bottom: 0.5rem;">✓ Validated Assumptions</h2>
+            <p style="margin: 0; color: #645e6e; font-size: 0.9rem;">These assumptions have been validated through discovery interviews and inform the pilot design.</p>
+          </div>
+          <div class="markdown" data-md-src="pilot_validation_assumptions.md">Loading assumptions...</div>
+        </div>
+      </div>
+
+      <div class="content-card launch-tab-content" id="launch-kickoff">
+        <div class="section">
+          <h2>Kickoff Memo</h2>
+          <p style="color: #645e6e; font-size: 0.9rem; margin-bottom: 1rem;">Ready-to-send memo to announce the contribution pilot to stakeholders.</p>
+          <div class="markdown" data-md-src="contribution_kickoff_memo.md">Loading kickoff memo...</div>
+        </div>
+      </div>
+
+      <div class="content-card launch-tab-content" id="launch-slack">
+        <div class="section">
+          <h2>Slack Announcements</h2>
+          <p style="color: #645e6e; font-size: 0.9rem; margin-bottom: 1rem;">Pre-written Slack messages to launch and promote the pilot.</p>
+          <div class="markdown" data-md-src="contribution_slack_announcements.md">Loading Slack announcements...</div>
+        </div>
+      </div>
+
+      <div class="content-card launch-tab-content" id="launch-handbook">
+        <div class="section">
+          <h2>Contributor Handbook (One Page)</h2>
+          <p style="color: #645e6e; font-size: 0.9rem; margin-bottom: 1rem;">Quick-reference guide for contributors participating in the pilot.</p>
+          <div class="markdown" data-md-src="contributor_handbook.md">Loading handbook...</div>
         </div>
       </div>
     </div>
@@ -1320,12 +1457,30 @@
       window.scrollTo(0, 0);
     }
 
+    function showLaunchTab(tabId, event) {
+      const tabs = document.querySelectorAll('.launch-tab-content');
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      const buttons = document.querySelectorAll('.launch-tab-button');
+      buttons.forEach(button => button.classList.remove('active'));
+
+      const activeTab = document.getElementById(tabId);
+      if (activeTab) {
+        activeTab.classList.add('active');
+      }
+
+      if (event && event.target) {
+        event.target.classList.add('active');
+      }
+    }
+
     function markdownToHtml(markdown) {
       const lines = markdown.replace(/\r\n/g, '\n').split('\n');
       let html = '';
       let paragraph = [];
       let inUl = false;
       let inOl = false;
+      let pendingListItem = null;
 
       const flushParagraph = () => {
         if (!paragraph.length) return;
@@ -1333,7 +1488,15 @@
         paragraph = [];
       };
 
+      const flushListItem = () => {
+        if (pendingListItem) {
+          html += `<li>${pendingListItem}</li>`;
+          pendingListItem = null;
+        }
+      };
+
       const closeLists = () => {
+        flushListItem();
         if (inUl) {
           html += '</ul>';
           inUl = false;
@@ -1349,7 +1512,18 @@
           .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
           .replace(/\*(.+?)\*/g, '<em>$1</em>');
 
-      lines.forEach((line) => {
+      const formatDecisionItem = (text) => {
+        // Check if this is a decision/question item with "Discovery:" on a new line
+        const parts = text.split(/\s*Discovery:\s*/i);
+        if (parts.length === 2) {
+          const question = parts[0].trim();
+          const discovery = parts[1].trim();
+          return `<strong>${inlineFormat(question)}</strong><span style="display: block; margin-top: 0.5rem; padding: 0.5rem 0.75rem; background: #faf9fa; border-radius: 4px; font-size: 0.85rem;"><span style="color: #36bf7f; font-weight: 600;">Discovery:</span> ${inlineFormat(discovery)}</span>`;
+        }
+        return inlineFormat(text);
+      };
+
+      lines.forEach((line, index) => {
         const trimmed = line.trim();
         if (!trimmed) {
           flushParagraph();
@@ -1371,13 +1545,13 @@
           flushParagraph();
           if (!inOl) {
             if (inUl) {
-              html += '</ul>';
-              inUl = false;
+              closeLists();
             }
             html += '<ol>';
             inOl = true;
           }
-          html += `<li>${inlineFormat(orderedMatch[2])}</li>`;
+          flushListItem();
+          pendingListItem = inlineFormat(orderedMatch[2]);
           return;
         }
 
@@ -1386,13 +1560,20 @@
           flushParagraph();
           if (!inUl) {
             if (inOl) {
-              html += '</ol>';
-              inOl = false;
+              closeLists();
             }
             html += '<ul>';
             inUl = true;
           }
-          html += `<li>${inlineFormat(unorderedMatch[1])}</li>`;
+          flushListItem();
+          pendingListItem = formatDecisionItem(unorderedMatch[1]);
+          return;
+        }
+
+        // Check for continuation of list item (Discovery: line)
+        if ((inUl || inOl) && pendingListItem && trimmed.toLowerCase().startsWith('discovery:')) {
+          const discovery = trimmed.replace(/^discovery:\s*/i, '');
+          pendingListItem += `<span style="display: block; margin-top: 0.5rem; padding: 0.5rem 0.75rem; background: #faf9fa; border-radius: 4px; font-size: 0.85rem;"><span style="color: #36bf7f; font-weight: 600;">Discovery:</span> ${inlineFormat(discovery)}</span>`;
           return;
         }
 

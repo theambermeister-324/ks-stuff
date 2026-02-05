@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSRI Widget Embed Code Generator</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(145deg, #0f0f1a 0%, #1a1a2e 100%);
+      color: #fff;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .logo-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #6436bf 0%, #42247f 100%);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #fff 0%, #e0d4f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+    }
+    .main-grid {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 32px;
+    }
+    @media (max-width: 1000px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .config-panel {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(100, 54, 191, 0.3);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .config-section {
+      margin-bottom: 24px;
+    }
+    .config-section:last-child {
+      margin-bottom: 0;
+    }
+    .config-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #a78bfa;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 6px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(100, 54, 191, 0.4);
+      background: rgba(255,255,255,0.03);
+      color: #fff;
+      font-size: 0.85rem;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: #6436bf;
+    }
+    .form-input::placeholder {
+      color: rgba(255,255,255,0.3);
+    }
+    select.form-input {
+      cursor: pointer;
+    }
+    select.form-input option {
+      background: #1a1a2e;
+      color: #fff;
+    }
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .theme-option {
+      padding: 12px 8px;
+      border-radius: 8px;
+      border: 2px solid rgba(100, 54, 191, 0.3);
+      background: rgba(255,255,255,0.03);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .theme-option:hover {
+      border-color: rgba(100, 54, 191, 0.6);
+    }
+    .theme-option.selected {
+      border-color: #6436bf;
+      background: rgba(100, 54, 191, 0.15);
+    }
+    .theme-swatch {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin: 0 auto 6px;
+    }
+    .theme-name {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .checkbox-group input[type="checkbox"] {
+      accent-color: #6436bf;
+      width: 16px;
+      height: 16px;
+    }
+    .checkbox-group label {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.8);
+    }
+    .preview-panel {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(100, 54, 191, 0.3);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .preview-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #a78bfa;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .preview-frame-container {
+      background: #0a0a14;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .preview-iframe {
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 480px;
+      height: 520px;
+    }
+    .code-output {
+      margin-top: 24px;
+    }
+    .code-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .code-tab {
+      padding: 8px 16px;
+      border-radius: 8px 8px 0 0;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(100, 54, 191, 0.3);
+      border-bottom: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .code-tab.active {
+      background: rgba(100, 54, 191, 0.2);
+      color: #fff;
+    }
+    .code-block {
+      background: #0d0d18;
+      border: 1px solid rgba(100, 54, 191, 0.3);
+      border-radius: 0 8px 8px 8px;
+      padding: 16px;
+      font-family: 'Fira Code', 'Monaco', monospace;
+      font-size: 0.8rem;
+      color: #e0d4f7;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .copy-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #6436bf 0%, #42247f 100%);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+    .copy-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(100, 54, 191, 0.4);
+    }
+    .copy-btn.copied {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+    .color-picker-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .color-picker {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      border: 2px solid rgba(100, 54, 191, 0.4);
+      cursor: pointer;
+      padding: 0;
+      background: transparent;
+    }
+    .color-picker::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+    .color-picker::-webkit-color-swatch {
+      border: none;
+      border-radius: 6px;
+    }
+    .helper-text {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 4px;
+    }
+    .divider {
+      height: 1px;
+      background: rgba(100, 54, 191, 0.3);
+      margin: 24px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo-badge">PSRI EMBED TOOL</div>
+      <h1>Widget Embed Code Generator</h1>
+      <p class="subtitle">Customize and embed the PSRI Quick Assessment on your website</p>
+    </div>
+    
+    <div class="main-grid">
+      <!-- Configuration Panel -->
+      <div class="config-panel">
+        <div class="config-section">
+          <div class="config-title">
+            <i data-lucide="palette" style="width: 16px; height: 16px;"></i>
+            Theme
+          </div>
+          <div class="theme-grid" id="theme-grid">
+            <div class="theme-option selected" data-theme="default" onclick="selectTheme('default')">
+              <div class="theme-swatch" style="background: linear-gradient(135deg, #6436bf, #1a1a2e);"></div>
+              <div class="theme-name">Default</div>
+            </div>
+            <div class="theme-option" data-theme="light" onclick="selectTheme('light')">
+              <div class="theme-swatch" style="background: linear-gradient(135deg, #fff, #f5f3ff);"></div>
+              <div class="theme-name">Light</div>
+            </div>
+            <div class="theme-option" data-theme="corporate" onclick="selectTheme('corporate')">
+              <div class="theme-swatch" style="background: linear-gradient(135deg, #0066cc, #0a1628);"></div>
+              <div class="theme-name">Corporate</div>
+            </div>
+            <div class="theme-option" data-theme="emerald" onclick="selectTheme('emerald')">
+              <div class="theme-swatch" style="background: linear-gradient(135deg, #059669, #0a1f1a);"></div>
+              <div class="theme-name">Emerald</div>
+            </div>
+            <div class="theme-option" data-theme="sunset" onclick="selectTheme('sunset')">
+              <div class="theme-swatch" style="background: linear-gradient(135deg, #ea580c, #1f1007);"></div>
+              <div class="theme-name">Sunset</div>
+            </div>
+            <div class="theme-option" data-theme="minimal" onclick="selectTheme('minimal')">
+              <div class="theme-swatch" style="background: linear-gradient(135deg, #374151, #f9fafb);"></div>
+              <div class="theme-name">Minimal</div>
+            </div>
+          </div>
+          
+          <div class="form-group" style="margin-top: 16px;">
+            <label class="form-label">Custom Primary Color (optional)</label>
+            <div class="color-picker-group">
+              <input type="color" class="color-picker" id="custom-color" value="#6436bf" oninput="updatePreview()">
+              <input type="text" class="form-input" id="custom-color-hex" value="#6436bf" style="flex: 1;" oninput="syncColorPicker()" placeholder="#6436bf">
+            </div>
+            <p class="helper-text">Overrides the theme's primary color</p>
+          </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="config-section">
+          <div class="config-title">
+            <i data-lucide="image" style="width: 16px; height: 16px;"></i>
+            Branding
+          </div>
+          <div class="form-group">
+            <label class="form-label">Logo URL</label>
+            <input type="url" class="form-input" id="logo-url" placeholder="https://yoursite.com/logo.png" oninput="updatePreview()">
+            <p class="helper-text">Max height: 40px. Leave empty for default badge.</p>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Badge Text</label>
+            <input type="text" class="form-input" id="badge-text" value="PSRI QUICK CHECK" oninput="updatePreview()">
+          </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="config-section">
+          <div class="config-title">
+            <i data-lucide="type" style="width: 16px; height: 16px;"></i>
+            Content
+          </div>
+          <div class="form-group">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-input" id="widget-title" value="How AI-Ready Is Your Product System?" oninput="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subtitle</label>
+            <input type="text" class="form-input" id="widget-subtitle" value="5 questions • 2 minutes • Instant score" oninput="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Start Button Text</label>
+            <input type="text" class="form-input" id="start-text" value="Start Quick Assessment" oninput="updatePreview()">
+          </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="config-section">
+          <div class="config-title">
+            <i data-lucide="factory" style="width: 16px; height: 16px;"></i>
+            Industry
+          </div>
+          <div class="form-group">
+            <label class="form-label">Industry (for tailored questions)</label>
+            <select class="form-input" id="industry" onchange="updatePreview()">
+              <option value="">Generic (all industries)</option>
+              <option value="Financial Services">Financial Services</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Retail / E-commerce">Retail / E-commerce</option>
+              <option value="Technology / Media">Technology / Media</option>
+            </select>
+            <p class="helper-text">Questions will be tailored to this industry's context</p>
+          </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="config-section">
+          <div class="config-title">
+            <i data-lucide="link" style="width: 16px; height: 16px;"></i>
+            Integration
+          </div>
+          <div class="form-group">
+            <label class="form-label">Full Assessment URL</label>
+            <input type="url" class="form-input" id="full-url" value="./ipe_assessment_ab.html" oninput="updatePreview()">
+            <p class="helper-text">Where the "Get Full Assessment" button links to</p>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Webhook Callback URL (optional)</label>
+            <input type="url" class="form-input" id="callback-url" placeholder="https://api.yoursite.com/psri-lead" oninput="updatePreview()">
+            <p class="helper-text">Receives POST with results when user completes assessment</p>
+          </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="config-section">
+          <div class="config-title">
+            <i data-lucide="settings" style="width: 16px; height: 16px;"></i>
+            Options
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="show-powered-by" onchange="updatePreview()">
+            <label for="show-powered-by">Show "Powered by Knapsack"</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="hide-email" onchange="updatePreview()">
+            <label for="hide-email">Hide email field</label>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Preview Panel -->
+      <div class="preview-panel">
+        <div class="preview-title">
+          <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+          Live Preview
+        </div>
+        
+        <div class="preview-frame-container">
+          <iframe id="preview-iframe" class="preview-iframe" src="./psri_embed_widget.html"></iframe>
+        </div>
+        
+        <div class="code-output">
+          <div class="code-tabs">
+            <div class="code-tab active" data-tab="iframe" onclick="showCodeTab('iframe')">iframe</div>
+            <div class="code-tab" data-tab="script" onclick="showCodeTab('script')">Script Tag</div>
+            <div class="code-tab" data-tab="url" onclick="showCodeTab('url')">Direct URL</div>
+          </div>
+          
+          <div class="code-block" id="code-output">
+<!-- Embed code will appear here -->
+          </div>
+          
+          <button class="copy-btn" id="copy-btn" onclick="copyCode()">
+            <i data-lucide="copy" style="width: 18px; height: 18px;"></i>
+            <span id="copy-btn-text">Copy Embed Code</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let selectedTheme = 'default';
+    let activeCodeTab = 'iframe';
+    
+    function selectTheme(theme) {
+      selectedTheme = theme;
+      document.querySelectorAll('.theme-option').forEach(el => {
+        el.classList.toggle('selected', el.dataset.theme === theme);
+      });
+      updatePreview();
+    }
+    
+    function syncColorPicker() {
+      const hex = document.getElementById('custom-color-hex').value;
+      if (/^#[0-9A-Fa-f]{6}$/.test(hex)) {
+        document.getElementById('custom-color').value = hex;
+        updatePreview();
+      }
+    }
+    
+    function getConfig() {
+      return {
+        theme: selectedTheme,
+        color: document.getElementById('custom-color-hex').value.replace('#', ''),
+        logo: document.getElementById('logo-url').value,
+        badge: document.getElementById('badge-text').value,
+        title: document.getElementById('widget-title').value,
+        subtitle: document.getElementById('widget-subtitle').value,
+        startText: document.getElementById('start-text').value,
+        industry: document.getElementById('industry').value,
+        fullUrl: document.getElementById('full-url').value,
+        callback: document.getElementById('callback-url').value,
+        poweredBy: document.getElementById('show-powered-by').checked,
+        hideEmail: document.getElementById('hide-email').checked
+      };
+    }
+    
+    function buildWidgetUrl() {
+      const config = getConfig();
+      const baseUrl = './psri_embed_widget.html';
+      const params = new URLSearchParams();
+      
+      if (config.theme !== 'default') params.set('theme', config.theme);
+      if (config.color && config.color !== '6436bf') params.set('color', config.color);
+      if (config.logo) params.set('logo', config.logo);
+      if (config.badge !== 'PSRI QUICK CHECK') params.set('badge', config.badge);
+      if (config.title !== 'How AI-Ready Is Your Product System?') params.set('title', config.title);
+      if (config.subtitle !== '5 questions • 2 minutes • Instant score') params.set('subtitle', config.subtitle);
+      if (config.startText !== 'Start Quick Assessment') params.set('startText', config.startText);
+      if (config.industry) params.set('industry', config.industry);
+      if (config.fullUrl && config.fullUrl !== './ipe_assessment_ab.html') params.set('fullUrl', config.fullUrl);
+      if (config.callback) params.set('callback', config.callback);
+      if (config.poweredBy) params.set('poweredBy', 'true');
+      if (config.hideEmail) params.set('hideEmail', 'true');
+      
+      const paramString = params.toString();
+      return paramString ? `${baseUrl}?${paramString}` : baseUrl;
+    }
+    
+    function updatePreview() {
+      const url = buildWidgetUrl();
+      document.getElementById('preview-iframe').src = url;
+      generateCode();
+    }
+    
+    function generateCode() {
+      const widgetUrl = buildWidgetUrl();
+      // For production, replace with full URL
+      const fullWidgetUrl = widgetUrl.replace('./', 'https://your-domain.com/psri/');
+      
+      let code = '';
+      
+      if (activeCodeTab === 'iframe') {
+        code = `<!-- PSRI Quick Assessment Widget -->
+<iframe 
+  src="${fullWidgetUrl}"
+  width="100%" 
+  height="580" 
+  frameborder="0"
+  style="max-width: 500px; border-radius: 16px;"
+  allow="clipboard-write"
+></iframe>
+
+<!-- Optional: Listen for completion -->
+<script>
+window.addEventListener('message', (e) => {
+  if (e.data?.type === 'psri_widget_complete') {
+    console.log('PSRI Score:', e.data.psri);
+    console.log('Tier:', e.data.tier);
+    console.log('Email:', e.data.email);
+    // Handle lead capture here
+  }
+});
+<\/script>`;
+      } else if (activeCodeTab === 'script') {
+        code = `<!-- PSRI Quick Assessment Widget -->
+<div id="psri-widget-container"></div>
+<script>
+(function() {
+  var container = document.getElementById('psri-widget-container');
+  var iframe = document.createElement('iframe');
+  iframe.src = '${fullWidgetUrl}';
+  iframe.width = '100%';
+  iframe.height = '580';
+  iframe.frameBorder = '0';
+  iframe.style.maxWidth = '500px';
+  iframe.style.borderRadius = '16px';
+  container.appendChild(iframe);
+  
+  // Listen for completion
+  window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'psri_widget_complete') {
+      // Track in your analytics
+      if (window.gtag) {
+        gtag('event', 'psri_complete', {
+          score: e.data.psri,
+          tier: e.data.tier
+        });
+      }
+    }
+  });
+})();
+<\/script>`;
+      } else if (activeCodeTab === 'url') {
+        code = fullWidgetUrl;
+      }
+      
+      document.getElementById('code-output').textContent = code;
+    }
+    
+    function showCodeTab(tab) {
+      activeCodeTab = tab;
+      document.querySelectorAll('.code-tab').forEach(el => {
+        el.classList.toggle('active', el.dataset.tab === tab);
+      });
+      generateCode();
+    }
+    
+    function copyCode() {
+      const code = document.getElementById('code-output').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.getElementById('copy-btn');
+        const text = document.getElementById('copy-btn-text');
+        btn.classList.add('copied');
+        text.textContent = 'Copied!';
+        
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          text.textContent = 'Copy Embed Code';
+        }, 2000);
+      });
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      generateCode();
+      
+      // Sync color picker on page load
+      document.getElementById('custom-color').addEventListener('input', function() {
+        document.getElementById('custom-color-hex').value = this.value;
+        updatePreview();
+      });
+    });
+  </script>
+</body>
+</html>
+
