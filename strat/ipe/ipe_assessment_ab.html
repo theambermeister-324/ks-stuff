@@ -874,6 +874,35 @@
         grid-template-columns: 1fr;
       }
       
+      /* Calibration page grids collapse */
+      #calibration-container [style*="grid-template-columns: repeat(5"] {
+        grid-template-columns: repeat(3, 1fr) !important;
+      }
+      
+      #calibration-container [style*="grid-template-columns: repeat(4"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      
+      #calibration-container [style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+      
+      /* Calibration action buttons stack */
+      #calibration-container > .card > div:last-child {
+        flex-direction: column !important;
+        gap: 16px !important;
+      }
+      
+      #calibration-container > .card > div:last-child > div:last-child {
+        flex-direction: column !important;
+        width: 100%;
+      }
+      
+      #calibration-container .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
       /* Intro page two-column grids collapse */
       .card > div[style*="grid-template-columns: 1fr 1fr"] {
         display: flex !important;
@@ -950,6 +979,16 @@
       /* Role cards stack */
       [role="radiogroup"][style*="display: flex"] {
         flex-direction: column !important;
+      }
+      
+      /* Calibration page - system architecture 2 columns on very small screens */
+      #calibration-container [style*="grid-template-columns: repeat(5"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      
+      /* Calibration page - tools single column */
+      #calibration-container [style*="grid-template-columns: repeat(4"] {
+        grid-template-columns: 1fr !important;
       }
     }
     
@@ -1307,26 +1346,10 @@
       <!-- Hero Section -->
       <div class="card text-center fade-in" style="padding: 48px 32px;">
         <div class="logo-badge" style="margin-bottom: 24px;">KNAPSACK PSRI v<span id="psri-version">1.0</span></div>
-        <h1 style="font-size: 2.25rem; line-height: 1.2; margin-bottom: 16px;">Product System Maturity Assessment</h1>
+        <h1 style="font-size: 2.25rem; line-height: 1.2; margin-bottom: 16px;">Discover Where You Stand on the Path to AI-Ready Product Delivery</h1>
         <p class="text-secondary" style="font-size: 1.125rem; max-width: 600px; margin: 0 auto 24px; line-height: 1.6;">
           Benchmark your product system against 50+ enterprises and get a clear path to AI-ready delivery.
         </p>
-        
-        <!-- Compact Deliverables Row -->
-        <div style="display: flex; justify-content: center; gap: 32px; margin-bottom: 32px; flex-wrap: wrap;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <i data-lucide="gauge" style="width: 20px; height: 20px; color: var(--spectrum-purple-400);" aria-hidden="true"></i>
-            <span class="text-sm text-secondary">PSRI Score</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <i data-lucide="git-compare" style="width: 20px; height: 20px; color: var(--spectrum-blue-400);" aria-hidden="true"></i>
-            <span class="text-sm text-secondary">Industry Benchmark</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <i data-lucide="map" style="width: 20px; height: 20px; color: var(--spectrum-green-400);" aria-hidden="true"></i>
-            <span class="text-sm text-secondary">Priority Roadmap</span>
-          </div>
-        </div>
         
         <button onclick="startAssessment()" class="btn btn-primary btn-lg" style="padding: 16px 32px; font-size: 1.125rem;">
           <span>Start Assessment</span>
@@ -1340,23 +1363,44 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
           <!-- Left: Maturity Journey -->
           <div>
-            <h2 class="text-primary" style="font-size: 1.125rem; font-weight: 600; margin-bottom: 16px;">Where will you land?</h2>
-            <div role="list" aria-label="Maturity stages" style="display: flex; flex-direction: column; gap: 8px;">
-              <div role="listitem" style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: linear-gradient(90deg, rgba(239, 68, 68, 0.12) 0%, transparent 100%); border-radius: 8px; border-left: 3px solid #ef4444;">
-                <span style="font-size: 1rem; font-weight: 700; color: #fff; min-width: 90px;">Builder</span>
-                <span class="text-tertiary text-sm">30% of orgs</span>
+            <h2 class="text-primary" style="font-size: 1.125rem; font-weight: 600; margin-bottom: 6px;">Where will you land?</h2>
+            <p class="text-tertiary text-sm" style="margin: 0 0 14px 0;">Four stages from foundational design system to AI-ready product engine:</p>
+            <div role="list" aria-label="Maturity stages" style="display: flex; flex-direction: column; gap: 6px;">
+              <div role="listitem" style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; background: linear-gradient(90deg, rgba(239, 68, 68, 0.12) 0%, transparent 100%); border-radius: 8px; border-left: 3px solid #ef4444;">
+                <div style="flex: 1;">
+                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                    <span style="font-size: 0.95rem; font-weight: 700; color: #fff;">Builder</span>
+                    <span class="text-tertiary text-xs">30% of orgs</span>
+                  </div>
+                  <p class="text-tertiary text-xs" style="margin: 0;">Establishing core components and governance basics</p>
+                </div>
               </div>
-              <div role="listitem" style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: linear-gradient(90deg, rgba(251, 191, 36, 0.12) 0%, transparent 100%); border-radius: 8px; border-left: 3px solid #fbbf24;">
-                <span style="font-size: 1rem; font-weight: 700; color: #fff; min-width: 90px;">Adopter</span>
-                <span class="text-tertiary text-sm">35% of orgs</span>
+              <div role="listitem" style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; background: linear-gradient(90deg, rgba(251, 191, 36, 0.12) 0%, transparent 100%); border-radius: 8px; border-left: 3px solid #fbbf24;">
+                <div style="flex: 1;">
+                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                    <span style="font-size: 0.95rem; font-weight: 700; color: #fff;">Adopter</span>
+                    <span class="text-tertiary text-xs">35% of orgs</span>
+                  </div>
+                  <p class="text-tertiary text-xs" style="margin: 0;">Design system in use, but gaps in adoption or AI readiness</p>
+                </div>
               </div>
-              <div role="listitem" style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: linear-gradient(90deg, rgba(59, 130, 246, 0.12) 0%, transparent 100%); border-radius: 8px; border-left: 3px solid #3b82f6;">
-                <span style="font-size: 1rem; font-weight: 700; color: #fff; min-width: 90px;">Optimizer</span>
-                <span class="text-tertiary text-sm">25% of orgs</span>
+              <div role="listitem" style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; background: linear-gradient(90deg, rgba(59, 130, 246, 0.12) 0%, transparent 100%); border-radius: 8px; border-left: 3px solid #3b82f6;">
+                <div style="flex: 1;">
+                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                    <span style="font-size: 0.95rem; font-weight: 700; color: #fff;">Optimizer</span>
+                    <span class="text-tertiary text-xs">25% of orgs</span>
+                  </div>
+                  <p class="text-tertiary text-xs" style="margin: 0;">Scaling adoption with metrics, automation emerging</p>
+                </div>
               </div>
-              <div role="listitem" style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: linear-gradient(90deg, rgba(16, 185, 129, 0.12) 0%, transparent 100%); border-radius: 8px; border-left: 3px solid #10b981;">
-                <span style="font-size: 1rem; font-weight: 700; color: #fff; min-width: 90px;">Transformer</span>
-                <span class="text-tertiary text-sm">10% of orgs</span>
+              <div role="listitem" style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; background: linear-gradient(90deg, rgba(16, 185, 129, 0.12) 0%, transparent 100%); border-radius: 8px; border-left: 3px solid #10b981;">
+                <div style="flex: 1;">
+                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                    <span style="font-size: 0.95rem; font-weight: 700; color: #fff;">Transformer</span>
+                    <span class="text-tertiary text-xs">10% of orgs</span>
+                  </div>
+                  <p class="text-tertiary text-xs" style="margin: 0;">AI-powered delivery with full governance and velocity</p>
+                </div>
               </div>
             </div>
           </div>
@@ -1397,37 +1441,53 @@
           </div>
         </div>
         
-        <!-- Footer tip -->
-        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--spectrum-border-subtle); display: flex; align-items: center; justify-content: center; gap: 8px;">
-          <i data-lucide="users" style="width: 14px; height: 14px; color: var(--spectrum-purple-400);" aria-hidden="true"></i>
-          <span class="text-tertiary text-sm">Best results when <strong class="text-secondary">design, eng & product leaders</strong> each complete the assessment</span>
+        <!-- Footer with Methodology -->
+        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--spectrum-border-subtle);">
+          <!-- Methodology callout -->
+          <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 12px; padding: 12px 16px; background: rgba(100, 54, 191, 0.06); border-radius: 8px; border: 1px solid rgba(100, 54, 191, 0.12);">
+            <i data-lucide="graduation-cap" style="width: 18px; height: 18px; color: var(--spectrum-purple-400);" aria-hidden="true"></i>
+            <span class="text-secondary text-sm">Built on <strong>DORA</strong>, <strong>Team Topologies</strong>, <strong>NIST AI RMF</strong> & <strong>Westrum</strong> research</span>
+            <a href="#" onclick="showMethodology(); return false;" class="text-purple text-sm font-semibold" style="text-decoration: underline; white-space: nowrap;">View methodology →</a>
+          </div>
+          <!-- Team tip -->
+          <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <i data-lucide="users" style="width: 14px; height: 14px; color: var(--spectrum-purple-400);" aria-hidden="true"></i>
+            <span class="text-tertiary text-sm">Best results when <strong class="text-secondary">design, eng & product leaders</strong> each complete the assessment</span>
+          </div>
         </div>
       </div>
 
-
-      <!-- Personalization Section -->
-      <div class="card fade-in stagger-3" style="padding: 28px;">
-        <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+    </article>
+    
+    <!-- Calibration Page (Step 2 - shown after clicking Start Assessment) -->
+    <article id="calibration-container" style="display: none;" role="region" aria-label="Personalize your assessment">
+      <div class="card fade-in" style="padding: 32px;">
+        <!-- Header with Step Indicator -->
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--spectrum-border-subtle);">
           <div>
-            <h2 class="text-primary" style="font-size: 1.125rem; font-weight: 600; margin-bottom: 4px;">Calibrate Your Assessment</h2>
-            <p class="text-tertiary text-sm" style="margin: 0;">Better context = more accurate benchmarks and relevant recommendations</p>
+            <p class="text-xs text-purple" style="text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 4px 0; font-weight: 600;">Step 1 of 2</p>
+            <h2 class="text-primary" style="font-size: 1.5rem; font-weight: 600; margin: 0;">Personalize Your Assessment</h2>
           </div>
-          <button onclick="showMethodology(); return false;" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.875rem; display: flex; align-items: center; gap: 6px;">
+          <button onclick="showMethodology(); return false;" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.875rem;">
             <i data-lucide="file-text" style="width: 16px; height: 16px;" aria-hidden="true"></i>
-            View Methodology
+            <span>Methodology</span>
           </button>
         </div>
         
-        <!-- Required Fields -->
-        <div style="background: rgba(100, 54, 191, 0.06); border: 1px solid rgba(100, 54, 191, 0.15); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
-          <p class="text-xs text-purple" style="text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-            <i data-lucide="asterisk" style="width: 12px; height: 12px;" aria-hidden="true"></i>
-            Required for benchmarking
-          </p>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <!-- Why This Matters -->
+        <div style="background: linear-gradient(135deg, rgba(100, 54, 191, 0.08) 0%, rgba(59, 130, 246, 0.08) 100%); border-radius: 12px; padding: 16px 20px; margin-bottom: 28px; display: flex; align-items: center; gap: 12px;">
+          <i data-lucide="sparkles" style="width: 24px; height: 24px; color: var(--spectrum-purple-400); flex-shrink: 0;" aria-hidden="true"></i>
+          <p class="text-secondary text-sm" style="margin: 0;">Better context means <strong>more accurate benchmarks</strong> and <strong>personalized recommendations</strong> tailored to your industry and role.</p>
+        </div>
+        
+        <!-- Required Section -->
+        <div style="margin-bottom: 32px;">
+          <p class="text-xs text-tertiary" style="text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; font-weight: 600;">Required</p>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
             <div class="form-group" style="margin-bottom: 0;">
-              <label class="form-label" for="industry-pref" data-required>Industry</label>
-              <select class="form-input" id="industry-pref" name="industryPref" required aria-required="true" onchange="updateIndustryIndicator()">
+              <label class="form-label" for="industry-pref" data-required style="font-size: 0.95rem;">Industry</label>
+              <select class="form-input" id="industry-pref" name="industryPref" required aria-required="true" onchange="updateIndustryIndicator()" style="padding: 14px 16px; font-size: 1rem;">
                 <option value="" disabled selected>Select your industry</option>
                 <option value="Financial Services">Financial Services</option>
                 <option value="Insurance">Insurance</option>
@@ -1444,172 +1504,142 @@
                 <option value="Utilities (Electric)">Utilities</option>
                 <option value="Other / Unknown">Other</option>
               </select>
+              <p class="form-helper">For industry-specific benchmarks</p>
             </div>
             <div class="form-group" style="margin-bottom: 0;">
-              <label class="form-label" for="org-domain" data-required>Organization Domain</label>
-              <input class="form-input" id="org-domain" name="orgDomain" type="text" placeholder="acme.com" required aria-required="true">
+              <label class="form-label" for="org-domain" data-required style="font-size: 0.95rem;">Organization Domain</label>
+              <input class="form-input" id="org-domain" name="orgDomain" type="text" placeholder="acme.com" required aria-required="true" style="padding: 14px 16px; font-size: 1rem;">
+              <p class="form-helper">To track progress over time</p>
+            </div>
+          </div>
+          
+          <!-- Role Selection -->
+          <div>
+            <label class="form-label" style="font-size: 0.95rem; margin-bottom: 12px;">Your Role</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;" role="radiogroup" aria-label="Select your role">
+              <label class="choice-card selected" id="role-executive" style="padding: 20px; cursor: pointer;">
+                <input type="radio" name="roleType" value="executive" checked onchange="setRole('executive')">
+                <div style="display: flex; align-items: center; gap: 16px; flex: 1;">
+                  <div style="width: 48px; height: 48px; background: rgba(100, 54, 191, 0.12); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="briefcase" style="width: 24px; height: 24px; color: var(--spectrum-purple-400);" aria-hidden="true"></i>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-primary" style="margin: 0 0 4px 0; font-size: 1rem;">Executive / Leader</p>
+                    <p class="text-tertiary text-sm" style="margin: 0;">Strategy, governance & ROI focus</p>
+                  </div>
+                </div>
+              </label>
+              <label class="choice-card" id="role-practitioner" style="padding: 20px; cursor: pointer;">
+                <input type="radio" name="roleType" value="practitioner" onchange="setRole('practitioner')">
+                <div style="display: flex; align-items: center; gap: 16px; flex: 1;">
+                  <div style="width: 48px; height: 48px; background: rgba(59, 130, 246, 0.12); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="code" style="width: 24px; height: 24px; color: var(--spectrum-blue-400);" aria-hidden="true"></i>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-primary" style="margin: 0 0 4px 0; font-size: 1rem;">Practitioner / Builder</p>
+                    <p class="text-tertiary text-sm" style="margin: 0;">Tools, workflows & technical depth</p>
+                  </div>
+                </div>
+              </label>
             </div>
           </div>
         </div>
         
-        <!-- Role Selection -->
-        <div style="margin-bottom: 20px;">
-          <label class="form-label" style="margin-bottom: 8px;">Your Role</label>
-          <div style="display: flex; gap: 12px;" role="radiogroup" aria-label="Select your role">
-            <label class="choice-card selected" id="role-executive" style="flex: 1; padding: 12px 16px;">
-              <input type="radio" name="roleType" value="executive" checked onchange="setRole('executive')">
-              <div style="display: flex; align-items: center; gap: 10px;">
-                <i data-lucide="briefcase" style="width: 18px; height: 18px; color: var(--spectrum-purple-400);" aria-hidden="true"></i>
-                <div>
-                  <span class="font-semibold text-primary">Executive</span>
-                  <span class="text-tertiary text-sm" style="margin-left: 8px;">Strategy & governance</span>
-                </div>
-              </div>
-            </label>
-            <label class="choice-card" id="role-practitioner" style="flex: 1; padding: 12px 16px;">
-              <input type="radio" name="roleType" value="practitioner" onchange="setRole('practitioner')">
-              <div style="display: flex; align-items: center; gap: 10px;">
-                <i data-lucide="code" style="width: 18px; height: 18px; color: var(--spectrum-blue-400);" aria-hidden="true"></i>
-                <div>
-                  <span class="font-semibold text-primary">Practitioner</span>
-                  <span class="text-tertiary text-sm" style="margin-left: 8px;">Tools & technical</span>
-                </div>
-              </div>
-            </label>
-          </div>
-        </div>
-        
-        <!-- Optional Calibration Section -->
-        <div style="margin-bottom: 20px;">
-          <p class="text-xs text-tertiary" style="text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-            <i data-lucide="sliders" style="width: 12px; height: 12px;" aria-hidden="true"></i>
-            Optional calibration · Click to expand
-          </p>
+        <!-- Optional Section -->
+        <div style="margin-bottom: 32px;">
+          <p class="text-xs text-tertiary" style="text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; font-weight: 600;">Optional — Enhances your results</p>
           
           <!-- System Landscape -->
-          <div class="expandable-option" onclick="this.classList.toggle('expanded')" style="margin-bottom: 12px; cursor: pointer; background: rgba(255,255,255,0.03); border: 1px dashed var(--spectrum-border-default); border-radius: 10px; transition: all 0.2s ease;">
-            <div class="expandable-header" style="display: flex; align-items: center; gap: 10px; padding: 14px 16px;">
-              <div style="width: 36px; height: 36px; background: rgba(100, 54, 191, 0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                <i data-lucide="layers" style="width: 18px; height: 18px; color: var(--spectrum-purple-400);" aria-hidden="true"></i>
-              </div>
-              <div style="flex: 1;">
-                <p class="font-semibold text-primary text-sm" style="margin: 0;">Design System Architecture</p>
-                <p class="text-tertiary text-xs" style="margin: 0;">Tailors questions to your system complexity</p>
-              </div>
-              <span class="expandable-value" style="font-size: 0.85rem; color: var(--spectrum-text-secondary); background: rgba(100, 54, 191, 0.1); padding: 4px 10px; border-radius: 6px;" id="landscape-preview">Single Unified</span>
-              <i data-lucide="chevron-right" class="expand-icon" style="width: 18px; height: 18px; color: var(--spectrum-text-disabled); transition: transform 0.2s ease;" aria-hidden="true"></i>
+          <div style="margin-bottom: 20px;">
+            <label class="form-label" style="font-size: 0.95rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="layers" style="width: 18px; height: 18px; color: var(--spectrum-purple-400);" aria-hidden="true"></i>
+              Design System Architecture
+            </label>
+            <div role="radiogroup" aria-label="Select your system landscape" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;">
+              <label class="choice-card selected" id="landscape-single" style="padding: 16px; text-align: center; flex-direction: column;">
+                <input type="radio" name="systemLandscape" value="single" checked onchange="setSystemLandscape('single')" style="position: absolute; opacity: 0;">
+                <i data-lucide="box" style="width: 24px; height: 24px; color: var(--spectrum-purple-400); margin-bottom: 8px;" aria-hidden="true"></i>
+                <p class="font-semibold text-primary text-sm" style="margin: 0 0 4px 0;">Single</p>
+                <p class="text-tertiary text-xs" style="margin: 0;">One unified system</p>
+              </label>
+              <label class="choice-card" id="landscape-federated" style="padding: 16px; text-align: center; flex-direction: column;">
+                <input type="radio" name="systemLandscape" value="federated" onchange="setSystemLandscape('federated')" style="position: absolute; opacity: 0;">
+                <i data-lucide="git-branch" style="width: 24px; height: 24px; color: var(--spectrum-blue-400); margin-bottom: 8px;" aria-hidden="true"></i>
+                <p class="font-semibold text-primary text-sm" style="margin: 0 0 4px 0;">Federated</p>
+                <p class="text-tertiary text-xs" style="margin: 0;">Core + extensions</p>
+              </label>
+              <label class="choice-card" id="landscape-multiple" style="padding: 16px; text-align: center; flex-direction: column;">
+                <input type="radio" name="systemLandscape" value="multiple" onchange="setSystemLandscape('multiple')" style="position: absolute; opacity: 0;">
+                <i data-lucide="boxes" style="width: 24px; height: 24px; color: var(--spectrum-amber-400); margin-bottom: 8px;" aria-hidden="true"></i>
+                <p class="font-semibold text-primary text-sm" style="margin: 0 0 4px 0;">Multiple</p>
+                <p class="text-tertiary text-xs" style="margin: 0;">Independent systems</p>
+              </label>
+              <label class="choice-card" id="landscape-systemOfSystems" style="padding: 16px; text-align: center; flex-direction: column;">
+                <input type="radio" name="systemLandscape" value="systemOfSystems" onchange="setSystemLandscape('systemOfSystems')" style="position: absolute; opacity: 0;">
+                <i data-lucide="network" style="width: 24px; height: 24px; color: var(--spectrum-green-400); margin-bottom: 8px;" aria-hidden="true"></i>
+                <p class="font-semibold text-primary text-sm" style="margin: 0 0 4px 0;">System of Systems</p>
+                <p class="text-tertiary text-xs" style="margin: 0;">Multi-tier governance</p>
+              </label>
+              <label class="choice-card" id="landscape-fragmented" style="padding: 16px; text-align: center; flex-direction: column;">
+                <input type="radio" name="systemLandscape" value="fragmented" onchange="setSystemLandscape('fragmented')" style="position: absolute; opacity: 0;">
+                <i data-lucide="puzzle" style="width: 24px; height: 24px; color: var(--spectrum-red-400); margin-bottom: 8px;" aria-hidden="true"></i>
+                <p class="font-semibold text-primary text-sm" style="margin: 0 0 4px 0;">Fragmented</p>
+                <p class="text-tertiary text-xs" style="margin: 0;">Minimal coordination</p>
+              </label>
             </div>
-            <div class="expandable-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-              <div style="padding: 0 16px 16px 16px; border-top: 1px solid var(--spectrum-border-subtle);" onclick="event.stopPropagation();">
-                <div role="radiogroup" aria-label="Select your system landscape" style="display: grid; gap: 8px; margin-top: 12px;">
-                  <label class="choice-card selected" id="landscape-single" style="padding: 10px 14px;">
-                    <input type="radio" name="systemLandscape" value="single" checked onchange="setSystemLandscape('single')">
-                    <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
-                      <i data-lucide="box" style="width: 16px; height: 16px; color: var(--spectrum-purple-400);" aria-hidden="true"></i>
-                      <span class="font-semibold text-primary text-sm">Single Unified</span>
-                      <span class="text-tertiary text-xs">One system for all products</span>
-                    </div>
-                  </label>
-                  <label class="choice-card" id="landscape-federated" style="padding: 10px 14px;">
-                    <input type="radio" name="systemLandscape" value="federated" onchange="setSystemLandscape('federated')">
-                    <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
-                      <i data-lucide="git-branch" style="width: 16px; height: 16px; color: var(--spectrum-blue-400);" aria-hidden="true"></i>
-                      <span class="font-semibold text-primary text-sm">Federated</span>
-                      <span class="text-tertiary text-xs">Shared core + extensions</span>
-                    </div>
-                  </label>
-                  <label class="choice-card" id="landscape-multiple" style="padding: 10px 14px;">
-                    <input type="radio" name="systemLandscape" value="multiple" onchange="setSystemLandscape('multiple')">
-                    <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
-                      <i data-lucide="boxes" style="width: 16px; height: 16px; color: var(--spectrum-amber-400);" aria-hidden="true"></i>
-                      <span class="font-semibold text-primary text-sm">Multiple Independent</span>
-                      <span class="text-tertiary text-xs">Separate per brand/unit</span>
-                    </div>
-                  </label>
-                  <label class="choice-card" id="landscape-systemOfSystems" style="padding: 10px 14px;">
-                    <input type="radio" name="systemLandscape" value="systemOfSystems" onchange="setSystemLandscape('systemOfSystems')">
-                    <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
-                      <i data-lucide="network" style="width: 16px; height: 16px; color: var(--spectrum-green-400);" aria-hidden="true"></i>
-                      <span class="font-semibold text-primary text-sm">System of Systems</span>
-                      <span class="text-tertiary text-xs">Multi-tier governance</span>
-                    </div>
-                  </label>
-                  <label class="choice-card" id="landscape-fragmented" style="padding: 10px 14px;">
-                    <input type="radio" name="systemLandscape" value="fragmented" onchange="setSystemLandscape('fragmented')">
-                    <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
-                      <i data-lucide="puzzle" style="width: 16px; height: 16px; color: var(--spectrum-red-400);" aria-hidden="true"></i>
-                      <span class="font-semibold text-primary text-sm">Fragmented</span>
-                      <span class="text-tertiary text-xs">Minimal coordination</span>
-                    </div>
-                  </label>
-                </div>
-                <div id="multi-system-indicator" style="display: none; margin-top: 12px; padding: 10px 14px; background: rgba(59, 130, 246, 0.1); border-radius: 6px; border: 1px solid rgba(59, 130, 246, 0.2);">
-                  <p class="text-sm text-blue flex items-center gap-2 mb-0">
-                    <i data-lucide="plus-circle" style="width: 14px; height: 14px;" aria-hidden="true"></i>
-                    <span>Additional multi-system questions included</span>
-                  </p>
-                </div>
-              </div>
+            <div id="multi-system-indicator" style="display: none; margin-top: 12px; padding: 10px 14px; background: rgba(59, 130, 246, 0.1); border-radius: 6px; border: 1px solid rgba(59, 130, 246, 0.2);">
+              <p class="text-sm text-blue flex items-center gap-2 mb-0">
+                <i data-lucide="plus-circle" style="width: 14px; height: 14px;" aria-hidden="true"></i>
+                <span>Additional multi-system questions will be included</span>
+              </p>
             </div>
           </div>
           
           <!-- Tool Stack -->
-          <div class="expandable-option" onclick="this.classList.toggle('expanded')" style="cursor: pointer; background: rgba(255,255,255,0.03); border: 1px dashed var(--spectrum-border-default); border-radius: 10px; transition: all 0.2s ease;">
-            <div class="expandable-header" style="display: flex; align-items: center; gap: 10px; padding: 14px 16px;">
-              <div style="width: 36px; height: 36px; background: rgba(251, 191, 36, 0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                <i data-lucide="wrench" style="width: 18px; height: 18px; color: var(--spectrum-amber-400);" aria-hidden="true"></i>
+          <div>
+            <label class="form-label" style="font-size: 0.95rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="wrench" style="width: 18px; height: 18px; color: var(--spectrum-amber-400);" aria-hidden="true"></i>
+              Current Tool Stack
+              <span class="text-tertiary text-sm" style="font-weight: 400;">(select all that apply)</span>
+            </label>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+              <div>
+                <p class="text-xs text-tertiary" style="text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; font-weight: 600;">Design</p>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <button type="button" class="tool-chip" data-tool="figma" onclick="toggleTool('figma')" aria-pressed="false" style="justify-content: flex-start; width: 100%;">Figma</button>
+                  <button type="button" class="tool-chip" data-tool="sketch" onclick="toggleTool('sketch')" aria-pressed="false" style="justify-content: flex-start; width: 100%;">Sketch</button>
+                  <button type="button" class="tool-chip" data-tool="tokensStudio" onclick="toggleTool('tokensStudio')" aria-pressed="false" style="justify-content: flex-start; width: 100%;">Tokens Studio</button>
+                </div>
               </div>
-              <div style="flex: 1;">
-                <p class="font-semibold text-primary text-sm" style="margin: 0;">Current Tool Stack</p>
-                <p class="text-tertiary text-xs" style="margin: 0;">Compare your setup to high-performing teams</p>
+              <div>
+                <p class="text-xs text-tertiary" style="text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; font-weight: 600;">Development</p>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <button type="button" class="tool-chip" data-tool="storybook" onclick="toggleTool('storybook')" aria-pressed="false" style="justify-content: flex-start; width: 100%;">Storybook</button>
+                  <button type="button" class="tool-chip" data-tool="styleDictionary" onclick="toggleTool('styleDictionary')" aria-pressed="false" style="justify-content: flex-start; width: 100%;">Style Dictionary</button>
+                  <button type="button" class="tool-chip" data-tool="custom" onclick="toggleTool('custom')" aria-pressed="false" style="justify-content: flex-start; width: 100%;">Custom-built</button>
+                </div>
               </div>
-              <span class="expandable-value" style="font-size: 0.85rem; color: var(--spectrum-text-secondary); background: rgba(251, 191, 36, 0.1); padding: 4px 10px; border-radius: 6px;" id="tools-preview">Not set</span>
-              <i data-lucide="chevron-right" class="expand-icon" style="width: 18px; height: 18px; color: var(--spectrum-text-disabled); transition: transform 0.2s ease;" aria-hidden="true"></i>
-            </div>
-            <div class="expandable-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-              <div style="padding: 0 16px 16px 16px; border-top: 1px solid var(--spectrum-border-subtle);" onclick="event.stopPropagation();">
-                <p class="text-sm text-tertiary" style="margin: 12px 0;">Select all tools you currently use:</p>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                  <div>
-                    <p class="text-xs text-tertiary" style="text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; font-weight: 600;">Design</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-                      <button type="button" class="tool-chip" data-tool="figma" onclick="toggleTool('figma')" aria-pressed="false">Figma</button>
-                      <button type="button" class="tool-chip" data-tool="sketch" onclick="toggleTool('sketch')" aria-pressed="false">Sketch</button>
-                      <button type="button" class="tool-chip" data-tool="tokensStudio" onclick="toggleTool('tokensStudio')" aria-pressed="false">Tokens Studio</button>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="text-xs text-tertiary" style="text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; font-weight: 600;">Development</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-                      <button type="button" class="tool-chip" data-tool="storybook" onclick="toggleTool('storybook')" aria-pressed="false">Storybook</button>
-                      <button type="button" class="tool-chip" data-tool="styleDictionary" onclick="toggleTool('styleDictionary')" aria-pressed="false">Style Dictionary</button>
-                      <button type="button" class="tool-chip" data-tool="custom" onclick="toggleTool('custom')" aria-pressed="false">Custom-built</button>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="text-xs text-tertiary" style="text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; font-weight: 600;">Platforms</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-                      <button type="button" class="tool-chip" data-tool="zeroheight" onclick="toggleTool('zeroheight')" aria-pressed="false">Zeroheight</button>
-                      <button type="button" class="tool-chip" data-tool="supernova" onclick="toggleTool('supernova')" aria-pressed="false">Supernova</button>
-                      <button type="button" class="tool-chip" data-tool="knapsack" onclick="toggleTool('knapsack')" aria-pressed="false" style="border-color: rgba(100, 54, 191, 0.4);">Knapsack</button>
-                      <button type="button" class="tool-chip" data-tool="confluence" onclick="toggleTool('confluence')" aria-pressed="false">Confluence</button>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="text-xs text-tertiary" style="text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; font-weight: 600;">Other</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-                      <button type="button" class="tool-chip" data-tool="manual" onclick="toggleTool('manual')" aria-pressed="false">Spreadsheets</button>
-                      <button type="button" class="tool-chip" data-tool="none" onclick="toggleTool('none')" aria-pressed="false">No tooling</button>
-                    </div>
-                  </div>
+              <div>
+                <p class="text-xs text-tertiary" style="text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; font-weight: 600;">Platforms</p>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <button type="button" class="tool-chip" data-tool="zeroheight" onclick="toggleTool('zeroheight')" aria-pressed="false" style="justify-content: flex-start; width: 100%;">Zeroheight</button>
+                  <button type="button" class="tool-chip" data-tool="supernova" onclick="toggleTool('supernova')" aria-pressed="false" style="justify-content: flex-start; width: 100%;">Supernova</button>
+                  <button type="button" class="tool-chip" data-tool="knapsack" onclick="toggleTool('knapsack')" aria-pressed="false" style="justify-content: flex-start; width: 100%; border-color: rgba(100, 54, 191, 0.4);">Knapsack</button>
+                  <button type="button" class="tool-chip" data-tool="confluence" onclick="toggleTool('confluence')" aria-pressed="false" style="justify-content: flex-start; width: 100%;">Confluence</button>
+                </div>
+              </div>
+              <div>
+                <p class="text-xs text-tertiary" style="text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; font-weight: 600;">Other</p>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <button type="button" class="tool-chip" data-tool="manual" onclick="toggleTool('manual')" aria-pressed="false" style="justify-content: flex-start; width: 100%;">Spreadsheets</button>
+                  <button type="button" class="tool-chip" data-tool="none" onclick="toggleTool('none')" aria-pressed="false" style="justify-content: flex-start; width: 100%;">No unified tooling</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
         
-        <!-- Assessment Type (Hidden unless follow-up needed) -->
+        <!-- Hidden Assessment Type Status -->
         <div id="baseline-lookup-status" style="display: none;" class="content-box" style="background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); margin-bottom: 16px;">
           <p class="text-sm text-blue flex items-center gap-2 mb-0">
             <span class="spin" style="display: inline-block; width: 14px; height: 14px; border: 2px solid var(--spectrum-blue-400); border-top-color: transparent; border-radius: 50%;"></span>
@@ -1617,15 +1647,24 @@
           </p>
         </div>
         
-        <!-- Footer -->
-        <div style="margin-top: 16px; text-align: center;">
-          <p class="text-tertiary text-sm" style="margin: 0;">
-            <i data-lucide="clock" style="width: 14px; height: 14px; display: inline; vertical-align: middle; margin-right: 4px;" aria-hidden="true"></i>
-            Takes about 10 minutes
-          </p>
+        <!-- Action Buttons -->
+        <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 24px; border-top: 1px solid var(--spectrum-border-subtle);">
+          <button onclick="goBackToIntro()" class="btn btn-secondary" style="padding: 12px 24px;">
+            <i data-lucide="arrow-left" style="width: 18px; height: 18px;" aria-hidden="true"></i>
+            <span>Back</span>
+          </button>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <p class="text-tertiary text-sm" style="margin: 0;">
+              <i data-lucide="clock" style="width: 14px; height: 14px; display: inline; vertical-align: middle; margin-right: 4px;" aria-hidden="true"></i>
+              ~10 minutes
+            </p>
+            <button onclick="beginAssessmentQuestions()" class="btn btn-primary btn-lg" style="padding: 14px 28px; font-size: 1rem;">
+              <span>Begin Assessment</span>
+              <i data-lucide="arrow-right" style="width: 20px; height: 20px;" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
       </div>
-
     </article>
 
     <!-- Assessment Form -->
@@ -4808,6 +4847,21 @@
     }
 
     function startAssessment() {
+      // Show calibration page
+      document.getElementById('intro-container').style.display = 'none';
+      document.getElementById('calibration-container').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      createAccessibleIcons();
+      trackEvent('calibration_view');
+    }
+    
+    function goBackToIntro() {
+      document.getElementById('calibration-container').style.display = 'none';
+      document.getElementById('intro-container').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    function beginAssessmentQuestions() {
       const industryPref = document.getElementById('industry-pref');
       const orgDomainInput = document.getElementById('org-domain');
       
@@ -4848,7 +4902,7 @@
       currentQuestionIndex = 0;
       answers = {};
       
-      document.getElementById('intro-container').style.display = 'none';
+      document.getElementById('calibration-container').style.display = 'none';
       document.getElementById('assessment-container').style.display = 'block';
       trackEvent('assessment_start', { 
         industry: selectedIndustry, 
@@ -4868,6 +4922,7 @@
       deploymentTier = 'D1';
       pendingResults = null;
       document.getElementById('intro-container').style.display = 'block';
+      document.getElementById('calibration-container').style.display = 'none';
       document.getElementById('assessment-container').style.display = 'none';
       document.getElementById('results-container').style.display = 'none';
       document.getElementById('lead-form-container').style.display = 'block';

@@ -622,7 +622,7 @@
   <div class="container">
     <!-- Navigation -->
     <div class="nav">
-      <button class="nav-button active" onclick="showPage('launch')">🚀 Launch Kit</button>
+      <button class="nav-button active" onclick="showPage('launch')">Launch Kit</button>
       <button class="nav-button" onclick="showPage('overview')">Framework Overview</button>
       <button class="nav-button" onclick="showPage('templates')">Contribution Templates</button>
       <button class="nav-button" onclick="showPage('workflows')">Contribution Workflows</button>
@@ -1362,7 +1362,7 @@
     <!-- Launch Kit Page -->
     <div id="launch" class="page active">
       <div class="header" style="border-left: 4px solid #eb8d0a; background: linear-gradient(135deg, #ffffff 0%, #fff8ed 100%);">
-        <h1 class="large">🚀 Pilot Launch Kit</h1>
+        <h1 class="large">Pilot Launch Kit</h1>
         <p style="font-size: 1rem; margin-bottom: 1rem;">
           <strong>Action Required:</strong> Review the decisions and questions below to finalize the College Board contribution pilot.
         </p>
@@ -1372,9 +1372,9 @@
       </div>
 
       <div class="launch-tabs">
-        <button class="launch-tab-button active" onclick="showLaunchTab('launch-decisions', event)" style="background-color: #fff3e0; border-color: #eb8d0a;">⚡ Decisions Needed</button>
-        <button class="launch-tab-button" onclick="showLaunchTab('launch-questions', event)" style="background-color: #e3f2fd; border-color: #05a2f0;">❓ Open Questions</button>
-        <button class="launch-tab-button" onclick="showLaunchTab('launch-assumptions', event)">✓ Validated Assumptions</button>
+        <button class="launch-tab-button active" onclick="showLaunchTab('launch-decisions', event)" style="background-color: #fff3e0; border-color: #eb8d0a;">Decisions Needed</button>
+        <button class="launch-tab-button" onclick="showLaunchTab('launch-questions', event)" style="background-color: #e3f2fd; border-color: #05a2f0;">Open Questions</button>
+        <button class="launch-tab-button" onclick="showLaunchTab('launch-assumptions', event)">Validated Assumptions</button>
         <button class="launch-tab-button" onclick="showLaunchTab('launch-kickoff', event)">Kickoff Memo</button>
         <button class="launch-tab-button" onclick="showLaunchTab('launch-slack', event)">Slack Announcements</button>
         <button class="launch-tab-button" onclick="showLaunchTab('launch-handbook', event)">Contributor Handbook</button>
@@ -1383,7 +1383,7 @@
       <div class="content-card launch-tab-content active" id="launch-decisions" style="border-left: 4px solid #eb8d0a;">
         <div class="section">
           <div style="background: linear-gradient(135deg, #fff8ed 0%, #fff3e0 100%); padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem;">
-            <h2 style="color: #b36b00; margin-bottom: 0.5rem;">⚡ Decisions Needed from College Board</h2>
+            <h2 style="color: #b36b00; margin-bottom: 0.5rem;">Decisions Needed from College Board</h2>
             <p style="margin: 0; color: #645e6e; font-size: 0.9rem;">Each item below requires a final decision. Discovery notes from Lindsey and Amber are included to inform your choice.</p>
           </div>
           <div class="markdown" data-md-src="pilot_validation_decisions.md">Loading decisions...</div>
@@ -1393,7 +1393,7 @@
       <div class="content-card launch-tab-content" id="launch-questions" style="border-left: 4px solid #05a2f0;">
         <div class="section">
           <div style="background: linear-gradient(135deg, #e8f4fd 0%, #e3f2fd 100%); padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem;">
-            <h2 style="color: #0277bd; margin-bottom: 0.5rem;">❓ Open Questions to Resolve</h2>
+            <h2 style="color: #0277bd; margin-bottom: 0.5rem;">Open Questions to Resolve</h2>
             <p style="margin: 0; color: #645e6e; font-size: 0.9rem;">These questions need answers before the pilot can proceed. Discovery notes are included to help guide the discussion.</p>
           </div>
           <div class="markdown" data-md-src="pilot_validation_questions.md">Loading questions...</div>
@@ -1403,7 +1403,7 @@
       <div class="content-card launch-tab-content" id="launch-assumptions" style="border-left: 4px solid #36bf7f;">
         <div class="section">
           <div style="background: linear-gradient(135deg, #e8f5e9 0%, #e0f2f1 100%); padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem;">
-            <h2 style="color: #2e7d32; margin-bottom: 0.5rem;">✓ Validated Assumptions</h2>
+            <h2 style="color: #2e7d32; margin-bottom: 0.5rem;">Validated Assumptions</h2>
             <p style="margin: 0; color: #645e6e; font-size: 0.9rem;">These assumptions have been validated through discovery interviews and inform the pilot design.</p>
           </div>
           <div class="markdown" data-md-src="pilot_validation_assumptions.md">Loading assumptions...</div>
@@ -1513,14 +1513,9 @@
           .replace(/\*(.+?)\*/g, '<em>$1</em>');
 
       const formatDecisionItem = (text) => {
-        // Check if this is a decision/question item with "Discovery:" on a new line
+        // Strip out any "Discovery:" content for cleaner executive view
         const parts = text.split(/\s*Discovery:\s*/i);
-        if (parts.length === 2) {
-          const question = parts[0].trim();
-          const discovery = parts[1].trim();
-          return `<strong>${inlineFormat(question)}</strong><span style="display: block; margin-top: 0.5rem; padding: 0.5rem 0.75rem; background: #faf9fa; border-radius: 4px; font-size: 0.85rem;"><span style="color: #36bf7f; font-weight: 600;">Discovery:</span> ${inlineFormat(discovery)}</span>`;
-        }
-        return inlineFormat(text);
+        return inlineFormat(parts[0].trim());
       };
 
       lines.forEach((line, index) => {
@@ -1570,10 +1565,8 @@
           return;
         }
 
-        // Check for continuation of list item (Discovery: line)
+        // Skip Discovery: lines for cleaner executive view
         if ((inUl || inOl) && pendingListItem && trimmed.toLowerCase().startsWith('discovery:')) {
-          const discovery = trimmed.replace(/^discovery:\s*/i, '');
-          pendingListItem += `<span style="display: block; margin-top: 0.5rem; padding: 0.5rem 0.75rem; background: #faf9fa; border-radius: 4px; font-size: 0.85rem;"><span style="color: #36bf7f; font-weight: 600;">Discovery:</span> ${inlineFormat(discovery)}</span>`;
           return;
         }
 

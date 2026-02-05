@@ -1,8 +1,5 @@
 # Decisions Needed
 
-- **Primary pilot audience:** designers, content engineers, or mixed?
-  Discovery: Lindsey says designers are the most frequent contributors today; Emily believes content engineers need greater engagement.
-
 - **Minimum evidence required** to accept a contribution (e.g., number of requests, program endorsement, proof of reuse).
   Discovery: Lindsey suggests multiple requests and system fit are key signals.
 
