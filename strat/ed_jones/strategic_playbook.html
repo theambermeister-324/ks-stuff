@@ -135,6 +135,7 @@
       { id: 'outcomes', label: 'Business Outcomes' },
       { id: 'timeline', label: 'Activation Timeline' },
       { id: 'technical', label: 'Technical Integration' },
+      { id: 'workshop-agenda', label: 'On-Site Workshop Agenda' },
       { id: 'changes', label: 'Change Log' },
       { id: 'next-steps', label: 'Next Steps' },
     ];
@@ -268,18 +269,18 @@
           </div>
           <div class="card summary-card">
             <div class="summary-label">Executive Summary</div>
-            <p class="summary-text">Edward Jones faces a critical opportunity: activate Knapsack for broader engagement while supporting offshore expansion, accessibility leadership, and organizational change. Knapsack provides the enablement and governance to establish design authority, accelerate product delivery, and prepare for AI-enabled workflows—meeting Edward Jones where they are today while positioning for tomorrow.</p>
+            <p class="summary-text">Edward Jones faces a critical opportunity: consolidate fragmented documentation (scattered across Knapsack, Figma, Storybook, and SharePoint) into one accessible, semantic source of truth. Post-reorg knowledge gaps require rebuilding internal capability. Knapsack serves as the control plane—not a Figma replacement—providing governance, accessibility-first documentation, and a foundation for future AI workflows when the organization is ready.</p>
           </div>
           <div class="card">
             <h2 class="heading">Strategic Value for Edward Jones</h2>
             <div class="grid-2">
               ${[
-                { title: 'Consolidate Shadow Systems', desc: 'Eliminate fragmented design libraries into orchestrated single source of truth' },
-                { title: 'Establish Design Authority', desc: 'Transition from influence-based to accountability-based design leadership' },
-                { title: 'Enable Offshore Teams', desc: 'Centralized system that scales to support expanding offshore design and development' },
-                { title: 'Complement Existing Strategy', desc: 'Platform that works with current "collect and curate" contribution approach' },
-                { title: 'Business Alignment', desc: 'Connect design, engineering, and business ownership in unified framework' },
-                { title: 'Future-Ready Infrastructure', desc: 'MCP foundation for AI workflows in secure environment when organizationally ready' },
+                { title: 'Consolidate Fragmented Documentation', desc: 'Unite guidance from Knapsack, Figma, Storybook, and SharePoint into one semantic source of truth' },
+                { title: 'Rebuild Post-Reorg Knowledge', desc: 'Address power user loss through targeted training and enablement sessions' },
+                { title: 'Figma Plugin Opportunity', desc: 'Surface contextual documentation inside Figma without leaving designer workflow' },
+                { title: 'Accessibility-First Documentation', desc: 'Author in Knapsack for semantic structure and screen reader support, distribute to Figma' },
+                { title: 'Workflow Mapping Before Solutioning', desc: 'Understand UX vs. conceptual/workflow designer needs before prescribing solutions' },
+                { title: 'Future-Ready, Not Forced', desc: 'MCP foundation for AI workflows when approvals and governance are in place' },
               ].map(v => `<div class="value-item"><div class="value-marker"></div><div><div class="value-title">${v.title}</div><div class="value-desc">${v.desc}</div></div></div>`).join('')}
             </div>
           </div>
@@ -297,14 +298,14 @@
             ${[
               { year: 'Pre-2024', title: 'Influence-Based Design', desc: 'UX team grew from <8 people, focused on influencing decisions without ownership or accountability', color: 'var(--neutral-500)' },
               { year: '2024', title: 'Contractor Reductions', desc: 'Reduction in contractor headcount across digital areas, UX team adjusted accordingly while building experience organization foundation', color: 'var(--neutral-500)' },
-              { year: '2025', title: 'Critical Inflection', desc: 'Enterprise Reimagined organizational changes, new GP Leader focused on design as growth driver, urgent need for design-led approach with accountability, shadow system proliferation, offshore team expansion requiring centralized design authority', color: '#dc2626' },
+              { year: '2025', title: 'Critical Inflection', desc: 'Enterprise Reimagined organizational changes with ongoing role shifts and reduced headcount. Design system "power users" largely did not survive the reorg, creating knowledge gaps around Knapsack capabilities. New GP Leader focused on design as growth driver, urgent need for design-led approach with accountability, offshore team expansion requiring centralized design authority.', color: '#dc2626' },
             ].map((p, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${p.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ${p.color}">${p.year}</span><span class="timeline-title">${p.title}</span></div><p class="timeline-desc">${p.desc}</p></div></div>`).join('')}
           </div>
           <div class="card">
             <h2 class="heading">Current Organizational Challenges</h2>
             <div class="pain-grid">
-              <div class="pain-card operational"><div class="pain-label">Operational Impact</div>${['Design libraries scattered across the firm', 'Inconsistent experiences across products', 'No single source of truth for design standards', 'Offshore teams expanding, requiring stronger centralized guidance'].map(i => `<div class="pain-item"><span class="pain-icon">×</span> ${i}</div>`).join('')}</div>
-              <div class="pain-card strategic"><div class="pain-label">Strategic Gaps</div>${['Three-legged stool incomplete: design, engineering, business ownership unclear', 'UX rated low in competitive landscape', 'Offshoring proliferation requires design system enablement', 'Risk of continued fragmentation without intervention'].map(i => `<div class="pain-item"><span class="pain-icon">!</span> ${i}</div>`).join('')}</div>
+              <div class="pain-card operational"><div class="pain-label">Operational Impact</div>${['Documentation fragmented across Knapsack, Figma, Storybook, SharePoint, and ad-hoc sources', 'Power users lost in reorg—knowledge gaps around Knapsack capabilities', 'Inconsistent usage and friction for designers, developers, and accessibility specialists', 'Offshore teams expanding, requiring stronger centralized guidance'].map(i => `<div class="pain-item"><span class="pain-icon">×</span> ${i}</div>`).join('')}</div>
+              <div class="pain-card strategic"><div class="pain-label">Strategic Gaps</div>${['Three-legged stool incomplete: design, engineering, business ownership unclear', 'No fully documented end-to-end workflow across UX, conceptual, and workflow design teams', 'Teams vary in composition—some lack accessibility specialists, writers, or developers', 'Strong desire for one accessible, semantic source of truth with contextual surfacing in Figma'].map(i => `<div class="pain-item"><span class="pain-icon">!</span> ${i}</div>`).join('')}</div>
             </div>
           </div>
           <div class="card">
@@ -324,19 +325,19 @@
           <p class="section-subtitle">Knapsack as orchestration platform complementing Edward Jones' existing strategy</p>
           <div class="card" style="background: var(--primary); color: white; border: none;">
             <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">Core Value Proposition</div>
-            <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">Orchestration Layer + Future-Ready Foundation</h3>
-            <p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">Knapsack orchestrates existing systems into a unified platform while complementing current tools and workflows. With implementation in place, the focus is on activation and design authority, while building MCP foundation for AI-enabled capabilities when your organization is ready—no forced timelines.</p>
+            <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">Control Plane + Source of Truth</h3>
+            <p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">Knapsack serves as the control plane where constraints live—not a replacement for Figma, but the semantic source of truth that prevents Figma from becoming the "breakable" authority. With implementation in place, the focus is on activation and design authority, while building MCP foundation for AI-enabled capabilities when your organization is ready—no forced timelines, adaptability is critical.</p>
           </div>
           <div class="card">
             <h2 class="heading">How Knapsack Addresses Edward Jones' Challenges</h2>
             <div class="grid-2">
               ${[
-                { challenge: 'Shadow Design Libraries', solution: 'Knapsack audit capabilities identify all systems, establish orchestration layer as single source of truth' },
-                { challenge: 'No Design Authority', solution: 'Platform configured with Design Ops as central authority, governance framework and escalation paths built in' },
-                { challenge: 'Offshore Team Expansion', solution: 'Centralized design system provides consistent guidance and standards for growing offshore teams' },
-                { challenge: 'Three-Legged Stool', solution: 'Unite design, engineering, and business stakeholders through shared platform and governance model' },
-                { challenge: 'Existing Strategy Integration', solution: 'Platform supports "collect and curate" contribution model, complements current Figma workflow' },
-                { challenge: 'Future AI Readiness', solution: 'MCP foundation in secure environment prepares for AI workflows on your timeline and terms' },
+                { challenge: 'Fragmented Documentation', solution: 'Consolidate guidance scattered across Knapsack, Figma, Storybook, and SharePoint into one accessible, semantic source of truth' },
+                { challenge: 'Knowledge Gaps Post-Reorg', solution: 'Rebuild internal knowledge through targeted training and enablement sessions, addressing power user loss' },
+                { challenge: 'Designers Need Context in Figma', solution: 'Knapsack → Figma plugin opportunity: pull bite-sized documentation (usage, accessibility, guidelines) into Figma contextually' },
+                { challenge: 'Accessibility Documentation', solution: 'Author accessibility docs in Knapsack for semantic structure and screen reader support, then distribute to Figma' },
+                { challenge: 'Workflow Variability', solution: 'Workflow + toolchain mapping to understand UX vs. conceptual/workflow designer needs before solutioning' },
+                { challenge: 'Future AI Readiness', solution: 'MCP foundation prepares for AI workflows; "AI-positive" org needs strong use cases and governance for approvals' },
               ].map(i => `<div style="padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px;"><div style="font-size: 12px; font-weight: 600; color: #dc2626; text-transform: uppercase; margin-bottom: 6px;">${i.challenge}</div><div style="font-size: 14px; color: var(--neutral-700);">${i.solution}</div></div>`).join('')}
             </div>
           </div>
@@ -582,7 +583,7 @@
               <div>
                 <div class="summary-label" style="margin-bottom: 12px;">Ed Jones Roles</div>
                 ${[
-                  { member: 'Wendi Moseley (Accessibility)', role: 'Accessibility requirements, validation, and compliance alignment' },
+                  { member: 'Wendi Moseley (Accessibility)', role: 'Accessibility requirements, validation, and compliance alignment. Note: Uses captions for meetings—ensure accessible communication.' },
                   { member: 'Matt Marino (Experience Ops)', role: 'Operational enablement, onboarding coordination, feedback loop' },
                   { member: 'Elizabeth + Sal (Design System)', role: 'Design system vision, governance, and tool strategy' },
                 ].map(m => `<div class="check-item"><span class="check-icon">✓</span><div><div class="check-title">${m.member}</div><div class="check-desc">${m.role}</div></div></div>`).join('')}
@@ -694,9 +695,9 @@
           <p class="section-subtitle">Future capability when Edward Jones is organizationally ready</p>
           
           <div class="card" style="background: var(--primary-light); border: 1px solid var(--primary);">
-            <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); margin-bottom: 14px;">No Pressure Timeline</div>
+            <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); margin-bottom: 14px;">AI-Positive, Compliance-Aware</div>
             <h3 style="font-size: 22px; font-weight: 700; color: var(--neutral-900); margin-bottom: 12px;">AI When You're Ready</h3>
-            <p style="font-size: 16px; color: var(--neutral-700); line-height: 1.7;">The Intelligent Product Engine represents Knapsack's vision for AI-powered product delivery. MCP foundation is already in the platform so you're prepared when your organization is ready to explore these capabilities—whether that's next year or three years from now.</p>
+            <p style="font-size: 16px; color: var(--neutral-700); line-height: 1.7;">Edward Jones is "AI-positive" in principle, but approval and compliance processes are slow and unclear (e.g., Figma AI not yet approved). The IPE / MCP direction strongly resonated as a future-ready control plane—adaptable, not monolithic. Strong use cases and governance will be required to justify approvals internally.</p>
           </div>
 
           <div class="card">
@@ -818,6 +819,266 @@
           </div>
         `,
 
+        'workshop-agenda': `
+          <h1 class="section-title">Edward Jones × Knapsack On-Site Workshop</h1>
+          <p class="section-subtitle">Design System Alignment & Change Enablement</p>
+          <div class="card summary-card">
+            <div class="summary-text">
+              <p><strong>Target Date:</strong> Early March 2026</p>
+              <p><strong>Duration:</strong> Full Day (9:00am – 4:00pm CT)</p>
+              <p><strong>Location:</strong> St. Louis, MO (Edward Jones HQ)</p>
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Workshop Purpose</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); margin-bottom: 12px; line-height: 1.6;">This working session brings together Edward Jones and Knapsack to align on the <strong>problem space, goals, workflows, and near-term execution plan</strong> for activating the design system at scale—post-reorg.</p>
+            <p style="font-size: 14px; color: var(--neutral-700); margin-bottom: 16px; line-height: 1.6;">By the end of the session, participants will have shared clarity on:</p>
+            <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; padding: 16px 20px;">
+              ${[
+                'How documentation fragmentation will be consolidated',
+                'Workflow differences between UX and conceptual/workflow designers',
+                'How accessibility documentation will flow from Knapsack to Figma',
+                'Governance model that avoids committee paralysis',
+                'What happens in the first 90 days post-workshop',
+              ].map(i => '<div style="font-size: 13px; color: var(--neutral-600); padding: 5px 0; padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: var(--neutral-500);">—</span> ' + i + '</div>').join('')}
+            </div>
+            <p style="font-size: 14px; color: var(--neutral-700); margin-top: 16px; line-height: 1.6;">This is <strong>not</strong> a tool training or procurement session. It is a focused, decision-oriented working workshop with change management at its core.</p>
+          </div>
+          
+          <div class="card" style="background: var(--warning-light); border: 1px solid var(--warning);">
+            <h2 class="heading" style="color: var(--warning);">Accessibility Accommodation</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); line-height: 1.6;">Wendi Moseley uses captions for meetings. Ensure <strong>live captioning is enabled</strong> for all sessions and that any presentation materials are accessible. Consider seating arrangements that support lip-reading if helpful.</p>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">What to Expect</h2>
+            <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; padding: 16px 20px;">
+              ${[
+                'Structured, collaborative working sessions',
+                'Clear decision points and documented outcomes',
+                'Balanced focus on <strong>workflow reality</strong>, <strong>accessibility requirements</strong>, and <strong>change management</strong>',
+                'Pragmatic scope appropriate for organizational readiness',
+                'Time for shared context beyond just Knapsack—this is about the change you are going through',
+              ].map(i => '<div style="font-size: 13px; color: var(--neutral-600); padding: 5px 0; padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: var(--neutral-500);">—</span> ' + i + '</div>').join('')}
+            </div>
+          </div>
+
+          <div class="card" style="border: 2px solid var(--primary);">
+            <h2 class="heading" style="color: var(--primary);">Required Pre-Work Sessions</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); margin-bottom: 20px; line-height: 1.6;">To ensure the on-site workshop is focused on <strong>alignment and decision-making</strong> rather than discovery, the following sessions must be completed before the on-site date:</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+              <div style="background: var(--action-light); border: 1px solid var(--action); border-radius: 8px; padding: 20px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                  <span style="background: var(--action); color: white; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; text-transform: uppercase;">Priority</span>
+                  <span style="font-size: 12px; color: var(--neutral-600);">Complete 2+ weeks before on-site</span>
+                </div>
+                <h3 style="font-size: 15px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px;">Small-Group Sessions with Matt & Wendi</h3>
+                <p style="font-size: 13px; color: var(--neutral-600); margin-bottom: 12px; line-height: 1.5;">Walk through Knapsack capabilities they may not be using. Identify "why are we doing this manually?" moments and surface quick wins.</p>
+                <div style="background: white; border: 1px solid var(--neutral-200); border-radius: 4px; padding: 12px;">
+                  <div style="font-size: 11px; font-weight: 600; color: var(--neutral-500); text-transform: uppercase; margin-bottom: 8px;">Session Outcomes</div>
+                  ${['Capability gaps identified', 'Manual workflow pain points documented', '"Why are we doing this?" moments captured', 'Immediate enablement opportunities flagged'].map(o => '<div style="font-size: 12px; color: var(--neutral-600); padding: 3px 0; padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--success);">✓</span> ' + o + '</div>').join('')}
+                </div>
+                <div style="margin-top: 12px; font-size: 12px; color: var(--action); font-weight: 600;">Owner: Jake Love + Amber Atkins</div>
+              </div>
+              
+              <div style="background: var(--warning-light); border: 1px solid var(--warning); border-radius: 8px; padding: 20px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                  <span style="background: var(--warning); color: white; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; text-transform: uppercase;">Required</span>
+                  <span style="font-size: 12px; color: var(--neutral-600);">Complete 1+ week before on-site</span>
+                </div>
+                <h3 style="font-size: 15px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px;">Workflow + Toolchain Mapping</h3>
+                <p style="font-size: 13px; color: var(--neutral-600); margin-bottom: 12px; line-height: 1.5;">Map UX designers, conceptual/workflow designers, and accessibility perspective. Understand golden workflows and variability across roles.</p>
+                <div style="background: white; border: 1px solid var(--neutral-200); border-radius: 4px; padding: 12px;">
+                  <div style="font-size: 11px; font-weight: 600; color: var(--neutral-500); text-transform: uppercase; margin-bottom: 8px;">Session Outcomes</div>
+                  ${['Current toolchain documented (Knapsack, Figma, Storybook, SharePoint)', 'Workflow differences by role mapped', 'Friction points and handoff gaps identified', 'Golden workflows vs. edge cases distinguished'].map(o => '<div style="font-size: 12px; color: var(--neutral-600); padding: 3px 0; padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--success);">✓</span> ' + o + '</div>').join('')}
+                </div>
+                <div style="margin-top: 12px; font-size: 12px; color: var(--warning); font-weight: 600;">Owner: Amber Atkins + Ed Jones Design Ops</div>
+              </div>
+            </div>
+            
+            <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; padding: 16px;">
+              <div style="font-size: 12px; font-weight: 600; color: var(--neutral-500); text-transform: uppercase; margin-bottom: 8px;">Why These Sessions Matter</div>
+              <p style="font-size: 13px; color: var(--neutral-600); line-height: 1.6;">Without these pre-work sessions, the on-site workshop will spend valuable time on discovery instead of decision-making. These sessions ensure we arrive with shared context about current state, pain points, and opportunities—allowing the workshop to focus on alignment, governance, and execution planning.</p>
+            </div>
+          </div>
+          
+          <div class="card">
+            <h2 class="heading">Pre-Work Materials</h2>
+            <p style="font-size: 14px; font-style: italic; color: var(--neutral-600); margin-bottom: 12px;">Requested from Edward Jones; details shared separately</p>
+            <p style="font-size: 14px; color: var(--neutral-700); margin-bottom: 16px; line-height: 1.6;">In addition to the pre-work sessions, the Edward Jones team will share a small set of <strong>existing materials</strong> in advance:</p>
+            <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; padding: 16px 20px;">
+              ${[
+                '<strong>Toolchain diagram</strong> (output from Workflow + Toolchain Mapping session)',
+                '<strong>Role-based workflow maps</strong> for UX designers and conceptual/workflow designers',
+                'Any available <strong>adoption or usage signals</strong> to inform the metrics discussion',
+                '<strong>Accessibility documentation samples</strong> that Wendi wants to centralize',
+                'List of <strong>offshore team locations</strong> and their current access/onboarding state',
+                '<strong>Pain points summary</strong> from 1:1 sessions with Matt & Wendi',
+              ].map(i => '<div style="font-size: 13px; color: var(--neutral-600); padding: 5px 0; padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: var(--neutral-500);">—</span> ' + i + '</div>').join('')}
+            </div>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-top: 16px; line-height: 1.6;">These materials do not need to be perfect or exhaustive; "good enough" is ideal.</p>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Logistics & Site Information</h2>
+            <p style="font-size: 14px; font-style: italic; color: var(--neutral-600); margin-bottom: 12px;">To be completed by Edward Jones site host</p>
+            <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; padding: 16px 20px;">
+              ${[
+                '<strong>Building / Room:</strong> [TBD]',
+                '<strong>Arrival Instructions & Site Access:</strong> [TBD]',
+                '<strong>Wi-Fi Access:</strong> [TBD]',
+                '<strong>Captioning/A/V Setup:</strong> Ensure live captions are available',
+                '<strong>Coffee & Refreshments:</strong> [TBD]',
+                '<strong>Lunch:</strong> [TBD]',
+                '<strong>On-Site Contact:</strong> [TBD]',
+              ].map(i => '<div style="font-size: 13px; color: var(--neutral-600); padding: 5px 0; padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: var(--neutral-500);">—</span> ' + i + '</div>').join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Agenda Overview (9:00am – 4:00pm CT)</h2>
+            ${[
+              {
+                time: '9:00 – 9:20',
+                title: 'Welcome & Context Setting',
+                desc: 'Align on the goals of the workshop, intended outcomes, and how decisions will be made. Acknowledge the organizational context (Enterprise Reimagined) and frame the day.',
+                outcomes: ['Shared understanding of purpose and scope', 'Clear expectations for participation'],
+              },
+              {
+                time: '9:20 – 10:30',
+                title: 'Workflow Validation & Alignment',
+                note: '(UX Designers, Conceptual/Workflow Designers, Accessibility – required)',
+                desc: 'Review and validate findings from pre-work sessions (1:1s with Matt/Wendi, Workflow + Toolchain Mapping). Align on prioritized pain points and constraints as a full group.',
+                outcomes: ['Validated workflow maps for UX vs. conceptual/workflow designers', 'Prioritized pain points confirmed across stakeholders', 'Explicit constraints agreed upon to guide future decisions'],
+              },
+              {
+                time: '10:30 – 10:45',
+                title: 'Break',
+              },
+              {
+                time: '10:45 – 11:30',
+                title: 'Accessibility Documentation Deep Dive',
+                note: '(Wendi Moseley-led)',
+                desc: 'Focus on accessibility documentation as the near-term driver. Map how accessibility content should flow from Knapsack (authoring) to Figma (consumption).',
+                outcomes: ['Clear accessibility documentation requirements', 'Figma plugin opportunity scoped', 'Authoring and distribution workflow defined'],
+              },
+              {
+                time: '11:30 – 12:15',
+                title: 'Synthesis & Priority Focus Areas',
+                desc: 'Consolidate insights from the morning and identify the most important problems to address first.',
+                outcomes: ['Prioritized problem statements', 'Alignment on what must improve first', 'Clear inputs for governance and execution planning'],
+              },
+              {
+                time: '12:15 – 1:00',
+                title: 'Lunch Break',
+              },
+              {
+                time: '1:00 – 1:45',
+                title: 'Team & System Charter Co-Creation',
+                desc: 'Co-author (not prescribe) the vision, governance model, and contribution workflow. Define roles, decision authority, and escalation paths.',
+                outcomes: ['Draft charter with vision and guiding principles', 'Clear governance model avoiding committee paralysis', 'Contribution workflow aligned with "collect and curate" model'],
+              },
+              {
+                time: '1:45 – 2:15',
+                title: 'Defining Success & Measuring Value',
+                desc: 'Define how success will be measured in the first 90 days and beyond, including adoption signals, offshore team metrics, and accessibility coverage.',
+                outcomes: ['Agreed success criteria', 'Initial metrics framework', 'Reporting cadence defined'],
+              },
+              {
+                time: '2:15 – 2:30',
+                title: 'Break',
+              },
+              {
+                time: '2:30 – 3:00',
+                title: 'Pre-Mortem: What Could Go Wrong?',
+                desc: 'Run a structured pre-mortem to surface organizational, adoption, and change management risks that could undermine success.',
+                outcomes: ['Identified risks and failure modes', 'Mitigation strategies', 'Inputs to a phased, lower-risk execution approach'],
+              },
+              {
+                time: '3:00 – 3:40',
+                title: 'Execution Planning & Near-Term Commitments',
+                desc: 'Translate decisions from the workshop into a concrete near-term plan, including training schedule, enablement owners, and offshore onboarding.',
+                outcomes: ['90-day execution plan', 'Training schedule with Jake Love', 'Clear owners and next steps'],
+              },
+              {
+                time: '3:40 – 4:00',
+                title: 'Wrap-Up & Leadership Playback',
+                desc: 'Review decisions made, confirm commitments, and outline what happens after the workshop.',
+                outcomes: ['Shared understanding of decisions and risks', 'Confidence in the path forward', 'Follow-up cadence established'],
+              },
+            ].map(item => `
+              <div class="check-item" style="margin-bottom: 10px;">
+                <span class="check-icon">•</span>
+                <div>
+                  <div class="check-title">${item.time}</div>
+                  <div class="check-desc"><strong>${item.title}</strong>${item.note ? ' <em>' + item.note + '</em>' : ''}</div>
+                  ${item.desc ? '<div class="check-desc">' + item.desc + '</div>' : ''}
+                  ${item.outcomes ? '<div class="phase-list" style="margin-top: 10px;">' + item.outcomes.map(o => '<div class="phase-item">' + o + '</div>').join('') + '</div>' : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Workshop Deliverables</h2>
+            <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; padding: 16px 20px;">
+              ${[
+                '<strong>Team & System Charter</strong> — Vision, outcomes, success criteria, governance model, and guiding principles',
+                '<strong>Workflow Map</strong> — Documented "as-is" and "to-be" workflows for UX and conceptual/workflow designers',
+                '<strong>Accessibility Documentation Plan</strong> — Authoring in Knapsack, distribution to Figma, ownership clarity',
+                '<strong>90-Day Execution Plan</strong> — Near-term priorities, training schedule, offshore onboarding, and ownership',
+                '<strong>Figma Plugin Requirements</strong> — Scoped opportunity for contextual documentation surfacing',
+                '<strong>Risk Register</strong> — Identified risks with mitigation strategies from pre-mortem',
+              ].map(i => '<div style="font-size: 13px; color: var(--neutral-600); padding: 5px 0; padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: var(--neutral-500);">—</span> ' + i + '</div>').join('')}
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Recommended Attendees</h2>
+            <div class="grid-2">
+              <div>
+                <h3 style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 12px;">Edward Jones</h3>
+                ${[
+                  { name: 'Wendi Moseley', role: 'Accessibility Specialist' },
+                  { name: 'Matt Marino', role: 'Experience Ops Specialist' },
+                  { name: 'Elizabeth', role: 'Design System Lead' },
+                  { name: 'Sal', role: 'Design Ops / Tools Lead' },
+                  { name: 'UX Designer Rep(s)', role: 'Workflow perspective' },
+                  { name: 'Conceptual/Workflow Designer Rep(s)', role: 'Workflow perspective' },
+                  { name: 'Engineering Rep (optional)', role: 'Technical perspective' },
+                ].map(p => '<div style="padding: 8px 0; border-bottom: 1px solid var(--neutral-150);"><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">' + p.name + '</div><div style="font-size: 12px; color: var(--neutral-600);">' + p.role + '</div></div>').join('')}
+              </div>
+              <div>
+                <h3 style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 12px;">Knapsack</h3>
+                ${[
+                  { name: 'Amber Atkins', role: 'Design Strategy & Change Management' },
+                  { name: 'Jake Love', role: 'Advanced Onboarding & Training' },
+                  { name: 'Angie Stevenson', role: 'Account Management' },
+                  { name: 'Christopher Bloom', role: 'Senior System Engineer (optional)' },
+                ].map(p => '<div style="padding: 8px 0; border-bottom: 1px solid var(--neutral-150);"><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">' + p.name + '</div><div style="font-size: 12px; color: var(--neutral-600);">' + p.role + '</div></div>').join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="heading">Important Notes</h2>
+            <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; padding: 16px 20px;">
+              ${[
+                'Some outcomes will require <strong>follow-up validation with IT and procurement</strong>; these dependencies will be documented.',
+                'The goal is <strong>alignment and direction</strong>, not finalizing every technical detail in one session.',
+                'This workshop is as much about <strong>change management</strong> as it is about tooling—we will create space for that.',
+                'Remote participants can join via video with <strong>live captioning enabled</strong>.',
+              ].map(i => '<div style="font-size: 13px; color: var(--neutral-600); padding: 5px 0; padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: var(--neutral-500);">—</span> ' + i + '</div>').join('')}
+            </div>
+          </div>
+
+          <div class="card" style="background: var(--success-light); border: 1px solid var(--success);">
+            <h2 class="heading" style="color: var(--success);">Final Thought</h2>
+            <p style="font-size: 15px; color: var(--neutral-700); line-height: 1.7;">Participants should leave with <strong>clarity, alignment, and confidence</strong> in how the design system will evolve, how documentation fragmentation will be addressed, and how the organization will move forward together—post-reorg.</p>
+          </div>
+        `,
+
         changes: `
           <h1 class="section-title">Change Log</h1>
           <p class="section-subtitle">Track updates, decisions, and ownership for the Ed Jones team</p>
@@ -835,6 +1096,26 @@
               <div>Knapsack</div>
               <div>Integrated accessibility emphasis, enablement workstream, toolchain discovery, onsite planning, and stakeholder map based on Jan 16 call.</div>
               <div><span class="badge" style="background: var(--success-light); color: var(--success); border: 1px solid #c3ddd2;">Logged</span></div>
+
+              <div>Feb 6, 2026</div>
+              <div>Knapsack</div>
+              <div>Reviewed Jan 16 accessibility call transcript; confirmed stakeholder map accuracy; added accessibility accommodation note for Wendi Moseley.</div>
+              <div><span class="badge" style="background: var(--success-light); color: var(--success); border: 1px solid #c3ddd2;">Logged</span></div>
+
+              <div>Feb 6, 2026</div>
+              <div>Knapsack</div>
+              <div>Incorporated internal brief: added fragmentation context, Figma plugin opportunity, "What Landed Well" section, detailed near/mid/long-term next steps, workflow uncertainty notes, AI position details, expanded decision log.</div>
+              <div><span class="badge" style="background: var(--success-light); color: var(--success); border: 1px solid #c3ddd2;">Logged</span></div>
+
+              <div>Feb 6, 2026</div>
+              <div>Knapsack</div>
+              <div>Added tailored On-Site Workshop Agenda section (based on Waters template) with Ed Jones-specific focus: workflow mapping, accessibility documentation deep dive, charter co-creation, and change management framing.</div>
+              <div><span class="badge" style="background: var(--success-light); color: var(--success); border: 1px solid #c3ddd2;">Logged</span></div>
+
+              <div>Feb 6, 2026</div>
+              <div>Knapsack</div>
+              <div>Expanded workshop pre-work requirements: added Required Pre-Work Sessions section with 1:1s (Matt/Wendi) and Workflow + Toolchain Mapping as prerequisites. Updated agenda to reference pre-work insights.</div>
+              <div><span class="badge" style="background: var(--success-light); color: var(--success); border: 1px solid #c3ddd2;">Logged</span></div>
             </div>
           </div>
 
@@ -844,8 +1125,16 @@
             <div style="display: grid; grid-template-columns: 140px 1fr; gap: 12px; font-size: 13px;">
               ${[
                 { decision: 'Onsite workshop target', detail: 'Aim for early March pending stakeholder availability and readiness milestones' },
+                { decision: 'On-site location', detail: 'St. Louis, MO area (Ed Jones HQ); ~50% of team is local, 50% remote' },
                 { decision: 'Enablement owner', detail: 'Jake Love to lead training plan and adoption sessions' },
                 { decision: 'Accessibility priority', detail: 'Accessibility treated as requirement across system and workflows' },
+                { decision: 'Meeting accessibility', detail: 'Enable captions in all meetings to support team members with hearing accommodations' },
+                { decision: 'Accessibility documentation approach', detail: 'Author in Knapsack (semantic structure, screen reader support, deep linking); distribute to Figma for designer workflow' },
+                { decision: 'Figma plugin direction', detail: 'Strong interest; focus on contextual content surfacing, not full doc dumps; feasibility exploration planned' },
+                { decision: 'Workflow mapping required', detail: 'Must map UX vs. conceptual/workflow designer workflows before solutioning; no fully documented E2E workflow today' },
+                { decision: 'Governance approach', detail: 'Clear governance that avoids committee paralysis but provides accountability; curation-based contribution model confirmed' },
+                { decision: 'AI position', detail: 'AI-positive in principle; Figma AI not yet approved; need strong use cases and governance for internal approvals' },
+                { decision: 'Pre-work sessions required', detail: '1:1s with Matt/Wendi and Workflow + Toolchain Mapping must complete before on-site workshop to enable decision-focused agenda' },
               ].map(d => `<div style="font-weight: 600; color: var(--neutral-800);">${d.decision}</div><div style="color: var(--neutral-600);">${d.detail}</div>`).join('')}
             </div>
           </div>
@@ -862,14 +1151,57 @@
           </div>
 
           <div class="card">
-            <h2 class="heading">Activation Next Steps (Feb–Mar 2026)</h2>
+            <h2 class="heading">Near-Term Actions (Q1 Focus)</h2>
             ${[
-              { when: 'Step 1', title: 'Toolchain & Workflow Discovery', desc: 'Map current tools, logins, and handoffs to remove friction for broader engagement', color: 'var(--action)', status: 'Priority' },
-              { when: 'Step 2', title: 'Product Roadmap Review with Robin', desc: 'Align on IPE evolution, AI roadmap, and timing that fits organizational readiness', color: 'var(--primary)', status: 'Next' },
-              { when: 'Step 3', title: 'Enablement + Stakeholder 1:1s (Jake + Team)', desc: 'Training plan, onboarding schedule, and targeted interviews with key stakeholders', color: 'var(--success)', status: 'In Parallel' },
-              { when: 'Step 4', title: 'Readiness Assessment + Charter Co-Creation', desc: 'Fast assessment to understand current state and refine vision, governance, and operating model', color: 'var(--primary)', status: 'After Interviews' },
-              { when: 'Step 5', title: 'Onsite Workshop (Target: Early March)', desc: 'Change management session to build shared context and accelerate alignment', color: 'var(--action)', status: 'Target' },
+              { when: 'Internal', title: 'Knapsack Synthesis & Alignment', desc: 'Synthesize findings internally: accessibility-driven use case, Figma plugin opportunity, discovery + charter approach', color: 'var(--primary)', status: 'Now' },
+              { when: 'Training', title: 'Platform Training (Jake-led)', desc: 'Rebuild internal knowledge post-reorg; schedule sessions to address power user knowledge gaps', color: 'var(--success)', status: 'Priority' },
+              { when: '1:1s', title: 'Small-Group Sessions with Matt & Wendi', desc: 'Walk through Knapsack capabilities they may not be using; identify "why are we doing this manually?" moments', color: 'var(--action)', status: 'Priority' },
+              { when: 'Discovery', title: 'Workflow + Toolchain Mapping', desc: 'Map UX designers, conceptual/workflow designers, and accessibility perspective; understand golden workflows and variability', color: 'var(--action)', status: 'Required' },
+              { when: 'Charter', title: 'Team & System Charter Workshop', desc: 'Co-author (not prescribe) vision, governance, contribution model, and success metrics with Sal, Elizabeth, Matt, Wendi', color: 'var(--primary)', status: 'Scheduled' },
             ].map((m, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${m.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ${m.color}">${m.when}</span><span class="badge" style="background: ${m.color}15; color: ${m.color}; border: 1px solid ${m.color}40;">${m.status}</span></div><div class="timeline-title">${m.title}</div><p class="timeline-desc">${m.desc}</p></div></div>`).join('')}
+          </div>
+          
+          <div class="card">
+            <h2 class="heading">Mid-Term Actions (Pilot-Oriented)</h2>
+            ${[
+              { when: 'Pilot', title: 'Accessibility Documentation Pilot', desc: 'Centralize accessibility documentation in Knapsack; prototype Figma consumption model (even if manual/early)', color: 'var(--success)', status: 'Define Scope' },
+              { when: 'Plugin', title: 'Knapsack → Figma Plugin Feasibility', desc: 'Explore plugin that pulls specific Knapsack content (usage, accessibility, guidelines) into Figma; bite-sized tabbed sections, not full doc dumps', color: 'var(--action)', status: 'Explore' },
+              { when: 'Assess', title: 'Design System Maturity Assessment', desc: 'Lightweight (not bureaucratic) assessment of design system readiness and maturity', color: 'var(--primary)', status: 'Plan' },
+            ].map((m, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${m.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ${m.color}">${m.when}</span><span class="badge" style="background: ${m.color}15; color: ${m.color}; border: 1px solid ${m.color}40;">${m.status}</span></div><div class="timeline-title">${m.title}</div><p class="timeline-desc">${m.desc}</p></div></div>`).join('')}
+          </div>
+          
+          <div class="card">
+            <h2 class="heading">Longer-Term Actions (Strategic)</h2>
+            ${[
+              { when: 'Align', title: 'Charter Outcomes Alignment', desc: 'Connect charter to AI readiness, offshoring strategy, and governance at scale', color: 'var(--primary)', status: 'Future' },
+              { when: 'Onsite', title: 'Onsite Workshop (Target: Early March)', desc: 'Accelerate alignment and change momentum through in-person collaboration in St. Louis', color: 'var(--action)', status: 'Target' },
+            ].map((m, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${m.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ${m.color}">${m.when}</span><span class="badge" style="background: ${m.color}15; color: ${m.color}; border: 1px solid ${m.color}40;">${m.status}</span></div><div class="timeline-title">${m.title}</div><p class="timeline-desc">${m.desc}</p></div></div>`).join('')}
+          </div>
+
+          <div class="card" style="background: var(--success-light); border: 1px solid var(--success);">
+            <h2 class="heading" style="color: var(--success);">What Landed Well</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); margin-bottom: 16px; line-height: 1.6;">Key positioning and concepts that resonated strongly with the Ed Jones team:</p>
+            <div class="grid-2">
+              ${[
+                { title: 'Control Plane Positioning', desc: 'Knapsack as the source of truth where constraints live—not a replacement for Figma' },
+                { title: 'System Charter Framing', desc: 'Vision, mission, governance, and contribution model resonated strongly with Sal and Elizabeth' },
+                { title: 'Future AI Without Forcing', desc: 'Knapsack can support future AI workflows without forcing adoption now—reassuring to the team' },
+                { title: 'Change-Enablement Partner', desc: 'Appetite for Knapsack to act as a change-enablement partner, not just a tooling vendor' },
+              ].map(w => '<div class="check-item"><span class="check-icon">✓</span><div><div class="check-title">' + w.title + '</div><div class="check-desc">' + w.desc + '</div></div></div>').join('')}
+            </div>
+          </div>
+          
+          <div class="card" style="border: 2px solid var(--action);">
+            <h2 class="heading" style="color: var(--action);">Figma Plugin Opportunity</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); margin-bottom: 16px; line-height: 1.6;">Strong interest in a Knapsack → Figma plugin for documentation distribution (not accessibility testing—they use external tools like DQ for that).</p>
+            <div class="grid-2">
+              ${[
+                { title: 'Pull Specific Content', desc: 'Usage guidelines, accessibility docs, design guidance—not entire documentation dumps' },
+                { title: 'Component Association', desc: "Documentation follows the component wherever it is used in Figma" },
+                { title: 'Bite-Sized Sections', desc: 'Expose tabbed, contextual sections rather than full pages' },
+                { title: 'All Documentation Types', desc: 'Applies to all design system documentation, not just accessibility' },
+              ].map(f => '<div style="padding: 14px; background: var(--action-light); border: 1px solid var(--action); border-radius: 6px;"><div style="font-size: 14px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">' + f.title + '</div><div style="font-size: 12px; color: var(--neutral-600);">' + f.desc + '</div></div>').join('')}
+            </div>
           </div>
 
           <div class="card">

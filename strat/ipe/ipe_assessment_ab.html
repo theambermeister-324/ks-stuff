@@ -3823,8 +3823,9 @@
     
     async function saveToGoogleSheets(data) {
       if (!GOOGLE_SHEETS_WEBAPP_URL || GOOGLE_SHEETS_WEBAPP_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL') {
-        console.warn('Google Sheets Web App URL not configured. Data not saved.');
-        return { success: false, error: 'Not configured' };
+        console.warn('Google Sheets Web App URL not configured. Saving to localStorage as fallback.');
+        saveToLocalStorage(data);
+        return { success: false, error: 'Not configured', queued: true };
       }
       
       try {
@@ -3837,12 +3838,137 @@
         
         // no-cors mode doesn't allow reading response, so we assume success
         console.info('Assessment data sent to Google Sheets');
+        showToast('Assessment saved successfully!', 'success');
         return { success: true };
       } catch (error) {
         console.error('Failed to save to Google Sheets:', error);
-        return { success: false, error: error.message };
+        // Fallback: save to localStorage for later retry
+        saveToLocalStorage(data);
+        showToast('Saved locally - will sync when connection restored', 'warning');
+        return { success: false, error: error.message, queued: true };
       }
     }
+    
+    /**
+     * Save assessment to localStorage as fallback
+     */
+    function saveToLocalStorage(data) {
+      try {
+        const pending = JSON.parse(localStorage.getItem('ipe_pending_assessments') || '[]');
+        pending.push({ ...data, savedAt: new Date().toISOString(), synced: false });
+        localStorage.setItem('ipe_pending_assessments', JSON.stringify(pending));
+        console.info('Assessment saved to localStorage for later sync');
+      } catch (e) {
+        console.error('Failed to save to localStorage:', e);
+      }
+    }
+    
+    /**
+     * Retry syncing pending assessments from localStorage
+     */
+    async function syncPendingAssessments() {
+      if (!GOOGLE_SHEETS_WEBAPP_URL || GOOGLE_SHEETS_WEBAPP_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL') {
+        return;
+      }
+      
+      const pending = JSON.parse(localStorage.getItem('ipe_pending_assessments') || '[]');
+      const unsynced = pending.filter(a => !a.synced);
+      
+      if (unsynced.length === 0) return;
+      
+      console.info(`Attempting to sync ${unsynced.length} pending assessments...`);
+      
+      for (const assessment of unsynced) {
+        try {
+          await fetch(GOOGLE_SHEETS_WEBAPP_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(assessment)
+          });
+          assessment.synced = true;
+        } catch (e) {
+          console.warn('Failed to sync assessment:', e);
+        }
+      }
+      
+      localStorage.setItem('ipe_pending_assessments', JSON.stringify(pending));
+      const syncedCount = pending.filter(a => a.synced).length;
+      if (syncedCount > 0) {
+        console.info(`Synced ${syncedCount} pending assessments`);
+      }
+    }
+    
+    /**
+     * Show a toast notification
+     */
+    function showToast(message, type = 'info') {
+      // Remove existing toasts
+      document.querySelectorAll('.ipe-toast').forEach(t => t.remove());
+      
+      const colors = {
+        success: { bg: 'rgba(16, 185, 129, 0.95)', icon: 'check-circle' },
+        warning: { bg: 'rgba(251, 191, 36, 0.95)', icon: 'alert-triangle' },
+        error: { bg: 'rgba(239, 68, 68, 0.95)', icon: 'x-circle' },
+        info: { bg: 'rgba(59, 130, 246, 0.95)', icon: 'info' }
+      };
+      
+      const { bg, icon } = colors[type] || colors.info;
+      
+      const toast = document.createElement('div');
+      toast.className = 'ipe-toast';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      toast.style.cssText = `
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: ${bg};
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        z-index: 10000;
+        animation: slideInToast 0.3s ease;
+      `;
+      
+      toast.innerHTML = `<i data-lucide="${icon}" style="width: 18px; height: 18px;"></i> ${message}`;
+      document.body.appendChild(toast);
+      lucide.createIcons();
+      
+      // Auto-dismiss after 4 seconds
+      setTimeout(() => {
+        toast.style.animation = 'fadeOutToast 0.3s ease forwards';
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+    
+    // Add toast animations to page
+    const toastStyles = document.createElement('style');
+    toastStyles.textContent = `
+      @keyframes slideInToast {
+        from { opacity: 0; transform: translateX(100px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes fadeOutToast {
+        from { opacity: 1; transform: translateX(0); }
+        to { opacity: 0; transform: translateX(100px); }
+      }
+    `;
+    document.head.appendChild(toastStyles);
+    
+    // Try to sync pending assessments on page load
+    window.addEventListener('load', () => {
+      setTimeout(syncPendingAssessments, 2000);
+    });
+    
+    // Also try to sync when coming back online
+    window.addEventListener('online', syncPendingAssessments);
     
     async function lookupBaseline(orgId) {
       if (!GOOGLE_SHEETS_WEBAPP_URL || GOOGLE_SHEETS_WEBAPP_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL') {
