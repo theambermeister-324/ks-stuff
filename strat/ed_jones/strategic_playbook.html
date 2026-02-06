@@ -897,6 +897,20 @@
               </div>
             </div>
             
+            <div style="background: var(--success-light); border: 1px solid var(--success); border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <span style="background: var(--success); color: white; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; text-transform: uppercase;">Required</span>
+                <span style="font-size: 12px; color: var(--neutral-600);">Complete before on-site to inform budget discussions</span>
+              </div>
+              <h3 style="font-size: 15px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px;">ROI & TCO Business Case</h3>
+              <p style="font-size: 13px; color: var(--neutral-600); margin-bottom: 12px; line-height: 1.5;">Complete the ROI and Total Cost of Ownership business case with Knapsack to inform budget planning and leadership alignment.</p>
+              <div style="background: white; border: 1px solid var(--neutral-200); border-radius: 4px; padding: 12px;">
+                <div style="font-size: 11px; font-weight: 600; color: var(--neutral-500); text-transform: uppercase; margin-bottom: 8px;">Session Outcomes</div>
+                ${['ROI projections based on Ed Jones context', 'Total Cost of Ownership analysis', 'Budget planning inputs for leadership', 'Value drivers mapped to organizational priorities'].map(o => '<div style="font-size: 12px; color: var(--neutral-600); padding: 3px 0; padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--success);">✓</span> ' + o + '</div>').join('')}
+              </div>
+              <div style="margin-top: 12px; font-size: 12px; color: var(--success); font-weight: 600;">Owner: Angie Stevenson + Ed Jones Finance/Leadership</div>
+            </div>
+            
             <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; padding: 16px;">
               <div style="font-size: 12px; font-weight: 600; color: var(--neutral-500); text-transform: uppercase; margin-bottom: 8px;">Why These Sessions Matter</div>
               <p style="font-size: 13px; color: var(--neutral-600); line-height: 1.6;">Without these pre-work sessions, the on-site workshop will spend valuable time on discovery instead of decision-making. These sessions ensure we arrive with shared context about current state, pain points, and opportunities—allowing the workshop to focus on alignment, governance, and execution planning.</p>
@@ -911,6 +925,7 @@
               ${[
                 '<strong>Toolchain diagram</strong> (output from Workflow + Toolchain Mapping session)',
                 '<strong>Role-based workflow maps</strong> for UX designers and conceptual/workflow designers',
+                '<strong>ROI & TCO Business Case</strong> (output from Angie + Ed Jones session)',
                 'Any available <strong>adoption or usage signals</strong> to inform the metrics discussion',
                 '<strong>Accessibility documentation samples</strong> that Wendi wants to centralize',
                 'List of <strong>offshore team locations</strong> and their current access/onboarding state',
@@ -1114,7 +1129,7 @@
 
               <div>Feb 6, 2026</div>
               <div>Knapsack</div>
-              <div>Expanded workshop pre-work requirements: added Required Pre-Work Sessions section with 1:1s (Matt/Wendi) and Workflow + Toolchain Mapping as prerequisites. Updated agenda to reference pre-work insights.</div>
+              <div>Expanded workshop pre-work requirements: added Required Pre-Work Sessions section with 1:1s (Matt/Wendi), Workflow + Toolchain Mapping, and ROI/TCO Business Case (Angie-led) as prerequisites. Updated agenda to reference pre-work insights.</div>
               <div><span class="badge" style="background: var(--success-light); color: var(--success); border: 1px solid #c3ddd2;">Logged</span></div>
             </div>
           </div>
@@ -1134,7 +1149,7 @@
                 { decision: 'Workflow mapping required', detail: 'Must map UX vs. conceptual/workflow designer workflows before solutioning; no fully documented E2E workflow today' },
                 { decision: 'Governance approach', detail: 'Clear governance that avoids committee paralysis but provides accountability; curation-based contribution model confirmed' },
                 { decision: 'AI position', detail: 'AI-positive in principle; Figma AI not yet approved; need strong use cases and governance for internal approvals' },
-                { decision: 'Pre-work sessions required', detail: '1:1s with Matt/Wendi and Workflow + Toolchain Mapping must complete before on-site workshop to enable decision-focused agenda' },
+                { decision: 'Pre-work sessions required', detail: '1:1s with Matt/Wendi, Workflow + Toolchain Mapping, and ROI/TCO Business Case must complete before on-site workshop' },
               ].map(d => `<div style="font-weight: 600; color: var(--neutral-800);">${d.decision}</div><div style="color: var(--neutral-600);">${d.detail}</div>`).join('')}
             </div>
           </div>
