@@ -380,7 +380,7 @@
     <div class="nav-footer">
       <div class="nav-footer-label">Prepared for</div>
       <div class="nav-footer-title">Waters Corporation</div>
-      <div class="nav-footer-date">November 2025</div>
+      <div class="nav-footer-date">February 2026</div>
     </div>
   </nav>
   <main id="mainContent" role="main"></main>
@@ -398,7 +398,8 @@
       { id: 'roi', label: 'ROI & Business Case' },
       { id: 'risks', label: 'Risk Mitigation' },
       { id: 'next-steps', label: 'Next Steps' },
-      { id: 'workshop-agenda', label: '1-Day Workshop Agenda' },
+      { id: 'workshop-agenda', label: 'Workshop Agenda' },
+      { id: 'workshop-outcomes', label: 'Workshop Outcomes' },
     ];
     let activeSection = 'overview';
     function renderNav() {
@@ -469,16 +470,16 @@
             ].map((p, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${p.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ${p.color}">${p.year}</span><span class="timeline-title">${p.title}</span></div><p class="timeline-desc">${p.desc}</p></div></div>`).join('')}
           </div>
           <div class="card">
-            <h2 class="heading">Current Pain Points</h2>
+            <h2 class="heading">Current Pain Points (Validated in Workshop)</h2>
             <div class="pain-grid">
-              <div class="pain-card operational"><div class="pain-label">Operational Friction</div>${['No unified "front door" for design system access', 'Developer overhead on manual documentation tasks', 'Figma and Storybook inconsistencies', 'Time-consuming handoff processes'].map(i => `<div class="pain-item"><span class="pain-icon">×</span> ${i}</div>`).join('')}</div>
-              <div class="pain-card strategic"><div class="pain-label">Strategic Gaps</div>${['Acquired organizations waiting for integration', 'Teams operating without dedicated designers', 'AI workflow readiness (Figma Make, MCPs)', 'Scalability for growth-by-acquisition strategy'].map(i => `<div class="pain-item"><span class="pain-icon">!</span> ${i}</div>`).join('')}</div>
+              <div class="pain-card operational"><div class="pain-label">Operational Friction</div>${['No unified "front door" for design system access', 'Developers required for all documentation updates', 'Figma library described as "a hot mess"', 'Shadow DOM hinders styling overrides and testing', 'No dedicated documentation person on team', 'Multiple Storybook versions across teams'].map(i => `<div class="pain-item"><span class="pain-icon">×</span> ${i}</div>`).join('')}</div>
+              <div class="pain-card strategic"><div class="pain-label">Strategic Gaps</div>${['BD acquisition imminent—M&A readiness critical', 'Teams using own custom component libraries', 'No design-dev sync for technical constraints', 'Standards not documented in one place', 'Component migration plan is missing', 'Version fragmentation across 40+ repos'].map(i => `<div class="pain-item"><span class="pain-icon">!</span> ${i}</div>`).join('')}</div>
             </div>
           </div>
           <div class="card">
-            <h2 class="heading">Organizational Context</h2>
+            <h2 class="heading">Organizational Context (Validated)</h2>
             <div class="grid-3">
-              ${[{ label: 'Design Maturity', value: '2–3', note: 'Nielsen 6-point scale' },{ label: 'Acquired Orgs', value: '2', note: 'Awaiting integration' },{ label: 'Products', value: '10+', note: 'Across portfolio' }].map(s => `<div class="stat-card"><div class="stat-value">${s.value}</div><div class="stat-label">${s.label}</div><div class="stat-note">${s.note}</div></div>`).join('')}
+              ${[{ label: 'Angular Repos', value: '40–50', note: '99% Angular, some React in TA' },{ label: 'Design System Team', value: '6', note: 'Caitlin, Drew, Dave, Nick, Michelle, Danielle' },{ label: 'Products', value: '10+', note: 'Empower, SCP, System Monitoring, etc.' }].map(s => `<div class="stat-card"><div class="stat-value">${s.value}</div><div class="stat-label">${s.label}</div><div class="stat-note">${s.note}</div></div>`).join('')}
             </div>
           </div>`,
         solution: `
@@ -577,11 +578,20 @@
         'workshop-agenda': `
           <h1 class="section-title">Waters × Knapsack On-Site Workshop</h1>
           <p class="section-subtitle">Flow Design System Alignment & Execution</p>
-          <div class="card summary-card">
+          <div class="card" style="background: var(--success); color: white; border: none;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="font-size: 24px;">✓</span>
+              <div>
+                <div style="font-size: 18px; font-weight: 700;">Workshop Completed</div>
+                <div style="opacity: 0.9;">February 4, 2026 • 9:30am – 3:30pm ET • On-site at Waters (Milford, MA)</div>
+              </div>
+            </div>
+          </div>
+          <div class="card summary-card" style="margin-top: 20px;">
+            <div class="summary-label">Attendees</div>
             <div class="summary-text">
-              <p><strong>Date:</strong> February 4, 2026</p>
-              <p><strong>Time:</strong> <strong>9:30am – 3:00pm ET</strong></p>
-              <p><strong>Location:</strong> On-site (Waters)</p>
+              <p><strong>Waters:</strong> Caitlin Curbeau (DS PO), Drew (Design Ops), Dave Gadsby (Tech Lead), Nicolae Popa (DS Manager), Michelle Brooks (DS Designer), Danielle McDonald (Creative Director), Scott Simmons (Design Manager), Kim Busker (Scrum Master), Carla Palmer (Designer), Dipali Patil (SCP Lead), Scott McCall (System Monitoring PO)</p>
+              <p style="margin-top: 8px;"><strong>Knapsack:</strong> Jon Boush (AE), Chris Bloom, Brennan Thaney (Service Designer)</p>
             </div>
           </div>
           <div class="card">
@@ -736,6 +746,77 @@
             <h2 class="heading">Final Thought</h2>
             <p>Participants should leave with <strong>clarity, alignment, and confidence</strong> in how Flow will evolve, how success will be measured, and how execution will be planned responsibly.</p>
           </div>`,
+        'workshop-outcomes': `
+          <h1 class="section-title">Workshop Outcomes</h1>
+          <p class="section-subtitle">Key decisions and validated insights from February 4, 2026</p>
+          <div class="card" style="background: var(--success); color: white; border: none;">
+            <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">Workshop Status</div>
+            <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">✓ Successfully Completed</h3>
+            <p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">6-hour collaborative session with 11 Waters stakeholders. Journey mapping, pre-mortem, and 90-day planning completed. Strong alignment achieved across all participants.</p>
+          </div>
+          <div class="card">
+            <h2 class="heading">Key Validated Pain Points</h2>
+            <div class="grid-2">
+              ${[
+                { pain: 'Documentation requires developers', detail: 'All Storybook updates need dev involvement—major bottleneck' },
+                { pain: 'Figma library is a "hot mess"', detail: 'Acknowledged by team—cleanup required before Knapsack' },
+                { pain: 'Shadow DOM friction', detail: 'Web components hinder styling overrides and testing significantly' },
+                { pain: 'Version fragmentation', detail: 'Different teams on different Flow versions for release independence' },
+                { pain: 'No design-dev sync', detail: 'Gap in collaboration on technical constraints before handoff' },
+                { pain: 'Standards not centralized', detail: 'Every new team member restarts standards discussions' },
+                { pain: 'Product teams have own libraries', detail: 'SCP and others have richer custom components than Flow' },
+                { pain: 'Designs get stale in backlog', detail: '2-year-old designs deployed; system has evolved since' },
+              ].map(p => `<div class="solution-item"><div class="solution-challenge">${p.pain}</div><div class="solution-answer">${p.detail}</div></div>`).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Pre-Mortem Risks Identified</h2>
+            <div class="grid-2">
+              ${[
+                { risk: 'Budget pulled or reduced', mitigation: 'Multi-year plan negotiation, generate demand internally' },
+                { risk: 'M&A disruption (BD acquisition)', mitigation: 'Position as "top dogs"—show buttoned-up design system' },
+                { risk: 'Low adoption by product teams', mitigation: 'Roadshow, dev focus groups, all-in adoption focus' },
+                { risk: 'Knapsack MVP flops', mitigation: 'Cannot "limp out the door"—define MVP scope carefully' },
+                { risk: 'No resources for migration', mitigation: 'Hire contractor for transition, define level of effort first' },
+                { risk: 'Leadership loses interest', mitigation: 'Clear value metrics, quarterly progress reports' },
+              ].map(r => `<div class="card" style="margin-bottom: 0;"><div class="risk-header"><div class="risk-marker"></div><span class="risk-title">${r.risk}</span></div><div class="risk-mitigation">${r.mitigation}</div></div>`).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">90-Day Plan Framework</h2>
+            <div class="grid-3">
+              ${[
+                { phase: 'Now', title: 'Cleanup & Decisions', items: ['Figma library cleanup', 'Define MVP scope', 'Migration level of effort', 'Storybook consolidation', 'Documentation person gap'] },
+                { phase: 'Before MVP', title: 'Preparation', items: ['Complete cleanup', 'Create phased migration plan', 'Security/IT approvals', 'Define success metrics', 'Prepare roadshow materials'] },
+                { phase: 'Post-MVP', title: 'Rollout & Adoption', items: ['Dev team focus groups', 'Adoption roadshow', 'Training sessions', 'M&A integration prep', 'Quarterly audits'] },
+              ].map(y => `<div class="year-card"><div class="year-label">${y.phase}</div><div class="year-title">${y.title}</div>${y.items.map(i => `<div class="year-item">${i}</div>`).join('')}</div>`).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Key Quotes from Workshop</h2>
+            <div class="phase-list">
+              ${[
+                '"We dont have a design system documentation person" — Drew',
+                '"The Figma library is kind of a hot mess right now" — Caitlin',
+                '"Shadow DOM hinders production tremendously" — Dev survey',
+                '"The MVP cant limp out the door" — Drew',
+                '"We want to come in as top dogs" — on M&A positioning',
+                '"I need an ROI about Knapsack, not design systems" — Drew on budget justification',
+                '"Having something like Knapsack makes us look more buttoned up" — Drew',
+              ].map(q => `<div class="phase-item" style="font-style: italic;">${q}</div>`).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Knapsack Action Items</h2>
+            <div class="grid-2">
+              ${[
+                { item: 'Professional Services Session', owner: 'Amber', desc: 'Org patterns from GSK and similar customers—after Feb 16' },
+                { item: 'Migration LOE Documentation', owner: 'Chris/Andrew', desc: 'What effort per component type for accurate planning' },
+                { item: 'Best Practices Deck', owner: 'CX Team', desc: 'How other biomed/pharma customers organized design systems' },
+                { item: 'Multi-brand Strategy', owner: 'CX Team', desc: 'How Knapsack helps with BD acquisition integration' },
+              ].map(a => `<div class="deliverable-item"><div class="deliverable-title">${a.item} <span class="badge badge-action">${a.owner}</span></div><div class="deliverable-desc">${a.desc}</div></div>`).join('')}
+            </div>
+          </div>`,
         governance: `
           <h1 class="section-title">Governance Framework</h1>
           <p class="section-subtitle">Sustainable processes for long-term design system success</p>
@@ -765,24 +846,37 @@
           </div>`,
         technical: `
           <h1 class="section-title">Technical Integration</h1>
-          <p class="section-subtitle">How Knapsack fits Waters' existing technology stack, with priorities validated in the technical working session</p>
-          <div class="card">
-            <h2 class="heading">Current Stack Compatibility</h2>
+          <p class="section-subtitle">Validated technical landscape from February 4, 2026 workshop</p>
+          <div class="card" style="background: var(--warning-light); border: 1px solid #e8d4b8;">
+            <h2 class="heading" style="color: var(--warning);">Key Technical Constraints (Validated)</h2>
             <div class="grid-2">
-              <div class="stack-card"><div class="stack-label">Design Tools</div>${['Figma (primary design tool)', 'Figma Make (AI-powered design)', 'MCP-ready metadata and schemas'].map(t => `<div class="stack-item"><span class="stack-check">✓</span> ${t}</div>`).join('')}</div>
-              <div class="stack-card"><div class="stack-label">Development</div>${['Angular + Web Components (primary)', 'React (secondary)', 'Storybook (documentation + testing hub)', 'Chromatic (visual testing)', 'GitHub-based workflows'].map(t => `<div class="stack-item"><span class="stack-check">✓</span> ${t}</div>`).join('')}</div>
+              ${[
+                { constraint: '99% Angular', detail: '40–50 repos, no migration plans—must work with existing Angular stack' },
+                { constraint: 'Web Components Friction', detail: 'Shadow DOM hinders styling overrides and testing; creates Angular integration pain' },
+                { constraint: 'Version Fragmentation', detail: 'Teams on different Flow versions to support independent release cycles' },
+                { constraint: 'Developer-Dependent Docs', detail: 'All Storybook/documentation updates require developer involvement' },
+                { constraint: 'Regulated Environment', detail: 'Customers on 10+ year old software versions; SOPs require revalidation on changes' },
+                { constraint: 'No FE Bandwidth', detail: 'Product teams lack dedicated front-end devs; "full stack developer" is a myth' },
+              ].map(c => `<div class="integration-item"><div class="integration-marker" style="background: var(--warning);"></div><div><div class="integration-title">${c.constraint}</div><div class="integration-note">${c.detail}</div></div></div>`).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Current Stack (Confirmed)</h2>
+            <div class="grid-2">
+              <div class="stack-card"><div class="stack-label">Design Tools</div>${['Figma (primary—library needs cleanup)', 'Figma Make (AI-powered design)', 'No dedicated documentation tool'].map(t => `<div class="stack-item"><span class="stack-check">✓</span> ${t}</div>`).join('')}</div>
+              <div class="stack-card"><div class="stack-label">Development</div>${['Angular + Web Components (99% of repos)', 'React (only in Thermal Analysis)', 'Storybook (sole documentation source)', 'Multiple Storybook versions per team', 'GitHub-based workflows'].map(t => `<div class="stack-item"><span class="stack-check">✓</span> ${t}</div>`).join('')}</div>
             </div>
           </div>
           <div class="card">
             <h2 class="heading">Integration Architecture Priorities</h2>
             <div class="grid-2">
               ${[
-                { req: 'As-Is Architecture Validation', note: 'Confirm Flow’s current data flows to place Knapsack at the right layer' },
-                { req: 'Storybook Integration', note: 'Maintain Storybook as the testing hub while enabling Knapsack sync' },
-                { req: 'GitHub Workflow Alignment', note: 'Clarify repo structure, hosting constraints, and release paths' },
-                { req: 'Phased 90-Day Focus', note: 'Prioritize the highest impact integration points first' },
-                { req: 'AI Schema + Guardrails', note: 'MCP-ready metadata with governance for AI-assisted workflows' },
-                { req: 'Security + Procurement Readiness', note: 'Document IT dependencies, approvals, and open questions' },
+                { req: 'Cleanup Before MVP', note: 'Consolidate Figma library, align Storybook versions before Knapsack rollout' },
+                { req: 'Storybook Integration', note: 'Maintain Storybook as testing hub while enabling Knapsack sync' },
+                { req: 'Define MVP Scope', note: 'Cannot "limp out the door"—define what ships in first release' },
+                { req: 'Migration Level of Effort', note: 'Document effort per component type before committing to timeline' },
+                { req: 'Non-Developer Authoring', note: 'Critical: enable doc updates without developer involvement' },
+                { req: 'Phased Approach', note: 'Cleanup → MVP Definition → Implementation → Roadshow/Adoption' },
               ].map(r => `<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">${r.req}</div><div class="integration-note">${r.note}</div></div></div>`).join('')}
             </div>
           </div>`,
@@ -802,47 +896,56 @@
           ].map(c => `<div class="card roi-card ${c.highlight ? 'highlight' : ''}"><div class="roi-header"><div><div class="roi-cat ${c.highlight ? 'roi-cat-priority' : ''}">Value Driver ${c.cat}${c.highlight ? ' — Strategic Priority' : ''}</div><h3 class="roi-title">${c.title}</h3></div><span class="badge badge-success">${c.range}</span></div><p class="roi-desc">${c.desc}</p><div class="roi-metrics">${c.metrics.map(m => `<span class="roi-metric">${m}</span>`).join('')}</div></div>`).join('')}`,
         risks: `
           <h1 class="section-title">Risk Mitigation</h1>
-          <p class="section-subtitle">Proactive strategies to ensure implementation success</p>
+          <p class="section-subtitle">Risks validated in pre-mortem exercise (February 4, 2026)</p>
+          <div class="card" style="background: var(--secondary-light); border: 1px solid #e8c8cd; margin-bottom: 24px;">
+            <h2 class="heading" style="color: var(--secondary);">Critical Risks from Pre-Mortem</h2>
+            <p style="font-size: 14px; color: var(--neutral-600);">The workshop included a structured pre-mortem: "If Knapsack implementation failed horribly, what went wrong?" These are the team's own identified failure modes.</p>
+          </div>
           <div class="risk-grid">
             ${[
-              { risk: 'Uneven Team Maturity', mitigation: 'Tailored workshops and ready-made templates for different skill levels' },
-              { risk: 'Engineering Bandwidth', mitigation: 'Staggered migration phases with clear priorities and quick wins' },
-              { risk: 'Change Resistance', mitigation: 'Knapsack-led implementation program with dedicated change management' },
-              { risk: 'Acquisition Complexity', mitigation: 'Multi-brand starter templates and proven onboarding playbooks' },
-              { risk: 'Tool Fragmentation', mitigation: 'Unified control plane integrating existing Figma and Storybook workflows' },
-              { risk: 'Organizational Alignment', mitigation: 'Governance model with clear RACI and contribution workflows' },
+              { risk: 'Budget Gets Pulled', mitigation: 'Negotiate multi-year plan with fixed pricing; generate internal demand; show local ROI (not vendor claims)' },
+              { risk: 'BD Acquisition Disrupts Everything', mitigation: 'Position Flow as "top dogs"—buttoned-up system that acquired org adopts, not vice versa' },
+              { risk: 'MVP "Limps Out the Door"', mitigation: 'Define MVP scope carefully; cannot ship less than current Storybook; phased approach approved' },
+              { risk: 'Low Product Team Adoption', mitigation: 'Dev team focus groups; adoption roadshow; all-in adoption as primary focus for everyone' },
+              { risk: 'No Resources for Migration', mitigation: 'Hire contractor for transition; define migration level of effort before committing; redistribute resourcing' },
+              { risk: 'Leadership Loses Interest', mitigation: 'Quarterly progress reports; clear value metrics tied to Informatics KPIs; executive playback sessions' },
+              { risk: 'Competing with Custom Libraries', mitigation: 'Audit SCP and other team components; grow contribution model to bring richer features into Flow' },
+              { risk: 'Complete Rebrand Coming', mitigation: 'Themes and modes strategy enables rebrand without rebuilding; hooks in place for color/font changes' },
             ].map(r => `<div class="card"><div class="risk-header"><div class="risk-marker"></div><span class="risk-title">${r.risk}</span></div><div class="risk-mitigation">${r.mitigation}</div></div>`).join('')}
           </div>`,
         'next-steps': `
           <h1 class="section-title">Next Steps</h1>
-          <p class="section-subtitle">Recommended path forward for Waters and Knapsack partnership</p>
-          <div class="card next-hero">
-            <div class="next-hero-label">Recommended First Step</div>
-            <h3>Onsite Discovery Workshop</h3>
-            <p>A half-day collaborative session at Waters' Milford, MA facility to align on goals, map current workflows, and co-create the implementation approach. This ensures the engagement is tailored to Waters' specific needs and constraints.</p>
+          <p class="section-subtitle">Post-workshop path forward (updated February 2026)</p>
+          <div class="card" style="background: var(--success); color: white; border: none;">
+            <div class="next-hero-label" style="opacity: 0.9;">✓ Completed</div>
+            <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">Onsite Discovery Workshop</h3>
+            <p style="font-size: 15px; opacity: 0.95;">February 4, 2026 — Full-day collaborative session at Waters' Milford, MA facility. Journey mapping, pre-mortem, 90-day planning completed.</p>
           </div>
           <div class="card">
-            <h2 class="heading">Proposed Timeline</h2>
+            <h2 class="heading">Updated Timeline (Post-Workshop)</h2>
             ${[
-              { when: 'December 2025', title: 'Discovery Workshop', desc: 'Onsite session to align goals and finalize implementation approach', color: 'var(--action)', status: 'Next' },
-              { when: 'January 2026', title: 'Final Review', desc: 'Refined business case and implementation plan for leadership approval', color: 'var(--primary)', status: 'Upcoming' },
-              { when: 'Feb–Mar 2026', title: 'Contract & Kickoff', desc: 'Partnership finalization and implementation program launch', color: 'var(--success)', status: 'Target' },
-            ].map((m, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${m.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ${m.color}">${m.when}</span><span class="badge ${m.status === 'Next' ? 'badge-action' : m.status === 'Target' ? 'badge-success' : 'badge-primary'}">${m.status}</span></div><div class="timeline-title">${m.title}</div><p class="timeline-desc">${m.desc}</p></div></div>`).join('')}
+              { when: 'Feb 4, 2026', title: 'Discovery Workshop', desc: 'Completed: Journey mapping, pain point validation, 90-day plan created', color: 'var(--success)', status: 'Done' },
+              { when: 'Feb 16+, 2026', title: 'Professional Services Scoping', desc: 'Best practices session with Amber—org patterns from GSK and similar customers', color: 'var(--action)', status: 'Next' },
+              { when: 'Feb–Mar 2026', title: 'MVP Definition & Cleanup', desc: 'Define MVP scope, Figma cleanup, Storybook consolidation before Knapsack rollout', color: 'var(--primary)', status: 'In Progress' },
+              { when: 'Q2 2026', title: 'Knapsack MVP Launch', desc: 'Phased rollout—cannot "limp out the door"—roadshow and adoption push', color: 'var(--warning)', status: 'Target' },
+            ].map((m, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${m.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ${m.color}">${m.when}</span><span class="badge ${m.status === 'Done' ? 'badge-success' : m.status === 'Next' ? 'badge-action' : m.status === 'In Progress' ? 'badge-primary' : 'badge-warning'}">${m.status}</span></div><div class="timeline-title">${m.title}</div><p class="timeline-desc">${m.desc}</p></div></div>`).join('')}
           </div>
           <div class="card">
-            <h2 class="heading">Workshop Deliverables</h2>
+            <h2 class="heading">Immediate Action Items</h2>
             <div class="grid-2">
               ${[
-                { title: 'Systems Charter', desc: 'Vision, outcomes, maturity path, and success criteria' },
-                { title: 'Work Breakdown Structure', desc: 'Detailed implementation plan with milestones' },
-                { title: 'Technical Architecture', desc: 'Integration approach for Storybook, Figma, and AI' },
-                { title: 'Updated Business Case', desc: 'Refined ROI model for leadership review' },
+                { title: 'Schedule Pro Services Call', desc: 'After Feb 16 with Drew & Amber—org pattern learnings from GSK' },
+                { title: 'Define MVP Scope', desc: 'What ships in V1? Cannot be less than current Storybook' },
+                { title: 'Migration Level of Effort', desc: 'Document effort per component type for accurate planning' },
+                { title: 'Figma Library Cleanup', desc: 'Address "hot mess" before Knapsack ingestion' },
+                { title: 'BD Acquisition Prep', desc: 'Position as "top dogs"—buttoned up for imminent M&A' },
+                { title: 'Documentation Person', desc: 'Gap identified: need dedicated doc role (hire or reassign)' },
               ].map(d => `<div class="deliverable-item"><div class="deliverable-title">${d.title}</div><div class="deliverable-desc">${d.desc}</div></div>`).join('')}
             </div>
           </div>
           <div class="card ready-card">
-            <h2 class="heading">Ready to Transform Flow</h2>
-            <p>Waters has built a strong foundation with Flow. Knapsack provides the infrastructure to unlock its full potential—connecting design, code, and AI workflows into a unified control plane that scales with your growth. We're ready to partner with your team to make this transformation a reality.</p>
+            <h2 class="heading">Workshop Validated: Waters is Ready</h2>
+            <p>The February 4 workshop confirmed strong alignment across Product, Design, and Engineering. Budget is the only remaining barrier—finance has approved the business case, now it's about finding accommodation in AOP. The team is energized and ready to move. M&A urgency (BD acquisition) adds momentum.</p>
           </div>`,
       };
       main.innerHTML = content[activeSection] || content.overview;

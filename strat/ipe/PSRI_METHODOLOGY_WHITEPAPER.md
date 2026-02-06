@@ -1,6 +1,6 @@
 # Product System Readiness Index (PSRI) Methodology
 
-**Version 1.0 | February 2026 | Knapsack**
+**Version 1.2 | February 2026 | Knapsack**
 
 ---
 
@@ -8,7 +8,9 @@
 
 The Product System Readiness Index (PSRI) is a composite assessment framework designed to measure an organization's readiness to evolve from traditional design systems to governed product systems with AI-enabled delivery capabilities.
 
-Unlike generic AI readiness quizzes or traditional design system maturity models, PSRI uniquely combines **product system foundation**, **AI readiness**, **organizational governance**, and **delivery workflow** into a single, actionable score that predicts engagement success and tracks progress over time.
+Unlike generic AI readiness quizzes or traditional design system maturity models, PSRI uniquely combines **product system foundation**, **AI readiness**, **organizational governance**, **delivery workflow**, and **culture & contribution** into a single, actionable score that predicts engagement success and tracks progress over time.
+
+The framework draws on established research including DORA metrics, Project Aristotle findings, Team Topologies organizational patterns, Westrum organizational culture typology, and NIST AI Risk Management Framework principles.
 
 ---
 
@@ -20,26 +22,40 @@ PSRI is built on established principles from mature assessment frameworks:
 
 | Principle | Source | PSRI Implementation |
 |-----------|--------|---------------------|
-| **Multi-dimensional assessment** | CMMI, Gartner IT Score | 4 distinct pillars with independent scoring |
+| **Multi-dimensional assessment** | CMMI, Gartner IT Score | 5 distinct pillars with independent scoring |
 | **Weighted composite scoring** | McKinsey DQ, Forrester DMM | Pillar weights based on predictive value |
 | **Gated progression** | NASA TRL, CMMI levels | Foundation gates AI; Governance gates Delivery |
 | **Normalized scaling** | ISO standards | Each pillar 0-100 before weighting |
 | **Impact-weighted questions** | Psychometric best practices | Critical questions weighted 2x |
+| **Research-backed factors** | DORA, Project Aristotle, Westrum | Culture pillar grounded in empirical research |
 
-### 1.2 Why Four Pillars?
+### 1.2 Why Five Pillars?
 
-Research on successful product system transformations reveals four distinct capability domains that must be addressed:
+Research on successful product system transformations reveals five distinct capability domains that must be addressed:
 
-1. **Foundation** — The technical substrate (tokens, components, APIs)
-2. **AI Readiness** — Ability to leverage AI with governed context
-3. **Governance** — Organizational authority and decision rights
-4. **Delivery** — Workflow consistency and team collaboration
+1. **Foundation** — The technical substrate (tokens, components, APIs, accessibility)
+2. **AI Readiness** — Ability to leverage AI with governed context and quality data
+3. **Governance** — Organizational authority, decision rights, and executive sponsorship
+4. **Delivery** — Workflow consistency, deployment frequency, and cross-functional collaboration
+5. **Culture** — Contribution models, psychological safety, and information flow
 
 These pillars are:
 - **Mutually exclusive**: Each measures a distinct capability
 - **Collectively exhaustive**: Together they cover the full readiness landscape
 - **Independently measurable**: Each can be assessed with specific questions
 - **Interdependent**: Progress in one affects achievable outcomes in others
+
+### 1.3 Research Foundations
+
+PSRI incorporates validated findings from:
+
+| Research | Key Contribution | PSRI Application |
+|----------|------------------|------------------|
+| **DORA State of DevOps** | Deployment frequency correlates with performance | Delivery pillar metrics |
+| **Google Project Aristotle** | Psychological safety predicts team effectiveness | Culture pillar questions |
+| **Team Topologies** | Platform team model enables scaling | Delivery workflow assessment |
+| **Westrum Typology** | Information flow indicates organizational health | Culture pillar scoring |
+| **NIST AI RMF** | Governance frameworks for AI adoption | AI Readiness & Governance integration |
 
 ---
 
@@ -49,28 +65,29 @@ These pillars are:
 
 | Pillar | Weight | Rationale |
 |--------|--------|-----------|
-| **Foundation** | 25% | Table stakes—necessary but not differentiating. A design system must exist before it can be governed. |
-| **AI Readiness** | 30% | Primary market differentiator. Highest predictive value for time-to-value in engagements. Organizations with AI adoption see 40-60% faster cycles. |
-| **Governance** | 25% | Execution enabler. Often the bottleneck—technical capability without governance authority yields limited adoption. |
-| **Delivery** | 20% | Sustainability factor. Indicates organizational capacity for change and workflow integration. |
+| **Culture** | 25% | Foundational enabler—psychological safety and contribution culture are the strongest predictors of sustainable adoption per Project Aristotle research. |
+| **Foundation** | 20% | Technical substrate—necessary for any product system work. Token architecture, components, and accessibility. |
+| **AI Readiness** | 20% | Market differentiator. Organizations with AI context governance see 2-3x better outcomes. |
+| **Governance** | 20% | Execution enabler. Executive sponsorship and decision rights—often the bottleneck for adoption. |
+| **Delivery** | 15% | Sustainability factor. Deployment frequency and workflow consistency indicate organizational capacity. |
 
 **Total: 100%**
 
 ### 2.2 Weight Rationale
 
-The 30% weight on AI Readiness reflects market reality:
-- AI tool adoption is accelerating across enterprise development
-- Organizations with AI context governance see 2-3x better outcomes
-- AI readiness is the primary differentiator between "design system" and "product system"
+The 25% weight on Culture reflects empirical research:
+- Google's Project Aristotle identified psychological safety as the #1 predictor of team effectiveness
+- Westrum's research shows information flow patterns predict organizational performance
+- Contribution models determine long-term sustainability of product systems
 
-Foundation and Governance are equally weighted (25% each) because:
-- Foundation without governance = technical debt
+Foundation, AI Readiness, and Governance are equally weighted (20% each) because:
+- Foundation without governance = technical debt without adoption
 - Governance without foundation = policy without enforcement
-- Both must advance together for sustainable outcomes
+- AI Readiness requires both foundation and governance to deliver value
 
-Delivery is weighted lowest (20%) because:
-- It is most influenced by the other three pillars
-- It tends to improve naturally as F/AI/G mature
+Delivery is weighted lowest (15%) because:
+- It is most influenced by the other four pillars
+- It tends to improve naturally as F/AI/G/C mature
 - It is partially gated by governance maturity
 
 ---
@@ -121,19 +138,22 @@ Both raw and gated scores are stored and displayed:
 
 | Weight | Category | Criteria | Examples |
 |--------|----------|----------|----------|
-| **2.0** | Critical | High predictive value, hard to remediate | Governance structure, API maturity, Executive sponsor |
-| **1.5** | High Impact | Strong signal, moderate remediation | Design system state, AI tool usage, Budget commitment |
-| **1.0** | Standard | Baseline capability | Documentation, Change capacity, Workflow consistency |
+| **2.0** | Critical | High predictive value, hard to remediate | Governance structure, API maturity, Executive sponsor, Psychological safety, Cross-system governance |
+| **1.5** | High Impact | Strong signal, moderate remediation | Design system state, AI tool usage, Budget commitment, Accessibility approach, Platform team model, Deployment frequency |
+| **1.0** | Standard | Baseline capability | Documentation, Change capacity, Workflow consistency, Time allocation |
 | **0** | Informational | No score impact | Deployment tier selection |
 
 ### 4.2 Question Distribution
 
-| Pillar | # Questions | Weight Range | Max Weighted Points |
-|--------|-------------|--------------|---------------------|
-| Foundation | 3 | 1.0 - 2.0 | 45 |
-| AI Readiness | 3 | 1.5 - 2.0 | 52.5 |
-| Governance | 3 | 1.0 - 2.0 | 55 |
-| Delivery | 5 | 1.0 - 1.5 | 22.5 |
+| Pillar | # Questions | Weight Range | Focus Areas |
+|--------|-------------|--------------|-------------|
+| Product System Foundation | 4 | 1.0 - 2.0 | Design system state, governance structure, documentation, accessibility |
+| AI Readiness | 4 | 1.5 - 2.0 | AI tool usage, API maturity, product data quality, AI governance |
+| Governance & Adoption | 5 | 1.0 - 2.0 | Executive sponsor, budget commitment, change capacity, communication, ROI measurement |
+| Delivery Workflow | 7 | 1.0 - 1.5 | Decision clarity, experiment pace, cross-functional collaboration, tool chain, workflow consistency, platform team model, deployment frequency |
+| Culture & Contribution | 7 | 1.0 - 2.0 | Contribution model, contributor diversity, community health, shared ownership, time allocation, psychological safety, information flow |
+
+**Total: 27 scored questions + 1 informational**
 
 ### 4.3 Response Scale Design
 
@@ -164,7 +184,7 @@ Unequal intervals prevent score clustering at the midpoint and reward genuine ca
 ### 5.2 Formula
 
 ```
-PSRI = (Foundation_eff × 0.25) + (AI_eff × 0.30) + (Governance_eff × 0.25) + (Delivery_eff × 0.20)
+PSRI = (Foundation_eff × 0.20) + (AI_eff × 0.20) + (Governance_eff × 0.20) + (Delivery_eff × 0.15) + (Culture_eff × 0.25)
 ```
 
 Where `_eff` = effective score after gating.
@@ -173,13 +193,14 @@ Where `_eff` = effective score after gating.
 
 | Pillar | Raw % | Gating | Effective % | Weight | Contribution |
 |--------|-------|--------|-------------|--------|--------------|
-| Foundation | 35% | — | 35% | 0.25 | 8.75 |
-| AI Readiness | 70% | Discounted (F<40) | 35% | 0.30 | 10.5 |
-| Governance | 50% | — | 50% | 0.25 | 12.5 |
-| Delivery | 60% | — | 60% | 0.20 | 12.0 |
-| **PSRI** | | | | | **43.75 ≈ 44** |
+| Foundation | 35% | — | 35% | 0.20 | 7.0 |
+| AI Readiness | 70% | Discounted (F<40) | 35% | 0.20 | 7.0 |
+| Governance | 50% | — | 50% | 0.20 | 10.0 |
+| Delivery | 60% | — | 60% | 0.15 | 9.0 |
+| Culture | 55% | — | 55% | 0.25 | 13.75 |
+| **PSRI** | | | | | **46.75 ≈ 47** |
 
-Note: Without gating, PSRI would be 53. The 9-point difference reflects the limited value of AI readiness without foundation.
+Note: Without gating, PSRI would be 54. The 7-point difference reflects the limited value of AI readiness without foundation.
 
 ---
 
@@ -189,50 +210,94 @@ Note: Without gating, PSRI would be 53. The 9-point difference reflects the limi
 
 | PSRI Range | Archetype | Primary Focus |
 |------------|-----------|---------------|
-| 0-44 | **Foundation** | Build system of record |
-| 45-54 | **Momentum** | Rapid enablement sprint |
-| 55-74 | **Scale** | Full transformation |
-| 75-100 | **Intelligence** | AI workflow expansion |
+| 0-44 | **Builder** | Establish foundations, build system of record |
+| 45-54 | **Adopter** | Rapid enablement sprint, expand adoption |
+| 55-74 | **Optimizer** | Full transformation, optimize at scale |
+| 75-100 | **Transformer** | AI workflow expansion, innovation leadership |
 
 ### 6.2 Archetype Selection Logic
 
-Archetype assignment uses both PSRI and pillar minimums:
+Archetype assignment uses both PSRI and pillar minimums to prevent misclassification:
 
 ```javascript
-if (PSRI >= 75 && Foundation >= 70% && Governance >= 60%)
-    → Intelligence
+if (PSRI >= 75 && Foundation >= 70% && Governance >= 60% && Culture >= 60%)
+    → Transformer
 
-else if (PSRI >= 55 && Foundation >= 60% && Governance >= 55%)
-    → Scale
+else if (PSRI >= 55 && Foundation >= 60% && Governance >= 55% && Culture >= 50%)
+    → Optimizer
 
-else if (PSRI >= 45 && Governance >= 50%)
-    → Momentum
+else if (PSRI >= 45 && Governance >= 50% && Culture >= 40%)
+    → Adopter
 
 else
-    → Foundation
+    → Builder
 ```
 
-This prevents misclassification (e.g., high PSRI from AI alone without foundation).
+This prevents misclassification (e.g., high PSRI from AI alone without foundation or culture).
+
+### 6.3 Archetype Characteristics
+
+| Archetype | Icon | Color | Typical Engagement |
+|-----------|------|-------|-------------------|
+| Builder | Hammer | Red (#ef4444) | 6-12 month foundation build |
+| Adopter | Sprout | Amber (#fbbf24) | 3-6 month adoption sprint |
+| Optimizer | Sliders | Blue (#3b82f6) | 6-9 month transformation |
+| Transformer | Rocket | Green (#10b981) | Ongoing innovation partnership |
 
 ---
 
-## 7. Benchmarking Methodology
+## 7. Multi-System Architecture Assessment
 
-### 7.1 Benchmark Sources
+### 7.1 Purpose
+
+Organizations with federated design systems, multi-brand portfolios, or multi-product ecosystems face unique challenges. The Multi-System Architecture assessment provides supplementary scoring for these organizations.
+
+### 7.2 Multi-System Questions (6 questions)
+
+| # | Focus Area | Weight | Key Capability |
+|---|------------|--------|----------------|
+| 27 | Token Architecture | 1.5 | Semantic vs. primitive token layers |
+| 28 | Component Abstraction | 1.5 | Cross-system component patterns |
+| 29 | Cross-System Governance | 2.0 | Decision rights across systems |
+| 30 | Cross-System AI Context | 1.5 | Unified AI training data |
+| 31 | Cross-System Contribution | 1.5 | Federated contribution models |
+| 32 | Release Coordination | 1.0 | Synchronized vs. independent releases |
+
+### 7.3 Scoring
+
+- Multi-System score is calculated separately from PSRI
+- Score is 0-100 normalized scale
+- Only displayed for organizations selecting "Multi-System" landscape type
+- Does not affect core PSRI calculation (additive insight, not composite factor)
+
+### 7.4 System Landscape Types
+
+| Type | Description | Shows Multi-System Questions |
+|------|-------------|------------------------------|
+| Single | One unified design system | No |
+| Multi-Brand | Multiple brand-specific systems | Yes |
+| Federated | Distributed systems with shared core | Yes |
+| Platform | Platform-level system serving products | Yes |
+
+---
+
+## 8. Benchmarking Methodology
+
+### 8.1 Benchmark Sources
 
 Initial benchmarks are derived from:
 - 158 enterprise assessment records (as of Jan 2026)
 - Knapsack customer engagement data
 - Industry analyst reports (Gartner, Forrester)
 
-### 7.2 Industry Segmentation
+### 8.2 Industry Segmentation
 
 Benchmarks are segmented by:
 - **Industry vertical** (FinServ, Healthcare, Retail, Tech, etc.)
 - **Organization size** (SMB, Mid-market, Enterprise)
 - **Regulatory environment** (Standard, Regulated, Highly Regulated)
 
-### 7.3 Benchmark Labels
+### 8.3 Benchmark Labels
 
 | PSRI vs Industry Avg | Label |
 |----------------------|-------|
@@ -241,7 +306,7 @@ Benchmarks are segmented by:
 | ≥ 30 | **Below Average** |
 | < 30 | **Early Stage** |
 
-### 7.4 Benchmark Refresh Cadence
+### 8.4 Benchmark Refresh Cadence
 
 - **Quarterly**: Recalculate from aggregate data
 - **Annually**: Validate correlation with outcomes
@@ -249,16 +314,16 @@ Benchmarks are segmented by:
 
 ---
 
-## 8. Longitudinal Measurement
+## 9. Longitudinal Measurement
 
-### 8.1 Assessment Types
+### 9.1 Assessment Types
 
 | Type | When | Purpose |
 |------|------|---------|
 | **Baseline** | Pre-engagement | Establish starting point |
 | **Follow-up** | During/post engagement | Measure progress |
 
-### 8.2 Progress Metrics
+### 9.2 Progress Metrics
 
 | Metric | Calculation | Interpretation |
 |--------|-------------|----------------|
@@ -267,7 +332,7 @@ Benchmarks are segmented by:
 | **Archetype Movement** | Tier progression | Milestone achievement |
 | **Time-to-Tier** | Days to reach next tier | Velocity indicator |
 
-### 8.3 Target Improvements
+### 9.3 Target Improvements
 
 Based on engagement data, typical improvements:
 
@@ -279,9 +344,9 @@ Based on engagement data, typical improvements:
 
 ---
 
-## 9. Validation & Calibration
+## 10. Validation & Calibration
 
-### 9.1 Validation Approach
+### 10.1 Validation Approach
 
 PSRI validity is assessed through:
 
@@ -289,8 +354,9 @@ PSRI validity is assessed through:
 2. **Content validity**: Coverage of all relevant capability domains
 3. **Criterion validity**: Correlation with engagement outcomes
 4. **Construct validity**: Factor analysis of pillar structure
+5. **Research validity**: Alignment with DORA, Project Aristotle, Westrum findings
 
-### 9.2 Calibration Process
+### 10.2 Calibration Process
 
 1. Run assessment on 10+ known customers with known outcomes
 2. Compare PSRI predictions to actual engagement results
@@ -298,7 +364,7 @@ PSRI validity is assessed through:
 4. Adjust weights or replace questions
 5. Document changes for version tracking
 
-### 9.3 Recommended Calibration Cadence
+### 10.3 Recommended Calibration Cadence
 
 | Activity | Frequency |
 |----------|-----------|
@@ -309,9 +375,9 @@ PSRI validity is assessed through:
 
 ---
 
-## 10. Versioning & Evolution
+## 11. Versioning & Evolution
 
-### 10.1 Version Numbering
+### 11.1 Version Numbering
 
 ```
 PSRI [Major].[Minor]
@@ -320,15 +386,24 @@ PSRI [Major].[Minor]
 - **Major**: Pillar structure or weight changes
 - **Minor**: Question updates, threshold adjustments
 
-### 10.2 Current Version
+### 11.2 Current Version
 
-**PSRI 1.0** (February 2026)
-- 4 pillars: Foundation, AI Readiness, Governance, Delivery
-- Weights: 25/30/25/20
-- 14 scored questions + 1 informational
+**PSRI 1.2** (February 2026)
+- 5 pillars: Foundation, AI Readiness, Governance, Delivery, Culture
+- Weights: 20/20/20/15/25
+- 27 scored questions + 1 informational + 6 Multi-System (optional)
 - Gated progression enabled
+- Research foundation: DORA, Project Aristotle, Team Topologies, Westrum, NIST AI RMF
 
-### 10.3 Planned Evolution
+### 11.3 Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.2 | 2026-02-05 | Added Culture pillar (25%), Multi-System Architecture assessment, expanded research foundation |
+| 1.1 | 2026-01 | Expanded questions based on DORA, Project Aristotle, Team Topologies, Westrum research |
+| 1.0 | 2026-02-04 | Initial release with 4 pillars |
+
+### 11.4 Planned Evolution
 
 | Timeframe | Potential Change |
 |-----------|------------------|
@@ -336,7 +411,7 @@ PSRI [Major].[Minor]
 | 2027 | Industry-specific weight variants |
 | 2027+ | "Security & Compliance" pillar consideration |
 
-### 10.4 Backward Compatibility
+### 11.5 Backward Compatibility
 
 When versions change:
 - Historical scores are tagged with version
@@ -345,22 +420,22 @@ When versions change:
 
 ---
 
-## 11. Ethical Considerations
+## 12. Ethical Considerations
 
-### 11.1 Assessment Bias
+### 12.1 Assessment Bias
 
 PSRI is designed to minimize:
 - **Question bias**: Neutral language, no leading questions
 - **Cultural bias**: Applicable across industries and geographies
 - **Size bias**: Questions work for 100-person and 100,000-person orgs
 
-### 11.2 Data Privacy
+### 12.2 Data Privacy
 
 - No PII required for scoring
 - Organization data aggregated for benchmarks
 - Individual responses not shared externally
 
-### 11.3 Score Transparency
+### 12.3 Score Transparency
 
 - Scoring algorithm is documented
 - Weights are disclosed
@@ -368,15 +443,15 @@ PSRI is designed to minimize:
 
 ---
 
-## 12. Appendix: Technical Implementation
+## 13. Appendix: Technical Implementation
 
-### 12.1 Scoring Algorithm (Pseudocode)
+### 13.1 Scoring Algorithm (Pseudocode)
 
 ```javascript
 function calculatePSRI(answers) {
   // Step 1: Calculate raw pillar scores
-  let pillars = { foundation: 0, ai: 0, governance: 0, delivery: 0 };
-  let maxes = { foundation: 0, ai: 0, governance: 0, delivery: 0 };
+  let pillars = { foundation: 0, ai: 0, governance: 0, delivery: 0, culture: 0 };
+  let maxes = { foundation: 0, ai: 0, governance: 0, delivery: 0, culture: 0 };
   
   for (question in questions) {
     score = answers[question] * questionWeights[question];
@@ -400,20 +475,21 @@ function calculatePSRI(answers) {
   }
   
   // Step 4: Calculate composite
-  psri = (norms.foundation * 0.25) +
-         (norms.ai * 0.30) +
-         (norms.governance * 0.25) +
-         (norms.delivery * 0.20);
+  psri = (norms.foundation * 0.20) +
+         (norms.ai * 0.20) +
+         (norms.governance * 0.20) +
+         (norms.delivery * 0.15) +
+         (norms.culture * 0.25);
   
   return round(psri);
 }
 ```
 
-### 12.2 Data Schema
+### 13.2 Data Schema
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `psriVersion` | string | "1.0" |
+| `psriVersion` | string | "1.2" |
 | `psriScore` | int | 0-100 composite |
 | `foundationNorm` | int | 0-100 after gating |
 | `foundationNormRaw` | int | 0-100 before gating |
@@ -422,23 +498,43 @@ function calculatePSRI(answers) {
 | `governanceNorm` | int | 0-100 |
 | `deliveryNorm` | int | 0-100 after gating |
 | `deliveryNormRaw` | int | 0-100 before gating |
+| `cultureNorm` | int | 0-100 |
+| `cultureNormRaw` | int | 0-100 before gating |
 | `gatingApplied` | object | { ai: bool, delivery: bool } |
-| `archetype` | string | Foundation/Momentum/Scale/Intelligence |
+| `archetype` | string | Builder/Adopter/Optimizer/Transformer |
 | `assessmentType` | string | baseline/follow-up |
 | `organizationId` | string | Domain identifier |
 | `timestamp` | ISO string | Assessment date |
+| `systemLandscape` | string | single/multi-brand/federated/platform |
+| `multiSystemNorm` | int | 0-100 (null if single system) |
+| `isMultiSystem` | bool | Whether multi-system questions were shown |
+
+### 13.3 Pillar Icon System
+
+| Pillar | Icon | Color | Label |
+|--------|------|-------|-------|
+| Foundation | layers | #a78bfa | Foundation |
+| AI Readiness | cpu | #60a5fa | AI Readiness |
+| Governance | shield-check | #34d399 | Governance |
+| Delivery | git-merge | #fbbf24 | Delivery |
+| Culture | heart-handshake | #f472b6 | Culture |
+| Multi-System | network | #0ea5e9 | Multi-System |
 
 ---
 
-## 13. References
+## 14. References
 
 1. CMMI Institute. (2018). *CMMI Model V2.0*.
 2. NASA. (2017). *Technology Readiness Level Definitions*.
 3. Gartner. (2024). *IT Score for Digital Business*.
 4. McKinsey & Company. (2023). *Digital Quotient Methodology*.
-5. Forrester Research. (2024). *Digital Maturity Model 5.0*.
-6. InVision. (2021). *Design System Maturity Model*.
-7. Supernova. (2025). *Design System Health Assessment*.
+5. Forsgren, N., Humble, J., & Kim, G. (2018). *Accelerate: The Science of Lean Software and DevOps*. (DORA Research)
+6. Google re:Work. (2016). *Project Aristotle: What Makes a Team Effective?*
+7. Skelton, M., & Pais, M. (2019). *Team Topologies: Organizing Business and Technology Teams for Fast Flow*.
+8. Westrum, R. (2004). *A typology of organisational cultures*. BMJ Quality & Safety.
+9. NIST. (2023). *AI Risk Management Framework (AI RMF 1.0)*.
+10. InVision. (2021). *Design System Maturity Model*.
+11. Supernova. (2025). *Design System Health Assessment*.
 
 ---
 
@@ -446,6 +542,8 @@ function calculatePSRI(answers) {
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
+| 1.2 | 2026-02-05 | Knapsack | Added Culture pillar (25%), Multi-System Architecture, expanded research foundation (DORA, Project Aristotle, Team Topologies, Westrum, NIST AI RMF) |
+| 1.1 | 2026-01 | Knapsack | Expanded question set based on organizational research |
 | 1.0 | 2026-02-04 | Knapsack | Initial release |
 
 ---

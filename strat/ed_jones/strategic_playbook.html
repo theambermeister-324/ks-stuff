@@ -517,13 +517,58 @@
             <h3 style="font-size: 15px; font-weight: 600; color: var(--neutral-800); margin-bottom: 12px;">Core Objectives</h3>
             <div class="grid-2">
               ${[
+                { obj: 'User Success', desc: 'Make Designers, Developers, and Product Managers measurably more effective—user success is the primary measure of system success' },
                 { obj: 'System Consolidation', desc: 'Eliminate shadow design libraries and establish Knapsack as orchestration layer across the firm' },
                 { obj: 'Design Authority', desc: 'Transition Design Ops from influence-only to accountability-based leadership with clear governance' },
                 { obj: 'Offshore Enablement', desc: 'Provide centralized design system that scales to support growing offshore design and development teams' },
                 { obj: 'Business Alignment', desc: 'Connect design system to business ownership structure, completing the three-legged stool' },
                 { obj: 'AI Foundation', desc: 'Enable MCP infrastructure in secure environment for future AI workflows when the organization is ready' },
-                { obj: 'Scalable Operations', desc: 'Create "collect and curate" contribution model that extracts best work from product teams into system' },
               ].map(o => `<div style="padding: 14px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px;"><div style="font-size: 14px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">${o.obj}</div><div style="font-size: 12px; color: var(--neutral-600);">${o.desc}</div></div>`).join('')}
+            </div>
+          </div>
+
+          <div class="card" style="border: 2px solid var(--primary);">
+            <h2 class="heading" style="color: var(--primary);">User Success Commitment</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); margin-bottom: 20px; line-height: 1.6;">The charter exists to serve the people who use the design system. Success is measured by the impact on <strong>Designers</strong>, <strong>Developers</strong>, and <strong>Product Managers</strong>—not just system metrics. The detailed <em>User Success Framework</em> section defines role-specific challenges, benefits, and measurable outcomes.</p>
+            
+            <div class="grid-3" style="margin-bottom: 20px;">
+              <div style="background: #f5f3ff; border: 2px solid #7c3aed; border-radius: 8px; padding: 16px;">
+                <div style="font-size: 12px; font-weight: 600; color: #7c3aed; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Designers</div>
+                <div style="font-size: 15px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px;">${userPersonas.designers.tagline}</div>
+                <div style="font-size: 12px; color: var(--neutral-600); line-height: 1.5;">Design with production code from day one. See what is implemented in real time. Bridge design and development seamlessly.</div>
+                <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #d9d0e8;">
+                  <div style="font-size: 11px; font-weight: 600; color: #7c3aed;">Key Metric</div>
+                  <div style="font-size: 18px; font-weight: 700; color: #7c3aed;">40%</div>
+                  <div style="font-size: 11px; color: var(--neutral-600);">Reduction in design-to-dev handoff time</div>
+                </div>
+              </div>
+              
+              <div style="background: #ecfdf5; border: 2px solid #059669; border-radius: 8px; padding: 16px;">
+                <div style="font-size: 12px; font-weight: 600; color: #059669; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Developers</div>
+                <div style="font-size: 15px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px;">${userPersonas.developers.tagline}</div>
+                <div style="font-size: 12px; color: var(--neutral-600); line-height: 1.5;">Reuse pre-built components that work. Clear design intent from day one. Focus on real problems not rework.</div>
+                <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #c3ddd2;">
+                  <div style="font-size: 11px; font-weight: 600; color: #059669;">Key Metric</div>
+                  <div style="font-size: 18px; font-weight: 700; color: #059669;">50%</div>
+                  <div style="font-size: 11px; color: var(--neutral-600);">Reduction in UI development time</div>
+                </div>
+              </div>
+              
+              <div style="background: #fef2f2; border: 2px solid #dc2626; border-radius: 8px; padding: 16px;">
+                <div style="font-size: 12px; font-weight: 600; color: #dc2626; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Product Managers</div>
+                <div style="font-size: 15px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px;">${userPersonas.productManagers.tagline}</div>
+                <div style="font-size: 12px; color: var(--neutral-600); line-height: 1.5;">Build prototypes with real components. Align teams around shared artifacts. Make decisions faster on real interfaces.</div>
+                <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #fecaca;">
+                  <div style="font-size: 11px; font-weight: 600; color: #dc2626;">Key Metric</div>
+                  <div style="font-size: 18px; font-weight: 700; color: #dc2626;">60%</div>
+                  <div style="font-size: 11px; color: var(--neutral-600);">Reduction in alignment meetings</div>
+                </div>
+              </div>
+            </div>
+            
+            <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; padding: 16px;">
+              <div style="font-size: 12px; font-weight: 600; color: var(--neutral-500); text-transform: uppercase; margin-bottom: 8px;">Charter Commitment</div>
+              <p style="font-size: 13px; color: var(--neutral-600); line-height: 1.6; margin: 0;">The Design System Council will track these user success metrics quarterly and report outcomes to leadership. If the system is not making these roles more effective, the charter requires course correction. <strong>User success is not optional—it is the purpose of the system.</strong></p>
             </div>
           </div>
 
@@ -594,6 +639,7 @@
                   { member: 'Jake Love (Advanced Onboarding + Training)', role: 'Enablement plan, training delivery, adoption support' },
                   { member: 'Angie Stevenson (Account Management)', role: 'Account coordination, success planning, onsite alignment' },
                   { member: 'Amber Atkins (Design Strategy and Change Management)', role: 'Charter co-creation, change management, workshop facilitation' },
+                  { member: 'Brennen Thaney (Customer Success)', role: 'Customer success partnership, ongoing engagement support' },
                   { member: 'Christopher Bloom (Senior System Engineer)', role: 'Stakeholder feedback and alignment support' },
                 ].map(m => `<div class="check-item"><span class="check-icon">✓</span><div><div class="check-title">${m.member}</div><div class="check-desc">${m.role}</div></div></div>`).join('')}
               </div>
@@ -604,6 +650,7 @@
             <h2 class="heading">Guiding Principles</h2>
             <div class="grid-3">
               ${[
+                'User success is the measure of system success',
                 'Consolidation before creation',
                 'Governance as enablement',
                 'AI-ready foundation, not forced adoption',
@@ -611,7 +658,6 @@
                 'Contribution over handoff',
                 'Pragmatism over perfection',
                 'Measurable impact always',
-                'Strategic talent focus',
                 'Transparency in decisions',
               ].map(p => `<div style="display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; font-size: 13px; color: var(--neutral-700);"><span style="width: 6px; height: 6px; background: var(--success); border-radius: 50%; flex-shrink: 0;"></span> ${p}</div>`).join('')}
             </div>
@@ -684,7 +730,8 @@
                 { frequency: 'Weekly', meeting: 'Design System Team Sync', purpose: 'Progress updates, blockers, offshore coordination' },
                 { frequency: 'Bi-weekly', meeting: 'Component Review Board', purpose: 'Evaluate proposals, quality reviews, curation decisions' },
                 { frequency: 'Monthly', meeting: 'Design System Council', purpose: 'Strategic decisions, roadmap review, business alignment' },
-                { frequency: 'Quarterly', meeting: 'System Health Audit', purpose: 'Metrics review, adoption analysis, offshore effectiveness' },
+                { frequency: 'Quarterly', meeting: 'User Success Review', purpose: 'Designer, Developer, PM metrics review per User Success Framework' },
+                { frequency: 'Quarterly', meeting: 'System Health Audit', purpose: 'Adoption analysis, offshore effectiveness, system metrics' },
               ].map(o => `<div style="padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px;"><div style="font-size: 12px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">${o.frequency}</div><div style="font-size: 14px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">${o.meeting}</div><div style="font-size: 12px; color: var(--neutral-600);">${o.purpose}</div></div>`).join('')}
             </div>
           </div>
@@ -1068,9 +1115,9 @@
                 <h3 style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 12px;">Knapsack</h3>
                 ${[
                   { name: 'Amber Atkins', role: 'Design Strategy & Change Management' },
-                  { name: 'Jake Love', role: 'Advanced Onboarding & Training' },
                   { name: 'Angie Stevenson', role: 'Account Management' },
-                  { name: 'Christopher Bloom', role: 'Senior System Engineer (optional)' },
+                  { name: 'Brennen Thaney', role: 'Customer Success' },
+                  { name: 'Christopher Bloom', role: 'Senior System Engineer' },
                 ].map(p => '<div style="padding: 8px 0; border-bottom: 1px solid var(--neutral-150);"><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">' + p.name + '</div><div style="font-size: 12px; color: var(--neutral-600);">' + p.role + '</div></div>').join('')}
               </div>
             </div>
@@ -1130,6 +1177,11 @@
               <div>Feb 6, 2026</div>
               <div>Knapsack</div>
               <div>Expanded workshop pre-work requirements: added Required Pre-Work Sessions section with 1:1s (Matt/Wendi), Workflow + Toolchain Mapping, and ROI/TCO Business Case (Angie-led) as prerequisites. Updated agenda to reference pre-work insights.</div>
+              <div><span class="badge" style="background: var(--success-light); color: var(--success); border: 1px solid #c3ddd2;">Logged</span></div>
+
+              <div>Feb 6, 2026</div>
+              <div>Knapsack</div>
+              <div>Integrated User Success Framework into Team & System Charter: added User Success Commitment section with role-specific metrics, added User Success as core objective and guiding principle, added Quarterly User Success Review to operating cadence.</div>
               <div><span class="badge" style="background: var(--success-light); color: var(--success); border: 1px solid #c3ddd2;">Logged</span></div>
             </div>
           </div>
