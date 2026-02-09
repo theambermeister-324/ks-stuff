@@ -1,0 +1,23 @@
+{
+  "name": "ks-stuff",
+  "version": "1.0.0",
+  "description": "This repository contains strategic documents, playbooks, and interactive tools for Knapsack.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theambermeister-324/ks-stuff.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theambermeister-324/ks-stuff/issues"
+  },
+  "homepage": "https://github.com/theambermeister-324/ks-stuff#readme",
+  "dependencies": {
+    "live-server": "^1.2.2"
+  }
+}
