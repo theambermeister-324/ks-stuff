@@ -3,41 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Citi × Knapsack Strategic Playbook</title>
+  <title>Citi × Knapsack — Design System Convergence</title>
   <style>
     :root {
       --primary: #003B70;
       --primary-dark: #002855;
       --primary-light: #E8F0F8;
-      --secondary: #E31937;
+      --secondary: #B91430;
       --secondary-light: #FCE8EB;
-      --action: #0077B6;
+      --action: #005A8C;
       --action-light: #E8F4FA;
-      --success: #0F7B3E;
+      --success: #0A6B35;
       --success-light: #E6F5ED;
-      --warning: #C75300;
+      --success-dark: #085028;
+      --warning: #9A4100;
       --warning-light: #FEF3E8;
       --neutral-50: #F8F9FA;
       --neutral-100: #F1F3F5;
       --neutral-150: #DEE2E6;
       --neutral-200: #CED4DA;
-      --neutral-500: #6C757D;
-      --neutral-600: #495057;
-      --neutral-700: #343A40;
-      --neutral-800: #212529;
+      --neutral-400: #5C636A;
+      --neutral-500: #495057;
+      --neutral-600: #343A40;
+      --neutral-700: #212529;
+      --neutral-800: #1A1D20;
       --neutral-900: #0D1117;
+      --focus-ring: #0066CC;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: "Neue Haas Grotesk", "Helvetica Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: var(--neutral-50);
       display: flex;
       min-height: 100vh;
-      color: var(--neutral-700);
+      color: var(--neutral-600);
       line-height: 1.6;
     }
     nav {
-      width: 280px;
+      width: 260px;
       background: white;
       border-right: 1px solid var(--neutral-150);
       padding: 24px 0;
@@ -47,531 +50,117 @@
       height: 100vh;
       overflow-y: auto;
     }
-    .nav-header {
-      padding: 0 20px 24px;
-      border-bottom: 1px solid var(--neutral-150);
-    }
-    .nav-label {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--secondary);
-      margin-bottom: 6px;
-    }
-    .nav-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--neutral-900);
-    }
-    .nav-subtitle {
-      font-size: 13px;
-      color: var(--neutral-600);
-      margin-top: 4px;
-    }
+    .nav-header { padding: 0 20px 24px; border-bottom: 1px solid var(--neutral-150); }
+    .nav-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--secondary); margin-bottom: 6px; }
+    .nav-title { font-size: 20px; font-weight: 700; color: var(--neutral-900); }
+    .nav-subtitle { font-size: 13px; color: var(--neutral-500); margin-top: 4px; }
     .nav-items { padding: 16px 12px; }
     .nav-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-      padding: 10px 12px;
-      border: none;
-      border-radius: 6px;
-      background: transparent;
-      color: var(--neutral-600);
-      font-size: 13px;
-      font-weight: 400;
-      cursor: pointer;
-      text-align: left;
-      margin-bottom: 2px;
-      transition: background 0.15s;
+      display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px 14px;
+      border: none; border-radius: 8px; background: transparent; color: var(--neutral-500);
+      font-size: 14px; font-weight: 500; cursor: pointer; text-align: left; margin-bottom: 4px;
+      transition: all 0.15s;
     }
-    .nav-btn:hover { background: var(--neutral-100); }
-    .nav-btn:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
-    .nav-btn.active {
-      background: var(--primary-light);
-      color: var(--primary);
-      font-weight: 600;
-    }
+    .nav-btn:hover { background: var(--neutral-100); color: var(--neutral-700); }
+    .nav-btn:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+    .nav-btn.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
     .nav-num {
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
-      background: var(--neutral-150);
-      color: var(--neutral-600);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 600;
-      flex-shrink: 0;
+      width: 26px; height: 26px; border-radius: 6px; background: var(--neutral-150);
+      color: var(--neutral-500); display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; flex-shrink: 0;
     }
-    .nav-btn.active .nav-num {
-      background: var(--primary);
-      color: white;
-    }
+    .nav-btn.active .nav-num { background: var(--primary); color: white; }
     .nav-footer {
-      padding: 20px;
-      border-top: 1px solid var(--neutral-150);
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      background: white;
+      padding: 20px; border-top: 1px solid var(--neutral-150);
+      position: absolute; bottom: 0; width: 100%; background: white;
     }
-    .nav-footer-label {
-      font-size: 10px;
-      color: var(--neutral-500);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 4px;
-    }
-    .nav-footer-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--neutral-800);
-    }
-    .nav-footer-date {
-      font-size: 13px;
-      color: var(--neutral-600);
-      margin-top: 2px;
-    }
-    main {
-      flex: 1;
-      padding: 36px 48px;
-      max-width: 920px;
-      margin-left: 280px;
-    }
-    .card {
-      background: white;
-      border: 1px solid var(--neutral-150);
-      border-radius: 10px;
-      padding: 28px;
-      margin-bottom: 24px;
-    }
-    .section-title {
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--neutral-900);
-      margin-bottom: 8px;
-      line-height: 1.2;
-      letter-spacing: -0.01em;
-    }
-    .section-subtitle {
-      font-size: 16px;
-      color: var(--neutral-600);
-      margin-bottom: 28px;
-      line-height: 1.6;
-    }
-    .heading {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--neutral-800);
-      margin-bottom: 18px;
-    }
-    .badge {
-      display: inline-block;
-      padding: 5px 12px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-    .badge-primary { background: var(--primary-light); color: var(--primary); }
-    .badge-action { background: var(--action-light); color: var(--action); }
-    .badge-success { background: var(--success-light); color: var(--success); }
-    .badge-warning { background: var(--warning-light); color: var(--warning); }
-    .badge-high { background: #10B981; color: white; }
-    .badge-medium { background: #F59E0B; color: white; }
+    .nav-footer-label { font-size: 10px; color: var(--neutral-400); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+    .nav-footer-title { font-size: 14px; font-weight: 600; color: var(--neutral-700); }
+    .nav-footer-date { font-size: 12px; color: var(--neutral-500); margin-top: 2px; }
+    main { flex: 1; padding: 40px 56px; max-width: 900px; margin-left: 260px; }
+    .section { display: none; }
+    .section.active { display: block; }
+    .card { background: white; border: 1px solid var(--neutral-150); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+    .section-title { font-size: 32px; font-weight: 700; color: var(--neutral-900); margin-bottom: 8px; letter-spacing: -0.01em; }
+    .section-subtitle { font-size: 16px; color: var(--neutral-500); margin-bottom: 32px; line-height: 1.6; }
+    .heading { font-size: 18px; font-weight: 600; color: var(--neutral-700); margin-bottom: 16px; }
     .hero {
       background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-      color: white;
-      padding: 48px;
-      border-radius: 10px;
-      margin-bottom: 28px;
-      position: relative;
-      overflow: hidden;
+      color: white; padding: 48px; border-radius: 16px; margin-bottom: 28px;
+      position: relative; overflow: hidden;
     }
     .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -20%;
-      width: 60%;
-      height: 200%;
-      background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);
+      content: ''; position: absolute; top: -50%; right: -20%; width: 60%; height: 200%;
+      background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.04) 50%, transparent 60%);
       transform: rotate(15deg);
     }
-    .hero-label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      opacity: 0.85;
-      margin-bottom: 14px;
-    }
+    .hero-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.85; margin-bottom: 14px; }
     .hero h1 { font-size: 36px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.01em; }
     .hero p { font-size: 18px; opacity: 0.95; }
     .hero .sub { font-size: 14px; opacity: 0.8; margin-top: 18px; }
-    .summary-card {
-      background: var(--primary-light);
-      border-left: 4px solid var(--primary);
-      border-radius: 0 10px 10px 0;
+    .quote-card {
+      background: var(--neutral-50); border-left: 4px solid var(--primary);
+      padding: 20px 24px; border-radius: 0 12px 12px 0; margin-bottom: 16px;
     }
-    .summary-label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--primary);
-      margin-bottom: 10px;
-    }
-    .summary-text { font-size: 16px; color: var(--neutral-700); line-height: 1.7; }
+    .quote-card p { font-size: 16px; font-style: italic; color: var(--neutral-600); line-height: 1.7; margin: 0; }
+    .quote-card .attribution { font-size: 13px; color: var(--neutral-400); font-style: normal; margin-top: 8px; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
     .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
-    .value-item {
-      display: flex;
-      gap: 14px;
-      padding: 18px;
-      background: var(--neutral-50);
-      border-radius: 8px;
-      border: 1px solid var(--neutral-150);
+    .metric-card { padding: 24px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 10px; text-align: center; }
+    .metric-value { font-size: 32px; font-weight: 800; color: var(--primary); margin-bottom: 6px; letter-spacing: -0.02em; }
+    .metric-label { font-size: 13px; color: var(--neutral-500); line-height: 1.4; }
+    .value-card { padding: 20px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 10px; }
+    .value-card .title { font-size: 15px; font-weight: 600; color: var(--neutral-700); margin-bottom: 6px; }
+    .value-card .desc { font-size: 13px; color: var(--neutral-500); line-height: 1.5; }
+    .phase-card {
+      padding: 24px; background: white; border: 1px solid var(--neutral-150);
+      border-radius: 10px; border-top: 4px solid var(--primary);
     }
-    .value-marker { width: 4px; background: var(--primary); border-radius: 2px; flex-shrink: 0; }
-    .value-title { font-weight: 600; font-size: 15px; color: var(--neutral-800); margin-bottom: 4px; }
-    .value-desc { font-size: 13px; color: var(--neutral-600); line-height: 1.5; }
-    .metric-card {
-      padding: 22px;
-      background: var(--neutral-50);
-      border: 1px solid var(--neutral-150);
-      border-radius: 8px;
-      text-align: center;
+    .phase-card .phase { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary); margin-bottom: 4px; }
+    .phase-card .title { font-size: 17px; font-weight: 600; color: var(--neutral-700); margin-bottom: 4px; }
+    .phase-card .duration { font-size: 12px; color: var(--neutral-400); margin-bottom: 12px; }
+    .phase-card .items { font-size: 13px; color: var(--neutral-500); }
+    .phase-card .items div { padding: 4px 0; padding-left: 14px; position: relative; }
+    .phase-card .items div::before { content: '—'; position: absolute; left: 0; color: var(--neutral-400); }
+    .role-card { padding: 0; border-radius: 10px; overflow: hidden; border: 2px solid; }
+    .role-card .header { padding: 16px 20px; color: white; }
+    .role-card .header .role { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.9; margin-bottom: 2px; }
+    .role-card .header .tagline { font-size: 15px; font-weight: 600; }
+    .role-card .body { padding: 20px; background: white; }
+    .role-card .metric { text-align: center; margin-bottom: 12px; }
+    .role-card .metric .value { font-size: 28px; font-weight: 800; }
+    .role-card .metric .label { font-size: 11px; color: var(--neutral-500); line-height: 1.3; }
+    .role-card .items { font-size: 12px; color: var(--neutral-500); }
+    .role-card .items div { padding: 3px 0; padding-left: 14px; position: relative; }
+    .role-card .items div::before { content: '✓'; position: absolute; left: 0; font-weight: 600; }
+    .callout { background: var(--primary-light); border-left: 4px solid var(--primary); padding: 20px 24px; border-radius: 0 12px 12px 0; }
+    .callout .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary); margin-bottom: 8px; }
+    .callout p { font-size: 15px; color: var(--neutral-600); line-height: 1.6; margin: 0; }
+    .success-banner {
+      background: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%);
+      color: white; padding: 28px 32px; border-radius: 12px;
     }
-    .metric-value { font-size: 20px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
-    .metric-label { font-size: 13px; color: var(--neutral-600); }
-    .roi-banner {
-      background: linear-gradient(135deg, var(--success) 0%, #085F32 100%);
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 24px;
-      padding: 36px;
-      border-radius: 10px;
+    .success-banner .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.9; margin-bottom: 8px; }
+    .success-banner h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .success-banner p { font-size: 14px; opacity: 0.95; line-height: 1.6; margin: 0; }
+    .cta-card {
+      background: linear-gradient(135deg, var(--action) 0%, #004d73 100%);
+      color: white; padding: 32px; border-radius: 12px; text-align: center;
     }
-    .roi-label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      opacity: 0.9;
-      margin-bottom: 6px;
-    }
-    .roi-value { font-size: 36px; font-weight: 700; letter-spacing: -0.01em; }
-    .table-wrapper { overflow-x: auto; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-    th, td {
-      padding: 14px 16px;
-      text-align: left;
-      border-bottom: 1px solid var(--neutral-150);
-    }
-    th {
-      background: var(--neutral-100);
-      font-weight: 600;
-      color: var(--neutral-800);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-    td { color: var(--neutral-700); }
+    .cta-card .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.85; margin-bottom: 8px; }
+    .cta-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+    .cta-card p { font-size: 15px; opacity: 0.95; line-height: 1.6; margin: 0 auto; max-width: 500px; }
+    .timeline-option { padding: 20px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 10px; }
+    .timeline-option .name { font-size: 15px; font-weight: 600; color: var(--neutral-700); margin-bottom: 4px; }
+    .timeline-option .duration { font-size: 13px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+    .timeline-option .desc { font-size: 13px; color: var(--neutral-500); line-height: 1.5; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--neutral-150); }
+    th { background: var(--neutral-100); font-weight: 600; color: var(--neutral-600); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+    td { color: var(--neutral-600); }
     tr:last-child td { border-bottom: none; }
-    .theme-card {
-      background: var(--neutral-50);
-      border: 1px solid var(--neutral-150);
-      border-radius: 8px;
-      padding: 24px;
-      margin-bottom: 20px;
-    }
-    .theme-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 14px;
-    }
-    .theme-num {
-      width: 36px;
-      height: 36px;
-      background: var(--primary);
-      color: white;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 16px;
-    }
-    .theme-title { font-size: 17px; font-weight: 600; color: var(--neutral-800); }
-    .theme-question {
-      font-size: 14px;
-      font-style: italic;
-      color: var(--primary);
-      margin-bottom: 16px;
-      padding: 12px 16px;
-      background: var(--primary-light);
-      border-radius: 6px;
-    }
-    .theme-section { margin-bottom: 16px; }
-    .theme-section:last-child { margin-bottom: 0; }
-    .theme-label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--neutral-500);
-      margin-bottom: 8px;
-    }
-    .theme-item {
-      font-size: 13px;
-      color: var(--neutral-600);
-      padding: 4px 0;
-      padding-left: 18px;
-      position: relative;
-    }
-    .theme-item::before {
-      content: "✓";
-      position: absolute;
-      left: 0;
-      color: var(--success);
-      font-weight: 600;
-    }
-    .domain-card {
-      border: 1px solid var(--neutral-150);
-      border-radius: 8px;
-      padding: 24px;
-      background: white;
-      margin-bottom: 20px;
-    }
-    .domain-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 16px;
-    }
-    .domain-title { font-size: 17px; font-weight: 600; color: var(--neutral-800); }
-    .domain-section { margin-bottom: 14px; }
-    .domain-section:last-child { margin-bottom: 0; }
-    .domain-label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      margin-bottom: 8px;
-    }
-    .domain-label.fund { color: var(--success); }
-    .domain-label.watch { color: var(--warning); }
-    .domain-item {
-      font-size: 13px;
-      color: var(--neutral-600);
-      padding: 4px 0;
-      padding-left: 16px;
-      position: relative;
-    }
-    .domain-item::before { content: "—"; position: absolute; left: 0; color: var(--neutral-500); }
-    .score-row {
-      display: flex;
-      align-items: center;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--neutral-150);
-    }
-    .score-row:last-child { border-bottom: none; }
-    .score-criterion { flex: 1; font-weight: 500; color: var(--neutral-800); }
-    .score-weight {
-      width: 60px;
-      text-align: center;
-      font-weight: 700;
-      color: var(--primary);
-    }
-    .score-desc { flex: 2; font-size: 13px; color: var(--neutral-600); }
-    .lever-card {
-      background: var(--neutral-50);
-      border: 1px solid var(--neutral-150);
-      border-radius: 8px;
-      padding: 20px;
-    }
-    .lever-title { font-size: 15px; font-weight: 600; color: var(--neutral-800); margin-bottom: 6px; }
-    .lever-def { font-size: 13px; color: var(--neutral-600); margin-bottom: 10px; line-height: 1.5; }
-    .lever-measure {
-      font-size: 12px;
-      color: var(--primary);
-      font-weight: 500;
-      background: var(--primary-light);
-      padding: 8px 12px;
-      border-radius: 4px;
-    }
-    .raci-table th:first-child { width: 180px; }
-    .raci-cell { text-align: center; font-weight: 600; }
-    .raci-r { color: var(--primary); }
-    .raci-a { color: var(--secondary); }
-    .raci-c { color: var(--neutral-600); }
-    .raci-i { color: var(--neutral-500); }
-    .cadence-row {
-      display: flex;
-      align-items: center;
-      padding: 16px;
-      background: var(--neutral-50);
-      border: 1px solid var(--neutral-150);
-      border-radius: 8px;
-      margin-bottom: 12px;
-    }
-    .cadence-row:last-child { margin-bottom: 0; }
-    .cadence-freq {
-      width: 100px;
-      font-weight: 600;
-      color: var(--primary);
-      font-size: 13px;
-    }
-    .cadence-forum { flex: 1; font-weight: 500; color: var(--neutral-800); }
-    .cadence-purpose { flex: 2; font-size: 13px; color: var(--neutral-600); }
-    .metric-section { margin-bottom: 28px; }
-    .metric-section:last-child { margin-bottom: 0; }
-    .metric-section-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--neutral-700);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .metric-section-badge {
-      font-size: 10px;
-      font-weight: 600;
-      padding: 3px 8px;
-      border-radius: 3px;
-      background: var(--neutral-200);
-      color: var(--neutral-600);
-    }
-    .risk-card {
-      background: var(--neutral-50);
-      border: 1px solid var(--neutral-150);
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 16px;
-    }
-    .risk-card:last-child { margin-bottom: 0; }
-    .risk-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-    .risk-marker { width: 4px; height: 28px; border-radius: 2px; flex-shrink: 0; }
-    .risk-marker.high { background: var(--secondary); }
-    .risk-marker.medium { background: var(--warning); }
-    .risk-title { font-size: 15px; font-weight: 600; color: var(--neutral-800); }
-    .risk-badges { display: flex; gap: 8px; margin-bottom: 12px; }
-    .risk-badge {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 4px;
-    }
-    .risk-badge.likelihood { background: var(--warning-light); color: var(--warning); }
-    .risk-badge.impact { background: var(--secondary-light); color: var(--secondary); }
-    .risk-mitigation {
-      font-size: 13px;
-      color: var(--neutral-700);
-      background: var(--success-light);
-      padding: 12px 14px;
-      border-radius: 6px;
-      border-left: 3px solid var(--success);
-    }
-    .action-card {
-      display: flex;
-      gap: 16px;
-      padding: 20px;
-      background: var(--neutral-50);
-      border: 1px solid var(--neutral-150);
-      border-radius: 8px;
-      margin-bottom: 16px;
-    }
-    .action-card:last-child { margin-bottom: 0; }
-    .action-num {
-      width: 32px;
-      height: 32px;
-      background: var(--primary);
-      color: white;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 14px;
-      flex-shrink: 0;
-    }
-    .action-content { flex: 1; }
-    .action-title { font-size: 15px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px; }
-    .action-desc { font-size: 13px; color: var(--neutral-600); line-height: 1.5; }
-    .next-section { margin-bottom: 28px; }
-    .next-section:last-child { margin-bottom: 0; }
-    .next-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-    .next-badge {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 5px 12px;
-      border-radius: 4px;
-      background: var(--primary);
-      color: white;
-    }
-    .next-title { font-size: 16px; font-weight: 600; color: var(--neutral-800); }
-    .next-items { list-style: none; }
-    .next-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--neutral-150);
-      font-size: 14px;
-      color: var(--neutral-700);
-    }
-    .next-item:last-child { border-bottom: none; }
-    .next-check {
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--neutral-300);
-      border-radius: 4px;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-    .quote-banner {
-      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-      color: white;
-      padding: 32px 36px;
-      border-radius: 10px;
-      text-align: center;
-    }
-    .quote-text {
-      font-size: 18px;
-      font-style: italic;
-      line-height: 1.7;
-      opacity: 0.95;
-    }
-    .comp-highlight {
-      background: var(--primary-light);
-      font-weight: 600;
-      color: var(--primary);
-    }
-    @media (max-width: 1000px) {
+    @media (max-width: 900px) {
       nav { display: none; }
       main { margin-left: 0; padding: 24px; max-width: 100%; }
       .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
@@ -583,621 +172,447 @@
 <body>
   <nav aria-label="Section navigation">
     <div class="nav-header">
-      <div class="nav-label">Strategic Playbook</div>
+      <div class="nav-label">Convergence Playbook</div>
       <div class="nav-title">Citi × Knapsack</div>
-      <div class="nav-subtitle">Knapsack Prioritization Methodology</div>
+      <div class="nav-subtitle">Design System Unification</div>
     </div>
-    <div class="nav-items" id="navItems" role="navigation"></div>
+    <div class="nav-items">
+      <button class="nav-btn active" data-section="summary"><span class="nav-num">1</span><span>Executive Summary</span></button>
+      <button class="nav-btn" data-section="heard"><span class="nav-num">2</span><span>What We Heard</span></button>
+      <button class="nav-btn" data-section="challenge"><span class="nav-num">3</span><span>The Challenge</span></button>
+      <button class="nav-btn" data-section="approach"><span class="nav-num">4</span><span>Our Approach</span></button>
+      <button class="nav-btn" data-section="outcomes"><span class="nav-num">5</span><span>Expected Outcomes</span></button>
+      <button class="nav-btn" data-section="next"><span class="nav-num">6</span><span>Path Forward</span></button>
+    </div>
     <div class="nav-footer">
       <div class="nav-footer-label">Prepared for</div>
-      <div class="nav-footer-title">Citigroup Inc.</div>
+      <div class="nav-footer-title">Citi Creative Technology</div>
       <div class="nav-footer-date">February 11, 2026</div>
     </div>
   </nav>
-  <main id="mainContent" role="main"></main>
+
+  <main>
+    <!-- SECTION 1: EXECUTIVE SUMMARY -->
+    <div class="section active" id="summary">
+      <div class="hero">
+        <div class="hero-label">Design System Convergence</div>
+        <h1>4 Systems → 1 Unified Platform</h1>
+        <p>Knapsack helps Citi converge four design systems while preserving what already works.</p>
+        <p class="sub">Following our February 11, 2026 discovery conversation</p>
+      </div>
+
+      <div class="card callout">
+        <div class="label">The Opportunity</div>
+        <p>Citi Creative Technology has already proven design system success: consolidating 18 systems to 1, supporting 1,800+ builds per month with a 2-person team. The challenge now is extending that success across all four systems while adding AI-ready documentation—without adding headcount or slowing down.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Current Scale</h2>
+        <div class="grid-4">
+          <div class="metric-card"><div class="metric-value">4</div><div class="metric-label">Design systems to converge</div></div>
+          <div class="metric-card"><div class="metric-value">1,800+</div><div class="metric-label">Builds per month</div></div>
+          <div class="metric-card"><div class="metric-value">2</div><div class="metric-label">Person team (current)</div></div>
+          <div class="metric-card"><div class="metric-value">1,000s</div><div class="metric-label">Applications served</div></div>
+        </div>
+      </div>
+
+      <div class="card success-banner">
+        <div class="label">Your Proven Success</div>
+        <h3>18 Systems → 1 Consolidation</h3>
+        <p>Your most mature design system demonstrates what's possible: organic adoption, controlled contribution, and exceptional efficiency. This is the model we'll extend across all systems.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">What Knapsack Adds</h2>
+        <div class="grid-2">
+          <div class="value-card"><div class="title">Multi-System Visibility</div><div class="desc">See all 4 systems in one view. Identify conflicts, gaps, and alignment opportunities before they become problems.</div></div>
+          <div class="value-card"><div class="title">AI Documentation Layer</div><div class="desc">Single-source documentation that auto-generates outputs for humans and AI—without 4x maintenance burden.</div></div>
+          <div class="value-card"><div class="title">Multi-Framework Support</div><div class="desc">Angular, React, and Web Components from shared definitions. Your framework diversity is a feature, not a bug.</div></div>
+          <div class="value-card"><div class="title">Governance at Scale</div><div class="desc">Extend your proven "not open source, but internally public" model across all systems without bottlenecks.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: WHAT WE HEARD -->
+    <div class="section" id="heard">
+      <h1 class="section-title">What We Heard</h1>
+      <p class="section-subtitle">Key themes from our February 11, 2026 conversation</p>
+
+      <div class="quote-card">
+        <p>"We're at a point we're trying to converge towards one. So we're in the midst of like how we're going to do it."</p>
+        <div class="attribution">— Rania, Head of Design</div>
+      </div>
+
+      <div class="quote-card">
+        <p>"The amount of new documentation that we're going to have to create is extensive... we have to have documentation tailored to creating an HTML prototype, design standards for AI to consume, design standards for human designers, an LLM for developers..."</p>
+        <div class="attribution">— Steven Suarez, Technical Lead</div>
+      </div>
+
+      <div class="quote-card">
+        <p>"An open source design system is almost as bad as not having a design system because people will contribute anything... it'll just grow to this massive totally unscalable unmaintainable thing."</p>
+        <div class="attribution">— Steven Suarez, Technical Lead</div>
+      </div>
+
+      <div class="quote-card">
+        <p>"There's thousands of applications guys... What we're trying to solve for are thousands of applications, some are dead, but they're still kind of servicing something to meet regulators demands."</p>
+        <div class="attribution">— Ryan, Head of Tooling</div>
+      </div>
+
+      <div class="card" style="margin-top: 28px;">
+        <h2 class="heading">Themes That Emerged</h2>
+        <div class="grid-2">
+          <div class="value-card" style="border-left: 4px solid var(--success);">
+            <div class="title">Scale Without Sacrifice</div>
+            <div class="desc">Your 2-person team handles 1,800+ builds monthly. That efficiency must be preserved—not diluted—as convergence scales.</div>
+          </div>
+          <div class="value-card" style="border-left: 4px solid var(--success);">
+            <div class="title">Governance That Works</div>
+            <div class="desc">"Not open source, but internally public"—controlled contribution prevents sprawl while enabling transparency.</div>
+          </div>
+          <div class="value-card" style="border-left: 4px solid var(--warning);">
+            <div class="title">AI Documentation Gap</div>
+            <div class="desc">Multiple audience formats (HTML, AI, designers, developers) each require separate documentation—unsustainable at current team size.</div>
+          </div>
+          <div class="value-card" style="border-left: 4px solid var(--warning);">
+            <div class="title">Tool Connectivity Constraints</div>
+            <div class="desc">Figma and GitHub cannot communicate directly due to security requirements. Solutions must work within this reality.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Your Technical Reality</h2>
+        <table>
+          <thead>
+            <tr><th>Dimension</th><th>Current State</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Frameworks</strong></td><td>Angular, React, Native iOS, Native Android</td></tr>
+            <tr><td><strong>Design Tool</strong></td><td>Figma</td></tr>
+            <tr><td><strong>Package Registry</strong></td><td>Artifactory (internal)</td></tr>
+            <tr><td><strong>AI Tools</strong></td><td>Copilot + Devin (POC)</td></tr>
+            <tr><td><strong>Documentation</strong></td><td>Homegrown CMS with auto-generated API docs</td></tr>
+            <tr><td><strong>Token Approach</strong></td><td>CSS Variables</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTION 3: THE CHALLENGE -->
+    <div class="section" id="challenge">
+      <h1 class="section-title">The Convergence Challenge</h1>
+      <p class="section-subtitle">What makes unifying four design systems hard—and how to approach it</p>
+
+      <div class="card">
+        <h2 class="heading">Four Systems, Varying Maturity</h2>
+        <p style="font-size: 15px; color: var(--neutral-500); margin-bottom: 20px;">Your four design systems serve different lines of business with different frameworks, different maturity levels, and different governance models.</p>
+        <table>
+          <thead>
+            <tr><th>Challenge</th><th>Reality</th><th>Implication</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Technology Diversity</strong></td>
+              <td>Angular, React, Native iOS/Android</td>
+              <td>Solutions must support multi-framework, not force unification</td>
+            </tr>
+            <tr>
+              <td><strong>Maturity Variance</strong></td>
+              <td>One very mature, others incomplete</td>
+              <td>Gap analysis needed before convergence path is clear</td>
+            </tr>
+            <tr>
+              <td><strong>LOB Silos</strong></td>
+              <td>Lines of business don't share patterns</td>
+              <td>Cross-system visibility required for informed decisions</td>
+            </tr>
+            <tr>
+              <td><strong>Regulatory Persistence</strong></td>
+              <td>Legacy apps can't be abandoned</td>
+              <td>Graceful transitions, not hard cutoffs</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="background: var(--warning-light); border: 1px solid var(--warning);">
+        <h2 class="heading" style="color: var(--warning);">The AI Documentation Problem</h2>
+        <p style="font-size: 15px; color: var(--neutral-600); margin-bottom: 20px;">As AI tools become central to development, documentation must serve multiple audiences—each with different format requirements:</p>
+        <div class="grid-2">
+          <div style="padding: 16px; background: white; border-radius: 8px;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--neutral-700); margin-bottom: 8px;">Human Audiences</div>
+            <div style="font-size: 13px; color: var(--neutral-500);">
+              <div style="padding: 4px 0;">• Designers: Visual examples, usage guidelines</div>
+              <div style="padding: 4px 0;">• Developers: API docs, code examples</div>
+            </div>
+          </div>
+          <div style="padding: 16px; background: white; border-radius: 8px;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--neutral-700); margin-bottom: 8px;">AI Audiences</div>
+            <div style="font-size: 13px; color: var(--neutral-500);">
+              <div style="padding: 4px 0;">• Code assistants: Structured context, prop definitions</div>
+              <div style="padding: 4px 0;">• Prototyping: Semantic structure, class references</div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size: 14px; color: var(--warning); font-weight: 500; margin-top: 16px;">Maintaining 4 separate documentation sets with a 2-person team is not sustainable. Single-source generation is the only path.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">The Question John Asked</h2>
+        <div class="quote-card" style="background: var(--action-light); border-left-color: var(--action);">
+          <p>"Could we somehow cheat this system and put in the context from our four systems and see it and use it as like a diff tool?"</p>
+          <div class="attribution">— John Rogoff, Developer in Design</div>
+        </div>
+        <p style="font-size: 15px; color: var(--neutral-500); margin-top: 16px;">This is exactly what Knapsack's multi-system view enables: see all four systems together, identify where they conflict, where they align, and where convergence should start.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 4: OUR APPROACH -->
+    <div class="section" id="approach">
+      <h1 class="section-title">How We'd Work Together</h1>
+      <p class="section-subtitle">Complement what works, add what's missing</p>
+
+      <div class="card" style="background: var(--primary); color: white; border: none;">
+        <h2 class="heading" style="color: white;">Our Philosophy</h2>
+        <p style="font-size: 16px; line-height: 1.7; opacity: 0.95;">You've built impressive internal tooling. We're not here to replace it—we're here to add capabilities that accelerate convergence: multi-system visibility, AI-ready documentation, and cross-system governance tooling.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Engagement Phases</h2>
+        <div class="grid-3">
+          <div class="phase-card">
+            <div class="phase">Phase 1</div>
+            <div class="title">Technical Validation</div>
+            <div class="duration">2-4 weeks</div>
+            <div class="items">
+              <div>Connect one existing system</div>
+              <div>Demonstrate multi-renderer</div>
+              <div>Explore Figma integration</div>
+              <div>Validate token theming</div>
+            </div>
+          </div>
+          <div class="phase-card" style="border-top-color: var(--action);">
+            <div class="phase" style="color: var(--action);">Phase 2</div>
+            <div class="title">Proof of Value</div>
+            <div class="duration">4-8 weeks</div>
+            <div class="items">
+              <div>Add second system for comparison</div>
+              <div>Generate AI documentation</div>
+              <div>Test prototyping workflow</div>
+              <div>Measure initial metrics</div>
+            </div>
+          </div>
+          <div class="phase-card" style="border-top-color: var(--success);">
+            <div class="phase" style="color: var(--success);">Phase 3</div>
+            <div class="title">Convergence Execution</div>
+            <div class="duration">Ongoing</div>
+            <div class="items">
+              <div>Full 4-system visibility</div>
+              <div>Governance model implementation</div>
+              <div>AI workflow integration</div>
+              <div>Continuous improvement</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">What We'd Explore First</h2>
+        <p style="font-size: 15px; color: var(--neutral-500); margin-bottom: 20px;">Based on your interests from our conversation:</p>
+        <div class="grid-2">
+          <div class="value-card" style="border-left: 4px solid var(--primary);">
+            <div class="title">Multi-System Diff View</div>
+            <div class="desc">See where your 4 systems overlap, conflict, or diverge. Identify convergence priorities based on data, not guesswork.</div>
+          </div>
+          <div class="value-card" style="border-left: 4px solid var(--primary);">
+            <div class="title">Angular Integration</div>
+            <div class="desc">Your primary framework. Live rendering of real Angular components with full prop documentation.</div>
+          </div>
+          <div class="value-card" style="border-left: 4px solid var(--action);">
+            <div class="title">Prototyping Workflow</div>
+            <div class="desc">Steven's interest: clickable prototypes using actual design system components.</div>
+          </div>
+          <div class="value-card" style="border-left: 4px solid var(--action);">
+            <div class="title">Token Theming</div>
+            <div class="desc">CSS variable integration, theme switching, and token visualization across systems.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card callout">
+        <div class="label">Starting Point</div>
+        <p>We recommend a <strong>Readiness Assessment</strong> to establish baseline scores across five dimensions: Culture, Foundation, AI Readiness, Governance, and Delivery. This creates measurable targets and identifies where to focus first. Assessment can be conducted as part of a NY on-site workshop.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 5: EXPECTED OUTCOMES -->
+    <div class="section" id="outcomes">
+      <h1 class="section-title">Expected Outcomes</h1>
+      <p class="section-subtitle">What convergence delivers for each role</p>
+
+      <div class="card">
+        <h2 class="heading">Outcomes by Role</h2>
+        <div class="grid-2" style="gap: 20px;">
+          <!-- Designers -->
+          <div class="role-card" style="border-color: #7c3aed;">
+            <div class="header" style="background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);">
+              <div class="role">Designers</div>
+              <div class="tagline">One source of truth across all systems</div>
+            </div>
+            <div class="body">
+              <div class="metric"><div class="value" style="color: #7c3aed;">40%</div><div class="label">Reduction in design-to-dev handoff time</div></div>
+              <div class="items" style="--check-color: #7c3aed;">
+                <div style="color: #7c3aed;">Single view across all 4 design systems</div>
+                <div style="color: #7c3aed;">Prototypes built with real components</div>
+                <div style="color: #7c3aed;">Auto-generated documentation</div>
+              </div>
+            </div>
+          </div>
+          <!-- Developers -->
+          <div class="role-card" style="border-color: #059669;">
+            <div class="header" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">
+              <div class="role">Developers</div>
+              <div class="tagline">Skip the guesswork, ship with confidence</div>
+            </div>
+            <div class="body">
+              <div class="metric"><div class="value" style="color: #059669;">70%</div><div class="label">First-try AI code acceptance rate</div></div>
+              <div class="items" style="--check-color: #059669;">
+                <div style="color: #059669;">Multi-framework from shared source</div>
+                <div style="color: #059669;">Unified AI-ready documentation</div>
+                <div style="color: #059669;">Cross-system component discovery</div>
+              </div>
+            </div>
+          </div>
+          <!-- Maintainers -->
+          <div class="role-card" style="border-color: #0077B6;">
+            <div class="header" style="background: linear-gradient(135deg, #0077B6 0%, #005a8c 100%);">
+              <div class="role">System Maintainers</div>
+              <div class="tagline">Scale governance without scaling headcount</div>
+            </div>
+            <div class="body">
+              <div class="metric"><div class="value" style="color: #0077B6;">0</div><div class="label">Headcount increase required</div></div>
+              <div class="items" style="--check-color: #0077B6;">
+                <div style="color: #0077B6;">Automated doc generation from code</div>
+                <div style="color: #0077B6;">Cross-system visibility for governance</div>
+                <div style="color: #0077B6;">Preserved 2-person team efficiency</div>
+              </div>
+            </div>
+          </div>
+          <!-- LOB Stakeholders -->
+          <div class="role-card" style="border-color: #C75300;">
+            <div class="header" style="background: linear-gradient(135deg, #C75300 0%, #9a4700 100%);">
+              <div class="role">LOB Stakeholders</div>
+              <div class="tagline">See the whole picture</div>
+            </div>
+            <div class="body">
+              <div class="metric"><div class="value" style="color: #C75300;">4→1</div><div class="label">Systems visible in unified view</div></div>
+              <div class="items" style="--check-color: #C75300;">
+                <div style="color: #C75300;">Clear visibility into gaps and conflicts</div>
+                <div style="color: #C75300;">Data-driven convergence decisions</div>
+                <div style="color: #C75300;">Measurable progress tracking</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Efficiency Preservation</h2>
+        <p style="font-size: 15px; color: var(--neutral-500); margin-bottom: 20px;">Your 2-person team model is an asset. Convergence must preserve this, not dilute it.</p>
+        <div class="grid-3">
+          <div class="metric-card" style="background: var(--success-light); border-color: var(--success);">
+            <div class="metric-value" style="color: var(--success);">Zero</div>
+            <div class="metric-label">Headcount increase</div>
+          </div>
+          <div class="metric-card" style="background: var(--success-light); border-color: var(--success);">
+            <div class="metric-value" style="color: var(--success);">50%</div>
+            <div class="metric-label">Reduction in doc maintenance</div>
+          </div>
+          <div class="metric-card" style="background: var(--success-light); border-color: var(--success);">
+            <div class="metric-value" style="color: var(--success);">1,800+</div>
+            <div class="metric-label">Builds/month maintained</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 6: PATH FORWARD -->
+    <div class="section" id="next">
+      <h1 class="section-title">Path Forward</h1>
+      <p class="section-subtitle">Proposed next steps</p>
+
+      <div class="card success-banner" style="margin-bottom: 24px;">
+        <div class="label">Completed</div>
+        <h3>Discovery Conversation</h3>
+        <p>February 11, 2026 — Thank you for sharing your challenges, successes, and vision. This playbook captures what we learned.</p>
+      </div>
+
+      <div class="cta-card">
+        <div class="label">Recommended Next Step</div>
+        <h3>Technical Deep Dive</h3>
+        <p>Schedule a focused session with Steven and John to explore Angular integration, prototyping workflow, and multi-system comparison capabilities.</p>
+      </div>
+
+      <div class="card" style="margin-top: 24px;">
+        <h2 class="heading">Suggested Agenda</h2>
+        <div class="grid-2">
+          <div class="value-card">
+            <div class="title">Your CMS Walkthrough</div>
+            <div class="desc">Steven demonstrates your current architecture—what works and what you want to preserve.</div>
+          </div>
+          <div class="value-card">
+            <div class="title">Angular Component Demo</div>
+            <div class="desc">Live demonstration with real Angular components in Knapsack.</div>
+          </div>
+          <div class="value-card">
+            <div class="title">Prototyping Workflow</div>
+            <div class="desc">Creating clickable prototypes with design system components.</div>
+          </div>
+          <div class="value-card">
+            <div class="title">Multi-System Comparison</div>
+            <div class="desc">How cross-system visibility could support convergence decisions.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Timeline Options</h2>
+        <div class="grid-3">
+          <div class="timeline-option">
+            <div class="name">Exploratory</div>
+            <div class="duration">2-4 weeks</div>
+            <div class="desc">Technical validation with one system. Low commitment. Answer: "Does this work for us?"</div>
+          </div>
+          <div class="timeline-option">
+            <div class="name">Proof of Value</div>
+            <div class="duration">6-8 weeks</div>
+            <div class="desc">Two-system comparison. Measure initial metrics. Answer: "Is this worth investing in?"</div>
+          </div>
+          <div class="timeline-option">
+            <div class="name">Full Engagement</div>
+            <div class="duration">3-6 months</div>
+            <div class="desc">Convergence execution. All 4 systems. Full governance implementation.</div>
+          </div>
+        </div>
+        <p style="font-size: 13px; color: var(--neutral-400); margin-top: 16px; text-align: center;">We recommend starting with Exploratory to validate fit before committing to larger scope.</p>
+      </div>
+
+      <div class="card" style="background: var(--primary-light); border: 1px solid var(--primary); text-align: center; padding: 32px;">
+        <p style="font-size: 18px; font-style: italic; color: var(--primary); line-height: 1.7; margin: 0;">"We're at a point we're trying to converge towards one."<br><br>— We're here to help you figure out how.</p>
+      </div>
+    </div>
+  </main>
+
   <script>
-    const sections = [
-      { id: 'overview', label: 'Executive Summary' },
-      { id: 'context', label: 'Strategic Context' },
-      { id: 'win-themes', label: 'W.I.N. Themes' },
-      { id: 'scoring', label: 'Scoring Framework' },
-      { id: 'domains', label: 'Domain Application' },
-      { id: 'competitive', label: 'Competitive Comparison' },
-      { id: 'roi', label: 'ROI Hypothesis' },
-      { id: 'governance', label: 'Implementation Governance' },
-      { id: 'metrics', label: 'Success Metrics' },
-      { id: 'risks', label: 'Risk Management' },
-      { id: 'call-to-action', label: 'Call to Action' },
-      { id: 'next-steps', label: 'Next Steps' },
-    ];
-    let activeSection = 'overview';
-    function renderNav() {
-      const nav = document.getElementById('navItems');
-      nav.innerHTML = sections.map((s, i) => `
-        <button class="nav-btn ${activeSection === s.id ? 'active' : ''}" onclick="setSection('${s.id}')" aria-current="${activeSection === s.id ? 'page' : 'false'}">
-          <span class="nav-num" aria-hidden="true">${i + 1}</span>
-          <span>${s.label}</span>
-        </button>
-      `).join('');
-    }
-    function setSection(id) {
-      activeSection = id;
-      renderNav();
-      renderContent();
-      window.scrollTo(0, 0);
-    }
-    function renderContent() {
-      const main = document.getElementById('mainContent');
-      const content = {
-        overview: `
-          <div class="hero">
-            <div class="hero-label">Executive Alignment Framework</div>
-            <h1>Citi × Knapsack</h1>
-            <p>Strategic Partnership Value & Prioritization Methodology</p>
-            <p class="sub">February 11, 2026 — Knapsack prioritization methodology and strategic partnership value</p>
-          </div>
-          <div class="card summary-card">
-            <div class="summary-label">Executive Summary</div>
-            <p class="summary-text">This playbook translates the <strong>Knapsack 101 methodology</strong> into a Citi-specific strategic framework. Citi's unique position—global scale, transformation mandate, and valuation sensitivity—demands a disciplined approach to product and technology investment. The "knapsack" framework prioritizes initiatives that maximize enterprise value (ROI, strategic advantage, risk reduction) within real-world constraints (budget, talent, regulatory tolerance, and change bandwidth).</p>
-          </div>
-          <div class="card" style="background: var(--primary); color: white; border: none; margin-top: 24px;">
-            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.85; margin-bottom: 12px;">Bottom Line</div>
-            <p style="font-size: 18px; line-height: 1.7;">Citi's knapsack is won by picking <strong>fewer initiatives with higher outcome density</strong>, enforcing simplification and decommissioning, and delivering measurable progress that improves returns and credibility.</p>
-          </div>
-          <div class="card" style="margin-top: 24px;">
-            <h2 class="heading">What Knapsack Discipline Delivers</h2>
-            <div class="grid-2">
-              ${[
-                { title: 'Higher ROI per Dollar', desc: 'Prioritize multi-dimensional outcome initiatives across revenue density, cost take-out, and risk efficiency' },
-                { title: 'Simplification that Compounds', desc: 'Make decommissioning and standardization non-negotiable; stop funding duplicative builds' },
-                { title: 'Reduced Regulatory Drag', desc: 'Treat controls and data modernization as value creators that unlock growth capacity' },
-                { title: 'Improved Execution Credibility', desc: 'Commit to fewer priorities, sequence for delivery, and publish measurable milestones' },
-              ].map(v => `<div class="value-item"><div class="value-marker"></div><div><div class="value-title">${v.title}</div><div class="value-desc">${v.desc}</div></div></div>`).join('')}
-            </div>
-          </div>`,
-        context: `
-          <h1 class="section-title">Strategic Context</h1>
-          <p class="section-subtitle">Understanding Citi's unique position and the case for knapsack discipline</p>
-          <div class="card">
-            <h2 class="heading">Why Knapsack Discipline Matters for Citi</h2>
-            <div class="table-wrapper">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Dimension</th>
-                    <th>Citi Reality</th>
-                    <th>Strategic Implication</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Starting Complexity</strong></td>
-                    <td>Very high (global, legacy-heavy)</td>
-                    <td>Simplification must be non-negotiable</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Primary Constraint</strong></td>
-                    <td>Execution bandwidth + regulatory tolerance</td>
-                    <td>Sequence initiatives for delivery reliability</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Primary Spend Outcome</strong></td>
-                    <td>Cost + risk unlock; scale leverage</td>
-                    <td>Multi-dimensional ROI is essential</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Valuation Sensitivity</strong></td>
-                    <td>Very high</td>
-                    <td>Visible outcomes drive investor confidence</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Penalty for Poor Prioritization</strong></td>
-                    <td>Severe (drag persists, discount remains)</td>
-                    <td>Fewer, better initiatives > more initiatives</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="card">
-            <h2 class="heading">Citi's Unique Value Levers</h2>
-            <p style="font-size: 15px; color: var(--neutral-600); margin-bottom: 20px;">Citi's strongest value creation comes from initiatives that:</p>
-            <div class="grid-3">
-              ${[
-                { num: 1, title: 'Simplify & Decommission Legacy', desc: 'Reduces structural cost and operational risk' },
-                { num: 2, title: 'Strengthen Controls', desc: 'Reduces regulatory drag and unlocks growth capacity' },
-                { num: 3, title: 'Scale Across Platforms', desc: 'Compounds value through reuse across global institutional and wealth platforms' },
-              ].map(l => `<div class="lever-card"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;"><div class="theme-num" style="width: 28px; height: 28px; font-size: 14px;">${l.num}</div><div class="lever-title">${l.title}</div></div><div class="lever-def">${l.desc}</div></div>`).join('')}
-            </div>
-          </div>`,
-        'win-themes': `
-          <h1 class="section-title">W.I.N. Themes</h1>
-          <p class="section-subtitle">What's Important Now — Strategic filters that convert strategy into selection criteria</p>
-          <div class="card summary-card" style="margin-bottom: 28px;">
-            <div class="summary-label">About W.I.N. Themes</div>
-            <p class="summary-text"><strong>W.I.N. (What's Important Now)</strong> themes act as "filters" that raise or lower a project's priority in the knapsack. They ensure every initiative is evaluated against Citi's most critical strategic imperatives.</p>
-          </div>
-          ${[
-            {
-              num: 1,
-              title: 'Worldwide Complexity Reduction',
-              question: 'Does this initiative standardize, consolidate, and deliver consistent global experiences?',
-              signals: ['Eliminates regional duplication', 'Creates shared platforms across geographies', 'Reduces manual exceptions and handoffs', 'Delivers consistent client experience globally'],
-              implications: ['Prioritize global platform builds over regional point solutions', 'Fund decommissioning with same rigor as new builds', 'Measure success by systems retired, not just systems launched']
-            },
-            {
-              num: 2,
-              title: 'Institutional and Compliance Advantage',
-              question: 'Does this initiative turn stronger controls, data, and reporting into a differentiator—not just a cost?',
-              signals: ['Improves control break detection and remediation speed', 'Reduces regulatory remediation cycles', 'Enhances data quality for risk and compliance', 'Creates audit-ready documentation automatically'],
-              implications: ['Treat controls modernization as value creation, not overhead', 'Invest in automation that reduces hidden costs (remediation, duplicated reporting)', 'Measure success by regulatory outcomes and control incident reduction']
-            },
-            {
-              num: 3,
-              title: 'Network Scale Leverage',
-              question: 'Does this initiative compound across geographies and businesses through reuse, shared rails, and shared data?',
-              signals: ['Creates reusable platforms (APIs, data services, cloud patterns)', 'Enables faster future product launches', 'Supports partnership and ecosystem integration', "Leverages Citi's global network as competitive moat"],
-              implications: ['Favor platforms over point solutions', 'Require optionality assessment for all major investments', 'Measure success by reuse rate and time-to-market for derivative products']
-            },
-            {
-              num: 4,
-              title: 'Execution Credibility',
-              question: 'Can this initiative deliver reliable outcomes visible within 12–36 months?',
-              signals: ['Clear milestones and measurable outcomes', 'Manageable scope and sequencing', 'Track record team with delivery capability', 'Sponsor commitment and governance clarity'],
-              implications: ['Scope and sequence for delivery confidence', 'Publish milestones externally where appropriate', 'Measure success by on-time, on-budget delivery rate']
-            }
-          ].map(theme => `
-            <div class="theme-card">
-              <div class="theme-header">
-                <div class="theme-num">${theme.num}</div>
-                <div class="theme-title">${theme.title}</div>
-              </div>
-              <div class="theme-question">${theme.question}</div>
-              <div class="grid-2">
-                <div class="theme-section">
-                  <div class="theme-label">High-Priority Signals</div>
-                  ${theme.signals.map(s => `<div class="theme-item">${s}</div>`).join('')}
-                </div>
-                <div class="theme-section">
-                  <div class="theme-label">Investment Implications</div>
-                  ${theme.implications.map(i => `<div class="theme-item">${i}</div>`).join('')}
-                </div>
-              </div>
-            </div>
-          `).join('')}`,
-        scoring: `
-          <h1 class="section-title">Knapsack Scoring Framework</h1>
-          <p class="section-subtitle">Weighted criteria for prioritizing initiatives within Citi's constraints</p>
-          <div class="card">
-            <h2 class="heading">Scoring Criteria (Citi-Weighted)</h2>
-            <div class="score-row" style="background: var(--neutral-100); border-radius: 6px 6px 0 0; font-weight: 600;">
-              <div class="score-criterion">Criterion</div>
-              <div class="score-weight">Weight</div>
-              <div class="score-desc" style="font-weight: 600;">Description</div>
-            </div>
-            ${[
-              { name: 'Strategic Impact', weight: '25%', desc: 'Expected lift to ROE/ROTCE via revenue density and/or structural cost take-out' },
-              { name: 'Risk & Regulatory Impact', weight: '25%', desc: 'Control improvements, resilience, reduction of remediation load' },
-              { name: 'Strategic Fit', weight: '20%', desc: "Alignment to Citi's core franchises and W.I.N. themes (global services, institutional, wealth)" },
-              { name: 'Resource Intensity', weight: '15%', desc: 'Dollars, engineering effort, and organizational disruption ("weight" in the knapsack)' },
-              { name: 'Customer/Franchise Impact', weight: '10%', desc: 'Measurable improvements to client outcomes and retention' },
-              { name: 'Optionality', weight: '5%', desc: 'Reusable capabilities that accelerate future product delivery' },
-            ].map(c => `<div class="score-row"><div class="score-criterion">${c.name}</div><div class="score-weight">${c.weight}</div><div class="score-desc">${c.desc}</div></div>`).join('')}
-          </div>
-          <div class="card">
-            <h2 class="heading">Scoring Scale</h2>
-            <div class="grid-2">
-              ${[
-                { score: '5', def: 'Transformational impact; clear multi-dimensional value', color: 'var(--success)' },
-                { score: '4', def: 'High impact; strong alignment to priorities', color: 'var(--primary)' },
-                { score: '3', def: 'Moderate impact; solid business case', color: 'var(--action)' },
-                { score: '2', def: 'Limited impact; narrow value proposition', color: 'var(--warning)' },
-                { score: '1', def: 'Minimal impact; does not advance strategic priorities', color: 'var(--neutral-500)' },
-              ].map(s => `<div class="value-item"><div class="value-marker" style="background: ${s.color}; width: 40px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">${s.score}</div><div><div class="value-desc" style="font-size: 14px; color: var(--neutral-700);">${s.def}</div></div></div>`).join('')}
-            </div>
-          </div>`,
-        domains: `
-          <h1 class="section-title">Domain-Specific Application</h1>
-          <p class="section-subtitle">How knapsack scoring applies to key Citi investment domains</p>
-          ${[
-            {
-              title: 'Global Cash/Treasury Platform Upgrades',
-              score: 'HIGH',
-              fundWhen: ['Drives fee growth through improved client experience', 'Improves onboarding velocity and self-service capabilities', 'Standardizes globally (not regional customization)', 'Reduces manual exceptions and operational risk'],
-              watchOuts: ['Regional customization that fragments the platform', 'Feature scope creep without client ROI validation', 'Implementation timelines that exceed 24 months']
-            },
-            {
-              title: 'Legacy Platform Decommissioning',
-              score: 'MUST-FUND',
-              scoreColor: 'var(--secondary)',
-              fundWhen: ['Structural cost take-out is quantified and governance-backed', 'Reduces operational risk through system retirement', 'Creates capacity for new investment', 'Has tight sequencing and clear exit criteria'],
-              watchOuts: ['"Lift and shift" that moves complexity without eliminating it', 'Deferred decommissioning dates that slip', 'Missing data migration and cutover governance']
-            },
-            {
-              title: 'Wealth Digital-Advice Tooling (AI-Enabled, Hybrid Advisor)',
-              score: 'MEDIUM-HIGH',
-              fundWhen: ['Scoped as reusable capability (not point solution)', 'Increases client engagement and AUM measurably', 'Meets model risk and compliance requirements from design', 'Enhances advisor productivity without full replacement'],
-              watchOuts: ['AI features without model risk governance', "Narrow deployment that doesn't scale", "Client experience that doesn't differentiate from competitors"]
-            },
-            {
-              title: 'Controls Automation & Regulatory Reporting Modernization',
-              score: 'HIGH',
-              fundWhen: ['Reduces remediation cycles and duplicated reporting', 'Improves control break detection speed', 'Creates reusable patterns for future compliance needs', 'Delivers visible regulatory outcome improvements'],
-              watchOuts: ["Point solutions that don't integrate across risk domains", 'Over-engineering for edge cases vs. covering core flows', 'Missing change management for new operating models']
-            }
-          ].map(d => `
-            <div class="domain-card">
-              <div class="domain-header">
-                <div class="domain-title">${d.title}</div>
-                <span class="badge" style="background: ${d.scoreColor || 'var(--success)'}; color: white;">${d.score}</span>
-              </div>
-              <div class="grid-2">
-                <div class="domain-section">
-                  <div class="domain-label fund">When to Fund</div>
-                  ${d.fundWhen.map(f => `<div class="domain-item">${f}</div>`).join('')}
-                </div>
-                <div class="domain-section">
-                  <div class="domain-label watch">Watch-Outs</div>
-                  ${d.watchOuts.map(w => `<div class="domain-item">${w}</div>`).join('')}
-                </div>
-              </div>
-            </div>
-          `).join('')}`,
-        competitive: `
-          <h1 class="section-title">Competitive Comparison</h1>
-          <p class="section-subtitle">Product spend efficiency benchmarking across major institutions</p>
-          <div class="card">
-            <h2 class="heading">Product Spend Efficiency Matrix</h2>
-            <div class="table-wrapper">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Dimension</th>
-                    <th class="comp-highlight">Citi</th>
-                    <th>JPMorgan</th>
-                    <th>Bank of America</th>
-                    <th>HSBC</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Starting Complexity</strong></td>
-                    <td class="comp-highlight">Very high (global, legacy-heavy)</td>
-                    <td>Low–medium (highly optimized)</td>
-                    <td>Medium (consumer + institutional scale)</td>
-                    <td>Very high (global, region-heavy)</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Primary Constraint</strong></td>
-                    <td class="comp-highlight">Execution bandwidth + regulatory tolerance</td>
-                    <td>Maintaining lead; integration scale</td>
-                    <td>Stability + responsible growth controls</td>
-                    <td>Cost + restructuring execution risk</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Primary Spend Outcome</strong></td>
-                    <td class="comp-highlight">Cost + risk unlock; scale leverage</td>
-                    <td>Revenue growth + experience leadership</td>
-                    <td>Consumer digital monetization</td>
-                    <td>De-risking + cost take-out</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Marginal ROI from Product Spend</strong></td>
-                    <td class="comp-highlight">High if simplified and governed</td>
-                    <td>High but diminishing returns</td>
-                    <td>Moderate</td>
-                    <td>Uneven / region-dependent</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Valuation Sensitivity to Execution</strong></td>
-                    <td class="comp-highlight">Very high</td>
-                    <td>Lower</td>
-                    <td>Medium</td>
-                    <td>High</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Penalty for Poor Prioritization</strong></td>
-                    <td class="comp-highlight">Severe (drag persists, discount remains)</td>
-                    <td>Manageable (buffer from performance)</td>
-                    <td>Moderate</td>
-                    <td>Severe (restructuring stalls)</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="card">
-            <h2 class="heading">Citi's Competitive Position</h2>
-            <div class="grid-3">
-              <div class="lever-card" style="border-left: 4px solid var(--success);">
-                <div class="lever-title" style="color: var(--success);">Advantage</div>
-                <div class="lever-def">High potential ROI from disciplined product spend—if simplified and governed properly.</div>
-              </div>
-              <div class="lever-card" style="border-left: 4px solid var(--secondary);">
-                <div class="lever-title" style="color: var(--secondary);">Risk</div>
-                <div class="lever-def">Execution missteps are punished severely by markets; credibility gap takes years to close.</div>
-              </div>
-              <div class="lever-card" style="border-left: 4px solid var(--primary);">
-                <div class="lever-title" style="color: var(--primary);">Strategy</div>
-                <div class="lever-def">Fewer initiatives, higher outcome density, visible milestones, measurable ROE/ROTCE improvement.</div>
-              </div>
-            </div>
-          </div>`,
-        roi: `
-          <h1 class="section-title">ROI Hypothesis</h1>
-          <p class="section-subtitle">Multi-dimensional value framework for initiative prioritization</p>
-          <div class="card">
-            <h2 class="heading">Value Lever Framework</h2>
-            <div class="grid-2">
-              ${[
-                { title: 'Revenue Density', def: 'Higher client engagement, conversion, and share of wallet in priority segments', measure: 'Wallet share %, fee income growth, AUM growth' },
-                { title: 'Cost Efficiency', def: 'Durable reduction in run-the-bank spend through decommissioning, automation, and simplification', measure: 'Run-rate cost savings, systems retired, FTE reallocation' },
-                { title: 'Risk Reduction', def: 'Fewer control breaks, faster detection and remediation, improved regulatory outcomes', measure: 'Control incident rate, remediation cycle time, regulatory findings' },
-                { title: 'Optionality', def: 'Reusable platforms (APIs, data, cloud patterns) that accelerate future delivery', measure: 'Time-to-market for new products, platform reuse rate' },
-              ].map(l => `<div class="lever-card"><div class="lever-title">${l.title}</div><div class="lever-def">${l.def}</div><div class="lever-measure">${l.measure}</div></div>`).join('')}
-            </div>
-          </div>
-          <div class="card" style="background: var(--primary-light); border-color: var(--primary);">
-            <h2 class="heading" style="color: var(--primary);">Knapsack Discipline Prioritizes Multi-Dimensional Wins</h2>
-            <div class="grid-3">
-              <div class="value-item" style="background: white;">
-                <div class="value-marker" style="background: var(--success);"></div>
-                <div>
-                  <div class="value-title" style="color: var(--success);">High Priority</div>
-                  <div class="value-desc">Initiatives scoring well across 3+ value levers</div>
-                </div>
-              </div>
-              <div class="value-item" style="background: white;">
-                <div class="value-marker" style="background: var(--warning);"></div>
-                <div>
-                  <div class="value-title" style="color: var(--warning);">Medium Priority</div>
-                  <div class="value-desc">Initiatives scoring well on 2 value levers with clear strategic fit</div>
-                </div>
-              </div>
-              <div class="value-item" style="background: white;">
-                <div class="value-marker" style="background: var(--neutral-500);"></div>
-                <div>
-                  <div class="value-title" style="color: var(--neutral-600);">Lower Priority</div>
-                  <div class="value-desc">Single-dimension initiatives without clear strategic differentiation</div>
-                </div>
-              </div>
-            </div>
-          </div>`,
-        governance: `
-          <h1 class="section-title">Implementation Governance</h1>
-          <p class="section-subtitle">Decision rights and governance cadence for knapsack execution</p>
-          <div class="card">
-            <h2 class="heading">Decision Rights (RACI Summary)</h2>
-            <div class="table-wrapper">
-              <table class="raci-table">
-                <thead>
-                  <tr>
-                    <th>Activity</th>
-                    <th>Executive Sponsor</th>
-                    <th>Business Owner</th>
-                    <th>Technology Lead</th>
-                    <th>Risk/Compliance</th>
-                    <th>Finance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Knapsack Scoring</strong></td>
-                    <td class="raci-cell raci-a">A</td>
-                    <td class="raci-cell raci-r">R</td>
-                    <td class="raci-cell raci-c">C</td>
-                    <td class="raci-cell raci-c">C</td>
-                    <td class="raci-cell raci-c">C</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Prioritization Decisions</strong></td>
-                    <td class="raci-cell raci-a">A</td>
-                    <td class="raci-cell raci-r">R</td>
-                    <td class="raci-cell raci-c">C</td>
-                    <td class="raci-cell raci-c">C</td>
-                    <td class="raci-cell raci-i">I</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Funding Allocation</strong></td>
-                    <td class="raci-cell raci-a">A</td>
-                    <td class="raci-cell raci-c">C</td>
-                    <td class="raci-cell raci-i">I</td>
-                    <td class="raci-cell raci-i">I</td>
-                    <td class="raci-cell raci-r">R</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Milestone Tracking</strong></td>
-                    <td class="raci-cell raci-i">I</td>
-                    <td class="raci-cell raci-a">A</td>
-                    <td class="raci-cell raci-r">R</td>
-                    <td class="raci-cell raci-c">C</td>
-                    <td class="raci-cell raci-c">C</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Decommissioning Governance</strong></td>
-                    <td class="raci-cell raci-a">A</td>
-                    <td class="raci-cell raci-r">R</td>
-                    <td class="raci-cell raci-r">R</td>
-                    <td class="raci-cell raci-c">C</td>
-                    <td class="raci-cell raci-c">C</td>
-                  </tr>
-                  <tr>
-                    <td><strong>ROI Validation</strong></td>
-                    <td class="raci-cell raci-a">A</td>
-                    <td class="raci-cell raci-r">R</td>
-                    <td class="raci-cell raci-c">C</td>
-                    <td class="raci-cell raci-i">I</td>
-                    <td class="raci-cell raci-r">R</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <p style="font-size: 12px; color: var(--neutral-500); margin-top: 12px;"><strong>Legend:</strong> R = Responsible, A = Accountable, C = Consulted, I = Informed</p>
-          </div>
-          <div class="card">
-            <h2 class="heading">Governance Cadence</h2>
-            ${[
-              { freq: 'Quarterly', forum: 'Portfolio Prioritization Review', purpose: 'Revalidate knapsack rankings; adjust based on execution and market changes' },
-              { freq: 'Monthly', forum: 'Milestone Checkpoint', purpose: 'Track delivery against published milestones; escalate blockers' },
-              { freq: 'Monthly', forum: 'Decommissioning Governance', purpose: 'Enforce sunset timelines; validate cost take-out realization' },
-              { freq: 'Quarterly', forum: 'Executive Steering Committee', purpose: 'Strategic alignment; major investment decisions; external commitment validation' },
-            ].map(c => `<div class="cadence-row"><div class="cadence-freq">${c.freq}</div><div class="cadence-forum">${c.forum}</div><div class="cadence-purpose">${c.purpose}</div></div>`).join('')}
-          </div>`,
-        metrics: `
-          <h1 class="section-title">Success Metrics Dashboard</h1>
-          <p class="section-subtitle">Leading and lagging indicators for knapsack execution</p>
-          <div class="card">
-            <div class="metric-section">
-              <div class="metric-section-title">
-                Leading Indicators
-                <span class="metric-section-badge">Monthly</span>
-              </div>
-              <div class="grid-2">
-                ${['Initiative knapsack scores updated and validated', 'Milestone achievement rate (target: 85%+)', 'Resource allocation vs. plan', 'Risk/issue escalation velocity'].map(m => `<div class="value-item"><div class="value-marker" style="background: var(--action);"></div><div class="value-desc" style="font-size: 14px; color: var(--neutral-700);">${m}</div></div>`).join('')}
-              </div>
-            </div>
-            <div class="metric-section" style="margin-top: 28px;">
-              <div class="metric-section-title">
-                Lagging Indicators
-                <span class="metric-section-badge">Quarterly</span>
-              </div>
-              <div class="grid-2">
-                ${['ROE/ROTCE contribution by initiative', 'Systems decommissioned (count and cost take-out)', 'Control incident reduction rate', 'Time-to-market for new products/features'].map(m => `<div class="value-item"><div class="value-marker" style="background: var(--success);"></div><div class="value-desc" style="font-size: 14px; color: var(--neutral-700);">${m}</div></div>`).join('')}
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <h2 class="heading">Executive Scorecard (Annual)</h2>
-            <div class="table-wrapper">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Metric</th>
-                    <th>Baseline</th>
-                    <th>Year 1 Target</th>
-                    <th>Year 2 Target</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>ROE Improvement (bps)</strong></td>
-                    <td>TBD</td>
-                    <td style="color: var(--success); font-weight: 600;">+25-50 bps</td>
-                    <td style="color: var(--success); font-weight: 600;">+75-100 bps</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Structural Cost Take-Out</strong></td>
-                    <td>TBD</td>
-                    <td style="color: var(--success); font-weight: 600;">$X00M</td>
-                    <td style="color: var(--success); font-weight: 600;">$X00M</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Legacy Systems Retired</strong></td>
-                    <td>TBD</td>
-                    <td style="color: var(--success); font-weight: 600;">X systems</td>
-                    <td style="color: var(--success); font-weight: 600;">X systems</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Control Break Reduction</strong></td>
-                    <td>TBD</td>
-                    <td style="color: var(--success); font-weight: 600;">-20%</td>
-                    <td style="color: var(--success); font-weight: 600;">-35%</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>`,
-        risks: `
-          <h1 class="section-title">Risk Management</h1>
-          <p class="section-subtitle">Key risks to knapsack execution and mitigation strategies</p>
-          <div class="card">
-            <h2 class="heading">Key Risks and Mitigations</h2>
-            ${[
-              { risk: 'Execution bandwidth overload', likelihood: 'High', impact: 'Severe', mitigation: 'Enforce knapsack discipline; say "no" to initiatives below threshold. Prioritize ruthlessly and sequence for delivery reliability.' },
-              { risk: 'Regulatory tolerance exceeded', likelihood: 'Medium', impact: 'Severe', mitigation: 'Include regulatory lens in all scoring; pre-validate with Risk. Build regulatory checkpoints into governance cadence.' },
-              { risk: 'Decommissioning slippage', likelihood: 'High', impact: 'High', mitigation: 'Governance enforcement; cost attribution to owners. Monthly decommissioning governance with executive visibility.' },
-              { risk: 'Multi-year initiatives lose momentum', likelihood: 'Medium', impact: 'High', mitigation: '12-month milestone cadence; visible external commitments. Publish measurable progress to maintain stakeholder engagement.' },
-              { risk: 'Valuation re-rating doesn\'t follow', likelihood: 'Medium', impact: 'High', mitigation: 'Investor communication aligned to milestones; conservative guidance. Ensure execution credibility precedes guidance upgrades.' },
-            ].map(r => `
-              <div class="risk-card">
-                <div class="risk-header">
-                  <div class="risk-marker ${r.likelihood === 'High' ? 'high' : 'medium'}"></div>
-                  <div class="risk-title">${r.risk}</div>
-                </div>
-                <div class="risk-badges">
-                  <span class="risk-badge likelihood">Likelihood: ${r.likelihood}</span>
-                  <span class="risk-badge impact">Impact: ${r.impact}</span>
-                </div>
-                <div class="risk-mitigation"><strong>Mitigation:</strong> ${r.mitigation}</div>
-              </div>
-            `).join('')}
-          </div>`,
-        'call-to-action': `
-          <h1 class="section-title">Call to Action</h1>
-          <p class="section-subtitle">What knapsack discipline delivers for Citi</p>
-          <div class="card" style="background: var(--primary); color: white; border: none;">
-            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.85; margin-bottom: 16px;">Strategic Imperative</div>
-            <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 20px;">Five Outcomes from Knapsack Discipline</h3>
-          </div>
-          ${[
-            { num: 1, title: 'Higher ROI per dollar', desc: 'Prioritize multi-dimensional outcome initiatives (revenue density + cost take-out + risk efficiency)' },
-            { num: 2, title: 'Simplification that compounds', desc: 'Make decommissioning and standardization non-negotiable; stop funding duplicative builds' },
-            { num: 3, title: 'Reduced regulatory drag', desc: 'Treat controls and data modernization as value creators that unlock growth capacity' },
-            { num: 4, title: 'Improved execution credibility', desc: 'Commit to fewer priorities, sequence for delivery, and publish measurable milestones' },
-            { num: 5, title: 'Faster path to valuation re-rating', desc: 'Visible ROE/ROTCE and control improvements drive investor confidence' },
-          ].map(a => `
-            <div class="action-card">
-              <div class="action-num">${a.num}</div>
-              <div class="action-content">
-                <div class="action-title">${a.title}</div>
-                <div class="action-desc">${a.desc}</div>
-              </div>
-            </div>
-          `).join('')}
-          <div class="quote-banner" style="margin-top: 28px;">
-            <p class="quote-text">"Citi's knapsack is won by picking fewer initiatives with higher outcome density, enforcing simplification and decommissioning, and delivering measurable progress that improves returns and credibility."</p>
-          </div>`,
-        'next-steps': `
-          <h1 class="section-title">Next Steps</h1>
-          <p class="section-subtitle">Phased implementation path for knapsack adoption</p>
-          <div class="card">
-            <div class="next-section">
-              <div class="next-header">
-                <span class="next-badge">0-30 Days</span>
-                <span class="next-title">Immediate</span>
-              </div>
-              <ul class="next-items">
-                ${['Validate W.I.N. themes with executive sponsors', 'Apply knapsack scoring to current initiative portfolio', 'Identify "must-fund" decommissioning priorities', 'Establish governance cadence and decision rights'].map(i => `<li class="next-item"><div class="next-check"></div>${i}</li>`).join('')}
-              </ul>
-            </div>
-            <div class="next-section">
-              <div class="next-header">
-                <span class="next-badge" style="background: var(--action);">30-90 Days</span>
-                <span class="next-title">Near-Term</span>
-              </div>
-              <ul class="next-items">
-                ${['Complete portfolio prioritization and communicate results', 'Publish 12-month milestone roadmap', 'Align investor communications to execution milestones', 'Launch monthly milestone tracking'].map(i => `<li class="next-item"><div class="next-check"></div>${i}</li>`).join('')}
-              </ul>
-            </div>
-            <div class="next-section">
-              <div class="next-header">
-                <span class="next-badge" style="background: var(--success);">Ongoing</span>
-                <span class="next-title">Continuous</span>
-              </div>
-              <ul class="next-items">
-                ${['Quarterly knapsack re-prioritization', 'Monthly governance reviews', 'Annual strategy refresh and competitive benchmarking'].map(i => `<li class="next-item"><div class="next-check"></div>${i}</li>`).join('')}
-              </ul>
-            </div>
-          </div>
-          <div class="quote-banner" style="margin-top: 28px;">
-            <p class="quote-text">"Citi's knapsack is won by picking fewer initiatives with higher outcome density, enforcing simplification and decommissioning, and delivering measurable progress that improves returns and credibility."</p>
-          </div>`,
-      };
-      main.innerHTML = content[activeSection] || content.overview;
-    }
-    renderNav();
-    renderContent();
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(btn.dataset.section).classList.add('active');
+        window.scrollTo(0, 0);
+      });
+    });
   </script>
 </body>
 </html>
-

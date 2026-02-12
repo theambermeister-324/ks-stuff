@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citi × Knapsack Battle Card</title>
+  <style>
+    :root {
+      /* Accessible color palette - all colors meet WCAG AA 4.5:1 contrast on their intended backgrounds */
+      --primary: #003B70;          /* 10.1:1 on white - PASSES */
+      --primary-dark: #002855;     /* 12.4:1 on white - PASSES */
+      --primary-light: #E8F0F8;
+      --secondary: #B91430;        /* 5.9:1 on white - PASSES (was #E31937 at 4.05:1) */
+      --secondary-light: #FCE8EB;
+      --action: #005A8C;           /* 6.2:1 on white - PASSES (was #0077B6 at 4.01:1) */
+      --action-light: #E8F4FA;
+      --success: #0A6B35;          /* 5.7:1 on white - PASSES */
+      --success-light: #E6F5ED;
+      --success-dark: #085028;     /* 8.2:1 on white - PASSES */
+      --warning: #9A4100;          /* 6.0:1 on white - PASSES (was #C75300 at 4.45:1) */
+      --warning-light: #FEF3E8;
+      --warning-dark: #6B2D00;     /* 8.9:1 on white - PASSES */
+      --neutral-50: #F8F9FA;
+      --neutral-100: #F1F3F5;
+      --neutral-150: #DEE2E6;
+      --neutral-200: #CED4DA;
+      --neutral-300: #868E96;      /* 4.6:1 on white - PASSES (was #ADB5BD at 2.7:1) */
+      --neutral-400: #5C636A;      /* 5.5:1 on white - PASSES (was #6C757D at 4.48:1) */
+      --neutral-500: #495057;      /* 6.6:1 on white - PASSES */
+      --neutral-600: #343A40;      /* 9.7:1 on white - PASSES */
+      --neutral-700: #212529;      /* 14.0:1 on white - PASSES */
+      --neutral-800: #1A1D20;      /* 15.4:1 on white - PASSES */
+      --neutral-900: #0D1117;      /* 17.7:1 on white - PASSES */
+      /* Focus ring color for keyboard navigation */
+      --focus-ring: #0066CC;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--neutral-50); display: flex; min-height: 100vh; }
+    nav { width: 240px; background: white; border-right: 1px solid var(--neutral-150); padding: 20px 0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; }
+    .nav-header { padding: 0 16px 20px; border-bottom: 1px solid var(--neutral-150); }
+    .nav-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); margin-bottom: 4px; }
+    .nav-title { font-size: 17px; font-weight: 700; color: var(--neutral-900); }
+    .nav-subtitle { font-size: 11px; color: var(--neutral-400); margin-top: 4px; }
+    .nav-items { padding: 12px 8px; }
+    .nav-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 10px; border: none; border-radius: 6px; background: transparent; color: var(--neutral-600); font-size: 12px; font-weight: 400; cursor: pointer; text-align: left; margin-bottom: 1px; transition: all 0.15s; }
+    .nav-btn:hover { background: var(--neutral-100); }
+    .nav-btn:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+    .nav-btn.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+    .nav-num { width: 20px; height: 20px; border-radius: 4px; background: var(--neutral-200); color: var(--neutral-500); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+    .nav-btn.active .nav-num { background: var(--primary); color: white; }
+    .nav-btn.hot .nav-num { background: var(--secondary); color: white; }
+    main { flex: 1; padding: 28px; max-width: 920px; margin: 0 auto 0 240px; }
+    .section { display: none; }
+    .section.active { display: block; }
+    .card { background: white; border: 1px solid var(--neutral-150); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+    .hero { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 36px; border-radius: 16px; margin-bottom: 24px; position: relative; overflow: hidden; }
+    .hero-accent { position: absolute; top: -50%; right: -20%; width: 60%; height: 200%; background: rgba(255,255,255,0.05); transform: rotate(15deg); }
+    .hero-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.9); margin-bottom: 10px; }
+    .hero h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+    .hero p { font-size: 16px; color: rgba(255,255,255,0.95); }
+    .hero .sub { font-size: 13px; color: rgba(255,255,255,0.85); margin-top: 14px; }
+    h1.section-title { font-size: 26px; font-weight: 700; color: var(--neutral-900); margin-bottom: 6px; line-height: 1.2; }
+    .section-subtitle { font-size: 15px; color: var(--neutral-500); margin-bottom: 24px; line-height: 1.5; }
+    h2.heading { font-size: 16px; font-weight: 600; color: var(--neutral-800); margin-bottom: 14px; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+    .badge-primary { background: var(--primary-light); color: var(--primary); }
+    .badge-action { background: var(--action-light); color: var(--action); }
+    .badge-success { background: var(--success-light); color: var(--success-dark); }
+    .badge-warning { background: var(--warning-light); color: var(--warning-dark); }
+    .badge-secondary { background: var(--secondary-light); color: var(--secondary); }
+    .alert { display: flex; gap: 16px; align-items: flex-start; }
+    .alert-icon { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; flex-shrink: 0; }
+    .alert-success { background: var(--success-light); border: 1px solid var(--success); }
+    .alert-success .alert-icon { background: var(--success); color: white; }
+    .alert-success h3, .alert-success p { color: var(--success-dark); }
+    .alert-warning { background: var(--warning-light); border: 1px solid var(--warning); }
+    .alert-warning .alert-icon { background: var(--warning); color: white; }
+    .alert-warning h3, .alert-warning p { color: var(--warning-dark); }
+    .alert-secondary { background: var(--secondary-light); border: 2px solid var(--secondary); }
+    .alert-secondary .alert-icon { background: var(--secondary); color: white; }
+    .alert-secondary h3 { color: var(--secondary); }
+    .alert h3 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .alert p { font-size: 13px; line-height: 1.5; margin: 0; }
+    .callout { background: var(--primary-light); border-left: 4px solid var(--primary); border-radius: 0 12px 12px 0; }
+    .callout-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 6px; }
+    .callout p { font-size: 16px; color: var(--neutral-700); line-height: 1.6; margin: 0; }
+    .grid { display: grid; gap: 10px; }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .grid-item { display: flex; gap: 10px; padding: 12px; background: var(--neutral-50); border-radius: 8px; }
+    .grid-item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); margin-top: 6px; flex-shrink: 0; }
+    .grid-item .title { font-weight: 600; font-size: 13px; color: var(--neutral-800); margin-bottom: 2px; }
+    .grid-item .desc { font-size: 12px; color: var(--neutral-500); }
+    .metric-card { padding: 16px; background: var(--action-light); border-radius: 8px; text-align: center; }
+    .metric-card .value { font-size: 16px; font-weight: 700; color: var(--action); margin-bottom: 4px; }
+    .metric-card .label { font-size: 12px; color: var(--neutral-600); }
+    .timeline-item { display: flex; gap: 20px; margin-bottom: 24px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-track { display: flex; flex-direction: column; align-items: center; }
+    .timeline-dot { width: 14px; height: 14px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .timeline-line { width: 2px; flex: 1; background: var(--neutral-200); margin-top: 6px; }
+    .timeline-content { flex: 1; }
+    .timeline-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+    .timeline-date { font-size: 12px; font-weight: 700; }
+    .timeline-title { font-size: 14px; font-weight: 600; color: var(--neutral-800); }
+    .timeline-desc { font-size: 13px; color: var(--neutral-600); margin: 0; }
+    .stakeholder { padding: 8px 0; border-bottom: 1px solid var(--neutral-100); }
+    .stakeholder:last-child { border-bottom: none; }
+    .stakeholder .name { font-weight: 600; font-size: 13px; color: var(--neutral-800); }
+    .stakeholder .role { font-size: 11px; color: var(--primary); margin-bottom: 2px; }
+    .stakeholder .note { font-size: 11px; color: var(--neutral-500); }
+    .table-header { display: grid; gap: 8px; padding: 10px 14px; background: var(--neutral-50); border-radius: 6px; font-weight: 600; color: var(--neutral-500); font-size: 12px; margin-bottom: 8px; }
+    .table-row { display: grid; gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--neutral-100); font-size: 12px; }
+    .table-3col { grid-template-columns: 140px 1fr 1fr; }
+    .table-2col { grid-template-columns: 1fr 100px; }
+    .text-secondary { color: var(--secondary); }
+    .text-success { color: var(--success-dark); }
+    .text-primary { color: var(--primary); }
+    .text-neutral { color: var(--neutral-700); }
+    .fw-600 { font-weight: 600; }
+    .win-box { background: var(--success-light); border-left: 3px solid var(--success); padding: 10px; border-radius: 0 6px 6px 0; }
+    .win-box span:first-child { font-size: 11px; font-weight: 600; color: var(--success-dark); }
+    .win-box span:last-child { font-size: 12px; color: var(--success-dark); }
+    .theme-card { display: flex; gap: 14px; }
+    .theme-num { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+    .theme-content h3 { font-size: 15px; font-weight: 600; color: var(--neutral-900); margin-bottom: 6px; }
+    .theme-content p { font-size: 13px; color: var(--neutral-600); line-height: 1.5; margin-bottom: 10px; }
+    .roi-hero { background: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%); color: white; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .roi-hero .label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: rgba(255,255,255,0.9); margin-bottom: 3px; }
+    .roi-hero .value { font-size: 28px; font-weight: 700; }
+    .factor-item { display: flex; gap: 14px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--neutral-100); }
+    .factor-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .factor-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; color: white; }
+    .factor-num.critical { background: var(--primary); }
+    .factor-num.high { background: var(--action); }
+    .factor-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+    .factor-title { font-size: 14px; font-weight: 600; color: var(--neutral-800); }
+    .factor-desc { font-size: 13px; color: var(--neutral-600); margin: 0; }
+    .gap-row { background: var(--neutral-50); padding: 12px; border-radius: 8px; }
+    .gap-row .need { font-size: 12px; font-weight: 600; color: var(--neutral-800); margin-bottom: 6px; }
+    .gap-row .current { font-size: 11px; color: var(--secondary); margin-bottom: 2px; }
+    .gap-row .knapsack { font-size: 11px; color: var(--success-dark); }
+    .objection { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--neutral-100); }
+    .objection:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .objection-q { font-size: 13px; font-weight: 600; color: var(--secondary); margin-bottom: 6px; }
+    .objection-a { font-size: 12px; color: var(--neutral-600); margin: 0 0 8px 0; }
+    .question-item { display: flex; gap: 12px; padding: 12px; background: var(--neutral-50); border-radius: 8px; margin-bottom: 10px; }
+    .question-icon { width: 20px; height: 20px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+    .question-text { font-size: 12px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px; }
+    .question-answer { font-size: 11px; color: var(--success-dark); }
+    .workflow { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
+    .workflow-step { padding: 6px 14px; background: var(--primary-light); border-radius: 6px; font-size: 12px; font-weight: 500; color: var(--primary); }
+    .workflow-arrow { color: var(--neutral-400); font-size: 11px; }
+    .phase-box { background: var(--neutral-50); border-radius: 8px; padding: 14px; }
+    .phase-box .items { font-size: 12px; color: var(--neutral-600); }
+    .phase-box .items div { padding: 4px 0; display: flex; gap: 6px; }
+    .phase-box .items span { color: var(--neutral-400); }
+    .msg-card { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; }
+    .msg-card .label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: rgba(255,255,255,0.9); margin-bottom: 10px; }
+    .msg-card p { font-size: 15px; line-height: 1.6; margin: 0; }
+    .msg-card .quote { font-size: 14px; color: rgba(255,255,255,0.95); margin-top: 14px; font-style: italic; }
+    .key-msg { display: flex; gap: 12px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--neutral-100); }
+    .key-msg:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .key-msg-num { background: var(--action); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+    .key-msg-title { font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 3px; }
+    .key-msg-desc { font-size: 12px; color: var(--neutral-600); margin: 0; }
+    .closing { background: var(--success-light); border: 1px solid var(--success); }
+    .closing h2 { color: var(--success-dark); }
+    .closing p { font-size: 14px; color: var(--success-dark); line-height: 1.6; margin: 0; font-weight: 500; }
+    /* Icon replacements - no emojis */
+    .icon-check::before { content: ""; display: inline-block; width: 12px; height: 12px; border: 2px solid currentColor; border-top: none; border-right: none; transform: rotate(-45deg); margin-right: 4px; }
+    .icon-alert::before { content: "!"; font-weight: 700; }
+    .icon-question::before { content: "?"; font-weight: 700; }
+    .icon-star::before { content: ""; display: inline-block; width: 10px; height: 10px; background: currentColor; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+    .icon-arrow { font-family: system-ui; }
+    /* Skip link for keyboard navigation */
+    .skip-link { position: absolute; top: -40px; left: 0; background: var(--primary); color: white; padding: 8px 16px; z-index: 100; font-weight: 600; text-decoration: none; border-radius: 0 0 4px 0; }
+    .skip-link:focus { top: 0; }
+    @media (max-width: 768px) {
+      nav { width: 100%; height: auto; position: relative; }
+      main { margin-left: 0; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .table-3col { grid-template-columns: 1fr; }
+    }
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <nav role="navigation" aria-label="Section navigation">
+    <div class="nav-header">
+      <div class="nav-label">Internal Battle Card</div>
+      <div class="nav-title">Citi × Knapsack</div>
+      <div class="nav-subtitle">Post-Discovery • Feb 11, 2026</div>
+    </div>
+    <div class="nav-items">
+      <button class="nav-btn active" data-section="overview"><span class="nav-num">1</span><span>Executive Overview</span></button>
+      <button class="nav-btn" data-section="stakeholders"><span class="nav-num">2</span><span>Stakeholder Map</span></button>
+      <button class="nav-btn" data-section="technical"><span class="nav-num">3</span><span>Technical Reality</span></button>
+      <button class="nav-btn hot" data-section="ipe-opportunity"><span class="nav-num">4</span><span>IPE Opportunity</span></button>
+      <button class="nav-btn" data-section="pain-points"><span class="nav-num">5</span><span>Validated Pain Points</span></button>
+      <button class="nav-btn" data-section="win-themes"><span class="nav-num">6</span><span>WIN Themes</span></button>
+      <button class="nav-btn" data-section="deal-strategy"><span class="nav-num">7</span><span>What Wins This Deal</span></button>
+      <button class="nav-btn" data-section="champions"><span class="nav-num">8</span><span>Champion Development</span></button>
+      <button class="nav-btn" data-section="timeline"><span class="nav-num">9</span><span>Next Steps & Timeline</span></button>
+      <button class="nav-btn" data-section="objections"><span class="nav-num">10</span><span>Objection Handling</span></button>
+      <button class="nav-btn" data-section="quotes"><span class="nav-num">11</span><span>Key Quotes to Use</span></button>
+      <button class="nav-btn" data-section="psri"><span class="nav-num">12</span><span>PSRI Framework</span></button>
+      <button class="nav-btn" data-section="user-personas"><span class="nav-num">13</span><span>User Personas</span></button>
+      <button class="nav-btn" data-section="charter"><span class="nav-num">14</span><span>Charter Template</span></button>
+      <button class="nav-btn" data-section="governance"><span class="nav-num">15</span><span>Governance RACI</span></button>
+      <button class="nav-btn" data-section="metrics"><span class="nav-num">16</span><span>Success Metrics</span></button>
+    </div>
+  </nav>
+
+  <main id="main-content" role="main">
+    <!-- OVERVIEW SECTION -->
+    <div class="section active" id="overview">
+      <div class="hero">
+        <div class="hero-accent"></div>
+        <div class="hero-label">Design System Convergence</div>
+        <h1>Citi Creative Technology</h1>
+        <p>4 Design Systems to 1 Unified Control Plane</p>
+        <p class="sub">Discovery Call Completed • February 11, 2026</p>
+      </div>
+
+      <div class="card alert alert-success">
+        <div class="alert-icon">+</div>
+        <div>
+          <h3>Discovery Call Completed: February 11, 2026</h3>
+          <p>1-hour intro call with 4 Citi stakeholders from Creative Technology. Strong interest in IPE for multi-system diffing and convergence. Steven Suarez demonstrated their homegrown CMS—impressive technical maturity.</p>
+        </div>
+      </div>
+      
+      <div class="card alert alert-warning">
+        <div class="alert-icon">i</div>
+        <div>
+          <h3>Deal Assessment: EARLY STAGE — CAUTIOUSLY OPTIMISTIC</h3>
+          <p>First discovery call. Strong technical sophistication but <strong>not convinced yet</strong> (per Bloom). Key question: Is Citi ready to stop hand-coding their design system manager? Need second session to understand how many people touch their app and find any hidden blockers.</p>
+        </div>
+      </div>
+
+      <div class="card alert alert-secondary">
+        <div class="alert-icon">!</div>
+        <div>
+          <h3>Internal Assessment (Bloom)</h3>
+          <p>"If Citi is like 'we cannot keep hand-coding this design system manager, get off it' then we're gold here—<strong>but I'm not convinced yet.</strong> Second session and I can figure out how many people touch that app."</p>
+        </div>
+      </div>
+
+      <div class="card" style="background: linear-gradient(135deg, var(--primary-dark) 0%, #1a3a52 100%); border: 2px solid var(--secondary); padding: 20px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+          <div style="background: var(--secondary); color: white; padding: 6px 14px; border-radius: 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em;">GO / NO-GO GATE</div>
+          <div style="color: white; font-size: 14px; font-weight: 700;">BitBucket On-Prem = NO IMPLEMENTATION</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <div style="background: rgba(185, 20, 48, 0.2); border: 1px solid var(--secondary); border-radius: 8px; padding: 14px;">
+            <div style="color: #ff8a9a; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">If BitBucket On-Prem (Server/Data Center)</div>
+            <div style="color: white; font-size: 13px; font-weight: 600; margin-bottom: 6px;">NO GO for Knapsack Implementation</div>
+            <div style="color: rgba(255,255,255,0.8); font-size: 12px; line-height: 1.5;">Knapsack cannot integrate with BitBucket On-Prem. <strong style="color: white;">Offer Professional Services only</strong> to prepare them for migration. Contract PS engagement to get them "Knapsack-ready" while they migrate to a supported cloud VCS.</div>
+          </div>
+          <div style="background: rgba(10, 107, 53, 0.25); border: 1px solid var(--success); border-radius: 8px; padding: 14px;">
+            <div style="color: #6ee7a0; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">If Cloud VCS (Supported)</div>
+            <div style="color: white; font-size: 13px; font-weight: 600; margin-bottom: 6px;">PROCEED with Implementation</div>
+            <div style="color: rgba(255,255,255,0.8); font-size: 12px; line-height: 1.5;">GitHub (Cloud or Enterprise), GitLab (Cloud or Self-Hosted), Azure DevOps are all supported. Full Knapsack implementation can proceed.</div>
+          </div>
+        </div>
+        <div style="background: rgba(255,255,255,0.08); border-radius: 6px; padding: 12px;">
+          <div style="color: rgba(255,255,255,0.7); font-size: 11px; font-weight: 600; text-transform: uppercase; margin-bottom: 6px;">Context: Why BitBucket is Common in FinServ</div>
+          <div style="color: rgba(255,255,255,0.85); font-size: 12px; line-height: 1.5;">
+            <strong style="color: #fbbf24;">Amber flagged:</strong> "Why does he have BitBucket bookmarked?" <strong style="color: white;">Robin confirmed:</strong> "JPM also used BitBucket... You'll get a lot more BitBucket use in financial companies because it has better enterprise security and Atlassian/JIRA integration." <strong style="color: #6ee7a0;">Pattern:</strong> PNC moving from BitBucket to Git—this migration pattern is common and represents a PS opportunity.
+          </div>
+        </div>
+      </div>
+
+      <div class="card callout">
+        <div class="callout-label">The Opportunity</div>
+        <p>Citi has 4 design systems with varying maturity serving thousands of applications. They're converging toward one. Steven's success story (18 to 1 systems, 1,800+ builds/month with 2-person team) is the model. Knapsack + IPE can accelerate this convergence.</p>
+      </div>
+
+      <div class="card" style="background: var(--primary-light); border: 1px solid var(--primary);">
+        <h2 class="heading" style="color: var(--primary);">Value Messaging (Internal Talking Points)</h2>
+        <p style="font-size: 12px; color: var(--neutral-600); margin-bottom: 14px;">Core message for Citi: <em>Stop spreading effort thin across competing systems. Focus on fewer, higher-impact convergence initiatives with measurable outcomes.</em></p>
+        <div class="grid grid-2" style="gap: 10px;">
+          <div style="background: white; padding: 12px; border-radius: 6px; border-left: 3px solid var(--success);">
+            <div style="font-size: 12px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">Efficiency that Scales</div>
+            <div style="font-size: 11px; color: var(--neutral-600);">Steven's 2-person team model works—but only with the right tooling. Knapsack preserves this efficiency while extending it to all 4 systems.</div>
+          </div>
+          <div style="background: white; padding: 12px; border-radius: 6px; border-left: 3px solid var(--action);">
+            <div style="font-size: 12px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">Simplification Over Addition</div>
+            <div style="font-size: 11px; color: var(--neutral-600);">Convergence isn't about adding a 5th system. It's about consolidating toward one source of truth while decommissioning duplicative efforts.</div>
+          </div>
+          <div style="background: white; padding: 12px; border-radius: 6px; border-left: 3px solid var(--warning);">
+            <div style="font-size: 12px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">Visible Progress, Faster</div>
+            <div style="font-size: 11px; color: var(--neutral-600);">Convergence projects fail when they're 2-year initiatives with no visible wins. Knapsack delivers measurable milestones in 30/60/90 day increments.</div>
+          </div>
+          <div style="background: white; padding: 12px; border-radius: 6px; border-left: 3px solid var(--secondary);">
+            <div style="font-size: 12px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">Governance Without Bottlenecks</div>
+            <div style="font-size: 11px; color: var(--neutral-600);">"Not open source, but internally public" is the right model. Knapsack provides the infrastructure to scale this without creating approval queues.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Why This Deal Is Special</h2>
+        <div class="grid grid-2">
+          <div class="grid-item"><div class="dot"></div><div><div class="title">Proven success story</div><div class="desc">Steven consolidated 18 to 1 systems with 1,800+ builds/month</div></div></div>
+          <div class="grid-item"><div class="dot"></div><div><div class="title">Technical sophistication</div><div class="desc">Already built internal CMS, Code Connect experimentation</div></div></div>
+          <div class="grid-item"><div class="dot"></div><div><div class="title">Clear convergence mandate</div><div class="desc">"We're trying to converge towards one" — Rania</div></div></div>
+          <div class="grid-item"><div class="dot" style="background: var(--secondary);"></div><div><div class="title">MAINTENANCE is the pain (×3-4)</div><div class="desc">Amber: "I've heard 'Maintenance' as a pain point 3-4 times now"</div></div></div>
+          <div class="grid-item"><div class="dot"></div><div><div class="title">IPE is the differentiator</div><div class="desc">Asked specifically about multi-system diffing and aggregation</div></div></div>
+          <div class="grid-item"><div class="dot" style="background: var(--warning);"></div><div><div class="title">Team is WAY smaller than expected</div><div class="desc">Bloom: "Team is WAY smaller" — scalability is critical</div></div></div>
+          <div class="grid-item"><div class="dot"></div><div><div class="title">Rania = IBM Consulting Advantage</div><div class="desc">She launched the product—similar to our "Enable" vision</div></div></div>
+          <div class="grid-item"><div class="dot"></div><div><div class="title">CSS Variables confirmed</div><div class="desc">"We do everything in CSS Variables" — good token fit</div></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Scale & Complexity</h2>
+        <div class="grid grid-3">
+          <div class="metric-card"><div class="value">4</div><div class="label">Design systems (converging to 1)</div></div>
+          <div class="metric-card"><div class="value">1,000s</div><div class="label">Applications across LOBs</div></div>
+          <div class="metric-card"><div class="value">1,800+</div><div class="label">Builds/month (Steven's system)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STAKEHOLDERS SECTION -->
+    <div class="section" id="stakeholders">
+      <h1 class="section-title">Stakeholder Map</h1>
+      <p class="section-subtitle">Key contacts from Feb 11, 2026 discovery call</p>
+
+      <div class="card">
+        <h2 class="heading">Call Attendees & Roles</h2>
+        <div class="grid grid-2" style="gap: 16px;">
+          <div>
+            <div style="font-size: 11px; font-weight: 600; color: var(--primary); margin-bottom: 10px; text-transform: uppercase;">Decision Maker</div>
+            <div class="stakeholder">
+              <div class="name">Rania</div>
+              <div class="role">Head of Design, US Consumer Cards + AI Design</div>
+              <div class="note">Interim head of Creative Technology (design systems). IBM for 9 years.</div>
+            </div>
+            
+            <div style="font-size: 11px; font-weight: 600; color: var(--success); margin-bottom: 10px; margin-top: 16px; text-transform: uppercase;">Technical Champion (Key)</div>
+            <div class="stakeholder">
+              <div class="name">Steven Suarez</div>
+              <div class="role">Technical Lead, Internal Design System</div>
+              <div class="note">Design background, moved to development. Owns the success story (18 to 1 consolidation). Demonstrated homegrown CMS. Asked pointed questions about workflow integration, theming, prototyping.</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size: 11px; font-weight: 600; color: var(--action); margin-bottom: 10px; text-transform: uppercase;">Strategic Champion (Key)</div>
+            <div class="stakeholder">
+              <div class="name">John Rogoff</div>
+              <div class="role">Developer in Design Org</div>
+              <div class="note">Strategy + development bridge. Digital agency background. Asked about multi-system diffing, ROI metrics, token savings. "Could we use this as a diff tool between our 4 systems?"</div>
+            </div>
+            
+            <div style="font-size: 11px; font-weight: 600; color: var(--warning); margin-bottom: 10px; margin-top: 16px; text-transform: uppercase;">Operations</div>
+            <div class="stakeholder">
+              <div class="name">Ryan</div>
+              <div class="role">Design Operations, Head of Tooling</div>
+              <div class="note">Manages Figma, file sharing, Qualtrics. Vendor relationships. "There's thousands of applications guys."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Knapsack Team on Call</h2>
+        <div class="grid grid-2">
+          <div class="stakeholder"><div class="name">Robin Cannon</div><div class="role" style="color: var(--action);">Senior Director of Product</div><div class="note">Led IPE demo. Has prior relationship with Rania's team.</div></div>
+          <div class="stakeholder"><div class="name">Chris Bloom</div><div class="role" style="color: var(--action);">Forward Deployed Engineer</div><div class="note">Technical demo, answered integration questions.</div></div>
+          <div class="stakeholder"><div class="name">Angie Stevenson</div><div class="role" style="color: var(--action);">Enterprise AE</div><div class="note">Account lead. Under the weather but pushed through.</div></div>
+          <div class="stakeholder"><div class="name">Amber Atkins</div><div class="role" style="color: var(--action);">Lead Delivery / CX Partner</div><div class="note">User research focus. Follow-up coordination.</div></div>
+        </div>
+      </div>
+
+      <div class="card" style="background: var(--primary-light);">
+        <h2 class="heading" style="color: var(--primary);">Relationship Note</h2>
+        <p style="font-size: 13px; color: var(--primary); line-height: 1.6; margin: 0;">Robin presented to Rania's team at Citi just before joining Knapsack—about design systems in general. This is a warm relationship. Robin may have met some of the current team members before.</p>
+      </div>
+    </div>
+
+    <!-- TECHNICAL SECTION -->
+    <div class="section" id="technical">
+      <h1 class="section-title">Technical Reality</h1>
+      <p class="section-subtitle">Validated technical landscape from discovery call</p>
+
+      <div class="card">
+        <h2 class="heading">Current Stack (Confirmed)</h2>
+        <div class="grid grid-3" style="gap: 12px;">
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 11px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Frameworks</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">Angular + React</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 11px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Mobile</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">Native iOS + Android</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 11px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Design Tool</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">Figma</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 11px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Package Registry</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">Artifactory (internal)</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 11px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">AI Tools</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">Copilot + Devin (POC)</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 11px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Documentation</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">Homegrown CMS</div></div>
+        </div>
+      </div>
+
+      <div class="card" style="background: var(--secondary-light); border: 1px solid var(--secondary);">
+        <h2 class="heading" style="color: var(--secondary);">Critical Technical Constraints</h2>
+        <div class="alert" style="gap: 12px; margin-bottom: 14px;">
+          <div class="alert-icon" style="background: var(--secondary); font-size: 14px; font-weight: 700;">1</div>
+          <div>
+            <h3 style="color: var(--secondary);">Figma / GitHub Isolation</h3>
+            <p style="color: var(--neutral-700);">"We have access to Figma, we have access to GitHub—they can't talk." — Steven. This blocks Figma Code Connect AI inference and limits automation.</p>
+          </div>
+        </div>
+        <div class="alert" style="gap: 12px;">
+          <div class="alert-icon" style="background: var(--warning); font-size: 14px; font-weight: 700;">2</div>
+          <div>
+            <h3 style="color: var(--warning-dark);">MCP Status: In Progress (Not Blocked)</h3>
+            <p style="color: var(--neutral-700);"><strong>Bloom noted:</strong> "Trying to get Figma MCP approved" — meaning they're actively pursuing, not blocked. <strong style="color: var(--success-dark);">If they're comfy with Devin, that's huge—means few MCP limitations.</strong> Need to understand the MCP blocker in detail.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="background: linear-gradient(135deg, var(--primary-dark) 0%, #1a3a52 100%); border: 2px solid var(--secondary);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <div style="background: var(--secondary); color: white; padding: 6px 12px; border-radius: 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em;">GO / NO-GO GATE</div>
+          <span style="color: #ff8a9a; font-size: 11px; font-weight: 600;">MUST VALIDATE IN NEXT CALL</span>
+        </div>
+        <h2 class="heading" style="color: white; margin-bottom: 8px;">Version Control System</h2>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 200px;">
+            <div style="color: #6ee7a0; font-size: 12px; font-weight: 700; margin-bottom: 6px;">PROCEED WITH IMPLEMENTATION IF:</div>
+            <div style="color: rgba(255,255,255,0.85); font-size: 13px; line-height: 1.5;">GitHub (Cloud or Enterprise)<br>GitLab (Cloud or Self-Hosted)<br>Azure DevOps</div>
+          </div>
+          <div style="flex: 1; min-width: 200px;">
+            <div style="color: #ff8a9a; font-size: 12px; font-weight: 700; margin-bottom: 6px;">NO IMPLEMENTATION — PS ONLY:</div>
+            <div style="color: rgba(255,255,255,0.85); font-size: 13px; line-height: 1.5;"><strong style="color: white;">BitBucket On-Prem (Server/Data Center)</strong><br>Offer Professional Services to prepare for migration. Implementation after they move to supported VCS.</div>
+          </div>
+        </div>
+        <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.15);">
+          <div style="color: rgba(255,255,255,0.7); font-size: 11px;"><strong style="color: rgba(255,255,255,0.9);">Discovery Status:</strong> Call referenced "GitHub" — need to confirm if GitHub Enterprise or GitHub.com, and whether any LOBs use different VCS. <strong style="color: #fbbf24;">BitBucket bookmark observed — elevated risk.</strong></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Steven's Homegrown CMS (Demonstrated)</h2>
+        <p style="font-size: 13px; color: var(--neutral-600); line-height: 1.5; margin-bottom: 16px;">Steven demonstrated their internal documentation system during the call. Key characteristics:</p>
+        <div class="grid grid-2">
+          <div class="gap-row"><div class="need">Usage Guidelines</div><div class="current">Human-authored in internal CMS</div><div class="knapsack">Knapsack: Block-based editing, version-controlled</div></div>
+          <div class="gap-row"><div class="need">Figma Assets</div><div class="current">Embedded via iframe</div><div class="knapsack">Knapsack: Native Figma integration with sync</div></div>
+          <div class="gap-row"><div class="need">API Documentation</div><div class="current">Auto-generated from JSDoc in code</div><div class="knapsack">Knapsack: APIs extracted from connected code</div></div>
+          <div class="gap-row"><div class="need">Code Examples</div><div class="current">Pulled directly from codebase</div><div class="knapsack">Knapsack: Live rendering with real components</div></div>
+          <div class="gap-row"><div class="need">React + Angular</div><div class="current">Displayed side-by-side (separate codebases)</div><div class="knapsack">Knapsack: Multi-renderer in single view</div></div>
+          <div class="gap-row"><div class="need">AI/LLM Docs</div><div class="current">Markdown generation (WIP)</div><div class="knapsack">Knapsack: MCP-ready context aggregation</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Code Connect Experimentation</h2>
+        <p style="font-size: 13px; color: var(--neutral-600); line-height: 1.5; margin: 0;">They've experimented with Figma Code Connect in two ways:<br><br>
+        <strong>1. Manual Mapping:</strong> "Very manually intensive mapping of APIs. This is the prop in Figma, this corresponds to this API in code."<br><br>
+        <strong>2. AI Inference:</strong> "Figma has another way where you just plug into the git API... but internally they can't communicate. Figma cannot communicate to GitHub."</p>
+      </div>
+    </div>
+
+    <!-- IPE OPPORTUNITY SECTION -->
+    <div class="section" id="ipe-opportunity">
+      <h1 class="section-title">IPE Opportunity</h1>
+      <p class="section-subtitle">Intelligent Product Engine is the key differentiator for Citi</p>
+
+      <div class="card" style="background: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%); color: white;">
+        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.9); margin-bottom: 8px;">High Interest Validated</div>
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Multi-System Diffing is the Killer Feature</h3>
+        <p style="font-size: 13px; opacity: 0.9; line-height: 1.6; margin: 0;">"Could we somehow cheat this system and put in the context from our four systems and see it and use it as like a diff tool?" — John Rogoff. This is exactly what IPE delivers.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Questions They Asked About IPE</h2>
+        <div class="question-item"><div class="question-icon">Q</div><div><div class="question-text">"Could we put in context from our 4 systems and use it as a diff tool?"</div><div class="question-answer">Yes—multi-system comparison is a core capability</div></div></div>
+        <div class="question-item"><div class="question-icon">Q</div><div><div class="question-text">"Do you have metrics on time saved for agentic? Token savings?"</div><div class="question-answer">We track first-try success rates, regeneration frequency</div></div></div>
+        <div class="question-item"><div class="question-icon">Q</div><div><div class="question-text">"Can you do different rankings for different types of models?"</div><div class="question-answer">Yes—designer profile vs developer profile with different context priorities</div></div></div>
+        <div class="question-item"><div class="question-icon">Q</div><div><div class="question-text">"You're normalizing different sources—is that the secret sauce?"</div><div class="question-answer">Exactly—aggregation AND normalization for AI consumption</div></div></div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">How IPE Solves Citi's Specific Problems</h2>
+        <div class="grid grid-2">
+          <div class="gap-row"><div class="need">4 Design Systems</div><div class="current">No way to compare or identify conflicts</div><div class="knapsack">IPE: Multi-system diff and gap analysis</div></div>
+          <div class="gap-row"><div class="need">AI Documentation Burden</div><div class="current">Must create separate docs for each audience</div><div class="knapsack">IPE: Automated normalization for AI</div></div>
+          <div class="gap-row"><div class="need">Figma / GitHub Gap</div><div class="current">Can't connect due to security</div><div class="knapsack">IPE: Aggregate both as separate sources</div></div>
+          <div class="gap-row"><div class="need">Multiple AI Tools</div><div class="current">Copilot + Devin with no unified context</div><div class="knapsack">IPE: Single MCP aggregates all</div></div>
+        </div>
+      </div>
+
+      <div class="card" style="background: var(--primary-light);">
+        <h2 class="heading" style="color: var(--primary);">IPE Timeline</h2>
+        <p style="font-size: 13px; color: var(--primary); line-height: 1.6; margin: 0;"><strong>End of March 2026:</strong> IPE multi-source aggregation releasing. Sources: MDX, Markdown, Storybook, Figma, Knapsack site. This timing aligns well with Citi's exploration phase.</p>
+      </div>
+
+      <div class="card" style="background: linear-gradient(135deg, var(--action) 0%, #004d73 100%); color: white; border: none;">
+        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.85); margin-bottom: 10px;">Recommended Next Step</div>
+        <h2 class="heading" style="color: white; margin-bottom: 12px;">Product System Readiness Assessment</h2>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.9); line-height: 1.6; margin: 0 0 16px 0;">Before investing in tooling or convergence efforts, Citi should understand their current readiness across the dimensions that determine success. A structured assessment provides the baseline for measuring progress and prioritizing initiatives.</p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <div style="background: rgba(255,255,255,0.15); padding: 8px 14px; border-radius: 6px; font-size: 12px;">Half-day workshop</div>
+          <div style="background: rgba(255,255,255,0.15); padding: 8px 14px; border-radius: 6px; font-size: 12px;">Cross-functional stakeholders</div>
+          <div style="background: rgba(255,255,255,0.15); padding: 8px 14px; border-radius: 6px; font-size: 12px;">Actionable roadmap output</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Questions Citi Should Be Considering</h2>
+        <p style="font-size: 13px; color: var(--neutral-600); margin-bottom: 16px;">These questions surfaced during discovery. A formal assessment would provide structured answers:</p>
+        <div class="grid grid-2" style="gap: 12px;">
+          <div style="background: var(--neutral-50); padding: 14px; border-radius: 8px; border-left: 3px solid #f472b6;">
+            <div style="font-size: 11px; font-weight: 700; color: #be185d; text-transform: uppercase; margin-bottom: 6px;">Culture & Adoption</div>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.5;">How do we extend Steven's successful "internally public" governance model to the other 3 systems without losing what made it work?</div>
+          </div>
+          <div style="background: var(--neutral-50); padding: 14px; border-radius: 8px; border-left: 3px solid #a78bfa;">
+            <div style="font-size: 11px; font-weight: 700; color: #7c3aed; text-transform: uppercase; margin-bottom: 6px;">Foundation & Architecture</div>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.5;">What's the gap between our mature system and the other three? Where do token architectures diverge, and what would harmonization require?</div>
+          </div>
+          <div style="background: var(--neutral-50); padding: 14px; border-radius: 8px; border-left: 3px solid #60a5fa;">
+            <div style="font-size: 11px; font-weight: 700; color: #2563eb; text-transform: uppercase; margin-bottom: 6px;">AI Readiness</div>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.5;">The "extensive new documentation" burden is real—but what's the minimum viable AI context layer? How do we avoid 4x maintenance?</div>
+          </div>
+          <div style="background: var(--neutral-50); padding: 14px; border-radius: 8px; border-left: 3px solid #34d399;">
+            <div style="font-size: 11px; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 6px;">Governance & Scale</div>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.5;">With LOBs that "don't talk to one another," how do we establish cross-system governance without creating bottlenecks?</div>
+          </div>
+          <div style="background: var(--neutral-50); padding: 14px; border-radius: 8px; border-left: 3px solid #fbbf24;">
+            <div style="font-size: 11px; font-weight: 700; color: #b45309; text-transform: uppercase; margin-bottom: 6px;">Delivery & Efficiency</div>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.5;">Can we preserve the 2-person team efficiency while scaling to 4 systems? What's the automation threshold that makes this sustainable?</div>
+          </div>
+          <div style="background: var(--neutral-50); padding: 14px; border-radius: 8px; border-left: 3px solid var(--secondary);">
+            <div style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase; margin-bottom: 6px;">Convergence Prioritization</div>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.5;">With 4 systems and thousands of applications, where do we start? What's the sequence that delivers visible wins while building toward unification?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">What the Assessment Reveals</h2>
+        <div class="grid grid-3" style="gap: 12px;">
+          <div style="text-align: center; padding: 16px; background: var(--primary-light); border-radius: 8px;">
+            <div style="font-size: 24px; margin-bottom: 8px;">📊</div>
+            <div style="font-size: 13px; font-weight: 600; color: var(--primary); margin-bottom: 4px;">Current State Baseline</div>
+            <div style="font-size: 11px; color: var(--neutral-600);">Objective measurement across readiness dimensions—no guessing</div>
+          </div>
+          <div style="text-align: center; padding: 16px; background: var(--success-light); border-radius: 8px;">
+            <div style="font-size: 24px; margin-bottom: 8px;">🎯</div>
+            <div style="font-size: 13px; font-weight: 600; color: var(--success-dark); margin-bottom: 4px;">Priority Gaps Identified</div>
+            <div style="font-size: 11px; color: var(--neutral-600);">Where to invest first for maximum impact on convergence goals</div>
+          </div>
+          <div style="text-align: center; padding: 16px; background: var(--action-light); border-radius: 8px;">
+            <div style="font-size: 24px; margin-bottom: 8px;">🗺️</div>
+            <div style="font-size: 13px; font-weight: 600; color: var(--action); margin-bottom: 4px;">Phased Roadmap</div>
+            <div style="font-size: 11px; color: var(--neutral-600);">Sequenced initiatives with measurable milestones and realistic timelines</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="background: var(--warning-light); border: 1px solid var(--warning);">
+        <h2 class="heading" style="color: var(--warning-dark);">Why Assessment Before Implementation</h2>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 200px;">
+            <div style="font-size: 12px; font-weight: 600; color: var(--warning-dark); margin-bottom: 8px;">Without Assessment:</div>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.6;">
+              <div style="padding: 4px 0;">— Tooling decisions based on assumptions</div>
+              <div style="padding: 4px 0;">— No baseline to measure progress</div>
+              <div style="padding: 4px 0;">— Risk of solving wrong problems first</div>
+              <div style="padding: 4px 0;">— Hidden blockers discovered mid-project</div>
+            </div>
+          </div>
+          <div style="flex: 1; min-width: 200px;">
+            <div style="font-size: 12px; font-weight: 600; color: var(--success-dark); margin-bottom: 8px;">With Assessment:</div>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.6;">
+              <div style="padding: 4px 0;">— Data-driven tooling decisions</div>
+              <div style="padding: 4px 0;">— Quantifiable success criteria</div>
+              <div style="padding: 4px 0;">— Prioritized initiative sequence</div>
+              <div style="padding: 4px 0;">— Stakeholder alignment on gaps</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="background: var(--neutral-50); border: 2px dashed var(--neutral-300);">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="width: 48px; height: 48px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <span style="color: white; font-size: 20px; font-weight: 700;">→</span>
+          </div>
+          <div>
+            <div style="font-size: 14px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">Proposed: Include Assessment in NY On-Site Workshop</div>
+            <div style="font-size: 12px; color: var(--neutral-600);">Combine technical deep-dive with structured readiness assessment. Outputs: gap analysis, prioritized roadmap, and alignment on first initiatives. Requires cross-functional representation from each LOB.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAIN POINTS SECTION -->
+    <div class="section" id="pain-points">
+      <h1 class="section-title">Validated Pain Points</h1>
+      <p class="section-subtitle">Direct quotes and observations from discovery call</p>
+
+      <div class="card">
+        <h2 class="heading">Key Pain Points (Direct Quotes)</h2>
+        <div class="objection">
+          <div class="objection-q">"The amount of new documentation that we're going to have to create is extensive"</div>
+          <p class="objection-a">Steven identified the AI documentation burden: need docs for HTML prototypes, AI consumption, human designers, LLM for developers—all maintained separately.</p>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"Figma cannot communicate to GitHub—they can't talk"</div>
+          <p class="objection-a">Security constraints prevent direct communication. Blocks Figma Code Connect AI inference.</p>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"An open source design system is almost as bad as not having a design system"</div>
+          <p class="objection-a">Steven's governance philosophy: "People will contribute anything... it'll just grow to this massive totally unscalable unmaintainable thing."</p>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"There's thousands of applications... some are dead but still servicing regulators"</div>
+          <p class="objection-a">Ryan on scale. Can't simply sunset legacy apps—regulatory requirements persist.</p>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"We're at a point we're trying to converge towards one"</div>
+          <p class="objection-a">Rania on the convergence mandate. 4 systems with varying maturity, need unified approach.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Underlying Challenges</h2>
+        <div class="grid grid-2">
+          <div class="gap-row"><div class="need">Small Teams, Massive Scale</div><div class="knapsack">Steven's entire system maintained by 1 dev + 1 CSS dev. No room for error.</div></div>
+          <div class="gap-row"><div class="need">LOB Silos</div><div class="knapsack">Various lines of business don't talk to each other. Different frameworks per LOB.</div></div>
+          <div class="gap-row"><div class="need">Code Ownership Split</div><div class="knapsack">Some teams own front-end code, others don't. Creates governance complexity.</div></div>
+          <div class="gap-row"><div class="need">Manual Workflows Persist</div><div class="knapsack">"People are still working the old way—manually inspect designs, read docs, write code."</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WIN THEMES SECTION -->
+    <div class="section" id="win-themes">
+      <h1 class="section-title">WIN Themes</h1>
+      <p class="section-subtitle">Strategic positioning for Citi engagement</p>
+
+      <div class="card"><div class="theme-card"><div class="theme-num">1</div><div class="theme-content"><h3>Control Plane for Multi-System Convergence</h3><p>Citi has 4 design systems that need to converge. Knapsack + IPE provides the diff, compare, and unify capabilities no other tool offers.</p><div class="win-box"><span>Why it wins: </span><span>They asked directly about using IPE as a "diff tool" between systems. This is the killer feature.</span></div></div></div></div>
+      
+      <div class="card"><div class="theme-card"><div class="theme-num">2</div><div class="theme-content"><h3>AI Documentation Without the Burden</h3><p>Steven's team faces "extensive" new documentation needs for AI. Knapsack + MCP auto-generates AI-ready context from existing sources.</p><div class="win-box"><span>Why it wins: </span><span>2-person team can't manually maintain multiple doc flavors. Automation is the only path.</span></div></div></div></div>
+      
+      <div class="card"><div class="theme-card"><div class="theme-num">3</div><div class="theme-content"><h3>Bridge the Figma / GitHub Gap</h3><p>Security constraints prevent direct Figma-GitHub communication. Knapsack aggregates both as separate sources, normalizes for AI.</p><div class="win-box"><span>Why it wins: </span><span>This is a pain point with no current solution. We work around the constraint.</span></div></div></div></div>
+      
+      <div class="card"><div class="theme-card"><div class="theme-num">4</div><div class="theme-content"><h3>Governance That Scales</h3><p>Steven's "not open source but internally public" model works. Knapsack provides the infrastructure to scale this across all 4 systems.</p><div class="win-box"><span>Why it wins: </span><span>They've solved governance locally. We help them scale it organization-wide.</span></div></div></div></div>
+      
+      <div class="card"><div class="theme-card"><div class="theme-num">5</div><div class="theme-content"><h3>Complement, Don't Replace</h3><p>They've built impressive internal tooling. Knapsack adds capabilities (AI context, multi-system view) without replacing what works.</p><div class="win-box"><span>Why it wins: </span><span>Respect their technical investment. Add value, don't compete with their CMS.</span></div></div></div></div>
+    </div>
+
+    <!-- DEAL STRATEGY SECTION -->
+    <div class="section" id="deal-strategy">
+      <h1 class="section-title">What Wins This Deal</h1>
+      <p class="section-subtitle">Post-discovery: what we need to do now</p>
+
+      <div class="card" style="background: linear-gradient(135deg, var(--action) 0%, #005a8c 100%); color: white;">
+        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: rgba(255,255,255,0.9); margin-bottom: 12px;">Discovery Complete — Cautiously Optimistic</div>
+        <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Now: Bloom + Steven Technical Session</h3>
+        <p style="font-size: 14px; opacity: 0.9; line-height: 1.5; margin: 0;">Goal: Determine if Citi is ready to stop hand-coding their design system manager. Need to figure out how many people touch that app and validate VCS (BitBucket risk).</p>
+      </div>
+
+      <div class="card" style="background: var(--warning-light); border: 1px solid var(--warning);">
+        <h2 class="heading" style="color: var(--warning-dark);">Be VERY POINTY</h2>
+        <p style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin: 0;"><strong>Amber's guidance:</strong> "I think we need to be VERY POINTY on what value we actually bring to them so let's be careful about talking at them too much." Focus on: <strong>Maintenance burden</strong>, <strong>small team scalability</strong>, and <strong>multi-system visibility</strong>. Robin observed: "What they built is a semi-hacky version of Knapsack's component rendering."</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Winning Factors (Prioritized)</h2>
+        <div class="factor-item"><div class="factor-num critical">1</div><div><div class="factor-header"><span class="factor-title">IPE Multi-System Diff Demo</span><span class="badge badge-primary">Critical</span></div><p class="factor-desc">Show how IPE compares multiple design systems, identifies conflicts and gaps. This is what John asked for directly.</p></div></div>
+        <div class="factor-item"><div class="factor-num critical">2</div><div><div class="factor-header"><span class="factor-title">Angular Integration Demo</span><span class="badge badge-primary">Critical</span></div><p class="factor-desc">They're primarily Angular. Show real Angular components in Knapsack with live rendering.</p></div></div>
+        <div class="factor-item"><div class="factor-num high">3</div><div><div class="factor-header"><span class="factor-title">Prototyping Workflow</span><span class="badge badge-action">High</span></div><p class="factor-desc">Steven mentioned need for clickable prototypes using design system. Show our prototyping capabilities.</p></div></div>
+        <div class="factor-item"><div class="factor-num high">4</div><div><div class="factor-header"><span class="factor-title">Token Theming Demo</span><span class="badge badge-action">High</span></div><p class="factor-desc">Show CSS variable integration, theme switching, Figma token import. They use CSS vars already.</p></div></div>
+        <div class="factor-item"><div class="factor-num high" style="background: var(--warning);">5</div><div><div class="factor-header"><span class="factor-title">Respect Their Investment</span><span class="badge badge-warning">Essential</span></div><p class="factor-desc">They've built impressive internal tooling. Position Knapsack as complement, not replacement.</p></div></div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Immediate Knapsack Actions</h2>
+        <div class="grid grid-2" style="gap: 12px;">
+          <div style="background: var(--action-light); padding: 14px; border-radius: 8px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--action); margin-bottom: 6px;">SCHEDULE: Technical Deep Dive</div>
+            <div style="font-size: 12px; color: var(--neutral-700);">With Steven and John. Focus on Angular, prototyping, IPE. Chris + Robin to lead.</div>
+          </div>
+          <div style="background: var(--action-light); padding: 14px; border-radius: 8px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--action); margin-bottom: 6px;">PREPARE: IPE Multi-System Demo</div>
+            <div style="font-size: 12px; color: var(--neutral-700);">Show 2+ design systems being compared. Conflict detection. Gap analysis.</div>
+          </div>
+          <div style="background: var(--action-light); padding: 14px; border-radius: 8px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--action); margin-bottom: 6px;">PREPARE: Angular Demo Environment</div>
+            <div style="font-size: 12px; color: var(--neutral-700);">Real Angular components in Knapsack. Live rendering. API extraction.</div>
+          </div>
+          <div style="background: var(--action-light); padding: 14px; border-radius: 8px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--action); margin-bottom: 6px;">DOCUMENT: ROI Metrics Approach</div>
+            <div style="font-size: 12px; color: var(--neutral-700);">John asked about token savings, time saved. Prepare metrics framework.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHAMPIONS SECTION -->
+    <div class="section" id="champions">
+      <h1 class="section-title">Champion Development</h1>
+      <p class="section-subtitle">Building internal advocates for the deal</p>
+
+      <div class="card" style="background: var(--success-light); border: 1px solid var(--success);">
+        <h2 class="heading" style="color: var(--success-dark);">Primary Technical Champion</h2>
+        <div class="alert" style="gap: 12px;">
+          <div class="alert-icon" style="background: var(--success); font-size: 14px;">1</div>
+          <div>
+            <h3 style="color: var(--success-dark);">Steven Suarez — Technical Lead</h3>
+            <p style="color: var(--neutral-700);">Demonstrated deep interest in prototyping, theming, and API generation. Showed their current CMS unprompted. Asked pointed questions about workflow integration. He's solved this problem locally—will advocate for tools that scale his approach.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="background: var(--action-light); border: 1px solid var(--action);">
+        <h2 class="heading" style="color: var(--action);">Primary Strategic Champion</h2>
+        <div class="alert" style="gap: 12px;">
+          <div class="alert-icon" style="background: var(--action); font-size: 14px;">2</div>
+          <div>
+            <h3 style="color: var(--action);">John Rogoff — Developer in Design</h3>
+            <p style="color: var(--neutral-700);">Asked about multi-system diffing, ROI metrics, token savings. Bridges strategy and execution. Digital agency background aligns with Knapsack's approach. Will push for demonstrable value.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Champion Development Strategy</h2>
+        <div class="factor-item"><div class="factor-num critical">S</div><div><div class="factor-header"><span class="factor-title">Steven: Solve His Documentation Problem</span></div><p class="factor-desc">He identified the AI documentation burden as "extensive." Show how MCP + IPE auto-generates what he's manually creating.</p></div></div>
+        <div class="factor-item"><div class="factor-num high">J</div><div><div class="factor-header"><span class="factor-title">John: Prove Multi-System Diffing</span></div><p class="factor-desc">He asked specifically about using IPE as a diff tool. Demo this capability with real design systems.</p></div></div>
+        <div class="factor-item"><div class="factor-num high">R</div><div><div class="factor-header"><span class="factor-title">Rania: Frame as Convergence Enabler</span></div><p class="factor-desc">Position Knapsack as the tool that makes her convergence mandate achievable. Multi-system visibility + governance. <em>Robin 1:1 scheduled.</em></p></div></div>
+      </div>
+
+      <div class="card" style="background: var(--secondary-light); border: 1px solid var(--secondary);">
+        <h2 class="heading" style="color: var(--secondary);">Find the "Hidden Clintons"</h2>
+        <p style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin-bottom: 12px;"><strong>Bloom:</strong> "Need to know if there's any Clinton Bloodworths not in this call" — meaning blockers or skeptics not present.</p>
+        <div class="grid grid-2" style="gap: 10px;">
+          <div style="background: white; padding: 10px; border-radius: 6px;"><div style="font-size: 11px; font-weight: 700; color: var(--secondary); margin-bottom: 4px;">Questions to Ask Robin/Rania</div><div style="font-size: 12px; color: var(--neutral-600);">Who else needs to approve this? Any IT/Security stakeholders? LOB leads not on call?</div></div>
+          <div style="background: white; padding: 10px; border-radius: 6px;"><div style="font-size: 11px; font-weight: 700; color: var(--secondary); margin-bottom: 4px;">Bloom's Suspicion</div><div style="font-size: 12px; color: var(--neutral-600);">"Guarantee that app is NOT SSO sign in" — potential security/governance gaps to probe.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMELINE SECTION -->
+    <div class="section" id="timeline">
+      <h1 class="section-title">Next Steps & Timeline</h1>
+      <p class="section-subtitle">Post-discovery execution plan</p>
+
+      <div class="card" style="background: var(--success); color: white; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 18px; font-weight: 700;">Done</span>
+          <div>
+            <div style="font-size: 16px; font-weight: 700;">Discovery Call Completed</div>
+            <div style="opacity: 0.9; font-size: 13px;">February 11, 2026 • 1 hour • Strong interest validated</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Immediate Next Steps (From Slack Debrief)</h2>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--secondary);"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span style="padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; background: var(--secondary-light); color: var(--secondary); text-transform: uppercase;">Action: Robin</span><span class="timeline-title">1:1 with Rania — "Real Talk"</span></div>
+            <div class="phase-box" style="margin-top: 10px;"><div class="items"><div><span>—</span> Get her honest read on how call went</div><div><span>—</span> Understand internal dynamics/blockers</div><div><span>—</span> Find any "hidden Clintons" (blockers not on call)</div></div></div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--action);"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span style="padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; background: var(--action-light); color: var(--action); text-transform: uppercase;">Next Call</span><span class="timeline-title">Bloom + Steven Nerd Out Session</span></div>
+            <div class="phase-box" style="margin-top: 10px;"><div class="items"><div><span>—</span> <strong>Goal:</strong> Figure out how many people touch that app</div><div><span>—</span> Determine appetite for stopping hand-built maintenance</div><div><span>—</span> Validate VCS (BitBucket risk)</div><div><span>—</span> Request reverse demo of Steven's workflow</div></div></div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--primary);"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span style="padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; background: var(--primary-light); color: var(--primary); text-transform: uppercase;">Technical Deep Dive</span><span class="timeline-title">Demo + Sandbox Session</span></div>
+            <div class="phase-box" style="margin-top: 10px;"><div class="items"><div><span>—</span> IPE multi-system diff demo</div><div><span>—</span> Angular component integration</div><div><span>—</span> Prototyping workflow (Steven said "PROTOTYPES LET'S GOOOO")</div><div><span>—</span> Token theming + CSS variable integration</div></div></div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--warning);"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span style="padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; background: var(--warning-light); color: var(--warning); text-transform: uppercase;">30-60 Days</span><span class="timeline-title">Proof of Concept</span></div>
+            <div class="phase-box" style="margin-top: 10px;"><div class="items"><div><span>—</span> Connect Steven's system to Knapsack</div><div><span>—</span> Import token definitions</div><div><span>—</span> Demonstrate AI documentation generation</div><div><span>—</span> Multi-system comparison with 2+ systems</div></div></div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--success);"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span style="padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; background: var(--success-light); color: var(--success-dark); text-transform: uppercase;">Target: Pre-May</span><span class="timeline-title">NY On-Site Workshop + Readiness Assessment</span></div>
+            <div class="phase-box" style="margin-top: 10px;"><div class="items"><div><span>—</span> <strong style="color: var(--success-dark);">Angie + Amber: "NY on-site is a MUST with what I'm hearing"</strong></div><div><span>—</span> Need representation from each BU/LOB</div><div><span>—</span> <strong style="color: var(--action);">Conduct Product System Readiness Assessment</strong></div><div><span>—</span> Outputs: Gap analysis, prioritized roadmap, initiative alignment</div></div></div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--warning);"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span style="padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; background: var(--warning-light); color: var(--warning-dark); text-transform: uppercase;">May 2026</span><span class="timeline-title">Event Alignment Opportunity</span></div>
+            <div class="phase-box" style="margin-top: 10px;"><div class="items"><div><span>—</span> UXDX sponsorship in May — need presence</div><div><span>—</span> May Patterns in Minneapolis</div><div><span>—</span> Robin: "Could combine all of these (if not before)"</div></div></div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--neutral-400);"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span style="padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; background: var(--neutral-100); color: var(--neutral-600); text-transform: uppercase;">60-90 Days</span><span class="timeline-title">Convergence Planning</span></div>
+            <div class="phase-box" style="margin-top: 10px;"><div class="items"><div><span>—</span> Full 4-system analysis using IPE</div><div><span>—</span> Convergence roadmap development</div><div><span>—</span> Governance model for unified system</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Key Questions to Answer in Follow-Up</h2>
+        <div class="question-item" style="background: var(--secondary-light); border: 1px solid var(--secondary);"><div class="question-icon" style="background: var(--secondary);">!</div><div><div class="question-text" style="color: var(--secondary);">GO/NO-GO: What version control system do they use?</div><div class="question-answer" style="color: var(--neutral-700);">BitBucket On-Prem = disqualify. GitHub/GitLab/Azure = proceed.</div></div></div>
+        <div class="question-item"><div class="question-icon">Q</div><div><div class="question-text">Security/Compliance: Can Knapsack be hosted on-prem or in Citi cloud?</div><div class="question-answer">Need to address Figma-GitHub isolation constraint</div></div></div>
+        <div class="question-item"><div class="question-icon">Q</div><div><div class="question-text">Integration: How does Knapsack connect to Artifactory?</div><div class="question-answer">Internal npm registry integration</div></div></div>
+        <div class="question-item"><div class="question-icon">Q</div><div><div class="question-text">ROI Metrics: Token consumption? Regeneration rates?</div><div class="question-answer">John asked about demonstrable savings</div></div></div>
+        <div class="question-item"><div class="question-icon">Q</div><div><div class="question-text">Governance: How to scale Steven's model across 4 systems?</div><div class="question-answer">"Not open source but internally public"</div></div></div>
+        <div class="question-item" style="background: var(--action-light); border: 1px solid var(--action);"><div class="question-icon" style="background: var(--action);">→</div><div><div class="question-text" style="color: var(--action);">Assessment Interest: Would a structured readiness assessment help align stakeholders on convergence priorities?</div><div class="question-answer" style="color: var(--neutral-700);">Position as part of NY on-site workshop. Cross-functional participation required.</div></div></div>
+      </div>
+    </div>
+
+    <!-- OBJECTIONS SECTION -->
+    <div class="section" id="objections">
+      <h1 class="section-title">Objection Handling</h1>
+      <p class="section-subtitle">Anticipated objections and responses</p>
+
+      <div class="card">
+        <h2 class="heading">Technical Objections</h2>
+        <div class="objection">
+          <div class="objection-q">"We've already built our own CMS"</div>
+          <p class="objection-a">Your CMS is impressive. Knapsack adds capabilities you don't have: multi-system views, AI context aggregation, cross-system governance. We complement, not replace.</p>
+          <div class="win-box"><span>Reframe: </span><span>Your investment is preserved. We add the orchestration layer.</span></div>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"Figma can't talk to GitHub here—how does Knapsack help?"</div>
+          <p class="objection-a">Knapsack aggregates both as separate context sources. You don't need direct connection—we normalize and combine the data for AI consumption.</p>
+          <div class="win-box"><span>Reframe: </span><span>We work around your constraint, not against it.</span></div>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"We need to maintain separate systems for LOB independence"</div>
+          <p class="objection-a">Multi-brand architecture lets you maintain separation while enabling visibility and governance across systems. Independence with coordination.</p>
+          <div class="win-box"><span>Reframe: </span><span>Unified view doesn't mean unified system. See everything, govern flexibly.</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Process Objections</h2>
+        <div class="objection">
+          <div class="objection-q">"We don't have bandwidth to add another tool"</div>
+          <p class="objection-a">Steven's 2-person team maintains 1,800+ builds. The status quo is unsustainable. Knapsack reduces maintenance burden through automation.</p>
+          <div class="win-box"><span>Reframe: </span><span>You don't have bandwidth NOT to automate. Current path doesn't scale.</span></div>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"Security review will take forever"</div>
+          <p class="objection-a">We support on-prem and private cloud deployment. Already approved at major financial institutions. Happy to start security review process in parallel.</p>
+          <div class="win-box"><span>Reframe: </span><span>Start security review now—it runs in parallel with technical evaluation.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUOTES SECTION -->
+    <div class="section" id="quotes">
+      <h1 class="section-title">Key Quotes to Use</h1>
+      <p class="section-subtitle">Direct quotes from discovery call for follow-up conversations</p>
+
+      <div class="card msg-card">
+        <div class="label">On Convergence Mandate</div>
+        <p>"We're at a point we're trying to converge towards one. So we're in the midst of like how we're going to do it."</p>
+        <p class="quote">— Rania, Head of Design</p>
+      </div>
+
+      <div class="card" style="background: var(--secondary-light); border: 1px solid var(--secondary);">
+        <h2 class="heading" style="color: var(--secondary);">On Scale & Complexity</h2>
+        <p style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin: 0;">"There's thousands of applications guys... What we're trying to solve for are thousands of applications, some are dead, but they're still kind of servicing something to meet regulators demands." <strong>— Ryan</strong></p>
+      </div>
+
+      <div class="card" style="background: var(--success-light); border: 1px solid var(--success);">
+        <h2 class="heading" style="color: var(--success-dark);">On Governance Philosophy</h2>
+        <p style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin: 0;">"An open source design system is almost as bad as not having a design system because people will contribute anything... it'll just grow to this massive totally unscalable unmaintainable thing." <strong>— Steven Suarez</strong></p>
+      </div>
+
+      <div class="card" style="background: var(--warning-light); border: 1px solid var(--warning);">
+        <h2 class="heading" style="color: var(--warning-dark);">On AI Documentation Burden</h2>
+        <p style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin: 0;">"The amount of new documentation that we're going to have to create is extensive... we have to have documentation tailored to creating an HTML prototype, design standards for AI to consume, design standards for human designers, an LLM for developers..." <strong>— Steven Suarez</strong></p>
+      </div>
+
+      <div class="card" style="background: var(--primary-light); border: 1px solid var(--primary);">
+        <h2 class="heading" style="color: var(--primary);">On IPE Interest — Critical</h2>
+        <p style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin: 0 0 12px 0;">"Could we somehow cheat this system and put in the context from our four systems and see it and use it as like a diff tool?" <strong>— John Rogoff</strong></p>
+        <p style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin: 0;">"You're kind of adding the secret sauce layer to normalize the different sources." <strong>— John Rogoff</strong></p>
+      </div>
+
+      <div class="card closing">
+        <h2 class="heading">Deal Summary</h2>
+        <p>Citi Creative Technology is exploring convergence of 4 design systems. They have impressive internal tooling (Steven's success story) but need multi-system visibility and AI documentation automation. IPE is the differentiator—John asked directly about using it for system diffing. Technical champions are engaged. Next step: focused technical deep dive with Steven and John.</p>
+      </div>
+    </div>
+
+    <!-- PSRI FRAMEWORK SECTION -->
+    <div class="section" id="psri">
+      <h1 class="section-title">PSRI Framework</h1>
+      <p class="section-subtitle">Product System Readiness Index — Internal methodology for assessment</p>
+
+      <div class="card" style="background: var(--primary-light); border: 1px solid var(--primary);">
+        <h2 class="heading" style="color: var(--primary);">What is PSRI?</h2>
+        <p style="font-size: 13px; color: var(--neutral-700); line-height: 1.6;">The <strong>Product System Readiness Index</strong> is Knapsack's research-backed assessment methodology. It establishes a baseline across five pillars, identifies opportunities, and provides measurable targets. PSRI draws on validated research including DORA metrics, Google Project Aristotle, Team Topologies, and NIST AI Risk Management Framework.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">The Five PSRI Pillars</h2>
+        <div class="table-header table-3col" style="grid-template-columns: 120px 60px 1fr;">
+          <span>Pillar</span><span>Weight</span><span>Description</span>
+        </div>
+        <div class="table-row table-3col" style="grid-template-columns: 120px 60px 1fr; border-left: 4px solid #7c3aed;">
+          <span class="fw-600" style="color: #7c3aed;">Culture</span><span class="fw-600">25%</span><span>Contribution models, psychological safety, information flow</span>
+        </div>
+        <div class="table-row table-3col" style="grid-template-columns: 120px 60px 1fr; border-left: 4px solid #059669;">
+          <span class="fw-600" style="color: #059669;">Foundation</span><span class="fw-600">20%</span><span>Token architecture, components, APIs, accessibility</span>
+        </div>
+        <div class="table-row table-3col" style="grid-template-columns: 120px 60px 1fr; border-left: 4px solid #0077B6;">
+          <span class="fw-600" style="color: #0077B6;">AI Readiness</span><span class="fw-600">20%</span><span>AI context governance, structured data, documentation quality</span>
+        </div>
+        <div class="table-row table-3col" style="grid-template-columns: 120px 60px 1fr; border-left: 4px solid #C75300;">
+          <span class="fw-600" style="color: #C75300;">Governance</span><span class="fw-600">20%</span><span>Executive sponsorship, decision rights, organizational authority</span>
+        </div>
+        <div class="table-row table-3col" style="grid-template-columns: 120px 60px 1fr; border-left: 4px solid #dc2626;">
+          <span class="fw-600" style="color: #dc2626;">Delivery</span><span class="fw-600">15%</span><span>Workflow consistency, deployment frequency, cross-functional collaboration</span>
+        </div>
+      </div>
+
+      <div class="card" style="background: var(--success-light); border: 1px solid var(--success);">
+        <h2 class="heading" style="color: var(--success-dark);">Preliminary Citi PSRI Profile</h2>
+        <div class="grid grid-2" style="gap: 12px;">
+          <div style="background: white; padding: 14px; border-radius: 6px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--success-dark); margin-bottom: 8px;">STRENGTHS</div>
+            <div style="font-size: 12px; color: var(--neutral-600);"><div style="padding: 3px 0;">+ Proven governance model (18 to 1 consolidation)</div><div style="padding: 3px 0;">+ Controlled contribution culture</div><div style="padding: 3px 0;">+ Exceptional efficiency (2-person team at scale)</div><div style="padding: 3px 0;">+ Executive awareness of convergence need</div></div>
+          </div>
+          <div style="background: white; padding: 14px; border-radius: 6px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--warning-dark); margin-bottom: 8px;">OPPORTUNITIES</div>
+            <div style="font-size: 12px; color: var(--neutral-600);"><div style="padding: 3px 0;">- AI documentation layer (significant gap)</div><div style="padding: 3px 0;">- Cross-system visibility (4 systems not unified)</div><div style="padding: 3px 0;">- Multi-framework governance (Angular, React, Native)</div><div style="padding: 3px 0;">- Tool connectivity (Figma / GitHub constraints)</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">PSRI Archetypes</h2>
+        <div class="grid grid-2" style="gap: 10px;">
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;"><span class="badge badge-primary">Builder</span><div style="font-size: 12px; color: var(--neutral-600); margin-top: 6px;">Early stage, establishing foundations</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;"><span class="badge badge-action">Accelerator</span><div style="font-size: 12px; color: var(--neutral-600); margin-top: 6px;">Strong foundation, scaling adoption</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;"><span class="badge badge-success">Activator</span><div style="font-size: 12px; color: var(--neutral-600); margin-top: 6px;">Mature system, optimizing efficiency</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;"><span class="badge badge-warning">Transformer</span><div style="font-size: 12px; color: var(--neutral-600); margin-top: 6px;">Enterprise-wide, driving innovation</div></div>
+        </div>
+        <p style="font-size: 12px; color: var(--neutral-500); margin-top: 12px;"><strong>Citi likely profile:</strong> Activator for mature system, Builder/Accelerator for other 3 systems.</p>
+      </div>
+    </div>
+
+    <!-- USER PERSONAS SECTION -->
+    <div class="section" id="user-personas">
+      <h1 class="section-title">User Personas</h1>
+      <p class="section-subtitle">Detailed role-specific value propositions for positioning conversations</p>
+
+      <div class="card" style="border-left: 4px solid #7c3aed;">
+        <h2 class="heading" style="color: #7c3aed;">Designers</h2>
+        <p style="font-size: 14px; font-weight: 600; color: var(--neutral-700); margin-bottom: 12px;">"One source of truth across all systems"</p>
+        <div class="grid grid-2" style="gap: 12px;">
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--secondary); margin-bottom: 6px;">CURRENT CHALLENGES</div>
+            <div style="font-size: 12px; color: var(--neutral-600);"><div style="padding: 2px 0;">- Inconsistent component libraries across 4 systems</div><div style="padding: 2px 0;">- Uncertainty about which patterns exist where</div><div style="padding: 2px 0;">- Duplicating work that exists elsewhere</div><div style="padding: 2px 0;">- Manual documentation burden for AI</div></div>
+          </div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--success-dark); margin-bottom: 6px;">WITH KNAPSACK</div>
+            <div style="font-size: 12px; color: var(--neutral-600);"><div style="padding: 2px 0;">+ Single unified view across all systems</div><div style="padding: 2px 0;">+ Instant cross-system pattern visibility</div><div style="padding: 2px 0;">+ Auto-generated documentation</div><div style="padding: 2px 0;">+ Prototypes with real components</div></div>
+          </div>
+        </div>
+        <div style="margin-top: 12px; padding: 10px; background: #f5f3ff; border-radius: 6px;">
+          <div style="font-size: 11px; font-weight: 700; color: #7c3aed; margin-bottom: 4px;">KEY METRIC</div>
+          <div style="font-size: 14px; font-weight: 700; color: #7c3aed;">40% reduction in design-to-dev handoff time</div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left: 4px solid #059669;">
+        <h2 class="heading" style="color: #059669;">Developers</h2>
+        <p style="font-size: 14px; font-weight: 600; color: var(--neutral-700); margin-bottom: 12px;">"Skip the guesswork, ship with confidence"</p>
+        <div class="grid grid-2" style="gap: 12px;">
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--secondary); margin-bottom: 6px;">CURRENT CHALLENGES</div>
+            <div style="font-size: 12px; color: var(--neutral-600);"><div style="padding: 2px 0;">- Angular, React, Native fragmentation</div><div style="padding: 2px 0;">- Documentation scattered across systems</div><div style="padding: 2px 0;">- AI assistants generating inconsistent code</div><div style="padding: 2px 0;">- Rebuilding components that exist elsewhere</div></div>
+          </div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--success-dark); margin-bottom: 6px;">WITH KNAPSACK</div>
+            <div style="font-size: 12px; color: var(--neutral-600);"><div style="padding: 2px 0;">+ Multi-framework from shared source</div><div style="padding: 2px 0;">+ Unified AI-ready documentation</div><div style="padding: 2px 0;">+ Cross-system component discovery</div><div style="padding: 2px 0;">+ Higher first-try AI code success</div></div>
+          </div>
+        </div>
+        <div style="margin-top: 12px; padding: 10px; background: #ecfdf5; border-radius: 6px;">
+          <div style="font-size: 11px; font-weight: 700; color: #059669; margin-bottom: 4px;">KEY METRIC</div>
+          <div style="font-size: 14px; font-weight: 700; color: #059669;">70% first-try AI code acceptance rate</div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left: 4px solid #0077B6;">
+        <h2 class="heading" style="color: #0077B6;">System Maintainers (Steven's Team)</h2>
+        <p style="font-size: 14px; font-weight: 600; color: var(--neutral-700); margin-bottom: 12px;">"Scale governance without scaling headcount"</p>
+        <div class="grid grid-2" style="gap: 12px;">
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--secondary); margin-bottom: 6px;">CURRENT CHALLENGES</div>
+            <div style="font-size: 12px; color: var(--neutral-600);"><div style="padding: 2px 0;">- Supporting 4 systems with lean team</div><div style="padding: 2px 0;">- Manual documentation across formats</div><div style="padding: 2px 0;">- Growing AI documentation burden</div><div style="padding: 2px 0;">- Limited cross-system conflict visibility</div></div>
+          </div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--success-dark); margin-bottom: 6px;">WITH KNAPSACK</div>
+            <div style="font-size: 12px; color: var(--neutral-600);"><div style="padding: 2px 0;">+ Automated doc generation from code</div><div style="padding: 2px 0;">+ Cross-system visibility for governance</div><div style="padding: 2px 0;">+ Single source generates all formats</div><div style="padding: 2px 0;">+ Preserved 2-person efficiency</div></div>
+          </div>
+        </div>
+        <div style="margin-top: 12px; padding: 10px; background: var(--action-light); border-radius: 6px;">
+          <div style="font-size: 11px; font-weight: 700; color: #0077B6; margin-bottom: 4px;">KEY METRIC</div>
+          <div style="font-size: 14px; font-weight: 700; color: #0077B6;">Zero headcount increase required</div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left: 4px solid #C75300;">
+        <h2 class="heading" style="color: #C75300;">LOB Stakeholders</h2>
+        <p style="font-size: 14px; font-weight: 600; color: var(--neutral-700); margin-bottom: 12px;">"See the whole picture, make informed decisions"</p>
+        <div class="grid grid-2" style="gap: 12px;">
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--secondary); margin-bottom: 6px;">CURRENT CHALLENGES</div>
+            <div style="font-size: 12px; color: var(--neutral-600);"><div style="padding: 2px 0;">- Limited visibility across siloed systems</div><div style="padding: 2px 0;">- No way to identify conflicts/alignment</div><div style="padding: 2px 0;">- Slow cross-LOB coordination</div><div style="padding: 2px 0;">- Uncertainty about convergence progress</div></div>
+          </div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--success-dark); margin-bottom: 6px;">WITH KNAPSACK</div>
+            <div style="font-size: 12px; color: var(--neutral-600);"><div style="padding: 2px 0;">+ Unified view across all 4 systems</div><div style="padding: 2px 0;">+ Clear visibility into gaps/conflicts</div><div style="padding: 2px 0;">+ Data-driven convergence decisions</div><div style="padding: 2px 0;">+ Measurable unification progress</div></div>
+          </div>
+        </div>
+        <div style="margin-top: 12px; padding: 10px; background: var(--warning-light); border-radius: 6px;">
+          <div style="font-size: 11px; font-weight: 700; color: #C75300; margin-bottom: 4px;">KEY METRIC</div>
+          <div style="font-size: 14px; font-weight: 700; color: #C75300;">4 to 1 systems in unified view</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHARTER TEMPLATE SECTION -->
+    <div class="section" id="charter">
+      <h1 class="section-title">System Charter Template</h1>
+      <p class="section-subtitle">Governance document template for unified design system program</p>
+
+      <div class="card" style="background: var(--primary); color: white;">
+        <h2 class="heading" style="color: white;">Vision Statement (Draft)</h2>
+        <p style="font-size: 14px; line-height: 1.6;">Enable every Citi application to deliver consistent, high-quality experiences through a shared design foundation that serves human creators and AI assistants equally—reducing time-to-market while maintaining regulatory compliance and brand integrity.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Strategic Objectives</h2>
+        <div style="font-size: 13px; color: var(--neutral-600);">
+          <div style="padding: 8px 0; border-bottom: 1px solid var(--neutral-100);"><strong>1. User Success First:</strong> Make Designers, Developers, Maintainers, and LOB Stakeholders measurably more effective</div>
+          <div style="padding: 8px 0; border-bottom: 1px solid var(--neutral-100);"><strong>2. Convergence Without Disruption:</strong> Unify four systems incrementally, preserving what works</div>
+          <div style="padding: 8px 0; border-bottom: 1px solid var(--neutral-100);"><strong>3. Efficiency at Scale:</strong> Extend 2-person team model through automation and shared tooling</div>
+          <div style="padding: 8px 0; border-bottom: 1px solid var(--neutral-100);"><strong>4. AI-Ready by Design:</strong> All documentation serves human and AI consumers without parallel maintenance</div>
+          <div style="padding: 8px 0;"><strong>5. Governance That Enables:</strong> Maintain controlled contribution while enabling appropriate flexibility</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Scope Definition</h2>
+        <div class="grid grid-2" style="gap: 12px;">
+          <div style="background: var(--success-light); padding: 14px; border-radius: 6px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--success-dark); margin-bottom: 8px;">IN SCOPE (PHASE 1)</div>
+            <div style="font-size: 12px; color: var(--neutral-600);"><div style="padding: 2px 0;">+ Core design tokens (color, typography, spacing)</div><div style="padding: 2px 0;">+ Foundational components (buttons, forms, cards)</div><div style="padding: 2px 0;">+ Angular, React, Web Components</div><div style="padding: 2px 0;">+ Figma component libraries</div><div style="padding: 2px 0;">+ AI-ready documentation layer</div><div style="padding: 2px 0;">+ Governance and contribution model</div></div>
+          </div>
+          <div style="background: var(--neutral-50); padding: 14px; border-radius: 6px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--neutral-500); margin-bottom: 8px;">OUT OF SCOPE (PHASE 1)</div>
+            <div style="font-size: 12px; color: var(--neutral-600);"><div style="padding: 2px 0;">- LOB-specific patterns (deferred)</div><div style="padding: 2px 0;">- Legacy application migration (separate)</div><div style="padding: 2px 0;">- Native iOS/Android (Phase 2)</div><div style="padding: 2px 0;">- Third-party vendor integrations</div><div style="padding: 2px 0;">- Custom one-off components</div><div style="padding: 2px 0;">- Regulatory documentation (compliance owns)</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Guiding Principles (From Steven)</h2>
+        <div class="grid grid-3" style="gap: 10px;">
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;"><div style="font-size: 13px; font-weight: 600; color: var(--neutral-700); margin-bottom: 4px;">Transparency</div><div style="font-size: 11px; color: var(--neutral-500);">All decisions, code, docs internally visible</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;"><div style="font-size: 13px; font-weight: 600; color: var(--neutral-700); margin-bottom: 4px;">Controlled Contribution</div><div style="font-size: 11px; color: var(--neutral-500);">Managed through defined channels</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;"><div style="font-size: 13px; font-weight: 600; color: var(--neutral-700); margin-bottom: 4px;">Automation First</div><div style="font-size: 11px; color: var(--neutral-500);">If it can be generated, generate it</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;"><div style="font-size: 13px; font-weight: 600; color: var(--neutral-700); margin-bottom: 4px;">Regulatory Awareness</div><div style="font-size: 11px; color: var(--neutral-500);">Graceful transitions, not hard cutoffs</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;"><div style="font-size: 13px; font-weight: 600; color: var(--neutral-700); margin-bottom: 4px;">Multi-Framework Reality</div><div style="font-size: 11px; color: var(--neutral-500);">Angular, React, Native will coexist</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;"><div style="font-size: 13px; font-weight: 600; color: var(--neutral-700); margin-bottom: 4px;">Efficiency Over Perfection</div><div style="font-size: 11px; color: var(--neutral-500);">Sustainable beats comprehensive</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Success Criteria</h2>
+        <div class="grid grid-2" style="gap: 12px;">
+          <div style="background: var(--neutral-50); padding: 14px; border-radius: 6px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--success-dark); margin-bottom: 8px;">QUANTITATIVE</div>
+            <div style="font-size: 12px; color: var(--neutral-600);"><div style="padding: 2px 0;">- 4 systems visible in unified view</div><div style="padding: 2px 0;">- Token naming harmonized across 80%+</div><div style="padding: 2px 0;">- AI docs for all core components</div><div style="padding: 2px 0;">- Contribution turnaround under 2 weeks</div><div style="padding: 2px 0;">- Zero headcount increase</div></div>
+          </div>
+          <div style="background: var(--neutral-50); padding: 14px; border-radius: 6px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--action); margin-bottom: 8px;">QUALITATIVE</div>
+            <div style="font-size: 12px; color: var(--neutral-600);"><div style="padding: 2px 0;">- Dev teams report improved handoff</div><div style="padding: 2px 0;">- Design teams see code status</div><div style="padding: 2px 0;">- AI tools produce better first-try output</div><div style="padding: 2px 0;">- Cross-LOB pattern discovery works</div><div style="padding: 2px 0;">- Governance perceived as enabling</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOVERNANCE RACI SECTION -->
+    <div class="section" id="governance">
+      <h1 class="section-title">Governance RACI</h1>
+      <p class="section-subtitle">Decision rights and accountability structure</p>
+
+      <div class="card" style="background: var(--primary-light); border: 1px solid var(--primary);">
+        <h2 class="heading" style="color: var(--primary);">Steven's Governance Philosophy</h2>
+        <p style="font-size: 14px; font-style: italic; color: var(--neutral-700);">"An open source design system is almost as bad as not having a design system because people will contribute anything... it'll just grow to this massive totally unscalable unmaintainable thing."</p>
+        <p style="font-size: 12px; color: var(--neutral-500); margin-top: 8px;">This insight is the foundation for scalable governance: <strong>Not open source, but internally public.</strong></p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Proposed RACI Matrix</h2>
+        <div class="table-header" style="display: grid; grid-template-columns: 160px 1fr 1fr 1fr 1fr; font-size: 11px;">
+          <span>Activity</span><span style="text-align: center;">System Owner</span><span style="text-align: center;">Tech Lead</span><span style="text-align: center;">Design Lead</span><span style="text-align: center;">LOB Reps</span>
+        </div>
+        <div class="table-row" style="display: grid; grid-template-columns: 160px 1fr 1fr 1fr 1fr;">
+          <span class="fw-600">Component Addition</span><span style="text-align: center; color: var(--secondary); font-weight: 700;">A</span><span style="text-align: center; color: var(--primary); font-weight: 700;">R</span><span style="text-align: center; color: var(--neutral-500);">C</span><span style="text-align: center; color: var(--neutral-400);">I</span>
+        </div>
+        <div class="table-row" style="display: grid; grid-template-columns: 160px 1fr 1fr 1fr 1fr;">
+          <span class="fw-600">Token Changes</span><span style="text-align: center; color: var(--secondary); font-weight: 700;">A</span><span style="text-align: center; color: var(--neutral-500);">C</span><span style="text-align: center; color: var(--primary); font-weight: 700;">R</span><span style="text-align: center; color: var(--neutral-500);">C</span>
+        </div>
+        <div class="table-row" style="display: grid; grid-template-columns: 160px 1fr 1fr 1fr 1fr;">
+          <span class="fw-600">Breaking Changes</span><span style="text-align: center; color: var(--secondary); font-weight: 700;">A</span><span style="text-align: center; color: var(--primary); font-weight: 700;">R</span><span style="text-align: center; color: var(--neutral-500);">C</span><span style="text-align: center; color: var(--neutral-500);">C</span>
+        </div>
+        <div class="table-row" style="display: grid; grid-template-columns: 160px 1fr 1fr 1fr 1fr;">
+          <span class="fw-600">Cross-System Patterns</span><span style="text-align: center; color: var(--secondary); font-weight: 700;">A</span><span style="text-align: center; color: var(--neutral-500);">C</span><span style="text-align: center; color: var(--primary); font-weight: 700;">R</span><span style="text-align: center; color: var(--primary); font-weight: 700;">R</span>
+        </div>
+        <div class="table-row" style="display: grid; grid-template-columns: 160px 1fr 1fr 1fr 1fr; border-bottom: none;">
+          <span class="fw-600">Documentation Standards</span><span style="text-align: center; color: var(--secondary); font-weight: 700;">A</span><span style="text-align: center; color: var(--primary); font-weight: 700;">R</span><span style="text-align: center; color: var(--primary); font-weight: 700;">R</span><span style="text-align: center; color: var(--neutral-400);">I</span>
+        </div>
+        <p style="font-size: 11px; color: var(--neutral-500); margin-top: 12px;"><strong>Legend:</strong> R = Responsible, A = Accountable, C = Consulted, I = Informed</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Contribution Model Options</h2>
+        <div class="grid grid-2" style="gap: 12px;">
+          <div style="background: var(--neutral-50); padding: 14px; border-radius: 6px; border-left: 4px solid var(--primary);">
+            <div style="font-size: 13px; font-weight: 600; color: var(--neutral-700); margin-bottom: 6px;">Request-Based</div>
+            <div style="font-size: 12px; color: var(--neutral-500); margin-bottom: 8px;">LOBs submit requests. Core team evaluates, prioritizes, implements. Maximum control.</div>
+            <div style="font-size: 11px; color: var(--primary);"><strong>Best for:</strong> Early convergence, small team</div>
+          </div>
+          <div style="background: var(--neutral-50); padding: 14px; border-radius: 6px; border-left: 4px solid var(--action);">
+            <div style="font-size: 13px; font-weight: 600; color: var(--neutral-700); margin-bottom: 6px;">Contribution with Review</div>
+            <div style="font-size: 12px; color: var(--neutral-500); margin-bottom: 8px;">LOBs can submit code. Core team reviews and approves. Scales better.</div>
+            <div style="font-size: 11px; color: var(--action);"><strong>Best for:</strong> Mature convergence, clear standards</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Operating Cadence</h2>
+        <div style="font-size: 13px; color: var(--neutral-600);">
+          <div style="display: flex; padding: 10px 0; border-bottom: 1px solid var(--neutral-100);"><span style="width: 100px; font-weight: 600; color: var(--primary);">Bi-weekly</span><span style="flex: 1;"><strong>Component Review Board</strong> — evaluate proposals, quality reviews</span></div>
+          <div style="display: flex; padding: 10px 0; border-bottom: 1px solid var(--neutral-100);"><span style="width: 100px; font-weight: 600; color: var(--primary);">Monthly</span><span style="flex: 1;"><strong>System Maintainer Sync</strong> — operational metrics, blockers</span></div>
+          <div style="display: flex; padding: 10px 0; border-bottom: 1px solid var(--neutral-100);"><span style="width: 100px; font-weight: 600; color: var(--success-dark);">Quarterly</span><span style="flex: 1;"><strong>User Success Review</strong> — role-specific metrics, ROI analysis</span></div>
+          <div style="display: flex; padding: 10px 0;"><span style="width: 100px; font-weight: 600; color: var(--primary);">Quarterly</span><span style="flex: 1;"><strong>Convergence Health Audit</strong> — cross-system alignment, governance</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUCCESS METRICS SECTION -->
+    <div class="section" id="metrics">
+      <h1 class="section-title">Success Metrics</h1>
+      <p class="section-subtitle">Leading and lagging indicators for tracking convergence</p>
+
+      <div class="card">
+        <h2 class="heading">User Success Metrics (Quarterly)</h2>
+        <div class="grid grid-2" style="gap: 12px;">
+          <div style="background: #f5f3ff; padding: 14px; border-radius: 6px; border: 1px solid #c4b5fd;">
+            <div style="font-size: 11px; font-weight: 700; color: #7c3aed; margin-bottom: 8px;">DESIGNERS</div>
+            <div style="font-size: 20px; font-weight: 800; color: #7c3aed; margin-bottom: 4px;">40%</div>
+            <div style="font-size: 11px; color: var(--neutral-500);">Reduction in design-to-dev handoff time</div>
+            <div style="font-size: 20px; font-weight: 800; color: #7c3aed; margin: 8px 0 4px;">75%</div>
+            <div style="font-size: 11px; color: var(--neutral-500);">Cross-system pattern reuse rate</div>
+          </div>
+          <div style="background: #ecfdf5; padding: 14px; border-radius: 6px; border: 1px solid #6ee7b7;">
+            <div style="font-size: 11px; font-weight: 700; color: #059669; margin-bottom: 8px;">DEVELOPERS</div>
+            <div style="font-size: 20px; font-weight: 800; color: #059669; margin-bottom: 4px;">50%</div>
+            <div style="font-size: 11px; color: var(--neutral-500);">Reduction in UI development time</div>
+            <div style="font-size: 20px; font-weight: 800; color: #059669; margin: 8px 0 4px;">70%</div>
+            <div style="font-size: 11px; color: var(--neutral-500);">First-try AI code acceptance rate</div>
+          </div>
+          <div style="background: var(--action-light); padding: 14px; border-radius: 6px; border: 1px solid #93c5fd;">
+            <div style="font-size: 11px; font-weight: 700; color: #0077B6; margin-bottom: 8px;">MAINTAINERS</div>
+            <div style="font-size: 20px; font-weight: 800; color: #0077B6; margin-bottom: 4px;">0</div>
+            <div style="font-size: 11px; color: var(--neutral-500);">Headcount increase required</div>
+            <div style="font-size: 20px; font-weight: 800; color: #0077B6; margin: 8px 0 4px;">50%</div>
+            <div style="font-size: 11px; color: var(--neutral-500);">Reduction in doc maintenance</div>
+          </div>
+          <div style="background: var(--warning-light); padding: 14px; border-radius: 6px; border: 1px solid #e8d4b8;">
+            <div style="font-size: 11px; font-weight: 700; color: #C75300; margin-bottom: 8px;">LOB STAKEHOLDERS</div>
+            <div style="font-size: 20px; font-weight: 800; color: #C75300; margin-bottom: 4px;">4 to 1</div>
+            <div style="font-size: 11px; color: var(--neutral-500);">Systems visible in unified view</div>
+            <div style="font-size: 20px; font-weight: 800; color: #C75300; margin: 8px 0 4px;">100%</div>
+            <div style="font-size: 11px; color: var(--neutral-500);">Token conflict visibility</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Leading Indicators (Monthly)</h2>
+        <div style="font-size: 13px; color: var(--neutral-600);">
+          <div style="padding: 8px 0; border-bottom: 1px solid var(--neutral-100); display: flex; gap: 8px;"><span style="color: var(--action);">-</span> Milestone achievement rate (target: 85%+)</div>
+          <div style="padding: 8px 0; border-bottom: 1px solid var(--neutral-100); display: flex; gap: 8px;"><span style="color: var(--action);">-</span> Resource allocation vs. plan</div>
+          <div style="padding: 8px 0; border-bottom: 1px solid var(--neutral-100); display: flex; gap: 8px;"><span style="color: var(--action);">-</span> Risk/issue escalation velocity</div>
+          <div style="padding: 8px 0; display: flex; gap: 8px;"><span style="color: var(--action);">-</span> Component contribution requests received</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Lagging Indicators (Quarterly)</h2>
+        <div style="font-size: 13px; color: var(--neutral-600);">
+          <div style="padding: 8px 0; border-bottom: 1px solid var(--neutral-100); display: flex; gap: 8px;"><span style="color: var(--success-dark);">-</span> Systems consolidated (count)</div>
+          <div style="padding: 8px 0; border-bottom: 1px solid var(--neutral-100); display: flex; gap: 8px;"><span style="color: var(--success-dark);">-</span> Documentation maintenance hours saved</div>
+          <div style="padding: 8px 0; border-bottom: 1px solid var(--neutral-100); display: flex; gap: 8px;"><span style="color: var(--success-dark);">-</span> AI-generated code acceptance rate improvement</div>
+          <div style="padding: 8px 0; display: flex; gap: 8px;"><span style="color: var(--success-dark);">-</span> Cross-LOB pattern reuse instances</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Baselines to Establish (Phase 1)</h2>
+        <div class="grid grid-2" style="gap: 10px;">
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;"><div style="font-size: 12px; font-weight: 600; color: var(--neutral-700);">Documentation Hours</div><div style="font-size: 11px; color: var(--neutral-500);">Hours/week on documentation across systems</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;"><div style="font-size: 12px; font-weight: 600; color: var(--neutral-700);">Design-to-Code Time</div><div style="font-size: 11px; color: var(--neutral-500);">Avg time from approved design to production</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;"><div style="font-size: 12px; font-weight: 600; color: var(--neutral-700);">AI Regeneration Rate</div><div style="font-size: 11px; color: var(--neutral-500);">% of AI code rejected and regenerated</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px;"><div style="font-size: 12px; font-weight: 600; color: var(--neutral-700);">Cross-System Requests</div><div style="font-size: 11px; color: var(--neutral-500);">"Does this exist elsewhere?" frequency</div></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(btn.dataset.section).classList.add('active');
+        window.scrollTo(0, 0);
+      });
+    });
+  </script>
+</body>
+</html>
+

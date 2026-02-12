@@ -728,7 +728,9 @@
         <li><a href="#s9"><span class="toc-number">9.</span> Longitudinal Measurement</a></li>
         <li><a href="#s10"><span class="toc-number">10.</span> Validation & Calibration</a></li>
         <li><a href="#s11"><span class="toc-number">11.</span> Versioning & Evolution</a></li>
-        <li><a href="#s12"><span class="toc-number">12.</span> Technical Implementation</a></li>
+        <li><a href="#s12"><span class="toc-number">12.</span> Ethical Considerations</a></li>
+        <li><a href="#s13"><span class="toc-number">13.</span> Technical Implementation</a></li>
+        <li><a href="#s14"><span class="toc-number">14.</span> References</a></li>
       </ol>
     </nav>
     
@@ -990,19 +992,19 @@
             <td><strong>2.0</strong></td>
             <td>Critical</td>
             <td>High predictive value, hard to remediate</td>
-            <td>Governance structure, API maturity, Executive sponsor, Psychological safety</td>
+            <td>Governance structure, API maturity, Executive sponsor, Psychological safety, Cross-system governance</td>
           </tr>
           <tr>
             <td><strong>1.5</strong></td>
             <td>High Impact</td>
             <td>Strong signal, moderate remediation</td>
-            <td>Design system state, AI tool usage, Budget commitment, Platform team model</td>
+            <td>Design system state, AI tool usage, Budget commitment, Accessibility approach, Platform team model, Deployment frequency</td>
           </tr>
           <tr>
             <td><strong>1.0</strong></td>
             <td>Standard</td>
             <td>Baseline capability</td>
-            <td>Documentation, Change capacity, Workflow consistency</td>
+            <td>Documentation, Change capacity, Workflow consistency, Time allocation</td>
           </tr>
           <tr>
             <td><strong>0</strong></td>
@@ -1248,6 +1250,45 @@ else
     → Builder</code></pre>
       
       <p>This prevents misclassification (e.g., high PSRI from AI alone without foundation or culture).</p>
+      
+      <h2>6.3 Archetype Characteristics</h2>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Archetype</th>
+            <th>Icon</th>
+            <th>Color</th>
+            <th>Typical Engagement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Builder</strong></td>
+            <td>Hammer</td>
+            <td style="color: #ef4444;">Red (#ef4444)</td>
+            <td>6-12 month foundation build</td>
+          </tr>
+          <tr>
+            <td><strong>Adopter</strong></td>
+            <td>Sprout</td>
+            <td style="color: #fbbf24;">Amber (#fbbf24)</td>
+            <td>3-6 month adoption sprint</td>
+          </tr>
+          <tr>
+            <td><strong>Optimizer</strong></td>
+            <td>Sliders</td>
+            <td style="color: #3b82f6;">Blue (#3b82f6)</td>
+            <td>6-9 month transformation</td>
+          </tr>
+          <tr>
+            <td><strong>Transformer</strong></td>
+            <td>Rocket</td>
+            <td style="color: #10b981;">Green (#10b981)</td>
+            <td>Ongoing innovation partnership</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
     
     <div class="page-break"></div>
@@ -1452,7 +1493,14 @@ else
     <section class="section" id="s11">
       <h1><span class="section-number">11</span>Versioning & Evolution</h1>
       
-      <h2>11.1 Current Version</h2>
+      <h2>11.1 Version Numbering</h2>
+      <pre><code>PSRI [Major].[Minor]</code></pre>
+      <ul>
+        <li><strong>Major:</strong> Pillar structure or weight changes</li>
+        <li><strong>Minor:</strong> Question updates, threshold adjustments</li>
+      </ul>
+      
+      <h2>11.2 Current Version</h2>
       <div class="card">
         <h4>PSRI 1.2 (February 2026)</h4>
         <ul>
@@ -1464,7 +1512,7 @@ else
         </ul>
       </div>
       
-      <h2>11.2 Version History</h2>
+      <h2>11.3 Version History</h2>
       <table>
         <thead>
           <tr>
@@ -1480,7 +1528,7 @@ else
         </tbody>
       </table>
       
-      <h2>11.3 Planned Evolution</h2>
+      <h2>11.4 Planned Evolution</h2>
       <table>
         <thead>
           <tr>
@@ -1494,15 +1542,52 @@ else
           <tr><td>2027+</td><td>"Security & Compliance" pillar consideration</td></tr>
         </tbody>
       </table>
+      
+      <h2>11.5 Backward Compatibility</h2>
+      <p>When versions change:</p>
+      <ul>
+        <li>Historical scores are tagged with version</li>
+        <li>Comparison reports note version differences</li>
+        <li>Major changes require re-baselining</li>
+      </ul>
     </section>
     
     <div class="page-break"></div>
     
     <!-- Section 12 -->
     <section class="section" id="s12">
-      <h1><span class="section-number">12</span>Technical Implementation</h1>
+      <h1><span class="section-number">12</span>Ethical Considerations</h1>
       
-      <h2>12.1 Scoring Algorithm</h2>
+      <h2>12.1 Assessment Bias</h2>
+      <p>PSRI is designed to minimize:</p>
+      <ul>
+        <li><strong>Question bias:</strong> Neutral language, no leading questions</li>
+        <li><strong>Cultural bias:</strong> Applicable across industries and geographies</li>
+        <li><strong>Size bias:</strong> Questions work for 100-person and 100,000-person orgs</li>
+      </ul>
+      
+      <h2>12.2 Data Privacy</h2>
+      <ul>
+        <li>No PII required for scoring</li>
+        <li>Organization data aggregated for benchmarks</li>
+        <li>Individual responses not shared externally</li>
+      </ul>
+      
+      <h2>12.3 Score Transparency</h2>
+      <ul>
+        <li>Scoring algorithm is documented</li>
+        <li>Weights are disclosed</li>
+        <li>Gating logic is explained in results</li>
+      </ul>
+    </section>
+    
+    <div class="page-break"></div>
+    
+    <!-- Section 13 -->
+    <section class="section" id="s13">
+      <h1><span class="section-number">13</span>Technical Implementation</h1>
+      
+      <h2>13.1 Scoring Algorithm</h2>
       
       <pre><code><span class="code-comment">// PSRI Scoring Algorithm</span>
 function calculatePSRI(answers) {
@@ -1541,7 +1626,7 @@ function calculatePSRI(answers) {
   return round(psri);
 }</code></pre>
       
-      <h2>12.2 Data Schema</h2>
+      <h2>13.2 Data Schema</h2>
       
       <table>
         <thead>
@@ -1555,18 +1640,26 @@ function calculatePSRI(answers) {
           <tr><td><code>psriVersion</code></td><td>string</td><td>"1.2"</td></tr>
           <tr><td><code>psriScore</code></td><td>int</td><td>0-100 composite</td></tr>
           <tr><td><code>foundationNorm</code></td><td>int</td><td>0-100 after gating</td></tr>
+          <tr><td><code>foundationNormRaw</code></td><td>int</td><td>0-100 before gating</td></tr>
           <tr><td><code>aiNorm</code></td><td>int</td><td>0-100 after gating</td></tr>
+          <tr><td><code>aiNormRaw</code></td><td>int</td><td>0-100 before gating</td></tr>
           <tr><td><code>governanceNorm</code></td><td>int</td><td>0-100</td></tr>
           <tr><td><code>deliveryNorm</code></td><td>int</td><td>0-100 after gating</td></tr>
+          <tr><td><code>deliveryNormRaw</code></td><td>int</td><td>0-100 before gating</td></tr>
           <tr><td><code>cultureNorm</code></td><td>int</td><td>0-100</td></tr>
+          <tr><td><code>cultureNormRaw</code></td><td>int</td><td>0-100 before gating</td></tr>
           <tr><td><code>gatingApplied</code></td><td>object</td><td>{ ai: bool, delivery: bool }</td></tr>
           <tr><td><code>archetype</code></td><td>string</td><td>Builder/Adopter/Optimizer/Transformer</td></tr>
+          <tr><td><code>assessmentType</code></td><td>string</td><td>baseline/follow-up</td></tr>
+          <tr><td><code>organizationId</code></td><td>string</td><td>Domain identifier</td></tr>
+          <tr><td><code>timestamp</code></td><td>ISO string</td><td>Assessment date</td></tr>
           <tr><td><code>systemLandscape</code></td><td>string</td><td>single/multi-brand/federated/platform</td></tr>
           <tr><td><code>multiSystemNorm</code></td><td>int</td><td>0-100 (null if single system)</td></tr>
+          <tr><td><code>isMultiSystem</code></td><td>bool</td><td>Whether multi-system questions were shown</td></tr>
         </tbody>
       </table>
       
-      <h2>12.3 Pillar Icon System</h2>
+      <h2>13.3 Pillar Icon System</h2>
       
       <table>
         <thead>
@@ -1589,9 +1682,9 @@ function calculatePSRI(answers) {
     
     <hr>
     
-    <!-- References -->
-    <section class="section">
-      <h2>References</h2>
+    <!-- Section 14 -->
+    <section class="section" id="s14">
+      <h1><span class="section-number">14</span>References</h1>
       <ol>
         <li>CMMI Institute. (2018). <em>CMMI Model V2.0</em>.</li>
         <li>NASA. (2017). <em>Technology Readiness Level Definitions</em>.</li>
@@ -1605,6 +1698,43 @@ function calculatePSRI(answers) {
         <li>InVision. (2021). <em>Design System Maturity Model</em>.</li>
         <li>Supernova. (2025). <em>Design System Health Assessment</em>.</li>
       </ol>
+    </section>
+    
+    <hr>
+    
+    <!-- Document Control -->
+    <section class="section">
+      <h2>Document Control</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Version</th>
+            <th>Date</th>
+            <th>Author</th>
+            <th>Changes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1.2</td>
+            <td>2026-02-05</td>
+            <td>Knapsack</td>
+            <td>Added Culture pillar (25%), Multi-System Architecture, expanded research foundation (DORA, Project Aristotle, Team Topologies, Westrum, NIST AI RMF)</td>
+          </tr>
+          <tr>
+            <td>1.1</td>
+            <td>2026-01</td>
+            <td>Knapsack</td>
+            <td>Expanded question set based on organizational research</td>
+          </tr>
+          <tr>
+            <td>1.0</td>
+            <td>2026-02-04</td>
+            <td>Knapsack</td>
+            <td>Initial release</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
     
     <!-- Footer -->
