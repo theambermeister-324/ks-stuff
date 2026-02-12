@@ -1712,13 +1712,13 @@ function calculatePCRI(answers) {
   }
   
   <span class="code-comment">// Step 4: Calculate composite</span>
-  psri = (norms.foundation * 0.20) +
+  pcri = (norms.foundation * 0.20) +
          (norms.ai * 0.20) +
          (norms.governance * 0.20) +
          (norms.delivery * 0.15) +
          (norms.culture * 0.25);
   
-  return round(psri);
+  return round(pcri);
 }</code></pre>
       
       <h2>13.2 Data Schema</h2>
@@ -1732,8 +1732,8 @@ function calculatePCRI(answers) {
           </tr>
         </thead>
         <tbody>
-          <tr><td><code>psriVersion</code></td><td>string</td><td>"1.2"</td></tr>
-          <tr><td><code>psriScore</code></td><td>int</td><td>0-100 composite</td></tr>
+          <tr><td><code>pcriVersion</code></td><td>string</td><td>"2.0"</td></tr>
+          <tr><td><code>pcriScore</code></td><td>int</td><td>0-100 composite</td></tr>
           <tr><td><code>foundationNorm</code></td><td>int</td><td>0-100 after gating</td></tr>
           <tr><td><code>foundationNormRaw</code></td><td>int</td><td>0-100 before gating</td></tr>
           <tr><td><code>aiNorm</code></td><td>int</td><td>0-100 after gating</td></tr>

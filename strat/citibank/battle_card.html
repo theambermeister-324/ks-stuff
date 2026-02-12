@@ -36,20 +36,35 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--neutral-50); display: flex; min-height: 100vh; }
-    nav { width: 240px; background: white; border-right: 1px solid var(--neutral-150); padding: 20px 0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; }
+    nav { width: 280px; background: white; border-right: 1px solid var(--neutral-150); padding: 20px 0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; }
     .nav-header { padding: 0 16px 20px; border-bottom: 1px solid var(--neutral-150); }
     .nav-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); margin-bottom: 4px; }
     .nav-title { font-size: 17px; font-weight: 700; color: var(--neutral-900); }
     .nav-subtitle { font-size: 11px; color: var(--neutral-400); margin-top: 4px; }
     .nav-items { padding: 12px 8px; }
-    .nav-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 10px; border: none; border-radius: 6px; background: transparent; color: var(--neutral-600); font-size: 12px; font-weight: 400; cursor: pointer; text-align: left; margin-bottom: 1px; transition: all 0.15s; }
+    .nav-btn { display: flex; align-items: center; gap: 6px; width: 100%; padding: 8px 10px; border: none; border-radius: 6px; background: transparent; color: var(--neutral-600); font-size: 12px; font-weight: 400; cursor: pointer; text-align: left; margin-bottom: 1px; transition: all 0.15s; flex-wrap: wrap; }
+    .nav-btn > span:nth-child(2) { flex: 1; min-width: 100px; }
     .nav-btn:hover { background: var(--neutral-100); }
     .nav-btn:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
     .nav-btn.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
     .nav-num { width: 20px; height: 20px; border-radius: 4px; background: var(--neutral-200); color: var(--neutral-500); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
     .nav-btn.active .nav-num { background: var(--primary); color: white; }
     .nav-btn.hot .nav-num { background: var(--secondary); color: white; }
-    main { flex: 1; padding: 28px; max-width: 920px; margin: 0 auto 0 240px; }
+    /* Org ownership badges */
+    .nav-group { padding: 16px 8px 6px; }
+    .nav-group-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--neutral-400); padding: 0 10px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+    .nav-group-label::after { content: ""; flex: 1; height: 1px; background: var(--neutral-150); }
+    .org-badge { display: inline-block; padding: 2px 6px; border-radius: 3px; font-size: 9px; font-weight: 700; letter-spacing: 0.05em; margin-left: auto; flex-shrink: 0; }
+    .org-gtm { background: #dbeafe; color: #1e40af; }
+    .org-cx { background: #d1fae5; color: #065f46; }
+    .org-product { background: #ede9fe; color: #5b21b6; }
+    .org-all { background: var(--neutral-100); color: var(--neutral-500); }
+    .collab-dots { display: flex; gap: 3px; margin-left: 6px; }
+    .collab-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .collab-dot.gtm { background: #3b82f6; }
+    .collab-dot.cx { background: #10b981; }
+    .collab-dot.product { background: #8b5cf6; }
+    main { flex: 1; padding: 28px; max-width: 920px; margin: 0 auto 0 280px; }
     .section { display: none; }
     .section.active { display: block; }
     .card { background: white; border: 1px solid var(--neutral-150); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
@@ -176,9 +191,11 @@
     /* Skip link for keyboard navigation */
     .skip-link { position: absolute; top: -40px; left: 0; background: var(--primary); color: white; padding: 8px 16px; z-index: 100; font-weight: 600; text-decoration: none; border-radius: 0 0 4px 0; }
     .skip-link:focus { top: 0; }
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       nav { width: 100%; height: auto; position: relative; }
       main { margin-left: 0; }
+      .nav-items { display: grid; grid-template-columns: 1fr 1fr; }
+      .nav-group { grid-column: 1 / -1; }
       .grid-2, .grid-3 { grid-template-columns: 1fr; }
       .table-3col { grid-template-columns: 1fr; }
     }
@@ -195,24 +212,57 @@
       <div class="nav-label">Internal Battle Card</div>
       <div class="nav-title">Citi × Knapsack</div>
       <div class="nav-subtitle">Post-Discovery • Feb 11, 2026</div>
+      <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--neutral-150);">
+        <div style="font-size: 9px; font-weight: 600; color: var(--neutral-400); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;">Org Ownership</div>
+        <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+          <span class="org-badge org-gtm">GTM</span>
+          <span class="org-badge org-cx">CX</span>
+          <span class="org-badge org-product">PROD</span>
+        </div>
+        <div style="font-size: 9px; color: var(--neutral-400); margin-top: 6px;">Colored dots = collaborators</div>
+      </div>
     </div>
     <div class="nav-items">
-      <button class="nav-btn active" data-section="overview"><span class="nav-num">1</span><span>Executive Overview</span></button>
-      <button class="nav-btn" data-section="stakeholders"><span class="nav-num">2</span><span>Stakeholder Map</span></button>
-      <button class="nav-btn" data-section="technical"><span class="nav-num">3</span><span>Technical Reality</span></button>
-      <button class="nav-btn hot" data-section="ipe-opportunity"><span class="nav-num">4</span><span>IPE Opportunity</span></button>
-      <button class="nav-btn" data-section="pain-points"><span class="nav-num">5</span><span>Validated Pain Points</span></button>
-      <button class="nav-btn" data-section="win-themes"><span class="nav-num">6</span><span>WIN Themes</span></button>
-      <button class="nav-btn" data-section="deal-strategy"><span class="nav-num">7</span><span>What Wins This Deal</span></button>
-      <button class="nav-btn" data-section="champions"><span class="nav-num">8</span><span>Champion Development</span></button>
-      <button class="nav-btn" data-section="timeline"><span class="nav-num">9</span><span>Next Steps & Timeline</span></button>
-      <button class="nav-btn" data-section="objections"><span class="nav-num">10</span><span>Objection Handling</span></button>
-      <button class="nav-btn" data-section="quotes"><span class="nav-num">11</span><span>Key Quotes to Use</span></button>
-      <button class="nav-btn" data-section="psri"><span class="nav-num">12</span><span>PSRI Framework</span></button>
-      <button class="nav-btn" data-section="user-personas"><span class="nav-num">13</span><span>User Personas</span></button>
-      <button class="nav-btn" data-section="charter"><span class="nav-num">14</span><span>Charter Template</span></button>
-      <button class="nav-btn" data-section="governance"><span class="nav-num">15</span><span>Governance RACI</span></button>
-      <button class="nav-btn" data-section="metrics"><span class="nav-num">16</span><span>Success Metrics</span></button>
+      <!-- DEAL CONTEXT -->
+      <div class="nav-group">
+        <div class="nav-group-label">Deal Context</div>
+      </div>
+      <button class="nav-btn active" data-section="overview"><span class="nav-num">1</span><span>Executive Overview</span><span class="org-badge org-all">ALL</span></button>
+      <button class="nav-btn" data-section="stakeholders"><span class="nav-num">2</span><span>Stakeholder Map</span><span class="org-badge org-gtm">GTM</span><span class="collab-dots"><span class="collab-dot cx" title="CX Delivery"></span></span></button>
+      <button class="nav-btn" data-section="technical"><span class="nav-num">3</span><span>Technical Reality</span><span class="org-badge org-product">PROD</span><span class="collab-dots"><span class="collab-dot cx" title="CX Delivery"></span></span></button>
+      
+      <!-- SALES MOTION -->
+      <div class="nav-group">
+        <div class="nav-group-label">Sales Motion</div>
+      </div>
+      <button class="nav-btn" data-section="champions"><span class="nav-num">4</span><span>Champion Development</span><span class="org-badge org-gtm">GTM</span><span class="collab-dots"><span class="collab-dot cx" title="CX Delivery"></span></span></button>
+      <button class="nav-btn" data-section="win-themes"><span class="nav-num">5</span><span>WIN Themes</span><span class="org-badge org-gtm">GTM</span><span class="collab-dots"><span class="collab-dot product" title="Product"></span></span></button>
+      <button class="nav-btn" data-section="deal-strategy"><span class="nav-num">6</span><span>What Wins This Deal</span><span class="org-badge org-gtm">GTM</span><span class="collab-dots"><span class="collab-dot cx" title="CX Delivery"></span><span class="collab-dot product" title="Product"></span></span></button>
+      <button class="nav-btn" data-section="objections"><span class="nav-num">7</span><span>Objection Handling</span><span class="org-badge org-gtm">GTM</span><span class="collab-dots"><span class="collab-dot product" title="Product"></span></span></button>
+      <button class="nav-btn" data-section="quotes"><span class="nav-num">8</span><span>Key Quotes to Use</span><span class="org-badge org-gtm">GTM</span></button>
+      
+      <!-- PRODUCT OPPORTUNITY -->
+      <div class="nav-group">
+        <div class="nav-group-label">Product Opportunity</div>
+      </div>
+      <button class="nav-btn hot" data-section="ipe-opportunity"><span class="nav-num">9</span><span>IPE Opportunity</span><span class="org-badge org-product">PROD</span><span class="collab-dots"><span class="collab-dot gtm" title="GTM"></span></span></button>
+      <button class="nav-btn" data-section="pain-points"><span class="nav-num">10</span><span>Validated Pain Points</span><span class="org-badge org-product">PROD</span><span class="collab-dots"><span class="collab-dot cx" title="CX Delivery"></span></span></button>
+      <button class="nav-btn" data-section="psri"><span class="nav-num">11</span><span>PSRI Framework</span><span class="org-badge org-product">PROD</span><span class="collab-dots"><span class="collab-dot cx" title="CX Delivery"></span></span></button>
+      
+      <!-- DELIVERY PLANNING -->
+      <div class="nav-group">
+        <div class="nav-group-label">Delivery Planning</div>
+      </div>
+      <button class="nav-btn" data-section="user-personas"><span class="nav-num">12</span><span>User Personas</span><span class="org-badge org-cx">CX</span><span class="collab-dots"><span class="collab-dot product" title="Product"></span></span></button>
+      <button class="nav-btn" data-section="charter"><span class="nav-num">13</span><span>Charter Template</span><span class="org-badge org-cx">CX</span><span class="collab-dots"><span class="collab-dot gtm" title="GTM"></span></span></button>
+      <button class="nav-btn" data-section="governance"><span class="nav-num">14</span><span>Governance RACI</span><span class="org-badge org-cx">CX</span></button>
+      <button class="nav-btn" data-section="metrics"><span class="nav-num">15</span><span>Success Metrics</span><span class="org-badge org-cx">CX</span><span class="collab-dots"><span class="collab-dot product" title="Product"></span></span></button>
+      
+      <!-- EXECUTION -->
+      <div class="nav-group">
+        <div class="nav-group-label">Execution</div>
+      </div>
+      <button class="nav-btn" data-section="timeline"><span class="nav-num">16</span><span>Next Steps & Timeline</span><span class="org-badge org-all">ALL</span></button>
     </div>
   </nav>
 

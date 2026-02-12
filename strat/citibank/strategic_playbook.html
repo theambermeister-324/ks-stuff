@@ -183,6 +183,7 @@
       <button class="nav-btn" data-section="approach"><span class="nav-num">4</span><span>Our Approach</span></button>
       <button class="nav-btn" data-section="outcomes"><span class="nav-num">5</span><span>Expected Outcomes</span></button>
       <button class="nav-btn" data-section="next"><span class="nav-num">6</span><span>Path Forward</span></button>
+      <button class="nav-btn" data-section="charter"><span class="nav-num">7</span><span>Charter Draft</span></button>
     </div>
     <div class="nav-footer">
       <div class="nav-footer-label">Prepared for</div>
@@ -599,6 +600,154 @@
 
       <div class="card" style="background: var(--primary-light); border: 1px solid var(--primary); text-align: center; padding: 32px;">
         <p style="font-size: 18px; font-style: italic; color: var(--primary); line-height: 1.7; margin: 0;">"We're at a point we're trying to converge towards one."<br><br>— We're here to help you figure out how.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 7: CHARTER DRAFT -->
+    <div class="section" id="charter">
+      <h1 class="section-title">System & Team Charter Draft</h1>
+      <p class="section-subtitle">Governance document template for unified design system program</p>
+
+      <div class="card" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; border: none;">
+        <h2 class="heading" style="color: white;">Vision Statement (Draft)</h2>
+        <p style="font-size: 16px; line-height: 1.7; opacity: 0.95;">Enable every Citi application to deliver consistent, high-quality experiences through a shared design foundation that serves human creators and AI assistants equally—reducing time-to-market while maintaining regulatory compliance and brand integrity.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Strategic Objectives</h2>
+        <div style="font-size: 14px; color: var(--neutral-600);">
+          <div style="padding: 12px 0; border-bottom: 1px solid var(--neutral-100); display: flex; gap: 12px;"><span style="color: var(--primary); font-weight: 700;">1.</span><span><strong>User Success First:</strong> Make Designers, Developers, Maintainers, and LOB Stakeholders measurably more effective</span></div>
+          <div style="padding: 12px 0; border-bottom: 1px solid var(--neutral-100); display: flex; gap: 12px;"><span style="color: var(--primary); font-weight: 700;">2.</span><span><strong>Convergence Without Disruption:</strong> Unify four systems incrementally, preserving what works</span></div>
+          <div style="padding: 12px 0; border-bottom: 1px solid var(--neutral-100); display: flex; gap: 12px;"><span style="color: var(--primary); font-weight: 700;">3.</span><span><strong>Efficiency at Scale:</strong> Extend 2-person team model through automation and shared tooling</span></div>
+          <div style="padding: 12px 0; border-bottom: 1px solid var(--neutral-100); display: flex; gap: 12px;"><span style="color: var(--primary); font-weight: 700;">4.</span><span><strong>AI-Ready by Design:</strong> All documentation serves human and AI consumers without parallel maintenance</span></div>
+          <div style="padding: 12px 0; display: flex; gap: 12px;"><span style="color: var(--primary); font-weight: 700;">5.</span><span><strong>Governance That Enables:</strong> Maintain controlled contribution while enabling appropriate flexibility</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Scope Definition</h2>
+        <div class="grid-2" style="gap: 16px;">
+          <div style="background: var(--success-light); padding: 20px; border-radius: 10px; border-left: 4px solid var(--success);">
+            <div style="font-size: 11px; font-weight: 700; color: var(--success); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">In Scope (Phase 1)</div>
+            <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.7;">
+              <div style="padding: 4px 0;">✓ Core design tokens (color, typography, spacing)</div>
+              <div style="padding: 4px 0;">✓ Foundational components (buttons, forms, cards)</div>
+              <div style="padding: 4px 0;">✓ Angular, React, Web Components</div>
+              <div style="padding: 4px 0;">✓ Figma component libraries</div>
+              <div style="padding: 4px 0;">✓ AI-ready documentation layer</div>
+              <div style="padding: 4px 0;">✓ Governance and contribution model</div>
+            </div>
+          </div>
+          <div style="background: var(--neutral-50); padding: 20px; border-radius: 10px; border-left: 4px solid var(--neutral-400);">
+            <div style="font-size: 11px; font-weight: 700; color: var(--neutral-500); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">Out of Scope (Phase 1)</div>
+            <div style="font-size: 13px; color: var(--neutral-500); line-height: 1.7;">
+              <div style="padding: 4px 0;">— LOB-specific patterns (deferred)</div>
+              <div style="padding: 4px 0;">— Legacy application migration (separate)</div>
+              <div style="padding: 4px 0;">— Native iOS/Android (Phase 2)</div>
+              <div style="padding: 4px 0;">— Third-party vendor integrations</div>
+              <div style="padding: 4px 0;">— Custom one-off components</div>
+              <div style="padding: 4px 0;">— Regulatory documentation (compliance owns)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Guiding Principles</h2>
+        <p style="font-size: 13px; color: var(--neutral-400); margin-bottom: 16px;">Based on Steven's governance philosophy</p>
+        <div class="grid-3" style="gap: 12px;">
+          <div class="value-card" style="text-align: center; padding: 20px;">
+            <div class="title" style="color: var(--primary);">Transparency</div>
+            <div class="desc">All decisions, code, and documentation internally visible</div>
+          </div>
+          <div class="value-card" style="text-align: center; padding: 20px;">
+            <div class="title" style="color: var(--primary);">Controlled Contribution</div>
+            <div class="desc">Managed through defined, clear channels</div>
+          </div>
+          <div class="value-card" style="text-align: center; padding: 20px;">
+            <div class="title" style="color: var(--primary);">Automation First</div>
+            <div class="desc">If it can be generated, generate it</div>
+          </div>
+          <div class="value-card" style="text-align: center; padding: 20px;">
+            <div class="title" style="color: var(--action);">Regulatory Awareness</div>
+            <div class="desc">Graceful transitions, not hard cutoffs</div>
+          </div>
+          <div class="value-card" style="text-align: center; padding: 20px;">
+            <div class="title" style="color: var(--action);">Multi-Framework Reality</div>
+            <div class="desc">Angular, React, Native will coexist</div>
+          </div>
+          <div class="value-card" style="text-align: center; padding: 20px;">
+            <div class="title" style="color: var(--action);">Efficiency Over Perfection</div>
+            <div class="desc">Sustainable beats comprehensive</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Team Structure</h2>
+        <table>
+          <thead>
+            <tr><th>Role</th><th>Responsibility</th><th>Current/Proposed</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>System Owner</strong></td>
+              <td>Strategic direction, stakeholder alignment, roadmap approval</td>
+              <td>Rania (Design)</td>
+            </tr>
+            <tr>
+              <td><strong>Technical Lead</strong></td>
+              <td>Architecture decisions, code standards, tooling selection</td>
+              <td>Steven Suarez</td>
+            </tr>
+            <tr>
+              <td><strong>Developer in Design</strong></td>
+              <td>Design-code integration, prototyping workflows, Figma bridge</td>
+              <td>John Rogoff</td>
+            </tr>
+            <tr>
+              <td><strong>Tooling Lead</strong></td>
+              <td>Build systems, CI/CD, Artifactory, internal tooling</td>
+              <td>Ryan</td>
+            </tr>
+            <tr>
+              <td><strong>LOB Representatives</strong></td>
+              <td>Requirements input, adoption feedback, pattern requests</td>
+              <td>TBD per business line</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Success Criteria</h2>
+        <div class="grid-2" style="gap: 16px;">
+          <div style="background: var(--success-light); padding: 20px; border-radius: 10px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--success); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">Quantitative Targets</div>
+            <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.8;">
+              <div style="padding: 4px 0;">• 4 systems visible in unified view</div>
+              <div style="padding: 4px 0;">• Token naming harmonized across 80%+</div>
+              <div style="padding: 4px 0;">• AI documentation for all core components</div>
+              <div style="padding: 4px 0;">• Contribution turnaround under 2 weeks</div>
+              <div style="padding: 4px 0;">• Zero headcount increase required</div>
+            </div>
+          </div>
+          <div style="background: var(--action-light); padding: 20px; border-radius: 10px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--action); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">Qualitative Targets</div>
+            <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.8;">
+              <div style="padding: 4px 0;">• Dev teams report improved handoff clarity</div>
+              <div style="padding: 4px 0;">• Design teams can see component code status</div>
+              <div style="padding: 4px 0;">• AI tools produce better first-try output</div>
+              <div style="padding: 4px 0;">• Cross-LOB pattern discovery works</div>
+              <div style="padding: 4px 0;">• Governance perceived as enabling, not blocking</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card callout">
+        <div class="label">Next Step</div>
+        <p>This charter is a draft starting point. We recommend refining it collaboratively during the Technical Deep Dive session with Steven and John, incorporating specific Citi terminology and aligning with existing governance frameworks.</p>
       </div>
     </div>
   </main>

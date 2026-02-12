@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product System Maturity & AI Readiness Assessment</title>
+  <title>Product Context Readiness Assessment | PCRI</title>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
@@ -1338,17 +1338,17 @@
   <div id="a11y-alert" class="a11y-live-region" aria-live="assertive" aria-atomic="true"></div>
   
   <!-- Main Content -->
-  <main id="app" class="container" role="main" aria-label="Product System Maturity Assessment">
-    <h1 class="sr-only" id="main-content">Product System Maturity & AI Readiness Assessment</h1>
+  <main id="app" class="container" role="main" aria-label="Product Context Readiness Assessment">
+    <h1 class="sr-only" id="main-content">Product Context Readiness Assessment</h1>
     
     <!-- Intro Section (shown before assessment starts) -->
     <article id="intro-container" role="region" aria-label="Introduction and setup">
       <!-- Hero Section -->
       <div class="card text-center fade-in" style="padding: 48px 32px;">
-        <div class="logo-badge" style="margin-bottom: 24px;">KNAPSACK PSRI v<span id="psri-version">1.0</span></div>
-        <h1 style="font-size: 2.25rem; line-height: 1.2; margin-bottom: 16px;">Discover Where You Stand on the Path to AI-Ready Product Delivery</h1>
+        <div class="logo-badge" style="margin-bottom: 24px;">KNAPSACK PCRI v<span id="pcri-version">2.0</span></div>
+        <h1 style="font-size: 2.25rem; line-height: 1.2; margin-bottom: 16px;">AI Doesn't Consume Components—It Consumes Context</h1>
         <p class="text-secondary" style="font-size: 1.125rem; max-width: 600px; margin: 0 auto 24px; line-height: 1.6;">
-          Benchmark your product system against 50+ enterprises and get a clear path to AI-ready delivery.
+          Benchmark your <strong>product context</strong> against 50+ enterprises. Discover if your decisions, constraints, and governance are ready for AI-powered delivery.
         </p>
         
         <button onclick="startAssessment()" class="btn btn-primary btn-lg" style="padding: 16px 32px; font-size: 1.125rem;">
@@ -1364,8 +1364,8 @@
           <!-- Left: Maturity Journey -->
           <div>
             <h2 class="text-primary" style="font-size: 1.125rem; font-weight: 600; margin-bottom: 6px;">Where will you land?</h2>
-            <p class="text-tertiary text-sm" style="margin: 0 0 8px 0;">Each archetype comes with specific challenges and a clear path forward. Our methodology identifies patterns from 50+ enterprises so your roadmap is actionable, not generic.</p>
-            <a href="#" onclick="showMethodology(); return false;" class="text-purple text-sm" style="text-decoration: underline; display: inline-block; margin-bottom: 14px;">View methodology →</a>
+            <p class="text-tertiary text-sm" style="margin: 0 0 8px 0;">Design systems solved yesterday's scaling problem. <strong>Product context</strong> is the work now. Our framework identifies patterns from 50+ enterprises so your roadmap is actionable, not generic.</p>
+            <a href="#" onclick="showMethodology(); return false;" class="text-purple text-sm" style="text-decoration: underline; display: inline-block; margin-bottom: 14px;">View PCRI framework →</a>
             <div role="list" aria-label="Maturity stages" style="display: flex; flex-direction: column; gap: 6px;">
               <div role="listitem" style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; background: linear-gradient(90deg, rgba(239, 68, 68, 0.12) 0%, transparent 100%); border-radius: 8px; border-left: 3px solid #ef4444;">
                 <div style="flex: 1;">
@@ -1382,7 +1382,7 @@
                     <span style="font-size: 0.95rem; font-weight: 700; color: #fff;">Adopter</span>
                     <span class="text-tertiary text-xs">35% of orgs</span>
                   </div>
-                  <p class="text-tertiary text-xs" style="margin: 0;">Design system in use, but gaps in adoption or AI readiness</p>
+                  <p class="text-tertiary text-xs" style="margin: 0;">Product context exists, but gaps in adoption or AI readiness</p>
                 </div>
               </div>
               <div role="listitem" style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; background: linear-gradient(90deg, rgba(59, 130, 246, 0.12) 0%, transparent 100%); border-radius: 8px; border-left: 3px solid #3b82f6;">
@@ -1413,8 +1413,8 @@
               <div style="display: flex; align-items: flex-start; gap: 10px;">
                 <i data-lucide="target" style="width: 18px; height: 18px; color: var(--spectrum-purple-400); flex-shrink: 0; margin-top: 2px;" aria-hidden="true"></i>
                 <div>
-                  <p class="text-secondary text-sm font-semibold" style="margin-bottom: 2px;">Maturity Archetype</p>
-                  <p class="text-tertiary text-sm" style="margin: 0;">Where you stand on the AI-readiness journey</p>
+                  <p class="text-secondary text-sm font-semibold" style="margin-bottom: 2px;">Context Archetype</p>
+                  <p class="text-tertiary text-sm" style="margin: 0;">Where you stand on the product context journey</p>
                 </div>
               </div>
               <div style="display: flex; align-items: flex-start; gap: 10px;">
@@ -1534,7 +1534,7 @@
           <div style="margin-bottom: 20px;">
             <label class="form-label" style="font-size: 0.95rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
               <i data-lucide="layers" style="width: 18px; height: 18px; color: var(--spectrum-purple-400);" aria-hidden="true"></i>
-              Design System Architecture
+              Product Context Architecture
             </label>
             <div role="radiogroup" aria-label="Select your system landscape" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;">
               <label class="choice-card selected" id="landscape-single" style="padding: 16px; text-align: center; flex-direction: column;">
@@ -1957,9 +1957,9 @@
       <div class="card" style="background: linear-gradient(135deg, #6436bf 0%, #42247f 100%); padding: 32px;">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
           <div>
-            <p style="color: rgba(255,255,255,0.8); font-size: 0.75rem; font-weight: 500; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">PRODUCT SYSTEM READINESS INDEX (PSRI)</p>
+            <p style="color: rgba(255,255,255,0.8); font-size: 0.75rem; font-weight: 500; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">PRODUCT CONTEXT READINESS INDEX (PCRI)</p>
             <div style="display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;">
-              <h2 style="font-size: 3rem; font-weight: 700; color: #fff; margin: 0;" id="psri-display">0</h2>
+              <h2 style="font-size: 3rem; font-weight: 700; color: #fff; margin: 0;" id="pcri-display">0</h2>
               <span style="font-size: 1.25rem; color: rgba(255,255,255,0.6);">/100</span>
               <span id="benchmark-label" style="font-size: 0.85rem; font-weight: 700; color: #e0d4f7; text-transform: uppercase; letter-spacing: 1px; background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 999px;">Benchmark —</span>
             </div>
@@ -1978,14 +1978,14 @@
               </div>
             </div>
             <p id="tier-outcome" style="color: rgba(255,255,255,0.85); font-size: 0.875rem; margin-top: 12px;">—</p>
-            <p style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin-top: 6px;">PSRI = (Foundation × 20%) + (AI × 20%) + (Governance × 20%) + (Delivery × 15%) + (Culture × 25%)</p>
+            <p style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin-top: 6px;">PCRI = (Context Foundation × 20%) + (AI × 20%) + (Governance × 20%) + (Delivery × 15%) + (Culture × 25%)</p>
             <!-- Hidden legacy score for backward compat -->
             <span id="overall-score" style="display: none;">0</span>
           </div>
           <div style="width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; position: relative;" role="img" aria-label="Score visualization">
             <svg viewBox="0 0 36 36" style="width: 120px; height: 120px; transform: rotate(-90deg);" aria-hidden="true">
               <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2.5"/>
-              <path id="psri-ring" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#fff" stroke-width="2.5" stroke-dasharray="0, 100"/>
+              <path id="pcri-ring" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#fff" stroke-width="2.5" stroke-dasharray="0, 100"/>
             </svg>
             <div style="position: absolute; text-align: center;" aria-hidden="true">
               <i data-lucide="gauge" style="width: 28px; height: 28px; color: #fff;" aria-hidden="true"></i>
@@ -2056,7 +2056,7 @@
         <div style="display: flex; flex-direction: column; gap: 24px;">
           <div style="flex: 1;">
             <h2 id="cta-heading" style="font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 8px;">Ready to take the next step?</h2>
-            <p style="color: rgba(255,255,255,0.85); margin-bottom: 16px;">Schedule a personalized consultation with our product system experts to discuss your assessment results and explore how governed delivery can accelerate your product delivery.</p>
+            <p style="color: rgba(255,255,255,0.85); margin-bottom: 16px;">Schedule a personalized consultation with our product context experts to discuss your assessment results and explore how governed context can accelerate your AI-ready delivery.</p>
             <ul style="display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.875rem; list-style: none; padding: 0; margin: 0;">
               <li style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.2); border-radius: 8px; padding: 8px 12px;">
                 <i data-lucide="calendar" style="width: 16px; height: 16px;" aria-hidden="true"></i>
@@ -2073,7 +2073,7 @@
             </ul>
           </div>
           <nav style="display: flex; flex-direction: column; gap: 12px;" aria-label="Actions">
-            <a href="mailto:ipe@knapsack.cloud?subject=Product System Maturity Assessment Results - Consultation Request" onclick="trackEvent('cta_schedule_consult')" style="background: #fff; color: #6436bf; padding: 12px 24px; border-radius: 8px; font-weight: 600; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; text-align: center;">
+            <a href="mailto:ipe@knapsack.cloud?subject=Product Context Readiness Assessment - Consultation Request" onclick="trackEvent('cta_schedule_consult')" style="background: #fff; color: #6436bf; padding: 12px 24px; border-radius: 8px; font-weight: 600; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; text-align: center;">
               <i data-lucide="mail" style="width: 20px; height: 20px;" aria-hidden="true"></i>
               <span>Schedule Consultation</span>
             </a>
@@ -2108,24 +2108,26 @@
 
   <script>
     // =========================================================================
-    // PSRI CONFIGURATION - Version 1.0
+    // PCRI CONFIGURATION - Product Context Readiness Index
     // =========================================================================
     
-    const PSRI_VERSION = '1.2';
-    const PSRI_VERSION_DATE = '2026-02-05';
+    const PCRI_VERSION = '2.0';
+    const PCRI_VERSION_DATE = '2026-02-12';
+    // v2.0: Reframed as Product Context Readiness Index (PCRI) - "AI consumes context, not components"
     // v1.2: Added Multi-System Architecture assessment for federated/multi-brand organizations
     // v1.1: Expanded research foundation (DORA, Project Aristotle, Team Topologies, Westrum, NIST AI RMF)
     
     // Google Sheets Web App URL - Replace with your deployed Apps Script URL
     const GOOGLE_SHEETS_WEBAPP_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
     
-    // PSRI Pillar Weights (must sum to 1.0)
+    // PCRI Pillar Weights (must sum to 1.0)
     // Rationale:
-    // - AI Readiness (30%): Primary market differentiator, highest predictive value for engagement success
-    // - Foundation (25%): Table stakes for any product system work
-    // - Governance (25%): Execution enabler, often the bottleneck for adoption
-    // - Delivery (20%): Sustainability factor, indicates org capacity
-    const PSRI_WEIGHTS = {
+    // - Culture (25%): #1 predictor of sustainable adoption per Project Aristotle research
+    // - Context Foundation (20%): The governed context substrate - tokens, components, decisions
+    // - AI Readiness (20%): AI amplifies context; measures machine-readable context maturity
+    // - Governance (20%): Execution enabler, often the bottleneck for adoption
+    // - Delivery (15%): Sustainability factor, indicates org capacity
+    const PCRI_WEIGHTS = {
       foundation: 0.20,
       ai: 0.20,
       governance: 0.20,
@@ -2215,7 +2217,7 @@
     // Question weights for impact-based scoring (1.0 = standard, 1.5 = high impact, 2.0 = critical)
     // Updated to reflect new questions from Team Topologies, DORA, Project Aristotle, and Westrum research
     const questionWeights = {
-      // Product System Foundation (4 questions: 0-3)
+      // Context Foundation (4 questions: 0-3)
       0: 1.5,   // Design system state - high impact
       1: 2.0,   // Governance structure - critical
       2: 1.0,   // Documentation quality - standard
@@ -2277,7 +2279,7 @@
     let organizationId = '';
     let assessmentType = 'baseline'; // 'baseline' or 'follow-up'
     let baselineData = null; // Stores previous assessment for comparison
-    let psriScore = 0; // Product System Readiness Index
+    let pcriScore = 0; // Product Context Readiness Index
     let selectedRole = 'executive'; // 'executive' or 'practitioner'
     let filteredQuestions = []; // Questions filtered by role
     let selectedSystemLandscape = 'single'; // System landscape type
@@ -2431,9 +2433,9 @@
     // Assessment Questions with role tags
     // roles: 'all' = show for everyone, 'executive' = exec only, 'practitioner' = practitioner only
     const questions = [
-      // Product System Foundation (20 points total - rebalanced)
+      // Context Foundation (20 points total - rebalanced)
       {
-        category: 'Product System Foundation',
+        category: 'Context Foundation',
         weight: 20,
         roles: ['all'],
         question: 'What is the current state of your design system?',
@@ -2446,7 +2448,7 @@
         ]
       },
       {
-        category: 'Product System Foundation',
+        category: 'Context Foundation',
         weight: 20,
         roles: ['all'],
         question: 'How is your design system governed?',
@@ -2459,7 +2461,7 @@
         ]
       },
       {
-        category: 'Product System Foundation',
+        category: 'Context Foundation',
         weight: 20,
         roles: ['practitioner'],
         question: 'What is the quality of your design system documentation?',
@@ -2473,7 +2475,7 @@
         ]
       },
       {
-        category: 'Product System Foundation',
+        category: 'Context Foundation',
         weight: 20,
         roles: ['all'],
         question: 'How does your design system approach accessibility?',
@@ -3502,7 +3504,7 @@
     function updateProgressSteps(category) {
       const steps = document.querySelectorAll('.progress-step');
       const categoryMap = {
-        'Product System Foundation': 'foundation',
+        'Context Foundation': 'foundation',
         'AI Readiness': 'ai',
         'Governance & Adoption': 'governance',
         'Delivery Workflow': 'delivery',
@@ -3558,7 +3560,7 @@
 
     // =========================================================================
     // CUSTOMER-FACING: Maturity Archetypes
-    // These are shown to users based on their PSRI score
+    // These are shown to users based on their PCRI score
     // =========================================================================
     const archetypeDetails = {
       builder: {
@@ -3568,7 +3570,7 @@
         colorClass: 'red',
         scoreRange: '0-39',
         headline: 'You\'re building the foundation for future success.',
-        description: 'Your organization is in the early stages of product system maturity. The focus should be on establishing core components, documentation, and initial governance.',
+        description: 'Your organization is in the early stages of product context readiness. The focus should be on establishing governed context—core components, documentation, and initial governance.',
         focus: [
           'Establish a component library with design tokens',
           'Create baseline documentation for existing components',
@@ -3631,7 +3633,7 @@
         colorClass: 'green',
         scoreRange: '80-100',
         headline: 'You\'re a leader—focus on innovation and AI-first delivery.',
-        description: 'Your product system is a competitive advantage. The focus should be on AI-first workflows, continuous innovation, and sharing best practices.',
+        description: 'Your product context is a competitive advantage. AI consumes your governed context effectively. Focus on AI-first workflows, continuous innovation, and sharing best practices.',
         focus: [
           'Enable governed AI-first development workflows',
           'Implement continuous compliance and audit automation',
@@ -3647,11 +3649,11 @@
       }
     };
 
-    // Map PSRI score to customer-facing archetype
-    function getArchetypeFromScore(psriScore) {
-      if (psriScore >= 80) return 'transformer';
-      if (psriScore >= 60) return 'optimizer';
-      if (psriScore >= 40) return 'adopter';
+    // Map PCRI score to customer-facing archetype
+    function getArchetypeFromScore(pcriScore) {
+      if (pcriScore >= 80) return 'transformer';
+      if (pcriScore >= 60) return 'optimizer';
+      if (pcriScore >= 40) return 'adopter';
       return 'builder';
     }
 
@@ -3800,7 +3802,7 @@
       // Update step indicators
       const steps = document.querySelectorAll('.progress-step');
       const categoryMap = {
-        'Product System Foundation': 'foundation',
+        'Context Foundation': 'foundation',
         'AI Readiness': 'ai',
         'Governance & Adoption': 'governance',
         'Delivery Workflow': 'delivery',
@@ -3997,10 +3999,10 @@
         assessmentType: assessmentType,
         industry: selectedIndustry,
         respondentRole: selectedRole,
-        psriVersion: PSRI_VERSION,
+        pcriVersion: PCRI_VERSION,
         
-        // PSRI Score
-        psriScore: results.psriScore,
+        // PCRI Score
+        pcriScore: results.pcriScore,
         
         // Normalized pillar scores (0-100)
         foundationNorm: results.foundationNorm,
@@ -4019,8 +4021,8 @@
         recommendedPath: recommendedPath,
         deploymentTier: deploymentTier,
         // Customer-facing archetype
-        archetype: archetypeDetails[getArchetypeFromScore(results.psriScore)]?.name || 'Foundation Builder',
-        archetypeKey: getArchetypeFromScore(results.psriScore),
+        archetype: archetypeDetails[getArchetypeFromScore(results.pcriScore)]?.name || 'Foundation Builder',
+        archetypeKey: getArchetypeFromScore(results.pcriScore),
         
         // Lead info (if provided)
         firstName: formData.firstName || '',
@@ -4079,7 +4081,7 @@
         statusEl.innerHTML = `
           <p style="font-size: 0.8rem; color: #6ee7b7; display: flex; align-items: center; gap: 6px;">
             <i data-lucide="check-circle" style="width: 14px; height: 14px;"></i>
-            Found baseline from ${new Date(baseline.timestamp).toLocaleDateString()}: PSRI ${baseline.psriScore}/100
+            Found baseline from ${new Date(baseline.timestamp).toLocaleDateString()}: PCRI ${baseline.pcriScore}/100
           </p>
         `;
         createAccessibleIcons();
@@ -4131,7 +4133,7 @@
       announce(`Question ${questionNum} of ${totalQuestions}. ${question.category}. ${question.question}`);
 
       const categoryColors = {
-        'Product System Foundation': { bg: 'rgba(16, 185, 129, 0.15)', border: 'rgba(16, 185, 129, 0.3)', text: 'var(--spectrum-green-400)', icon: 'layers' },
+        'Context Foundation': { bg: 'rgba(16, 185, 129, 0.15)', border: 'rgba(16, 185, 129, 0.3)', text: 'var(--spectrum-green-400)', icon: 'layers' },
         'Governance & Adoption': { bg: 'rgba(59, 130, 246, 0.15)', border: 'rgba(59, 130, 246, 0.3)', text: 'var(--spectrum-blue-400)', icon: 'shield' },
         'Delivery Workflow': { bg: 'rgba(251, 191, 36, 0.15)', border: 'rgba(251, 191, 36, 0.3)', text: 'var(--spectrum-amber-400)', icon: 'zap' },
         'AI Readiness': { bg: 'rgba(139, 92, 246, 0.15)', border: 'rgba(139, 92, 246, 0.3)', text: 'var(--spectrum-purple-400)', icon: 'sparkles' },
@@ -4296,7 +4298,7 @@
         const selectedOption = q.options.find(opt => opt.value === answerValue);
         const maxScore = Math.max(...q.options.map(o => o.score));
         
-        if (q.category === 'Product System Foundation') {
+        if (q.category === 'Context Foundation') {
           foundationMaxWeighted += maxScore * weight;
           if (selectedOption) foundationScore += selectedOption.score * weight;
         } else if (q.category === 'AI Readiness') {
@@ -4324,14 +4326,14 @@
       const deliveryNormRaw = deliveryMaxWeighted > 0 ? Math.round((deliveryScore / deliveryMaxWeighted) * 100) : 0;
       const cultureNormRaw = cultureMaxWeighted > 0 ? Math.round((cultureScore / cultureMaxWeighted) * 100) : 0;
       
-      // Multi-System score (calculated separately, not part of PSRI)
+      // Multi-System score (calculated separately, not part of PCRI)
       const multiSystemNorm = multiSystemMaxWeighted > 0 ? Math.round((multiSystemScore / multiSystemMaxWeighted) * 100) : null;
       systemOfSystemsScore = multiSystemNorm || 0;
       
       // Apply gated progression logic
       // AI Readiness is discounted if Foundation is below threshold
       // Delivery is discounted if Governance is below threshold
-      // Culture gates the overall PSRI multiplier
+      // Culture gates the overall PCRI multiplier
       let foundationNorm = foundationNormRaw;
       let aiNorm = aiNormRaw;
       let orgNorm = orgNormRaw;
@@ -4353,18 +4355,18 @@
         }
       }
 
-      // Calculate PSRI (Product System Readiness Index) using weighted pillars
+      // Calculate PCRI (Product Context Readiness Index) using weighted pillars
       // Uses gated scores for composite, raw scores stored separately for transparency
-      psriScore = Math.round(
-        (foundationNorm * PSRI_WEIGHTS.foundation) +
-        (aiNorm * PSRI_WEIGHTS.ai) +
-        (orgNorm * PSRI_WEIGHTS.governance) +
-        (deliveryNorm * PSRI_WEIGHTS.delivery) +
-        (cultureNorm * PSRI_WEIGHTS.culture)
+      pcriScore = Math.round(
+        (foundationNorm * PCRI_WEIGHTS.foundation) +
+        (aiNorm * PCRI_WEIGHTS.ai) +
+        (orgNorm * PCRI_WEIGHTS.governance) +
+        (deliveryNorm * PCRI_WEIGHTS.delivery) +
+        (cultureNorm * PCRI_WEIGHTS.culture)
       );
 
       // Legacy total for backward compatibility (raw points)
-      const totalScore = psriScore;
+      const totalScore = pcriScore;
       
       // Map normalized scores back to display ranges for UI
       const foundationDisplay = Math.round((foundationNorm / 100) * 20);
@@ -4373,15 +4375,15 @@
       const deliveryDisplay = Math.round((deliveryNorm / 100) * 15);
       const cultureDisplay = Math.round((cultureNorm / 100) * 25);
 
-      // Determine Investment Path based on PSRI and pillar scores
+      // Determine Investment Path based on PCRI and pillar scores
       // Now also considers culture as a key factor
       recommendedPath = 'J1';
       
-      if (psriScore >= 75 && foundationNorm >= 70 && orgNorm >= 60 && cultureNorm >= 60) {
+      if (pcriScore >= 75 && foundationNorm >= 70 && orgNorm >= 60 && cultureNorm >= 60) {
         recommendedPath = 'J4';
-      } else if (psriScore >= 55 && foundationNorm >= 60 && orgNorm >= 55 && cultureNorm >= 50) {
+      } else if (pcriScore >= 55 && foundationNorm >= 60 && orgNorm >= 55 && cultureNorm >= 50) {
         recommendedPath = 'J3';
-      } else if (psriScore >= 45 && orgNorm >= 50 && cultureNorm >= 40) {
+      } else if (pcriScore >= 45 && orgNorm >= 50 && cultureNorm >= 40) {
         recommendedPath = 'J2';
       } else {
         recommendedPath = 'J1';
@@ -4409,8 +4411,8 @@
         cultureNormRaw,
         // Gating info
         gatingApplied,
-        psriScore,
-        psriVersion: PSRI_VERSION,
+        pcriScore,
+        pcriVersion: PCRI_VERSION,
         // Multi-System Architecture score (only for multi-system orgs)
         multiSystemNorm,
         systemLandscape: selectedSystemLandscape,
@@ -4418,8 +4420,8 @@
       };
       
       trackEvent('assessment_complete', { 
-        psriScore,
-        psriVersion: PSRI_VERSION,
+        pcriScore,
+        pcriVersion: PCRI_VERSION,
         foundationNorm, 
         aiNorm, 
         orgNorm, 
@@ -4457,7 +4459,7 @@
         return;
       }
       
-      const psriDelta = results.psriScore - (baselineData.psriScore || 0);
+      const pcriDelta = results.pcriScore - (baselineData.pcriScore || 0);
       const foundationDelta = results.foundationNorm - (baselineData.foundationNorm || 0);
       const aiDelta = results.aiNorm - (baselineData.aiNorm || 0);
       const govDelta = results.orgNorm - (baselineData.governanceNorm || 0);
@@ -4480,13 +4482,13 @@
         
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px;">
           <div class="content-box" style="background: rgba(255,255,255,0.05); text-align: center; padding: 24px;">
-            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">PSRI Change</p>
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">PCRI Change</p>
             <div style="display: flex; align-items: center; justify-content: center; gap: 12px;">
-              <span style="font-size: 2.5rem; font-weight: 700; color: ${deltaColor(psriDelta)};">${formatDelta(psriDelta)}</span>
-              <i data-lucide="${deltaIcon(psriDelta)}" style="width: 32px; height: 32px; color: ${deltaColor(psriDelta)};"></i>
+              <span style="font-size: 2.5rem; font-weight: 700; color: ${deltaColor(pcriDelta)};">${formatDelta(pcriDelta)}</span>
+              <i data-lucide="${deltaIcon(pcriDelta)}" style="width: 32px; height: 32px; color: ${deltaColor(pcriDelta)};"></i>
             </div>
             <p style="font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-top: 8px;">
-              ${baselineData.psriScore} → ${results.psriScore}
+              ${baselineData.pcriScore} → ${results.pcriScore}
             </p>
           </div>
           
@@ -4498,7 +4500,7 @@
               </div>
               <i data-lucide="arrow-right" style="width: 20px; height: 20px; color: rgba(255,255,255,0.5);"></i>
               <div style="padding: 8px 12px; background: rgba(100, 54, 191, 0.3); border-radius: 8px; border: 1px solid #6436bf;">
-                <span style="font-size: 0.8rem; font-weight: 600; color: #fff;">${archetypeDetails[getArchetypeFromScore(results.psriScore)]?.name || 'Foundation Builder'}</span>
+                <span style="font-size: 0.8rem; font-weight: 600; color: #fff;">${archetypeDetails[getArchetypeFromScore(results.pcriScore)]?.name || 'Foundation Builder'}</span>
               </div>
             </div>
           </div>
@@ -4524,11 +4526,11 @@
         
         <div style="margin-top: 16px; padding: 12px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.3);">
           <p style="font-size: 0.8rem; color: #6ee7b7;">
-            ${psriDelta > 10 
+            ${pcriDelta > 10 
               ? '🎉 Significant progress! Your organization has made measurable improvements across key dimensions.' 
-              : psriDelta > 0 
+              : pcriDelta > 0 
               ? '📈 Positive movement. Continue focusing on your weakest pillar to accelerate progress.'
-              : psriDelta === 0
+              : pcriDelta === 0
               ? '➡️ Score unchanged. Review recommendations below to identify quick wins.'
               : '⚠️ Score decreased. This may indicate organizational changes or more accurate self-assessment.'}
           </p>
@@ -4542,16 +4544,16 @@
       if (!results) return;
 
       const { foundationScore, aiScore, orgScore, deliveryScore, cultureScore, totalScore } = results;
-      const archetypeKey = getArchetypeFromScore(results.psriScore || totalScore);
+      const archetypeKey = getArchetypeFromScore(results.pcriScore || totalScore);
       const archetype = archetypeDetails[archetypeKey];
 
       document.getElementById('lead-form-container').style.display = 'none';
       document.getElementById('results-content').style.display = 'block';
-      trackEvent('results_reveal', { totalScore, psriScore: results.psriScore, recommendedPath, deploymentTier, assessmentType, organizationId });
+      trackEvent('results_reveal', { totalScore, pcriScore: results.pcriScore, recommendedPath, deploymentTier, assessmentType, organizationId });
       
       // Announce results for screen readers
-      const displayPsriValue = results.psriScore || totalScore;
-      announce(`Your assessment results are ready. Your Product System Readiness Index score is ${displayPsriValue} out of 100. Your maturity stage is ${archetype.name}.`, true);
+      const displayPcriValue = results.pcriScore || totalScore;
+      announce(`Your assessment results are ready. Your Product Context Readiness Index score is ${displayPcriValue} out of 100. Your context readiness stage is ${archetype.name}.`, true);
       
       // Focus results container for screen readers
       setFocus('#results-content');
@@ -4567,27 +4569,27 @@
       const orgNorm = results.orgNorm || Math.round((orgScore / 20) * 100);
       const deliveryNorm = results.deliveryNorm || Math.round((deliveryScore / 15) * 100);
       const cultureNorm = results.cultureNorm || Math.round((cultureScore / 25) * 100);
-      const displayPsri = results.psriScore || totalScore;
+      const displayPcri = results.pcriScore || totalScore;
       
-      // PSRI Display with animation
-      animateCounter(document.getElementById('psri-display'), displayPsri, 1200);
+      // PCRI Display with animation
+      animateCounter(document.getElementById('pcri-display'), displayPcri, 1200);
       document.getElementById('overall-score').textContent = totalScore;
       document.getElementById('readiness-tier').textContent = archetype.shortName;
       
       // Trigger staggered card animations
       setTimeout(() => animateResultCards(), 200);
       
-      // Animate PSRI ring
-      const psriRing = document.getElementById('psri-ring');
-      if (psriRing) {
+      // Animate PCRI ring
+      const pcriRing = document.getElementById('pcri-ring');
+      if (pcriRing) {
         setTimeout(() => {
-          psriRing.style.strokeDasharray = `${displayPsri}, 100`;
-          psriRing.style.transition = 'stroke-dasharray 1s ease-out';
+          pcriRing.style.strokeDasharray = `${displayPcri}, 100`;
+          pcriRing.style.transition = 'stroke-dasharray 1s ease-out';
         }, 100);
       }
       
-      const benchmarkData = generateBenchmarkComparison(displayPsri, foundationScore, aiScore, orgScore, recommendedPath, selectedIndustry);
-      document.getElementById('benchmark-label').textContent = getBenchmarkLabel(displayPsri, benchmarkData);
+      const benchmarkData = generateBenchmarkComparison(displayPcri, foundationScore, aiScore, orgScore, recommendedPath, selectedIndustry);
+      document.getElementById('benchmark-label').textContent = getBenchmarkLabel(displayPcri, benchmarkData);
       
       // Pillar scores with animation
       animateCounter(document.getElementById('foundation-score'), foundationScore, 800);
@@ -4637,13 +4639,13 @@
       // =========================================================================
       
       // Executive Summary
-      renderExecutiveSummary(displayPsri, archetype, archetypeKey, foundationNorm, aiNorm, orgNorm, deliveryNorm, cultureNorm, benchmarkData);
+      renderExecutiveSummary(displayPcri, archetype, archetypeKey, foundationNorm, aiNorm, orgNorm, deliveryNorm, cultureNorm, benchmarkData);
       
       // Maturity Journey Timeline
-      renderMaturityJourney(displayPsri, archetypeKey);
+      renderMaturityJourney(displayPcri, archetypeKey);
       
       // Priority Actions
-      renderPriorityActions(foundationNorm, aiNorm, orgNorm, deliveryNorm, cultureNorm, displayPsri);
+      renderPriorityActions(foundationNorm, aiNorm, orgNorm, deliveryNorm, cultureNorm, displayPcri);
       
       // Multi-System Maturity Map (only for multi-system organizations)
       if (results.isMultiSystem && results.multiSystemNorm !== null) {
@@ -4655,7 +4657,7 @@
         renderToolStackInsights();
       }
       
-      document.getElementById('tier-outcome').textContent = getTierOutcome(displayPsri);
+      document.getElementById('tier-outcome').textContent = getTierOutcome(displayPcri);
       document.getElementById('ai-readiness-status').textContent = getAiReadinessStatus(foundationNorm, aiNorm);
 
       // Archetype-based color mapping
@@ -4762,39 +4764,48 @@
         <div class="modal-content" style="background: var(--spectrum-bg-layer-1); border-radius: var(--spectrum-radius-xl); max-width: 720px; max-height: 90vh; overflow-y: auto; padding: 32px; border: 1px solid var(--spectrum-border-default); box-shadow: var(--spectrum-shadow-xl);">
           <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
             <div>
-              <h2 id="methodology-title" style="color: var(--spectrum-text-primary); font-size: var(--spectrum-font-size-700); margin-bottom: 8px;">PSRI Methodology</h2>
-              <p id="methodology-desc" style="color: var(--spectrum-text-tertiary); font-size: var(--spectrum-font-size-200);">How we calculate your Product System Readiness Index</p>
+              <h2 id="methodology-title" style="color: var(--spectrum-text-primary); font-size: var(--spectrum-font-size-700); margin-bottom: 8px;">PCRI Framework</h2>
+              <p id="methodology-desc" style="color: var(--spectrum-text-tertiary); font-size: var(--spectrum-font-size-200);">How we measure your Product Context Readiness Index</p>
             </div>
             <button id="modal-close-btn" onclick="closeMethodology()" style="background: transparent; border: none; color: var(--spectrum-text-secondary); cursor: pointer; padding: 8px; border-radius: var(--spectrum-radius-md);" aria-label="Close methodology modal">
               <i data-lucide="x" style="width: 24px; height: 24px;" aria-hidden="true"></i>
             </button>
           </div>
           
+          <!-- Why Context Matters -->
+          <div style="background: linear-gradient(135deg, rgba(100, 54, 191, 0.12) 0%, rgba(59, 130, 246, 0.08) 100%); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; border-left: 3px solid var(--spectrum-purple-400);">
+            <p style="color: var(--spectrum-purple-300); font-weight: 600; font-size: 0.9rem; margin-bottom: 8px;">"AI doesn't consume components—it consumes context."</p>
+            <p style="color: var(--spectrum-text-tertiary); font-size: 0.85rem; line-height: 1.6; margin: 0;">
+              AI-generated UI often feels "superficially correct but wrong" because AI follows visible rules and misses invisible constraints. <strong style="color: var(--spectrum-text-secondary);">Product context</strong> includes which decisions are encouraged vs. merely permitted, how to handle accessibility tradeoffs, and why exceptions exist. This framework measures whether your context is operational—not just documented.
+            </p>
+            <p style="color: var(--spectrum-text-muted); font-size: 0.75rem; margin-top: 10px; margin-bottom: 0;">— Robin Cannon, VP Product, Knapsack</p>
+          </div>
+          
           <div style="margin-bottom: 24px;">
-            <h3 style="color: var(--spectrum-purple-400); font-size: var(--spectrum-font-size-400); margin-bottom: 12px;">Five Pillars of Readiness</h3>
+            <h3 style="color: var(--spectrum-purple-400); font-size: var(--spectrum-font-size-400); margin-bottom: 12px;">Five Pillars of Context Readiness</h3>
             <p style="color: var(--spectrum-text-secondary); font-size: var(--spectrum-font-size-300); margin-bottom: 16px;">
-              The PSRI measures maturity across five interconnected dimensions. Culture is weighted highest because research from DORA, Google, and Sparkbox shows it's the #1 predictor of design system success:
+              The PCRI measures <strong>product context readiness</strong> across five interconnected dimensions. Culture is weighted highest because it determines whether context becomes operational or remains tribal knowledge:
             </p>
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
               <div style="background: rgba(110, 231, 183, 0.1); border: 1px solid rgba(110, 231, 183, 0.3); border-radius: 8px; padding: 16px;">
-                <p style="color: var(--spectrum-green-400); font-weight: 600; margin-bottom: 4px;">Foundation (20%)</p>
-                <p style="color: var(--spectrum-text-tertiary); font-size: 0.875rem;">Component library maturity, design tokens, documentation, and accessibility. Aligned with Sparkbox maturity stages and EightShapes governance models.</p>
+                <p style="color: var(--spectrum-green-400); font-weight: 600; margin-bottom: 4px;">Context Foundation (20%)</p>
+                <p style="color: var(--spectrum-text-tertiary); font-size: 0.875rem;">The governed context substrate: tokens, components, documentation, accessibility decisions, and the invisible constraints that make them work. Not just what things look like—but how decisions propagate.</p>
               </div>
               <div style="background: rgba(196, 181, 253, 0.1); border: 1px solid rgba(196, 181, 253, 0.3); border-radius: 8px; padding: 16px;">
                 <p style="color: var(--spectrum-purple-300); font-weight: 600; margin-bottom: 4px;">AI Readiness (20%)</p>
-                <p style="color: var(--spectrum-text-tertiary); font-size: 0.875rem;">Metadata structure, API maturity, and AI governance. Draws on NIST AI RMF and MIT Sloan AI@Scale research.</p>
+                <p style="color: var(--spectrum-text-tertiary); font-size: 0.875rem;">Machine-readable context, API maturity, and AI governance. AI amplifies context—which decisions are encouraged, where flexibility exists, why exceptions were made.</p>
               </div>
               <div style="background: rgba(147, 197, 253, 0.1); border: 1px solid rgba(147, 197, 253, 0.3); border-radius: 8px; padding: 16px;">
                 <p style="color: var(--spectrum-blue-400); font-weight: 600; margin-bottom: 4px;">Governance (20%)</p>
-                <p style="color: var(--spectrum-text-tertiary); font-size: 0.875rem;">Executive sponsorship, investment, change capacity, and ROI measurement. Based on SVPG product operating model principles.</p>
+                <p style="color: var(--spectrum-text-tertiary); font-size: 0.875rem;">Executive sponsorship, investment, change capacity, and ROI measurement. Defines boundaries and review expectations—not just enforcement.</p>
               </div>
               <div style="background: rgba(253, 224, 71, 0.1); border: 1px solid rgba(253, 224, 71, 0.3); border-radius: 8px; padding: 16px;">
                 <p style="color: var(--spectrum-amber-400); font-weight: 600; margin-bottom: 4px;">Delivery (15%)</p>
-                <p style="color: var(--spectrum-text-tertiary); font-size: 0.875rem;">Workflow consistency, platform team patterns (Team Topologies), and DORA deployment metrics. Aligned with elite engineering performers.</p>
+                <p style="color: var(--spectrum-text-tertiary); font-size: 0.875rem;">Workflow consistency, platform team patterns (Team Topologies), and DORA deployment metrics. How context flows from decision to production.</p>
               </div>
               <div style="background: rgba(251, 146, 60, 0.1); border: 1px solid rgba(251, 146, 60, 0.3); border-radius: 8px; padding: 16px; grid-column: span 2;">
                 <p style="color: #fb923c; font-weight: 600; margin-bottom: 4px;">Culture & Contribution (25%) ★</p>
-                <p style="color: var(--spectrum-text-tertiary); font-size: 0.875rem;">Contribution model, psychological safety (Google Project Aristotle), information flow (Westrum culture model), and community health. Research consistently shows organizations with generative culture outperform those with only technical maturity.</p>
+                <p style="color: var(--spectrum-text-tertiary); font-size: 0.875rem;">Making implicit context explicit. Contribution models, psychological safety (Project Aristotle), information flow (Westrum), and whether context is codified or tribal. Culture determines if context becomes operational.</p>
               </div>
             </div>
           </div>
@@ -4814,7 +4825,7 @@
           <div style="margin-bottom: 24px;">
             <h3 style="color: var(--spectrum-purple-400); font-size: var(--spectrum-font-size-400); margin-bottom: 12px;">Research Foundation</h3>
             <p style="color: var(--spectrum-text-secondary); font-size: var(--spectrum-font-size-300); line-height: 1.6; margin-bottom: 16px;">
-              The PSRI synthesizes insights from the most respected frameworks in design systems, product development, and enterprise AI:
+              The PCRI synthesizes insights from the most respected frameworks in product context, design systems, and enterprise AI:
             </p>
             
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px;">
@@ -4878,13 +4889,13 @@
             </div>
             
             <p style="color: var(--spectrum-text-tertiary); font-size: var(--spectrum-font-size-200); line-height: 1.6; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;">
-              <strong style="color: var(--spectrum-text-secondary);">Why Culture is weighted highest (25%):</strong> Research from DORA, Google, and Sparkbox consistently shows that organizational culture—not technical sophistication—is the #1 predictor of long-term design system success. We've validated our scoring against outcomes from 50+ enterprise engagements across Financial Services, Healthcare, Retail, and Technology sectors.
+              <strong style="color: var(--spectrum-text-secondary);">Why Culture is weighted highest (25%):</strong> Culture determines whether context becomes operational or remains tribal knowledge. Research from DORA, Google, and Sparkbox consistently shows organizational culture—not technical sophistication—is the #1 predictor of sustainable adoption. Validated against outcomes from 50+ enterprise engagements.
             </p>
           </div>
           
           <div style="background: rgba(100, 54, 191, 0.1); border-radius: 8px; padding: 16px; text-align: center;">
-            <p style="color: var(--spectrum-text-tertiary); font-size: var(--spectrum-font-size-200); margin-bottom: 8px;">Want the full methodology whitepaper?</p>
-            <a href="mailto:ipe@knapsack.cloud?subject=PSRI Methodology Whitepaper Request" style="color: var(--spectrum-purple-400); font-weight: 600; text-decoration: underline;">Request access →</a>
+            <p style="color: var(--spectrum-text-tertiary); font-size: var(--spectrum-font-size-200); margin-bottom: 8px;">Want the full PCRI framework whitepaper?</p>
+            <a href="mailto:ipe@knapsack.cloud?subject=PCRI Framework Whitepaper Request" style="color: var(--spectrum-purple-400); font-weight: 600; text-decoration: underline;">Request access →</a>
           </div>
         </div>
       `;
@@ -4899,7 +4910,7 @@
       }
       
       // Announce to screen readers
-      announceToScreenReader('PSRI Methodology dialog opened. Press Escape to close.');
+      announceToScreenReader('PCRI Framework dialog opened. Press Escape to close.');
       
       // Note: backdrop click and keydown handlers already added above
       
@@ -5153,7 +5164,7 @@
     function generatePDFReport() {
       trackEvent('cta_generate_pdf');
       
-      const psri = pendingResults?.psriScore || document.getElementById('psri-display')?.textContent || '—';
+      const pcri = pendingResults?.pcriScore || document.getElementById('pcri-display')?.textContent || '—';
       const tier = document.getElementById('readiness-tier')?.textContent || 'Foundation';
       const benchmark = document.getElementById('benchmark-label')?.textContent || '—';
       const foundationNorm = pendingResults?.foundationNorm || 0;
@@ -5161,22 +5172,22 @@
       const orgNorm = pendingResults?.orgNorm || 0;
       const deliveryNorm = pendingResults?.deliveryNorm || 0;
       const cultureNorm = pendingResults?.cultureNorm || 0;
-      const archetypeKey = getArchetypeFromScore(psriScore);
+      const archetypeKey = getArchetypeFromScore(pcriScore);
       const archetype = archetypeDetails[archetypeKey];
       const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
       
       // Build progress comparison if available
       let progressSection = '';
       if (baselineData && assessmentType === 'follow-up') {
-        const psriDelta = psri - (baselineData.psriScore || 0);
+        const pcriDelta = pcri - (baselineData.pcriScore || 0);
         progressSection = `
           <div style="background: #e8f5e9; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
             <h3 style="color: #2e7d32; margin-bottom: 8px; font-size: 14px;">Progress Since Baseline</h3>
             <p style="font-size: 24px; font-weight: 700; color: #1b5e20;">
-              ${psriDelta >= 0 ? '+' : ''}${psriDelta} points
+              ${pcriDelta >= 0 ? '+' : ''}${pcriDelta} points
             </p>
             <p style="font-size: 12px; color: #4caf50;">
-              From ${baselineData.psriScore} to ${psri} since ${new Date(baselineData.timestamp).toLocaleDateString()}
+              From ${baselineData.pcriScore} to ${pcri} since ${new Date(baselineData.timestamp).toLocaleDateString()}
             </p>
           </div>
         `;
@@ -5189,10 +5200,10 @@
           <!-- Header -->
           <div style="text-align: center; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 3px solid #6436bf;">
             <div style="display: inline-block; background: #6436bf; color: white; padding: 6px 16px; border-radius: 16px; font-size: 11px; font-weight: 600; letter-spacing: 1px; margin-bottom: 16px;">
-              PSRI ASSESSMENT REPORT v${PSRI_VERSION}
+              PCRI ASSESSMENT REPORT v${PCRI_VERSION}
             </div>
             <h1 style="font-size: 28px; font-weight: 700; margin: 0 0 8px 0; color: #1a1a2e;">
-              Product System Readiness Index
+              Product Context Readiness Index
             </h1>
             <p style="color: #666; font-size: 14px; margin: 0;">
               ${organizationId ? organizationId.toUpperCase() + ' • ' : ''}${selectedIndustry} • ${date}
@@ -5203,8 +5214,8 @@
           <div style="background: linear-gradient(135deg, #6436bf 0%, #42247f 100%); color: white; border-radius: 12px; padding: 24px; margin-bottom: 24px;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <div>
-                <p style="font-size: 12px; opacity: 0.8; margin: 0 0 4px 0; text-transform: uppercase; letter-spacing: 1px;">Your PSRI Score</p>
-                <p style="font-size: 48px; font-weight: 700; margin: 0;">${psri}<span style="font-size: 24px; opacity: 0.7;">/100</span></p>
+                <p style="font-size: 12px; opacity: 0.8; margin: 0 0 4px 0; text-transform: uppercase; letter-spacing: 1px;">Your PCRI Score</p>
+                <p style="font-size: 48px; font-weight: 700; margin: 0;">${pcri}<span style="font-size: 24px; opacity: 0.7;">/100</span></p>
               </div>
               <div style="text-align: right;">
                 <p style="font-size: 12px; opacity: 0.8; margin: 0 0 4px 0;">Readiness Tier</p>
@@ -5313,7 +5324,7 @@
           <!-- Footer -->
           <div style="text-align: center; padding-top: 24px; border-top: 1px solid #e0e0e0; margin-top: 32px;">
             <p style="font-size: 11px; color: #999; margin: 0;">
-              Generated by Knapsack PSRI v${PSRI_VERSION} on ${date}
+              Generated by Knapsack PCRI v${PCRI_VERSION} on ${date}
             </p>
             <p style="font-size: 11px; color: #999; margin: 4px 0 0 0;">
               For more information, visit knapsack.cloud or contact ipe@knapsack.cloud
@@ -5325,7 +5336,7 @@
       // Generate PDF
       const opt = {
         margin: 0.5,
-        filename: `PSRI-Report-${organizationId || 'assessment'}-${new Date().toISOString().split('T')[0]}.pdf`,
+        filename: `PCRI-Report-${organizationId || 'assessment'}-${new Date().toISOString().split('T')[0]}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true },
         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
@@ -5370,15 +5381,15 @@
     function renderResultsPreview(results) {
       const preview = document.getElementById('results-preview');
       if (!preview || !results) return;
-      const archetypeKey = getArchetypeFromScore(results.psriScore || results.totalScore);
+      const archetypeKey = getArchetypeFromScore(results.pcriScore || results.totalScore);
       const archetype = archetypeDetails[archetypeKey];
       const benchmarkData = generateBenchmarkComparison(results.totalScore, results.foundationScore, results.aiScore, results.orgScore, recommendedPath, selectedIndustry);
       preview.innerHTML = `
         <p style="font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-bottom: 6px;">Preview your results</p>
         <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
           <span style="font-weight: 700; color: ${archetype.color};">${archetype.name}</span>
-          <span style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">PSRI ${results.psriScore || results.totalScore}/100</span>
-          <span style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">${getBenchmarkLabel(results.psriScore || results.totalScore, benchmarkData)}</span>
+          <span style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">PCRI ${results.pcriScore || results.totalScore}/100</span>
+          <span style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">${getBenchmarkLabel(results.pcriScore || results.totalScore, benchmarkData)}</span>
         </div>
         <p style="font-size: 0.75rem; color: rgba(255,255,255,0.55); margin-top: 6px;">Submit details to reveal your personalized roadmap.</p>
       `;
@@ -5401,15 +5412,15 @@
       createAccessibleIcons();
     }
     
-    function renderExecutiveSummary(psriScore, archetype, archetypeKey, foundationNorm, aiNorm, orgNorm, deliveryNorm, cultureNorm, benchmarkData) {
+    function renderExecutiveSummary(pcriScore, archetype, archetypeKey, foundationNorm, aiNorm, orgNorm, deliveryNorm, cultureNorm, benchmarkData) {
       // Animate score
-      animateCounter(document.getElementById('exec-score'), psriScore, 1000);
+      animateCounter(document.getElementById('exec-score'), pcriScore, 1000);
       
       // Archetype
       document.getElementById('exec-archetype').textContent = archetype.name;
       
       // Percentile
-      const percentile = psriScore >= 80 ? 'Top 10%' : psriScore >= 60 ? 'Top 35%' : psriScore >= 40 ? 'Top 65%' : 'Bottom 35%';
+      const percentile = pcriScore >= 80 ? 'Top 10%' : pcriScore >= 60 ? 'Top 35%' : pcriScore >= 40 ? 'Top 65%' : 'Bottom 35%';
       document.getElementById('exec-percentile').textContent = percentile;
       
       // Industry rank
@@ -5435,21 +5446,21 @@
       
       // Bottom line
       let bottomLine = '';
-      if (psriScore >= 75) {
+      if (pcriScore >= 75) {
         bottomLine = `Your organization is among the most mature we've assessed. Focus on optimizing AI governance and scaling your contribution model to maintain competitive advantage.`;
-      } else if (psriScore >= 55) {
+      } else if (pcriScore >= 55) {
         bottomLine = `You have solid foundations in place. Prioritize ${gap.name.toLowerCase()} improvements to unlock the next tier of maturity and accelerate delivery velocity.`;
-      } else if (psriScore >= 40) {
-        bottomLine = `Your product system is developing but gaps remain. Concentrate on strengthening ${gap.name.toLowerCase()} while building governance practices to support sustainable growth.`;
+      } else if (pcriScore >= 40) {
+        bottomLine = `Your product context is developing but gaps remain. Concentrate on strengthening ${gap.name.toLowerCase()} while building governance practices to make context operational.`;
       } else {
-        bottomLine = `You're in the early stages of product system maturity. Start with foundational components and governance before expanding to AI capabilities. Expected time to next tier: 6-9 months.`;
+        bottomLine = `You're in the early stages of product context readiness. Start with foundational context and governance before expanding to AI capabilities. Expected time to next tier: 6-9 months.`;
       }
       document.getElementById('exec-bottomline').textContent = bottomLine;
     }
     
-    function renderMaturityJourney(psriScore, archetypeKey) {
+    function renderMaturityJourney(pcriScore, archetypeKey) {
       // Calculate progress line width based on score
-      const progressPercent = Math.min(100, Math.max(0, (psriScore / 100) * 100));
+      const progressPercent = Math.min(100, Math.max(0, (pcriScore / 100) * 100));
       
       setTimeout(() => {
         const progressLine = document.getElementById('journey-progress-line');
@@ -5496,7 +5507,7 @@
       document.getElementById('journey-position-text').textContent = positionText;
     }
     
-    function renderPriorityActions(foundationNorm, aiNorm, orgNorm, deliveryNorm, cultureNorm, psriScore) {
+    function renderPriorityActions(foundationNorm, aiNorm, orgNorm, deliveryNorm, cultureNorm, pcriScore) {
       const actions = [];
       
       // Analyze gaps and create prioritized actions
@@ -5854,7 +5865,7 @@
           <div style="display: flex; align-items: center; gap: 12px;">
             <i data-lucide="check-circle" style="width: 24px; height: 24px; color: #10b981;"></i>
             <p style="font-size: 0.9rem; color: rgba(255,255,255,0.9); margin: 0;">
-              <strong style="color: #6ee7b7;">Well-coordinated!</strong> Your multi-system maturity aligns well with your overall product system capabilities.
+              <strong style="color: #6ee7b7;">Well-coordinated!</strong> Your multi-system context maturity aligns well with your overall product context capabilities.
             </p>
           </div>
         </div>
@@ -5927,7 +5938,7 @@
       
       // Special handling for Knapsack users
       if (isKnapsackUser) {
-        // Get PSRI scores for optimization recommendations
+        // Get PCRI scores for optimization recommendations
         const foundationNorm = pendingResults?.foundationNorm || 50;
         const aiNorm = pendingResults?.aiNorm || 50;
         const orgNorm = pendingResults?.orgNorm || 50;
