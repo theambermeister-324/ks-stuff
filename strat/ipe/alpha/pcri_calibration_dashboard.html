@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PSRI Calibration Dashboard</title>
+  <title>PCRI Calibration Dashboard</title>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
@@ -228,11 +228,11 @@
     <!-- Header -->
     <div class="header">
       <div>
-        <h1>PSRI Calibration Dashboard</h1>
+        <h1>PCRI Calibration Dashboard</h1>
         <p style="color: rgba(255,255,255,0.5); margin-top: 4px;">Track score-to-outcome correlation and validate index accuracy</p>
       </div>
       <div style="display: flex; align-items: center; gap: 16px;">
-        <span class="version-badge">PSRI v1.0</span>
+        <span class="version-badge">PCRI v1.0</span>
         <button class="btn btn-secondary" onclick="refreshData()">
           <i data-lucide="refresh-cw" style="width: 16px; height: 16px; margin-right: 6px;"></i>
           Refresh
@@ -267,11 +267,11 @@
         <div class="card">
           <div class="card-header">
             <i data-lucide="gauge" style="width: 18px; height: 18px; color: #3b82f6;"></i>
-            <h3>Average PSRI</h3>
+            <h3>Average PCRI</h3>
           </div>
-          <div class="metric-value" id="avg-psri">—</div>
+          <div class="metric-value" id="avg-pcri">—</div>
           <div class="metric-label">Across all orgs</div>
-          <div class="metric-change neutral" id="psri-change">
+          <div class="metric-change neutral" id="pcri-change">
             <i data-lucide="minus" style="width: 14px; height: 14px;"></i>
             <span>No change</span>
           </div>
@@ -307,7 +307,7 @@
         <div class="card">
           <div class="card-header">
             <i data-lucide="bar-chart-3" style="width: 18px; height: 18px; color: #a78bfa;"></i>
-            <h3>PSRI Distribution</h3>
+            <h3>PCRI Distribution</h3>
           </div>
           <div class="chart-container">
             <canvas id="distribution-chart"></canvas>
@@ -335,7 +335,7 @@
             <tr>
               <th>Organization</th>
               <th>Industry</th>
-              <th>PSRI</th>
+              <th>PCRI</th>
               <th>Archetype</th>
               <th>Type</th>
               <th>Gating Applied</th>
@@ -360,11 +360,11 @@
             <h3>Score-to-Outcome Correlation</h3>
           </div>
           <p style="font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-bottom: 16px;">
-            Correlation between PSRI score and engagement success metrics
+            Correlation between PCRI score and engagement success metrics
           </p>
           
           <div class="correlation-indicator">
-            <span style="font-size: 0.8rem; color: rgba(255,255,255,0.7); min-width: 120px;">PSRI → TTV</span>
+            <span style="font-size: 0.8rem; color: rgba(255,255,255,0.7); min-width: 120px;">PCRI → TTV</span>
             <div class="correlation-bar">
               <div class="correlation-fill" style="width: 78%; background: #10b981;"></div>
             </div>
@@ -413,7 +413,7 @@
         <div class="card">
           <div class="card-header">
             <i data-lucide="scatter-chart" style="width: 18px; height: 18px; color: #a78bfa;"></i>
-            <h3>PSRI vs Time-to-Value</h3>
+            <h3>PCRI vs Time-to-Value</h3>
           </div>
           <div class="chart-container">
             <canvas id="correlation-chart"></canvas>
@@ -427,7 +427,7 @@
           <h3>Archetype Prediction Accuracy</h3>
         </div>
         <p style="font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-bottom: 16px;">
-          How well does PSRI archetype predict actual engagement path?
+          How well does PCRI archetype predict actual engagement path?
         </p>
         <table class="data-table">
           <thead>
@@ -610,7 +610,7 @@
             <h3>Weight Simulator</h3>
           </div>
           <p style="font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-bottom: 16px;">
-            Test how weight changes affect PSRI distribution and prediction accuracy
+            Test how weight changes affect PCRI distribution and prediction accuracy
           </p>
           
           <div class="config-panel">
@@ -644,7 +644,7 @@
             <h4 style="font-size: 0.85rem; font-weight: 600; color: #fff; margin-bottom: 12px;">Simulation Results</h4>
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
               <div>
-                <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5);">Avg PSRI Change</p>
+                <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5);">Avg PCRI Change</p>
                 <p style="font-size: 1.1rem; font-weight: 600; color: #fff;">+2.3 points</p>
               </div>
               <div>
@@ -761,11 +761,11 @@
       predictionAccuracy: 81,
       followupRate: 32,
       recentAssessments: [
-        { org: 'acme-corp.com', industry: 'Financial Services', psri: 67, archetype: 'Scale', type: 'baseline', gating: { ai: false, delivery: false }, date: '2026-02-04' },
-        { org: 'techstart.io', industry: 'Technology', psri: 42, archetype: 'Foundation', type: 'follow-up', gating: { ai: true, delivery: false }, date: '2026-02-03' },
-        { org: 'healthco.com', industry: 'Healthcare', psri: 58, archetype: 'Momentum', type: 'baseline', gating: { ai: false, delivery: true }, date: '2026-02-02' },
-        { org: 'retailmax.com', industry: 'Retail', psri: 71, archetype: 'Scale', type: 'baseline', gating: { ai: false, delivery: false }, date: '2026-02-01' },
-        { org: 'finserv-global.com', industry: 'Financial Services', psri: 83, archetype: 'Intelligence', type: 'follow-up', gating: { ai: false, delivery: false }, date: '2026-01-31' }
+        { org: 'acme-corp.com', industry: 'Financial Services', pcri: 67, archetype: 'Scale', type: 'baseline', gating: { ai: false, delivery: false }, date: '2026-02-04' },
+        { org: 'techstart.io', industry: 'Technology', pcri: 42, archetype: 'Foundation', type: 'follow-up', gating: { ai: true, delivery: false }, date: '2026-02-03' },
+        { org: 'healthco.com', industry: 'Healthcare', pcri: 58, archetype: 'Momentum', type: 'baseline', gating: { ai: false, delivery: true }, date: '2026-02-02' },
+        { org: 'retailmax.com', industry: 'Retail', pcri: 71, archetype: 'Scale', type: 'baseline', gating: { ai: false, delivery: false }, date: '2026-02-01' },
+        { org: 'finserv-global.com', industry: 'Financial Services', pcri: 83, archetype: 'Intelligence', type: 'follow-up', gating: { ai: false, delivery: false }, date: '2026-01-31' }
       ]
     };
 
@@ -779,7 +779,7 @@
 
     function updateMetrics() {
       document.getElementById('total-assessments').textContent = sampleData.totalAssessments;
-      document.getElementById('avg-psri').textContent = sampleData.avgPsri;
+      document.getElementById('avg-pcri').textContent = sampleData.avgPsri;
       document.getElementById('prediction-accuracy').textContent = sampleData.predictionAccuracy + '%';
       document.getElementById('followup-rate').textContent = sampleData.followupRate + '%';
     }
@@ -790,7 +790,7 @@
         <tr>
           <td>${a.org}</td>
           <td>${a.industry}</td>
-          <td><strong>${a.psri}</strong></td>
+          <td><strong>${a.pcri}</strong></td>
           <td><span class="status-badge ${a.archetype === 'Intelligence' || a.archetype === 'Scale' ? 'success' : 'info'}">${a.archetype}</span></td>
           <td><span class="status-badge ${a.type === 'follow-up' ? 'warning' : 'info'}">${a.type}</span></td>
           <td>${a.gating.ai || a.gating.delivery ? '<span style="color: #fde047;">Yes</span>' : '<span style="color: rgba(255,255,255,0.4);">No</span>'}</td>
@@ -860,7 +860,7 @@
         type: 'scatter',
         data: {
           datasets: [{
-            label: 'PSRI vs TTV (weeks)',
+            label: 'PCRI vs TTV (weeks)',
             data: [
               { x: 35, y: 16 }, { x: 42, y: 14 }, { x: 48, y: 12 },
               { x: 55, y: 10 }, { x: 62, y: 9 }, { x: 68, y: 8 },
@@ -885,7 +885,7 @@
               reverse: true
             },
             x: {
-              title: { display: true, text: 'PSRI Score', color: 'rgba(255,255,255,0.6)' },
+              title: { display: true, text: 'PCRI Score', color: 'rgba(255,255,255,0.6)' },
               grid: { color: 'rgba(255,255,255,0.1)' },
               ticks: { color: 'rgba(255,255,255,0.6)' }
             }
@@ -956,7 +956,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'psri-config-v1.0.json';
+      a.download = 'pcri-config-v1.0.json';
       a.click();
       URL.revokeObjectURL(url);
     }

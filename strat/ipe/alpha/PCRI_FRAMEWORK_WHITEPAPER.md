@@ -1,4 +1,4 @@
-# Product System Readiness Index (PSRI) Methodology
+# Product System Readiness Index (PCRI) Methodology
 
 **Version 1.2 | February 2026 | Knapsack**
 
@@ -6,9 +6,9 @@
 
 ## Executive Summary
 
-The Product System Readiness Index (PSRI) is a composite assessment framework designed to measure an organization's readiness to evolve from traditional design systems to governed product systems with AI-enabled delivery capabilities.
+The Product System Readiness Index (PCRI) is a composite assessment framework designed to measure an organization's readiness to evolve from traditional design systems to governed product systems with AI-enabled delivery capabilities.
 
-Unlike generic AI readiness quizzes or traditional design system maturity models, PSRI uniquely combines **product system foundation**, **AI readiness**, **organizational governance**, **delivery workflow**, and **culture & contribution** into a single, actionable score that predicts engagement success and tracks progress over time.
+Unlike generic AI readiness quizzes or traditional design system maturity models, PCRI uniquely combines **product system foundation**, **AI readiness**, **organizational governance**, **delivery workflow**, and **culture & contribution** into a single, actionable score that predicts engagement success and tracks progress over time.
 
 The framework draws on established research including DORA metrics, Project Aristotle findings, Team Topologies organizational patterns, Westrum organizational culture typology, and NIST AI Risk Management Framework principles.
 
@@ -18,9 +18,9 @@ The framework draws on established research including DORA metrics, Project Aris
 
 ### 1.1 Design Principles
 
-PSRI is built on established principles from mature assessment frameworks:
+PCRI is built on established principles from mature assessment frameworks:
 
-| Principle | Source | PSRI Implementation |
+| Principle | Source | PCRI Implementation |
 |-----------|--------|---------------------|
 | **Multi-dimensional assessment** | CMMI, Gartner IT Score | 5 distinct pillars with independent scoring |
 | **Weighted composite scoring** | McKinsey DQ, Forrester DMM | Pillar weights based on predictive value |
@@ -47,9 +47,9 @@ These pillars are:
 
 ### 1.3 Research Foundations
 
-PSRI incorporates validated findings from:
+PCRI incorporates validated findings from:
 
-| Research | Key Contribution | PSRI Application |
+| Research | Key Contribution | PCRI Application |
 |----------|------------------|------------------|
 | **DORA State of DevOps** | Deployment frequency correlates with performance | Delivery pillar metrics |
 | **Google Project Aristotle** | Psychological safety predicts team effectiveness | Culture pillar questions |
@@ -103,7 +103,7 @@ A simple weighted average allows organizations to score high on AI Readiness whi
 
 ### 3.2 Gating Rules
 
-PSRI implements two progression gates:
+PCRI implements two progression gates:
 
 #### Gate 1: Foundation → AI Readiness
 
@@ -127,7 +127,7 @@ IF Governance < 30%:
 
 Both raw and gated scores are stored and displayed:
 - **Raw scores**: What you measured directly
-- **Effective scores**: What contributes to PSRI
+- **Effective scores**: What contributes to PCRI
 - **Gating indicators**: Visual flags when discounts apply
 
 ---
@@ -179,12 +179,12 @@ Unequal intervals prevent score clustering at the midpoint and reward genuine ca
 2. **Calculate max possible weighted points per pillar**
 3. **Normalize each pillar to 0-100**
 4. **Apply gating discounts if thresholds not met**
-5. **Calculate weighted composite (PSRI)**
+5. **Calculate weighted composite (PCRI)**
 
 ### 5.2 Formula
 
 ```
-PSRI = (Foundation_eff × 0.20) + (AI_eff × 0.20) + (Governance_eff × 0.20) + (Delivery_eff × 0.15) + (Culture_eff × 0.25)
+PCRI = (Foundation_eff × 0.20) + (AI_eff × 0.20) + (Governance_eff × 0.20) + (Delivery_eff × 0.15) + (Culture_eff × 0.25)
 ```
 
 Where `_eff` = effective score after gating.
@@ -198,17 +198,17 @@ Where `_eff` = effective score after gating.
 | Governance | 50% | — | 50% | 0.20 | 10.0 |
 | Delivery | 60% | — | 60% | 0.15 | 9.0 |
 | Culture | 55% | — | 55% | 0.25 | 13.75 |
-| **PSRI** | | | | | **46.75 ≈ 47** |
+| **PCRI** | | | | | **46.75 ≈ 47** |
 
-Note: Without gating, PSRI would be 54. The 7-point difference reflects the limited value of AI readiness without foundation.
+Note: Without gating, PCRI would be 54. The 7-point difference reflects the limited value of AI readiness without foundation.
 
 ---
 
 ## 6. Archetype Mapping
 
-### 6.1 PSRI to Archetype
+### 6.1 PCRI to Archetype
 
-| PSRI Range | Archetype | Primary Focus |
+| PCRI Range | Archetype | Primary Focus |
 |------------|-----------|---------------|
 | 0-44 | **Builder** | Establish foundations, build system of record |
 | 45-54 | **Adopter** | Rapid enablement sprint, expand adoption |
@@ -217,23 +217,23 @@ Note: Without gating, PSRI would be 54. The 7-point difference reflects the limi
 
 ### 6.2 Archetype Selection Logic
 
-Archetype assignment uses both PSRI and pillar minimums to prevent misclassification:
+Archetype assignment uses both PCRI and pillar minimums to prevent misclassification:
 
 ```javascript
-if (PSRI >= 75 && Foundation >= 70% && Governance >= 60% && Culture >= 60%)
+if (PCRI >= 75 && Foundation >= 70% && Governance >= 60% && Culture >= 60%)
     → Transformer
 
-else if (PSRI >= 55 && Foundation >= 60% && Governance >= 55% && Culture >= 50%)
+else if (PCRI >= 55 && Foundation >= 60% && Governance >= 55% && Culture >= 50%)
     → Optimizer
 
-else if (PSRI >= 45 && Governance >= 50% && Culture >= 40%)
+else if (PCRI >= 45 && Governance >= 50% && Culture >= 40%)
     → Adopter
 
 else
     → Builder
 ```
 
-This prevents misclassification (e.g., high PSRI from AI alone without foundation or culture).
+This prevents misclassification (e.g., high PCRI from AI alone without foundation or culture).
 
 ### 6.3 Archetype Characteristics
 
@@ -265,10 +265,10 @@ Organizations with federated design systems, multi-brand portfolios, or multi-pr
 
 ### 7.3 Scoring
 
-- Multi-System score is calculated separately from PSRI
+- Multi-System score is calculated separately from PCRI
 - Score is 0-100 normalized scale
 - Only displayed for organizations selecting "Multi-System" landscape type
-- Does not affect core PSRI calculation (additive insight, not composite factor)
+- Does not affect core PCRI calculation (additive insight, not composite factor)
 
 ### 7.4 System Landscape Types
 
@@ -299,7 +299,7 @@ Benchmarks are segmented by:
 
 ### 8.3 Benchmark Labels
 
-| PSRI vs Industry Avg | Label |
+| PCRI vs Industry Avg | Label |
 |----------------------|-------|
 | ≥ Top Quartile | **Top Quartile** |
 | ≥ Industry Average | **Above Average** |
@@ -327,7 +327,7 @@ Benchmarks are segmented by:
 
 | Metric | Calculation | Interpretation |
 |--------|-------------|----------------|
-| **PSRI Delta** | Current - Baseline | Overall improvement |
+| **PCRI Delta** | Current - Baseline | Overall improvement |
 | **Pillar Delta** | Per-pillar change | Focus area progress |
 | **Archetype Movement** | Tier progression | Milestone achievement |
 | **Time-to-Tier** | Days to reach next tier | Velocity indicator |
@@ -336,7 +336,7 @@ Benchmarks are segmented by:
 
 Based on engagement data, typical improvements:
 
-| Engagement Duration | Expected PSRI Gain |
+| Engagement Duration | Expected PCRI Gain |
 |--------------------|-------------------|
 | 3 months | +8-12 points |
 | 6 months | +15-22 points |
@@ -348,7 +348,7 @@ Based on engagement data, typical improvements:
 
 ### 10.1 Validation Approach
 
-PSRI validity is assessed through:
+PCRI validity is assessed through:
 
 1. **Face validity**: Expert review of question relevance
 2. **Content validity**: Coverage of all relevant capability domains
@@ -359,7 +359,7 @@ PSRI validity is assessed through:
 ### 10.2 Calibration Process
 
 1. Run assessment on 10+ known customers with known outcomes
-2. Compare PSRI predictions to actual engagement results
+2. Compare PCRI predictions to actual engagement results
 3. Identify questions with low predictive value
 4. Adjust weights or replace questions
 5. Document changes for version tracking
@@ -380,7 +380,7 @@ PSRI validity is assessed through:
 ### 11.1 Version Numbering
 
 ```
-PSRI [Major].[Minor]
+PCRI [Major].[Minor]
 ```
 
 - **Major**: Pillar structure or weight changes
@@ -388,7 +388,7 @@ PSRI [Major].[Minor]
 
 ### 11.2 Current Version
 
-**PSRI 1.2** (February 2026)
+**PCRI 1.2** (February 2026)
 - 5 pillars: Foundation, AI Readiness, Governance, Delivery, Culture
 - Weights: 20/20/20/15/25
 - 27 scored questions + 1 informational + 6 Multi-System (optional)
@@ -424,7 +424,7 @@ When versions change:
 
 ### 12.1 Assessment Bias
 
-PSRI is designed to minimize:
+PCRI is designed to minimize:
 - **Question bias**: Neutral language, no leading questions
 - **Cultural bias**: Applicable across industries and geographies
 - **Size bias**: Questions work for 100-person and 100,000-person orgs
@@ -448,7 +448,7 @@ PSRI is designed to minimize:
 ### 13.1 Scoring Algorithm (Pseudocode)
 
 ```javascript
-function calculatePSRI(answers) {
+function calculatePCRI(answers) {
   // Step 1: Calculate raw pillar scores
   let pillars = { foundation: 0, ai: 0, governance: 0, delivery: 0, culture: 0 };
   let maxes = { foundation: 0, ai: 0, governance: 0, delivery: 0, culture: 0 };
@@ -475,13 +475,13 @@ function calculatePSRI(answers) {
   }
   
   // Step 4: Calculate composite
-  psri = (norms.foundation * 0.20) +
+  pcri = (norms.foundation * 0.20) +
          (norms.ai * 0.20) +
          (norms.governance * 0.20) +
          (norms.delivery * 0.15) +
          (norms.culture * 0.25);
   
-  return round(psri);
+  return round(pcri);
 }
 ```
 
@@ -489,8 +489,8 @@ function calculatePSRI(answers) {
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `psriVersion` | string | "1.2" |
-| `psriScore` | int | 0-100 composite |
+| `pcriVersion` | string | "1.2" |
+| `pcriScore` | int | 0-100 composite |
 | `foundationNorm` | int | 0-100 after gating |
 | `foundationNormRaw` | int | 0-100 before gating |
 | `aiNorm` | int | 0-100 after gating |
@@ -548,5 +548,5 @@ function calculatePSRI(answers) {
 
 ---
 
-*For questions about PSRI methodology, contact: ipe@knapsack.cloud*
+*For questions about PCRI methodology, contact: ipe@knapsack.cloud*
 

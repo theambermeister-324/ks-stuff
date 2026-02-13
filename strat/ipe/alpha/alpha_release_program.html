@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PCRI Assessment | Alpha Release Program</title>
+  <meta name="description" content="GTM strategy, email sequences, and program structure for recruiting and engaging 20 alpha participants to validate the Product Context Readiness Index assessment.">
+  <meta name="theme-color" content="#1a1a2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS
+       ========================================================================== */
+    :root {
+      /* Primary palette */
+      --spectrum-purple-900: #42247f;
+      --spectrum-purple-700: #6436bf;
+      --spectrum-purple-500: #8b5cf6;
+      --spectrum-purple-400: #a78bfa;
+      --spectrum-purple-300: #c4b5fd;
+      --spectrum-purple-100: #e0d4f7;
+      
+      /* Semantic colors */
+      --spectrum-green-500: #10b981;
+      --spectrum-green-400: #34d399;
+      --spectrum-green-300: #6ee7b7;
+      --spectrum-blue-500: #3b82f6;
+      --spectrum-blue-400: #60a5fa;
+      --spectrum-blue-300: #93c5fd;
+      --spectrum-amber-500: #f59e0b;
+      --spectrum-amber-400: #fbbf24;
+      --spectrum-amber-300: #fde047;
+      --spectrum-red-500: #ef4444;
+      --spectrum-red-400: #f87171;
+      --spectrum-orange-500: #f97316;
+      --spectrum-orange-400: #fb923c;
+      
+      /* Background layers */
+      --spectrum-bg-base: #1a1a2e;
+      --spectrum-bg-layer-1: #16213e;
+      --spectrum-bg-layer-2: rgba(255,255,255,0.03);
+      --spectrum-bg-elevated: rgba(255,255,255,0.05);
+      
+      /* Text colors */
+      --spectrum-text-primary: #ffffff;
+      --spectrum-text-secondary: rgba(255,255,255,0.9);
+      --spectrum-text-tertiary: rgba(255,255,255,0.8);
+      --spectrum-text-disabled: rgba(255,255,255,0.65);
+      --spectrum-text-muted: rgba(255,255,255,0.7);
+      
+      /* Borders */
+      --spectrum-border-default: rgba(100, 54, 191, 0.3);
+      --spectrum-border-hover: rgba(100, 54, 191, 0.5);
+      --spectrum-border-subtle: rgba(255,255,255,0.08);
+      
+      /* Spacing */
+      --spectrum-spacing-50: 4px;
+      --spectrum-spacing-100: 8px;
+      --spectrum-spacing-200: 16px;
+      --spectrum-spacing-300: 24px;
+      --spectrum-spacing-400: 32px;
+      --spectrum-spacing-500: 40px;
+      --spectrum-spacing-600: 48px;
+      
+      /* Typography */
+      --spectrum-font-size-75: 0.75rem;
+      --spectrum-font-size-100: 0.875rem;
+      --spectrum-font-size-200: 1rem;
+      --spectrum-font-size-300: 1.0625rem;
+      --spectrum-font-size-400: 1.125rem;
+      --spectrum-font-size-500: 1.25rem;
+      --spectrum-font-size-600: 1.375rem;
+      --spectrum-font-size-700: 1.625rem;
+      --spectrum-font-size-800: 2rem;
+      --spectrum-font-size-900: 2.5rem;
+      
+      /* Border radius */
+      --spectrum-radius-sm: 4px;
+      --spectrum-radius-md: 8px;
+      --spectrum-radius-lg: 12px;
+      --spectrum-radius-xl: 16px;
+      --spectrum-radius-full: 9999px;
+      
+      /* Shadows */
+      --spectrum-shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+      --spectrum-shadow-md: 0 4px 12px rgba(0,0,0,0.25);
+      --spectrum-shadow-lg: 0 8px 24px rgba(0,0,0,0.3);
+      --spectrum-shadow-xl: 0 16px 48px rgba(0,0,0,0.35);
+      
+      /* Transitions */
+      --spectrum-transition-fast: 130ms ease;
+      --spectrum-transition-normal: 200ms ease;
+      --spectrum-transition-slow: 300ms ease;
+    }
+    
+    /* ==========================================================================
+       BASE STYLES
+       ========================================================================== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: var(--spectrum-font-size-300);
+      line-height: 1.6;
+      background: var(--spectrum-bg-base);
+      color: var(--spectrum-text-primary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position: relative;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(100, 54, 191, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 30% at 0% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(100, 54, 191, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100, 54, 191, 0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+      mask-image: radial-gradient(ellipse 70% 50% at 50% 30%, black 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 50% at 50% 30%, black 0%, transparent 70%);
+    }
+    
+    /* ==========================================================================
+       LAYOUT
+       ========================================================================== */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: var(--spectrum-spacing-600) var(--spectrum-spacing-300);
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* ==========================================================================
+       HEADER
+       ========================================================================== */
+    header {
+      margin-bottom: var(--spectrum-spacing-600);
+      padding-bottom: var(--spectrum-spacing-400);
+      border-bottom: 1px solid var(--spectrum-border-default);
+    }
+    
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(100, 54, 191, 0.2) 0%, rgba(100, 54, 191, 0.1) 100%);
+      border: 1px solid rgba(100, 54, 191, 0.4);
+      padding: var(--spectrum-spacing-100) var(--spectrum-spacing-200);
+      border-radius: var(--spectrum-radius-full);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--spectrum-spacing-300);
+      color: var(--spectrum-purple-300);
+      text-transform: uppercase;
+    }
+    
+    .logo-badge i {
+      width: 14px;
+      height: 14px;
+    }
+    
+    h1 {
+      font-size: var(--spectrum-font-size-900);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--spectrum-spacing-200);
+      background: linear-gradient(135deg, #fff 0%, var(--spectrum-purple-300) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .subtitle {
+      font-size: var(--spectrum-font-size-400);
+      color: var(--spectrum-text-secondary);
+      max-width: 700px;
+      line-height: 1.7;
+    }
+    
+    /* ==========================================================================
+       TABLE OF CONTENTS
+       ========================================================================== */
+    .toc {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.95) 0%, rgba(26, 26, 46, 0.9) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-xl);
+      padding: var(--spectrum-spacing-300);
+      margin-bottom: var(--spectrum-spacing-500);
+      box-shadow: var(--spectrum-shadow-lg);
+    }
+    
+    .toc h2 {
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--spectrum-text-muted);
+      margin-bottom: var(--spectrum-spacing-200);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    
+    .toc h2 i {
+      width: 14px;
+      height: 14px;
+      opacity: 0.7;
+    }
+    
+    .toc-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spectrum-spacing-100) var(--spectrum-spacing-300);
+      list-style: none;
+    }
+    
+    .toc-list a {
+      color: var(--spectrum-text-secondary);
+      text-decoration: none;
+      font-size: var(--spectrum-font-size-200);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      transition: all var(--spectrum-transition-fast);
+      border-radius: var(--spectrum-radius-sm);
+    }
+    
+    .toc-list a:hover {
+      color: var(--spectrum-purple-300);
+      transform: translateX(4px);
+    }
+    
+    .toc-list a i {
+      width: 12px;
+      height: 12px;
+      color: var(--spectrum-purple-500);
+      opacity: 0.7;
+      transition: opacity var(--spectrum-transition-fast);
+    }
+    
+    .toc-list a:hover i {
+      opacity: 1;
+    }
+    
+    /* ==========================================================================
+       SECTIONS
+       ========================================================================== */
+    section {
+      margin-bottom: var(--spectrum-spacing-600);
+    }
+    
+    h2 {
+      font-size: var(--spectrum-font-size-700);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--spectrum-spacing-300);
+      color: var(--spectrum-text-primary);
+      padding-bottom: var(--spectrum-spacing-200);
+      border-bottom: 1px solid var(--spectrum-border-default);
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    h2 i {
+      width: 20px;
+      height: 20px;
+      color: var(--spectrum-purple-400);
+    }
+    
+    h3 {
+      font-size: var(--spectrum-font-size-500);
+      font-weight: 600;
+      color: var(--spectrum-text-primary);
+      margin-top: var(--spectrum-spacing-400);
+      margin-bottom: var(--spectrum-spacing-200);
+    }
+    
+    h4 {
+      font-size: var(--spectrum-font-size-300);
+      font-weight: 600;
+      color: var(--spectrum-purple-400);
+      margin-top: var(--spectrum-spacing-300);
+      margin-bottom: var(--spectrum-spacing-100);
+    }
+    
+    p {
+      margin-bottom: var(--spectrum-spacing-200);
+      color: var(--spectrum-text-secondary);
+      line-height: 1.7;
+    }
+    
+    /* ==========================================================================
+       CARDS
+       ========================================================================== */
+    .card {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.95) 0%, rgba(26, 26, 46, 0.9) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: var(--spectrum-radius-xl);
+      padding: var(--spectrum-spacing-300);
+      margin: var(--spectrum-spacing-300) 0;
+      border: 1px solid var(--spectrum-border-default);
+      box-shadow: var(--spectrum-shadow-lg);
+      position: relative;
+    }
+    
+    .card.highlight {
+      border-color: var(--spectrum-purple-500);
+      background: linear-gradient(145deg, rgba(100, 54, 191, 0.12) 0%, rgba(22, 33, 62, 0.95) 100%);
+    }
+    
+    .card.accent {
+      border-left: 3px solid var(--spectrum-purple-500);
+    }
+    
+    .card h3 {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-100);
+    }
+    
+    .card h3 i {
+      width: 18px;
+      height: 18px;
+      color: var(--spectrum-purple-400);
+    }
+    
+    /* ==========================================================================
+       TABLES
+       ========================================================================== */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--spectrum-spacing-300) 0;
+      font-size: var(--spectrum-font-size-200);
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: var(--spectrum-radius-lg);
+      overflow: hidden;
+    }
+    
+    th {
+      background: linear-gradient(135deg, var(--spectrum-purple-900) 0%, rgba(66, 36, 127, 0.9) 100%);
+      color: white;
+      font-weight: 600;
+      text-align: left;
+      padding: var(--spectrum-spacing-200);
+      font-size: var(--spectrum-font-size-75);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    th:first-child { border-radius: var(--spectrum-radius-lg) 0 0 0; }
+    th:last-child { border-radius: 0 var(--spectrum-radius-lg) 0 0; }
+    
+    td {
+      padding: var(--spectrum-spacing-200);
+      border-bottom: 1px solid var(--spectrum-border-subtle);
+      color: var(--spectrum-text-secondary);
+    }
+    
+    tr:last-child td { border-bottom: none; }
+    
+    tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    
+    /* Status badges */
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--spectrum-radius-full);
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    
+    .status-complete {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--spectrum-green-400);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    
+    .status-progress {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--spectrum-amber-400);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    
+    .status-pending {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--spectrum-text-muted);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .status i {
+      width: 10px;
+      height: 10px;
+    }
+    
+    /* ==========================================================================
+       LISTS
+       ========================================================================== */
+    ul, ol {
+      margin: var(--spectrum-spacing-200) 0;
+      padding-left: var(--spectrum-spacing-300);
+      color: var(--spectrum-text-secondary);
+    }
+    
+    li {
+      margin-bottom: var(--spectrum-spacing-100);
+      line-height: 1.7;
+    }
+    
+    li strong {
+      color: var(--spectrum-text-primary);
+    }
+    
+    /* ==========================================================================
+       EMAIL TEMPLATES
+       ========================================================================== */
+    .email-template {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.95) 0%, rgba(26, 26, 46, 0.9) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-xl);
+      margin: var(--spectrum-spacing-300) 0;
+      overflow: hidden;
+      box-shadow: var(--spectrum-shadow-lg);
+    }
+    
+    .email-header {
+      background: rgba(255, 255, 255, 0.03);
+      padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300);
+      border-bottom: 1px solid var(--spectrum-border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .email-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--spectrum-purple-400);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .email-label i {
+      width: 14px;
+      height: 14px;
+    }
+    
+    .email-body {
+      padding: var(--spectrum-spacing-300);
+    }
+    
+    .email-subject {
+      font-size: var(--spectrum-font-size-200);
+      color: var(--spectrum-text-muted);
+      margin-bottom: var(--spectrum-spacing-100);
+    }
+    
+    .email-subject strong {
+      color: var(--spectrum-text-primary);
+      font-weight: 600;
+    }
+    
+    .email-content {
+      font-size: var(--spectrum-font-size-200);
+      line-height: 1.8;
+      color: var(--spectrum-text-secondary);
+    }
+    
+    .email-content p {
+      margin-bottom: var(--spectrum-spacing-200);
+    }
+    
+    .email-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-100);
+      background: linear-gradient(135deg, var(--spectrum-purple-700) 0%, var(--spectrum-purple-900) 100%);
+      color: white;
+      padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300);
+      border-radius: var(--spectrum-radius-md);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: var(--spectrum-font-size-200);
+      margin: var(--spectrum-spacing-100) 0;
+      transition: all var(--spectrum-transition-fast);
+    }
+    
+    .email-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(100, 54, 191, 0.4);
+    }
+    
+    .email-signature {
+      margin-top: var(--spectrum-spacing-300);
+      padding-top: var(--spectrum-spacing-200);
+      border-top: 1px solid var(--spectrum-border-subtle);
+      font-size: var(--spectrum-font-size-200);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(100, 54, 191, 0.15);
+      border: 1px solid rgba(100, 54, 191, 0.3);
+      color: var(--spectrum-purple-300);
+      padding: var(--spectrum-spacing-100) var(--spectrum-spacing-200);
+      border-radius: var(--spectrum-radius-md);
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--spectrum-transition-fast);
+    }
+    
+    .copy-btn:hover {
+      background: var(--spectrum-purple-700);
+      border-color: var(--spectrum-purple-500);
+      color: white;
+    }
+    
+    .copy-btn i {
+      width: 12px;
+      height: 12px;
+    }
+    
+    /* ==========================================================================
+       TIMELINE
+       ========================================================================== */
+    .timeline {
+      position: relative;
+      padding-left: var(--spectrum-spacing-400);
+      margin: var(--spectrum-spacing-300) 0;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--spectrum-purple-500), var(--spectrum-purple-900));
+      border-radius: 2px;
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding: var(--spectrum-spacing-200) 0;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -28px;
+      top: 24px;
+      width: 10px;
+      height: 10px;
+      background: var(--spectrum-purple-500);
+      border-radius: 50%;
+      border: 2px solid var(--spectrum-bg-base);
+    }
+    
+    .timeline-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-purple-400);
+      margin-bottom: var(--spectrum-spacing-50);
+      font-weight: 500;
+    }
+    
+    .timeline-title {
+      font-weight: 600;
+      color: var(--spectrum-text-primary);
+      margin-bottom: var(--spectrum-spacing-50);
+      font-size: var(--spectrum-font-size-300);
+    }
+    
+    .timeline-desc {
+      font-size: var(--spectrum-font-size-200);
+      color: var(--spectrum-text-muted);
+      line-height: 1.6;
+    }
+    
+    /* ==========================================================================
+       METRICS GRID
+       ========================================================================== */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spectrum-spacing-200);
+      margin: var(--spectrum-spacing-300) 0;
+    }
+    
+    .metric {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.95) 0%, rgba(26, 26, 46, 0.9) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-300);
+      text-align: center;
+      transition: all var(--spectrum-transition-normal);
+    }
+    
+    .metric:hover {
+      border-color: var(--spectrum-purple-500);
+      transform: translateY(-2px);
+      box-shadow: var(--spectrum-shadow-lg);
+    }
+    
+    .metric-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-800);
+      font-weight: 700;
+      color: var(--spectrum-purple-300);
+    }
+    
+    .metric-label {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+      margin-top: var(--spectrum-spacing-50);
+    }
+    
+    .metric-target {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-disabled);
+      margin-top: var(--spectrum-spacing-100);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    
+    /* ==========================================================================
+       CALLOUTS
+       ========================================================================== */
+    .callout {
+      background: rgba(100, 54, 191, 0.08);
+      border-left: 3px solid var(--spectrum-purple-500);
+      padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300);
+      margin: var(--spectrum-spacing-300) 0;
+      border-radius: 0 var(--spectrum-radius-md) var(--spectrum-radius-md) 0;
+    }
+    
+    .callout.warning {
+      background: rgba(245, 158, 11, 0.08);
+      border-left-color: var(--spectrum-amber-500);
+    }
+    
+    .callout.success {
+      background: rgba(16, 185, 129, 0.08);
+      border-left-color: var(--spectrum-green-500);
+    }
+    
+    .callout p {
+      margin: 0;
+    }
+    
+    /* ==========================================================================
+       CODE
+       ========================================================================== */
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(100, 54, 191, 0.15);
+      padding: 2px 8px;
+      border-radius: var(--spectrum-radius-sm);
+      font-size: 0.9em;
+      color: var(--spectrum-purple-300);
+    }
+    
+    /* ==========================================================================
+       MESSAGE BOX
+       ========================================================================== */
+    .message-box {
+      background: rgba(255,255,255,0.03);
+      padding: var(--spectrum-spacing-200);
+      border-radius: var(--spectrum-radius-md);
+      font-size: var(--spectrum-font-size-200);
+      border: 1px solid var(--spectrum-border-subtle);
+      line-height: 1.7;
+    }
+    
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(100, 54, 191, 0.15);
+      background: rgba(22, 33, 62, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      text-align: center;
+      padding: var(--spectrum-spacing-400);
+      margin-top: var(--spectrum-spacing-600);
+      color: var(--spectrum-text-muted);
+      font-size: var(--spectrum-font-size-200);
+    }
+    
+    footer a {
+      color: var(--spectrum-purple-400);
+      text-decoration: none;
+      transition: color var(--spectrum-transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    footer a:hover {
+      color: var(--spectrum-purple-300);
+    }
+    
+    footer a i {
+      width: 14px;
+      height: 14px;
+    }
+    
+    /* ==========================================================================
+       PRINT STYLES
+       ========================================================================== */
+    @media print {
+      body { background: white; color: #1a1a2e; }
+      body::before, body::after { display: none; }
+      .card, .email-template { border: 1px solid #ddd; box-shadow: none; background: white; }
+      .copy-btn { display: none; }
+      h1, h2, .metric-value { 
+        -webkit-text-fill-color: initial; 
+        background: none; 
+        color: #1a1a2e; 
+      }
+    }
+    
+    /* ==========================================================================
+       RESPONSIVE
+       ========================================================================== */
+    @media (max-width: 768px) {
+      .container {
+        padding: var(--spectrum-spacing-300) var(--spectrum-spacing-200);
+      }
+      
+      h1 { font-size: var(--spectrum-font-size-700); }
+      
+      .toc-list { grid-template-columns: 1fr; }
+      
+      .metrics-grid { grid-template-columns: 1fr; }
+      
+      table { font-size: var(--spectrum-font-size-100); }
+      
+      th, td { padding: var(--spectrum-spacing-100); }
+      
+      .email-header {
+        flex-direction: column;
+        gap: var(--spectrum-spacing-100);
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-badge"><i data-lucide="flask-conical"></i> Alpha Release Program</div>
+      <h1>PCRI Assessment Alpha Launch</h1>
+      <p class="subtitle">GTM strategy, email sequences, and program structure for recruiting and engaging 20 alpha participants to validate the Product Context Readiness Index assessment.</p>
+    </header>
+    
+    <!-- Table of Contents -->
+    <nav class="toc">
+      <h2><i data-lucide="list"></i> Contents</h2>
+      <ul class="toc-list">
+        <li><a href="#program-overview"><i data-lucide="arrow-right"></i> Program Overview</a></li>
+        <li><a href="#success-metrics"><i data-lucide="arrow-right"></i> Success Metrics</a></li>
+        <li><a href="#participant-criteria"><i data-lucide="arrow-right"></i> Participant Criteria</a></li>
+        <li><a href="#recruitment-channels"><i data-lucide="arrow-right"></i> Recruitment Channels</a></li>
+        <li><a href="#timeline"><i data-lucide="arrow-right"></i> Program Timeline</a></li>
+        <li><a href="#email-invitation"><i data-lucide="arrow-right"></i> Email: Invitation</a></li>
+        <li><a href="#email-reminder"><i data-lucide="arrow-right"></i> Email: Reminder</a></li>
+        <li><a href="#email-results"><i data-lucide="arrow-right"></i> Email: Debrief Scheduling</a></li>
+        <li><a href="#linkedin-outreach"><i data-lucide="arrow-right"></i> LinkedIn Outreach</a></li>
+        <li><a href="#feedback-questions"><i data-lucide="arrow-right"></i> Debrief Feedback Questions</a></li>
+        <li><a href="#next-steps"><i data-lucide="arrow-right"></i> Post-Alpha Next Steps</a></li>
+      </ul>
+    </nav>
+    
+    <!-- Program Overview -->
+    <section id="program-overview">
+      <h2><i data-lucide="target"></i> Program Overview</h2>
+      
+      <p>The PCRI Alpha Program is a structured validation initiative to test the Product Context Readiness Index assessment with a curated cohort of design system leaders and practitioners before public launch.</p>
+      
+      <div class="card accent">
+        <h3><i data-lucide="git-branch"></i> Alpha Process: Guided Delivery Model</h3>
+        <p style="margin-bottom: 16px;">Unlike the public release, the alpha program uses a <strong>human-in-the-loop</strong> approach for validation and calibration:</p>
+        <ol>
+          <li><strong>Participant completes assessment</strong> — No PDF download available; results submitted for review</li>
+          <li><strong>Director of Delivery reviews submission</strong> — Validates scoring, calibrates archetype assignment, prepares personalized insights</li>
+          <li><strong>Curated PDF generated</strong> — Director adds contextual notes, industry comparisons, and tailored recommendations</li>
+          <li><strong>1:1 debrief call scheduled</strong> — Director delivers PDF and walks through findings (30 min)</li>
+          <li><strong>Feedback captured</strong> — Participant provides input on accuracy and value</li>
+        </ol>
+      </div>
+      
+      <div class="card highlight">
+        <h3>Alpha Objectives</h3>
+        <ol>
+          <li><strong>Validate question clarity</strong> — Identify confusing or ambiguous questions based on completion patterns and feedback</li>
+          <li><strong>Test archetype accuracy</strong> — Director of Delivery compares PCRI output to their assessment of participant's actual maturity</li>
+          <li><strong>Calibrate scoring algorithm</strong> — Adjust pillar weights and thresholds based on real-world validation</li>
+          <li><strong>Refine industry benchmarks</strong> — Collect baseline data across industries to power "vs. your industry" comparisons</li>
+          <li><strong>Optimize conversion funnel</strong> — Measure drop-off points and time-to-complete to improve UX</li>
+          <li><strong>Generate early pipeline</strong> — Identify qualified leads ready for IPE conversations</li>
+        </ol>
+      </div>
+      
+      <h3>Program Structure</h3>
+      <table>
+        <tr>
+          <th>Element</th>
+          <th>Details</th>
+        </tr>
+        <tr>
+          <td><strong>Cohort Size</strong></td>
+          <td>20 participants (minimum viable for statistical patterns)</td>
+        </tr>
+        <tr>
+          <td><strong>Role Mix</strong></td>
+          <td>10 Executives (VP+) / 10 Practitioners (IC-Manager)</td>
+        </tr>
+        <tr>
+          <td><strong>Industry Spread</strong></td>
+          <td>5 Financial Services, 4 Enterprise Software, 3 Healthcare, 3 Retail, 5 Other</td>
+        </tr>
+        <tr>
+          <td><strong>System Complexity</strong></td>
+          <td>At least 5 participants with federated/multi-system architectures</td>
+        </tr>
+        <tr>
+          <td><strong>Duration</strong></td>
+          <td>2-week assessment window + 1-week debrief scheduling</td>
+        </tr>
+        <tr>
+          <td><strong>Results Delivery</strong></td>
+          <td>Director of Delivery reviews each submission, curates PDF, delivers via 1:1 call</td>
+        </tr>
+        <tr>
+          <td><strong>Incentive</strong></td>
+          <td>Personalized executive-grade report + 30-min strategy debrief with Director of Delivery</td>
+        </tr>
+      </table>
+    </section>
+    
+    <!-- Success Metrics -->
+    <section id="success-metrics">
+      <h2><i data-lucide="bar-chart-3"></i> Success Metrics</h2>
+      
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-value">>80%</div>
+          <div class="metric-label">Completion Rate</div>
+          <div class="metric-target">Target: 16+ of 20 complete</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">&lt;12m</div>
+          <div class="metric-label">Avg. Time to Complete</div>
+          <div class="metric-target">Design target: 10 min</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">100%</div>
+          <div class="metric-label">Debrief Call Completion</div>
+          <div class="metric-target">Required for alpha</div>
+        </div>
+      </div>
+      
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-value">>4.0</div>
+          <div class="metric-label">Question Clarity (1-5)</div>
+          <div class="metric-target">Post-debrief survey</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">>75%</div>
+          <div class="metric-label">Archetype Accuracy</div>
+          <div class="metric-target">Director validation</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">>80%</div>
+          <div class="metric-label">Report Value (1-5)</div>
+          <div class="metric-target">Curated PDF satisfaction</div>
+        </div>
+      </div>
+      
+      <div class="callout">
+        <p><strong>Key Insight:</strong> If completion rate drops below 70% or avg. time exceeds 15 minutes, prioritize UX improvements before public launch. Director of Delivery should document calibration notes for every participant to inform algorithm tuning.</p>
+      </div>
+    </section>
+    
+    <!-- Participant Criteria -->
+    <section id="participant-criteria">
+      <h2><i data-lucide="users"></i> Participant Criteria</h2>
+      
+      <h3>Ideal Alpha Participants</h3>
+      <table>
+        <tr>
+          <th>Criteria</th>
+          <th>Executive Track</th>
+          <th>Practitioner Track</th>
+        </tr>
+        <tr>
+          <td><strong>Title</strong></td>
+          <td>VP Design, VP Engineering, CDO, CTO, Head of Product</td>
+          <td>Design System Lead, Principal Designer, Staff Engineer, Design Technologist</td>
+        </tr>
+        <tr>
+          <td><strong>Org Size</strong></td>
+          <td>500+ employees (enterprise focus)</td>
+          <td>200+ employees</td>
+        </tr>
+        <tr>
+          <td><strong>DS Maturity</strong></td>
+          <td>Has existing design system (any stage)</td>
+          <td>Actively working on/with design system</td>
+        </tr>
+        <tr>
+          <td><strong>Relationship</strong></td>
+          <td>Existing pipeline, warm intro, conference contact</td>
+          <td>Community member, Slack contact, GitHub contributor</td>
+        </tr>
+      </table>
+      
+      <h3>Exclusion Criteria</h3>
+      <ul>
+        <li>Direct competitors (design system platforms)</li>
+        <li>Agencies/consultancies (focus on product companies)</li>
+        <li>Companies with &lt;100 employees (too small for IPE fit)</li>
+      </ul>
+    </section>
+    
+    <!-- Recruitment Channels -->
+    <section id="recruitment-channels">
+      <h2><i data-lucide="megaphone"></i> Recruitment Channels</h2>
+      
+      <div class="card">
+        <h3>Channel Priority</h3>
+        <table>
+          <tr>
+            <th>Channel</th>
+            <th>Target</th>
+            <th>Conversion Est.</th>
+            <th>Owner</th>
+          </tr>
+          <tr>
+            <td><strong>1. Warm Pipeline</strong> — Existing prospects in CRM</td>
+            <td>8</td>
+            <td>40% accept rate</td>
+            <td>Sales</td>
+          </tr>
+          <tr>
+            <td><strong>2. Design System Slack</strong> — DS community channels</td>
+            <td>5</td>
+            <td>15% accept rate</td>
+            <td>Community</td>
+          </tr>
+          <tr>
+            <td><strong>3. LinkedIn Outreach</strong> — Direct messages to ICP</td>
+            <td>4</td>
+            <td>10% accept rate</td>
+            <td>Marketing</td>
+          </tr>
+          <tr>
+            <td><strong>4. Conference Contacts</strong> — Config, Clarity, etc.</td>
+            <td>3</td>
+            <td>25% accept rate</td>
+            <td>Events</td>
+          </tr>
+        </table>
+      </div>
+      
+      <div class="callout warning">
+        <p><strong>Volume needed:</strong> To hit 20 participants, plan to reach ~100 people across channels (assuming blended 20% conversion).</p>
+      </div>
+    </section>
+    
+    <!-- Timeline -->
+    <section id="timeline">
+      <h2><i data-lucide="calendar"></i> Program Timeline</h2>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">Week -1</div>
+          <div class="timeline-title">Pre-Launch Prep</div>
+          <div class="timeline-desc">Finalize participant list, set up tracking, prepare email sequences, brief Director of Delivery</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Day 1</div>
+          <div class="timeline-title">Alpha Invitations Sent</div>
+          <div class="timeline-desc">Send personalized invitations to all 20+ targets via email and LinkedIn</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Day 4</div>
+          <div class="timeline-title">Reminder #1</div>
+          <div class="timeline-desc">Follow-up email to non-responders with social proof from early completers</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Day 7</div>
+          <div class="timeline-title">Mid-Point Check</div>
+          <div class="timeline-desc">Review completion rates, adjust outreach if needed, recruit backup participants</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Day 10</div>
+          <div class="timeline-title">Final Reminder</div>
+          <div class="timeline-desc">Last call email with deadline urgency</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Day 14</div>
+          <div class="timeline-title">Assessment Window Closes</div>
+          <div class="timeline-desc">Lock submissions, Director of Delivery begins review</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Day 15-18</div>
+          <div class="timeline-title">Director Review & Calibration</div>
+          <div class="timeline-desc">Director of Delivery reviews each submission, validates archetype, curates personalized PDF reports</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Day 15-21</div>
+          <div class="timeline-title">1:1 Debrief Calls (Rolling)</div>
+          <div class="timeline-desc">Director of Delivery delivers curated PDF via 30-min strategy session; captures feedback</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Day 22-25</div>
+          <div class="timeline-title">Calibration Analysis</div>
+          <div class="timeline-desc">Compile calibration notes, adjust scoring weights, document patterns for algorithm tuning</div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Email: Invitation -->
+    <section id="email-invitation">
+      <h2><i data-lucide="mail"></i> Email: Alpha Invitation</h2>
+      
+      <div class="email-template">
+        <div class="email-header">
+          <span class="email-label"><i data-lucide="send"></i> Invitation Email</span>
+          <button class="copy-btn" onclick="copyEmail('invite')"><i data-lucide="copy"></i> Copy</button>
+        </div>
+        <div class="email-body" id="email-invite">
+          <div class="email-subject">
+            <strong>Subject:</strong> [First Name], benchmark your product context readiness (exclusive alpha)
+          </div>
+          <div class="email-content">
+            <p>Hi [First Name],</p>
+            
+            <p>We've been quietly building something I think you'll find valuable — a research-backed assessment that measures your organization's ability to deliver governed product context for AI-enabled delivery. We've benchmarked against 50+ enterprises.</p>
+            
+            <p>We're inviting 20 design system leaders to be part of our alpha cohort before public launch. Given your work at [Company] on [specific initiative if known], I thought you'd be a perfect fit.</p>
+            
+            <p><strong>What you'll get:</strong></p>
+            <ul>
+              <li>Your PCRI (Product Context Readiness Index) score across 5 pillars</li>
+              <li>Maturity archetype with industry benchmark comparison</li>
+              <li>Curated executive report prepared by our Director of Delivery</li>
+              <li>30-min 1:1 strategy debrief call to walk through your personalized findings</li>
+            </ul>
+            
+            <p><strong>Time commitment:</strong> ~10 minutes</p>
+            
+            <p><a href="[ASSESSMENT_URL]" class="email-cta">Take the Assessment</a></p>
+            
+            <p>As an alpha participant, your feedback will directly shape the final version. After you complete the assessment, our Director of Delivery will personally review your results, prepare a curated executive report, and schedule a 30-minute debrief to walk through your findings.</p>
+            
+            <p>Worth 10 minutes + a free strategy session?</p>
+            
+            <div class="email-signature">
+              [Your Name]<br>
+              [Title], Knapsack<br>
+              <em>P.S. — Assessment closes [DATE]. You'll hear from our Director of Delivery within 48 hours of completing to schedule your debrief.</em>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <h4>Subject Line Variants (A/B Test)</h4>
+      <ul>
+        <li><code>[First Name], benchmark your product context readiness (exclusive alpha)</code></li>
+        <li><code>Where does [Company] stand on the path to AI-ready delivery?</code></li>
+        <li><code>10 min assessment, personalized roadmap — alpha invite</code></li>
+        <li><code>[First Name], we're benchmarking 20 product context leaders</code></li>
+      </ul>
+    </section>
+    
+    <!-- Email: Reminder -->
+    <section id="email-reminder">
+      <h2><i data-lucide="bell"></i> Email: Reminder (Day 4)</h2>
+      
+      <div class="email-template">
+        <div class="email-header">
+          <span class="email-label"><i data-lucide="repeat"></i> Reminder Email</span>
+          <button class="copy-btn" onclick="copyEmail('reminder')"><i data-lucide="copy"></i> Copy</button>
+        </div>
+        <div class="email-body" id="email-reminder-body">
+          <div class="email-subject">
+            <strong>Subject:</strong> Quick follow-up: PCRI alpha closes in 10 days
+          </div>
+          <div class="email-content">
+            <p>Hi [First Name],</p>
+            
+            <p>Wanted to bump this up — we've already had [X] leaders complete the PCRI assessment this week, and the early insights are fascinating.</p>
+            
+            <p>Quick preview of what we're seeing:</p>
+            <ul>
+              <li><strong>Culture</strong> is the highest-weighted pillar at 25% — it's the biggest gap across enterprises</li>
+              <li>Context Foundation gates AI Readiness — you can't skip steps</li>
+              <li>Organizations with governed product context deliver AI features 3x faster</li>
+            </ul>
+            
+            <p>Would love to see where [Company] lands in the benchmarks.</p>
+            
+            <p><a href="[ASSESSMENT_URL]" class="email-cta">Take the Assessment (10 min)</a></p>
+            
+            <p>Let me know if you have any questions.</p>
+            
+            <div class="email-signature">
+              [Your Name]
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Email: Results Follow-up (Director of Delivery) -->
+    <section id="email-results">
+      <h2><i data-lucide="trending-up"></i> Email: Debrief Scheduling</h2>
+      
+      <div class="email-template">
+        <div class="email-header">
+          <span class="email-label"><i data-lucide="calendar-check"></i> Post-Assessment — Director of Delivery</span>
+          <button class="copy-btn" onclick="copyEmail('results')"><i data-lucide="copy"></i> Copy</button>
+        </div>
+        <div class="email-body" id="email-results-body">
+          <div class="email-subject">
+            <strong>Subject:</strong> Your PCRI assessment is ready — let's schedule your debrief
+          </div>
+          <div class="email-content">
+            <p>Hi [First Name],</p>
+            
+            <p>Thanks for completing the PCRI assessment! I'm [Director Name], Director of Delivery at Knapsack, and I've personally reviewed your submission.</p>
+            
+            <p>I've prepared a <strong>curated executive report</strong> with your results, including some specific observations about [Company]'s product context maturity that I think you'll find valuable.</p>
+            
+            <p><strong>Quick preview:</strong></p>
+            <ul>
+              <li>Your maturity archetype: <strong>[ARCHETYPE]</strong></li>
+              <li>How you compare to peers in [INDUSTRY]</li>
+              <li>2-3 priority areas I've identified for your roadmap</li>
+            </ul>
+            
+            <p>I'd like to schedule 30 minutes to walk through the full report together. This is also a great opportunity for me to get your feedback on the assessment itself — your input will directly shape the final version.</p>
+            
+            <p><a href="[CALENDLY_LINK]" class="email-cta">Book Your Debrief</a></p>
+            
+            <p>Looking forward to connecting.</p>
+            
+            <div class="email-signature">
+              [Director Name]<br>
+              Director of Delivery, Knapsack
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="callout success">
+        <p><strong>Director of Delivery notes:</strong> Before each debrief, review the raw assessment data and prepare 2-3 talking points specific to their industry and system architecture. Note any scoring anomalies for calibration discussion.</p>
+      </div>
+    </section>
+    
+    <!-- LinkedIn Outreach -->
+    <section id="linkedin-outreach">
+      <h2><i data-lucide="linkedin"></i> LinkedIn Outreach</h2>
+      
+      <div class="card">
+        <h3>Connection Request + Follow-up</h3>
+        
+        <h4>Connection Request (300 char limit)</h4>
+        <p class="message-box">
+          Hi [First Name] — Love what you're building at [Company]. We're running an alpha for a product context readiness benchmark (10 min, free). Given your role, thought you might find it valuable. Open to connecting?
+        </p>
+        
+        <h4>Follow-up Message (after connection)</h4>
+        <p class="message-box">
+          Thanks for connecting! Quick context — we've assessed 50+ enterprise product organizations and built a research-backed benchmark called PCRI (Product Context Readiness Index).<br><br>
+          We're inviting 20 leaders for our alpha cohort. You'd complete a 10-min assessment, then our Director of Delivery personally reviews your results and delivers a curated executive report via a 30-min 1:1 debrief.<br><br>
+          Interested? Here's the link to get started: [URL]<br><br>
+          It's a high-touch experience — you'll get real strategic value for AI-ready delivery, not just a generic score.
+        </p>
+      </div>
+    </section>
+    
+    <!-- Feedback Questions -->
+    <section id="feedback-questions">
+      <h2><i data-lucide="message-square"></i> Debrief Call Feedback Questions</h2>
+      
+      <p>Director of Delivery should cover these questions during or immediately after each debrief call:</p>
+      
+      <div class="card">
+        <h3>Required Questions (ask during debrief)</h3>
+        <ol>
+          <li><strong>Question clarity:</strong> Were any assessment questions confusing or hard to answer? Which ones?</li>
+          <li><strong>Time perception:</strong> Did the assessment feel too long, too short, or about right?</li>
+          <li><strong>Archetype accuracy:</strong> "Based on our discussion, does this archetype match where you see yourselves?" (Director validates)</li>
+          <li><strong>Report value:</strong> How useful is this curated report for your planning? (1-5 scale)</li>
+        </ol>
+        
+        <h3>Director Calibration Notes (internal)</h3>
+        <ol start="5">
+          <li><strong>Score validation:</strong> Does the PCRI score match your assessment of their maturity? If not, why?</li>
+          <li><strong>Archetype override:</strong> Should this participant be reclassified? Document reasoning.</li>
+          <li><strong>Question issues:</strong> Flag any questions where participant's answer didn't match reality.</li>
+          <li><strong>Industry benchmark:</strong> How does this compare to others in their industry?</li>
+        </ol>
+        
+        <h3>Follow-up Survey (send post-call)</h3>
+        <ol start="9">
+          <li>How valuable was the debrief call? (1-5 scale)</li>
+          <li>Would you recommend this assessment to a peer? (NPS: 0-10)</li>
+          <li>Can we quote you in our marketing materials? (Yes / No)</li>
+          <li>Any other feedback on the assessment or debrief experience?</li>
+        </ol>
+      </div>
+    </section>
+    
+    <!-- Next Steps -->
+    <section id="next-steps">
+      <h2><i data-lucide="rocket"></i> Post-Alpha Next Steps</h2>
+      
+      <h3>Week 3: Analysis & Iteration</h3>
+      <ul>
+        <li>Compile completion metrics (rate, time, drop-off points)</li>
+        <li>Analyze archetype distribution vs. expectations</li>
+        <li>Review question-level feedback; flag confusing questions</li>
+        <li>Compare PCRI scores to sales team's qualitative assessment of accounts</li>
+        <li>Calculate initial industry benchmarks</li>
+      </ul>
+      
+      <h3>Week 4: Improvements</h3>
+      <ul>
+        <li>Rewrite/simplify low-clarity questions</li>
+        <li>Adjust pillar weights if correlation data suggests changes</li>
+        <li>Add/remove questions based on feedback</li>
+        <li>Improve results page based on value perception scores</li>
+      </ul>
+      
+      <h3>Week 5: Public Launch Prep</h3>
+      <ul>
+        <li>Finalize production version of assessment</li>
+        <li>Create launch campaign assets (landing page, social, email)</li>
+        <li>Enable full Google Sheets integration for lead routing</li>
+        <li>Train sales team on interpreting PCRI scores</li>
+        <li>Set up dashboard for ongoing analytics</li>
+      </ul>
+      
+      <div class="card highlight">
+        <h3>GTM Integration Checklist</h3>
+        <table>
+          <tr>
+            <th>Integration</th>
+            <th>Purpose</th>
+            <th>Status</th>
+          </tr>
+          <tr>
+            <td>Google Sheets webhook</td>
+            <td>Lead capture → CRM sync</td>
+            <td><span class="status status-progress"><i data-lucide="loader"></i> In Progress</span></td>
+          </tr>
+          <tr>
+            <td>Segment/Amplitude events</td>
+            <td>Funnel analytics</td>
+            <td><span class="status status-pending"><i data-lucide="circle"></i> Not Started</span></td>
+          </tr>
+          <tr>
+            <td>HubSpot/Salesforce</td>
+            <td>Automatic lead scoring</td>
+            <td><span class="status status-pending"><i data-lucide="circle"></i> Not Started</span></td>
+          </tr>
+          <tr>
+            <td>Slack notifications</td>
+            <td>Real-time alerts for completions</td>
+            <td><span class="status status-pending"><i data-lucide="circle"></i> Not Started</span></td>
+          </tr>
+          <tr>
+            <td>PDF branding</td>
+            <td>Professional deliverable</td>
+            <td><span class="status status-complete"><i data-lucide="check"></i> Complete</span></td>
+          </tr>
+        </table>
+      </div>
+    </section>
+  </div>
+  
+  <footer>
+    <p>PCRI Alpha Release Program v2.0 · Knapsack Internal</p>
+    <p style="margin-top: 8px;"><a href="../deliver/ipe_onboarding_kit.html#alpha-program"><i data-lucide="arrow-left"></i> Back to Onboarding Kit</a></p>
+  </footer>
+  
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+    
+    function copyEmail(type) {
+      const emailBodies = {
+        invite: `Hi [First Name],
+
+We've been quietly building something I think you'll find valuable — a research-backed assessment that measures your organization's ability to deliver governed product context for AI-enabled delivery. We've benchmarked against 50+ enterprises.
+
+We're inviting 20 design system leaders to be part of our alpha cohort before public launch. Given your work at [Company] on [specific initiative if known], I thought you'd be a perfect fit.
+
+What you'll get:
+• Your PCRI (Product Context Readiness Index) score across 5 pillars
+• Maturity archetype with industry benchmark comparison
+• Curated executive report prepared by our Director of Delivery
+• 30-min 1:1 strategy debrief call to walk through your personalized findings
+
+Time commitment: ~10 minutes
+
+[ASSESSMENT_URL]
+
+As an alpha participant, your feedback will directly shape the final version. After you complete the assessment, our Director of Delivery will personally review your results, prepare a curated executive report, and schedule a 30-minute debrief to walk through your findings.
+
+Worth 10 minutes + a free strategy session?
+
+[Your Name]
+[Title], Knapsack
+
+P.S. — Assessment closes [DATE]. You'll hear from our Director of Delivery within 48 hours of completing to schedule your debrief.`,
+        
+        reminder: `Hi [First Name],
+
+Wanted to bump this up — we've already had [X] leaders complete the PCRI assessment this week, and the early insights are fascinating.
+
+Quick preview of what we're seeing:
+• Culture is the highest-weighted pillar at 25% — it's the biggest gap across enterprises
+• Context Foundation gates AI Readiness — you can't skip steps
+• Organizations with governed product context deliver AI features 3x faster
+
+Would love to see where [Company] lands in the benchmarks.
+
+[ASSESSMENT_URL]
+
+Let me know if you have any questions.
+
+[Your Name]`,
+        
+        results: `Hi [First Name],
+
+Thanks for completing the PCRI assessment! I'm [Director Name], Director of Delivery at Knapsack, and I've personally reviewed your submission.
+
+I've prepared a curated executive report with your results, including some specific observations about [Company]'s product context maturity that I think you'll find valuable.
+
+Quick preview:
+• Your maturity archetype: [ARCHETYPE]
+• How you compare to peers in [INDUSTRY]
+• 2-3 priority areas I've identified for your roadmap
+
+I'd like to schedule 30 minutes to walk through the full report together. This is also a great opportunity for me to get your feedback on the assessment itself — your input will directly shape the final version.
+
+[CALENDLY_LINK]
+
+Looking forward to connecting.
+
+[Director Name]
+Director of Delivery, Knapsack`
+      };
+      
+      const text = emailBodies[type];
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = event.target.closest('.copy-btn');
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i data-lucide="check"></i> Copied';
+        btn.style.background = 'var(--spectrum-green-500)';
+        btn.style.borderColor = 'var(--spectrum-green-500)';
+        btn.style.color = 'white';
+        lucide.createIcons();
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+          btn.style.background = '';
+          btn.style.borderColor = '';
+          btn.style.color = '';
+          lucide.createIcons();
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

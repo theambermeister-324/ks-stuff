@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PSRI Widget Embed Code Generator</title>
+  <title>PCRI Widget Embed Code Generator</title>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -276,9 +276,9 @@
 <body>
   <div class="container">
     <div class="header">
-      <div class="logo-badge">PSRI EMBED TOOL</div>
+      <div class="logo-badge">PCRI EMBED TOOL</div>
       <h1>Widget Embed Code Generator</h1>
-      <p class="subtitle">Customize and embed the PSRI Quick Assessment on your website</p>
+      <p class="subtitle">Customize and embed the PCRI Quick Assessment on your website</p>
     </div>
     
     <div class="main-grid">
@@ -340,7 +340,7 @@
           </div>
           <div class="form-group">
             <label class="form-label">Badge Text</label>
-            <input type="text" class="form-input" id="badge-text" value="PSRI QUICK CHECK" oninput="updatePreview()">
+            <input type="text" class="form-input" id="badge-text" value="PCRI QUICK CHECK" oninput="updatePreview()">
           </div>
         </div>
         
@@ -399,7 +399,7 @@
           </div>
           <div class="form-group">
             <label class="form-label">Webhook Callback URL (optional)</label>
-            <input type="url" class="form-input" id="callback-url" placeholder="https://api.yoursite.com/psri-lead" oninput="updatePreview()">
+            <input type="url" class="form-input" id="callback-url" placeholder="https://api.yoursite.com/pcri-lead" oninput="updatePreview()">
             <p class="helper-text">Receives POST with results when user completes assessment</p>
           </div>
         </div>
@@ -430,7 +430,7 @@
         </div>
         
         <div class="preview-frame-container">
-          <iframe id="preview-iframe" class="preview-iframe" src="./psri_embed_widget.html"></iframe>
+          <iframe id="preview-iframe" class="preview-iframe" src="./pcri_embed_widget.html"></iframe>
         </div>
         
         <div class="code-output">
@@ -492,13 +492,13 @@
     
     function buildWidgetUrl() {
       const config = getConfig();
-      const baseUrl = './psri_embed_widget.html';
+      const baseUrl = './pcri_embed_widget.html';
       const params = new URLSearchParams();
       
       if (config.theme !== 'default') params.set('theme', config.theme);
       if (config.color && config.color !== '6436bf') params.set('color', config.color);
       if (config.logo) params.set('logo', config.logo);
-      if (config.badge !== 'PSRI QUICK CHECK') params.set('badge', config.badge);
+      if (config.badge !== 'PCRI QUICK CHECK') params.set('badge', config.badge);
       if (config.title !== 'How AI-Ready Is Your Product System?') params.set('title', config.title);
       if (config.subtitle !== '5 questions • 2 minutes • Instant score') params.set('subtitle', config.subtitle);
       if (config.startText !== 'Start Quick Assessment') params.set('startText', config.startText);
@@ -521,12 +521,12 @@
     function generateCode() {
       const widgetUrl = buildWidgetUrl();
       // For production, replace with full URL
-      const fullWidgetUrl = widgetUrl.replace('./', 'https://your-domain.com/psri/');
+      const fullWidgetUrl = widgetUrl.replace('./', 'https://your-domain.com/pcri/');
       
       let code = '';
       
       if (activeCodeTab === 'iframe') {
-        code = `<!-- PSRI Quick Assessment Widget -->
+        code = `<!-- PCRI Quick Assessment Widget -->
 <iframe 
   src="${fullWidgetUrl}"
   width="100%" 
@@ -539,8 +539,8 @@
 <!-- Optional: Listen for completion -->
 <script>
 window.addEventListener('message', (e) => {
-  if (e.data?.type === 'psri_widget_complete') {
-    console.log('PSRI Score:', e.data.psri);
+  if (e.data?.type === 'pcri_widget_complete') {
+    console.log('PCRI Score:', e.data.pcri);
     console.log('Tier:', e.data.tier);
     console.log('Email:', e.data.email);
     // Handle lead capture here
@@ -548,11 +548,11 @@ window.addEventListener('message', (e) => {
 });
 <\/script>`;
       } else if (activeCodeTab === 'script') {
-        code = `<!-- PSRI Quick Assessment Widget -->
-<div id="psri-widget-container"></div>
+        code = `<!-- PCRI Quick Assessment Widget -->
+<div id="pcri-widget-container"></div>
 <script>
 (function() {
-  var container = document.getElementById('psri-widget-container');
+  var container = document.getElementById('pcri-widget-container');
   var iframe = document.createElement('iframe');
   iframe.src = '${fullWidgetUrl}';
   iframe.width = '100%';
@@ -564,11 +564,11 @@ window.addEventListener('message', (e) => {
   
   // Listen for completion
   window.addEventListener('message', function(e) {
-    if (e.data && e.data.type === 'psri_widget_complete') {
+    if (e.data && e.data.type === 'pcri_widget_complete') {
       // Track in your analytics
       if (window.gtag) {
-        gtag('event', 'psri_complete', {
-          score: e.data.psri,
+        gtag('event', 'pcri_complete', {
+          score: e.data.pcri,
           tier: e.data.tier
         });
       }

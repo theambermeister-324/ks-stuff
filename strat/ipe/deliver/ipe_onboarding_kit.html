@@ -1,0 +1,2471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPE GTM Operating Model | Team Onboarding Kit</title>
+  <meta name="description" content="Onboarding kit for the Knapsack team to adopt the IPE GTM Operating Model v4.2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* ==========================================================================
+       SPECTRUM DESIGN TOKENS
+       ========================================================================== */
+    :root {
+      /* Core palette */
+      --spectrum-gray-50: #fafafa;
+      --spectrum-gray-100: #f5f5f5;
+      --spectrum-gray-200: #e8e8e8;
+      --spectrum-gray-300: #d1d1d1;
+      --spectrum-gray-400: #b4b4b4;
+      --spectrum-gray-500: #909090;
+      --spectrum-gray-600: #6d6d6d;
+      --spectrum-gray-700: #464646;
+      --spectrum-gray-800: #222222;
+      --spectrum-gray-900: #131313;
+      
+      --spectrum-blue-400: #2680eb;
+      --spectrum-blue-500: #1473e6;
+      --spectrum-blue-600: #0d66d0;
+      
+      --spectrum-purple-300: #d4b4ff;
+      --spectrum-purple-400: #9d7bea;
+      --spectrum-purple-500: #7c3aed;
+      --spectrum-purple-600: #6d28d9;
+      --spectrum-purple-700: #5b21b6;
+      --spectrum-purple-900: #3b0a7a;
+      
+      --spectrum-green-400: #33ab84;
+      --spectrum-green-500: #12805c;
+      --spectrum-green-600: #107154;
+      
+      --spectrum-yellow-400: #f5c518;
+      --spectrum-yellow-500: #d9a200;
+      
+      --spectrum-red-400: #f76560;
+      --spectrum-red-500: #e34850;
+      
+      --spectrum-cyan-400: #33b1ff;
+      --spectrum-cyan-500: #1192e8;
+      
+      --spectrum-orange-400: #fa8334;
+      --spectrum-orange-500: #e57205;
+      
+      /* Semantic tokens */
+      --spectrum-bg-base: #0f0f1a;
+      --spectrum-bg-layer-1: #16213e;
+      --spectrum-bg-layer-2: #1a1a2e;
+      --spectrum-bg-surface: rgba(22, 33, 62, 0.7);
+      
+      --spectrum-text-primary: #ffffff;
+      --spectrum-text-secondary: #e0e0e0;
+      --spectrum-text-muted: #8b8fa3;
+      
+      --spectrum-border-default: rgba(255, 255, 255, 0.1);
+      --spectrum-border-subtle: rgba(255, 255, 255, 0.05);
+      
+      /* Typography */
+      --spectrum-font-size-50: 0.625rem;
+      --spectrum-font-size-75: 0.75rem;
+      --spectrum-font-size-100: 0.875rem;
+      --spectrum-font-size-200: 1rem;
+      --spectrum-font-size-300: 1.125rem;
+      --spectrum-font-size-400: 1.25rem;
+      --spectrum-font-size-500: 1.5rem;
+      --spectrum-font-size-600: 1.75rem;
+      --spectrum-font-size-700: 2rem;
+      --spectrum-font-size-800: 2.5rem;
+      
+      /* Spacing */
+      --spectrum-spacing-100: 0.25rem;
+      --spectrum-spacing-200: 0.5rem;
+      --spectrum-spacing-300: 1rem;
+      --spectrum-spacing-400: 1.5rem;
+      --spectrum-spacing-500: 2rem;
+      --spectrum-spacing-600: 3rem;
+      
+      /* Radii */
+      --spectrum-radius-sm: 4px;
+      --spectrum-radius-md: 8px;
+      --spectrum-radius-lg: 12px;
+      --spectrum-radius-xl: 16px;
+    }
+    
+    /* ==========================================================================
+       BASE STYLES
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: var(--spectrum-font-size-200);
+      line-height: 1.6;
+      color: var(--spectrum-text-primary);
+      background: var(--spectrum-bg-base);
+      background-image: 
+        radial-gradient(ellipse at 20% 20%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(38, 128, 235, 0.1) 0%, transparent 50%);
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spectrum-spacing-400);
+    }
+    
+    /* ==========================================================================
+       NAVIGATION
+       ========================================================================== */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 15, 26, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--spectrum-border-default);
+      padding: var(--spectrum-spacing-200) var(--spectrum-spacing-400);
+    }
+    
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spectrum-spacing-300);
+    }
+    
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .nav-logo {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--spectrum-purple-500), var(--spectrum-blue-500));
+      border-radius: var(--spectrum-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .nav-logo i {
+      width: 18px;
+      height: 18px;
+      color: white;
+    }
+    
+    .nav-title {
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-200);
+    }
+    
+    .nav-badge {
+      background: linear-gradient(135deg, var(--spectrum-green-500), var(--spectrum-cyan-500));
+      color: white;
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: var(--spectrum-spacing-100);
+      flex-wrap: wrap;
+    }
+    
+    .nav-link {
+      color: var(--spectrum-text-muted);
+      text-decoration: none;
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 500;
+      padding: var(--spectrum-spacing-100) var(--spectrum-spacing-200);
+      border-radius: var(--spectrum-radius-sm);
+      transition: all 0.2s;
+    }
+    
+    .nav-link:hover {
+      color: var(--spectrum-text-primary);
+      background: var(--spectrum-bg-surface);
+    }
+    
+    .nav-link.active {
+      color: var(--spectrum-purple-300);
+      background: rgba(124, 58, 237, 0.15);
+    }
+    
+    /* ==========================================================================
+       HEADER
+       ========================================================================== */
+    header {
+      text-align: center;
+      padding: var(--spectrum-spacing-600) 0;
+      border-bottom: 1px solid var(--spectrum-border-default);
+      margin-bottom: var(--spectrum-spacing-500);
+    }
+    
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-100);
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(38, 128, 235, 0.2));
+      border: 1px solid rgba(124, 58, 237, 0.3);
+      border-radius: 999px;
+      padding: var(--spectrum-spacing-100) var(--spectrum-spacing-300);
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 500;
+      color: var(--spectrum-purple-300);
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    
+    .header-badge i {
+      width: 16px;
+      height: 16px;
+    }
+    
+    header h1 {
+      font-size: var(--spectrum-font-size-800);
+      font-weight: 700;
+      margin: 0 0 var(--spectrum-spacing-200);
+      background: linear-gradient(135deg, #fff 0%, var(--spectrum-purple-300) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .header-subtitle {
+      font-size: var(--spectrum-font-size-300);
+      color: var(--spectrum-text-muted);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    /* ==========================================================================
+       SECTIONS
+       ========================================================================== */
+    .section {
+      background: var(--spectrum-bg-surface);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-xl);
+      padding: var(--spectrum-spacing-500);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-300);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    .section-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--spectrum-purple-700), var(--spectrum-purple-900));
+      border-radius: var(--spectrum-radius-md);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-100);
+    }
+    
+    .section h2 {
+      font-size: var(--spectrum-font-size-500);
+      font-weight: 700;
+      margin: 0;
+    }
+    
+    h3 {
+      font-size: var(--spectrum-font-size-300);
+      font-weight: 600;
+      color: var(--spectrum-text-primary);
+      margin: var(--spectrum-spacing-400) 0 var(--spectrum-spacing-200);
+    }
+    
+    h4 {
+      font-size: var(--spectrum-font-size-200);
+      font-weight: 600;
+      color: var(--spectrum-purple-300);
+      margin: var(--spectrum-spacing-300) 0 var(--spectrum-spacing-200);
+    }
+    
+    /* ==========================================================================
+       UTILITY CLASSES
+       ========================================================================== */
+    .text-muted { color: var(--spectrum-text-muted); }
+    .text-center { text-align: center; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .mb-2 { margin-bottom: var(--spectrum-spacing-200); }
+    .mb-3 { margin-bottom: var(--spectrum-spacing-300); }
+    .mb-4 { margin-bottom: var(--spectrum-spacing-400); }
+    .mt-3 { margin-top: var(--spectrum-spacing-300); }
+    .mt-4 { margin-top: var(--spectrum-spacing-400); }
+    .mt-5 { margin-top: var(--spectrum-spacing-500); }
+    
+    /* ==========================================================================
+       CALLOUTS
+       ========================================================================== */
+    .callout {
+      padding: var(--spectrum-spacing-300);
+      border-radius: var(--spectrum-radius-md);
+      border-left: 4px solid;
+      margin: var(--spectrum-spacing-300) 0;
+    }
+    
+    .callout.info {
+      background: rgba(38, 128, 235, 0.1);
+      border-color: var(--spectrum-blue-500);
+    }
+    
+    .callout.success {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: var(--spectrum-green-500);
+    }
+    
+    .callout.warning {
+      background: rgba(245, 197, 24, 0.1);
+      border-color: var(--spectrum-yellow-500);
+    }
+    
+    .callout p {
+      margin: 0;
+    }
+    
+    /* ==========================================================================
+       EXECUTIVE SUMMARY BOX
+       ========================================================================== */
+    .exec-summary {
+      background: linear-gradient(145deg, rgba(124, 58, 237, 0.15), rgba(38, 128, 235, 0.1));
+      border: 1px solid rgba(124, 58, 237, 0.3);
+      border-radius: var(--spectrum-radius-xl);
+      padding: var(--spectrum-spacing-500);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    .exec-summary h3 {
+      margin-top: 0;
+      color: var(--spectrum-purple-300);
+    }
+    
+    .key-points {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spectrum-spacing-300);
+      margin-top: var(--spectrum-spacing-300);
+    }
+    
+    @media (max-width: 800px) {
+      .key-points {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .key-point {
+      background: rgba(15, 15, 26, 0.6);
+      border: 1px solid var(--spectrum-border-subtle);
+      border-radius: var(--spectrum-radius-md);
+      padding: var(--spectrum-spacing-300);
+      text-align: center;
+    }
+    
+    .key-point-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto var(--spectrum-spacing-200);
+      background: linear-gradient(135deg, var(--spectrum-purple-500), var(--spectrum-blue-500));
+      border-radius: var(--spectrum-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .key-point-icon i {
+      width: 24px;
+      height: 24px;
+      color: white;
+    }
+    
+    .key-point-title {
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-200);
+      margin-bottom: var(--spectrum-spacing-100);
+    }
+    
+    .key-point-desc {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+    
+    /* ==========================================================================
+       BEFORE/AFTER COMPARISON
+       ========================================================================== */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spectrum-spacing-300);
+    }
+    
+    @media (max-width: 700px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .comparison-card {
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-400);
+      border: 1px solid var(--spectrum-border-default);
+    }
+    
+    .comparison-card.before {
+      background: rgba(239, 68, 68, 0.05);
+      border-color: rgba(239, 68, 68, 0.2);
+    }
+    
+    .comparison-card.after {
+      background: rgba(16, 185, 129, 0.05);
+      border-color: rgba(16, 185, 129, 0.2);
+    }
+    
+    .comparison-label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-100);
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--spectrum-spacing-200);
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+    
+    .comparison-card.before .comparison-label {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--spectrum-red-400);
+    }
+    
+    .comparison-card.after .comparison-label {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--spectrum-green-400);
+    }
+    
+    .comparison-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .comparison-list li {
+      padding: var(--spectrum-spacing-100) 0;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spectrum-spacing-100);
+    }
+    
+    .comparison-list li i {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    
+    .comparison-card.before .comparison-list li i {
+      color: var(--spectrum-red-400);
+    }
+    
+    .comparison-card.after .comparison-list li i {
+      color: var(--spectrum-green-400);
+    }
+    
+    /* ==========================================================================
+       ROLE CARDS
+       ========================================================================== */
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spectrum-spacing-300);
+    }
+    
+    .role-card {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.95), rgba(26, 26, 46, 0.9));
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-400);
+      border-top: 4px solid var(--spectrum-purple-500);
+    }
+    
+    .role-card.bdr { border-top-color: var(--spectrum-blue-500); }
+    .role-card.se { border-top-color: var(--spectrum-cyan-500); }
+    .role-card.ae { border-top-color: var(--spectrum-purple-500); }
+    .role-card.cx { border-top-color: var(--spectrum-green-500); }
+    .role-card.dealdesk { border-top-color: var(--spectrum-orange-500); }
+    
+    .role-header {
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-200);
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    
+    .role-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--spectrum-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .role-card.bdr .role-icon { background: rgba(38, 128, 235, 0.2); color: var(--spectrum-blue-400); }
+    .role-card.se .role-icon { background: rgba(51, 177, 255, 0.2); color: var(--spectrum-cyan-400); }
+    .role-card.ae .role-icon { background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-400); }
+    .role-card.cx .role-icon { background: rgba(51, 171, 132, 0.2); color: var(--spectrum-green-400); }
+    .role-card.dealdesk .role-icon { background: rgba(250, 131, 52, 0.2); color: var(--spectrum-orange-400); }
+    
+    .role-icon i {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .role-title {
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-200);
+    }
+    
+    .role-message {
+      background: rgba(15, 15, 26, 0.6);
+      border-radius: var(--spectrum-radius-md);
+      padding: var(--spectrum-spacing-200);
+      margin-bottom: var(--spectrum-spacing-300);
+      font-style: italic;
+      color: var(--spectrum-text-secondary);
+      font-size: var(--spectrum-font-size-100);
+      border-left: 3px solid var(--spectrum-purple-500);
+    }
+    
+    .role-actions {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .role-actions li {
+      padding: var(--spectrum-spacing-100) 0;
+      font-size: var(--spectrum-font-size-100);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spectrum-spacing-100);
+    }
+    
+    .role-actions li i {
+      width: 16px;
+      height: 16px;
+      color: var(--spectrum-green-400);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    
+    .role-first-action {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(51, 177, 255, 0.1));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: var(--spectrum-radius-md);
+      padding: var(--spectrum-spacing-200);
+      margin-top: var(--spectrum-spacing-300);
+    }
+    
+    .role-first-action-label {
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--spectrum-green-400);
+      margin-bottom: 4px;
+    }
+    
+    .role-first-action-text {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-primary);
+    }
+    
+    /* ==========================================================================
+       TRAINING SCHEDULE
+       ========================================================================== */
+    .training-grid {
+      display: grid;
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .training-week {
+      background: rgba(22, 33, 62, 0.6);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      overflow: hidden;
+    }
+    
+    .training-week-header {
+      background: rgba(124, 58, 237, 0.15);
+      padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .training-week-header .week-label {
+      background: var(--spectrum-purple-500);
+      color: white;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: var(--spectrum-font-size-75);
+    }
+    
+    .training-sessions {
+      padding: var(--spectrum-spacing-200);
+    }
+    
+    .training-session {
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      gap: var(--spectrum-spacing-200);
+      padding: var(--spectrum-spacing-200);
+      border-bottom: 1px solid var(--spectrum-border-subtle);
+      align-items: center;
+    }
+    
+    .training-session:last-child {
+      border-bottom: none;
+    }
+    
+    @media (max-width: 700px) {
+      .training-session {
+        grid-template-columns: 1fr;
+        gap: var(--spectrum-spacing-100);
+      }
+    }
+    
+    .training-topic {
+      font-weight: 500;
+    }
+    
+    .training-audience, .training-duration, .training-format {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      background: rgba(15, 15, 26, 0.6);
+      padding: 4px 10px;
+      border-radius: var(--spectrum-radius-sm);
+    }
+    
+    /* ==========================================================================
+       CHEAT SHEET
+       ========================================================================== */
+    .cheat-sheet {
+      background: linear-gradient(145deg, rgba(15, 15, 26, 0.9), rgba(22, 33, 62, 0.8));
+      border: 2px dashed var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-xl);
+      padding: var(--spectrum-spacing-400);
+    }
+    
+    .cheat-sheet-header {
+      text-align: center;
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    .cheat-sheet-title {
+      font-size: var(--spectrum-font-size-400);
+      font-weight: 700;
+      margin-bottom: var(--spectrum-spacing-100);
+    }
+    
+    .cheat-sheet-subtitle {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .archetype-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--spectrum-font-size-100);
+    }
+    
+    .archetype-table th,
+    .archetype-table td {
+      padding: var(--spectrum-spacing-200);
+      text-align: left;
+      border-bottom: 1px solid var(--spectrum-border-subtle);
+    }
+    
+    .archetype-table th {
+      background: rgba(124, 58, 237, 0.1);
+      font-weight: 600;
+      color: var(--spectrum-purple-300);
+    }
+    
+    .archetype-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .archetype-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+    
+    .archetype-badge .score {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-75);
+      background: rgba(255,255,255,0.1);
+      padding: 2px 6px;
+      border-radius: var(--spectrum-radius-sm);
+    }
+    
+    .archetype-badge.j1 { color: var(--spectrum-blue-400); }
+    .archetype-badge.j2 { color: var(--spectrum-cyan-400); }
+    .archetype-badge.j3 { color: var(--spectrum-purple-400); }
+    .archetype-badge.j4 { color: var(--spectrum-green-400); }
+    
+    /* ==========================================================================
+       ADOPTION METRICS
+       ========================================================================== */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .metric-card {
+      background: rgba(22, 33, 62, 0.6);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-300);
+      text-align: center;
+    }
+    
+    .metric-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-600);
+      font-weight: 700;
+      color: var(--spectrum-purple-300);
+      margin-bottom: var(--spectrum-spacing-100);
+    }
+    
+    .metric-label {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .metric-target {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-green-400);
+      margin-top: var(--spectrum-spacing-100);
+    }
+    
+    /* ==========================================================================
+       FAQ
+       ========================================================================== */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .faq-item {
+      background: rgba(22, 33, 62, 0.6);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-md);
+      overflow: hidden;
+    }
+    
+    .faq-question {
+      padding: var(--spectrum-spacing-300);
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .faq-question:hover {
+      background: rgba(124, 58, 237, 0.1);
+    }
+    
+    .faq-question i {
+      width: 20px;
+      height: 20px;
+      color: var(--spectrum-text-muted);
+      transition: transform 0.2s;
+    }
+    
+    .faq-item[open] .faq-question i {
+      transform: rotate(180deg);
+    }
+    
+    .faq-answer {
+      padding: 0 var(--spectrum-spacing-300) var(--spectrum-spacing-300);
+      color: var(--spectrum-text-secondary);
+      font-size: var(--spectrum-font-size-100);
+    }
+    
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    footer {
+      text-align: center;
+      padding: var(--spectrum-spacing-500) 0;
+      border-top: 1px solid var(--spectrum-border-default);
+      margin-top: var(--spectrum-spacing-500);
+    }
+    
+    .footer-meta {
+      display: flex;
+      justify-content: center;
+      gap: var(--spectrum-spacing-400);
+      flex-wrap: wrap;
+      margin-bottom: var(--spectrum-spacing-200);
+    }
+    
+    .footer-meta-item {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .footer-text {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+      margin: 0;
+    }
+    
+    /* Print styles */
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+      
+      .nav {
+        display: none;
+      }
+      
+      .section {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-logo">
+          <i data-lucide="graduation-cap"></i>
+        </div>
+        <span class="nav-title">Onboarding Kit</span>
+        <span class="nav-badge">New</span>
+      </div>
+      <div class="nav-links">
+        <a href="#summary" class="nav-link active">Summary</a>
+        <a href="#terminology" class="nav-link">Terminology</a>
+        <a href="#pcri-guide" class="nav-link">PCRI Guide</a>
+        <a href="#industry-guide" class="nav-link">Industries</a>
+        <a href="#alpha-program" class="nav-link">Alpha</a>
+        <a href="#changes" class="nav-link">What Changed</a>
+        <a href="#roles" class="nav-link">Role Guides</a>
+        <a href="#training" class="nav-link">Training</a>
+        <a href="#reference" class="nav-link">Reference</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="header-badge">
+        <i data-lucide="sparkles"></i>
+        Team Onboarding
+      </div>
+      <h1>IPE GTM Operating Model</h1>
+      <p class="header-subtitle">Everything you need to understand and adopt the new deal process — from PCRI assessment through close.</p>
+    </header>
+    
+    <!-- Executive Summary -->
+    <section class="exec-summary" id="summary">
+      <h3><i data-lucide="target" style="width:20px;height:20px;vertical-align:middle;margin-right:8px;"></i> Executive Summary</h3>
+      
+      <p>We're moving from ad-hoc deal qualification to a <strong>structured, PCRI-driven process</strong>. The PCRI (Product Context Readiness Index) benchmarks each prospect's maturity and prescribes the right Investment Path — including roadmap, resources, timeline, budget, and business case.</p>
+      
+      <p><strong>Why now?</strong> Enterprise AI buyers expect readiness conversations in the first call. Our old process surfaced AI signals too late, causing mid-funnel pivots and misaligned expectations. The new model fixes this.</p>
+      
+      <div class="key-points">
+        <div class="key-point">
+          <div class="key-point-icon">
+            <i data-lucide="gauge"></i>
+          </div>
+          <div class="key-point-title">Benchmark</div>
+          <div class="key-point-desc">PCRI scores 5 pillars to identify customer maturity archetype</div>
+        </div>
+        
+        <div class="key-point">
+          <div class="key-point-icon">
+            <i data-lucide="git-branch"></i>
+          </div>
+          <div class="key-point-title">Prescribe</div>
+          <div class="key-point-desc">Score determines Investment Path (J1-J4) with pre-defined deliverables</div>
+        </div>
+        
+        <div class="key-point">
+          <div class="key-point-icon">
+            <i data-lucide="rocket"></i>
+          </div>
+          <div class="key-point-title">Accelerate</div>
+          <div class="key-point-desc">Right-fit engagement = 35% faster close, 60% fewer pivots</div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Key Terminology -->
+    <section class="section" id="terminology">
+      <div class="section-header">
+        <div class="section-number">★</div>
+        <h2>Key Terminology</h2>
+      </div>
+      
+      <p class="text-muted mb-4">Use these definitions when explaining PCRI to customers, partners, and internally. Consistency matters.</p>
+      
+      <h3>What is Product Context?</h3>
+      <div class="callout info" style="font-size: var(--spectrum-font-size-300); font-weight: 500;">
+        <p><strong>Product Context</strong> is everything in your design system that AI tools need to understand your organization—tokens, components, patterns, documentation, and standards.</p>
+      </div>
+      
+      <p>This framing positions design systems not as component libraries, but as <strong>the source of truth that feeds AI</strong>. Without governed product context, AI tools generate output that doesn't match your organization's standards—creating rework, inconsistency, and compliance risk.</p>
+      
+      <h3 class="mt-4">PCRI vs IPE: The Relationship</h3>
+      
+      <div class="comparison-grid">
+        <div class="comparison-card after" style="background: linear-gradient(145deg, rgba(124, 58, 237, 0.1), rgba(22, 33, 62, 0.8)); border-color: rgba(124, 58, 237, 0.3);">
+          <div class="comparison-label" style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300);">
+            <i data-lucide="gauge" style="width:12px;height:12px;"></i>
+            PCRI — The Assessment
+          </div>
+          <p style="font-size: var(--spectrum-font-size-200); color: var(--spectrum-text-primary); margin-bottom: 12px;"><strong>Product Context Readiness Index</strong></p>
+          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary);">A research-backed assessment that measures your organization's readiness to deliver governed product context to AI tools.</p>
+          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted); margin-top: 12px;"><strong>Measures:</strong> Design system maturity, AI readiness, governance, delivery workflow, and culture.</p>
+        </div>
+        
+        <div class="comparison-card after" style="background: linear-gradient(145deg, rgba(38, 128, 235, 0.1), rgba(22, 33, 62, 0.8)); border-color: rgba(38, 128, 235, 0.3);">
+          <div class="comparison-label" style="background: rgba(38, 128, 235, 0.2); color: var(--spectrum-cyan-400);">
+            <i data-lucide="cpu" style="width:12px;height:12px;"></i>
+            IPE — The Product
+          </div>
+          <p style="font-size: var(--spectrum-font-size-200); color: var(--spectrum-text-primary); margin-bottom: 12px;"><strong>Intelligent Product Engine</strong></p>
+          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary);">The Knapsack platform that delivers governed product context to AI tools—making Claude, Cursor, and Copilot organization-aware.</p>
+          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted); margin-top: 12px;"><strong>Delivers:</strong> Connect context, govern AI access, enable AI workflows, measure impact.</p>
+        </div>
+      </div>
+      
+      <h3 class="mt-5">One-Liners for Customer Conversations</h3>
+      <p class="text-muted mb-3">Memorize these. Use them in discovery calls, presentations, and emails.</p>
+      
+      <table class="archetype-table">
+        <thead>
+          <tr>
+            <th style="width: 30%;">Context</th>
+            <th>Say This</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>What is PCRI?</strong></td>
+            <td>"PCRI measures how ready your design system is to power AI-enabled delivery."</td>
+          </tr>
+          <tr>
+            <td><strong>PCRI vs IPE</strong></td>
+            <td>"PCRI tells you where you are. IPE takes you where you need to go."</td>
+          </tr>
+          <tr>
+            <td><strong>Why "Product Context"?</strong></td>
+            <td>"AI doesn't consume components—it consumes context. PCRI measures whether your design system can deliver that context."</td>
+          </tr>
+          <tr>
+            <td><strong>The 5 Pillars</strong></td>
+            <td>"We assess Foundation, AI Readiness, Governance, Delivery, and Culture—because AI success requires all five."</td>
+          </tr>
+          <tr>
+            <td><strong>What Product Context means</strong></td>
+            <td>"Product context is everything in your design system that AI tools need to understand your organization—tokens, components, patterns, documentation, and standards."</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div class="callout success mt-4">
+        <p><strong>Pro Tip:</strong> When a prospect says "We already have a design system," respond with: "Great—now let's see if your design system can power AI-enabled delivery. That's what PCRI measures."</p>
+      </div>
+    </section>
+    
+    <!-- PCRI Assessment Guide -->
+    <section class="section" id="pcri-guide">
+      <div class="section-header">
+        <div class="section-number">★★</div>
+        <h2>PCRI Assessment Guide</h2>
+      </div>
+      
+      <p class="text-muted mb-4">Understanding what the PCRI measures—and why—helps you have meaningful conversations with prospects. Each pillar assesses a critical dimension of AI-enabled delivery readiness.</p>
+      
+      <div class="callout info mb-4">
+        <p><strong>How to Use This Guide:</strong> Before customer calls, review the pillar questions below. During discovery, ask these questions naturally in conversation. The customer's answers map directly to PCRI scores—even before they take the formal assessment.</p>
+      </div>
+      
+      <!-- Pillar Overview -->
+      <h3>The 5 Pillars at a Glance</h3>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 32px;">
+        <div style="background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(167, 139, 250, 0.05)); border: 1px solid rgba(167, 139, 250, 0.3); border-radius: 12px; padding: 16px; text-align: center;">
+          <i data-lucide="layers" style="width: 24px; height: 24px; color: #a78bfa; margin-bottom: 8px;"></i>
+          <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Foundation</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #a78bfa;">20%</div>
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(96, 165, 250, 0.15), rgba(96, 165, 250, 0.05)); border: 1px solid rgba(96, 165, 250, 0.3); border-radius: 12px; padding: 16px; text-align: center;">
+          <i data-lucide="cpu" style="width: 24px; height: 24px; color: #60a5fa; margin-bottom: 8px;"></i>
+          <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">AI Readiness</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #60a5fa;">20%</div>
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(52, 211, 153, 0.15), rgba(52, 211, 153, 0.05)); border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 12px; padding: 16px; text-align: center;">
+          <i data-lucide="shield-check" style="width: 24px; height: 24px; color: #34d399; margin-bottom: 8px;"></i>
+          <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Governance</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #34d399;">20%</div>
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(251, 191, 36, 0.05)); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 12px; padding: 16px; text-align: center;">
+          <i data-lucide="git-merge" style="width: 24px; height: 24px; color: #fbbf24; margin-bottom: 8px;"></i>
+          <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Delivery</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #fbbf24;">15%</div>
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(244, 114, 182, 0.15), rgba(244, 114, 182, 0.05)); border: 1px solid rgba(244, 114, 182, 0.3); border-radius: 12px; padding: 16px; text-align: center;">
+          <i data-lucide="heart-handshake" style="width: 24px; height: 24px; color: #f472b6; margin-bottom: 8px;"></i>
+          <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">Culture</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #f472b6;">25%</div>
+        </div>
+      </div>
+      
+      <!-- Foundation Pillar -->
+      <div style="background: rgba(22, 33, 62, 0.6); border: 1px solid rgba(167, 139, 250, 0.3); border-radius: 16px; padding: 24px; margin-bottom: 24px; border-left: 4px solid #a78bfa;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 40px; height: 40px; background: rgba(167, 139, 250, 0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            <i data-lucide="layers" style="width: 22px; height: 22px; color: #a78bfa;"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.25rem;">Foundation <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #a78bfa; margin-left: 8px;">20% weight</span></h3>
+            <p style="margin: 0; color: var(--spectrum-text-muted); font-size: 0.9rem;">The product context substrate — tokens, components, patterns, and documentation</p>
+          </div>
+        </div>
+        
+        <p style="margin-bottom: 16px;"><strong>Why it matters:</strong> Foundation is the bedrock of AI-enabled delivery. Without structured product context—tokens, components, and documentation—AI tools have nothing to work with. A weak foundation limits everything downstream.</p>
+        
+        <div style="background: rgba(15, 15, 26, 0.6); border-radius: 10px; padding: 16px; margin-bottom: 16px;">
+          <p style="font-weight: 600; color: #a78bfa; margin: 0 0 12px 0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Assessment Questions</p>
+          <ol style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary);">
+            <li style="margin-bottom: 10px;"><strong>"What is the current state of your design system?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: No system → Mature with >70% adoption</span></li>
+            <li style="margin-bottom: 10px;"><strong>"How is your design system governed?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: No governance → Cross-system governance with clear rules</span></li>
+            <li style="margin-bottom: 10px;"><strong>"What is the quality of your documentation?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: No documentation → Living docs integrated with code</span></li>
+            <li style="margin-bottom: 0;"><strong>"How does your design system approach accessibility?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: Not a priority → Continuous a11y testing in CI</span></li>
+          </ol>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: 12px;">
+            <p style="font-weight: 600; color: var(--spectrum-red-400); margin: 0 0 4px 0; font-size: 0.8rem;">🚩 RED FLAG</p>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--spectrum-text-secondary);">"We have components, but they're scattered across teams with no central system."</p>
+          </div>
+          <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 8px; padding: 12px;">
+            <p style="font-weight: 600; color: var(--spectrum-green-400); margin: 0 0 4px 0; font-size: 0.8rem;">✅ GREEN FLAG</p>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--spectrum-text-secondary);">"Our design system is the single source of truth with 80% adoption across teams."</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- AI Readiness Pillar -->
+      <div style="background: rgba(22, 33, 62, 0.6); border: 1px solid rgba(96, 165, 250, 0.3); border-radius: 16px; padding: 24px; margin-bottom: 24px; border-left: 4px solid #60a5fa;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 40px; height: 40px; background: rgba(96, 165, 250, 0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            <i data-lucide="cpu" style="width: 22px; height: 22px; color: #60a5fa;"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.25rem;">AI Readiness <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #60a5fa; margin-left: 8px;">20% weight</span></h3>
+            <p style="margin: 0; color: var(--spectrum-text-muted); font-size: 0.9rem;">How prepared is the organization for AI-powered product development?</p>
+          </div>
+        </div>
+        
+        <p style="margin-bottom: 16px;"><strong>Why it matters:</strong> AI tools amplify whatever context they're given. If product context is machine-readable and well-structured, AI generates compliant output. If context is messy or unavailable, AI generates inconsistent, non-compliant code. This pillar measures how ready the organization is to benefit from AI.</p>
+        
+        <div class="callout warning" style="margin-bottom: 16px;">
+          <p style="margin: 0;"><strong>⚠️ Gated Progression:</strong> AI Readiness score is <em>discounted by 50%</em> if Foundation is below 40%. You can't be AI-ready without a foundation to power AI.</p>
+        </div>
+        
+        <div style="background: rgba(15, 15, 26, 0.6); border-radius: 10px; padding: 16px; margin-bottom: 16px;">
+          <p style="font-weight: 600; color: #60a5fa; margin: 0 0 12px 0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Assessment Questions</p>
+          <ol style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary);">
+            <li style="margin-bottom: 10px;"><strong>"How are your teams currently using AI coding tools?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: No AI tools → AI integrated into workflows</span></li>
+            <li style="margin-bottom: 10px;"><strong>"What is your API maturity and integration architecture?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: No APIs → API-first architecture built for AI/MCP</span></li>
+            <li style="margin-bottom: 10px;"><strong>"What is the quality of your product data and metadata?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: No structured data → Rich metadata with semantic relationships</span></li>
+            <li style="margin-bottom: 0;"><strong>"What is your organization's AI strategy for product development?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: No strategy → AI-first with governance</span></li>
+          </ol>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: 12px;">
+            <p style="font-weight: 600; color: var(--spectrum-red-400); margin: 0 0 4px 0; font-size: 0.8rem;">🚩 RED FLAG</p>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--spectrum-text-secondary);">"AI-generated code never matches our design system—we just fix it manually."</p>
+          </div>
+          <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 8px; padding: 12px;">
+            <p style="font-weight: 600; color: var(--spectrum-green-400); margin: 0 0 4px 0; font-size: 0.8rem;">✅ GREEN FLAG</p>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--spectrum-text-secondary);">"We've started piloting Cursor with design system context and seeing promising results."</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Governance Pillar -->
+      <div style="background: rgba(22, 33, 62, 0.6); border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 16px; padding: 24px; margin-bottom: 24px; border-left: 4px solid #34d399;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 40px; height: 40px; background: rgba(52, 211, 153, 0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            <i data-lucide="shield-check" style="width: 22px; height: 22px; color: #34d399;"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.25rem;">Governance & Adoption <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #34d399; margin-left: 8px;">20% weight</span></h3>
+            <p style="margin: 0; color: var(--spectrum-text-muted); font-size: 0.9rem;">Sponsorship, budget, change management, and measurement</p>
+          </div>
+        </div>
+        
+        <p style="margin-bottom: 16px;"><strong>Why it matters:</strong> Even the best design system fails without executive sponsorship, budget, and adoption programs. Governance is often the bottleneck—organizations that can't execute change management will struggle to adopt IPE regardless of their technical readiness.</p>
+        
+        <div style="background: rgba(15, 15, 26, 0.6); border-radius: 10px; padding: 16px; margin-bottom: 16px;">
+          <p style="font-weight: 600; color: #34d399; margin: 0 0 12px 0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Assessment Questions</p>
+          <ol style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary);">
+            <li style="margin-bottom: 10px;"><strong>"Is there a clear executive sponsor and decision owner?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: No sponsor → C-level executive sponsor</span></li>
+            <li style="margin-bottom: 10px;"><strong>"Is there committed investment for product system work?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: No budget → Multi-year commitment</span></li>
+            <li style="margin-bottom: 10px;"><strong>"What is your team capacity for change management?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: No capacity → Strong capability</span></li>
+            <li style="margin-bottom: 10px;"><strong>"How are design system updates communicated and adopted?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: No process → Full adoption program with training</span></li>
+            <li style="margin-bottom: 0;"><strong>"How do you measure the ROI of your design system?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: Don't measure → Business outcomes (velocity, quality, NPS)</span></li>
+          </ol>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: 12px;">
+            <p style="font-weight: 600; color: var(--spectrum-red-400); margin: 0 0 4px 0; font-size: 0.8rem;">🚩 RED FLAG</p>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--spectrum-text-secondary);">"We'd need to find budget for this, and it's not clear who would own the initiative."</p>
+          </div>
+          <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 8px; padding: 12px;">
+            <p style="font-weight: 600; color: var(--spectrum-green-400); margin: 0 0 4px 0; font-size: 0.8rem;">✅ GREEN FLAG</p>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--spectrum-text-secondary);">"Our VP of Engineering is sponsoring this initiative with allocated budget for FY26."</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Delivery Pillar -->
+      <div style="background: rgba(22, 33, 62, 0.6); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 16px; padding: 24px; margin-bottom: 24px; border-left: 4px solid #fbbf24;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 40px; height: 40px; background: rgba(251, 191, 36, 0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            <i data-lucide="git-merge" style="width: 22px; height: 22px; color: #fbbf24;"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.25rem;">Delivery Workflow <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #fbbf24; margin-left: 8px;">15% weight</span></h3>
+            <p style="margin: 0; color: var(--spectrum-text-muted); font-size: 0.9rem;">Design-to-code workflow maturity and team effectiveness</p>
+          </div>
+        </div>
+        
+        <p style="margin-bottom: 16px;"><strong>Why it matters:</strong> Delivery measures whether the organization can actually ship improvements. It draws on <strong>DORA metrics</strong> (deployment frequency, lead time) and <strong>Team Topologies</strong> (platform team model). High delivery maturity means faster IPE adoption.</p>
+        
+        <div style="background: rgba(15, 15, 26, 0.6); border-radius: 10px; padding: 16px; margin-bottom: 16px;">
+          <p style="font-weight: 600; color: #fbbf24; margin: 0 0 12px 0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Assessment Questions</p>
+          <ol style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary);">
+            <li style="margin-bottom: 10px;"><strong>"How clear are product decision rights and ownership?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: Unclear/shifting → Very clear and consistent</span></li>
+            <li style="margin-bottom: 10px;"><strong>"How fast can you run experiments or validate ideas?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: Monthly or longer → Weekly or faster</span></li>
+            <li style="margin-bottom: 10px;"><strong>"How well do product, design, and engineering collaborate?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: Siloed with friction → Highly integrated</span></li>
+            <li style="margin-bottom: 10px;"><strong>"How mature is your tool chain for design-to-code delivery?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: Fragmented → Integrated with strong automation</span></li>
+            <li style="margin-bottom: 10px;"><strong>"Do you have a platform team that reduces cognitive load?"</strong> <span style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px;">Team Topologies</span><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: No platform thinking → Platform-as-a-product with SLAs</span></li>
+            <li style="margin-bottom: 0;"><strong>"How frequently do you deploy changes to production?"</strong> <span style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px;">DORA</span><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: Monthly → On-demand with automated pipelines</span></li>
+          </ol>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: 12px;">
+            <p style="font-weight: 600; color: var(--spectrum-red-400); margin: 0 0 4px 0; font-size: 0.8rem;">🚩 RED FLAG</p>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--spectrum-text-secondary);">"Every team has their own way of doing things. Releases are a big event."</p>
+          </div>
+          <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 8px; padding: 12px;">
+            <p style="font-weight: 600; color: var(--spectrum-green-400); margin: 0 0 4px 0; font-size: 0.8rem;">✅ GREEN FLAG</p>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--spectrum-text-secondary);">"We deploy multiple times per day with automated pipelines and a platform team."</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Culture Pillar -->
+      <div style="background: rgba(22, 33, 62, 0.6); border: 1px solid rgba(244, 114, 182, 0.3); border-radius: 16px; padding: 24px; margin-bottom: 24px; border-left: 4px solid #f472b6;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 40px; height: 40px; background: rgba(244, 114, 182, 0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            <i data-lucide="heart-handshake" style="width: 22px; height: 22px; color: #f472b6;"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.25rem;">Culture & Contribution <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #f472b6; margin-left: 8px;">25% weight</span></h3>
+            <p style="margin: 0; color: var(--spectrum-text-muted); font-size: 0.9rem;">Organizational health, psychological safety, and community</p>
+          </div>
+        </div>
+        
+        <p style="margin-bottom: 16px;"><strong>Why it matters:</strong> Culture is the <strong>#1 predictor of sustainable adoption</strong> per Google's Project Aristotle research. Organizations with psychological safety, information flow, and shared ownership adopt new tools faster and more sustainably. A 25% weight reflects this critical importance.</p>
+        
+        <div style="background: rgba(15, 15, 26, 0.6); border-radius: 10px; padding: 16px; margin-bottom: 16px;">
+          <p style="font-weight: 600; color: #f472b6; margin: 0 0 12px 0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Assessment Questions</p>
+          <ol style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary);">
+            <li style="margin-bottom: 10px;"><strong>"Who can contribute to your design system?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: Single core team → True community ownership</span></li>
+            <li style="margin-bottom: 10px;"><strong>"How diverse is your contributor base?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: Single discipline → Contributions from across the org</span></li>
+            <li style="margin-bottom: 10px;"><strong>"Is there an active community around your design system?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: No community → Thriving with champions</span></li>
+            <li style="margin-bottom: 10px;"><strong>"How do teams perceive ownership of the design system?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: "That's their job" → Shared OKR across teams</span></li>
+            <li style="margin-bottom: 10px;"><strong>"Is time explicitly allocated for contribution?"</strong><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: Personal time only → Dedicated sprint capacity</span></li>
+            <li style="margin-bottom: 10px;"><strong>"Do team members feel safe to take risks and propose new ideas?"</strong> <span style="background: rgba(244, 114, 182, 0.2); color: #f472b6; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px;">Project Aristotle</span><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: Fear speaking up → Explicitly cultivated safety</span></li>
+            <li style="margin-bottom: 0;"><strong>"How freely does information flow across teams?"</strong> <span style="background: rgba(244, 114, 182, 0.2); color: #f472b6; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px;">Westrum</span><br><span style="color: var(--spectrum-text-muted); font-size: 0.9rem;">Range: Hoarded/political → Free flow, failures are learning</span></li>
+          </ol>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: 12px;">
+            <p style="font-weight: 600; color: var(--spectrum-red-400); margin: 0 0 4px 0; font-size: 0.8rem;">🚩 RED FLAG</p>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--spectrum-text-secondary);">"The design system is something the platform team does. Product teams just use it."</p>
+          </div>
+          <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 8px; padding: 12px;">
+            <p style="font-weight: 600; color: var(--spectrum-green-400); margin: 0 0 4px 0; font-size: 0.8rem;">✅ GREEN FLAG</p>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--spectrum-text-secondary);">"Design system health is part of our team OKRs. Everyone contributes."</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- PCRI → Investment Path Mapping -->
+      <h3 class="mt-5">How PCRI Drives the IPE GTM Process</h3>
+      
+      <div style="background: linear-gradient(145deg, rgba(124, 58, 237, 0.1), rgba(38, 128, 235, 0.05)); border: 1px solid rgba(124, 58, 237, 0.3); border-radius: 16px; padding: 24px;">
+        <div style="display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 16px; align-items: center; text-align: center;">
+          <div>
+            <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #a78bfa, #60a5fa); border-radius: 12px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center;">
+              <i data-lucide="clipboard-check" style="width: 24px; height: 24px; color: white;"></i>
+            </div>
+            <div style="font-weight: 600;">PCRI Assessment</div>
+            <div style="font-size: 0.85rem; color: var(--spectrum-text-muted);">Scores 5 pillars</div>
+          </div>
+          <div style="font-size: 1.5rem; color: var(--spectrum-purple-300);">→</div>
+          <div>
+            <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #fbbf24, #f472b6); border-radius: 12px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center;">
+              <i data-lucide="users" style="width: 24px; height: 24px; color: white;"></i>
+            </div>
+            <div style="font-weight: 600;">Archetype</div>
+            <div style="font-size: 0.85rem; color: var(--spectrum-text-muted);">Builder → Transformer</div>
+          </div>
+          <div style="font-size: 1.5rem; color: var(--spectrum-purple-300);">→</div>
+          <div>
+            <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #34d399, #60a5fa); border-radius: 12px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center;">
+              <i data-lucide="route" style="width: 24px; height: 24px; color: white;"></i>
+            </div>
+            <div style="font-weight: 600;">Investment Path</div>
+            <div style="font-size: 0.85rem; color: var(--spectrum-text-muted);">J1–J4 prescribed</div>
+          </div>
+        </div>
+        
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(124, 58, 237, 0.2);">
+          <p style="margin: 0; text-align: center; color: var(--spectrum-text-secondary);">The PCRI score <strong>determines the Investment Path</strong>—not negotiation, not gut feel. This is how we ensure customers get the right engagement, the right resources, and the right timeline.</p>
+        </div>
+      </div>
+      
+      <div class="callout success mt-4">
+        <p><strong>Key Insight:</strong> When you understand the PCRI questions, you can informally assess a prospect <em>during discovery</em>—before they even take the formal assessment. This helps you set expectations early and avoid mid-funnel pivots.</p>
+      </div>
+    </section>
+    
+    <!-- Industry Intelligence -->
+    <section class="section" id="industry-guide">
+      <div class="section-header">
+        <div class="section-number">★★★</div>
+        <h2>Industry Intelligence</h2>
+      </div>
+      
+      <p class="text-muted mb-4">The IPE value proposition varies by industry. Each vertical has unique compliance requirements, deployment needs, and value drivers. Master these to speak credibly in every conversation.</p>
+      
+      <div class="callout info mb-4">
+        <p><strong>How the Assessment Adapts:</strong> When a prospect selects their industry in the PCRI assessment, questions automatically adapt to their context. For example, "How is your design system governed?" becomes "How is your design system governed for HIPAA/PHI requirements?" for Healthcare prospects.</p>
+      </div>
+      
+      <!-- Industry Quick Reference Grid -->
+      <h3>Industry Positioning at a Glance</h3>
+      <div style="overflow-x: auto; margin-bottom: 24px;">
+        <table class="archetype-table" style="min-width: 900px;">
+          <thead>
+            <tr>
+              <th>Industry</th>
+              <th>Lead Hook</th>
+              <th>Key Compliance</th>
+              <th>Typical Deployment</th>
+              <th>Primary Value Driver</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Financial Services</strong></td>
+              <td>Model Risk Management</td>
+              <td>OCC, SR 11-7, BCBS 239, SOX</td>
+              <td>D3 (Private Cloud)</td>
+              <td>Auditable AI governance</td>
+            </tr>
+            <tr>
+              <td><strong>Insurance</strong></td>
+              <td>Claims Consistency</td>
+              <td>State Regulations, Disclosure</td>
+              <td>D2-D3</td>
+              <td>Bias testing, explainability</td>
+            </tr>
+            <tr>
+              <td><strong>Healthcare</strong></td>
+              <td>Operational Resilience</td>
+              <td>HIPAA, FDA 21 CFR Part 11, HITRUST</td>
+              <td>D3 (Private Cloud)</td>
+              <td>PHI protection, audit trails</td>
+            </tr>
+            <tr>
+              <td><strong>Enterprise Software</strong></td>
+              <td>Multi-Product Consistency</td>
+              <td>SOC 2, ISO 27001, GDPR</td>
+              <td>D1-D2</td>
+              <td>Platform-wide governance</td>
+            </tr>
+            <tr>
+              <td><strong>Technology / Media</strong></td>
+              <td>AI Velocity</td>
+              <td>SOC 2, GDPR</td>
+              <td>D1 (Cloud Standard)</td>
+              <td>Speed to AI-first development</td>
+            </tr>
+            <tr>
+              <td><strong>Retail / E-commerce</strong></td>
+              <td>Omnichannel Experience</td>
+              <td>PCI-DSS, GDPR, CCPA</td>
+              <td>D1-D2</td>
+              <td>Cross-channel consistency</td>
+            </tr>
+            <tr>
+              <td><strong>Government</strong></td>
+              <td>Citizen Accessibility</td>
+              <td>Section 508, FedRAMP</td>
+              <td>D4 (Self-Hosted)</td>
+              <td>Transparency, public accountability</td>
+            </tr>
+            <tr>
+              <td><strong>Aerospace / Defense</strong></td>
+              <td>Mission-Critical Safety</td>
+              <td>DO-178C, AS9100, ITAR</td>
+              <td>D4 (Self-Hosted)</td>
+              <td>Traceability, security clearance</td>
+            </tr>
+            <tr>
+              <td><strong>Utilities</strong></td>
+              <td>Grid Reliability</td>
+              <td>NERC CIP, Critical Infrastructure</td>
+              <td>D3-D4</td>
+              <td>Safety controls, operator oversight</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Deployment Tiers Explainer -->
+      <h3>Understanding Deployment Tiers</h3>
+      <p class="text-muted mb-3">Deployment tier is often determined by industry before we even talk to the customer. Know the default and validate early.</p>
+      
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px;">
+        <div style="background: linear-gradient(135deg, rgba(100, 116, 139, 0.15), rgba(100, 116, 139, 0.05)); border: 1px solid rgba(100, 116, 139, 0.3); border-radius: 12px; padding: 16px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.25rem; color: #64748b; margin-bottom: 8px;">D1</div>
+          <div style="font-weight: 600; margin-bottom: 4px;">Cloud Standard</div>
+          <div style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-bottom: 8px;">Multi-tenant SaaS</div>
+          <div style="font-size: 0.8rem; color: var(--spectrum-text-secondary);">Tech, SaaS, Mid-market</div>
+          <div style="font-size: 0.75rem; color: #64748b; margin-top: 8px;">SOC 2 • 2-4 weeks</div>
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.05)); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 16px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.25rem; color: #3b82f6; margin-bottom: 8px;">D2</div>
+          <div style="font-weight: 600; margin-bottom: 4px;">Cloud Dedicated</div>
+          <div style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-bottom: 8px;">Single-tenant instance</div>
+          <div style="font-size: 0.8rem; color: var(--spectrum-text-secondary);">Enterprise, some regulated</div>
+          <div style="font-size: 0.75rem; color: #3b82f6; margin-top: 8px;">+25-40% • 4-8 weeks</div>
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05)); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 16px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.25rem; color: #f59e0b; margin-bottom: 8px;">D3</div>
+          <div style="font-weight: 600; margin-bottom: 4px;">Private Cloud</div>
+          <div style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-bottom: 8px;">Customer VPC</div>
+          <div style="font-size: 0.8rem; color: var(--spectrum-text-secondary);">Financial Services, Healthcare</div>
+          <div style="font-size: 0.75rem; color: #f59e0b; margin-top: 8px;">+50-75% • 8-16 weeks</div>
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05)); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px; padding: 16px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.25rem; color: #ef4444; margin-bottom: 8px;">D4</div>
+          <div style="font-weight: 600; margin-bottom: 4px;">Self-Hosted</div>
+          <div style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-bottom: 8px;">Customer data center</div>
+          <div style="font-size: 0.8rem; color: var(--spectrum-text-secondary);">Defense, Government</div>
+          <div style="font-size: 0.75rem; color: #ef4444; margin-top: 8px;">+100%+ • 16-24+ weeks</div>
+        </div>
+      </div>
+      
+      <!-- Detailed Industry Profiles -->
+      <h3>Industry Deep Dives</h3>
+      <p class="text-muted mb-4">Click to expand each industry profile for discovery questions, compliance context, and positioning guidance.</p>
+      
+      <!-- Financial Services -->
+      <details class="faq-item" style="margin-bottom: 12px;">
+        <summary class="faq-question" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(22, 33, 62, 0.6));">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="background: rgba(16, 185, 129, 0.2); color: #10b981; padding: 4px 10px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">D3</span>
+            <span style="font-weight: 600;">Financial Services</span>
+            <span style="font-size: 0.85rem; color: var(--spectrum-text-muted);">— Model Risk Management</span>
+          </div>
+          <i data-lucide="chevron-down"></i>
+        </summary>
+        <div class="faq-answer" style="padding-top: 16px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <p style="font-weight: 600; color: var(--spectrum-purple-300); margin-bottom: 8px; font-size: 0.85rem;">KEY COMPLIANCE</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">OCC Guidelines</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">SR 11-7</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">BCBS 239</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">SOX</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">PCI-DSS</span>
+              </div>
+            </div>
+            <div>
+              <p style="font-weight: 600; color: var(--spectrum-green-400); margin-bottom: 8px; font-size: 0.85rem;">VALUE PROPOSITION</p>
+              <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary);">"Auditable AI governance for product delivery. When regulators ask how you govern AI-generated code, you have an answer."</p>
+            </div>
+          </div>
+          
+          <p style="font-weight: 600; color: var(--spectrum-cyan-400); margin-bottom: 8px; font-size: 0.85rem;">INDUSTRY-SPECIFIC PCRI QUESTIONS</p>
+          <div style="background: rgba(15, 15, 26, 0.6); border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+            <ul style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary); font-size: 0.9rem;">
+              <li style="margin-bottom: 8px;"><strong>Governance:</strong> "How is your design system governed for <em>compliance requirements</em>?" (SOX, PCI-DSS, regulatory audit)</li>
+              <li style="margin-bottom: 8px;"><strong>AI Readiness:</strong> "How are your teams using AI coding tools <em>with regulatory considerations</em>?" (data residency, model governance, audit requirements)</li>
+              <li><strong>Budget:</strong> Standard question applies</li>
+            </ul>
+          </div>
+          
+          <p style="font-weight: 600; color: var(--spectrum-yellow-400); margin-bottom: 8px; font-size: 0.85rem;">DISCOVERY QUESTIONS TO ASK</p>
+          <ul style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary); font-size: 0.9rem;">
+            <li style="margin-bottom: 6px;">"When was your last regulatory exam, and did digital consistency come up?"</li>
+            <li style="margin-bottom: 6px;">"How do you currently document AI usage for model risk management?"</li>
+            <li style="margin-bottom: 6px;">"What's your timeline for AI governance compliance?"</li>
+            <li>"Who owns the intersection of product, compliance, and AI?"</li>
+          </ul>
+          
+          <div class="callout warning" style="margin-top: 16px;">
+            <p style="margin: 0;"><strong>Phase 0 Required:</strong> D3 accounts require Phase 0 ($175-225K, 8-16 weeks) for environment provisioning, security architecture, and compliance attestation before Foundation can begin.</p>
+          </div>
+        </div>
+      </details>
+      
+      <!-- Healthcare -->
+      <details class="faq-item" style="margin-bottom: 12px;">
+        <summary class="faq-question" style="background: linear-gradient(135deg, rgba(244, 114, 182, 0.1), rgba(22, 33, 62, 0.6));">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="background: rgba(244, 114, 182, 0.2); color: #f472b6; padding: 4px 10px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">D3</span>
+            <span style="font-weight: 600;">Healthcare</span>
+            <span style="font-size: 0.85rem; color: var(--spectrum-text-muted);">— Operational Resilience</span>
+          </div>
+          <i data-lucide="chevron-down"></i>
+        </summary>
+        <div class="faq-answer" style="padding-top: 16px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <p style="font-weight: 600; color: var(--spectrum-purple-300); margin-bottom: 8px; font-size: 0.85rem;">KEY COMPLIANCE</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">HIPAA</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">FDA 21 CFR Part 11</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">HITRUST</span>
+              </div>
+            </div>
+            <div>
+              <p style="font-weight: 600; color: var(--spectrum-green-400); margin-bottom: 8px; font-size: 0.85rem;">VALUE PROPOSITION</p>
+              <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary);">"Consistent, compliant digital experiences at scale. PHI-aware patterns with full audit trails for every AI-assisted change."</p>
+            </div>
+          </div>
+          
+          <p style="font-weight: 600; color: var(--spectrum-cyan-400); margin-bottom: 8px; font-size: 0.85rem;">INDUSTRY-SPECIFIC PCRI QUESTIONS</p>
+          <div style="background: rgba(15, 15, 26, 0.6); border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+            <ul style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary); font-size: 0.9rem;">
+              <li style="margin-bottom: 8px;"><strong>Governance:</strong> "How is your design system governed for <em>HIPAA/PHI requirements</em>?" (PHI handling, audit logging, access controls)</li>
+              <li style="margin-bottom: 8px;"><strong>AI Readiness:</strong> "How are AI tools being adopted <em>with patient data safeguards</em>?" (BAA requirements, PHI isolation, de-identification)</li>
+              <li><strong>Budget:</strong> Standard question applies</li>
+            </ul>
+          </div>
+          
+          <p style="font-weight: 600; color: var(--spectrum-yellow-400); margin-bottom: 8px; font-size: 0.85rem;">DISCOVERY QUESTIONS TO ASK</p>
+          <ul style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary); font-size: 0.9rem;">
+            <li style="margin-bottom: 6px;">"How do you currently separate PHI-handling components from general UI?"</li>
+            <li style="margin-bottom: 6px;">"What's your audit process when a patient-facing component changes?"</li>
+            <li style="margin-bottom: 6px;">"Are your AI tools covered under a BAA today?"</li>
+            <li>"How quickly can you respond to a compliance finding?"</li>
+          </ul>
+        </div>
+      </details>
+      
+      <!-- Enterprise Software -->
+      <details class="faq-item" style="margin-bottom: 12px;">
+        <summary class="faq-question" style="background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(22, 33, 62, 0.6));">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="background: rgba(96, 165, 250, 0.2); color: #60a5fa; padding: 4px 10px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">D1-D2</span>
+            <span style="font-weight: 600;">Enterprise Software</span>
+            <span style="font-size: 0.85rem; color: var(--spectrum-text-muted);">— Multi-Product Consistency</span>
+          </div>
+          <i data-lucide="chevron-down"></i>
+        </summary>
+        <div class="faq-answer" style="padding-top: 16px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <p style="font-weight: 600; color: var(--spectrum-purple-300); margin-bottom: 8px; font-size: 0.85rem;">KEY COMPLIANCE</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">SOC 2</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">ISO 27001</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">GDPR</span>
+              </div>
+            </div>
+            <div>
+              <p style="font-weight: 600; color: var(--spectrum-green-400); margin-bottom: 8px; font-size: 0.85rem;">VALUE PROPOSITION</p>
+              <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary);">"Platform-wide governance across your product portfolio. Ship faster with AI while maintaining consistency across every product."</p>
+            </div>
+          </div>
+          
+          <p style="font-weight: 600; color: var(--spectrum-cyan-400); margin-bottom: 8px; font-size: 0.85rem;">INDUSTRY-SPECIFIC PCRI QUESTIONS</p>
+          <div style="background: rgba(15, 15, 26, 0.6); border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+            <ul style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary); font-size: 0.9rem;">
+              <li style="margin-bottom: 8px;"><strong>Foundation:</strong> "What is the state of your <em>multi-product</em> design system?" (shared components across portfolio)</li>
+              <li style="margin-bottom: 8px;"><strong>AI Readiness:</strong> "How are AI tools integrated into your <em>product development</em>?" (code generation, testing, CI/CD)</li>
+              <li><strong>Delivery:</strong> "How consistent is your <em>release process across products</em>?"</li>
+            </ul>
+          </div>
+          
+          <p style="font-weight: 600; color: var(--spectrum-yellow-400); margin-bottom: 8px; font-size: 0.85rem;">DISCOVERY QUESTIONS TO ASK</p>
+          <ul style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary); font-size: 0.9rem;">
+            <li style="margin-bottom: 6px;">"How many products share your design system today? How many should?"</li>
+            <li style="margin-bottom: 6px;">"What happens when one product team needs to deviate from standards?"</li>
+            <li style="margin-bottom: 6px;">"How do you coordinate releases across your product portfolio?"</li>
+            <li>"Are you building features once or duplicating across products?"</li>
+          </ul>
+        </div>
+      </details>
+      
+      <!-- Government -->
+      <details class="faq-item" style="margin-bottom: 12px;">
+        <summary class="faq-question" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(22, 33, 62, 0.6));">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 4px 10px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">D4</span>
+            <span style="font-weight: 600;">Government / Public Sector</span>
+            <span style="font-size: 0.85rem; color: var(--spectrum-text-muted);">— Citizen Accessibility</span>
+          </div>
+          <i data-lucide="chevron-down"></i>
+        </summary>
+        <div class="faq-answer" style="padding-top: 16px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <p style="font-weight: 600; color: var(--spectrum-purple-300); margin-bottom: 8px; font-size: 0.85rem;">KEY COMPLIANCE</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">Section 508</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">FedRAMP</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">ATO</span>
+              </div>
+            </div>
+            <div>
+              <p style="font-weight: 600; color: var(--spectrum-green-400); margin-bottom: 8px; font-size: 0.85rem;">VALUE PROPOSITION</p>
+              <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary);">"Accessible, transparent citizen services. AI governance with public accountability and full audit trails."</p>
+            </div>
+          </div>
+          
+          <p style="font-weight: 600; color: var(--spectrum-cyan-400); margin-bottom: 8px; font-size: 0.85rem;">INDUSTRY-SPECIFIC PCRI QUESTIONS</p>
+          <div style="background: rgba(15, 15, 26, 0.6); border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+            <ul style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary); font-size: 0.9rem;">
+              <li style="margin-bottom: 8px;"><strong>Governance:</strong> "How is your design system governed for <em>accessibility and compliance</em>?" (Section 508, FedRAMP, citizen access)</li>
+              <li style="margin-bottom: 8px;"><strong>AI Readiness:</strong> "How are AI tools being adopted in <em>citizen-facing services</em>?" (bias, transparency, public accountability)</li>
+              <li><strong>Budget:</strong> "Is there committed investment?" (appropriations, grants, multi-year funding)</li>
+            </ul>
+          </div>
+          
+          <p style="font-weight: 600; color: var(--spectrum-yellow-400); margin-bottom: 8px; font-size: 0.85rem;">DISCOVERY QUESTIONS TO ASK</p>
+          <ul style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary); font-size: 0.9rem;">
+            <li style="margin-bottom: 6px;">"What's your current Section 508 compliance posture?"</li>
+            <li style="margin-bottom: 6px;">"Is FedRAMP authorization on your roadmap?"</li>
+            <li style="margin-bottom: 6px;">"How do you ensure AI decisions are explainable to citizens?"</li>
+            <li>"What's your ATO timeline and how does this fit?"</li>
+          </ul>
+          
+          <div class="callout warning" style="margin-top: 16px;">
+            <p style="margin: 0;"><strong>Phase 0 Required:</strong> D4 accounts require Phase 0 ($350-450K, 16-24 weeks) for self-hosted deployment, security architecture, and ATO preparation.</p>
+          </div>
+        </div>
+      </details>
+      
+      <!-- Retail / E-commerce -->
+      <details class="faq-item" style="margin-bottom: 12px;">
+        <summary class="faq-question" style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(22, 33, 62, 0.6));">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; padding: 4px 10px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">D1-D2</span>
+            <span style="font-weight: 600;">Retail / E-commerce</span>
+            <span style="font-size: 0.85rem; color: var(--spectrum-text-muted);">— Omnichannel Experience</span>
+          </div>
+          <i data-lucide="chevron-down"></i>
+        </summary>
+        <div class="faq-answer" style="padding-top: 16px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <p style="font-weight: 600; color: var(--spectrum-purple-300); margin-bottom: 8px; font-size: 0.85rem;">KEY COMPLIANCE</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">PCI-DSS</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">GDPR</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">CCPA</span>
+              </div>
+            </div>
+            <div>
+              <p style="font-weight: 600; color: var(--spectrum-green-400); margin-bottom: 8px; font-size: 0.85rem;">VALUE PROPOSITION</p>
+              <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary);">"Seamless omnichannel experience from web to mobile to in-store. AI-powered personalization that's on-brand everywhere."</p>
+            </div>
+          </div>
+          
+          <p style="font-weight: 600; color: var(--spectrum-cyan-400); margin-bottom: 8px; font-size: 0.85rem;">INDUSTRY-SPECIFIC PCRI QUESTIONS</p>
+          <div style="background: rgba(15, 15, 26, 0.6); border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+            <ul style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary); font-size: 0.9rem;">
+              <li style="margin-bottom: 8px;"><strong>Foundation:</strong> "What is the state of your <em>omnichannel</em> design system?" (web, mobile, in-store, marketplace)</li>
+              <li><strong>AI Readiness:</strong> "How are AI tools being used for <em>product/commerce experiences</em>?" (personalization, recommendations, content)</li>
+            </ul>
+          </div>
+          
+          <p style="font-weight: 600; color: var(--spectrum-yellow-400); margin-bottom: 8px; font-size: 0.85rem;">DISCOVERY QUESTIONS TO ASK</p>
+          <ul style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary); font-size: 0.9rem;">
+            <li style="margin-bottom: 6px;">"How consistent is your brand experience across web, mobile, and in-store?"</li>
+            <li style="margin-bottom: 6px;">"What's your personalization strategy and how does AI fit in?"</li>
+            <li style="margin-bottom: 6px;">"How fast can you launch a new campaign across all channels?"</li>
+            <li>"What happens when a product page looks different on mobile vs. desktop?"</li>
+          </ul>
+        </div>
+      </details>
+      
+      <!-- Aerospace / Defense -->
+      <details class="faq-item" style="margin-bottom: 12px;">
+        <summary class="faq-question" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(22, 33, 62, 0.6));">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 4px 10px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">D4</span>
+            <span style="font-weight: 600;">Aerospace / Defense</span>
+            <span style="font-size: 0.85rem; color: var(--spectrum-text-muted);">— Mission-Critical Safety</span>
+          </div>
+          <i data-lucide="chevron-down"></i>
+        </summary>
+        <div class="faq-answer" style="padding-top: 16px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <p style="font-weight: 600; color: var(--spectrum-purple-300); margin-bottom: 8px; font-size: 0.85rem;">KEY COMPLIANCE</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">DO-178C</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">AS9100</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">ITAR</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">CMMC</span>
+              </div>
+            </div>
+            <div>
+              <p style="font-weight: 600; color: var(--spectrum-green-400); margin-bottom: 8px; font-size: 0.85rem;">VALUE PROPOSITION</p>
+              <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary);">"Certified, traceable product systems for mission-critical applications. Full traceability with automated verification."</p>
+            </div>
+          </div>
+          
+          <p style="font-weight: 600; color: var(--spectrum-cyan-400); margin-bottom: 8px; font-size: 0.85rem;">INDUSTRY-SPECIFIC PCRI QUESTIONS</p>
+          <div style="background: rgba(15, 15, 26, 0.6); border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+            <ul style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary); font-size: 0.9rem;">
+              <li style="margin-bottom: 8px;"><strong>Governance:</strong> "How is your design system governed for <em>mission-critical requirements</em>?" (DO-178C, AS9100, security clearance)</li>
+              <li><strong>AI Readiness:</strong> "How are AI tools being adopted <em>with security/classification requirements</em>?" (air-gapped environments, cleared workflows)</li>
+            </ul>
+          </div>
+          
+          <p style="font-weight: 600; color: var(--spectrum-yellow-400); margin-bottom: 8px; font-size: 0.85rem;">DISCOVERY QUESTIONS TO ASK</p>
+          <ul style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary); font-size: 0.9rem;">
+            <li style="margin-bottom: 6px;">"What certification levels do your systems need to meet?"</li>
+            <li style="margin-bottom: 6px;">"How do you handle classified vs. unclassified development environments?"</li>
+            <li style="margin-bottom: 6px;">"What's your traceability requirement from design to deployment?"</li>
+            <li>"Can you use commercial cloud or does everything need to be air-gapped?"</li>
+          </ul>
+          
+          <div class="callout warning" style="margin-top: 16px;">
+            <p style="margin: 0;"><strong>Longest Sales Cycle:</strong> Expect 12-24 month sales cycles. Start with unclassified programs where possible, then expand to classified.</p>
+          </div>
+        </div>
+      </details>
+      
+      <!-- Technology / Media -->
+      <details class="faq-item" style="margin-bottom: 12px;">
+        <summary class="faq-question" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(22, 33, 62, 0.6));">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="background: rgba(139, 92, 246, 0.2); color: #8b5cf6; padding: 4px 10px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">D1</span>
+            <span style="font-weight: 600;">Technology / Media</span>
+            <span style="font-size: 0.85rem; color: var(--spectrum-text-muted);">— AI Velocity</span>
+          </div>
+          <i data-lucide="chevron-down"></i>
+        </summary>
+        <div class="faq-answer" style="padding-top: 16px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <p style="font-weight: 600; color: var(--spectrum-purple-300); margin-bottom: 8px; font-size: 0.85rem;">KEY COMPLIANCE</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">SOC 2</span>
+                <span style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem;">GDPR</span>
+              </div>
+            </div>
+            <div>
+              <p style="font-weight: 600; color: var(--spectrum-green-400); margin-bottom: 8px; font-size: 0.85rem;">VALUE PROPOSITION</p>
+              <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary);">"Ship faster with governed AI execution. Be the first in your market with AI-first development culture."</p>
+            </div>
+          </div>
+          
+          <p style="font-weight: 600; color: var(--spectrum-cyan-400); margin-bottom: 8px; font-size: 0.85rem;">INDUSTRY-SPECIFIC PCRI QUESTIONS</p>
+          <div style="background: rgba(15, 15, 26, 0.6); border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+            <ul style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary); font-size: 0.9rem;">
+              <li><strong>AI Readiness:</strong> "How embedded is AI in your <em>engineering workflow</em>?" (code generation, testing, documentation, review)</li>
+            </ul>
+          </div>
+          
+          <p style="font-weight: 600; color: var(--spectrum-yellow-400); margin-bottom: 8px; font-size: 0.85rem;">DISCOVERY QUESTIONS TO ASK</p>
+          <ul style="margin: 0; padding-left: 20px; color: var(--spectrum-text-secondary); font-size: 0.9rem;">
+            <li style="margin-bottom: 6px;">"What percentage of your codebase is AI-assisted today?"</li>
+            <li style="margin-bottom: 6px;">"How do you ensure AI-generated code matches your standards?"</li>
+            <li style="margin-bottom: 6px;">"What's your deployment frequency and how do you maintain quality?"</li>
+            <li>"Are you building an AI-first culture or just experimenting?"</li>
+          </ul>
+          
+          <div class="callout success" style="margin-top: 16px;">
+            <p style="margin: 0;"><strong>Fastest Path:</strong> Tech companies often skip to J4 (Intelligence Path) if they already have a mature design system. Focus on MCP activation and AI workflow enablement.</p>
+          </div>
+        </div>
+      </details>
+      
+      <!-- Industry-Path Mapping -->
+      <h3 class="mt-5">Industry → Typical Investment Path</h3>
+      <p class="text-muted mb-3">While PCRI score ultimately determines the path, industry context influences typical starting points.</p>
+      
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+        <div style="background: rgba(100, 116, 139, 0.1); border: 1px solid rgba(100, 116, 139, 0.3); border-radius: 12px; padding: 16px;">
+          <p style="font-weight: 600; font-size: 0.9rem; margin-bottom: 8px;">J1 Foundation Path</p>
+          <p style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-bottom: 8px;">Build the system of record first</p>
+          <p style="font-size: 0.85rem; color: var(--spectrum-text-secondary);">Early-stage orgs in <strong>any industry</strong> without a design system. Rare in enterprise—most have something to build on.</p>
+        </div>
+        <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 16px;">
+          <p style="font-weight: 600; font-size: 0.9rem; margin-bottom: 8px;">J2 Acceleration Path</p>
+          <p style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-bottom: 8px;">Fast activation sprint</p>
+          <p style="font-size: 0.85rem; color: var(--spectrum-text-secondary);"><strong>Tech/Media</strong> companies with mature systems but sudden trigger (reorg, acquisition, AI mandate). Speed is critical.</p>
+        </div>
+        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 16px;">
+          <p style="font-weight: 600; font-size: 0.9rem; margin-bottom: 8px;">J3 Activation Path ⭐</p>
+          <p style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-bottom: 8px;">Full transformation (60% of pipeline)</p>
+          <p style="font-size: 0.85rem; color: var(--spectrum-text-secondary);"><strong>Financial Services, Healthcare, Enterprise Software</strong>. Implemented but not activated. Highest TCV opportunity ($740K-$1.6M).</p>
+        </div>
+        <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 12px; padding: 16px;">
+          <p style="font-weight: 600; font-size: 0.9rem; margin-bottom: 8px;">J4 Intelligence Path</p>
+          <p style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-bottom: 8px;">AI expansion + MCP</p>
+          <p style="font-size: 0.85rem; color: var(--spectrum-text-secondary);"><strong>Tech/Media, existing Knapsack customers</strong>. Already governed, ready for AI enablement. Expansion-focused.</p>
+        </div>
+      </div>
+      
+      <div class="callout info mt-4">
+        <p><strong>Remember:</strong> Industry context sets expectations, but PCRI score makes the decision. A Financial Services company with a mature, governed system might be J4-ready. A Tech company with no system of record needs J1. Always assess before assuming.</p>
+      </div>
+    </section>
+    
+    <!-- Alpha Program -->
+    <section class="section" id="alpha-program">
+      <div class="section-header">
+        <div class="section-number">🧪</div>
+        <h2>Alpha Pilot Program</h2>
+      </div>
+      
+      <p class="text-muted mb-4">The Alpha Program validates our PCRI assessment with real prospects before broad GTM launch. Understanding this program is essential for positioning Knapsack's maturity-driven approach.</p>
+      
+      <div class="callout" style="background: linear-gradient(145deg, rgba(249, 115, 22, 0.12) 0%, rgba(22, 33, 62, 0.7) 100%); border: 1px solid rgba(249, 115, 22, 0.3); margin-bottom: 24px;">
+        <p style="margin-bottom: 12px;"><strong style="color: #f97316;">Guided Experience Flow:</strong></p>
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <span style="background: rgba(249, 115, 22, 0.2); padding: 6px 12px; border-radius: 6px; font-size: 0.9rem;">1. Participant completes assessment</span>
+          <span style="color: var(--spectrum-orange-400);">→</span>
+          <span style="background: rgba(249, 115, 22, 0.2); padding: 6px 12px; border-radius: 6px; font-size: 0.9rem;">2. Director of Delivery reviews & calibrates</span>
+          <span style="color: var(--spectrum-orange-400);">→</span>
+          <span style="background: rgba(249, 115, 22, 0.2); padding: 6px 12px; border-radius: 6px; font-size: 0.9rem;">3. Curated PDF delivered via personalized debrief</span>
+        </div>
+      </div>
+      
+      <h3>Alpha Program Metrics</h3>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;">
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px; text-align: center;">
+          <div style="font-size: 2rem; font-weight: 700; color: #f97316; font-family: 'JetBrains Mono', monospace;">20</div>
+          <div style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-top: 4px;">Participants</div>
+        </div>
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px; text-align: center;">
+          <div style="font-size: 2rem; font-weight: 700; color: #f97316; font-family: 'JetBrains Mono', monospace;">50/50</div>
+          <div style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-top: 4px;">Exec / Practitioner</div>
+        </div>
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px; text-align: center;">
+          <div style="font-size: 2rem; font-weight: 700; color: #f97316; font-family: 'JetBrains Mono', monospace;">5</div>
+          <div style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-top: 4px;">Industries</div>
+        </div>
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px; text-align: center;">
+          <div style="font-size: 2rem; font-weight: 700; color: #f97316; font-family: 'JetBrains Mono', monospace;">1:1</div>
+          <div style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-top: 4px;">Curated Debrief</div>
+        </div>
+      </div>
+      
+      <h3>Why This Matters for GTM</h3>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px;">
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px;">
+          <p style="font-weight: 600; color: var(--spectrum-purple-300); margin-bottom: 8px;">🎯 Validates PCRI Scoring</p>
+          <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary); margin: 0;">Real-world calibration of pillar weights and archetype thresholds before we scale the assessment tool.</p>
+        </div>
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px;">
+          <p style="font-weight: 600; color: var(--spectrum-purple-300); margin-bottom: 8px;">📊 Establishes Benchmarks</p>
+          <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary); margin: 0;">Industry-specific benchmark data that powers "You're in the top X%" positioning in sales conversations.</p>
+        </div>
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px;">
+          <p style="font-weight: 600; color: var(--spectrum-purple-300); margin-bottom: 8px;">💬 Generates Testimonials</p>
+          <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary); margin: 0;">High-touch experience creates advocates who can speak to the value of structured maturity assessment.</p>
+        </div>
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px;">
+          <p style="font-weight: 600; color: var(--spectrum-purple-300); margin-bottom: 8px;">🚀 Seeds Pipeline</p>
+          <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary); margin: 0;">Alpha participants become warm leads with pre-qualified PCRI scores and known investment paths.</p>
+        </div>
+      </div>
+      
+      <div class="callout success">
+        <p><strong>Full Program Details:</strong> For email templates, recruitment strategy, timeline, and success metrics, see the <a href="../alpha/alpha_release_program.html" style="color: var(--spectrum-green-400);">Alpha Program & GTM Guide</a>.</p>
+      </div>
+    </section>
+    
+    <!-- What Changed -->
+    <section class="section" id="changes">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <h2>What Changed</h2>
+      </div>
+      
+      <p class="text-muted mb-4">The IPE GTM Operating Model v4.2 introduces PCRI-driven qualification and restructures the deal process. Here's what's different:</p>
+      
+      <div class="comparison-grid">
+        <div class="comparison-card before">
+          <div class="comparison-label">
+            <i data-lucide="x" style="width:12px;height:12px;"></i>
+            Before
+          </div>
+          <ul class="comparison-list">
+            <li><i data-lucide="x"></i> AI signals captured late (during Discovery)</li>
+            <li><i data-lucide="x"></i> Investment Path determined by negotiation</li>
+            <li><i data-lucide="x"></i> BDR owned qualification alone</li>
+            <li><i data-lucide="x"></i> No structured maturity assessment</li>
+            <li><i data-lucide="x"></i> Pricing/scope negotiated per deal</li>
+            <li><i data-lucide="x"></i> Deal Desk = the whole process</li>
+            <li><i data-lucide="x"></i> Mid-funnel pivots common</li>
+          </ul>
+        </div>
+        
+        <div class="comparison-card after">
+          <div class="comparison-label">
+            <i data-lucide="check" style="width:12px;height:12px;"></i>
+            After (v4.2)
+          </div>
+          <ul class="comparison-list">
+            <li><i data-lucide="check"></i> AI signals captured at Pre-Qualification</li>
+            <li><i data-lucide="check"></i> Investment Path prescribed by PCRI score</li>
+            <li><i data-lucide="check"></i> Pre-Sales SE owns path hypothesis</li>
+            <li><i data-lucide="check"></i> PCRI benchmarks maturity archetype</li>
+            <li><i data-lucide="check"></i> Pre-defined deliverables per path</li>
+            <li><i data-lucide="check"></i> Deal Desk = one component (Stage 5)</li>
+            <li><i data-lucide="check"></i> 60% fewer mid-funnel pivots</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="callout info mt-4">
+        <p><strong>Key Mindset Shift:</strong> We're not "selling a solution" — we're <em>diagnosing readiness</em> and <em>prescribing a path</em>. The PCRI score tells us what the customer needs; we execute against that prescription.</p>
+      </div>
+      
+      <div class="callout warning mt-3">
+        <p><strong>J3 Activation Deals:</strong> Require <strong>tri-party approval</strong> (GTM + Delivery + Product) before entering Contracting. This ensures resource availability, product fit, and commercial alignment on transformation deals ($740K+).</p>
+      </div>
+      
+      <div class="callout success mt-3">
+        <p><strong>Deal Desk Accountability:</strong> Deal Desk owns <strong>procurement acceleration</strong> and <strong>time-to-signature</strong>. Every day in Contracting without progress increases loss probability. Escalate at Day 14.</p>
+      </div>
+    </section>
+    
+    <!-- Role-Based Quick Start -->
+    <section class="section" id="roles">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <h2>Role-Based Quick Start</h2>
+      </div>
+      
+      <p class="text-muted mb-4">Each role has specific responsibilities in the new process. Find your role below and learn what changes for you.</p>
+      
+      <div class="role-grid">
+        <!-- BDR -->
+        <div class="role-card bdr">
+          <div class="role-header">
+            <div class="role-icon">
+              <i data-lucide="phone"></i>
+            </div>
+            <div class="role-title">BDR</div>
+          </div>
+          
+          <div class="role-message">
+            "Flag AI signals, SE takes it from there."
+          </div>
+          
+          <ul class="role-actions">
+            <li><i data-lucide="check-circle"></i> Own Intro Call (L1) — qualify fit, surface interest</li>
+            <li><i data-lucide="check-circle"></i> Flag AI signals in HubSpot (3 checkboxes)</li>
+            <li><i data-lucide="check-circle"></i> Trigger SE involvement if AI signals present</li>
+            <li><i data-lucide="check-circle"></i> Hand off to SE + AE at Pre-Qualification</li>
+          </ul>
+          
+          <div class="role-first-action">
+            <div class="role-first-action-label">Your First Action</div>
+            <div class="role-first-action-text">Learn the 3 AI signal checkboxes: AI Tool Usage, Automation Maturity, Governance Concerns</div>
+          </div>
+        </div>
+        
+        <!-- Pre-Sales SE -->
+        <div class="role-card se">
+          <div class="role-header">
+            <div class="role-icon">
+              <i data-lucide="cpu"></i>
+            </div>
+            <div class="role-title">Pre-Sales SE</div>
+          </div>
+          
+          <div class="role-message">
+            "You own the Investment Path hypothesis at Pre-Qualification."
+          </div>
+          
+          <ul class="role-actions">
+            <li><i data-lucide="check-circle"></i> Join Pre-Qualification when BDR flags AI signals</li>
+            <li><i data-lucide="check-circle"></i> Ask PCRI pillar questions (Foundation, AI, Governance)</li>
+            <li><i data-lucide="check-circle"></i> Form preliminary path hypothesis (J1-J4)</li>
+            <li><i data-lucide="check-circle"></i> Drive technical discovery and feasibility</li>
+            <li><i data-lucide="check-circle"></i> Validate path fit before Stakeholder Alignment</li>
+          </ul>
+          
+          <div class="role-first-action">
+            <div class="role-first-action-label">Your First Action</div>
+            <div class="role-first-action-text">Practice PCRI pillar discovery questions — especially "How do you govern AI-generated code output?"</div>
+          </div>
+        </div>
+        
+        <!-- AE -->
+        <div class="role-card ae">
+          <div class="role-header">
+            <div class="role-icon">
+              <i data-lucide="briefcase"></i>
+            </div>
+            <div class="role-title">Account Executive</div>
+          </div>
+          
+          <div class="role-message">
+            "Path determines deal structure, not negotiation."
+          </div>
+          
+          <ul class="role-actions">
+            <li><i data-lucide="check-circle"></i> Own pipeline stages from Qualification Handover on</li>
+            <li><i data-lucide="check-circle"></i> Trust PCRI-prescribed path for pricing/timeline</li>
+            <li><i data-lucide="check-circle"></i> Lead Stakeholder Alignment with pre-built business case</li>
+            <li><i data-lucide="check-circle"></i> Manage Contracting/Procurement with Deal Desk</li>
+            <li><i data-lucide="check-circle"></i> Champion MEDDICC throughout</li>
+          </ul>
+          
+          <div class="role-first-action">
+            <div class="role-first-action-label">Your First Action</div>
+            <div class="role-first-action-text">Understand J1-J4 pricing/timeline expectations — no more negotiating from scratch</div>
+          </div>
+        </div>
+        
+        <!-- CX Partner -->
+        <div class="role-card cx">
+          <div class="role-header">
+            <div class="role-icon">
+              <i data-lucide="heart-handshake"></i>
+            </div>
+            <div class="role-title">CX Partner</div>
+          </div>
+          
+          <div class="role-message">
+            "You validate path fit and own delivery planning."
+          </div>
+          
+          <ul class="role-actions">
+            <li><i data-lucide="check-circle"></i> Validate Investment Path assignment at Technical Feasibility</li>
+            <li><i data-lucide="check-circle"></i> Confirm FDE capacity requirements per path</li>
+            <li><i data-lucide="check-circle"></i> Own implementation planning and SOW structure</li>
+            <li><i data-lucide="check-circle"></i> Manage phase-gated J3 agreements</li>
+            <li><i data-lucide="check-circle"></i> Support Deal Desk on complex procurement</li>
+          </ul>
+          
+          <div class="role-first-action">
+            <div class="role-first-action-label">Your First Action</div>
+            <div class="role-first-action-text">Know FDE capacity requirements: J1=0.25, J2=0.5, J3=1.0, J4=1.5</div>
+          </div>
+        </div>
+        
+        <!-- Deal Desk -->
+        <div class="role-card dealdesk">
+          <div class="role-header">
+            <div class="role-icon">
+              <i data-lucide="timer"></i>
+            </div>
+            <div class="role-title">Deal Desk</div>
+          </div>
+          
+          <div class="role-message">
+            "You own procurement acceleration and time-to-signature."
+          </div>
+          
+          <ul class="role-actions">
+            <li><i data-lucide="check-circle"></i> Monitor Days-in-Contracting — escalate at Day 14</li>
+            <li><i data-lucide="check-circle"></i> Own rescue playbooks for stalled deals</li>
+            <li><i data-lucide="check-circle"></i> Coordinate J3 Approval Gate (GTM + Delivery + Product)</li>
+            <li><i data-lucide="check-circle"></i> Track signature velocity and procurement blockers</li>
+            <li><i data-lucide="check-circle"></i> Proactively engage procurement with AI governance docs</li>
+          </ul>
+          
+          <div class="role-first-action">
+            <div class="role-first-action-label">Your First Action</div>
+            <div class="role-first-action-text">Set up Days-in-Contracting alerts — Yellow at Day 14, Red at Day 21</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Training Schedule -->
+    <section class="section" id="training">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <h2>Training Schedule</h2>
+      </div>
+      
+      <p class="text-muted mb-4">A 3-week enablement program to ensure full adoption. All sessions will be recorded for async review.</p>
+      
+      <div class="training-grid">
+        <!-- Week 1 -->
+        <div class="training-week">
+          <div class="training-week-header">
+            <span class="week-label">Week 1</span>
+            Foundation
+          </div>
+          <div class="training-sessions">
+            <div class="training-session">
+              <div class="training-topic">"Why PCRI?" — The Benchmark → Prescribe → Accelerate Model</div>
+              <div class="training-audience">All Sales</div>
+              <div class="training-duration">30 min</div>
+              <div class="training-format">All-Hands</div>
+            </div>
+            <div class="training-session">
+              <div class="training-topic">Investment Path Deep Dive (J1-J4)</div>
+              <div class="training-audience">AE + SE</div>
+              <div class="training-duration">45 min</div>
+              <div class="training-format">Workshop</div>
+            </div>
+            <div class="training-session">
+              <div class="training-topic">AI Signal Capture for BDRs</div>
+              <div class="training-audience">BDR</div>
+              <div class="training-duration">20 min</div>
+              <div class="training-format">Demo</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Week 2 -->
+        <div class="training-week">
+          <div class="training-week-header">
+            <span class="week-label">Week 2</span>
+            Role Enablement
+          </div>
+          <div class="training-sessions">
+            <div class="training-session">
+              <div class="training-topic">PCRI Pillar Question Bank</div>
+              <div class="training-audience">Pre-Sales SE</div>
+              <div class="training-duration">45 min</div>
+              <div class="training-format">Role-Play</div>
+            </div>
+            <div class="training-session">
+              <div class="training-topic">Pipeline Stage Changes in HubSpot</div>
+              <div class="training-audience">AE</div>
+              <div class="training-duration">30 min</div>
+              <div class="training-format">Walkthrough</div>
+            </div>
+            <div class="training-session">
+              <div class="training-topic">Path Validation & FDE Capacity</div>
+              <div class="training-audience">CX Partner</div>
+              <div class="training-duration">30 min</div>
+              <div class="training-format">Workshop</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Week 3 -->
+        <div class="training-week">
+          <div class="training-week-header">
+            <span class="week-label">Week 3</span>
+            Practice & Reinforcement
+          </div>
+          <div class="training-sessions">
+            <div class="training-session">
+              <div class="training-topic">Deal Desk: When to Escalate</div>
+              <div class="training-audience">All Sales</div>
+              <div class="training-duration">30 min</div>
+              <div class="training-format">Case Study</div>
+            </div>
+            <div class="training-session">
+              <div class="training-topic">Live Deal Review with PCRI Lens</div>
+              <div class="training-audience">AE + SE</div>
+              <div class="training-duration">45 min</div>
+              <div class="training-format">Deal Review</div>
+            </div>
+            <div class="training-session">
+              <div class="training-topic">Q&A and Edge Cases</div>
+              <div class="training-audience">All Sales</div>
+              <div class="training-duration">30 min</div>
+              <div class="training-format">Open Forum</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="callout success mt-4">
+        <p><strong>Ongoing Support:</strong> After Week 3, we'll hold bi-weekly "PCRI Office Hours" for questions, edge cases, and continuous improvement feedback.</p>
+      </div>
+    </section>
+    
+    <!-- Quick Reference -->
+    <section class="section" id="reference">
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <h2>Quick Reference</h2>
+      </div>
+      
+      <p class="text-muted mb-4">Print this cheat sheet and keep it at your desk. When in doubt, refer here.</p>
+      
+      <div class="cheat-sheet">
+        <div class="cheat-sheet-header">
+          <div class="cheat-sheet-title">📋 PCRI → Investment Path Cheat Sheet</div>
+          <div class="cheat-sheet-subtitle">Maturity Archetype determines everything downstream</div>
+        </div>
+        
+        <table class="archetype-table">
+          <thead>
+            <tr>
+              <th>PCRI Score</th>
+              <th>Archetype</th>
+              <th>Investment Path</th>
+              <th>Roadmap</th>
+              <th>Resources</th>
+              <th>Timeline</th>
+              <th>Budget</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="archetype-badge j1"><span class="score">&lt;45</span></span></td>
+              <td><strong>Emerging</strong></td>
+              <td>J1 Foundation</td>
+              <td>Build system of record</td>
+              <td>CX + 0.25 FDE</td>
+              <td>4-6 months</td>
+              <td>$50K+</td>
+            </tr>
+            <tr>
+              <td><span class="archetype-badge j2"><span class="score">45-54</span></span></td>
+              <td><strong>Developing</strong></td>
+              <td>J2 Acceleration</td>
+              <td>Rapid enablement sprint</td>
+              <td>CX + 0.5 FDE</td>
+              <td>6-8 weeks</td>
+              <td>$50K+ sprint</td>
+            </tr>
+            <tr style="background: rgba(245, 197, 24, 0.1);">
+              <td><span class="archetype-badge j3"><span class="score">55-74</span></span></td>
+              <td><strong>Established</strong></td>
+              <td>J3 Activation ⚠️</td>
+              <td>Full transformation</td>
+              <td>CX + 1.0 FDE</td>
+              <td>4-phase rollout</td>
+              <td>$740K+ phased</td>
+            </tr>
+            <tr>
+              <td><span class="archetype-badge j4"><span class="score">75+</span></span></td>
+              <td><strong>Advanced</strong></td>
+              <td>J4 Intelligence</td>
+              <td>AI expansion + MCP</td>
+              <td>CX + 1.5 FDE</td>
+              <td>Continuous</td>
+              <td>$165K+ annual</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <p style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-yellow-400); margin-top: var(--spectrum-spacing-200);">
+          ⚠️ <strong>J3 Activation</strong> requires tri-party approval (GTM + Delivery + Product) before Contracting
+        </p>
+      </div>
+      
+      <h3 class="mt-5">🔑 Key Questions to Ask (By Pillar)</h3>
+      
+      <div class="comparison-grid">
+        <div class="comparison-card after" style="background: rgba(22, 33, 62, 0.6); border-color: var(--spectrum-border-default);">
+          <h4 style="margin-top:0;">Foundation</h4>
+          <ul class="comparison-list">
+            <li><i data-lucide="help-circle"></i> "Do you have a central design system today?"</li>
+            <li><i data-lucide="help-circle"></i> "How do teams find and use your design tokens?"</li>
+            <li><i data-lucide="help-circle"></i> "What's your single source of truth for components?"</li>
+          </ul>
+        </div>
+        
+        <div class="comparison-card after" style="background: rgba(22, 33, 62, 0.6); border-color: var(--spectrum-border-default);">
+          <h4 style="margin-top:0;">AI Readiness</h4>
+          <ul class="comparison-list">
+            <li><i data-lucide="help-circle"></i> "Are developers using Copilot or Cursor today?"</li>
+            <li><i data-lucide="help-circle"></i> "What happens when AI generates code that doesn't match your standards?"</li>
+            <li><i data-lucide="help-circle"></i> "How do you currently govern AI output?"</li>
+          </ul>
+        </div>
+        
+        <div class="comparison-card after" style="background: rgba(22, 33, 62, 0.6); border-color: var(--spectrum-border-default);">
+          <h4 style="margin-top:0;">Governance</h4>
+          <ul class="comparison-list">
+            <li><i data-lucide="help-circle"></i> "Who approves design system changes?"</li>
+            <li><i data-lucide="help-circle"></i> "How do you track compliance across products?"</li>
+            <li><i data-lucide="help-circle"></i> "What happens when teams deviate from standards?"</li>
+          </ul>
+        </div>
+        
+        <div class="comparison-card after" style="background: rgba(22, 33, 62, 0.6); border-color: var(--spectrum-border-default);">
+          <h4 style="margin-top:0;">Culture</h4>
+          <ul class="comparison-list">
+            <li><i data-lucide="help-circle"></i> "Does leadership sponsor design system initiatives?"</li>
+            <li><i data-lucide="help-circle"></i> "How receptive are teams to changing their workflow?"</li>
+            <li><i data-lucide="help-circle"></i> "What's the biggest internal obstacle to adoption?"</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Adoption Metrics -->
+    <section class="section" id="adoption">
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <h2>Adoption Metrics</h2>
+      </div>
+      
+      <p class="text-muted mb-4">We'll track these metrics to measure successful adoption of the new operating model. Leadership reviews weekly.</p>
+      
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">100%</div>
+          <div class="metric-label">Deals with PCRI Score</div>
+          <div class="metric-target">Target: All new opps by Week 4</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-value">&lt;10%</div>
+          <div class="metric-label">Path Override Rate</div>
+          <div class="metric-target">Target: Minimize deviations from prescribed path</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-value">L2</div>
+          <div class="metric-label">SE Involvement Stage</div>
+          <div class="metric-target">Target: SE joins at Pre-Qual, not Discovery</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-value">35%</div>
+          <div class="metric-label">Cycle Time Reduction</div>
+          <div class="metric-target">Target: PCRI deals close faster</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-value">&lt;5%</div>
+          <div class="metric-label">Mid-Funnel Pivots</div>
+          <div class="metric-target">Target: Path stays stable post-Qualification</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-value">3.2x</div>
+          <div class="metric-label">J3/J4 ACV vs J1/J2</div>
+          <div class="metric-target">Target: Maintain path-appropriate deal sizes</div>
+        </div>
+      </div>
+      
+      <div class="callout warning mt-4">
+        <p><strong>Red Flag:</strong> If path override rate exceeds 20%, we need to revisit either the PCRI algorithm or the team's understanding of when overrides are appropriate. Overrides should be rare and documented.</p>
+      </div>
+    </section>
+    
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="section-header">
+        <div class="section-number">6</div>
+        <h2>Frequently Asked Questions</h2>
+      </div>
+      
+      <p class="text-muted mb-4">Common questions we've anticipated. Can't find your answer? Bring it to PCRI Office Hours.</p>
+      
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary class="faq-question">
+            What if a customer doesn't want to do the PCRI assessment?
+            <i data-lucide="chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>The PCRI assessment is positioned as a <em>diagnostic</em>, not an obstacle. Frame it as: "Before we scope a solution, let me understand where you are today so we can recommend the right path." If they refuse any discovery, that's a qualification red flag — they may not be ready for a consultative engagement.</p>
+            <p>For time-constrained prospects, use the "quick PCRI" (5-minute version) with the 3 most critical questions per pillar.</p>
+          </div>
+        </details>
+        
+        <details class="faq-item">
+          <summary class="faq-question">
+            Can we override the prescribed Investment Path?
+            <i data-lucide="chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes, but rarely. Overrides require AE + CX Partner approval and must be documented in HubSpot. Valid reasons for override:</p>
+            <ul>
+              <li>Strategic account with executive sponsorship pushing for accelerated path</li>
+              <li>Pilot conversion from previous engagement</li>
+              <li>Unusual technical circumstances (e.g., acqui-hire situation)</li>
+            </ul>
+            <p>Invalid reasons: "Customer wants a discount" or "I think they're more mature than the score says." Trust the assessment.</p>
+          </div>
+        </details>
+        
+        <details class="faq-item">
+          <summary class="faq-question">
+            What if SE isn't available for Pre-Qualification?
+            <i data-lucide="chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>If AI signals are flagged and no SE is available:</p>
+            <ol>
+              <li>BDR schedules Pre-Qual for when SE <em>is</em> available (don't skip SE involvement)</li>
+              <li>If urgent, AE can cover SE questions using the PCRI question bank (but flag this as sub-optimal)</li>
+              <li>Never move to Qualification Handover without AI signal capture if signals were flagged</li>
+            </ol>
+            <p>SE capacity is a constraint we need to manage. If this happens frequently, escalate to leadership.</p>
+          </div>
+        </details>
+        
+        <details class="faq-item">
+          <summary class="faq-question">
+            How does this affect my existing pipeline?
+            <i data-lucide="chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>Existing deals in Qualification Handover or later: Continue with current process, but try to retroactively score with PCRI if time permits.</p>
+            <p>Existing deals in Pre-Qualification or earlier: Apply the new process — get SE involved if AI signals are present.</p>
+            <p>Net new deals: Full new process from day one.</p>
+          </div>
+        </details>
+        
+        <details class="faq-item">
+          <summary class="faq-question">
+            Where is the full IPE GTM Operating Model document?
+            <i data-lucide="chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>The complete operating model is in <code>strat/ipe/delivery/deal_desk.html</code>. This includes:</p>
+            <ul>
+              <li>Full PCRI pillar details and gating rules</li>
+              <li>Investment Path specifications</li>
+              <li>Complete pipeline stage definitions</li>
+              <li>Deal Desk playbooks (health monitoring, rescue, procurement)</li>
+              <li>Implementation checklist</li>
+            </ul>
+            <p>This onboarding kit is a companion document to help you adopt it — not a replacement for the full model.</p>
+          </div>
+        </details>
+        
+        <details class="faq-item">
+          <summary class="faq-question">
+            What's the difference between Deal Desk and the GTM Operating Model?
+            <i data-lucide="chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>GTM Operating Model</strong> = The entire deal process from PCRI assessment through close (7 sections).</p>
+            <p><strong>Deal Desk</strong> = Section 5 of the operating model, focused on active deal management during Contracting/Procurement. It includes health monitoring, rescue playbooks, and procurement acceleration.</p>
+            <p>Think of it this way: The operating model is the "how we sell" playbook; Deal Desk is the "how we close stuck deals" component within that playbook.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="footer-meta">
+        <div class="footer-meta-item"><strong>Document Owner:</strong> CX Partner (Amber)</div>
+        <div class="footer-meta-item"><strong>Version:</strong> 1.0</div>
+        <div class="footer-meta-item"><strong>Created:</strong> Feb 2026</div>
+        <div class="footer-meta-item"><strong>Companion to:</strong> GTM Operating Model v4.2</div>
+      </div>
+      <p class="footer-text">IPE GTM Operating Model — Team Onboarding Kit</p>
+    </footer>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+    
+    // Scroll spy for navigation
+    const sections = document.querySelectorAll('section[id], .exec-summary[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    function updateActiveNav() {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 100) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    }
+    
+    window.addEventListener('scroll', updateActiveNav);
+    
+    // Smooth scroll for nav links
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
