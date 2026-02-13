@@ -546,7 +546,7 @@
       font-size: 0.9rem;
       line-height: 1.7;
     }
-    /* Decision/Question item styling */
+    /* Decision/Question item styling - now resolved (green) */
     #launch-decisions .markdown ul,
     #launch-questions .markdown ul {
       list-style: none;
@@ -554,23 +554,18 @@
     }
     #launch-decisions .markdown li,
     #launch-questions .markdown li {
-      background: #ffffff;
-      border: 1px solid #e0dee3;
+      background: #f8fdf9;
+      border: 1px solid #c8e6c9;
       border-radius: 8px;
       padding: 1rem 1.25rem;
       margin-bottom: 1rem;
       box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    }
-    #launch-decisions .markdown li {
-      border-left: 4px solid #eb8d0a;
-    }
-    #launch-questions .markdown li {
-      border-left: 4px solid #05a2f0;
+      border-left: 4px solid #36bf7f;
     }
     #launch-decisions .markdown li strong,
     #launch-questions .markdown li strong {
       display: block;
-      color: #28262c;
+      color: #2e7d32;
       font-size: 0.95rem;
       margin-bottom: 0.5rem;
     }
@@ -590,10 +585,10 @@
     #launch-assumptions .markdown li strong {
       color: #2e7d32;
     }
-    /* Action badge for decisions */
-    .action-needed-badge {
+    /* Resolved badge for decisions */
+    .resolved-badge {
       display: inline-block;
-      background: #eb8d0a;
+      background: #36bf7f;
       color: #ffffff;
       font-size: 0.7rem;
       font-weight: 600;
@@ -1361,40 +1356,40 @@
 
     <!-- Launch Kit Page -->
     <div id="launch" class="page active">
-      <div class="header" style="border-left: 4px solid #eb8d0a; background: linear-gradient(135deg, #ffffff 0%, #fff8ed 100%);">
-        <h1 class="large">Pilot Launch Kit</h1>
+      <div class="header" style="border-left: 4px solid #36bf7f; background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);">
+        <h1 class="large">Pilot Launch Kit ✓</h1>
         <p style="font-size: 1rem; margin-bottom: 1rem;">
-          <strong>Action Required:</strong> Review the decisions and questions below to finalize the College Board contribution pilot.
+          <strong>Ready to Launch:</strong> All decisions have been made and questions resolved with Emily and team.
         </p>
         <p>
-          The tabs below contain everything needed to launch: decisions that need your sign-off, open questions to resolve, validated assumptions from discovery, and ready-to-use launch materials.
+          The tabs below contain everything needed to launch: finalized decisions, resolved questions, validated assumptions from discovery, and ready-to-use launch materials. <strong>Pilot focus:</strong> Bluebook (anything in their Storybook). <strong>Timeline:</strong> Soft launch this sprint, org-wide following sprint.
         </p>
       </div>
 
       <div class="launch-tabs">
-        <button class="launch-tab-button active" onclick="showLaunchTab('launch-decisions', event)" style="background-color: #fff3e0; border-color: #eb8d0a;">Decisions Needed</button>
-        <button class="launch-tab-button" onclick="showLaunchTab('launch-questions', event)" style="background-color: #e3f2fd; border-color: #05a2f0;">Open Questions</button>
+        <button class="launch-tab-button active" onclick="showLaunchTab('launch-decisions', event)" style="background-color: #e8f5e9; border-color: #36bf7f;">Decisions Made ✓</button>
+        <button class="launch-tab-button" onclick="showLaunchTab('launch-questions', event)" style="background-color: #e8f5e9; border-color: #36bf7f;">Questions Resolved ✓</button>
         <button class="launch-tab-button" onclick="showLaunchTab('launch-assumptions', event)">Validated Assumptions</button>
         <button class="launch-tab-button" onclick="showLaunchTab('launch-kickoff', event)">Kickoff Memo</button>
         <button class="launch-tab-button" onclick="showLaunchTab('launch-slack', event)">Slack Announcements</button>
         <button class="launch-tab-button" onclick="showLaunchTab('launch-handbook', event)">Contributor Handbook</button>
       </div>
 
-      <div class="content-card launch-tab-content active" id="launch-decisions" style="border-left: 4px solid #eb8d0a;">
+      <div class="content-card launch-tab-content active" id="launch-decisions" style="border-left: 4px solid #36bf7f;">
         <div class="section">
-          <div style="background: linear-gradient(135deg, #fff8ed 0%, #fff3e0 100%); padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem;">
-            <h2 style="color: #b36b00; margin-bottom: 0.5rem;">Decisions Needed from College Board</h2>
-            <p style="margin: 0; color: #645e6e; font-size: 0.9rem;">Each item below requires a final decision. Discovery notes from Lindsey and Amber are included to inform your choice.</p>
+          <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <h2 style="color: #2e7d32; margin-bottom: 0.5rem;">Decisions Made ✓</h2>
+            <p style="margin: 0; color: #645e6e; font-size: 0.9rem;">All decisions have been finalized with Emily and team. These answers guide the pilot implementation.</p>
           </div>
           <div class="markdown" data-md-src="pilot_validation_decisions.md">Loading decisions...</div>
         </div>
       </div>
 
-      <div class="content-card launch-tab-content" id="launch-questions" style="border-left: 4px solid #05a2f0;">
+      <div class="content-card launch-tab-content" id="launch-questions" style="border-left: 4px solid #36bf7f;">
         <div class="section">
-          <div style="background: linear-gradient(135deg, #e8f4fd 0%, #e3f2fd 100%); padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem;">
-            <h2 style="color: #0277bd; margin-bottom: 0.5rem;">Open Questions to Resolve</h2>
-            <p style="margin: 0; color: #645e6e; font-size: 0.9rem;">These questions need answers before the pilot can proceed. Discovery notes are included to help guide the discussion.</p>
+          <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <h2 style="color: #2e7d32; margin-bottom: 0.5rem;">Questions Resolved ✓</h2>
+            <p style="margin: 0; color: #645e6e; font-size: 0.9rem;">All questions have been answered by Emily and team. The pilot is ready to proceed.</p>
           </div>
           <div class="markdown" data-md-src="pilot_validation_questions.md">Loading questions...</div>
         </div>

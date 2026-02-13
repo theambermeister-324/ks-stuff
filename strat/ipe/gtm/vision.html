@@ -4,1137 +4,1823 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IPE GTM Vision</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="Intelligent Product Engine GTM Vision - Strategic framework for AI-enabled product delivery">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --purple-900: #42247f;
+      --purple-700: #6436bf;
+      --purple-500: #8b5cf6;
+      --purple-400: #a78bfa;
+      --purple-300: #c4b5fd;
+      --purple-100: #ede9fe;
+      --green-500: #10b981;
+      --green-400: #34d399;
+      --blue-500: #3b82f6;
+      --blue-400: #60a5fa;
+      --amber-500: #f59e0b;
+      --amber-400: #fbbf24;
+      --red-500: #ef4444;
+      --red-400: #f87171;
+      --orange-500: #f97316;
+      --pink-500: #ec4899;
+      --cyan-500: #0ea5e9;
+      --bg-base: #1a1a2e;
+      --bg-layer-1: #16213e;
+      --bg-elevated: rgba(255,255,255,0.05);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255,255,255,0.85);
+      --text-muted: rgba(255,255,255,0.6);
+      --border-default: rgba(100, 54, 191, 0.3);
+      --border-subtle: rgba(255,255,255,0.08);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(100, 54, 191, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
     .icon { width: 16px; height: 16px; display: inline-block; vertical-align: middle; }
-    .icon-sm { width: 14px; height: 14px; }
-    .icon-lg { width: 18px; height: 18px; }
-    .icon-xl { width: 20px; height: 20px; }
-    .icon-2xl { width: 24px; height: 24px; }
+    .app { display: flex; min-height: 100vh; position: relative; z-index: 1; }
+    
+    /* Sidebar */
+    .sidebar {
+      width: 280px;
+      background: linear-gradient(180deg, var(--bg-layer-1) 0%, var(--bg-base) 100%);
+      border-right: 1px solid var(--border-default);
+      padding: 24px 16px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .sidebar-brand {
+      padding: 0 8px;
+      margin-bottom: 24px;
+    }
+    .sidebar-brand h1 {
+      font-size: 18px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #fff 0%, var(--purple-300) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .sidebar-brand p {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 4px;
+    }
+    .nav-section {
+      margin-bottom: 24px;
+    }
+    .nav-section-title {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      padding: 0 12px;
+      margin-bottom: 8px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+    .nav-item:hover {
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+    }
+    .nav-item.active {
+      background: linear-gradient(135deg, var(--purple-700) 0%, var(--purple-900) 100%);
+      color: white;
+    }
+    .nav-item svg { width: 16px; height: 16px; opacity: 0.7; }
+    .nav-item.active svg { opacity: 1; }
+    .nav-divider {
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 16px 8px;
+    }
+    .quick-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .quick-link:hover {
+      background: var(--bg-elevated);
+      color: var(--purple-300);
+    }
+    .quick-link svg { width: 14px; height: 14px; }
+    
+    /* Main */
+    .main {
+      flex: 1;
+      padding: 32px 48px;
+      overflow-y: auto;
+      max-width: 1000px;
+    }
+    .section { display: none; }
+    .section.active { display: block; }
+    
+    /* Cards */
+    .card {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.9) 0%, rgba(26, 26, 46, 0.8) 100%);
+      border: 1px solid var(--border-default);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .card.highlight {
+      border-color: var(--purple-500);
+      background: linear-gradient(145deg, rgba(100, 54, 191, 0.15) 0%, rgba(22, 33, 62, 0.9) 100%);
+    }
+    .card.gradient-hero {
+      background: linear-gradient(135deg, var(--purple-900) 0%, var(--bg-layer-1) 100%);
+      border-color: var(--purple-700);
+    }
+    .card h2 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--purple-300);
+      margin-bottom: 8px;
+    }
+    .card h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .card p { color: var(--text-secondary); margin-bottom: 12px; }
+    
+    /* Grid */
+    .grid { display: grid; gap: 16px; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .grid-5 { grid-template-columns: repeat(5, 1fr); }
+    
+    /* Stat boxes */
+    .stat-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--purple-300);
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    
+    /* Pillar cards */
+    .pillar-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .pillar-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+    .pillar-card.foundation::before { background: var(--purple-400); }
+    .pillar-card.ai::before { background: var(--blue-400); }
+    .pillar-card.governance::before { background: var(--green-400); }
+    .pillar-card.delivery::before { background: var(--amber-400); }
+    .pillar-card.culture::before { background: var(--pink-500); }
+    .pillar-weight {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .pillar-card.foundation .pillar-weight { color: var(--purple-400); }
+    .pillar-card.ai .pillar-weight { color: var(--blue-400); }
+    .pillar-card.governance .pillar-weight { color: var(--green-400); }
+    .pillar-card.delivery .pillar-weight { color: var(--amber-400); }
+    .pillar-card.culture .pillar-weight { color: var(--pink-500); }
+    .pillar-name { font-weight: 600; font-size: 14px; margin-top: 4px; }
+    .pillar-desc { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+    
+    /* Archetype cards */
+    .archetype-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .archetype-card:hover {
+      border-color: var(--purple-500);
+      transform: translateY(-2px);
+    }
+    .archetype-card.expanded {
+      border-color: var(--purple-400);
+      background: linear-gradient(145deg, rgba(100, 54, 191, 0.1) 0%, var(--bg-elevated) 100%);
+    }
+    .archetype-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+    .archetype-icon.builder { background: rgba(239, 68, 68, 0.15); }
+    .archetype-icon.adopter { background: rgba(251, 191, 36, 0.15); }
+    .archetype-icon.optimizer { background: rgba(59, 130, 246, 0.15); }
+    .archetype-icon.transformer { background: rgba(16, 185, 129, 0.15); }
+    .archetype-range {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.08);
+      color: var(--text-muted);
+    }
+    .archetype-details {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+      display: none;
+    }
+    .archetype-card.expanded .archetype-details { display: block; }
+    
+    /* Journey cards */
+    .journey-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .journey-card:hover { border-color: var(--purple-500); }
+    .journey-card.primary { border-color: var(--green-500); border-width: 2px; }
+    .journey-card.expanded { border-color: var(--purple-400); }
+    .journey-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .journey-badge.primary { background: var(--green-500); color: white; }
+    .journey-details {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+      display: none;
+    }
+    .journey-card.expanded .journey-details { display: block; }
+    
+    /* Phase cards */
+    .phase-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .phase-card:hover { border-color: var(--purple-500); }
+    .phase-card.expanded { border-color: var(--purple-400); }
+    .phase-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .phase-details {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+      display: none;
+    }
+    .phase-card.expanded .phase-details { display: block; }
+    
+    /* Tags */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .tag.purple { background: rgba(139, 92, 246, 0.2); color: var(--purple-300); }
+    .tag.blue { background: rgba(59, 130, 246, 0.2); color: var(--blue-400); }
+    .tag.green { background: rgba(16, 185, 129, 0.2); color: var(--green-400); }
+    .tag.amber { background: rgba(245, 158, 11, 0.2); color: var(--amber-400); }
+    .tag.red { background: rgba(239, 68, 68, 0.2); color: var(--red-400); }
+    .tag.pink { background: rgba(236, 72, 153, 0.2); color: var(--pink-500); }
+    .tag.orange { background: rgba(249, 115, 22, 0.2); color: var(--orange-500); }
+    
+    /* Callouts */
+    .callout {
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 16px 0;
+    }
+    .callout.warning {
+      background: rgba(245, 158, 11, 0.1);
+      border-left: 3px solid var(--amber-500);
+    }
+    .callout.success {
+      background: rgba(16, 185, 129, 0.1);
+      border-left: 3px solid var(--green-500);
+    }
+    .callout.info {
+      background: rgba(139, 92, 246, 0.1);
+      border-left: 3px solid var(--purple-500);
+    }
+    
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      background: rgba(100, 54, 191, 0.2);
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--purple-300);
+    }
+    th:first-child { border-radius: 8px 0 0 0; }
+    th:last-child { border-radius: 0 8px 0 0; }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    
+    /* Lists */
+    .check-list { list-style: none; }
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 6px 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .check-list li::before {
+      content: '✓';
+      color: var(--green-400);
+      font-weight: 600;
+    }
+    .x-list li::before {
+      content: '✗';
+      color: var(--red-400);
+    }
+    
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: var(--bg-layer-1);
+      border: 1px solid var(--border-default);
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 500px;
+      width: 90%;
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 20px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .sidebar { width: 240px; }
+      .main { padding: 24px 32px; }
+    }
+    @media (max-width: 768px) {
+      .app { flex-direction: column; }
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { padding: 20px; }
+      .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-  <div id="app" class="min-h-screen bg-slate-50 flex">
+  <div class="app">
     <!-- Sidebar -->
-    <nav class="w-64 bg-slate-900 text-white p-4 flex-shrink-0">
-      <div class="mb-6">
-        <h1 class="text-lg font-bold">IPE GTM Vision</h1>
-        <p class="text-xs text-slate-400 mt-1">v2.0 · January 2026</p>
+    <nav class="sidebar">
+      <div class="sidebar-brand">
+        <h1>IPE GTM Vision</h1>
+        <p>v3.0 · February 2026</p>
       </div>
-      <div class="space-y-1" id="sections-nav"></div>
-      <div class="mt-8 pt-4 border-t border-slate-700">
-        <p class="text-xs text-slate-500 mb-2">Quick Links</p>
-        <button onclick="toggleRateCard()" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800">
-          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Strategy</div>
+        <button class="nav-item active" onclick="showSection('vision')">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+          Vision & Market
+        </button>
+        <button class="nav-item" onclick="showSection('positioning')">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          GTM Positioning
+        </button>
+        <button class="nav-item" onclick="showSection('commercial')">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+          Commercial Model
+        </button>
+        <button class="nav-item" onclick="showSection('deployment')">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          Deployment Options
+        </button>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Framework</div>
+        <button class="nav-item" onclick="showSection('pcri')">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          PCRI Assessment
+        </button>
+        <button class="nav-item" onclick="showSection('archetypes')">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-3-3.87"></path><path d="M9 21v-2a4 4 0 0 1 3-3.87"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          Maturity Archetypes
+        </button>
+        <button class="nav-item" onclick="showSection('journeys')">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 01-9 9"></path></svg>
+          Investment Paths
+        </button>
+        <button class="nav-item" onclick="showSection('phases')">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          Partnership Phases
+        </button>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Execution</div>
+        <button class="nav-item" onclick="showSection('alpha')">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          Alpha Program
+        </button>
+        <button class="nav-item" onclick="showSection('guidance')">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          Operating Guidance
+        </button>
+        <button class="nav-item" onclick="showSection('metrics')">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
+          Metrics
+        </button>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Playbooks</div>
+        <button class="nav-item" onclick="showSection('leadership')">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          Leadership Briefing
+        </button>
+        <button class="nav-item" onclick="showSection('sdr')">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-3-3.87"></path><path d="M9 21v-2a4 4 0 0 1 3-3.87"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          SDR Playbook
+        </button>
+      </div>
+      
+      <div class="nav-divider"></div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Quick Links</div>
+        <a href="../alpha/demo_hub.html" class="quick-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+          Demo Hub
+        </a>
+        <a href="../alpha/ipe_assessment_ab.html" class="quick-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path></svg>
+          Take Assessment
+        </a>
+        <a href="../alpha/PCRI_FRAMEWORK_WHITEPAPER.html" class="quick-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          PCRI Whitepaper
+        </a>
+        <a href="../deliver/deal_desk.html" class="quick-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          Deal Desk
+        </a>
+        <a href="../deliver/ipe_onboarding_kit.html" class="quick-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+          Onboarding Kit
+        </a>
+        <button class="quick-link" onclick="toggleRateCard()">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
           Rate Card
         </button>
       </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-1 p-6 overflow-auto">
+    <main class="main">
       <!-- Rate Card Modal -->
-      <div id="rate-card-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50" onclick="toggleRateCard()">
-        <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4" onclick="event.stopPropagation()">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="font-bold text-lg">Knapsack Rate Card</h3>
-            <button onclick="toggleRateCard()" class="text-slate-400 hover:text-slate-600">✕</button>
+      <div id="rate-card-modal" class="modal" onclick="toggleRateCard()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+          <div class="modal-header">
+            <h3 style="font-size: 18px; font-weight: 600;">Knapsack Rate Card</h3>
+            <button class="modal-close" onclick="toggleRateCard()">×</button>
           </div>
-          <table class="w-full text-sm">
-            <thead class="bg-slate-100">
+          <table>
+            <thead>
               <tr>
-                <th class="text-left px-3 py-2 rounded-tl">Role</th>
-                <th class="text-right px-3 py-2 rounded-tr">Hourly Rate</th>
+                <th>Role</th>
+                <th style="text-align: right;">Hourly Rate</th>
               </tr>
             </thead>
-            <tbody class="divide-y" id="rate-card-body"></tbody>
+            <tbody>
+              <tr><td>Executive</td><td style="text-align: right; color: var(--green-400); font-weight: 600;">$825</td></tr>
+              <tr><td>SME</td><td style="text-align: right; color: var(--green-400); font-weight: 600;">$750</td></tr>
+              <tr><td>CX Partner</td><td style="text-align: right; color: var(--green-400); font-weight: 600;">$600</td></tr>
+              <tr><td>Senior Solution Analyst (FDE)</td><td style="text-align: right; color: var(--green-400); font-weight: 600;">$550</td></tr>
+              <tr><td>Solution Analyst</td><td style="text-align: right; color: var(--green-400); font-weight: 600;">$400</td></tr>
+              <tr><td>Project Manager</td><td style="text-align: right; color: var(--green-400); font-weight: 600;">$400</td></tr>
+            </tbody>
           </table>
-          <p class="text-xs text-slate-500 mt-4">Effective January 2026. Value-based pricing—never quote hourly rates to customers.</p>
+          <p style="font-size: 12px; color: var(--text-muted); margin-top: 16px;">Effective February 2026. Value-based pricing—never quote hourly rates to customers.</p>
         </div>
       </div>
 
-      <!-- Content Sections -->
-      <div id="content-sections"></div>
+      <!-- Vision Section -->
+      <section id="vision" class="section active">
+        <div class="card gradient-hero">
+          <h2>THE STRATEGIC NORTH STAR</h2>
+          <h3>Knapsack is the governable control plane for AI-assisted product delivery.</h3>
+          <p>We convert fragmented product knowledge into executable intelligence that AI can use safely—giving enterprises the confidence to let AI act, not just advise.</p>
+        </div>
+        
+        <div class="grid grid-3" style="margin-bottom: 20px;">
+          <div class="card" style="border-color: var(--green-500);">
+            <p style="font-size: 11px; color: var(--green-400); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;">Market Position</p>
+            <p style="font-weight: 600; color: var(--text-primary); margin: 0;">First-mover in "digital thread" category</p>
+          </div>
+          <div class="card" style="border-color: var(--blue-500);">
+            <p style="font-size: 11px; color: var(--blue-400); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;">Primary ICP</p>
+            <p style="font-weight: 600; color: var(--text-primary); margin: 0;">Enterprise product teams at AI adoption inflection</p>
+          </div>
+          <div class="card" style="border-color: var(--purple-500);">
+            <p style="font-size: 11px; color: var(--purple-400); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;">Core Differentiator</p>
+            <p style="font-weight: 600; color: var(--text-primary); margin: 0;">MCP + Governance = Safe AI execution</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3 style="display: flex; align-items: center; gap: 10px;">
+            <span style="color: var(--green-400);">Why Now?</span> The AI Execution Gap
+          </h3>
+          <div class="grid grid-2">
+            <div style="background: rgba(239, 68, 68, 0.1); border-radius: 10px; padding: 16px;">
+              <p style="font-size: 11px; color: var(--red-400); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">The Problem</p>
+              <p style="color: var(--text-secondary); margin: 0;">AI can generate code and content at scale—but enterprises can't let it <em>act</em> without governance. The gap between "AI can do this" and "we'll let AI do this" is massive.</p>
+            </div>
+            <div style="background: rgba(16, 185, 129, 0.1); border-radius: 10px; padding: 16px;">
+              <p style="font-size: 11px; color: var(--green-400); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Our Solution</p>
+              <p style="color: var(--text-secondary); margin: 0;">Knapsack provides the governance layer that makes AI execution safe. MCP bridges intent and action. The control plane enforces rules. Result: AI that enterprises actually trust.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="callout warning">
+          <p style="font-weight: 600; color: var(--amber-400); margin-bottom: 4px;">⚠️ The Critical Insight</p>
+          <p style="font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">"Implemented" does not equal "Activated."</p>
+          <p style="margin: 0;">Most of our existing customers have Knapsack installed but aren't extracting value. The path to revenue is activation (J3), not new logos. Services capacity is the bottleneck.</p>
+        </div>
+        
+        <div class="card highlight">
+          <h3>PCRI: The Assessment-First GTM Motion</h3>
+          <p>The Product Context Readiness Index (PCRI) is now our primary lead-gen and qualification tool. It scores organizations on 5 pillars, assigns an archetype, and routes to the appropriate investment path.</p>
+          <div class="grid grid-4" style="margin-top: 16px;">
+            <div class="stat-box">
+              <div class="stat-value">5</div>
+              <div class="stat-label">Pillars</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value">4</div>
+              <div class="stat-label">Archetypes</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value">~10m</div>
+              <div class="stat-label">To Complete</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value">27</div>
+              <div class="stat-label">Questions</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Positioning Section -->
+      <section id="positioning" class="section">
+        <div class="card gradient-hero">
+          <h2>POSITIONING FRAMEWORK</h2>
+          <h3>Speak to outcomes, not features. Sell governance, not design systems.</h3>
+          <p>For regulated industries, lead with risk reduction and compliance. For tech, lead with velocity and AI enablement.</p>
+        </div>
+        
+        <div class="grid grid-2">
+          <div class="card" style="border-color: var(--green-500);">
+            <h3 style="color: var(--green-400); font-size: 16px;">✓ Language That Resonates</h3>
+            <ul class="check-list">
+              <li>"Governable control plane"</li>
+              <li>"Model Risk Management for product systems"</li>
+              <li>"AI execution with enterprise guardrails"</li>
+              <li>"From intent to production, governed"</li>
+              <li>"Operational resilience through consistency"</li>
+            </ul>
+          </div>
+          <div class="card" style="border-color: var(--red-500);">
+            <h3 style="color: var(--red-400); font-size: 16px;">✗ Language to Avoid</h3>
+            <ul class="check-list x-list">
+              <li>"Design system management"</li>
+              <li>"Component library"</li>
+              <li>"Figma plugin"</li>
+              <li>"Engagement model"</li>
+              <li>"Meet you where you are"</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>Industry-Specific Messaging</h3>
+          <div class="grid grid-2" style="margin-top: 16px;">
+            <div style="background: var(--bg-elevated); border-radius: 10px; padding: 16px;">
+              <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Financial Services</p>
+              <p style="font-weight: 600; margin-bottom: 4px;">Model Risk Management</p>
+              <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">Auditable AI governance for product delivery</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                <span class="tag purple">OCC Guidelines</span>
+                <span class="tag purple">SR 11-7</span>
+                <span class="tag purple">BCBS 239</span>
+              </div>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 10px; padding: 16px;">
+              <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Healthcare</p>
+              <p style="font-weight: 600; margin-bottom: 4px;">Operational Resilience</p>
+              <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">Consistent, compliant digital experiences at scale</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                <span class="tag green">HIPAA</span>
+                <span class="tag green">FDA 21 CFR Part 11</span>
+                <span class="tag green">HITRUST</span>
+              </div>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 10px; padding: 16px;">
+              <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Enterprise Tech</p>
+              <p style="font-weight: 600; margin-bottom: 4px;">AI Velocity</p>
+              <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">Ship faster with governed AI execution</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                <span class="tag blue">SOC 2</span>
+                <span class="tag blue">ISO 27001</span>
+                <span class="tag blue">GDPR</span>
+              </div>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 10px; padding: 16px;">
+              <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Manufacturing</p>
+              <p style="font-weight: 600; margin-bottom: 4px;">Digital Thread</p>
+              <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">Connected product experience from design to delivery</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                <span class="tag amber">ISO 9001</span>
+                <span class="tag amber">IATF 16949</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PCRI Assessment Section -->
+      <section id="pcri" class="section">
+        <div class="card gradient-hero">
+          <h2>PCRI ASSESSMENT FRAMEWORK</h2>
+          <h3>Five pillars. Gated progression. Research-backed scoring.</h3>
+          <p>The Product Context Readiness Index measures readiness across Foundation, AI Readiness, Governance, Delivery, and Culture—with Culture weighted highest based on Project Aristotle research.</p>
+        </div>
+        
+        <div class="grid grid-5" style="margin-bottom: 20px;">
+          <div class="pillar-card foundation">
+            <div class="pillar-weight">20%</div>
+            <div class="pillar-name">Foundation</div>
+            <div class="pillar-desc">Tokens, components, APIs, accessibility</div>
+          </div>
+          <div class="pillar-card ai">
+            <div class="pillar-weight">20%</div>
+            <div class="pillar-name">AI Readiness</div>
+            <div class="pillar-desc">AI tools, data quality, MCP compatibility</div>
+          </div>
+          <div class="pillar-card governance">
+            <div class="pillar-weight">20%</div>
+            <div class="pillar-name">Governance</div>
+            <div class="pillar-desc">Executive sponsorship, decision rights</div>
+          </div>
+          <div class="pillar-card delivery">
+            <div class="pillar-weight">15%</div>
+            <div class="pillar-name">Delivery</div>
+            <div class="pillar-desc">Workflow consistency, deployment frequency</div>
+          </div>
+          <div class="pillar-card culture">
+            <div class="pillar-weight">25%</div>
+            <div class="pillar-name">Culture ★</div>
+            <div class="pillar-desc">Psychological safety, contribution models</div>
+          </div>
+        </div>
+        
+        <div class="card highlight">
+          <h3>Why Culture is 25%</h3>
+          <p>Based on Google's Project Aristotle research, psychological safety is the #1 predictor of team effectiveness. Westrum's research shows information flow patterns predict organizational performance. Culture is the foundational enabler—without it, nothing else scales.</p>
+        </div>
+        
+        <div class="card">
+          <h3>Gated Progression Model</h3>
+          <p>PCRI prevents misleading scores by applying gates that reflect real-world dependencies:</p>
+          <div class="grid grid-2" style="margin-top: 16px;">
+            <div style="background: rgba(139, 92, 246, 0.1); border-radius: 10px; padding: 16px; border: 1px solid var(--purple-500);">
+              <p style="font-weight: 600; margin-bottom: 8px;">Gate 1: Foundation → AI</p>
+              <p style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--purple-300); margin-bottom: 8px;">IF Foundation &lt; 40%: AI Score × 0.5</p>
+              <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Without a system of record, AI output cannot be governed.</p>
+            </div>
+            <div style="background: rgba(16, 185, 129, 0.1); border-radius: 10px; padding: 16px; border: 1px solid var(--green-500);">
+              <p style="font-weight: 600; margin-bottom: 8px;">Gate 2: Governance → Delivery</p>
+              <p style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--green-300); margin-bottom: 8px;">IF Governance &lt; 30%: Delivery Score × 0.7</p>
+              <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Without governance authority, workflow gains are fragile.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>Research Foundations</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Research</th>
+                <th>Key Contribution</th>
+                <th>PCRI Application</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: 600;">DORA State of DevOps</td>
+                <td>Deployment frequency correlates with performance</td>
+                <td>Delivery pillar metrics</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600;">Google Project Aristotle</td>
+                <td>Psychological safety predicts team effectiveness</td>
+                <td>Culture pillar questions</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600;">Team Topologies</td>
+                <td>Platform team model enables scaling</td>
+                <td>Delivery workflow assessment</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600;">Westrum Typology</td>
+                <td>Information flow indicates organizational health</td>
+                <td>Culture pillar scoring</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600;">NIST AI RMF</td>
+                <td>Governance frameworks for AI adoption</td>
+                <td>AI Readiness & Governance integration</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Archetypes Section -->
+      <section id="archetypes" class="section">
+        <div class="card gradient-hero">
+          <h2>MATURITY ARCHETYPES</h2>
+          <h3>Four archetypes. PCRI-driven assignment. Clear engagement paths.</h3>
+          <p>Archetype determines readiness, readiness determines investment path. Each archetype has specific requirements and engagement approaches.</p>
+        </div>
+        
+        <div class="grid grid-2" id="archetypes-grid">
+          <!-- Builder -->
+          <div class="archetype-card" onclick="toggleArchetype(this)">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+              <div class="archetype-icon builder">🔨</div>
+              <span class="archetype-range">PCRI 0-44</span>
+            </div>
+            <h4 style="font-size: 18px; font-weight: 600; margin: 12px 0 4px;">Builder</h4>
+            <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Establish foundations, build system of record</p>
+            <div class="archetype-details">
+              <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                <span class="tag red">High investment</span>
+                <span class="tag amber">6-12 months</span>
+              </div>
+              <p style="font-size: 13px; margin-bottom: 8px;"><strong>Profile:</strong> No unified design system, scattered components, no governance structure.</p>
+              <p style="font-size: 13px; margin-bottom: 8px;"><strong>Engagement:</strong> Diagnostic only initially. Don't propose platform until foundation exists.</p>
+              <p style="font-size: 13px; margin: 0;"><strong>Journey:</strong> J1 (Foundation Path)</p>
+            </div>
+          </div>
+          
+          <!-- Adopter -->
+          <div class="archetype-card" onclick="toggleArchetype(this)">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+              <div class="archetype-icon adopter">🌱</div>
+              <span class="archetype-range">PCRI 45-54</span>
+            </div>
+            <h4 style="font-size: 18px; font-weight: 600; margin: 12px 0 4px;">Adopter</h4>
+            <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Rapid enablement sprint, expand adoption</p>
+            <div class="archetype-details">
+              <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                <span class="tag amber">Medium investment</span>
+                <span class="tag amber">3-6 months</span>
+              </div>
+              <p style="font-size: 13px; margin-bottom: 8px;"><strong>Profile:</strong> System exists but limited adoption, governance conversations starting.</p>
+              <p style="font-size: 13px; margin-bottom: 8px;"><strong>Engagement:</strong> Activation-focused sprint. May need rapid trigger response.</p>
+              <p style="font-size: 13px; margin: 0;"><strong>Journey:</strong> J2 (Acceleration Path) or J3 (Activation Path)</p>
+            </div>
+          </div>
+          
+          <!-- Optimizer -->
+          <div class="archetype-card" onclick="toggleArchetype(this)">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+              <div class="archetype-icon optimizer">⚙️</div>
+              <span class="archetype-range">PCRI 55-74</span>
+            </div>
+            <h4 style="font-size: 18px; font-weight: 600; margin: 12px 0 4px;">Optimizer</h4>
+            <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Full transformation, optimize at scale</p>
+            <div class="archetype-details">
+              <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                <span class="tag blue">Strategic investment</span>
+                <span class="tag blue">6-9 months</span>
+              </div>
+              <p style="font-size: 13px; margin-bottom: 8px;"><strong>Profile:</strong> Active governance, engineering integration in progress, MCP preparation possible.</p>
+              <p style="font-size: 13px; margin-bottom: 8px;"><strong>Engagement:</strong> Full transformation partnership. Primary revenue target.</p>
+              <p style="font-size: 13px; margin: 0;"><strong>Journey:</strong> J3 (Activation Path) — PRIMARY FOCUS</p>
+            </div>
+          </div>
+          
+          <!-- Transformer -->
+          <div class="archetype-card" onclick="toggleArchetype(this)">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+              <div class="archetype-icon transformer">🚀</div>
+              <span class="archetype-range">PCRI 75-100</span>
+            </div>
+            <h4 style="font-size: 18px; font-weight: 600; margin: 12px 0 4px;">Transformer</h4>
+            <p style="font-size: 13px; color: var(--text-muted); margin: 0;">AI workflow expansion, innovation leadership</p>
+            <div class="archetype-details">
+              <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                <span class="tag green">Expansion ready</span>
+                <span class="tag green">Ongoing</span>
+              </div>
+              <p style="font-size: 13px; margin-bottom: 8px;"><strong>Profile:</strong> MCP integration active, AI-assisted workflows operational, predictive governance.</p>
+              <p style="font-size: 13px; margin-bottom: 8px;"><strong>Engagement:</strong> Innovation partnership. Platform expansion + MCP activation.</p>
+              <p style="font-size: 13px; margin: 0;"><strong>Journey:</strong> J4 (Intelligence Path)</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card" style="margin-top: 20px;">
+          <h3>Archetype Assignment Logic</h3>
+          <p>Archetype uses both PCRI score AND pillar minimums to prevent misclassification:</p>
+          <div style="background: var(--bg-elevated); border-radius: 8px; padding: 16px; margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.8;">
+            <span style="color: var(--green-400);">if</span> (PCRI >= 75 && Foundation >= 70% && Governance >= 60% && Culture >= 60%)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;→ <span style="color: var(--green-400);">Transformer</span><br><br>
+            <span style="color: var(--blue-400);">else if</span> (PCRI >= 55 && Foundation >= 60% && Governance >= 55% && Culture >= 50%)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;→ <span style="color: var(--blue-400);">Optimizer</span><br><br>
+            <span style="color: var(--amber-400);">else if</span> (PCRI >= 45 && Governance >= 50% && Culture >= 40%)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;→ <span style="color: var(--amber-400);">Adopter</span><br><br>
+            <span style="color: var(--red-400);">else</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;→ <span style="color: var(--red-400);">Builder</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Alpha Program Section -->
+      <section id="alpha" class="section">
+        <div class="card" style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, var(--bg-layer-1) 100%); border-color: var(--orange-500);">
+          <h2 style="color: var(--orange-500);">🧪 ALPHA PROGRAM</h2>
+          <h3>20-person cohort. Guided delivery. Curated results.</h3>
+          <p>The PCRI Alpha Program validates the assessment with a curated group before public launch. Unlike the public release, alpha uses a human-in-the-loop approach.</p>
+        </div>
+        
+        <div class="grid grid-4" style="margin-bottom: 20px;">
+          <div class="stat-box">
+            <div class="stat-value" style="color: var(--orange-500);">20</div>
+            <div class="stat-label">Participants</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" style="color: var(--orange-500);">50/50</div>
+            <div class="stat-label">Exec / Practitioner</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" style="color: var(--orange-500);">5</div>
+            <div class="stat-label">Industries</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" style="color: var(--orange-500);">1:1</div>
+            <div class="stat-label">Debrief Calls</div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>Guided Delivery Model</h3>
+          <p>Alpha participants don't get instant results. Each submission is reviewed and calibrated:</p>
+          <div style="display: flex; align-items: center; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px 16px; text-align: center; flex: 1; min-width: 120px;">
+              <p style="font-size: 20px; margin-bottom: 4px;">1</p>
+              <p style="font-size: 11px; color: var(--text-muted); margin: 0;">Complete Assessment</p>
+            </div>
+            <span style="color: var(--purple-400);">→</span>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px 16px; text-align: center; flex: 1; min-width: 120px;">
+              <p style="font-size: 20px; margin-bottom: 4px;">2</p>
+              <p style="font-size: 11px; color: var(--text-muted); margin: 0;">Director Reviews</p>
+            </div>
+            <span style="color: var(--purple-400);">→</span>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px 16px; text-align: center; flex: 1; min-width: 120px;">
+              <p style="font-size: 20px; margin-bottom: 4px;">3</p>
+              <p style="font-size: 11px; color: var(--text-muted); margin: 0;">Curated PDF</p>
+            </div>
+            <span style="color: var(--purple-400);">→</span>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px 16px; text-align: center; flex: 1; min-width: 120px;">
+              <p style="font-size: 20px; margin-bottom: 4px;">4</p>
+              <p style="font-size: 11px; color: var(--text-muted); margin: 0;">30-min Debrief</p>
+            </div>
+            <span style="color: var(--purple-400);">→</span>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px 16px; text-align: center; flex: 1; min-width: 120px;">
+              <p style="font-size: 20px; margin-bottom: 4px;">5</p>
+              <p style="font-size: 11px; color: var(--text-muted); margin: 0;">Feedback Capture</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>Alpha Success Metrics</h3>
+          <div class="grid grid-3" style="margin-top: 16px;">
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 16px; text-align: center;">
+              <p style="font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; color: var(--green-400);">>80%</p>
+              <p style="font-size: 12px; color: var(--text-muted);">Completion Rate</p>
+              <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Target: 16+ of 20</p>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 16px; text-align: center;">
+              <p style="font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; color: var(--blue-400);">&lt;12m</p>
+              <p style="font-size: 12px; color: var(--text-muted);">Avg. Time</p>
+              <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Design target: 10 min</p>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 16px; text-align: center;">
+              <p style="font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; color: var(--amber-400);">>75%</p>
+              <p style="font-size: 12px; color: var(--text-muted);">Archetype Accuracy</p>
+              <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Director validation</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="callout info">
+          <p style="margin: 0;"><strong>Alpha Program Assets:</strong> See <a href="../alpha/alpha_release_program.html" style="color: var(--purple-300);">Alpha Release Program</a> for email templates, recruitment strategy, timeline, and detailed success metrics.</p>
+        </div>
+      </section>
+
+      <!-- Investment Paths (Journeys) Section -->
+      <section id="journeys" class="section">
+        <div class="card gradient-hero">
+          <h2>INVESTMENT PATHS</h2>
+          <h3>Four paths. PCRI-driven routing. J3 is the money.</h3>
+          <p>The investment path is how they get to governed AI. Archetype determines the starting point; deployment tier affects timeline and TCV.</p>
+        </div>
+        
+        <div class="grid grid-2" style="margin-bottom: 20px;">
+          <div class="callout success">
+            <p style="margin: 0;"><strong>Path 3 (Activation-Focused)</strong> holds the majority of ARR and meaningful churn risk. Services capacity is the growth bottleneck—not top-of-funnel.</p>
+          </div>
+          <div class="callout warning">
+            <p style="margin: 0;"><strong>Deployment tier (D1-D4)</strong> significantly impacts timeline and TCV. Regulated industries (D3/D4) require Phase 0 before Foundation.</p>
+          </div>
+        </div>
+        
+        <div id="journeys-container">
+          <!-- J1 -->
+          <div class="journey-card" onclick="toggleJourney(this)" style="margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div style="width: 48px; height: 48px; background: rgba(100, 116, 139, 0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--text-muted);">J1</div>
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <h4 style="font-size: 16px; font-weight: 600; margin: 0;">Foundation Path</h4>
+                  <span class="tag purple">~10% ARR</span>
+                  <span class="tag green">Low risk</span>
+                </div>
+                <p style="font-size: 13px; color: var(--text-muted); margin: 0;">For organizations without a system of record. Build before governing.</p>
+              </div>
+            </div>
+            <div class="journey-details">
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; font-family: 'JetBrains Mono', monospace;">Diagnostic → Foundation → Governance</p>
+              <div class="grid grid-2" style="gap: 12px; margin-bottom: 12px;">
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Archetype Match</p>
+                  <p style="font-size: 13px; margin: 0;">Builder (PCRI 0-44)</p>
+                </div>
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">TCV Range</p>
+                  <p style="font-size: 13px; margin: 0; font-weight: 600; color: var(--green-400);">$50-60K diagnostic → $350-450K foundation</p>
+                </div>
+              </div>
+              <p style="font-size: 13px; color: var(--text-secondary);"><strong>Commercial Note:</strong> Start with Diagnostic only. Do not propose platform until foundation exists.</p>
+            </div>
+          </div>
+          
+          <!-- J2 -->
+          <div class="journey-card" onclick="toggleJourney(this)" style="margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div style="width: 48px; height: 48px; background: rgba(59, 130, 246, 0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--blue-400);">J2</div>
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <h4 style="font-size: 16px; font-weight: 600; margin: 0;">Acceleration Path</h4>
+                  <span class="tag purple">~5% ARR</span>
+                  <span class="tag green">Low risk</span>
+                </div>
+                <p style="font-size: 13px; color: var(--text-muted); margin: 0;">For mature orgs with sudden trigger. Fast activation, minimal services.</p>
+              </div>
+            </div>
+            <div class="journey-details">
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; font-family: 'JetBrains Mono', monospace;">Diagnostic → Rapid Activation</p>
+              <div class="grid grid-2" style="gap: 12px; margin-bottom: 12px;">
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Archetype Match</p>
+                  <p style="font-size: 13px; margin: 0;">Adopter with urgent trigger</p>
+                </div>
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">TCV Range</p>
+                  <p style="font-size: 13px; margin: 0; font-weight: 600; color: var(--green-400);">$50K diagnostic → $225-325K sprint</p>
+                </div>
+              </div>
+              <p style="font-size: 13px; color: var(--text-secondary);"><strong>Commercial Note:</strong> Compress timeline, premium pricing. They need speed, not education.</p>
+            </div>
+          </div>
+          
+          <!-- J3 - Primary -->
+          <div class="journey-card primary" onclick="toggleJourney(this)" style="margin-bottom: 12px;">
+            <span class="journey-badge primary">PRIMARY</span>
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div style="width: 48px; height: 48px; background: rgba(16, 185, 129, 0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--green-400);">J3</div>
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <h4 style="font-size: 16px; font-weight: 600; margin: 0;">Activation Path</h4>
+                  <span class="tag green">~60% ARR</span>
+                  <span class="tag red">High risk</span>
+                </div>
+                <p style="font-size: 13px; color: var(--text-muted); margin: 0;">For high-value accounts blocked on activation. Full transformation.</p>
+              </div>
+            </div>
+            <div class="journey-details">
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; font-family: 'JetBrains Mono', monospace;">Diagnostic → (Phase 0) → Foundation → Activation → Intelligence</p>
+              <div class="grid grid-2" style="gap: 12px; margin-bottom: 12px;">
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Archetype Match</p>
+                  <p style="font-size: 13px; margin: 0;">Adopter → Optimizer</p>
+                </div>
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">TCV Range</p>
+                  <p style="font-size: 13px; margin: 0; font-weight: 600; color: var(--green-400);">$740K-1.6M over 40-68 weeks</p>
+                </div>
+              </div>
+              <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;"><strong>Example Accounts:</strong> PNC, Edward Jones, DoubleVerify, Qualcomm, GSK US, HealthEdge, CVS Health</p>
+              <p style="font-size: 13px; color: var(--text-secondary);"><strong>Commercial Note:</strong> Two-phase deal minimum. D3/D4 accounts require Phase 0 (add $175-450K + 8-16 weeks).</p>
+            </div>
+          </div>
+          
+          <!-- J4 -->
+          <div class="journey-card" onclick="toggleJourney(this)">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div style="width: 48px; height: 48px; background: rgba(139, 92, 246, 0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--purple-400);">J4</div>
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <h4 style="font-size: 16px; font-weight: 600; margin: 0;">Intelligence Path</h4>
+                  <span class="tag purple">~25% ARR</span>
+                  <span class="tag amber">Medium risk</span>
+                </div>
+                <p style="font-size: 13px; color: var(--text-muted); margin: 0;">For implemented accounts ready for AI enablement. Expansion-focused.</p>
+              </div>
+            </div>
+            <div class="journey-details">
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; font-family: 'JetBrains Mono', monospace;">Diagnostic → MCP Activation → Expansion</p>
+              <div class="grid grid-2" style="gap: 12px; margin-bottom: 12px;">
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Archetype Match</p>
+                  <p style="font-size: 13px; margin: 0;">Transformer (PCRI 75+)</p>
+                </div>
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">TCV Range</p>
+                  <p style="font-size: 13px; margin: 0; font-weight: 600; color: var(--green-400);">$165-325K MCP + platform expansion</p>
+                </div>
+              </div>
+              <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;"><strong>Example Accounts:</strong> The Home Depot, CSX, GSK Global, Crown Equipment</p>
+              <p style="font-size: 13px; color: var(--text-secondary);"><strong>Commercial Note:</strong> Trigger-dependent. Have proposal ready. Move fast when timing aligns.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Partnership Phases Section -->
+      <section id="phases" class="section">
+        <div class="card gradient-hero">
+          <h2>PARTNERSHIP PHASES</h2>
+          <h3>Phase-gated delivery. Clear exit criteria. Never sell all phases upfront.</h3>
+          <p>Earn the right to the next phase. Each phase builds trust and proves value.</p>
+        </div>
+        
+        <div class="grid grid-4" style="margin-bottom: 20px;">
+          <div style="background: rgba(59, 130, 246, 0.1); border-radius: 8px; padding: 12px; text-align: center; border: 1px solid rgba(59, 130, 246, 0.3);">
+            <p style="font-size: 11px; color: var(--blue-400); margin-bottom: 4px;">Foundation</p>
+            <p style="font-weight: 700;">$350-450K</p>
+            <p style="font-size: 11px; color: var(--text-muted);">16-20 weeks</p>
+          </div>
+          <div style="background: rgba(16, 185, 129, 0.1); border-radius: 8px; padding: 12px; text-align: center; border: 1px solid rgba(16, 185, 129, 0.3);">
+            <p style="font-size: 11px; color: var(--green-400); margin-bottom: 4px;">Activation</p>
+            <p style="font-weight: 700;">$225-325K</p>
+            <p style="font-size: 11px; color: var(--text-muted);">12-16 weeks</p>
+          </div>
+          <div style="background: rgba(245, 158, 11, 0.1); border-radius: 8px; padding: 12px; text-align: center; border: 1px solid rgba(245, 158, 11, 0.3);">
+            <p style="font-size: 11px; color: var(--amber-400); margin-bottom: 4px;">Intelligence</p>
+            <p style="font-weight: 700;">$165-225K</p>
+            <p style="font-size: 11px; color: var(--text-muted);">8-12 weeks</p>
+          </div>
+          <div style="background: rgba(139, 92, 246, 0.1); border-radius: 8px; padding: 12px; text-align: center; border: 1px solid rgba(139, 92, 246, 0.3);">
+            <p style="font-size: 11px; color: var(--purple-400); margin-bottom: 4px;">Scale</p>
+            <p style="font-weight: 700;">Platform ARR</p>
+            <p style="font-size: 11px; color: var(--text-muted);">Ongoing</p>
+          </div>
+        </div>
+        
+        <div id="phases-container">
+          <!-- Phase 1 -->
+          <div class="phase-card" onclick="togglePhase(this)" style="margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div class="phase-num" style="background: rgba(59, 130, 246, 0.2); color: var(--blue-400);">1</div>
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <h4 style="font-size: 16px; font-weight: 600; margin: 0;">Foundation Phase</h4>
+                  <span class="tag blue">$350-450K</span>
+                  <span class="tag purple">16-20 weeks</span>
+                </div>
+                <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Make the platform reliably usable for real teams, without heroics.</p>
+              </div>
+            </div>
+            <div class="phase-details">
+              <div class="grid grid-2" style="gap: 16px;">
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase;">Workstreams</p>
+                  <ul style="list-style: none; font-size: 13px; color: var(--text-secondary);">
+                    <li style="padding: 4px 0;">• Workspace deployment</li>
+                    <li style="padding: 4px 0;">• Entitlement & access setup</li>
+                    <li style="padding: 4px 0;">• Design-to-code connection</li>
+                    <li style="padding: 4px 0;">• Governance framework draft</li>
+                  </ul>
+                </div>
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase;">Exit Criteria</p>
+                  <ul class="check-list" style="font-size: 13px;">
+                    <li>Teams can publish without intervention</li>
+                    <li>Access no longer blocking work</li>
+                    <li>First component shipped to production</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Phase 2 -->
+          <div class="phase-card" onclick="togglePhase(this)" style="margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div class="phase-num" style="background: rgba(16, 185, 129, 0.2); color: var(--green-400);">2</div>
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <h4 style="font-size: 16px; font-weight: 600; margin: 0;">Activation Phase</h4>
+                  <span class="tag green">$225-325K</span>
+                  <span class="tag purple">12-16 weeks</span>
+                </div>
+                <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Turn "systems" into a system of record with decision authority.</p>
+              </div>
+            </div>
+            <div class="phase-details">
+              <div class="grid grid-2" style="gap: 16px;">
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase;">Workstreams</p>
+                  <ul style="list-style: none; font-size: 13px; color: var(--text-secondary);">
+                    <li style="padding: 4px 0;">• Token strategy implementation</li>
+                    <li style="padding: 4px 0;">• Governance model activation</li>
+                    <li style="padding: 4px 0;">• Cross-system rules</li>
+                    <li style="padding: 4px 0;">• Signal instrumentation</li>
+                  </ul>
+                </div>
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase;">Exit Criteria</p>
+                  <ul class="check-list" style="font-size: 13px;">
+                    <li>Token strategy approved & operating</li>
+                    <li>Governance model active</li>
+                    <li>Decisions flowing through system</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Phase 3 -->
+          <div class="phase-card" onclick="togglePhase(this)" style="margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div class="phase-num" style="background: rgba(245, 158, 11, 0.2); color: var(--amber-400);">3</div>
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <h4 style="font-size: 16px; font-weight: 600; margin: 0;">Intelligence Phase</h4>
+                  <span class="tag amber">$165-225K</span>
+                  <span class="tag purple">8-12 weeks</span>
+                </div>
+                <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Prove that governed intent can safely become AI-assisted execution.</p>
+              </div>
+            </div>
+            <div class="phase-details">
+              <div class="grid grid-2" style="gap: 16px;">
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase;">Workstreams</p>
+                  <ul style="list-style: none; font-size: 13px; color: var(--text-secondary);">
+                    <li style="padding: 4px 0;">• MCP integration</li>
+                    <li style="padding: 4px 0;">• AI workflow design</li>
+                    <li style="padding: 4px 0;">• Testing architecture</li>
+                    <li style="padding: 4px 0;">• Change validation framework</li>
+                  </ul>
+                </div>
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase;">Exit Criteria</p>
+                  <ul class="check-list" style="font-size: 13px;">
+                    <li>One AI-assisted change ships end-to-end</li>
+                    <li>Teams trust the governed output</li>
+                    <li>Exec ROI story documented</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Phase 4 -->
+          <div class="phase-card" onclick="togglePhase(this)">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div class="phase-num" style="background: rgba(139, 92, 246, 0.2); color: var(--purple-400);">4</div>
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <h4 style="font-size: 16px; font-weight: 600; margin: 0;">Scale Phase</h4>
+                  <span class="tag purple">Platform ARR</span>
+                  <span class="tag purple">Ongoing</span>
+                </div>
+                <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Scale intelligence across the organization with measurable ROI.</p>
+              </div>
+            </div>
+            <div class="phase-details">
+              <div class="grid grid-2" style="gap: 16px;">
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase;">Workstreams</p>
+                  <ul style="list-style: none; font-size: 13px; color: var(--text-secondary);">
+                    <li style="padding: 4px 0;">• Additional team onboarding</li>
+                    <li style="padding: 4px 0;">• Cross-BU deployment</li>
+                    <li style="padding: 4px 0;">• Advanced analytics</li>
+                    <li style="padding: 4px 0;">• Optimization cycles</li>
+                  </ul>
+                </div>
+                <div>
+                  <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase;">Exit Criteria</p>
+                  <ul class="check-list" style="font-size: 13px;">
+                    <li>10+ teams active</li>
+                    <li>ROI metrics published</li>
+                    <li>Self-service operating</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Commercial Model Section -->
+      <section id="commercial" class="section">
+        <div class="card gradient-hero">
+          <h2>COMMERCIAL FRAMEWORK</h2>
+          <h3>Value-based pricing. Phase-gated deals. Outcome-anchored proposals.</h3>
+          <p>Never sell hours. Sell transformation phases with clear exit criteria and expansion triggers.</p>
+        </div>
+        
+        <div class="card">
+          <h3>Deal Packaging: Standard Offerings</h3>
+          <div class="grid grid-2" style="margin-top: 16px;">
+            <div style="background: var(--bg-elevated); border-radius: 10px; padding: 16px; border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 14px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px;">IPE Readiness Diagnostic</h4>
+              <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">Current state baseline + gap analysis + investment path recommendation</p>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 20px; font-weight: 700; color: var(--green-400);">$50-60K</span>
+                <span style="font-size: 12px; color: var(--text-muted);">2-4 weeks</span>
+              </div>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 10px; padding: 16px; border: 1px solid rgba(59, 130, 246, 0.3);">
+              <h4 style="font-size: 14px; font-weight: 600; color: var(--blue-400); margin-bottom: 8px;">Foundation Partnership</h4>
+              <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">For Builder archetype. Build the system of record.</p>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 20px; font-weight: 700; color: var(--green-400);">$350-450K</span>
+                <span style="font-size: 12px; color: var(--text-muted);">16-20 weeks</span>
+              </div>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 10px; padding: 16px; border: 1px solid rgba(16, 185, 129, 0.3);">
+              <h4 style="font-size: 14px; font-weight: 600; color: var(--green-400); margin-bottom: 8px;">Activation Accelerator</h4>
+              <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">For Adopter/Optimizer. Unlock trapped value.</p>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 20px; font-weight: 700; color: var(--green-400);">$225-325K</span>
+                <span style="font-size: 12px; color: var(--text-muted);">12-16 weeks</span>
+              </div>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 10px; padding: 16px; border: 1px solid rgba(139, 92, 246, 0.3);">
+              <h4 style="font-size: 14px; font-weight: 600; color: var(--purple-400); margin-bottom: 8px;">Intelligence Partnership</h4>
+              <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">For Transformer. Full IPE activation.</p>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 20px; font-weight: 700; color: var(--green-400);">$165-225K</span>
+                <span style="font-size: 12px; color: var(--text-muted);">8-12 weeks</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>Pricing Philosophy</h3>
+          <div class="grid grid-3" style="margin-top: 16px;">
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 16px;">
+              <p style="font-size: 11px; color: var(--purple-400); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Anchor to Outcomes</p>
+              <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">Price the value of governed AI execution, not the hours to get there</p>
+              <p style="font-size: 12px; color: var(--text-muted); font-style: italic;">"What's one production incident worth preventing?"</p>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 16px;">
+              <p style="font-size: 11px; color: var(--green-400); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Phase for Commitment</p>
+              <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">Break large deals into phases that build trust and prove value</p>
+              <p style="font-size: 12px; color: var(--text-muted); font-style: italic;">Foundation → Scale → Expand</p>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 16px;">
+              <p style="font-size: 11px; color: var(--amber-400); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Tier by Urgency</p>
+              <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">Premium pricing for fast timelines, standard for flexible</p>
+              <p style="font-size: 12px; color: var(--text-muted); font-style: italic;">Standard: 20 wks / Premium: 12 wks (+30%)</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="callout warning">
+          <p style="font-weight: 600; margin-bottom: 8px;">⚠️ Pricing Guardrails</p>
+          <div class="grid grid-2" style="gap: 16px;">
+            <div>
+              <p style="font-size: 13px; font-weight: 600; margin-bottom: 4px;">Never discount below:</p>
+              <p style="font-size: 13px; color: var(--text-secondary); margin: 0;">• Diagnostic: $40K (floor)<br>• Foundation: $275K (floor)<br>• Platform ARR: $75K (floor)</p>
+            </div>
+            <div>
+              <p style="font-size: 13px; font-weight: 600; margin-bottom: 4px;">Always require:</p>
+              <p style="font-size: 13px; color: var(--text-secondary); margin: 0;">• Executive sponsor identified<br>• Engineering owner assigned<br>• Success metrics agreed</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Deployment Options Section -->
+      <section id="deployment" class="section">
+        <div class="card gradient-hero">
+          <h2>DEPLOYMENT OPTIONS</h2>
+          <h3>Deployment complexity is a deal accelerator, not a blocker—if priced correctly.</h3>
+          <p>Regulated industries need governed AI more urgently than anyone. Their deployment requirements create premium pricing opportunities.</p>
+        </div>
+        
+        <div class="card">
+          <h3>Deployment Tier Framework</h3>
+          <table style="margin-top: 16px;">
+            <thead>
+              <tr>
+                <th>Tier</th>
+                <th>Name</th>
+                <th>Target</th>
+                <th>Deploy Time</th>
+                <th>Platform Premium</th>
+                <th>Services Premium</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="tag purple">D1</span></td>
+                <td>Cloud Standard</td>
+                <td>Tech, SaaS, Mid-market</td>
+                <td>2-4 weeks</td>
+                <td>—</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td><span class="tag blue">D2</span></td>
+                <td>Cloud Dedicated</td>
+                <td>Enterprise, some regulated</td>
+                <td>4-8 weeks</td>
+                <td>+25-40%</td>
+                <td>+$50-100K</td>
+              </tr>
+              <tr>
+                <td><span class="tag amber">D3</span></td>
+                <td>Private Cloud</td>
+                <td>Financial Services, Healthcare</td>
+                <td>8-16 weeks</td>
+                <td>+50-75%</td>
+                <td>+$175-275K</td>
+              </tr>
+              <tr>
+                <td><span class="tag red">D4</span></td>
+                <td>Self-Hosted</td>
+                <td>Defense, Government</td>
+                <td>16-24+ weeks</td>
+                <td>+100%+</td>
+                <td>+$350-550K</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="card" style="border-color: var(--amber-500);">
+          <h3 style="color: var(--amber-400);">Phase 0: Deployment & Security (D3/D4 Only)</h3>
+          <p>For Private Cloud and Self-Hosted customers, Phase 0 is required before Foundation can begin. This is non-negotiable.</p>
+          <div class="grid grid-3" style="margin-top: 16px;">
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px;">
+              <p style="font-size: 11px; color: var(--amber-400); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Workstreams</p>
+              <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">Environment provisioning, Security architecture, SSO/SCIM, Vendor security questionnaire, Pen testing coordination</p>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px;">
+              <p style="font-size: 11px; color: var(--amber-400); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Exit Criteria</p>
+              <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">Environment accessible, Security review approved, Connectivity validated, InfoSec sign-off</p>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px;">
+              <p style="font-size: 11px; color: var(--amber-400); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Commercial</p>
+              <p style="font-size: 13px; margin: 0;"><strong>D3:</strong> $175-225K<br><strong>D4:</strong> $350-450K</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Operating Guidance Section -->
+      <section id="guidance" class="section">
+        <div class="card gradient-hero">
+          <h2>OPERATING GUIDANCE</h2>
+          <h3>Stop treating all accounts equally. Invest where it matters.</h3>
+          <p>J3 holds the majority of ARR and churn risk. Services capacity is the bottleneck. Focus there.</p>
+        </div>
+        
+        <div class="grid grid-2">
+          <div class="card" style="border-color: var(--red-500);">
+            <h3 style="color: var(--red-400); font-size: 16px;">✗ What to STOP Doing</h3>
+            <ul class="check-list x-list">
+              <li>Treating MCP Support as a substitute for activation</li>
+              <li>Treating "implemented" as "successful"</li>
+              <li>Running long implementations without ownership</li>
+              <li>Over-serving non-ICP accounts</li>
+              <li>Using internal language with customers</li>
+              <li>Selling hours instead of outcomes</li>
+              <li>Proposing all phases upfront</li>
+              <li>Discounting below floor pricing</li>
+            </ul>
+          </div>
+          <div class="card" style="border-color: var(--green-500);">
+            <h3 style="color: var(--green-400); font-size: 16px;">✓ What to START Doing</h3>
+            <ul class="check-list">
+              <li>Gate all work by maturity archetype</li>
+              <li>Require PCRI score before proposals</li>
+              <li>Apply the routing rule without exception</li>
+              <li>Invest services capacity in J3</li>
+              <li>Use governance language with customers</li>
+              <li>Price by value and outcome</li>
+              <li>Phase-gate every deal</li>
+              <li>Hold pricing floors firm</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>Where to Place Bets</h3>
+          <table style="margin-top: 16px;">
+            <thead>
+              <tr>
+                <th>Path</th>
+                <th>Description</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: 600;">J1 Foundation</td>
+                <td>Diagnostic only. Monitor for maturation signals.</td>
+                <td><span class="tag purple">Minimal investment</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600;">J2 Acceleration</td>
+                <td>Quick sprint when trigger fires. Premium pricing justified.</td>
+                <td><span class="tag blue">Compress timeline</span></td>
+              </tr>
+              <tr style="background: rgba(16, 185, 129, 0.1);">
+                <td style="font-weight: 600; color: var(--green-400);">J3 Activation</td>
+                <td>60% of ARR, highest churn risk. Requires deep services investment.</td>
+                <td><span class="tag green">PRIMARY FOCUS</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600;">J4 Intelligence</td>
+                <td>Expansion-ready when timing aligns. Have proposal ready.</td>
+                <td><span class="tag amber">Opportunistic</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Metrics Section -->
+      <section id="metrics" class="section">
+        <div class="card gradient-hero">
+          <h2>SUCCESS METRICS</h2>
+          <h3>Measure what matters. Activation depth, not vanity metrics.</h3>
+          <p>Track progression through archetypes, not just contract value.</p>
+        </div>
+        
+        <div class="grid grid-3">
+          <div class="card" style="border-color: var(--green-500);">
+            <h4 style="font-size: 14px; color: var(--green-400); margin-bottom: 12px;">Activation Metrics</h4>
+            <ul style="list-style: none; font-size: 13px; color: var(--text-secondary);">
+              <li style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">📊 Time to first production use</li>
+              <li style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">📊 Teams actively using platform</li>
+              <li style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">📊 Governance decisions/month</li>
+              <li style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">📊 Signal instrumentation %</li>
+            </ul>
+          </div>
+          <div class="card" style="border-color: var(--purple-500);">
+            <h4 style="font-size: 14px; color: var(--purple-400); margin-bottom: 12px;">Intelligence Metrics</h4>
+            <ul style="list-style: none; font-size: 13px; color: var(--text-secondary);">
+              <li style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">📊 MCP integrations active</li>
+              <li style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">📊 AI-assisted changes shipped</li>
+              <li style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">📊 Governed execution rate</li>
+              <li style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">📊 Error prevention rate</li>
+            </ul>
+          </div>
+          <div class="card" style="border-color: var(--blue-500);">
+            <h4 style="font-size: 14px; color: var(--blue-400); margin-bottom: 12px;">Business Metrics</h4>
+            <ul style="list-style: none; font-size: 13px; color: var(--text-secondary);">
+              <li style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">📊 Services margin</li>
+              <li style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">📊 Platform ARR expansion</li>
+              <li style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">📊 Time to expansion readiness</li>
+              <li style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">📊 Customer trust score</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="card" style="background: linear-gradient(135deg, var(--bg-layer-1) 0%, rgba(16, 185, 129, 0.1) 100%);">
+          <h3>The Final Word</h3>
+          <p>This playbook exists because "implemented" doesn't mean "activated." Our customers have the platform. What they need is the transformation to extract value from it.</p>
+          <div class="callout success" style="margin-top: 16px; margin-bottom: 0;">
+            <p style="margin: 0; font-weight: 600;">The path to revenue is J3 activation, not new logos. Services capacity is the bottleneck. Every decision should flow from these two facts.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Leadership Briefing Section -->
+      <section id="leadership" class="section">
+        <div class="card gradient-hero">
+          <h2>LEADERSHIP BRIEFING</h2>
+          <h3>PCRI assessment is live in alpha. Primary lead-gen and market validation asset.</h3>
+          <p>The assessment benchmarks organizations, assigns archetypes, and routes to investment paths—replacing the old diagnostic-first motion.</p>
+        </div>
+        
+        <div class="card">
+          <h3>What the Assessment Delivers</h3>
+          <div class="grid grid-2" style="margin-top: 16px;">
+            <ul class="check-list">
+              <li>PCRI score across 5 pillars with gated progression</li>
+              <li>Archetype assignment (Builder → Transformer)</li>
+            </ul>
+            <ul class="check-list">
+              <li>Industry benchmarks with peer comparison</li>
+              <li>Investment path recommendation with ROI framing</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>ICP Fit by Journey</h3>
+          <div class="grid grid-2" style="margin-top: 16px;">
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px;">
+              <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">J1 Foundation</p>
+              <p style="font-size: 13px; margin: 0;">Early-stage orgs, diagnostic-first motion</p>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px;">
+              <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">J2 Acceleration</p>
+              <p style="font-size: 13px; margin: 0;">Trigger-driven, sprint-ready, short cycle</p>
+            </div>
+            <div style="background: rgba(16, 185, 129, 0.1); border-radius: 8px; padding: 12px; border: 1px solid var(--green-500);">
+              <p style="font-size: 11px; color: var(--green-400); margin-bottom: 4px;">J3 Activation — PRIMARY</p>
+              <p style="font-size: 13px; margin: 0;">Core ICP, largest measurable gains</p>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px;">
+              <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">J4 Intelligence</p>
+              <p style="font-size: 13px; margin: 0;">Expansion-ready, MCP activation</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="grid grid-2">
+          <div class="callout success">
+            <p style="font-weight: 600; margin-bottom: 4px;">Launch Status</p>
+            <p style="margin: 0;">Alpha program in progress with 20-person cohort. Public launch planned after calibration complete.</p>
+          </div>
+          <div class="callout warning">
+            <p style="font-weight: 600; margin-bottom: 4px;">Success Metrics (60 Days)</p>
+            <p style="margin: 0;">Completion volume, archetype distribution, SDR meeting conversion, ROI calculator engagement</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SDR Playbook Section -->
+      <section id="sdr" class="section">
+        <div class="card gradient-hero">
+          <h2>SDR PLAYBOOK</h2>
+          <h3>Route by archetype, lead with benchmarks, close with ROI.</h3>
+          <p>PCRI score + archetype determines priority and follow-up approach.</p>
+        </div>
+        
+        <div class="card">
+          <h3>Lead Triage by Archetype</h3>
+          <div class="grid grid-3" style="margin-top: 16px;">
+            <div style="background: rgba(16, 185, 129, 0.1); border-radius: 8px; padding: 16px; border: 1px solid var(--green-500);">
+              <p style="font-size: 11px; color: var(--green-400); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">High Priority</p>
+              <p style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">Optimizer / Transformer</p>
+              <p style="font-size: 13px; color: var(--text-secondary); margin: 0;">Fast-track to J3/J4 conversation</p>
+            </div>
+            <div style="background: rgba(245, 158, 11, 0.1); border-radius: 8px; padding: 16px; border: 1px solid var(--amber-500);">
+              <p style="font-size: 11px; color: var(--amber-400); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Medium Priority</p>
+              <p style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">Adopter</p>
+              <p style="font-size: 13px; color: var(--text-secondary); margin: 0;">Diagnostic + roadmap discussion</p>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 16px;">
+              <p style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Low Priority</p>
+              <p style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">Builder (low readiness)</p>
+              <p style="font-size: 13px; color: var(--text-secondary); margin: 0;">Nurture, monitor for signals</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>15-Minute Call Flow</h3>
+          <ol style="list-style: decimal; padding-left: 20px; font-size: 14px; color: var(--text-secondary);">
+            <li style="padding: 8px 0;">What prompted the assessment?</li>
+            <li style="padding: 8px 0;">Benchmark recap (5 pillars, gating, vs. industry)</li>
+            <li style="padding: 8px 0;">Archetype framing toward investment path</li>
+            <li style="padding: 8px 0;">ROI snippet for the recommended journey</li>
+            <li style="padding: 8px 0;">Confirm next step (Diagnostic / Sprint / MCP Activation)</li>
+          </ol>
+        </div>
+        
+        <div class="card">
+          <h3>Archetype-Specific CTA</h3>
+          <div class="grid grid-2" style="margin-top: 16px;">
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px;">
+              <p style="font-size: 11px; color: var(--red-400); margin-bottom: 4px;">Builder → J1</p>
+              <p style="font-size: 13px; margin: 0;">Schedule diagnostic, focus on governance baseline.</p>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px;">
+              <p style="font-size: 11px; color: var(--amber-400); margin-bottom: 4px;">Adopter → J2/J3</p>
+              <p style="font-size: 13px; margin: 0;">Sprint scoping or activation roadmap.</p>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px;">
+              <p style="font-size: 11px; color: var(--blue-400); margin-bottom: 4px;">Optimizer → J3</p>
+              <p style="font-size: 13px; margin: 0;">Full transformation partnership discussion.</p>
+            </div>
+            <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px;">
+              <p style="font-size: 11px; color: var(--green-400); margin-bottom: 4px;">Transformer → J4</p>
+              <p style="font-size: 13px; margin: 0;">MCP activation discovery and AI enablement.</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
   <script>
-    // State management
+    // State
     let state = {
       activeSection: 'vision',
-      selectedJourney: null,
-      selectedPhase: null,
-      selectedQuadrant: null,
       showRateCard: false
     };
 
-    // Data
-    const sections = [
-      { id: 'vision', label: 'Vision & Market', icon: 'target' },
-      { id: 'positioning', label: 'GTM Positioning', icon: 'zap' },
-      { id: 'commercial', label: 'Commercial Model', icon: 'trending-up' },
-      { id: 'deployment', label: 'Deployment Options', icon: 'shield' },
-      { id: 'maturity', label: 'Maturity Model', icon: 'layers' },
-      { id: 'assessment', label: 'Assessment Framework', icon: 'activity' },
-      { id: 'journeys', label: 'Investment Paths', icon: 'git-branch' },
-      { id: 'phases', label: 'Partnership Phases', icon: 'clock' },
-      { id: 'guidance', label: 'Operating Guidance', icon: 'shield' },
-      { id: 'metrics', label: 'Metrics', icon: 'bar-chart-3' },
-      { id: 'leadership', label: 'Leadership Briefing', icon: 'star' },
-      { id: 'sdr', label: 'SDR Playbook', icon: 'users' },
-    ];
-
-    const rateCard = [
-      { role: 'Executive', person: 'Andrew', rate: 825 },
-      { role: 'SME', person: 'Bloom', rate: 750 },
-      { role: 'CX Partner', person: 'Amber', rate: 600 },
-      { role: 'Senior Solution Analyst (FDE)', person: 'Jake', rate: 550 },
-      { role: 'Solution Analyst', person: 'Britt', rate: 400 },
-      { role: 'Project Manager', person: 'Nina', rate: 400 },
-    ];
-
-    const deploymentTiers = [
-      { id: 'D1', name: 'Cloud Standard', target: 'Tech, SaaS, Mid-market', dataLocation: 'Knapsack multi-tenant', compliance: ['SOC 2'], deployTime: '2-4 weeks', platformPremium: '—', servicesPremium: '—', color: 'slate' },
-      { id: 'D2', name: 'Cloud Dedicated', target: 'Enterprise, some regulated', dataLocation: 'Single-tenant instance', compliance: ['SOC 2', 'GDPR'], deployTime: '4-8 weeks', platformPremium: '+25-40%', servicesPremium: '+$50-100K', color: 'blue' },
-      { id: 'D3', name: 'Private Cloud', target: 'Financial Services, Healthcare', dataLocation: 'Customer VPC / Private cloud', compliance: ['SOC 2', 'HIPAA-ready', 'PCI-DSS'], deployTime: '8-16 weeks', platformPremium: '+50-75%', servicesPremium: '+$175-275K', color: 'amber' },
-      { id: 'D4', name: 'Self-Hosted', target: 'Defense, Government, High-security', dataLocation: 'Customer data center', compliance: ['FedRAMP-ready', 'Custom'], deployTime: '16-24+ weeks', platformPremium: '+100%+', servicesPremium: '+$350-550K', color: 'rose' },
-    ];
-
-    const journeys = [
-      { id: 'path1', internal: 'J1', name: 'Foundation Path', extName: 'Product System Foundation Partnership', path: 'Diagnostic → Foundation → Governance', arr: '~10%', risk: 'low', color: 'slate', desc: 'For organizations without a system of record. Build before governing.', expansion: false, accounts: ['Early-stage design system orgs', 'No engineering ownership yet'], commercialNote: 'Start with Diagnostic only. Do not propose platform until foundation exists.', tcv: '$50-60K diagnostic → $350-450K foundation', deploymentTiers: ['D1', 'D2'], deploymentNote: 'Typically cloud deployment. Rarely requires Phase 0.', primary: false },
-      { id: 'path2', internal: 'J2', name: 'Acceleration Path', extName: 'IPE Activation Sprint', path: 'Diagnostic → Rapid Activation', arr: '~5%', risk: 'low', color: 'blue', desc: 'For mature orgs with sudden trigger. Fast activation, minimal services.', expansion: true, accounts: ['Adobe-profile accounts', 'Enterprise rollout triggers'], commercialNote: 'Compress timeline, premium pricing. They need speed, not education.', tcv: '$50K diagnostic → $225-325K sprint', deploymentTiers: ['D1', 'D2'], deploymentNote: 'Speed is critical. Cloud-first unless security blocks.', primary: false },
-      { id: 'path3', internal: 'J3', name: 'Activation Path', extName: 'Activation-Focused Partnership', path: 'Diagnostic → (Phase 0) → Foundation → Activation → Intelligence', arr: '~60%', risk: 'high', color: 'emerald', desc: 'For high-value accounts blocked on activation. Full transformation.', expansion: false, accounts: ['PNC', 'Edward Jones', 'DoubleVerify', 'Qualcomm', 'GSK US', 'HealthEdge', 'CVS Health'], commercialNote: 'Two-phase deal minimum. D3/D4 accounts require Phase 0 (add $175-450K + 8-16 weeks).', tcv: '$740K-1.6M over 40-68 weeks (deployment-dependent)', deploymentTiers: ['D2', 'D3', 'D4'], deploymentNote: 'Most regulated accounts are D3. Always confirm deployment tier in Diagnostic.', primary: true },
-      { id: 'path4', internal: 'J4', name: 'Intelligence Path', extName: 'Intelligence Expansion Partnership', path: 'Diagnostic → MCP Activation → Expansion', arr: '~25%', risk: 'medium', color: 'violet', desc: 'For implemented accounts ready for AI enablement. Expansion-focused.', expansion: true, accounts: ['The Home Depot', 'CSX', 'GSK Global', 'Crown Equipment'], commercialNote: 'Trigger-dependent. Have proposal ready. Move fast when timing aligns.', tcv: '$165-325K MCP + platform expansion', deploymentTiers: ['D1', 'D2', 'D3'], deploymentNote: 'Existing deployment inherited. May require upgrade for MCP features.', primary: false }
-    ];
-
-    // Icon helper
-    function getIcon(name, size = 16) {
-      const icons = {
-        target: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>',
-        zap: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>',
-        'trending-up': '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline>',
-        shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>',
-        layers: '<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline>',
-        activity: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>',
-        'git-branch': '<line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 01-9 9"></path>',
-        clock: '<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>',
-        'bar-chart-3': '<line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line>',
-        'check-circle-2': '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>',
-        'x-circle': '<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>',
-        'alert-triangle': '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line>',
-        lock: '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>',
-        unlock: '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><circle cx="12" cy="16" r="1"></circle><path d="M7 11V7a5 5 0 0 1 9.9-1"></path>',
-        'building-2': '<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M6 12h16"></path><path d="M6 6h4"></path><path d="M6 18h4"></path><path d="M10 10h4"></path><path d="M10 14h4"></path><path d="M10 22h4"></path>',
-        'arrow-right': '<line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>',
-        star: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>',
-        'chevron-right': '<polyline points="9 18 15 12 9 6"></polyline>',
-        'chevron-down': '<polyline points="6 9 12 15 18 9"></polyline>',
-        users: '<path d="M17 21v-2a4 4 0 0 0-3-3.87"></path><path d="M7 21v-2a4 4 0 0 1 3-3.87"></path><circle cx="9" cy="7" r="3"></circle><circle cx="15" cy="7" r="3"></circle>',
-      };
-      return `<svg class="icon" style="width: ${size}px; height: ${size}px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">${icons[name] || ''}</svg>`;
+    // Show section
+    function showSection(sectionId) {
+      state.activeSection = sectionId;
+      
+      // Update nav
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      event.target.closest('.nav-item').classList.add('active');
+      
+      // Update sections
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(sectionId).classList.add('active');
     }
 
-    // State management functions
-    function setActiveSection(section) {
-      state.activeSection = section;
-      render();
-    }
-
+    // Toggle rate card modal
     function toggleRateCard() {
       state.showRateCard = !state.showRateCard;
       const modal = document.getElementById('rate-card-modal');
       if (state.showRateCard) {
-        modal.classList.remove('hidden');
+        modal.classList.add('active');
       } else {
-        modal.classList.add('hidden');
+        modal.classList.remove('active');
       }
     }
 
-    function toggleJourney(journeyId) {
-      state.selectedJourney = state.selectedJourney === journeyId ? null : journeyId;
-      render();
+    // Toggle archetype card
+    function toggleArchetype(card) {
+      card.classList.toggle('expanded');
     }
 
-    function togglePhase(phaseNum) {
-      state.selectedPhase = state.selectedPhase === phaseNum ? null : phaseNum;
-      render();
+    // Toggle journey card
+    function toggleJourney(card) {
+      card.classList.toggle('expanded');
     }
 
-    function toggleQuadrant(quadrant) {
-      state.selectedQuadrant = state.selectedQuadrant === quadrant ? null : quadrant;
-      render();
+    // Toggle phase card
+    function togglePhase(card) {
+      card.classList.toggle('expanded');
     }
-
-    // Render functions
-    function renderNav() {
-      const nav = document.getElementById('sections-nav');
-      nav.innerHTML = sections.map(s => `
-        <button onclick="setActiveSection('${s.id}')" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all ${state.activeSection === s.id ? 'bg-emerald-600 text-white' : 'text-slate-300 hover:bg-slate-800'}">
-          ${getIcon(s.icon, 16)}
-          ${s.label}
-        </button>
-      `).join('');
-    }
-
-    function renderRateCard() {
-      const tbody = document.getElementById('rate-card-body');
-      tbody.innerHTML = rateCard.map(r => `
-        <tr>
-          <td class="px-3 py-2">${r.role}</td>
-          <td class="px-3 py-2 text-right font-semibold text-emerald-600">$${r.rate}</td>
-        </tr>
-      `).join('');
-    }
-
-    function renderContent() {
-      const container = document.getElementById('content-sections');
-      let html = '';
-
-      // Vision & Market
-      if (state.activeSection === 'vision') {
-        html = `
-          <div class="space-y-6 max-w-5xl">
-            <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6">
-              <p class="text-emerald-400 text-sm font-semibold mb-2">THE STRATEGIC NORTH STAR</p>
-              <h2 class="text-2xl font-bold mb-3">Knapsack is the governable control plane for AI-assisted product delivery.</h2>
-              <p class="text-slate-300">We convert fragmented product knowledge into executable intelligence that AI can use safely—giving enterprises the confidence to let AI act, not just advise.</p>
-            </div>
-            <div class="grid grid-cols-3 gap-4">
-              <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
-                <p class="text-xs text-emerald-600 font-semibold mb-1">Market Position</p>
-                <p class="font-medium text-emerald-800">First-mover in "digital thread" category</p>
-              </div>
-              <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
-                <p class="text-xs text-blue-600 font-semibold mb-1">Primary ICP</p>
-                <p class="font-medium text-blue-800">Enterprise product teams at AI adoption inflection</p>
-              </div>
-              <div class="bg-violet-50 border border-violet-200 rounded-xl p-4">
-                <p class="text-xs text-violet-600 font-semibold mb-1">Core Differentiator</p>
-                <p class="font-medium text-violet-800">MCP + Governance = Safe AI execution</p>
-              </div>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4 flex items-center gap-2">${getIcon('target', 18)}<span class="text-emerald-600">Why Now? The AI Execution Gap</span></h3>
-              <div class="grid grid-cols-2 gap-4">
-                <div class="bg-rose-50 rounded-lg p-4">
-                  <p class="text-xs text-rose-600 font-semibold mb-2">THE PROBLEM</p>
-                  <p class="text-sm text-rose-700">AI can generate code and content at scale—but enterprises can't let it <em>act</em> without governance. The gap between "AI can do this" and "we'll let AI do this" is massive.</p>
-                </div>
-                <div class="bg-emerald-50 rounded-lg p-4">
-                  <p class="text-xs text-emerald-600 font-semibold mb-2">OUR SOLUTION</p>
-                  <p class="text-sm text-emerald-700">Knapsack provides the governance layer that makes AI execution safe. MCP bridges intent and action. The control plane enforces rules. Result: AI that enterprises actually trust.</p>
-                </div>
-              </div>
-            </div>
-            <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
-              <h3 class="font-semibold text-amber-800 mb-2 flex items-center gap-2">${getIcon('alert-triangle', 18)} The Critical Insight</h3>
-              <p class="text-amber-800 font-medium">"Implemented" does not equal "Activated."</p>
-              <p class="text-sm text-amber-700 mt-2">Most of our existing customers have Knapsack installed but aren't extracting value. The path to revenue is activation (J3), not new logos. Services capacity is the bottleneck.</p>
-            </div>
-          </div>
-        `;
-      }
-
-      // GTM Positioning
-      if (state.activeSection === 'positioning') {
-        html = `
-          <div class="space-y-6 max-w-5xl">
-            <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl p-6">
-              <p class="text-emerald-200 text-sm font-semibold mb-2">POSITIONING FRAMEWORK</p>
-              <h2 class="text-xl font-bold mb-2">Speak to outcomes, not features. Sell governance, not design systems.</h2>
-              <p class="text-emerald-100">For regulated industries, lead with risk reduction and compliance. For tech, lead with velocity and AI enablement.</p>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="bg-white rounded-xl border p-5">
-                <h3 class="font-semibold mb-3 text-emerald-700">✓ Language That Resonates</h3>
-                <div class="space-y-2 text-sm">
-                  ${['"Governable control plane"', '"Model Risk Management for product systems"', '"AI execution with enterprise guardrails"', '"From intent to production, governed"', '"Operational resilience through consistency"'].map(item => `
-                    <div class="flex items-center gap-2 text-slate-700">
-                      ${getIcon('check-circle-2', 14)}
-                      ${item}
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-              <div class="bg-white rounded-xl border p-5">
-                <h3 class="font-semibold mb-3 text-rose-700">✗ Language to Avoid</h3>
-                <div class="space-y-2 text-sm">
-                  ${['"Design system management"', '"Component library"', '"Figma plugin"', '"Engagement model"', '"Meet you where you are"'].map(item => `
-                    <div class="flex items-center gap-2 text-slate-700">
-                      ${getIcon('x-circle', 14)}
-                      ${item}
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4">Industry-Specific Messaging</h3>
-              <div class="grid grid-cols-2 gap-4">
-                ${[
-                  { industry: 'Financial Services', hook: 'Model Risk Management', message: 'Auditable AI governance for product delivery', regs: ['OCC Guidelines', 'SR 11-7', 'BCBS 239'] },
-                  { industry: 'Healthcare', hook: 'Operational Resilience', message: 'Consistent, compliant digital experiences at scale', regs: ['HIPAA', 'FDA 21 CFR Part 11', 'HITRUST'] },
-                  { industry: 'Enterprise Tech', hook: 'AI Velocity', message: 'Ship faster with governed AI execution', regs: ['SOC 2', 'ISO 27001', 'GDPR'] },
-                  { industry: 'Manufacturing', hook: 'Digital Thread', message: 'Connected product experience from design to delivery', regs: ['ISO 9001', 'IATF 16949'] }
-                ].map(item => `
-                  <div class="bg-slate-50 rounded-lg p-4">
-                    <p class="text-xs text-slate-500 mb-1">${item.industry}</p>
-                    <p class="font-semibold text-slate-800 mb-1">${item.hook}</p>
-                    <p class="text-sm text-slate-600 mb-2">${item.message}</p>
-                    <div class="flex flex-wrap gap-1">
-                      ${item.regs.map(reg => `<span class="text-xs px-2 py-0.5 bg-slate-200 rounded">${reg}</span>`).join('')}
-                    </div>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      // Commercial Model
-      if (state.activeSection === 'commercial') {
-        html = `
-          <div class="space-y-6 max-w-5xl">
-            <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl p-6">
-              <p class="text-emerald-200 text-sm font-semibold mb-2">COMMERCIAL FRAMEWORK</p>
-              <h2 class="text-xl font-bold mb-2">Value-based pricing. Phase-gated deals. Outcome-anchored proposals.</h2>
-              <p class="text-emerald-100">Never sell hours. Sell transformation phases with clear exit criteria and expansion triggers.</p>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4">Assessment → Investment Path</h3>
-              <div class="flex items-center gap-3 overflow-x-auto pb-2">
-                ${[
-                  { stage: 'DIAGNOSTIC', duration: '2-4 weeks', output: 'Readiness Score + Gap Analysis + Deployment Tier', price: '$50-60K', color: 'slate' },
-                  { stage: 'INVESTMENT PATH', duration: '1 week', output: 'Prioritized Roadmap + Deployment-Adjusted Proposal', price: 'Included', color: 'blue' },
-                  { stage: 'PARTNERSHIP', duration: '6-52 weeks', output: 'Phase 0 (if D3/D4) + Activation + Platform + Intelligence', price: '$350K-$2M+', color: 'emerald' }
-                ].map((s, i) => `
-                  ${i > 0 ? `<div class="flex-shrink-0">${getIcon('arrow-right', 24)}</div>` : ''}
-                  <div class="flex-shrink-0 rounded-lg p-4 min-w-56 ${s.color === 'slate' ? 'bg-slate-100' : s.color === 'blue' ? 'bg-blue-100' : 'bg-emerald-100'}">
-                    <p class="text-xs font-semibold mb-1 ${s.color === 'slate' ? 'text-slate-600' : s.color === 'blue' ? 'text-blue-600' : 'text-emerald-600'}">${s.stage}</p>
-                    <p class="text-xs text-slate-500 mb-2">${s.duration}</p>
-                    <p class="text-sm text-slate-700 mb-2">${s.output}</p>
-                    <p class="font-bold">${s.price}</p>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4">Profile → Investment Path → TCV</h3>
-              <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                  <thead class="bg-slate-50">
-                    <tr>
-                      <th class="text-left px-4 py-2">Customer Profile</th>
-                      <th class="text-left px-4 py-2">Gap</th>
-                      <th class="text-left px-4 py-2">Path</th>
-                      <th class="text-left px-4 py-2">Starting Point</th>
-                      <th class="text-right px-4 py-2">TCV Range</th>
-                    </tr>
-                  </thead>
-                  <tbody class="divide-y">
-                    ${[
-                      { profile: 'Foundation-Building', gap: 'No system of record, scattered components', path: 'Build → Govern → Activate', start: 'Design System Foundation Sprint', tcv: '$350-650K', color: 'slate' },
-                      { profile: 'Governance-Ready', gap: 'System exists but no decision authority', path: 'Govern → Activate → Scale', start: 'Control Plane Implementation', tcv: '$450-850K', color: 'blue' },
-                      { profile: 'Activation-Blocked', gap: 'Implemented but not producing value', path: 'Activate → Measure → Expand', start: 'Activation Accelerator', tcv: '$225-500K', color: 'amber' },
-                      { profile: 'Intelligence-Ready', gap: 'Governed but no AI enablement', path: 'Enable → Integrate → Optimize', start: 'MCP Activation + Analytics', tcv: '$165-325K', color: 'emerald' },
-                      { profile: 'Expansion-Ready', gap: 'Active and growing', path: 'Expand → Optimize → Innovate', start: 'Platform Expansion', tcv: '$75-150K ARR uplift', color: 'violet' }
-                    ].map((row, i) => `
-                      <tr class="${row.color === 'emerald' ? 'bg-emerald-50' : ''}">
-                        <td class="px-4 py-3 font-medium">${row.profile}</td>
-                        <td class="px-4 py-3 text-slate-600">${row.gap}</td>
-                        <td class="px-4 py-3"><span class="px-2 py-1 rounded text-xs font-medium ${row.color === 'slate' ? 'bg-slate-100 text-slate-700' : row.color === 'blue' ? 'bg-blue-100 text-blue-700' : row.color === 'amber' ? 'bg-amber-100 text-amber-700' : row.color === 'emerald' ? 'bg-emerald-100 text-emerald-700' : 'bg-violet-100 text-violet-700'}">${row.path}</span></td>
-                        <td class="px-4 py-3">${row.start}</td>
-                        <td class="px-4 py-3 text-right font-semibold">${row.tcv}</td>
-                      </tr>
-                    `).join('')}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4 flex items-center gap-2">${getIcon('trending-up', 18)}<span class="text-violet-600">How to Price: Value-Based, Not Hours-Based</span></h3>
-              <div class="grid grid-cols-2 gap-4 mb-4">
-                <div class="bg-rose-50 rounded-lg p-4">
-                  <p class="text-xs text-rose-600 font-semibold uppercase tracking-wide mb-2">Don't Say</p>
-                  <div class="space-y-2">
-                    ${['"Our FDE rate is $550/hour"', '"This engagement is 560 hours"', '"The SOW includes 40 weeks of effort"'].map(item => `
-                      <div class="flex items-center gap-2 text-sm text-rose-700">
-                        ${getIcon('x-circle', 14)}
-                        ${item}
-                      </div>
-                    `).join('')}
-                  </div>
-                </div>
-                <div class="bg-emerald-50 rounded-lg p-4">
-                  <p class="text-xs text-emerald-600 font-semibold uppercase tracking-wide mb-2">Do Say</p>
-                  <div class="space-y-2">
-                    ${['"The Foundation Phase is $400K and includes..."', '"You\'ll have full AI governance in 6 months for $X"', '"The ROI at enterprise scale is 10-15x the investment"'].map(item => `
-                      <div class="flex items-center gap-2 text-sm text-emerald-700">
-                        ${getIcon('check-circle-2', 14)}
-                        ${item}
-                      </div>
-                    `).join('')}
-                  </div>
-                </div>
-              </div>
-              <div class="bg-slate-900 text-white rounded-lg p-4">
-                <h4 class="font-semibold mb-3">Pricing Philosophy</h4>
-                <div class="grid grid-cols-3 gap-4">
-                  ${[
-                    { principle: 'Anchor to Outcomes', desc: 'Price the value of governed AI execution, not the hours to get there', example: '"What\'s one production incident worth preventing?"' },
-                    { principle: 'Phase for Commitment', desc: 'Break large deals into phases that build trust and prove value', example: 'Foundation ($400K) → Scale ($275K) → Expand ($165K/yr)' },
-                    { principle: 'Tier by Urgency', desc: 'Premium pricing for fast timelines, standard for flexible ones', example: 'Standard: 20 weeks / Premium: 12 weeks (+30%)' }
-                  ].map(p => `
-                    <div class="bg-white/10 rounded-lg p-3">
-                      <p class="text-emerald-400 text-xs font-semibold mb-1">${p.principle}</p>
-                      <p class="text-slate-300 text-xs mb-2">${p.desc}</p>
-                      <p class="text-white text-xs italic">${p.example}</p>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4">Deal Packaging: Standard Offerings</h3>
-              <div class="grid grid-cols-4 gap-4">
-                ${[
-                  { name: 'IPE Readiness Diagnostic', desc: 'Current state baseline + gap analysis + investment path recommendation', price: '$50-60K', timeline: '2-4 weeks', includes: ['Stakeholder interviews', 'System audit', 'Readiness scorecard', 'Prioritized roadmap'], color: 'slate' },
-                  { name: 'Foundation Partnership', desc: 'For Activation-Blocked accounts. Build the system of record.', price: '$350-450K', timeline: '16-20 weeks', includes: ['Platform implementation', 'Governance framework', 'Team enablement', 'Production deployment'], color: 'blue' },
-                  { name: 'Activation Accelerator', desc: 'For Governance-Ready accounts. Unlock trapped value.', price: '$225-325K', timeline: '12-16 weeks', includes: ['Control plane setup', 'Signal instrumentation', 'MCP integration', 'ROI dashboard'], color: 'emerald' },
-                  { name: 'Intelligence Partnership', desc: 'For Intelligence-Ready accounts. Full IPE activation.', price: '$165-225K', timeline: '8-12 weeks', includes: ['MCP onboarding', 'AI workflow design', 'Governance policies', 'Analytics + reporting'], color: 'violet' }
-                ].map(pkg => `
-                  <div class="rounded-lg border-2 p-4 ${pkg.color === 'slate' ? 'border-slate-300' : pkg.color === 'blue' ? 'border-blue-300' : pkg.color === 'emerald' ? 'border-emerald-300' : 'border-violet-300'}">
-                    <h4 class="font-semibold text-sm mb-1 ${pkg.color === 'slate' ? 'text-slate-700' : pkg.color === 'blue' ? 'text-blue-700' : pkg.color === 'emerald' ? 'text-emerald-700' : 'text-violet-700'}">${pkg.name}</h4>
-                    <p class="text-xs text-slate-500 mb-3">${pkg.desc}</p>
-                    <div class="flex items-center justify-between mb-3">
-                      <span class="text-lg font-bold">${pkg.price}</span>
-                      <span class="text-xs text-slate-500">${pkg.timeline}</span>
-                    </div>
-                    <div class="space-y-1">
-                      ${pkg.includes.map(item => `
-                        <div class="flex items-center gap-1 text-xs text-slate-600">
-                          ${getIcon('check-circle-2', 10)}
-                          ${item}
-                        </div>
-                      `).join('')}
-                    </div>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-            <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
-              <h3 class="font-semibold text-amber-800 mb-2 flex items-center gap-2">${getIcon('alert-triangle', 18)} Pricing Guardrails</h3>
-              <div class="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <p class="font-medium text-amber-800 mb-2">Never discount below:</p>
-                  <div class="space-y-1 text-amber-700">
-                    ${['Diagnostic: $40K (floor)', 'Foundation: $275K (floor)', 'Platform ARR: $75K (floor)'].map(item => `<p>• ${item}</p>`).join('')}
-                  </div>
-                </div>
-                <div>
-                  <p class="font-medium text-amber-800 mb-2">Always require:</p>
-                  <div class="space-y-1 text-amber-700">
-                    ${['Executive sponsor identified', 'Engineering owner assigned', 'Success metrics agreed', 'Phase gates defined'].map(item => `<p>• ${item}</p>`).join('')}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      // Deployment Options
-      if (state.activeSection === 'deployment') {
-        html = `
-          <div class="space-y-6 max-w-5xl">
-            <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6">
-              <p class="text-emerald-400 text-sm font-semibold mb-2">THE DEPLOYMENT THESIS</p>
-              <h2 class="text-xl font-bold mb-2">Deployment complexity is a deal accelerator, not a blocker—if priced and scoped correctly.</h2>
-              <p class="text-slate-300">Regulated industries need governed AI more urgently than anyone. Their deployment requirements create premium pricing opportunities and deeper partnerships.</p>
-            </div>
-            <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
-              <h3 class="font-semibold text-amber-800 mb-2 flex items-center gap-2">${getIcon('alert-triangle', 18)} Why Deployment Matters for IPE</h3>
-              <p class="text-sm text-amber-700 mb-3">For highly regulated industries (Financial Services, Healthcare, Defense), deployment is the first trust gate. Get it wrong, and activation never happens:</p>
-              <div class="grid grid-cols-3 gap-3">
-                ${[
-                  { issue: 'Data residency requirements', impact: 'Multi-tenant cloud is non-starter', solution: 'Private Cloud / Self-Hosted options' },
-                  { issue: 'Network isolation mandates', impact: 'Public endpoints blocked by InfoSec', solution: 'VPC deployment with private endpoints' },
-                  { issue: 'Vendor security reviews', impact: '3-6 month procurement cycles', solution: 'Pre-built compliance packages' }
-                ].map(item => `
-                  <div class="bg-white rounded-lg p-3">
-                    <p class="text-xs text-amber-600 font-semibold mb-1">${item.issue}</p>
-                    <p class="text-xs text-slate-600 mb-2">${item.impact}</p>
-                    <p class="text-xs text-emerald-700 font-medium">→ ${item.solution}</p>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4">Deployment Tier Framework</h3>
-              <div class="space-y-4">
-                ${deploymentTiers.map(tier => `
-                  <div class="rounded-xl border-2 p-4 ${tier.color === 'slate' ? 'border-slate-200' : tier.color === 'blue' ? 'border-blue-200' : tier.color === 'amber' ? 'border-amber-200' : 'border-rose-200'}">
-                    <div class="flex items-start gap-4">
-                      <div class="w-12 h-12 rounded-lg flex items-center justify-center font-bold ${tier.color === 'slate' ? 'bg-slate-100 text-slate-700' : tier.color === 'blue' ? 'bg-blue-100 text-blue-700' : tier.color === 'amber' ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'}">
-                        ${tier.id}
-                      </div>
-                      <div class="flex-1">
-                        <div class="flex items-center gap-2 mb-1">
-                          <h4 class="font-semibold">${tier.name}</h4>
-                          <span class="text-xs text-slate-500">${tier.target}</span>
-                        </div>
-                        <div class="grid grid-cols-5 gap-4 text-sm">
-                          <div>
-                            <p class="text-xs text-slate-500">Data Location</p>
-                            <p class="text-slate-700">${tier.dataLocation}</p>
-                          </div>
-                          <div>
-                            <p class="text-xs text-slate-500">Compliance</p>
-                            <p class="text-slate-700">${tier.compliance.join(', ')}</p>
-                          </div>
-                          <div>
-                            <p class="text-xs text-slate-500">Deploy Time</p>
-                            <p class="text-slate-700">${tier.deployTime}</p>
-                          </div>
-                          <div>
-                            <p class="text-xs text-slate-500">Platform Premium</p>
-                            <p class="font-semibold text-emerald-600">${tier.platformPremium}</p>
-                          </div>
-                          <div>
-                            <p class="text-xs text-slate-500">Services Premium</p>
-                            <p class="font-semibold text-emerald-600">${tier.servicesPremium}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-            <div class="bg-slate-900 text-white rounded-xl p-5">
-              <h3 class="font-semibold mb-4 flex items-center gap-2">${getIcon('shield', 18)}<span class="text-amber-400">Phase 0: Deployment & Security (D3/D4 Only)</span></h3>
-              <p class="text-slate-300 text-sm mb-4">For D3 (Private Cloud) and D4 (Self-Hosted) customers, Phase 0 is required before Foundation can begin. This is non-negotiable.</p>
-              <div class="grid grid-cols-3 gap-4">
-                <div class="bg-white/10 rounded-lg p-4">
-                  <p class="text-amber-400 text-xs font-semibold mb-2">Workstreams</p>
-                  <div class="space-y-1 text-sm text-slate-300">
-                    ${['Environment provisioning', 'Security architecture', 'SSO/SCIM implementation', 'Vendor security questionnaire', 'Penetration testing coordination'].map(item => `<p>• ${item}</p>`).join('')}
-                  </div>
-                </div>
-                <div class="bg-white/10 rounded-lg p-4">
-                  <p class="text-amber-400 text-xs font-semibold mb-2">Exit Criteria</p>
-                  <div class="space-y-1 text-sm text-slate-300">
-                    ${['Environment provisioned & accessible', 'Security review approved', 'Network connectivity validated', 'Compliance attestation complete', 'InfoSec sign-off obtained'].map(item => `<p>• ${item}</p>`).join('')}
-                  </div>
-                </div>
-                <div class="bg-white/10 rounded-lg p-4">
-                  <p class="text-amber-400 text-xs font-semibold mb-2">Commercial Terms</p>
-                  <div class="space-y-2 text-sm">
-                    <div class="flex justify-between"><span class="text-slate-300">D3 Phase 0:</span><span class="text-white font-semibold">$175-225K</span></div>
-                    <div class="flex justify-between"><span class="text-slate-300">D4 Phase 0:</span><span class="text-white font-semibold">$350-450K</span></div>
-                    <div class="flex justify-between"><span class="text-slate-300">Timing:</span><span class="text-white">Invoice at kickoff</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="bg-white rounded-xl border-2 border-amber-300 p-5">
-              <h3 class="font-semibold mb-4 flex items-center gap-2">${getIcon('building-2', 18)}<span class="text-amber-600">Regulated Industry Pathway (Financial Services / Healthcare)</span></h3>
-              <p class="text-sm text-slate-600 mb-4">The complete commercial journey for accounts like PNC, Edward Jones, GSK, CVS Health:</p>
-              <div class="flex items-center gap-2 mb-4 overflow-x-auto pb-2">
-                ${[
-                  { phase: 'Diagnostic', price: '$50-60K', weeks: '3-4 wks', color: 'slate' },
-                  { phase: 'Phase 0: Deploy', price: '$175-350K', weeks: '8-16 wks', color: 'amber' },
-                  { phase: 'Phase 1: Foundation', price: '$350-450K', weeks: '16-20 wks', color: 'blue' },
-                  { phase: 'Phase 2: Activation', price: '$225-325K', weeks: '12-16 wks', color: 'emerald' },
-                  { phase: 'Phase 3: Intelligence', price: '$165-225K', weeks: '8-12 wks', color: 'violet' }
-                ].map((p, i) => `
-                  ${i > 0 ? `<div class="flex-shrink-0">${getIcon('arrow-right', 20)}</div>` : ''}
-                  <div class="flex-shrink-0 rounded-lg p-3 text-center min-w-28 ${p.color === 'slate' ? 'bg-slate-100' : p.color === 'amber' ? 'bg-amber-100' : p.color === 'blue' ? 'bg-blue-100' : p.color === 'emerald' ? 'bg-emerald-100' : 'bg-violet-100'}">
-                    <p class="text-xs font-semibold mb-1 ${p.color === 'slate' ? 'text-slate-600' : p.color === 'amber' ? 'text-amber-700' : p.color === 'blue' ? 'text-blue-700' : p.color === 'emerald' ? 'text-emerald-700' : 'text-violet-700'}">${p.phase}</p>
-                    <p class="font-bold text-sm">${p.price}</p>
-                    <p class="text-xs text-slate-500">${p.weeks}</p>
-                  </div>
-                `).join('')}
-              </div>
-              <div class="grid grid-cols-2 gap-4">
-                <div class="bg-emerald-50 rounded-lg p-4">
-                  <p class="text-xs text-emerald-600 font-semibold mb-2">Total Regulated Pathway TCV</p>
-                  <p class="text-2xl font-bold text-emerald-700">$1.1M - $1.6M</p>
-                  <p class="text-xs text-emerald-600 mt-1">+ Platform ARR ($100-200K annually)</p>
-                </div>
-                <div class="bg-amber-50 rounded-lg p-4">
-                  <p class="text-xs text-amber-600 font-semibold mb-2">Total Timeline</p>
-                  <p class="text-2xl font-bold text-amber-700">47-68 weeks</p>
-                  <p class="text-xs text-amber-600 mt-1">Plan for 12-18 month engagement</p>
-                </div>
-              </div>
-            </div>
-            <div class="bg-rose-50 border border-rose-200 rounded-xl p-5">
-              <h3 class="font-semibold text-rose-800 mb-2 flex items-center gap-2">${getIcon('alert-triangle', 18)} Deployment Pricing Guardrails</h3>
-              <div class="grid grid-cols-3 gap-4 text-sm">
-                <div>
-                  <p class="font-medium text-rose-800 mb-2">Never discount below:</p>
-                  <div class="space-y-1 text-rose-700">
-                    ${['Phase 0 (D3): $125K floor', 'Phase 0 (D4): $275K floor', 'Platform premium: Non-negotiable'].map(item => `<p>• ${item}</p>`).join('')}
-                  </div>
-                </div>
-                <div>
-                  <p class="font-medium text-rose-800 mb-2">Always scope separately:</p>
-                  <div class="space-y-1 text-rose-700">
-                    ${['Phase 0 as standalone phase', 'Security review coordination', 'Compliance documentation'].map(item => `<p>• ${item}</p>`).join('')}
-                  </div>
-                </div>
-                <div>
-                  <p class="font-medium text-rose-800 mb-2">Red flags:</p>
-                  <div class="space-y-1 text-rose-700">
-                    ${['"Can we skip Phase 0?"', '"Just give us cloud for now"', '"Security will approve later"'].map(item => `<p>• ${item}</p>`).join('')}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      // Maturity Model
-      if (state.activeSection === 'maturity') {
-        html = `
-          <div class="space-y-6 max-w-5xl">
-            <div class="bg-gradient-to-r from-violet-600 to-violet-700 text-white rounded-xl p-6">
-              <p class="text-violet-200 text-sm font-semibold mb-2">MATURITY FRAMEWORK</p>
-              <h2 class="text-xl font-bold mb-2">Five levels from Fragmented to Intelligent. MCP unlocks at Level 5.</h2>
-              <p class="text-violet-100">Maturity determines readiness. Readiness determines investment path. Never skip levels.</p>
-            </div>
-            <div class="space-y-3">
-              ${[
-                { level: 1, name: 'Fragmented', desc: 'Scattered components. No system of record. Design and engineering disconnected.', sam: '~$200M', mcpStatus: 'locked', color: 'slate', indicators: ['Multiple unofficial component libraries', 'No governance structure', 'High inconsistency in products'] },
-                { level: 2, name: 'Emerging', desc: 'Initial system exists. Limited adoption. No governance.', sam: '~$600M', mcpStatus: 'locked', color: 'blue', indicators: ['Design system exists but not enforced', 'Limited engineering adoption', 'Governance conversations starting'] },
-                { level: 3, name: 'Operational', desc: 'System deployed. Teams using it. Governance forming.', sam: '~$500M', mcpStatus: 'locked', color: 'amber', indicators: ['Active governance committee', 'Engineering integration in progress', 'Contribution model emerging'] },
-                { level: 4, name: 'Governed', desc: 'Full governance. Decision authority. Metrics established.', sam: '~$400M', mcpStatus: 'prep', color: 'emerald', indicators: ['Governance model enforced', 'Cross-product decisions flow through system', 'MCP preparation possible'] },
-                { level: 5, name: 'Intelligent', desc: 'AI-assisted execution. MCP active. Continuous optimization.', sam: '~$300M', mcpStatus: 'unlocked', color: 'violet', indicators: ['MCP integration active', 'AI-assisted workflows operational', 'Predictive governance in place'] }
-              ].map(m => `
-                <div class="bg-white rounded-xl border-2 p-4 ${m.color === 'slate' ? 'border-slate-200' : m.color === 'blue' ? 'border-blue-200' : m.color === 'amber' ? 'border-amber-200' : m.color === 'emerald' ? 'border-emerald-200' : 'border-violet-200'}">
-                  <div class="flex items-start gap-4">
-                    <div class="w-14 h-14 rounded-lg flex flex-col items-center justify-center ${m.color === 'slate' ? 'bg-slate-100' : m.color === 'blue' ? 'bg-blue-100' : m.color === 'amber' ? 'bg-amber-100' : m.color === 'emerald' ? 'bg-emerald-100' : 'bg-violet-100'}">
-                      <span class="text-xl font-bold ${m.color === 'slate' ? 'text-slate-600' : m.color === 'blue' ? 'text-blue-600' : m.color === 'amber' ? 'text-amber-600' : m.color === 'emerald' ? 'text-emerald-600' : 'text-violet-600'}">${m.level}</span>
-                    </div>
-                    <div class="flex-1">
-                      <div class="flex items-center gap-3 mb-1">
-                        <h4 class="font-semibold text-lg">${m.name}</h4>
-                        <span class="text-xs px-2 py-0.5 rounded ${m.mcpStatus === 'locked' ? 'bg-slate-200 text-slate-600' : m.mcpStatus === 'prep' ? 'bg-amber-200 text-amber-700' : 'bg-emerald-200 text-emerald-700'}">
-                          ${m.mcpStatus === 'locked' ? `${getIcon('lock', 10)} MCP Locked` : m.mcpStatus === 'prep' ? 'MCP Prep' : `${getIcon('unlock', 10)} MCP Ready`}
-                        </span>
-                        <span class="text-xs text-slate-500">SAM: ${m.sam}</span>
-                      </div>
-                      <p class="text-sm text-slate-600 mb-2">${m.desc}</p>
-                      <div class="flex flex-wrap gap-2">
-                        ${m.indicators.map(ind => `<span class="text-xs px-2 py-1 bg-slate-100 rounded text-slate-600">${ind}</span>`).join('')}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-            <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
-              <h3 class="font-semibold text-amber-800 mb-2 flex items-center gap-2">${getIcon('alert-triangle', 18)} Critical Insight</h3>
-              <p class="text-amber-800 font-medium mb-2">"Implemented" ≠ "Activated"</p>
-              <p class="text-sm text-amber-700">Most customers are stuck between Level 2-3. They have the platform but aren't getting value. J3 (Services Transformation) is the path to activation. This is where we make our margin.</p>
-            </div>
-          </div>
-        `;
-      }
-
-      // Assessment Framework
-      if (state.activeSection === 'assessment') {
-        html = `
-          <div class="space-y-6 max-w-5xl">
-            <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl p-6">
-              <p class="text-blue-200 text-sm font-semibold mb-2">ASSESSMENT FRAMEWORK</p>
-              <h2 class="text-xl font-bold mb-2">Score every account. Route by quadrant. Never skip assessment.</h2>
-              <p class="text-blue-100">The IPE Readiness Score (0-100) determines investment path. Assessment is non-negotiable.</p>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4">IPE Readiness Score Components</h3>
-              <div class="grid grid-cols-3 gap-4">
-                ${[
-                  { name: 'Product System Foundation', weight: '40%', maxPoints: 40, factors: ['Design system maturity', 'Engineering adoption', 'Governance structure', 'Documentation quality'] },
-                  { name: 'AI & Automation Readiness', weight: '30%', maxPoints: 30, factors: ['MCP compatibility', 'API maturity', 'Integration architecture', 'Data quality'] },
-                  { name: 'Organizational Readiness', weight: '30%', maxPoints: 30, factors: ['Executive sponsorship', 'Team capacity', 'Change management', 'Budget authority'] }
-                ].map(c => `
-                  <div class="bg-slate-50 rounded-lg p-4">
-                    <div class="flex items-center justify-between mb-2">
-                      <h4 class="font-medium">${c.name}</h4>
-                      <span class="text-sm font-bold text-emerald-600">${c.weight}</span>
-                    </div>
-                    <p class="text-xs text-slate-500 mb-3">Max ${c.maxPoints} points</p>
-                    <div class="space-y-1">
-                      ${c.factors.map(f => `
-                        <div class="flex items-center gap-2 text-xs text-slate-600">
-                          ${getIcon('check-circle-2', 10)}
-                          ${f}
-                        </div>
-                      `).join('')}
-                    </div>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4">Assessment Quadrant → Investment Path</h3>
-              <div class="grid grid-cols-2 gap-4">
-                ${[
-                  { quadrant: 'A', label: 'High Readiness + High Value', path: 'J4 (Intelligence)', color: 'violet', action: 'Fast-track to MCP', score: '70-100', desc: 'Ready for AI enablement' },
-                  { quadrant: 'B', label: 'Low Readiness + High Value', path: 'J3 (Activation)', color: 'emerald', action: 'Invest in transformation', score: '40-69', desc: 'Primary investment target' },
-                  { quadrant: 'C', label: 'High Readiness + Low Value', path: 'J2 (Acceleration)', color: 'blue', action: 'Quick activation sprint', score: '70-100', desc: 'Fast but limited scope' },
-                  { quadrant: 'D', label: 'Low Readiness + Low Value', path: 'J1 (Foundation)', color: 'slate', action: 'Diagnostic only', score: '0-39', desc: 'Monitor, don\'t invest' }
-                ].map(q => `
-                  <div onclick="toggleQuadrant('${q.quadrant}')" class="rounded-xl border-2 p-4 cursor-pointer transition-all ${q.color === 'violet' ? 'border-violet-300 hover:border-violet-400' : q.color === 'emerald' ? 'border-emerald-300 hover:border-emerald-400' : q.color === 'blue' ? 'border-blue-300 hover:border-blue-400' : 'border-slate-300 hover:border-slate-400'} ${state.selectedQuadrant === q.quadrant ? 'ring-2 ring-offset-2 ring-slate-300' : ''}">
-                    <div class="flex items-start gap-3">
-                      <div class="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-lg ${q.color === 'violet' ? 'bg-violet-100 text-violet-700' : q.color === 'emerald' ? 'bg-emerald-100 text-emerald-700' : q.color === 'blue' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-700'}">
-                        ${q.quadrant}
-                      </div>
-                      <div class="flex-1">
-                        <p class="text-xs text-slate-500">${q.label}</p>
-                        <p class="font-semibold">${q.path}</p>
-                        <p class="text-sm text-slate-600 mt-1">${q.desc}</p>
-                        <div class="flex items-center justify-between mt-2">
-                          <span class="text-xs px-2 py-1 bg-slate-100 rounded">Score: ${q.score}</span>
-                          <span class="text-xs font-medium ${q.color === 'emerald' ? 'text-emerald-600' : 'text-slate-500'}">${q.action}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      // Investment Paths (Journeys)
-      if (state.activeSection === 'journeys') {
-        html = `
-          <div class="space-y-6 max-w-5xl">
-            <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl p-6">
-              <p class="text-emerald-200 text-sm font-semibold mb-2">INVESTMENT PATHS</p>
-              <h2 class="text-xl font-bold mb-2">Four paths. One routing rule. J3 is the money.</h2>
-              <p class="text-emerald-100">The investment path is how they get to governed AI. The partnership is right-sized to their readiness, capacity, and deployment requirements.</p>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
-                <div class="flex items-center gap-3">
-                  ${getIcon('star', 20)}
-                  <div>
-                    <p class="font-semibold text-emerald-800">Path 3 (Activation-Focused) holds the majority of ARR and meaningful churn risk</p>
-                    <p class="text-sm text-emerald-700">Services capacity is the growth bottleneck—not top-of-funnel</p>
-                  </div>
-                </div>
-              </div>
-              <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
-                <div class="flex items-center gap-3">
-                  ${getIcon('shield', 20)}
-                  <div>
-                    <p class="font-semibold text-amber-800">Deployment tier (D1-D4) significantly impacts timeline and TCV</p>
-                    <p class="text-sm text-amber-700">Regulated industries (D3/D4) require Phase 0 before Foundation</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="space-y-4">
-              ${journeys.map(p => `
-                <div onclick="toggleJourney('${p.id}')" class="bg-white rounded-xl border-2 p-5 cursor-pointer transition-all ${p.primary ? 'border-emerald-500' : 'border-slate-200'} ${state.selectedJourney === p.id ? 'shadow-lg ring-2 ring-offset-2 ring-slate-300' : 'hover:shadow-md'}">
-                  <div class="flex items-start gap-4">
-                    <div class="w-14 h-14 rounded-lg flex flex-col items-center justify-center font-bold ${p.color === 'slate' ? 'bg-slate-100 text-slate-700' : p.color === 'blue' ? 'bg-blue-100 text-blue-700' : p.color === 'emerald' ? 'bg-emerald-100 text-emerald-700' : 'bg-violet-100 text-violet-700'} ${p.primary ? 'ring-2 ring-emerald-500' : ''}">
-                      <span class="text-lg">${p.internal}</span>
-                    </div>
-                    <div class="flex-1">
-                      <div class="flex items-center gap-2 mb-1">
-                        <h4 class="font-semibold text-lg">${p.name}</h4>
-                        ${p.primary ? '<span class="text-xs px-2 py-0.5 bg-emerald-500 text-white rounded">PRIMARY</span>' : ''}
-                        <span class="text-xs px-2 py-0.5 rounded ${p.risk === 'low' ? 'bg-slate-200 text-slate-600' : p.risk === 'medium' ? 'bg-amber-200 text-amber-700' : 'bg-rose-200 text-rose-700'}">${p.risk} risk</span>
-                        <span class="text-xs text-slate-500">ARR: ${p.arr}</span>
-                      </div>
-                      <p class="text-sm text-slate-600 mb-2">${p.desc}</p>
-                      <div class="flex items-center gap-4 text-sm">
-                        <span class="font-mono text-xs bg-slate-100 px-2 py-1 rounded">${p.path}</span>
-                        <span class="font-semibold ${p.expansion ? 'text-emerald-600' : 'text-rose-600'}">
-                          ${p.expansion ? `${getIcon('unlock', 12)} Expansion OK` : `${getIcon('lock', 12)} Expansion Blocked`}
-                        </span>
-                      </div>
-                      ${state.selectedJourney === p.id ? `
-                        <div class="mt-4 pt-4 border-t space-y-3">
-                          <div>
-                            <p class="text-xs text-slate-500 font-semibold">Example Accounts</p>
-                            <div class="flex flex-wrap gap-1 mt-1">
-                              ${p.accounts.map(a => `<span class="text-xs px-2 py-1 bg-slate-100 rounded">${a}</span>`).join('')}
-                            </div>
-                          </div>
-                          <div>
-                            <p class="text-xs text-slate-500 font-semibold">Commercial Note</p>
-                            <p class="text-sm text-slate-700">${p.commercialNote}</p>
-                          </div>
-                          <div class="flex items-center justify-between">
-                            <div>
-                              <p class="text-xs text-slate-500 font-semibold">TCV Range</p>
-                              <p class="text-lg font-bold text-emerald-600">${p.tcv}</p>
-                            </div>
-                            <div>
-                              <p class="text-xs text-slate-500 font-semibold">Deployment Tiers</p>
-                              <div class="flex gap-1 mt-1">
-                                ${p.deploymentTiers.map(t => `<span class="text-xs px-2 py-1 bg-slate-200 rounded font-mono">${t}</span>`).join('')}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ` : ''}
-                    </div>
-                    <div class="flex-shrink-0">
-                      ${getIcon('chevron-right', 20)}
-                    </div>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
-      }
-
-      // Partnership Phases
-      if (state.activeSection === 'phases') {
-        html = `
-          <div class="space-y-6 max-w-5xl">
-            <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl p-6">
-              <p class="text-blue-200 text-sm font-semibold mb-2">PARTNERSHIP PHASES</p>
-              <h2 class="text-xl font-bold mb-2">Phase-gated delivery. Clear exit criteria. Never sell all phases upfront.</h2>
-              <p class="text-blue-100">Earn the right to the next phase. Each phase builds trust and proves value.</p>
-              <div class="grid grid-cols-4 gap-3 mt-4">
-                ${[
-                  { phase: 'Foundation', price: '$350-450K', weeks: '16-20' },
-                  { phase: 'Activation', price: '$225-325K', weeks: '12-16' },
-                  { phase: 'Intelligence', price: '$165-225K', weeks: '8-12' },
-                  { phase: 'Expansion', price: 'Platform ARR', weeks: 'Ongoing' }
-                ].map(p => `
-                  <div class="bg-white/10 rounded-lg p-3 text-center">
-                    <p class="text-blue-200 text-xs">${p.phase}</p>
-                    <p class="font-bold">${p.price}</p>
-                    <p class="text-blue-300 text-xs">${p.weeks}</p>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-            <div class="space-y-4">
-              ${[
-                { num: 1, name: 'Foundation Phase', extName: 'Product System Foundation', level: 'Maturity 3 → Operational', mcp: 'locked', color: 'blue', price: '$350-450K', weeks: '16-20 weeks', goal: 'Make the platform reliably usable for real teams, without heroics.', workstreams: ['Workspace deployment', 'Entitlement & access setup', 'Design-to-code connection', 'Governance framework draft'], exitCriteria: ['Teams can publish without intervention', 'Access no longer blocking work', 'First component shipped to production'], commercialTrigger: 'Invoice 50% at kickoff, 50% at Phase Gate 1 completion', upsell: 'Activation Phase proposal ready at week 14' },
-                { num: 2, name: 'Activation Phase', extName: 'Control Plane Activation', level: 'Maturity 3 → Level 4', mcp: 'locked', color: 'emerald', price: '$225-325K', weeks: '12-16 weeks', goal: 'Turn "systems" into a system of record with decision authority.', workstreams: ['Token strategy implementation', 'Governance model activation', 'Cross-system rules', 'Signal instrumentation'], exitCriteria: ['Token strategy approved & operating', 'Governance model active', 'Decisions flowing through system'], commercialTrigger: 'Propose Intelligence Phase at week 10', upsell: 'MCP readiness assessment included' },
-                { num: 3, name: 'Intelligence Phase', extName: 'AI Enablement Partnership', level: 'Level 4 → Level 5', mcp: 'prep', color: 'amber', price: '$165-225K', weeks: '8-12 weeks', goal: 'Prove that governed intent can safely become AI-assisted execution.', workstreams: ['MCP integration', 'AI workflow design', 'Testing architecture', 'Change validation framework'], exitCriteria: ['One AI-assisted change ships end-to-end', 'Teams trust the governed output', 'Exec ROI story documented'], commercialTrigger: 'Platform expansion proposal at week 8', upsell: 'Enterprise rollout scoping' },
-                { num: 4, name: 'Scale Phase', extName: 'Enterprise Expansion', level: 'Level 5 Operating', mcp: 'unlocked', color: 'violet', price: 'Platform ARR + Services', weeks: 'Ongoing', goal: 'Scale intelligence across the organization with measurable ROI.', workstreams: ['Additional team onboarding', 'Cross-BU deployment', 'Advanced analytics', 'Optimization cycles'], exitCriteria: ['10+ teams active', 'ROI metrics published', 'Self-service operating'], commercialTrigger: 'Annual platform renewal + expansion', upsell: 'Multi-year strategic partnership' }
-              ].map(phase => `
-                <div onclick="togglePhase(${phase.num})" class="bg-white rounded-xl border-2 p-5 cursor-pointer transition-all ${phase.color === 'blue' ? 'border-blue-200' : phase.color === 'emerald' ? 'border-emerald-200' : phase.color === 'amber' ? 'border-amber-200' : 'border-violet-200'} ${state.selectedPhase === phase.num ? 'shadow-lg' : 'hover:shadow-md'}">
-                  <div class="flex items-start gap-4">
-                    <div class="w-14 h-14 rounded-lg flex flex-col items-center justify-center ${phase.color === 'blue' ? 'bg-blue-100' : phase.color === 'emerald' ? 'bg-emerald-100' : phase.color === 'amber' ? 'bg-amber-100' : 'bg-violet-100'}">
-                      <span class="text-2xl font-bold ${phase.color === 'blue' ? 'text-blue-600' : phase.color === 'emerald' ? 'text-emerald-600' : phase.color === 'amber' ? 'text-amber-600' : 'text-violet-600'}">${phase.num}</span>
-                    </div>
-                    <div class="flex-1">
-                      <div class="flex items-center gap-3 mb-1">
-                        <h4 class="font-semibold text-lg">${phase.name}</h4>
-                        <span class="text-xs px-2 py-0.5 rounded ${phase.mcp === 'locked' ? 'bg-slate-200 text-slate-600' : phase.mcp === 'prep' ? 'bg-amber-200 text-amber-700' : 'bg-emerald-200 text-emerald-700'}">
-                          ${phase.mcp === 'locked' ? `${getIcon('lock', 10)} MCP Locked` : phase.mcp === 'prep' ? 'MCP Prep' : `${getIcon('unlock', 10)} MCP Active`}
-                        </span>
-                        <span class="text-xs text-slate-500">${phase.level}</span>
-                      </div>
-                      <div class="flex items-center gap-4 mb-2">
-                        <span class="text-lg font-bold text-emerald-600">${phase.price}</span>
-                        <span class="text-sm text-slate-500">${phase.weeks}</span>
-                      </div>
-                      <p class="text-sm text-slate-600">${phase.goal}</p>
-                      ${state.selectedPhase === phase.num ? `
-                        <div class="mt-4 pt-4 border-t grid grid-cols-2 gap-4">
-                          <div>
-                            <p class="text-xs text-slate-500 font-semibold mb-2">Workstreams</p>
-                            <div class="space-y-1">
-                              ${phase.workstreams.map(w => `<p class="text-sm text-slate-700">• ${w}</p>`).join('')}
-                            </div>
-                          </div>
-                          <div>
-                            <p class="text-xs text-slate-500 font-semibold mb-2">Exit Criteria</p>
-                            <div class="space-y-1">
-                              ${phase.exitCriteria.map(e => `
-                                <p class="text-sm text-slate-700 flex items-center gap-1">
-                                  ${getIcon('check-circle-2', 12)}
-                                  ${e}
-                                </p>
-                              `).join('')}
-                            </div>
-                          </div>
-                          <div class="col-span-2 bg-slate-50 rounded-lg p-3">
-                            <p class="text-xs text-slate-500 font-semibold">Commercial Trigger</p>
-                            <p class="text-sm text-slate-700">${phase.commercialTrigger}</p>
-                            <p class="text-xs text-emerald-600 mt-1">Upsell: ${phase.upsell}</p>
-                          </div>
-                        </div>
-                      ` : ''}
-                    </div>
-                    <div class="flex-shrink-0">
-                      ${getIcon('chevron-right', 20)}
-                    </div>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
-      }
-
-      // Operating Guidance
-      if (state.activeSection === 'guidance') {
-        html = `
-          <div class="space-y-6 max-w-5xl">
-            <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6">
-              <p class="text-emerald-400 text-sm font-semibold mb-2">OPERATING GUIDANCE</p>
-              <h2 class="text-xl font-bold mb-2">Stop treating all accounts equally. Invest where it matters.</h2>
-              <p class="text-slate-300">Path 3 holds the majority of ARR and churn risk. Services capacity is the bottleneck. Focus there.</p>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4">Where to Place Bets</h3>
-              <div class="space-y-2">
-                ${[
-                  { path: 'Path 1 (Foundation)', desc: 'Diagnostic only. Monitor for maturation signals.', action: 'Minimal investment', primary: false },
-                  { path: 'Path 2 (Acceleration)', desc: 'Quick sprint when trigger fires. Premium pricing justified.', action: 'Compress timeline, charge premium', primary: false },
-                  { path: 'Path 3 (Activation)', desc: '60% of ARR, highest churn risk. Requires deep services investment.', action: 'PRIMARY FOCUS - scale services capacity', primary: true },
-                  { path: 'Path 4 (Intelligence)', desc: 'Expansion-ready when timing aligns. Have proposal ready.', action: 'Opportunistic, fast close', primary: false }
-                ].map(b => `
-                  <div class="flex items-center gap-3 p-3 rounded-lg ${b.primary ? 'bg-emerald-50 border border-emerald-200' : 'bg-slate-50'}">
-                    <span class="font-bold w-36 ${b.primary ? 'text-emerald-700' : 'text-slate-700'}">${b.path}</span>
-                    <span class="text-sm flex-1 ${b.primary ? 'text-emerald-700' : 'text-slate-600'}">${b.desc}</span>
-                    <span class="text-xs px-2 py-1 rounded ${b.primary ? 'bg-emerald-200 text-emerald-800' : 'bg-slate-200 text-slate-600'}">${b.action}</span>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="bg-rose-50 border border-rose-200 rounded-xl p-5">
-                <h3 class="font-semibold text-rose-800 mb-3 flex items-center gap-2">${getIcon('x-circle', 18)} What to STOP Doing</h3>
-                <div class="space-y-2">
-                  ${['Treating MCP Support as a substitute for activation', 'Treating "implemented" as "successful"', 'Running long implementations without ownership', 'Over-serving non-ICP accounts', 'Using internal language with customers', 'Selling hours instead of outcomes', 'Proposing all phases upfront', 'Discounting below floor pricing'].map(item => `
-                    <div class="flex items-start gap-2 text-sm text-rose-700">
-                      <span class="font-bold">✗</span>
-                      ${item}
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-              <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5">
-                <h3 class="font-semibold text-emerald-800 mb-3 flex items-center gap-2">${getIcon('check-circle-2', 18)} What to START Doing</h3>
-                <div class="space-y-2">
-                  ${['Gate all work by maturity phase', 'Require Account State Flags in CRM', 'Apply the routing rule without exception', 'Invest services capacity in Path 3', 'Use governance language with customers', 'Price by value and outcome', 'Phase-gate every deal', 'Hold pricing floors firm'].map(item => `
-                    <div class="flex items-start gap-2 text-sm text-emerald-700">
-                      <span class="font-bold">✓</span>
-                      ${item}
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4">Commercial Guardrails</h3>
-              <div class="grid grid-cols-3 gap-4">
-                <div class="bg-rose-50 rounded-lg p-4">
-                  <p class="text-xs text-rose-600 font-semibold mb-2">Pricing Floors</p>
-                  <div class="space-y-1 text-sm text-rose-700">
-                    <p>• Diagnostic: $40K minimum</p>
-                    <p>• Foundation: $275K minimum</p>
-                    <p>• Platform ARR: $75K minimum</p>
-                  </div>
-                </div>
-                <div class="bg-amber-50 rounded-lg p-4">
-                  <p class="text-xs text-amber-600 font-semibold mb-2">Deal Requirements</p>
-                  <div class="space-y-1 text-sm text-amber-700">
-                    <p>• Executive sponsor identified</p>
-                    <p>• Engineering owner assigned</p>
-                    <p>• Success metrics agreed</p>
-                  </div>
-                </div>
-                <div class="bg-emerald-50 rounded-lg p-4">
-                  <p class="text-xs text-emerald-600 font-semibold mb-2">Phase Gate Rules</p>
-                  <div class="space-y-1 text-sm text-emerald-700">
-                    <p>• Never skip assessment</p>
-                    <p>• Complete before expansion</p>
-                    <p>• Earn next phase</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      // Metrics
-      if (state.activeSection === 'metrics') {
-        html = `
-          <div class="space-y-6 max-w-5xl">
-            <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl p-6">
-              <p class="text-emerald-200 text-sm font-semibold mb-2">SUCCESS METRICS</p>
-              <h2 class="text-xl font-bold mb-2">Measure what matters. Activation depth, not vanity metrics.</h2>
-              <p class="text-emerald-100">Track progression through maturity levels, not just contract value.</p>
-            </div>
-            <div class="grid grid-cols-3 gap-4">
-              ${[
-                { category: 'Activation Metrics', color: 'emerald', metrics: ['Time to first production use', 'Teams actively using platform', 'Governance decisions/month', 'Signal instrumentation %'] },
-                { category: 'Intelligence Metrics', color: 'violet', metrics: ['MCP integrations active', 'AI-assisted changes shipped', 'Governed execution rate', 'Error prevention rate'] },
-                { category: 'Business Metrics', color: 'blue', metrics: ['Services margin', 'Platform ARR expansion', 'Time to expansion readiness', 'Customer trust score'] }
-              ].map(cat => `
-                <div class="bg-white rounded-xl border-2 p-5 ${cat.color === 'emerald' ? 'border-emerald-200' : cat.color === 'violet' ? 'border-violet-200' : 'border-blue-200'}">
-                  <h4 class="font-semibold mb-3 ${cat.color === 'emerald' ? 'text-emerald-700' : cat.color === 'violet' ? 'text-violet-700' : 'text-blue-700'}">${cat.category}</h4>
-                  <div class="space-y-2">
-                    ${cat.metrics.map(m => `
-                      <div class="flex items-center gap-2 text-sm text-slate-700">
-                        ${getIcon('bar-chart-3', 14)}
-                        ${m}
-                      </div>
-                    `).join('')}
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-            <div class="bg-slate-900 text-white rounded-xl p-6">
-              <h3 class="font-semibold mb-3">The Final Word</h3>
-              <p class="text-slate-300 mb-4">This playbook exists because "implemented" doesn't mean "activated." Our customers have the platform. What they need is the transformation to extract value from it.</p>
-              <div class="bg-emerald-500/20 rounded-lg p-4">
-                <p class="text-emerald-300 font-medium">The path to revenue is J3 activation, not new logos. Services capacity is the bottleneck. Every decision should flow from these two facts.</p>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      // Leadership Briefing
-      if (state.activeSection === 'leadership') {
-        html = `
-          <div class="space-y-6 max-w-5xl">
-            <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6">
-              <p class="text-emerald-400 text-sm font-semibold mb-2">LEADERSHIP BRIEFING</p>
-              <h2 class="text-xl font-bold mb-2">Launch the Intelligent Product Engine assessment as lead-gen + market validation.</h2>
-              <p class="text-slate-300">Benchmarking, ROI framing, and evidence capture position Knapsack as the thought leader in AI-driven product delivery.</p>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4">What the Assessment Delivers</h3>
-              <div class="grid grid-cols-2 gap-4 text-sm">
-                ${[
-                  'Industry benchmarks with peer comparison and distance-to-top-quartile visualization',
-                  'Journey framing toward AI-ready delivery (no grades)',
-                  'ROI business case tied to recommended path',
-                  'Evidence capture for enterprise credibility'
-                ].map(item => `
-                  <div class="flex items-start gap-2 text-slate-700">
-                    ${getIcon('check-circle-2', 14)}
-                    ${item}
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4">ICP Fit by Journey</h3>
-              <div class="grid grid-cols-2 gap-4">
-                ${[
-                  { path: 'J1 Foundation', note: 'Early-stage orgs, diagnostic-first motion' },
-                  { path: 'J2 Acceleration', note: 'Trigger-driven, sprint-ready, short cycle' },
-                  { path: 'J3 Activation', note: 'Core ICP, largest measurable gains' },
-                  { path: 'J4 Intelligence', note: 'Expansion-ready, MCP activation' }
-                ].map(item => `
-                  <div class="bg-slate-50 rounded-lg p-4">
-                    <p class="text-xs text-slate-500 mb-1">${item.path}</p>
-                    <p class="text-sm text-slate-700">${item.note}</p>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5">
-                <h3 class="font-semibold text-emerald-800 mb-2">Launch Recommendation</h3>
-                <p class="text-sm text-emerald-700">Go live with the current assessment as the primary market-validation and lead-gen asset.</p>
-              </div>
-              <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
-                <h3 class="font-semibold text-amber-800 mb-2">Success Metrics (60 Days)</h3>
-                <div class="text-sm text-amber-700 space-y-1">
-                  <p>• Completion volume by industry + journey</p>
-                  <p>• Evidence link capture rate</p>
-                  <p>• SDR meeting conversion rate by journey</p>
-                  <p>• ROI calculator click-through</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      // SDR Playbook
-      if (state.activeSection === 'sdr') {
-        html = `
-          <div class="space-y-6 max-w-5xl">
-            <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl p-6">
-              <p class="text-blue-200 text-sm font-semibold mb-2">SDR FOLLOW-UP</p>
-              <h2 class="text-xl font-bold mb-2">Route by journey, lead with benchmarks, close with ROI.</h2>
-              <p class="text-blue-100">Prioritize J2/J3/J4 with evidence links for fastest conversion.</p>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4">Lead Triage</h3>
-              <div class="grid grid-cols-3 gap-4 text-sm">
-                <div class="bg-emerald-50 rounded-lg p-4">
-                  <p class="text-xs text-emerald-600 font-semibold mb-1">High Priority</p>
-                  <p class="text-slate-700">J2/J3/J4 + evidence link</p>
-                </div>
-                <div class="bg-amber-50 rounded-lg p-4">
-                  <p class="text-xs text-amber-600 font-semibold mb-1">Medium</p>
-                  <p class="text-slate-700">J2/J3 without evidence link</p>
-                </div>
-                <div class="bg-slate-50 rounded-lg p-4">
-                  <p class="text-xs text-slate-500 font-semibold mb-1">Low</p>
-                  <p class="text-slate-700">J1 low readiness</p>
-                </div>
-              </div>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4">15-Minute Call Flow</h3>
-              <div class="space-y-2 text-sm text-slate-700">
-                <p>1) What prompted the assessment?</p>
-                <p>2) Benchmark recap (Foundation / AI Context / Org Alignment)</p>
-                <p>3) Journey framing toward AI-ready delivery</p>
-                <p>4) ROI snippet for the path</p>
-                <p>5) Confirm next step (Diagnostic / Activation Sprint / MCP Activation)</p>
-              </div>
-            </div>
-            <div class="bg-white rounded-xl border p-5">
-              <h3 class="font-semibold mb-4">Journey-Specific CTA</h3>
-              <div class="grid grid-cols-2 gap-4 text-sm">
-                ${[
-                  { path: 'J1 Foundation', cta: 'Schedule diagnostic, focus on governance baseline.' },
-                  { path: 'J2 Acceleration', cta: 'Sprint scoping; compress timeline while trigger is open.' },
-                  { path: 'J3 Activation', cta: 'Diagnostic + activation roadmap for measurable gains.' },
-                  { path: 'J4 Intelligence', cta: 'MCP activation discovery and AI enablement.' }
-                ].map(item => `
-                  <div class="bg-slate-50 rounded-lg p-4">
-                    <p class="text-xs text-slate-500 mb-1">${item.path}</p>
-                    <p class="text-slate-700">${item.cta}</p>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      container.innerHTML = html;
-    }
-
-    function render() {
-      renderNav();
-      renderContent();
-      renderRateCard();
-    }
-
-    // Initialize
-    render();
   </script>
 </body>
 </html>

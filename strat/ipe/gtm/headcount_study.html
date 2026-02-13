@@ -16,7 +16,8 @@
       <div class="max-w-6xl mx-auto">
         <p class="text-emerald-400 text-sm font-semibold mb-2">IPE GTM DETAILED PLANNING</p>
         <h1 class="text-2xl font-bold mb-2">Role Profiles, Budget & Risk Mitigation</h1>
-        <p class="text-slate-300 text-sm mb-4">Current Baseline: 1 FDE, 1 Pre-Sales SE, 1 CX Partner delivering Legacy Knapsack (Starting HC: 3)</p>
+        <p class="text-slate-300 text-sm mb-2">Current Baseline: 1 FDE, 1 Pre-Sales SE, 1 CX Partner delivering Legacy Knapsack (Starting HC: 3)</p>
+        <p class="text-slate-400 text-xs mb-4">Aligned with IPE Operating Model v4.2 • PCRI-Driven Investment Paths (J1-J4) • Deployment Tiers (D1-D4)</p>
         
         <!-- Scenario Selector -->
         <div class="flex gap-2" id="scenario-selector"></div>
@@ -100,14 +101,14 @@
         priority: 'Critical',
         rampTime: '3 months',
         utilization: '75%',
-        description: 'Owns technical implementation, architecture decisions, and code quality. Primary delivery resource for J2/J3 engagements. The binding constraint on services capacity.',
+        description: 'Owns technical implementation, architecture decisions, and code quality. Primary delivery resource for J3 Activation engagements (560-1,200 hrs). The binding constraint on services capacity. J3 requires 1.0 FDE with max 2-3 concurrent engagements.',
         responsibilities: [
           'Lead technical implementation of Knapsack platform',
-          'Design system architecture and integration patterns',
-          'Code review and quality assurance',
-          'Client-facing technical workshops and training',
+          'Deployment tier technical validation (D1-D4)',
+          'Phase 0 scoping and architecture for D3/D4 accounts',
           'MCP integration and AI workflow implementation',
-          'Documentation and knowledge transfer'
+          'Client-facing technical workshops and training',
+          'PCRI score improvement tracking and phase gate deliverables'
         ],
         requirements: [
           '7+ years full-stack development experience',
@@ -146,14 +147,14 @@
         priority: 'High',
         rampTime: '2 months',
         utilization: 'N/A',
-        description: 'Pre-sales technical partner who supports investment path selection, deployment tiering, and technical feasibility. Consulted by CX Partner/Engagement Lead and FDEs to reduce execution risk before kickoff.',
+        description: 'Pre-sales technical partner who captures AI signals, develops Investment Path and Deployment Tier hypotheses, and validates technical feasibility. Key RACI role for path-tier compatibility validation.',
         responsibilities: [
-          'Support investment path selection with solution feasibility analysis',
-          'Advise on deployment tier determination and risk tradeoffs',
-          'Partner with FDEs on technical feasibility and integration constraints',
-          'Shape scope, assumptions, and readiness criteria for phase gates',
-          'Run technical discovery, demos, and solution walkthroughs',
-          'Document solution approaches and handoff artifacts'
+          'AI signal capture and solutioning during discovery',
+          'Develop Investment Path hypothesis based on PCRI assessment inputs',
+          'Determine Deployment Tier hypothesis (D1-D4) and compliance requirements',
+          'Technical qualification and path-tier compatibility validation',
+          'AI governance documentation and compliance package preparation',
+          'Run technical discovery, demos, and solution walkthroughs'
         ],
         requirements: [
           '7+ years in solutions engineering, technical pre-sales, or architecture',
@@ -236,14 +237,14 @@
         priority: 'Medium',
         rampTime: '2 months',
         utilization: '65%',
-        description: 'Owns customer relationship, expansion strategy, and engagement success. Bridge between delivery and commercial. Drives account growth and renewal.',
+        description: 'Owns Investment Path selection, FDE capacity confirmation, and phase agreement oversight. RACI authority for Deployment Tier determination, Scope & Engagement Health, and Phase Gate Approval. Bridge between delivery and commercial.',
         responsibilities: [
-          'Own customer relationship and success outcomes',
-          'Lead expansion and upsell opportunities',
-          'Coordinate cross-functional delivery teams',
-          'Executive stakeholder management',
-          'Renewal and contract negotiations',
-          'Voice of customer feedback loops'
+          'Validate PCRI-based Investment Path assignment at Technical Feasibility',
+          'Confirm FDE capacity requirements per path (J1=0.25, J2=0.5, J3=1.0, J4=1.5)',
+          'Own implementation planning and SOW structure',
+          'Phase Gate Approval authority for J3 engagements',
+          'MCP Unlock Authorization decision-maker',
+          'Executive stakeholder management and renewal negotiations'
         ],
         requirements: [
           '5+ years in customer success, account management, or consulting',
@@ -414,14 +415,14 @@
         priority: 'Low',
         rampTime: '2 months',
         utilization: 'N/A',
-        description: 'Generates qualified pipeline for AE team. Targets 20 MQLs per month. Focus on outbound prospecting to ICP accounts.',
+        description: 'Generates qualified pipeline for AE team. Initial contact and AI signal flagging that triggers SE engagement. Targets 20 MQLs per month.',
         responsibilities: [
-          'Outbound prospecting and cold outreach',
-          'Inbound lead qualification',
+          'Initial contact and outbound prospecting',
+          'AI signal flagging (triggers Pre-Sales SE engagement)',
+          'Deal room setup and basic MEDDICC capture',
+          'Inbound lead qualification and scheduling',
           'Account research and personalization',
-          'Meeting scheduling and handoff',
-          'CRM hygiene and reporting',
-          'ICP refinement feedback'
+          'CRM hygiene and HubSpot reporting'
         ],
         requirements: [
           '1-2 years sales or BD experience',
@@ -616,6 +617,65 @@
       },
     ];
 
+    // Investment Path definitions aligned with IPE Operating Model
+    // Source: vision.html and operating_model.html
+    const investmentPaths = {
+      J1: {
+        name: 'Foundation Path',
+        extName: 'Product System Foundation Partnership',
+        arrShare: '~10%',
+        tcvRange: '$50-60K diagnostic → $350-450K foundation',
+        fdeHours: '96 hrs (Assessment only)',
+        concurrent: '8-10 engagements',
+        deploymentTiers: ['D1', 'D2'],
+        desc: 'For organizations without a system of record. Build before governing.',
+        risk: 'Low'
+      },
+      J2: {
+        name: 'Acceleration Path',
+        extName: 'IPE Activation Sprint',
+        arrShare: '~5%',
+        tcvRange: '$50K diagnostic → $225-325K sprint',
+        fdeHours: '200-400 hrs',
+        concurrent: '4-6 engagements',
+        deploymentTiers: ['D1', 'D2'],
+        desc: 'For mature orgs with sudden trigger. Fast activation, minimal services.',
+        risk: 'Low'
+      },
+      J3: {
+        name: 'Activation Path',
+        extName: 'Activation-Focused Partnership',
+        arrShare: '~60%',
+        tcvRange: '$740K-1.6M over 40-68 weeks',
+        fdeHours: '560-1,200 hrs',
+        concurrent: '2-3 engagements',
+        deploymentTiers: ['D2', 'D3', 'D4'],
+        desc: 'For high-value accounts blocked on activation. Full transformation.',
+        risk: 'High',
+        primary: true
+      },
+      J4: {
+        name: 'Intelligence Path',
+        extName: 'Intelligence Expansion Partnership',
+        arrShare: '~25%',
+        tcvRange: '$165-325K MCP + platform expansion',
+        fdeHours: '200-400 hrs',
+        concurrent: '4-6 engagements',
+        deploymentTiers: ['D1', 'D2', 'D3'],
+        desc: 'For implemented accounts ready for AI enablement. Expansion-focused.',
+        risk: 'Medium'
+      }
+    };
+
+    // Deployment Tier premiums aligned with IPE Operating Model
+    // Source: vision.html and operating_model.html
+    const deploymentTiers = {
+      D1: { name: 'Cloud Standard', target: 'Tech, SaaS, Mid-market', deployTime: '2-4 weeks', platformPremium: 0, servicesPremium: 0 },
+      D2: { name: 'Cloud Dedicated', target: 'Enterprise, some regulated', deployTime: '4-8 weeks', platformPremium: 0.325, servicesPremium: 75000 },
+      D3: { name: 'Private Cloud', target: 'Financial Services, Healthcare', deployTime: '8-16 weeks', platformPremium: 0.625, servicesPremium: 225000 },
+      D4: { name: 'Self-Hosted', target: 'Defense, Government', deployTime: '16-24+ weeks', platformPremium: 1.0, servicesPremium: 450000 },
+    };
+
     const forecastRollups = {
       potential: {
         platformArr: 39906000,
@@ -679,11 +739,13 @@
       { company: 'Zendesk', journey: 'J2', deployment: 'SaaS (Dedicated Single-Tenant)', needsSecurity: true, cxPmo: 0.25 },
     ];
 
+    // FDE capacity requirements aligned with IPE Operating Model and Onboarding Kit
+    // J1=0.25, J2=0.5, J3=1.0, J4=1.5 (per onboarding_kit.html)
     const journeyPodDefaults = {
       J1: { fde: 0.25, cx: 0.1, pm: 0.1 },
-      J2: { fde: 1.0, cx: 0.25, pm: 0.25 },
+      J2: { fde: 0.5, cx: 0.25, pm: 0.25 },
       J3: { fde: 1.0, cx: 0.5, pm: 0.5 },
-      J4: { fde: 0.5, cx: 0.25, pm: 0.25 },
+      J4: { fde: 1.5, cx: 0.5, pm: 0.5 },
     };
 
     function deploymentSpecialistFte(model) {
@@ -695,11 +757,12 @@
     }
 
     const forecastAssumptions = [
+      { label: 'Routing', value: 'PCRI assessment determines Investment Path (J1-J4) and Deployment Tier (D1-D4)' },
       { label: 'Tier scope', value: 'Tier 1 Target Accounts only (Master sheet)' },
       { label: 'Allocation', value: 'Tier 1 platform ARR allocated evenly across Tier 1 targets' },
       { label: 'ACV definition', value: 'Recurring only = Platform + required FDE + CX PMO' },
-      { label: 'Attach rate', value: 'Uses overall attach % from model rollups' },
-      { label: 'Rounding', value: 'All forecast dollars rounded to nearest $1,000' },
+      { label: 'TCV ranges', value: 'J3: $740K-1.6M, J4: $165-325K, J2: $275-385K, J1: $400-510K' },
+      { label: 'Deployment premiums', value: 'D2: +$50-100K, D3: +$175-275K, D4: +$350-550K' },
     ];
 
     // Helper functions
@@ -805,10 +868,10 @@
               <div class="grid grid-cols-2 gap-4">
                 <div class="space-y-2">
                   ${[
-                    { metric: 'FDE Hours', threshold: '≤ 360 total (≤12% variance from 320)', icon: 'clock' },
+                    { metric: 'FDE Hours', threshold: '560-800 hrs (≤12% variance from plan)', icon: 'clock' },
                     { metric: 'PMO Overhead', threshold: '≤ 20% of FDE hours', icon: 'file-text' },
-                    { metric: 'Customer Independence', threshold: 'Executes core MCP workflows without Knapsack', icon: 'award' },
-                    { metric: 'Artifacts Complete', threshold: 'Required deliverables + documentation', icon: 'file-text' },
+                    { metric: 'PCRI Score Improvement', threshold: '≥10 point lift from baseline', icon: 'award' },
+                    { metric: 'Phase Exit Criteria', threshold: 'All deliverables + documentation complete', icon: 'file-text' },
                   ].map(item => `
                     <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg">
                       ${getIcon(item.icon, 16)}
@@ -873,12 +936,12 @@
                 </div>
                 <div class="space-y-3">
                   <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                    <span class="text-sm font-medium">Max J3 per FDE</span>
-                    <span class="text-lg font-bold text-blue-700">1</span>
+                    <span class="text-sm font-medium">J3 per FDE</span>
+                    <span class="text-lg font-bold text-blue-700">1.0 FTE</span>
                   </div>
                   <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                    <span class="text-sm font-medium">Max concurrent J3 Foundations</span>
-                    <span class="text-lg font-bold text-blue-700">3</span>
+                    <span class="text-sm font-medium">Max concurrent J3 (per Op Model)</span>
+                    <span class="text-lg font-bold text-blue-700">2-3</span>
                   </div>
                   <p class="text-xs text-slate-600">
                     Cap lifts only after: 2 successful J3s delivered, hybrid J3 contractor pilot passes, PMO capacity confirmed
@@ -1163,6 +1226,48 @@
                 </div>
               </div>
             `).join('')}
+            
+            <!-- Partner Tier Structure (from Partner Program Assessment) -->
+            <div class="mt-8">
+              <h2 class="text-lg font-semibold mb-3 text-slate-700">Partner Tier Structure</h2>
+              <div class="bg-white rounded-xl border p-5">
+                <p class="text-sm text-slate-600 mb-4">Partner progression tiers aligned with Partner Program Assessment recommendations.</p>
+                <div class="grid grid-cols-4 gap-4">
+                  <div class="rounded-xl border-2 border-slate-200 p-4">
+                    <h4 class="font-semibold text-slate-800 mb-2">Registered</h4>
+                    <div class="text-xs text-slate-600 space-y-1">
+                      <p><strong>Requirements:</strong> Complete onboarding</p>
+                      <p><strong>Benefits:</strong> Basic training, deal registration (5/year)</p>
+                      <p><strong>Compensation:</strong> Standard rates</p>
+                    </div>
+                  </div>
+                  <div class="rounded-xl border-2 border-blue-200 bg-blue-50 p-4">
+                    <h4 class="font-semibold text-blue-800 mb-2">Certified</h4>
+                    <div class="text-xs text-blue-700 space-y-1">
+                      <p><strong>Requirements:</strong> 1 cert + 2 engagements</p>
+                      <p><strong>Benefits:</strong> Unlimited deals, co-marketing</p>
+                      <p><strong>Compensation:</strong> +10% premium</p>
+                    </div>
+                  </div>
+                  <div class="rounded-xl border-2 border-emerald-200 bg-emerald-50 p-4">
+                    <h4 class="font-semibold text-emerald-800 mb-2">Advanced</h4>
+                    <div class="text-xs text-emerald-700 space-y-1">
+                      <p><strong>Requirements:</strong> 3+ certs + 5 engagements</p>
+                      <p><strong>Benefits:</strong> Dedicated PSM, priority routing, MDF</p>
+                      <p><strong>Compensation:</strong> +20% premium</p>
+                    </div>
+                  </div>
+                  <div class="rounded-xl border-2 border-violet-200 bg-violet-50 p-4">
+                    <h4 class="font-semibold text-violet-800 mb-2">Elite</h4>
+                    <div class="text-xs text-violet-700 space-y-1">
+                      <p><strong>Requirements:</strong> 5+ certs + 10 engagements + PAB</p>
+                      <p><strong>Benefits:</strong> Executive sponsor, custom terms</p>
+                      <p><strong>Compensation:</strong> +30% premium</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         `;
       }
@@ -1480,6 +1585,45 @@
 
         html = `
           <div class="space-y-6">
+            <!-- Investment Path Reference (from IPE Operating Model) -->
+            <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-5">
+              <p class="text-emerald-400 text-xs font-semibold mb-2">INVESTMENT PATHS (PCRI-ROUTED)</p>
+              <div class="grid grid-cols-4 gap-3">
+                <div class="bg-slate-700/50 rounded-lg p-3">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="w-6 h-6 rounded bg-slate-500 text-white flex items-center justify-center font-bold text-xs">J1</span>
+                    <span class="font-semibold text-sm">Foundation</span>
+                  </div>
+                  <p class="text-xs text-slate-300">$400-510K • 96 hrs FDE</p>
+                  <p class="text-xs text-slate-400">~10% ARR • D1/D2 only</p>
+                </div>
+                <div class="bg-blue-700/30 rounded-lg p-3">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="w-6 h-6 rounded bg-blue-500 text-white flex items-center justify-center font-bold text-xs">J2</span>
+                    <span class="font-semibold text-sm">Acceleration</span>
+                  </div>
+                  <p class="text-xs text-slate-300">$275-385K • 200-400 hrs FDE</p>
+                  <p class="text-xs text-slate-400">~5% ARR • D1/D2 only</p>
+                </div>
+                <div class="bg-emerald-700/30 rounded-lg p-3 border border-emerald-500/50">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="w-6 h-6 rounded bg-emerald-500 text-white flex items-center justify-center font-bold text-xs">J3</span>
+                    <span class="font-semibold text-sm">Activation</span>
+                  </div>
+                  <p class="text-xs text-emerald-200">$740K-1.6M • 560-1,200 hrs</p>
+                  <p class="text-xs text-emerald-300 font-semibold">~60% ARR • PRIMARY</p>
+                </div>
+                <div class="bg-violet-700/30 rounded-lg p-3">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="w-6 h-6 rounded bg-violet-500 text-white flex items-center justify-center font-bold text-xs">J4</span>
+                    <span class="font-semibold text-sm">Intelligence</span>
+                  </div>
+                  <p class="text-xs text-slate-300">$165-325K • 200-400 hrs FDE</p>
+                  <p class="text-xs text-slate-400">~25% ARR • Expansion</p>
+                </div>
+              </div>
+            </div>
+            
             <div class="bg-white rounded-xl border p-5">
               <h3 class="font-semibold mb-4">Tier 1 Target Pipeline (TAM Subset)</h3>
               <div class="grid grid-cols-3 gap-4 text-sm">
@@ -1564,18 +1708,22 @@
             }).join('')}
 
             <div class="bg-white rounded-xl border p-5">
-              <h4 class="font-semibold mb-4">Scenario Capacity Utilization (Staggered J3)</h4>
-              <div class="grid grid-cols-3 gap-4 text-sm mb-4">
+              <h4 class="font-semibold mb-4">Scenario Capacity Utilization (Per IPE Operating Model)</h4>
+              <div class="grid grid-cols-4 gap-4 text-sm mb-4">
                 <div class="bg-slate-50 rounded-lg p-3">
-                  <p class="text-xs text-slate-500">Concurrency Rule</p>
-                  <p class="font-semibold">Max 1 J3 at a time</p>
+                  <p class="text-xs text-slate-500">J3 FDE Hours</p>
+                  <p class="font-semibold">560-1,200 hrs</p>
                 </div>
                 <div class="bg-slate-50 rounded-lg p-3">
-                  <p class="text-xs text-slate-500">Assumed J3 Duration</p>
-                  <p class="font-semibold">6 months (24 weeks)</p>
+                  <p class="text-xs text-slate-500">J3 Concurrency</p>
+                  <p class="font-semibold">Max 2-3 concurrent</p>
                 </div>
                 <div class="bg-slate-50 rounded-lg p-3">
-                  <p class="text-xs text-slate-500">Delivery Pod (J3)</p>
+                  <p class="text-xs text-slate-500">J3 Duration</p>
+                  <p class="font-semibold">40-68 weeks</p>
+                </div>
+                <div class="bg-slate-50 rounded-lg p-3">
+                  <p class="text-xs text-slate-500">Pod (J3)</p>
                   <p class="font-semibold">1.0 FDE • 0.5 CX • 0.5 PM</p>
                 </div>
               </div>
