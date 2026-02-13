@@ -1,0 +1,3360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPE GTM Playbook | Single Source of Truth</title>
+  <meta name="description" content="The complete GTM playbook for the Knapsack IPE Operating Model — from PCRI assessment through close.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS
+       ========================================================================== */
+    :root {
+      /* Core palette */
+      --spectrum-gray-50: #fafafa;
+      --spectrum-gray-100: #f5f5f5;
+      --spectrum-gray-200: #e8e8e8;
+      --spectrum-gray-300: #d1d1d1;
+      --spectrum-gray-400: #b4b4b4;
+      --spectrum-gray-500: #909090;
+      --spectrum-gray-600: #6d6d6d;
+      --spectrum-gray-700: #464646;
+      --spectrum-gray-800: #222222;
+      --spectrum-gray-900: #131313;
+      
+      --spectrum-purple-900: #42247f;
+      --spectrum-purple-700: #6436bf;
+      --spectrum-purple-500: #8b5cf6;
+      --spectrum-purple-400: #a78bfa;
+      --spectrum-purple-300: #c4b5fd;
+      --spectrum-purple-100: #e0d4f7;
+      
+      --spectrum-blue-500: #3b82f6;
+      --spectrum-blue-400: #60a5fa;
+      --spectrum-blue-300: #93c5fd;
+      
+      --spectrum-green-500: #10b981;
+      --spectrum-green-400: #34d399;
+      --spectrum-green-300: #6ee7b7;
+      
+      --spectrum-yellow-500: #f59e0b;
+      --spectrum-yellow-400: #fbbf24;
+      
+      --spectrum-red-500: #ef4444;
+      --spectrum-red-400: #f87171;
+      
+      --spectrum-cyan-500: #0ea5e9;
+      --spectrum-cyan-400: #22d3ee;
+      
+      --spectrum-orange-500: #f97316;
+      --spectrum-orange-400: #fb923c;
+      
+      --spectrum-pink-500: #ec4899;
+      --spectrum-pink-400: #f472b6;
+      
+      /* Semantic tokens */
+      --spectrum-bg-base: #0f0f1a;
+      --spectrum-bg-layer-1: #16213e;
+      --spectrum-bg-layer-2: #1a1a2e;
+      --spectrum-bg-surface: rgba(22, 33, 62, 0.7);
+      --spectrum-bg-elevated: rgba(255,255,255,0.05);
+      
+      --spectrum-text-primary: #ffffff;
+      --spectrum-text-secondary: rgba(255,255,255,0.9);
+      --spectrum-text-tertiary: rgba(255,255,255,0.8);
+      --spectrum-text-muted: rgba(255,255,255,0.55);
+      
+      --spectrum-border-default: rgba(100, 54, 191, 0.3);
+      --spectrum-border-subtle: rgba(255,255,255,0.08);
+      --spectrum-border-hover: rgba(100, 54, 191, 0.5);
+      
+      /* Typography */
+      --spectrum-font-size-75: 0.75rem;
+      --spectrum-font-size-100: 0.875rem;
+      --spectrum-font-size-200: 1rem;
+      --spectrum-font-size-300: 1.125rem;
+      --spectrum-font-size-400: 1.25rem;
+      --spectrum-font-size-500: 1.5rem;
+      --spectrum-font-size-600: 1.75rem;
+      --spectrum-font-size-700: 2rem;
+      --spectrum-font-size-800: 2.5rem;
+      
+      /* Spacing */
+      --spectrum-spacing-100: 0.25rem;
+      --spectrum-spacing-200: 0.5rem;
+      --spectrum-spacing-300: 1rem;
+      --spectrum-spacing-400: 1.5rem;
+      --spectrum-spacing-500: 2rem;
+      --spectrum-spacing-600: 3rem;
+      
+      /* Radii */
+      --spectrum-radius-sm: 4px;
+      --spectrum-radius-md: 8px;
+      --spectrum-radius-lg: 12px;
+      --spectrum-radius-xl: 16px;
+      --spectrum-radius-full: 9999px;
+    }
+    
+    /* ==========================================================================
+       BASE STYLES
+       ========================================================================== */
+    *, *::before, *::after { box-sizing: border-box; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: var(--spectrum-font-size-200);
+      line-height: 1.6;
+      color: var(--spectrum-text-primary);
+      background: var(--spectrum-bg-base);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(100, 54, 191, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spectrum-spacing-400);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .text-muted { color: var(--spectrum-text-muted); }
+    .text-green { color: var(--spectrum-green-400); }
+    .mb-2 { margin-bottom: var(--spectrum-spacing-200); }
+    .mb-3 { margin-bottom: var(--spectrum-spacing-300); }
+    .mb-4 { margin-bottom: var(--spectrum-spacing-400); }
+    .mt-3 { margin-top: var(--spectrum-spacing-300); }
+    .mt-4 { margin-top: var(--spectrum-spacing-400); }
+    .mt-5 { margin-top: var(--spectrum-spacing-500); }
+    
+    /* ==========================================================================
+       NAVIGATION
+       ========================================================================== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 15, 26, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--spectrum-border-default);
+      padding: var(--spectrum-spacing-200) var(--spectrum-spacing-400);
+    }
+    
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spectrum-spacing-300);
+    }
+    
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .nav-logo {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--spectrum-purple-500), var(--spectrum-purple-700));
+      border-radius: var(--spectrum-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .nav-logo i { width: 20px; height: 20px; color: white; }
+    
+    .nav-title {
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-300);
+      background: linear-gradient(135deg, #fff, var(--spectrum-purple-300));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .nav-version {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-75);
+      background: linear-gradient(135deg, var(--spectrum-green-500), var(--spectrum-cyan-500));
+      padding: 4px 10px;
+      border-radius: var(--spectrum-radius-full);
+      color: white;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: var(--spectrum-spacing-100);
+      flex-wrap: wrap;
+    }
+    
+    .nav-link {
+      color: var(--spectrum-text-muted);
+      text-decoration: none;
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 500;
+      padding: var(--spectrum-spacing-100) var(--spectrum-spacing-200);
+      border-radius: var(--spectrum-radius-sm);
+      transition: all 0.2s;
+    }
+    
+    .nav-link:hover {
+      color: var(--spectrum-text-primary);
+      background: var(--spectrum-bg-elevated);
+    }
+    
+    .nav-link.active {
+      color: var(--spectrum-purple-300);
+      background: rgba(100, 54, 191, 0.2);
+    }
+    
+    /* ==========================================================================
+       HEADER
+       ========================================================================== */
+    header {
+      text-align: center;
+      padding: var(--spectrum-spacing-600) 0;
+      border-bottom: 1px solid var(--spectrum-border-default);
+      margin-bottom: var(--spectrum-spacing-500);
+    }
+    
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-100);
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(38, 128, 235, 0.2));
+      border: 1px solid rgba(124, 58, 237, 0.3);
+      border-radius: 999px;
+      padding: var(--spectrum-spacing-100) var(--spectrum-spacing-300);
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 500;
+      color: var(--spectrum-purple-300);
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    
+    .header-badge i { width: 16px; height: 16px; }
+    
+    header h1 {
+      font-size: var(--spectrum-font-size-800);
+      font-weight: 700;
+      margin: 0 0 var(--spectrum-spacing-200);
+      background: linear-gradient(135deg, #fff 0%, var(--spectrum-purple-300) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .header-subtitle {
+      font-size: var(--spectrum-font-size-300);
+      color: var(--spectrum-text-muted);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    /* ==========================================================================
+       SECTIONS
+       ========================================================================== */
+    .section {
+      background: var(--spectrum-bg-surface);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-xl);
+      padding: var(--spectrum-spacing-500);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-300);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    .section-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--spectrum-purple-700), var(--spectrum-purple-900));
+      border-radius: var(--spectrum-radius-md);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-100);
+      color: white;
+    }
+    
+    h2 {
+      font-size: var(--spectrum-font-size-600);
+      font-weight: 700;
+      margin: 0;
+    }
+    
+    h3 {
+      font-size: var(--spectrum-font-size-400);
+      font-weight: 600;
+      color: var(--spectrum-purple-300);
+      margin: var(--spectrum-spacing-400) 0 var(--spectrum-spacing-200);
+    }
+    
+    h3:first-child { margin-top: 0; }
+    
+    h4 {
+      font-size: var(--spectrum-font-size-200);
+      font-weight: 600;
+      color: var(--spectrum-text-primary);
+      margin: var(--spectrum-spacing-300) 0 var(--spectrum-spacing-200);
+    }
+    
+    /* ==========================================================================
+       CALLOUTS
+       ========================================================================== */
+    .callout {
+      padding: var(--spectrum-spacing-300);
+      border-radius: var(--spectrum-radius-md);
+      border-left: 4px solid;
+      margin: var(--spectrum-spacing-300) 0;
+    }
+    
+    .callout p { margin: 0; }
+    
+    .callout.info {
+      background: rgba(38, 128, 235, 0.1);
+      border-color: var(--spectrum-blue-500);
+    }
+    
+    .callout.info strong { color: var(--spectrum-blue-400); }
+    
+    .callout.success {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: var(--spectrum-green-500);
+    }
+    
+    .callout.success strong { color: var(--spectrum-green-400); }
+    
+    .callout.warning {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--spectrum-yellow-500);
+    }
+    
+    .callout.warning strong { color: var(--spectrum-yellow-400); }
+    
+    .callout.danger {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: var(--spectrum-red-500);
+    }
+    
+    .callout.danger strong { color: var(--spectrum-red-400); }
+    
+    /* ==========================================================================
+       STATS GRID
+       ========================================================================== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spectrum-spacing-300);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    .stat-card {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.95), rgba(26, 26, 46, 0.9));
+      border-radius: var(--spectrum-radius-xl);
+      padding: var(--spectrum-spacing-300);
+      border: 1px solid var(--spectrum-border-default);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    
+    .stat-card.purple::before { background: linear-gradient(90deg, var(--spectrum-purple-500), var(--spectrum-purple-400)); }
+    .stat-card.green::before { background: linear-gradient(90deg, var(--spectrum-green-500), var(--spectrum-green-400)); }
+    .stat-card.blue::before { background: linear-gradient(90deg, var(--spectrum-blue-500), var(--spectrum-blue-400)); }
+    .stat-card.amber::before { background: linear-gradient(90deg, var(--spectrum-yellow-500), var(--spectrum-yellow-400)); }
+    
+    .stat-label {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--spectrum-spacing-100);
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-100);
+    }
+    
+    .stat-value {
+      font-size: var(--spectrum-font-size-700);
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: var(--spectrum-spacing-100);
+    }
+    
+    .stat-change {
+      font-size: var(--spectrum-font-size-75);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: var(--spectrum-radius-sm);
+    }
+    
+    .stat-change.positive { background: rgba(16, 185, 129, 0.15); color: var(--spectrum-green-300); }
+    
+    /* ==========================================================================
+       KEY POINTS GRID
+       ========================================================================== */
+    .key-points {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spectrum-spacing-300);
+      margin-top: var(--spectrum-spacing-300);
+    }
+    
+    @media (max-width: 800px) {
+      .key-points { grid-template-columns: 1fr; }
+    }
+    
+    .key-point {
+      background: rgba(15, 15, 26, 0.6);
+      border: 1px solid var(--spectrum-border-subtle);
+      border-radius: var(--spectrum-radius-md);
+      padding: var(--spectrum-spacing-300);
+      text-align: center;
+    }
+    
+    .key-point-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto var(--spectrum-spacing-200);
+      background: linear-gradient(135deg, var(--spectrum-purple-500), var(--spectrum-blue-500));
+      border-radius: var(--spectrum-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .key-point-icon i { width: 24px; height: 24px; color: white; }
+    
+    .key-point-title {
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-200);
+      margin-bottom: var(--spectrum-spacing-100);
+    }
+    
+    .key-point-desc {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+    
+    /* ==========================================================================
+       COMPARISON GRID
+       ========================================================================== */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spectrum-spacing-300);
+    }
+    
+    @media (max-width: 700px) {
+      .comparison-grid { grid-template-columns: 1fr; }
+    }
+    
+    .comparison-card {
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-400);
+      border: 1px solid var(--spectrum-border-default);
+    }
+    
+    .comparison-card.before {
+      background: rgba(239, 68, 68, 0.05);
+      border-color: rgba(239, 68, 68, 0.2);
+    }
+    
+    .comparison-card.after {
+      background: rgba(16, 185, 129, 0.05);
+      border-color: rgba(16, 185, 129, 0.2);
+    }
+    
+    .comparison-label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-100);
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--spectrum-spacing-200);
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+    
+    .comparison-card.before .comparison-label {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--spectrum-red-400);
+    }
+    
+    .comparison-card.after .comparison-label {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--spectrum-green-400);
+    }
+    
+    .comparison-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .comparison-list li {
+      padding: var(--spectrum-spacing-100) 0;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spectrum-spacing-100);
+    }
+    
+    .comparison-list li i {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    
+    .comparison-card.before .comparison-list li i { color: var(--spectrum-red-400); }
+    .comparison-card.after .comparison-list li i { color: var(--spectrum-green-400); }
+    
+    /* ==========================================================================
+       TABLES
+       ========================================================================== */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: var(--spectrum-spacing-300) 0;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--spectrum-font-size-100);
+    }
+    
+    th {
+      background: var(--spectrum-purple-900);
+      color: white;
+      font-weight: 600;
+      text-align: left;
+      padding: var(--spectrum-spacing-200);
+      border: 1px solid var(--spectrum-border-default);
+      white-space: nowrap;
+    }
+    
+    th:first-child { border-radius: var(--spectrum-radius-md) 0 0 0; }
+    th:last-child { border-radius: 0 var(--spectrum-radius-md) 0 0; }
+    
+    td {
+      padding: var(--spectrum-spacing-200);
+      border: 1px solid var(--spectrum-border-subtle);
+      color: var(--spectrum-text-secondary);
+      background: var(--spectrum-bg-layer-1);
+    }
+    
+    tr:last-child td:first-child { border-radius: 0 0 0 var(--spectrum-radius-md); }
+    tr:last-child td:last-child { border-radius: 0 0 var(--spectrum-radius-md) 0; }
+    
+    tr:hover td { background: rgba(255,255,255,0.03); }
+    
+    /* ==========================================================================
+       ARCHETYPE CARDS
+       ========================================================================== */
+    .archetype-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spectrum-spacing-200);
+      margin: var(--spectrum-spacing-300) 0;
+    }
+    
+    @media (max-width: 900px) {
+      .archetype-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    .archetype-card {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.95), rgba(26, 26, 46, 0.9));
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-300);
+      border: 1px solid var(--spectrum-border-default);
+      position: relative;
+    }
+    
+    .archetype-card.j1 { border-top: 3px solid var(--spectrum-blue-400); }
+    .archetype-card.j2 { border-top: 3px solid var(--spectrum-cyan-400); }
+    .archetype-card.j3 { border-top: 3px solid var(--spectrum-purple-400); }
+    .archetype-card.j4 { border-top: 3px solid var(--spectrum-green-400); }
+    
+    .archetype-header {
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-200);
+      margin-bottom: var(--spectrum-spacing-200);
+    }
+    
+    .archetype-score {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-300);
+      background: rgba(255,255,255,0.1);
+      padding: 4px 10px;
+      border-radius: var(--spectrum-radius-sm);
+    }
+    
+    .archetype-card.j1 .archetype-score { color: var(--spectrum-blue-400); }
+    .archetype-card.j2 .archetype-score { color: var(--spectrum-cyan-400); }
+    .archetype-card.j3 .archetype-score { color: var(--spectrum-purple-400); }
+    .archetype-card.j4 .archetype-score { color: var(--spectrum-green-400); }
+    
+    .archetype-name {
+      font-weight: 600;
+      font-size: var(--spectrum-font-size-100);
+    }
+    
+    .archetype-path {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .archetype-prescription {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-tertiary);
+    }
+    
+    .prescription-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 0;
+    }
+    
+    .prescription-item i { color: var(--spectrum-purple-400); }
+    
+    /* ==========================================================================
+       TIER CARDS
+       ========================================================================== */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    @media (max-width: 900px) {
+      .tier-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    .tier-card {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.8), rgba(26, 26, 46, 0.7));
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-300);
+      border: 1px solid var(--spectrum-border-default);
+      text-align: center;
+    }
+    
+    .tier-card.d1 { border-top: 3px solid #64748b; }
+    .tier-card.d2 { border-top: 3px solid var(--spectrum-blue-400); }
+    .tier-card.d3 { border-top: 3px solid var(--spectrum-yellow-400); }
+    .tier-card.d4 { border-top: 3px solid var(--spectrum-red-400); }
+    
+    .tier-header {
+      margin-bottom: var(--spectrum-spacing-200);
+    }
+    
+    .tier-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-400);
+    }
+    
+    .tier-card.d1 .tier-code { color: #64748b; }
+    .tier-card.d2 .tier-code { color: var(--spectrum-blue-400); }
+    .tier-card.d3 .tier-code { color: var(--spectrum-yellow-400); }
+    .tier-card.d4 .tier-code { color: var(--spectrum-red-400); }
+    
+    .tier-name {
+      font-weight: 600;
+      font-size: var(--spectrum-font-size-100);
+    }
+    
+    .tier-timeline {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      margin-top: var(--spectrum-spacing-100);
+    }
+    
+    .tier-premium {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-tertiary);
+      margin-top: var(--spectrum-spacing-100);
+    }
+    
+    /* ==========================================================================
+       PILLAR CARDS
+       ========================================================================== */
+    .pillar-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--spectrum-spacing-200);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    @media (max-width: 900px) {
+      .pillar-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    
+    @media (max-width: 600px) {
+      .pillar-grid { grid-template-columns: 1fr 1fr; }
+    }
+    
+    .pillar-card {
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-300);
+      text-align: center;
+    }
+    
+    .pillar-card.foundation {
+      background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(167, 139, 250, 0.05));
+      border: 1px solid rgba(167, 139, 250, 0.3);
+    }
+    
+    .pillar-card.ai {
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.15), rgba(96, 165, 250, 0.05));
+      border: 1px solid rgba(96, 165, 250, 0.3);
+    }
+    
+    .pillar-card.governance {
+      background: linear-gradient(135deg, rgba(52, 211, 153, 0.15), rgba(52, 211, 153, 0.05));
+      border: 1px solid rgba(52, 211, 153, 0.3);
+    }
+    
+    .pillar-card.delivery {
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(251, 191, 36, 0.05));
+      border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+    
+    .pillar-card.culture {
+      background: linear-gradient(135deg, rgba(244, 114, 182, 0.15), rgba(244, 114, 182, 0.05));
+      border: 1px solid rgba(244, 114, 182, 0.3);
+    }
+    
+    .pillar-icon {
+      width: 32px;
+      height: 32px;
+      margin: 0 auto var(--spectrum-spacing-100);
+    }
+    
+    .pillar-card.foundation .pillar-icon { color: #a78bfa; }
+    .pillar-card.ai .pillar-icon { color: #60a5fa; }
+    .pillar-card.governance .pillar-icon { color: #34d399; }
+    .pillar-card.delivery .pillar-icon { color: #fbbf24; }
+    .pillar-card.culture .pillar-icon { color: #f472b6; }
+    
+    .pillar-name {
+      font-weight: 600;
+      font-size: var(--spectrum-font-size-100);
+      margin-bottom: 4px;
+    }
+    
+    .pillar-weight {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-75);
+    }
+    
+    .pillar-card.foundation .pillar-weight { color: #a78bfa; }
+    .pillar-card.ai .pillar-weight { color: #60a5fa; }
+    .pillar-card.governance .pillar-weight { color: #34d399; }
+    .pillar-card.delivery .pillar-weight { color: #fbbf24; }
+    .pillar-card.culture .pillar-weight { color: #f472b6; }
+    
+    /* ==========================================================================
+       ROLE CARDS
+       ========================================================================== */
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spectrum-spacing-300);
+    }
+    
+    .role-card {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.95), rgba(26, 26, 46, 0.9));
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-400);
+      border-top: 4px solid var(--spectrum-purple-500);
+    }
+    
+    .role-card.bdr { border-top-color: var(--spectrum-blue-500); }
+    .role-card.se { border-top-color: var(--spectrum-cyan-500); }
+    .role-card.ae { border-top-color: var(--spectrum-purple-500); }
+    .role-card.cx { border-top-color: var(--spectrum-green-500); }
+    .role-card.dealdesk { border-top-color: var(--spectrum-orange-500); }
+    
+    .role-header {
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-200);
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    
+    .role-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--spectrum-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .role-card.bdr .role-icon { background: rgba(38, 128, 235, 0.2); color: var(--spectrum-blue-400); }
+    .role-card.se .role-icon { background: rgba(51, 177, 255, 0.2); color: var(--spectrum-cyan-400); }
+    .role-card.ae .role-icon { background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-400); }
+    .role-card.cx .role-icon { background: rgba(51, 171, 132, 0.2); color: var(--spectrum-green-400); }
+    .role-card.dealdesk .role-icon { background: rgba(250, 131, 52, 0.2); color: var(--spectrum-orange-400); }
+    
+    .role-icon i { width: 20px; height: 20px; }
+    
+    .role-title {
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-200);
+    }
+    
+    .role-message {
+      background: rgba(15, 15, 26, 0.6);
+      border-radius: var(--spectrum-radius-md);
+      padding: var(--spectrum-spacing-200);
+      margin-bottom: var(--spectrum-spacing-300);
+      font-style: italic;
+      color: var(--spectrum-text-secondary);
+      font-size: var(--spectrum-font-size-100);
+      border-left: 3px solid var(--spectrum-purple-500);
+    }
+    
+    .role-actions {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .role-actions li {
+      padding: var(--spectrum-spacing-100) 0;
+      font-size: var(--spectrum-font-size-100);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spectrum-spacing-100);
+    }
+    
+    .role-actions li i {
+      width: 16px;
+      height: 16px;
+      color: var(--spectrum-green-400);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    
+    .role-first-action {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(51, 177, 255, 0.1));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: var(--spectrum-radius-md);
+      padding: var(--spectrum-spacing-200);
+      margin-top: var(--spectrum-spacing-300);
+    }
+    
+    .role-first-action-label {
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--spectrum-green-400);
+      margin-bottom: 4px;
+    }
+    
+    .role-first-action-text {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-primary);
+    }
+    
+    /* ==========================================================================
+       PIPELINE STAGES
+       ========================================================================== */
+    .pipeline-progress {
+      display: flex;
+      gap: 4px;
+      margin-bottom: var(--spectrum-spacing-400);
+      overflow-x: auto;
+      padding-bottom: var(--spectrum-spacing-100);
+    }
+    
+    .pipeline-stage {
+      flex: 1;
+      min-width: 80px;
+      text-align: center;
+      padding: var(--spectrum-spacing-200);
+      border-radius: var(--spectrum-radius-md);
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+    }
+    
+    .pipeline-stage.lead {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: var(--spectrum-blue-400);
+    }
+    
+    .pipeline-stage.deal {
+      background: rgba(139, 92, 246, 0.15);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      color: var(--spectrum-purple-400);
+    }
+    
+    .pipeline-stage.win {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--spectrum-green-400);
+    }
+    
+    /* ==========================================================================
+       HEALTH ZONES
+       ========================================================================== */
+    .health-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spectrum-spacing-300);
+      margin: var(--spectrum-spacing-400) 0;
+    }
+    
+    @media (max-width: 700px) {
+      .health-grid { grid-template-columns: 1fr; }
+    }
+    
+    .health-zone {
+      padding: var(--spectrum-spacing-300);
+      border-radius: var(--spectrum-radius-lg);
+      text-align: center;
+    }
+    
+    .health-zone.green {
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    
+    .health-zone.yellow {
+      background: linear-gradient(145deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    
+    .health-zone.red {
+      background: linear-gradient(145deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    
+    .health-zone-title {
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-300);
+      margin-bottom: var(--spectrum-spacing-100);
+    }
+    
+    .health-zone.green .health-zone-title { color: var(--spectrum-green-400); }
+    .health-zone.yellow .health-zone-title { color: var(--spectrum-yellow-400); }
+    .health-zone.red .health-zone-title { color: var(--spectrum-red-400); }
+    
+    .health-zone-range {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-tertiary);
+      margin-bottom: var(--spectrum-spacing-100);
+    }
+    
+    .health-zone-desc {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+    }
+    
+    /* ==========================================================================
+       INDUSTRY CARDS
+       ========================================================================== */
+    .industry-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--spectrum-font-size-100);
+    }
+    
+    .industry-table th {
+      background: var(--spectrum-purple-900);
+      color: white;
+      font-weight: 600;
+      text-align: left;
+      padding: var(--spectrum-spacing-200);
+      border: 1px solid var(--spectrum-border-default);
+    }
+    
+    .industry-table td {
+      padding: var(--spectrum-spacing-200);
+      border: 1px solid var(--spectrum-border-subtle);
+      color: var(--spectrum-text-secondary);
+      background: var(--spectrum-bg-layer-1);
+    }
+    
+    /* ==========================================================================
+       FAQ
+       ========================================================================== */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .faq-item {
+      background: rgba(22, 33, 62, 0.6);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-md);
+      overflow: hidden;
+    }
+    
+    .faq-question {
+      padding: var(--spectrum-spacing-300);
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .faq-question:hover {
+      background: rgba(124, 58, 237, 0.1);
+    }
+    
+    .faq-question i {
+      width: 20px;
+      height: 20px;
+      color: var(--spectrum-text-muted);
+      transition: transform 0.2s;
+    }
+    
+    .faq-item[open] .faq-question i {
+      transform: rotate(180deg);
+    }
+    
+    .faq-answer {
+      padding: 0 var(--spectrum-spacing-300) var(--spectrum-spacing-300);
+      color: var(--spectrum-text-secondary);
+      font-size: var(--spectrum-font-size-100);
+    }
+    
+    /* ==========================================================================
+       METRICS GRID
+       ========================================================================== */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .metric-card {
+      background: rgba(22, 33, 62, 0.6);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-300);
+      text-align: center;
+    }
+    
+    .metric-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-500);
+      font-weight: 700;
+      color: var(--spectrum-purple-300);
+      margin-bottom: var(--spectrum-spacing-100);
+    }
+    
+    .metric-label {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .metric-target {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-green-400);
+      margin-top: var(--spectrum-spacing-100);
+    }
+    
+    /* ==========================================================================
+       STATUS BADGES
+       ========================================================================== */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      border-radius: var(--spectrum-radius-full);
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    
+    .status-badge.green { background: rgba(16, 185, 129, 0.15); color: var(--spectrum-green-300); }
+    .status-badge.yellow { background: rgba(245, 158, 11, 0.15); color: var(--spectrum-yellow-400); }
+    .status-badge.red { background: rgba(239, 68, 68, 0.15); color: var(--spectrum-red-400); }
+    .status-badge.blue { background: rgba(59, 130, 246, 0.15); color: var(--spectrum-blue-300); }
+    .status-badge.purple { background: rgba(139, 92, 246, 0.15); color: var(--spectrum-purple-300); }
+    
+    /* ==========================================================================
+       CHEAT SHEET
+       ========================================================================== */
+    .cheat-sheet {
+      background: linear-gradient(145deg, rgba(15, 15, 26, 0.9), rgba(22, 33, 62, 0.8));
+      border: 2px dashed var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-xl);
+      padding: var(--spectrum-spacing-400);
+    }
+    
+    .cheat-sheet-header {
+      text-align: center;
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    .cheat-sheet-title {
+      font-size: var(--spectrum-font-size-400);
+      font-weight: 700;
+      margin-bottom: var(--spectrum-spacing-100);
+    }
+    
+    .cheat-sheet-subtitle {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+    
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    footer {
+      text-align: center;
+      padding: var(--spectrum-spacing-500) 0;
+      border-top: 1px solid var(--spectrum-border-default);
+      margin-top: var(--spectrum-spacing-500);
+    }
+    
+    .footer-meta {
+      display: flex;
+      justify-content: center;
+      gap: var(--spectrum-spacing-400);
+      flex-wrap: wrap;
+      margin-bottom: var(--spectrum-spacing-200);
+    }
+    
+    .footer-meta-item {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .footer-text {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+      margin: 0;
+    }
+    
+    /* Print styles */
+    @media print {
+      body { background: white; color: black; }
+      nav { display: none; }
+      .section { break-inside: avoid; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-logo">
+          <i data-lucide="book-open"></i>
+        </div>
+        <span class="nav-title">IPE GTM Playbook</span>
+        <span class="nav-version">v1.1</span>
+      </div>
+      <div class="nav-links">
+        <a href="#start" class="nav-link active">Start Here</a>
+        <a href="#pcri" class="nav-link">PCRI</a>
+        <a href="#routes" class="nav-link">Routes</a>
+        <a href="#roles" class="nav-link">Roles</a>
+        <a href="#pipeline" class="nav-link">Pipeline</a>
+        <a href="#deal-desk" class="nav-link">Deal Desk</a>
+        <a href="#metrics" class="nav-link">Metrics</a>
+        <a href="#marketing" class="nav-link">Marketing</a>
+        <a href="#help" class="nav-link">Help</a>
+        <a href="#training" class="nav-link">Appendix</a>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="header-badge">
+        <i data-lucide="compass"></i>
+        Single Source of Truth
+      </div>
+      <h1>IPE GTM Playbook</h1>
+      <p class="header-subtitle">Everything you need to understand and execute the IPE GTM Operating Model — from PCRI assessment through close.</p>
+    </header>
+    
+    <!-- Hero Stats -->
+    <div class="stats-grid">
+      <div class="stat-card purple">
+        <div class="stat-label">
+          <i data-lucide="target" style="width: 14px; height: 14px;"></i>
+          Target Conversion
+        </div>
+        <div class="stat-value">95%</div>
+        <span class="stat-change positive">
+          <i data-lucide="trending-up" style="width: 12px; height: 12px;"></i>
+          +15% from current
+        </span>
+      </div>
+      
+      <div class="stat-card green">
+        <div class="stat-label">
+          <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+          Cycle Time
+        </div>
+        <div class="stat-value">-35%</div>
+        <span class="stat-change positive">
+          <i data-lucide="trending-down" style="width: 12px; height: 12px;"></i>
+          PCRI deals close faster
+        </span>
+      </div>
+      
+      <div class="stat-card amber">
+        <div class="stat-label">
+          <i data-lucide="repeat" style="width: 14px; height: 14px;"></i>
+          Mid-Funnel Pivots
+        </div>
+        <div class="stat-value">-60%</div>
+        <span class="stat-change positive">
+          Right path from day one
+        </span>
+      </div>
+      
+      <div class="stat-card blue">
+        <div class="stat-label">
+          <i data-lucide="dollar-sign" style="width: 14px; height: 14px;"></i>
+          ARR Impact
+        </div>
+        <div class="stat-value">$700K</div>
+        <span class="stat-change positive">
+          Recoverable annually
+        </span>
+      </div>
+    </div>
+
+    <!-- ========================================================================
+         SECTION 1: START HERE
+         ======================================================================== -->
+    <section class="section" id="start">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <h2>Start Here</h2>
+      </div>
+      
+      <p class="text-muted mb-4">New to the IPE GTM Operating Model? Start here to understand what changed, why it matters, and the key terminology you'll need.</p>
+      
+      <!-- Executive Summary -->
+      <h3>Executive Summary</h3>
+      <p>We're moving from ad-hoc deal qualification to a <strong>structured, PCRI-driven process</strong>. The PCRI (Product Context Readiness Index) benchmarks each prospect's maturity and prescribes the right Investment Path — including roadmap, resources, timeline, budget, and business case.</p>
+      
+      <p><strong>Why now?</strong> Enterprise AI buyers expect readiness conversations in the first call. Our old process surfaced AI signals too late, causing mid-funnel pivots and misaligned expectations. The new model fixes this.</p>
+      
+      <div class="key-points">
+        <div class="key-point">
+          <div class="key-point-icon">
+            <i data-lucide="gauge"></i>
+          </div>
+          <div class="key-point-title">Benchmark</div>
+          <div class="key-point-desc">PCRI scores 5 pillars to identify customer maturity archetype</div>
+        </div>
+        
+        <div class="key-point">
+          <div class="key-point-icon">
+            <i data-lucide="git-branch"></i>
+          </div>
+          <div class="key-point-title">Prescribe</div>
+          <div class="key-point-desc">Score determines Investment Path (J1-J4) with pre-defined deliverables</div>
+        </div>
+        
+        <div class="key-point">
+          <div class="key-point-icon">
+            <i data-lucide="rocket"></i>
+          </div>
+          <div class="key-point-title">Accelerate</div>
+          <div class="key-point-desc">Right-fit engagement = 35% faster close, 60% fewer pivots</div>
+        </div>
+      </div>
+      
+      <!-- What Changed -->
+      <h3 class="mt-5">What Changed</h3>
+      
+      <div class="comparison-grid">
+        <div class="comparison-card before">
+          <div class="comparison-label">
+            <i data-lucide="x" style="width:12px;height:12px;"></i>
+            Before
+          </div>
+          <ul class="comparison-list">
+            <li><i data-lucide="x"></i> AI signals captured late (during Discovery)</li>
+            <li><i data-lucide="x"></i> Investment Path determined by negotiation</li>
+            <li><i data-lucide="x"></i> BDR owned qualification alone</li>
+            <li><i data-lucide="x"></i> No structured maturity assessment</li>
+            <li><i data-lucide="x"></i> Pricing/scope negotiated per deal</li>
+            <li><i data-lucide="x"></i> Mid-funnel pivots common</li>
+          </ul>
+        </div>
+        
+        <div class="comparison-card after">
+          <div class="comparison-label">
+            <i data-lucide="check" style="width:12px;height:12px;"></i>
+            After (v4.2)
+          </div>
+          <ul class="comparison-list">
+            <li><i data-lucide="check"></i> AI signals captured at Pre-Qualification</li>
+            <li><i data-lucide="check"></i> Investment Path prescribed by PCRI score</li>
+            <li><i data-lucide="check"></i> Pre-Sales SE owns path hypothesis</li>
+            <li><i data-lucide="check"></i> PCRI benchmarks maturity archetype</li>
+            <li><i data-lucide="check"></i> Pre-defined deliverables per path</li>
+            <li><i data-lucide="check"></i> 60% fewer mid-funnel pivots</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="callout info mt-4">
+        <p><strong>Key Mindset Shift:</strong> We're not "selling a solution" — we're <em>diagnosing readiness</em> and <em>prescribing a path</em>. The PCRI score tells us what the customer needs; we execute against that prescription.</p>
+      </div>
+      
+      <!-- Key Terminology -->
+      <h3 class="mt-5">Key Terminology</h3>
+      
+      <div class="comparison-grid">
+        <div class="comparison-card after" style="background: linear-gradient(145deg, rgba(124, 58, 237, 0.1), rgba(22, 33, 62, 0.8)); border-color: rgba(124, 58, 237, 0.3);">
+          <div class="comparison-label" style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300);">
+            <i data-lucide="gauge" style="width:12px;height:12px;"></i>
+            PCRI — The Assessment
+          </div>
+          <p style="font-size: var(--spectrum-font-size-200); color: var(--spectrum-text-primary); margin-bottom: 12px;"><strong>Product Context Readiness Index</strong></p>
+          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary);">A research-backed assessment that measures your organization's readiness to deliver governed product context to AI tools.</p>
+          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted); margin-top: 12px;"><strong>Measures:</strong> Design system maturity, AI readiness, governance, delivery workflow, and culture.</p>
+        </div>
+        
+        <div class="comparison-card after" style="background: linear-gradient(145deg, rgba(38, 128, 235, 0.1), rgba(22, 33, 62, 0.8)); border-color: rgba(38, 128, 235, 0.3);">
+          <div class="comparison-label" style="background: rgba(38, 128, 235, 0.2); color: var(--spectrum-cyan-400);">
+            <i data-lucide="cpu" style="width:12px;height:12px;"></i>
+            IPE — The Product
+          </div>
+          <p style="font-size: var(--spectrum-font-size-200); color: var(--spectrum-text-primary); margin-bottom: 12px;"><strong>Intelligent Product Engine</strong></p>
+          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary);">The Knapsack platform that delivers governed product context to AI tools—making Claude, Cursor, and Copilot organization-aware.</p>
+          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted); margin-top: 12px;"><strong>Delivers:</strong> Connect context, govern AI access, enable AI workflows, measure impact.</p>
+        </div>
+      </div>
+      
+      <div class="callout success mt-4">
+        <p><strong>The one-liner:</strong> "PCRI tells you where you are. IPE takes you where you need to go."</p>
+      </div>
+      
+      <h4>What is Product Context?</h4>
+      <div class="callout info" style="font-size: var(--spectrum-font-size-300); font-weight: 500;">
+        <p><strong>Product Context</strong> is everything in your design system that AI tools need to understand your organization—tokens, components, patterns, documentation, and standards.</p>
+      </div>
+      
+      <p>This framing positions design systems not as component libraries, but as <strong>the source of truth that feeds AI</strong>. Without governed product context, AI tools generate output that doesn't match your organization's standards—creating rework, inconsistency, and compliance risk.</p>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 2: UNDERSTAND PCRI
+         ======================================================================== -->
+    <section class="section" id="pcri">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <h2>Understand PCRI</h2>
+      </div>
+      
+      <p class="text-muted mb-4">The <strong>Product Context Readiness Index (PCRI)</strong> benchmarks an organization's maturity across five pillars. The scored assessment prescribes the Investment Path — including roadmap, resources, implementation plan, budget, and business case.</p>
+      
+      <!-- The 5 Pillars -->
+      <h3>The 5 Pillars</h3>
+      
+      <div class="pillar-grid">
+        <div class="pillar-card foundation">
+          <i data-lucide="layers" class="pillar-icon"></i>
+          <div class="pillar-name">Foundation</div>
+          <div class="pillar-weight">20%</div>
+        </div>
+        <div class="pillar-card ai">
+          <i data-lucide="cpu" class="pillar-icon"></i>
+          <div class="pillar-name">AI Readiness</div>
+          <div class="pillar-weight">20%</div>
+        </div>
+        <div class="pillar-card governance">
+          <i data-lucide="shield-check" class="pillar-icon"></i>
+          <div class="pillar-name">Governance</div>
+          <div class="pillar-weight">20%</div>
+        </div>
+        <div class="pillar-card delivery">
+          <i data-lucide="git-merge" class="pillar-icon"></i>
+          <div class="pillar-name">Delivery</div>
+          <div class="pillar-weight">15%</div>
+        </div>
+        <div class="pillar-card culture">
+          <i data-lucide="heart-handshake" class="pillar-icon"></i>
+          <div class="pillar-name">Culture</div>
+          <div class="pillar-weight">25%</div>
+        </div>
+      </div>
+      
+      <!-- Pillar Deep Dives -->
+      <h4>Foundation (20%)</h4>
+      <p class="text-muted">The product context substrate — tokens, components, patterns, and documentation. Without structured product context, AI tools have nothing to work with.</p>
+      <p><strong>Key questions:</strong> "What is the current state of your design system?" • "How is your design system governed?" • "What is the quality of your documentation?"</p>
+      
+      <h4>AI Readiness (20%)</h4>
+      <p class="text-muted">How prepared is the organization for AI-powered product development? AI tools amplify whatever context they're given.</p>
+      <p><strong>Key questions:</strong> "How are your teams currently using AI coding tools?" • "What is your API maturity?" • "What is your organization's AI strategy?"</p>
+      <div class="callout warning">
+        <p><strong>Gated:</strong> AI Readiness score is discounted 50% if Foundation is below 40%.</p>
+      </div>
+      
+      <h4>Governance & Adoption (20%)</h4>
+      <p class="text-muted">Sponsorship, budget, change management, and measurement. Even the best design system fails without executive sponsorship.</p>
+      <p><strong>Key questions:</strong> "Is there a clear executive sponsor?" • "Is there committed investment?" • "How do you measure ROI?"</p>
+      
+      <h4>Delivery Workflow (15%)</h4>
+      <p class="text-muted">Design-to-code workflow maturity. Draws on DORA metrics and Team Topologies research.</p>
+      <p><strong>Key questions:</strong> "How fast can you run experiments?" • "Do you have a platform team?" • "How frequently do you deploy?"</p>
+      
+      <h4>Culture & Contribution (25%)</h4>
+      <p class="text-muted">Organizational health, psychological safety, and community. Culture is the <strong>#1 predictor of sustainable adoption</strong> per Google's Project Aristotle research.</p>
+      <p><strong>Key questions:</strong> "Who can contribute to your design system?" • "Do team members feel safe to propose new ideas?" • "How freely does information flow?"</p>
+      
+      <!-- Maturity Archetypes -->
+      <h3 class="mt-5">PCRI Score → Maturity Archetype → Investment Path</h3>
+      
+      <div class="archetype-grid">
+        <div class="archetype-card j1">
+          <div class="archetype-header">
+            <div class="archetype-score">&lt;45</div>
+            <div>
+              <div class="archetype-name">Emerging</div>
+              <div class="archetype-path">→ J1 Foundation</div>
+            </div>
+          </div>
+          <div class="archetype-prescription">
+            <div class="prescription-item"><i data-lucide="map" style="width:14px;height:14px;"></i> Build system of record</div>
+            <div class="prescription-item"><i data-lucide="users" style="width:14px;height:14px;"></i> CX + 0.25 FDE</div>
+            <div class="prescription-item"><i data-lucide="calendar" style="width:14px;height:14px;"></i> 4-6 months</div>
+            <div class="prescription-item"><i data-lucide="dollar-sign" style="width:14px;height:14px;"></i> $50K+</div>
+          </div>
+        </div>
+        
+        <div class="archetype-card j2">
+          <div class="archetype-header">
+            <div class="archetype-score">45-54</div>
+            <div>
+              <div class="archetype-name">Developing</div>
+              <div class="archetype-path">→ J2 Acceleration</div>
+            </div>
+          </div>
+          <div class="archetype-prescription">
+            <div class="prescription-item"><i data-lucide="map" style="width:14px;height:14px;"></i> Rapid enablement sprint</div>
+            <div class="prescription-item"><i data-lucide="users" style="width:14px;height:14px;"></i> CX + 0.5 FDE</div>
+            <div class="prescription-item"><i data-lucide="calendar" style="width:14px;height:14px;"></i> 6-8 weeks</div>
+            <div class="prescription-item"><i data-lucide="dollar-sign" style="width:14px;height:14px;"></i> $50K+ sprint</div>
+          </div>
+        </div>
+        
+        <div class="archetype-card j3">
+          <div class="archetype-header">
+            <div class="archetype-score">55-74</div>
+            <div>
+              <div class="archetype-name">Established</div>
+              <div class="archetype-path">→ J3 Activation</div>
+            </div>
+          </div>
+          <div class="archetype-prescription">
+            <div class="prescription-item"><i data-lucide="map" style="width:14px;height:14px;"></i> Full transformation</div>
+            <div class="prescription-item"><i data-lucide="users" style="width:14px;height:14px;"></i> CX + 1.0 FDE</div>
+            <div class="prescription-item"><i data-lucide="calendar" style="width:14px;height:14px;"></i> 4-phase rollout</div>
+            <div class="prescription-item"><i data-lucide="dollar-sign" style="width:14px;height:14px;"></i> $740K+ phased</div>
+          </div>
+        </div>
+        
+        <div class="archetype-card j4">
+          <div class="archetype-header">
+            <div class="archetype-score">75+</div>
+            <div>
+              <div class="archetype-name">Advanced</div>
+              <div class="archetype-path">→ J4 Intelligence</div>
+            </div>
+          </div>
+          <div class="archetype-prescription">
+            <div class="prescription-item"><i data-lucide="map" style="width:14px;height:14px;"></i> AI expansion + MCP</div>
+            <div class="prescription-item"><i data-lucide="users" style="width:14px;height:14px;"></i> CX + 1.5 FDE</div>
+            <div class="prescription-item"><i data-lucide="calendar" style="width:14px;height:14px;"></i> Continuous</div>
+            <div class="prescription-item"><i data-lucide="dollar-sign" style="width:14px;height:14px;"></i> $165K+ annual</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="callout warning mt-4">
+        <p><strong>J3 Activation:</strong> Requires <strong>tri-party approval</strong> (GTM + Delivery + Product) before entering Contracting. This ensures resource availability, product fit, and commercial alignment on transformation deals ($740K+).</p>
+      </div>
+      
+      <div class="callout success mt-3">
+        <p><strong>Why This Works:</strong> PCRI-qualified deals close <strong>35% faster</strong> because the prescribed path matches organizational readiness. Correct archetype assignment eliminates <strong>60% of mid-funnel pivots</strong>.</p>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 3: KNOW THE ROUTES
+         ======================================================================== -->
+    <section class="section" id="routes">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <h2>Know the Routes</h2>
+      </div>
+      
+      <p class="text-muted mb-4">Investment Paths (J1-J4) define the customer journey based on PCRI score. Deployment Tiers (D1-D4) define technical complexity and pricing. Both are determined during the deal process.</p>
+      
+      <!-- Investment Paths -->
+      <h3>Investment Paths (J1-J4)</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Path</th>
+              <th>PCRI</th>
+              <th>Pillar Minimums</th>
+              <th>Demo Track</th>
+              <th>TCV</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="status-badge green">J4 Intelligence</span></td>
+              <td class="font-mono">≥75</td>
+              <td class="font-mono">Fnd ≥70%, Gov ≥60%</td>
+              <td>MCP/AI deep-dive → Enterprise</td>
+              <td class="font-mono">$165K+</td>
+            </tr>
+            <tr>
+              <td><span class="status-badge purple">J3 Activation</span></td>
+              <td class="font-mono">≥55</td>
+              <td class="font-mono">Fnd ≥60%, Gov ≥55%</td>
+              <td>Discovery → Transformation</td>
+              <td class="font-mono">$740K+ (phased)</td>
+            </tr>
+            <tr>
+              <td><span class="status-badge blue">J2 Acceleration</span></td>
+              <td class="font-mono">≥45</td>
+              <td class="font-mono">Gov ≥50%, Cul ≥40%</td>
+              <td>Platform speed → Quick wins</td>
+              <td class="font-mono">$50K+ sprint</td>
+            </tr>
+            <tr>
+              <td><span class="status-badge yellow">J1 Foundation</span></td>
+              <td class="font-mono">&lt;45</td>
+              <td class="font-mono">or missing minimums</td>
+              <td>Platform overview → Methodology</td>
+              <td class="font-mono">$50K+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Deployment Tiers -->
+      <h3 class="mt-5">Deployment Tiers (D1-D4)</h3>
+      <p class="text-muted mb-3">Determined during Technical Feasibility stage. Often predicted by industry before the first conversation.</p>
+      
+      <div class="tier-grid">
+        <div class="tier-card d1">
+          <div class="tier-header">
+            <span class="tier-code">D1</span>
+            <span class="tier-name">Cloud Standard</span>
+          </div>
+          <div class="tier-timeline">2-4 weeks</div>
+          <div class="tier-premium">Base pricing</div>
+        </div>
+        
+        <div class="tier-card d2">
+          <div class="tier-header">
+            <span class="tier-code">D2</span>
+            <span class="tier-name">Cloud Dedicated</span>
+          </div>
+          <div class="tier-timeline">4-8 weeks</div>
+          <div class="tier-premium">+25-40%</div>
+        </div>
+        
+        <div class="tier-card d3">
+          <div class="tier-header">
+            <span class="tier-code">D3</span>
+            <span class="tier-name">Private Cloud</span>
+          </div>
+          <div class="tier-timeline">8-16 weeks</div>
+          <div class="tier-premium">+50-75%</div>
+        </div>
+        
+        <div class="tier-card d4">
+          <div class="tier-header">
+            <span class="tier-code">D4</span>
+            <span class="tier-name">Self-Hosted</span>
+          </div>
+          <div class="tier-timeline">16-24+ weeks</div>
+          <div class="tier-premium">+100%+</div>
+        </div>
+      </div>
+      
+      <!-- Industry Intelligence -->
+      <h3 class="mt-5">Industry Intelligence</h3>
+      <p class="text-muted mb-3">The IPE value proposition varies by industry. Each vertical has unique compliance requirements and typical deployment needs.</p>
+      
+      <div class="table-wrapper">
+        <table class="industry-table">
+          <thead>
+            <tr>
+              <th>Industry</th>
+              <th>Lead Hook</th>
+              <th>Key Compliance</th>
+              <th>Typical Tier</th>
+              <th>Primary Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Financial Services</strong></td>
+              <td>Model Risk Management</td>
+              <td>OCC, SR 11-7, SOX</td>
+              <td>D3</td>
+              <td>Auditable AI governance</td>
+            </tr>
+            <tr>
+              <td><strong>Healthcare</strong></td>
+              <td>Operational Resilience</td>
+              <td>HIPAA, HITRUST</td>
+              <td>D3</td>
+              <td>PHI protection, audit trails</td>
+            </tr>
+            <tr>
+              <td><strong>Enterprise Software</strong></td>
+              <td>Multi-Product Consistency</td>
+              <td>SOC 2, ISO 27001</td>
+              <td>D1-D2</td>
+              <td>Platform-wide governance</td>
+            </tr>
+            <tr>
+              <td><strong>Technology / Media</strong></td>
+              <td>AI Velocity</td>
+              <td>SOC 2, GDPR</td>
+              <td>D1</td>
+              <td>Speed to AI-first</td>
+            </tr>
+            <tr>
+              <td><strong>Government</strong></td>
+              <td>Citizen Accessibility</td>
+              <td>Section 508, FedRAMP</td>
+              <td>D4</td>
+              <td>Public accountability</td>
+            </tr>
+            <tr>
+              <td><strong>Aerospace / Defense</strong></td>
+              <td>Mission-Critical Safety</td>
+              <td>DO-178C, ITAR</td>
+              <td>D4</td>
+              <td>Traceability, clearance</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="callout info mt-4">
+        <p><strong>Remember:</strong> Industry context sets expectations, but PCRI score makes the decision. A Financial Services company with a mature system might be J4-ready. A Tech company with no system of record needs J1. Always assess before assuming.</p>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 4: EXECUTE BY ROLE
+         ======================================================================== -->
+    <section class="section" id="roles">
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <h2>Execute by Role</h2>
+      </div>
+      
+      <p class="text-muted mb-4">Each role has specific responsibilities in the PCRI-driven process. Find your role below to understand what changes for you.</p>
+      
+      <div class="role-grid">
+        <!-- BDR -->
+        <div class="role-card bdr">
+          <div class="role-header">
+            <div class="role-icon">
+              <i data-lucide="phone"></i>
+            </div>
+            <div class="role-title">BDR</div>
+          </div>
+          
+          <div class="role-message">
+            "Flag AI signals, SE takes it from there."
+          </div>
+          
+          <ul class="role-actions">
+            <li><i data-lucide="check-circle"></i> Own Intro Call (L1) — qualify fit, surface interest</li>
+            <li><i data-lucide="check-circle"></i> Flag AI signals in HubSpot (3 checkboxes)</li>
+            <li><i data-lucide="check-circle"></i> Trigger SE involvement if AI signals present</li>
+            <li><i data-lucide="check-circle"></i> Hand off to SE + AE at Pre-Qualification</li>
+          </ul>
+          
+          <div class="role-first-action">
+            <div class="role-first-action-label">Your First Action</div>
+            <div class="role-first-action-text">Learn the 3 AI signal checkboxes: AI Tool Usage, Automation Maturity, Governance Concerns</div>
+          </div>
+        </div>
+        
+        <!-- Pre-Sales SE -->
+        <div class="role-card se">
+          <div class="role-header">
+            <div class="role-icon">
+              <i data-lucide="cpu"></i>
+            </div>
+            <div class="role-title">Pre-Sales SE</div>
+          </div>
+          
+          <div class="role-message">
+            "You own the Investment Path hypothesis at Pre-Qualification."
+          </div>
+          
+          <ul class="role-actions">
+            <li><i data-lucide="check-circle"></i> Join Pre-Qualification when BDR flags AI signals</li>
+            <li><i data-lucide="check-circle"></i> Ask PCRI pillar questions (Foundation, AI, Governance)</li>
+            <li><i data-lucide="check-circle"></i> Form preliminary path hypothesis (J1-J4)</li>
+            <li><i data-lucide="check-circle"></i> Drive technical discovery and deployment tier</li>
+            <li><i data-lucide="check-circle"></i> Validate path fit before Stakeholder Alignment</li>
+          </ul>
+          
+          <div class="role-first-action">
+            <div class="role-first-action-label">Your First Action</div>
+            <div class="role-first-action-text">Practice PCRI pillar questions — especially "How do you govern AI-generated code output?"</div>
+          </div>
+        </div>
+        
+        <!-- AE -->
+        <div class="role-card ae">
+          <div class="role-header">
+            <div class="role-icon">
+              <i data-lucide="briefcase"></i>
+            </div>
+            <div class="role-title">Account Executive</div>
+          </div>
+          
+          <div class="role-message">
+            "Path determines deal structure, not negotiation."
+          </div>
+          
+          <ul class="role-actions">
+            <li><i data-lucide="check-circle"></i> Own pipeline stages from Qualification Handover on</li>
+            <li><i data-lucide="check-circle"></i> Trust PCRI-prescribed path for pricing/timeline</li>
+            <li><i data-lucide="check-circle"></i> Lead Stakeholder Alignment with pre-built business case</li>
+            <li><i data-lucide="check-circle"></i> Manage Contracting/Procurement with Deal Desk</li>
+            <li><i data-lucide="check-circle"></i> Champion MEDDICC throughout</li>
+          </ul>
+          
+          <div class="role-first-action">
+            <div class="role-first-action-label">Your First Action</div>
+            <div class="role-first-action-text">Understand J1-J4 pricing/timeline expectations — no more negotiating from scratch</div>
+          </div>
+        </div>
+        
+        <!-- CX Partner -->
+        <div class="role-card cx">
+          <div class="role-header">
+            <div class="role-icon">
+              <i data-lucide="heart-handshake"></i>
+            </div>
+            <div class="role-title">CX Partner</div>
+          </div>
+          
+          <div class="role-message">
+            "You validate path fit and own delivery planning."
+          </div>
+          
+          <ul class="role-actions">
+            <li><i data-lucide="check-circle"></i> Validate Investment Path assignment at Technical Feasibility</li>
+            <li><i data-lucide="check-circle"></i> Confirm FDE capacity requirements per path</li>
+            <li><i data-lucide="check-circle"></i> Own implementation planning and SOW structure</li>
+            <li><i data-lucide="check-circle"></i> Manage phase-gated J3 agreements</li>
+            <li><i data-lucide="check-circle"></i> Support Deal Desk on complex procurement</li>
+          </ul>
+          
+          <div class="role-first-action">
+            <div class="role-first-action-label">Your First Action</div>
+            <div class="role-first-action-text">Know FDE capacity: J1=0.25, J2=0.5, J3=1.0, J4=1.5</div>
+          </div>
+        </div>
+        
+        <!-- Deal Desk -->
+        <div class="role-card dealdesk">
+          <div class="role-header">
+            <div class="role-icon">
+              <i data-lucide="timer"></i>
+            </div>
+            <div class="role-title">Deal Desk</div>
+          </div>
+          
+          <div class="role-message">
+            "You own procurement acceleration and time-to-signature."
+          </div>
+          
+          <ul class="role-actions">
+            <li><i data-lucide="check-circle"></i> Monitor Days-in-Contracting — escalate at Day 14</li>
+            <li><i data-lucide="check-circle"></i> Own rescue playbooks for stalled deals</li>
+            <li><i data-lucide="check-circle"></i> Coordinate J3 Approval Gate (tri-party sign-off)</li>
+            <li><i data-lucide="check-circle"></i> Track signature velocity and procurement blockers</li>
+            <li><i data-lucide="check-circle"></i> Proactively engage procurement with AI governance docs</li>
+          </ul>
+          
+          <div class="role-first-action">
+            <div class="role-first-action-label">Your First Action</div>
+            <div class="role-first-action-text">Set up Days-in-Contracting alerts — Yellow at Day 14, Red at Day 21</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 5: MANAGE THE DEAL - PIPELINE
+         ======================================================================== -->
+    <section class="section" id="pipeline">
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <h2>Pipeline Stages</h2>
+      </div>
+      
+      <p class="text-muted mb-4">Complete pipeline process aligned with HubSpot. Deals progress from Lead stages (L1-L3) to Deal stages (D1-D5) to Win.</p>
+      
+      <!-- Pipeline Progress -->
+      <div class="pipeline-progress">
+        <div class="pipeline-stage lead">L1 Intro</div>
+        <div class="pipeline-stage lead">L2 Pre-Qual</div>
+        <div class="pipeline-stage lead">L3 Handover</div>
+        <div class="pipeline-stage deal">D1 Discovery</div>
+        <div class="pipeline-stage deal">D2 Alignment</div>
+        <div class="pipeline-stage deal">D3 Technical</div>
+        <div class="pipeline-stage deal">D4 Decision</div>
+        <div class="pipeline-stage deal">D5 Contract</div>
+        <div class="pipeline-stage win">Win</div>
+      </div>
+      
+      <h3>Lead Process (L1-L3)</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Stage</th>
+              <th>Owner</th>
+              <th>Exit Criteria</th>
+              <th>PCRI Integration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>L1 Intro Call</strong></td>
+              <td>BDR</td>
+              <td>Pre-qual call scheduled</td>
+              <td>Flag AI tool usage signals</td>
+            </tr>
+            <tr>
+              <td><strong>L2 Pre-Qualification</strong></td>
+              <td>BDR + SE</td>
+              <td>MEDDICC captured, Path hypothesis formed</td>
+              <td>SE captures AI signals, forms J1-J4 hypothesis</td>
+            </tr>
+            <tr>
+              <td><strong>L3 Handover</strong></td>
+              <td>BDR → AE</td>
+              <td>Deal created, lifecycle → Opportunity</td>
+              <td>CX validates path, demo track assigned</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <h3 class="mt-4">Deal Process (D1-D5)</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Stage</th>
+              <th>Owner</th>
+              <th>Exit Criteria</th>
+              <th>Key Activities</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>D1 Discovery & Demo</strong></td>
+              <td>AE</td>
+              <td>Path-specific demo(s) complete</td>
+              <td>Demo track per J1-J4 assignment</td>
+            </tr>
+            <tr>
+              <td><strong>D2 Stakeholder Alignment</strong></td>
+              <td>AE</td>
+              <td>All MEDDICC criteria validated</td>
+              <td>Present PCRI-based business case</td>
+            </tr>
+            <tr>
+              <td><strong>D3 Technical Feasibility</strong></td>
+              <td>SE + CX</td>
+              <td>Architecture approved, deployment tier confirmed</td>
+              <td>FDE capacity validation (blocking for J3)</td>
+            </tr>
+            <tr>
+              <td><strong>D4 Final Decision</strong></td>
+              <td>AE</td>
+              <td>Verbal commit, SOW accepted</td>
+              <td>J3 Approval Gate (tri-party sign-off)</td>
+            </tr>
+            <tr>
+              <td><strong>D5 Contracting</strong></td>
+              <td>AE + Deal Desk</td>
+              <td>Signature obtained</td>
+              <td>Health monitoring, procurement acceleration</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="callout success mt-4">
+        <p><strong>Pre-Sales SE Impact:</strong> Deals with complete AI signal capture during Pre-Qualification see <strong>25% faster</strong> Discovery → Technical cycle times. SE involvement at Pre-Qual reduces path misalignment by <strong>60%</strong>.</p>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 6: DEAL DESK
+         ======================================================================== -->
+    <section class="section" id="deal-desk">
+      <div class="section-header">
+        <div class="section-number">6</div>
+        <h2>Deal Desk</h2>
+      </div>
+      
+      <p class="text-muted mb-4">Deal Desk manages active deals through Contracting and Procurement stages. This includes health monitoring, intervention playbooks, and procurement acceleration.</p>
+      
+      <div class="callout success mb-4">
+        <p><strong>Primary Accountability:</strong> Deal Desk owns <strong>procurement acceleration</strong> and <strong>time-to-signature</strong>. Every day a deal sits in Contracting without forward progress increases the probability of loss.</p>
+      </div>
+      
+      <!-- Health Zones -->
+      <h3>Deal Health Zones</h3>
+      
+      <div class="health-grid">
+        <div class="health-zone green">
+          <div class="health-zone-title">Green Zone</div>
+          <div class="health-zone-range">Days 1-14</div>
+          <div class="health-zone-desc">Normal procurement cycle. No intervention required.</div>
+        </div>
+        
+        <div class="health-zone yellow">
+          <div class="health-zone-title">Yellow Zone</div>
+          <div class="health-zone-range">Days 15-21</div>
+          <div class="health-zone-desc">Elevated risk. Intervention recommended.</div>
+        </div>
+        
+        <div class="health-zone red">
+          <div class="health-zone-title">Red Zone</div>
+          <div class="health-zone-range">Days 22+</div>
+          <div class="health-zone-desc">High risk. Rescue protocol required.</div>
+        </div>
+      </div>
+      
+      <!-- Health Indicators -->
+      <h3 class="mt-4">Health Indicators</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Signal</th>
+              <th><span class="status-badge green">Green</span></th>
+              <th><span class="status-badge yellow">Yellow</span></th>
+              <th><span class="status-badge red">Red</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Days in Stage</strong></td>
+              <td>&lt;14 days</td>
+              <td>14-30 days</td>
+              <td>&gt;30 days</td>
+            </tr>
+            <tr>
+              <td><strong>Champion Responsiveness</strong></td>
+              <td>&lt;24hr response</td>
+              <td>24-72hr response</td>
+              <td>&gt;72hr or no response</td>
+            </tr>
+            <tr>
+              <td><strong>Procurement Progress</strong></td>
+              <td>Milestones on track</td>
+              <td>1 milestone missed</td>
+              <td>2+ milestones missed</td>
+            </tr>
+            <tr>
+              <td><strong>Contract Redlines</strong></td>
+              <td>&lt;5 redlines</td>
+              <td>5-15 redlines</td>
+              <td>&gt;15 or major terms</td>
+            </tr>
+            <tr>
+              <td><strong>Competitive Signals</strong></td>
+              <td>No mentions</td>
+              <td>Alternative mentioned</td>
+              <td>Active evaluation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="callout mt-3">
+        <p><strong>Health Score:</strong> Each indicator scores 0-2 points (Green=2, Yellow=1, Red=0). Total score: 10-12 = Healthy, 6-9 = At Risk, 0-5 = Critical.</p>
+      </div>
+      
+      <!-- Rescue Playbooks -->
+      <h3 class="mt-5">Rescue Playbooks</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Trigger</th>
+              <th>Day 1-2</th>
+              <th>Day 3-5</th>
+              <th>Day 7</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Deal Stalled &gt;14 Days</strong></td>
+              <td>No stage movement</td>
+              <td>AE: Status check email, call champion</td>
+              <td>AE: Engage secondary contacts; CRO: Exec outreach</td>
+              <td>Deal Desk: Rescue meeting — continue, modify, or Lost</td>
+            </tr>
+            <tr>
+              <td><strong>Champion Unresponsive &gt;72hr</strong></td>
+              <td>No response during active contracting</td>
+              <td>AE: Try all channels</td>
+              <td>AE: Engage tech contact; CRO: Exec backup</td>
+              <td>Deal Desk: Ghost protocol assessment</td>
+            </tr>
+            <tr>
+              <td><strong>Budget Concerns Surface</strong></td>
+              <td>CFO review or budget reallocation</td>
+              <td>AE: ROI refresh</td>
+              <td>SE: Value engineering; CX: Phase options</td>
+              <td>Deal Desk: Decision — restructure or Lost</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 7: METRICS
+         ======================================================================== -->
+    <section class="section" id="metrics">
+      <div class="section-header">
+        <div class="section-number">7</div>
+        <h2>Success Metrics</h2>
+      </div>
+      
+      <p class="text-muted mb-4">We'll track these metrics to measure successful adoption of the operating model. Leadership reviews weekly.</p>
+      
+      <h3>Process Adoption Metrics</h3>
+      
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">100%</div>
+          <div class="metric-label">Deals with PCRI Score</div>
+          <div class="metric-target">Target: All new opps by Week 4</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-value">&lt;10%</div>
+          <div class="metric-label">Path Override Rate</div>
+          <div class="metric-target">Target: Minimize deviations</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-value">L2</div>
+          <div class="metric-label">SE Involvement Stage</div>
+          <div class="metric-target">Target: SE joins at Pre-Qual</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-value">35%</div>
+          <div class="metric-label">Cycle Time Reduction</div>
+          <div class="metric-target">Target: PCRI deals close faster</div>
+        </div>
+      </div>
+      
+      <h3 class="mt-4">Business Metrics</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Current</th>
+              <th>Target</th>
+              <th>Rationale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Contracting → Win</td>
+              <td class="font-mono">~80%</td>
+              <td class="text-green font-mono">95%+</td>
+              <td>+15% conversion improvement</td>
+            </tr>
+            <tr>
+              <td>Days in Contracting (D3/D4 deals)</td>
+              <td class="font-mono">~35 days</td>
+              <td class="text-green font-mono">&lt;21 days</td>
+              <td>Proactive AI security engagement</td>
+            </tr>
+            <tr>
+              <td>Deals lost in contracting</td>
+              <td class="font-mono">2-3/year</td>
+              <td class="text-green font-mono">&lt;1/year</td>
+              <td>+$350-700K ARR recovery</td>
+            </tr>
+            <tr>
+              <td>Mid-funnel pivots</td>
+              <td class="font-mono">Common</td>
+              <td class="text-green font-mono">&lt;5%</td>
+              <td>Path stays stable post-Qualification</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <h3 class="mt-4">Deal Desk KPIs</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Target</th>
+              <th>Escalation Trigger</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Days-in-Contracting</strong></td>
+              <td class="text-green font-mono">&lt;21 days</td>
+              <td>Yellow at Day 14, Red at Day 21</td>
+            </tr>
+            <tr>
+              <td><strong>Signature Velocity</strong></td>
+              <td class="text-green font-mono">&lt;7 days</td>
+              <td>Escalate if no response in 48hr</td>
+            </tr>
+            <tr>
+              <td><strong>Rescue Success Rate</strong></td>
+              <td class="text-green font-mono">&gt;85%</td>
+              <td>Review playbook if &lt;70%</td>
+            </tr>
+            <tr>
+              <td><strong>J3 Approval Gate Time</strong></td>
+              <td class="text-green font-mono">&lt;3 days</td>
+              <td>GTM Lead owns coordination</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 8: MARKETING STRATEGY
+         ======================================================================== -->
+    <section class="section" id="marketing">
+      <div class="section-header">
+        <div class="section-number">8</div>
+        <h2>Product Marketing Strategy</h2>
+      </div>
+      
+      <p class="text-muted mb-4">10-month plan to achieve <strong>$6M revenue</strong>: $3M from existing customers (16) + $3M in new logos. Based on the strategic insight that "Implemented ≠ Activated."</p>
+      
+      <!-- Revenue Target Stats -->
+      <div class="stats-grid">
+        <div class="stat-card purple">
+          <div class="stat-label">
+            <i data-lucide="users" style="width: 14px; height: 14px;"></i>
+            Existing Customers
+          </div>
+          <div class="stat-value">$3M</div>
+          <span class="stat-change positive">16 accounts → 100% penetration</span>
+        </div>
+        
+        <div class="stat-card green">
+          <div class="stat-label">
+            <i data-lucide="user-plus" style="width: 14px; height: 14px;"></i>
+            New Logos
+          </div>
+          <div class="stat-value">$3M</div>
+          <span class="stat-change positive">8-15 new accounts</span>
+        </div>
+        
+        <div class="stat-card amber">
+          <div class="stat-label">
+            <i data-lucide="calendar" style="width: 14px; height: 14px;"></i>
+            Timeline
+          </div>
+          <div class="stat-value">10 Mo</div>
+          <span class="stat-change positive">Phase-gated execution</span>
+        </div>
+        
+        <div class="stat-card blue">
+          <div class="stat-label">
+            <i data-lucide="target" style="width: 14px; height: 14px;"></i>
+            Total Target
+          </div>
+          <div class="stat-value">$6M</div>
+          <span class="stat-change positive">24-31 engagements</span>
+        </div>
+      </div>
+      
+      <!-- Strategic Insight -->
+      <div class="callout warning mb-4">
+        <p><strong>Critical Insight:</strong> Most existing customers have Knapsack installed but aren't extracting value. The path to $3M from existing customers is <strong>J3 Activation</strong>, not new logos. Services capacity is the bottleneck.</p>
+      </div>
+      
+      <!-- Revenue Math -->
+      <h3>Revenue Math: Existing Customers ($3M)</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Path</th>
+              <th>% of Base (16)</th>
+              <th>Accounts</th>
+              <th>Avg TCV</th>
+              <th>Revenue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="status-badge purple">J3 Activation</span></td>
+              <td class="font-mono">50%</td>
+              <td class="font-mono">8</td>
+              <td class="font-mono">$275K</td>
+              <td class="text-green font-mono">$2.2M</td>
+            </tr>
+            <tr>
+              <td><span class="status-badge green">J4 Intelligence</span></td>
+              <td class="font-mono">30%</td>
+              <td class="font-mono">5</td>
+              <td class="font-mono">$195K</td>
+              <td class="text-green font-mono">$975K</td>
+            </tr>
+            <tr>
+              <td><span class="status-badge blue">J2 Acceleration</span></td>
+              <td class="font-mono">20%</td>
+              <td class="font-mono">3</td>
+              <td class="font-mono">—</td>
+              <td class="font-mono">(overlap)</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr style="background: rgba(16, 185, 129, 0.15);">
+              <td colspan="4"><strong>Total (Conservative)</strong></td>
+              <td class="text-green font-mono"><strong>$3.17M</strong></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      
+      <h3 class="mt-4">Revenue Math: New Logos ($3M)</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Path</th>
+              <th>Target Accounts</th>
+              <th>Avg TCV</th>
+              <th>Revenue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="status-badge purple">J3 Activation</span> (FSS/Healthcare)</td>
+              <td class="font-mono">5-6</td>
+              <td class="font-mono">$450K</td>
+              <td class="text-green font-mono">$2.25M</td>
+            </tr>
+            <tr>
+              <td><span class="status-badge blue">J2 Acceleration</span> (Tech/SaaS)</td>
+              <td class="font-mono">3-4</td>
+              <td class="font-mono">$225K</td>
+              <td class="text-green font-mono">$750K</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr style="background: rgba(16, 185, 129, 0.15);">
+              <td colspan="3"><strong>Total</strong></td>
+              <td class="text-green font-mono"><strong>$3.0M</strong></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      
+      <!-- Positioning Framework -->
+      <h3 class="mt-5">Positioning Framework</h3>
+      
+      <div class="comparison-grid">
+        <div class="comparison-card before">
+          <div class="comparison-label">
+            <i data-lucide="x" style="width:12px;height:12px;"></i>
+            Stop Saying
+          </div>
+          <ul class="comparison-list">
+            <li><i data-lucide="x"></i> "Design system management"</li>
+            <li><i data-lucide="x"></i> "Component library"</li>
+            <li><i data-lucide="x"></i> "Engagement model"</li>
+            <li><i data-lucide="x"></i> "Meet you where you are"</li>
+            <li><i data-lucide="x"></i> "Figma plugin"</li>
+          </ul>
+        </div>
+        
+        <div class="comparison-card after">
+          <div class="comparison-label">
+            <i data-lucide="check" style="width:12px;height:12px;"></i>
+            Start Saying
+          </div>
+          <ul class="comparison-list">
+            <li><i data-lucide="check"></i> "Governable control plane"</li>
+            <li><i data-lucide="check"></i> "Model Risk Management for product systems"</li>
+            <li><i data-lucide="check"></i> "AI execution with enterprise guardrails"</li>
+            <li><i data-lucide="check"></i> "From intent to production, governed"</li>
+            <li><i data-lucide="check"></i> "Operational resilience through consistency"</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Industry Messaging -->
+      <h3 class="mt-5">Industry-Specific Messaging</h3>
+      
+      <div class="table-wrapper">
+        <table class="industry-table">
+          <thead>
+            <tr>
+              <th>Industry</th>
+              <th>Lead Hook</th>
+              <th>Value Prop</th>
+              <th>Regulatory Angle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Financial Services</strong></td>
+              <td>Model Risk Management</td>
+              <td>Auditable AI governance for product delivery</td>
+              <td>OCC Guidelines, SR 11-7, BCBS 239</td>
+            </tr>
+            <tr>
+              <td><strong>Healthcare</strong></td>
+              <td>Operational Resilience</td>
+              <td>Consistent, compliant digital experiences at scale</td>
+              <td>HIPAA, FDA 21 CFR Part 11, HITRUST</td>
+            </tr>
+            <tr>
+              <td><strong>Enterprise Tech</strong></td>
+              <td>AI Velocity</td>
+              <td>Ship faster with governed AI execution</td>
+              <td>SOC 2, ISO 27001, GDPR</td>
+            </tr>
+            <tr>
+              <td><strong>Manufacturing</strong></td>
+              <td>Digital Thread</td>
+              <td>Connected product experience from design to delivery</td>
+              <td>ISO 9001, IATF 16949</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- 10-Month Roadmap -->
+      <h3 class="mt-5">10-Month Execution Roadmap</h3>
+      
+      <div class="archetype-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="archetype-card j1">
+          <div class="archetype-header">
+            <div class="archetype-score">M1-3</div>
+            <div>
+              <div class="archetype-name">Phase 1: Foundation</div>
+              <div class="archetype-path">Target: $750K-$1M</div>
+            </div>
+          </div>
+          <div class="archetype-prescription">
+            <div class="prescription-item"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> Launch PCRI publicly</div>
+            <div class="prescription-item"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> Account health audit (all 16)</div>
+            <div class="prescription-item"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> FSS/Healthcare campaigns</div>
+            <div class="prescription-item"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> First case study published</div>
+            <div class="prescription-item"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> ABM to Tier 1 targets</div>
+          </div>
+        </div>
+        
+        <div class="archetype-card j3">
+          <div class="archetype-header">
+            <div class="archetype-score">M4-6</div>
+            <div>
+              <div class="archetype-name">Phase 2: Scale</div>
+              <div class="archetype-path">Target: $1.5M-$2M (cum $2.5-3M)</div>
+            </div>
+          </div>
+          <div class="archetype-prescription">
+            <div class="prescription-item"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> Webinar series launch</div>
+            <div class="prescription-item"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> Partner marketing co-op</div>
+            <div class="prescription-item"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> FSS benchmark report</div>
+            <div class="prescription-item"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> 8 J3 engagements underway</div>
+            <div class="prescription-item"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> J4 expansion (5 deals)</div>
+          </div>
+        </div>
+        
+        <div class="archetype-card j4">
+          <div class="archetype-header">
+            <div class="archetype-score">M7-10</div>
+            <div>
+              <div class="archetype-name">Phase 3: Acceleration</div>
+              <div class="archetype-path">Target: $2.5-3M (cum $5.5-6M)</div>
+            </div>
+          </div>
+          <div class="archetype-prescription">
+            <div class="prescription-item"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> Video testimonial campaign</div>
+            <div class="prescription-item"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> Healthcare benchmark report</div>
+            <div class="prescription-item"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> Enterprise virtual summit</div>
+            <div class="prescription-item"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> Year-end push campaign</div>
+            <div class="prescription-item"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> Close pipeline</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Demand Gen Strategy -->
+      <h3 class="mt-5">Demand Generation Strategy</h3>
+      
+      <div class="role-grid">
+        <!-- Existing Customer Strategy -->
+        <div class="role-card cx">
+          <div class="role-header">
+            <div class="role-icon">
+              <i data-lucide="users"></i>
+            </div>
+            <div class="role-title">Existing Customers ($3M)</div>
+          </div>
+          
+          <div class="role-message">
+            Account-Based Activation Program
+          </div>
+          
+          <ul class="role-actions">
+            <li><i data-lucide="check-circle"></i> Run PCRI on all 16 accounts (Month 1)</li>
+            <li><i data-lucide="check-circle"></i> Executive re-engagement campaign with QBRs</li>
+            <li><i data-lucide="check-circle"></i> "Implemented to Activated" direct outreach</li>
+            <li><i data-lucide="check-circle"></i> "Activation Sprint" offer for J3-ready accounts</li>
+            <li><i data-lucide="check-circle"></i> MCP Activation pilots for J4-ready accounts</li>
+          </ul>
+          
+          <div class="role-first-action">
+            <div class="role-first-action-label">Week 1 Action</div>
+            <div class="role-first-action-text">Schedule QBRs with all 16 accounts showing "Implemented ≠ Activated" value gap</div>
+          </div>
+        </div>
+        
+        <!-- New Logo Strategy -->
+        <div class="role-card ae">
+          <div class="role-header">
+            <div class="role-icon">
+              <i data-lucide="user-plus"></i>
+            </div>
+            <div class="role-title">New Logos ($3M)</div>
+          </div>
+          
+          <div class="role-message">
+            PCRI-Led Inbound + Targeted ABM
+          </div>
+          
+          <ul class="role-actions">
+            <li><i data-lucide="check-circle"></i> PCRI Assessment (ungated) → 200+ assessments/quarter</li>
+            <li><i data-lucide="check-circle"></i> Industry Events (FSS, Healthcare) → 10-15 opps</li>
+            <li><i data-lucide="check-circle"></i> ABM Campaign (Tier 1 accounts) → 5-8 opps</li>
+            <li><i data-lucide="check-circle"></i> Partner Referrals → 5-10 opps</li>
+            <li><i data-lucide="check-circle"></i> Content/SEO → 10+ inbound/quarter</li>
+          </ul>
+          
+          <div class="role-first-action">
+            <div class="role-first-action-label">Priority Targets</div>
+            <div class="role-first-action-text">BlackRock, Fidelity, JPMorgan, Stripe, UnitedHealth, Atlassian, Datadog</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Content Marketing Priorities -->
+      <h3 class="mt-5">Content Marketing Priorities</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>Content Assets</th>
+              <th>Purpose</th>
+              <th>Target Audience</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="4"><strong>M1-2: Foundation</strong></td>
+              <td>PCRI Whitepaper</td>
+              <td>Thought leadership, SEO</td>
+              <td>VPs of Design, Engineering, Product</td>
+            </tr>
+            <tr>
+              <td>AI Execution Gap Research Report</td>
+              <td>Market validation, PR hook</td>
+              <td>C-suite, analysts</td>
+            </tr>
+            <tr>
+              <td>ROI Calculator</td>
+              <td>Sales enablement, self-service</td>
+              <td>Finance, procurement</td>
+            </tr>
+            <tr>
+              <td>3 Industry Battle Cards</td>
+              <td>SDR/AE enablement</td>
+              <td>FSS, Healthcare, Tech</td>
+            </tr>
+            <tr>
+              <td rowspan="3"><strong>M3-5: Activation</strong></td>
+              <td>Customer Case Studies (2-3)</td>
+              <td>Social proof, J3 proof points</td>
+              <td>Peers in vertical</td>
+            </tr>
+            <tr>
+              <td>MCP Integration Guides</td>
+              <td>Technical validation</td>
+              <td>Engineering leads</td>
+            </tr>
+            <tr>
+              <td>"Implemented vs Activated" Guide</td>
+              <td>Existing customer re-engagement</td>
+              <td>Current customers</td>
+            </tr>
+            <tr>
+              <td rowspan="3"><strong>M6-10: Scale</strong></td>
+              <td>Industry Benchmark Reports</td>
+              <td>Lead gen, PR</td>
+              <td>C-suite, analysts</td>
+            </tr>
+            <tr>
+              <td>Video Testimonials</td>
+              <td>Trust building</td>
+              <td>All segments</td>
+            </tr>
+            <tr>
+              <td>Webinar Series</td>
+              <td>Pipeline generation</td>
+              <td>All segments</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Resource Plan -->
+      <h3 class="mt-5">Resource Plan</h3>
+      
+      <div class="tier-grid">
+        <div class="tier-card d1">
+          <div class="tier-header">
+            <span class="tier-code">PMM</span>
+            <span class="tier-name">Product Marketing Manager</span>
+          </div>
+          <div class="tier-timeline">Month 1 hire</div>
+          <div class="tier-premium">$140-160K/yr • Critical</div>
+        </div>
+        
+        <div class="tier-card d2">
+          <div class="tier-header">
+            <span class="tier-code">CM</span>
+            <span class="tier-name">Content Marketing</span>
+          </div>
+          <div class="tier-timeline">Month 2 hire</div>
+          <div class="tier-premium">$80-100K/yr • High</div>
+        </div>
+        
+        <div class="tier-card d2">
+          <div class="tier-header">
+            <span class="tier-code">DG</span>
+            <span class="tier-name">Demand Gen Manager</span>
+          </div>
+          <div class="tier-timeline">Month 3 hire</div>
+          <div class="tier-premium">$120-140K/yr • High</div>
+        </div>
+        
+        <div class="tier-card d3">
+          <div class="tier-header">
+            <span class="tier-code">MO</span>
+            <span class="tier-name">Marketing Ops</span>
+          </div>
+          <div class="tier-timeline">Month 4 hire</div>
+          <div class="tier-premium">$50-60K/yr • Medium</div>
+        </div>
+      </div>
+      
+      <!-- Marketing Budget -->
+      <h3 class="mt-4">Marketing Budget (10-Month)</h3>
+      
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">$150K</div>
+          <div class="metric-label">Demand Gen/Paid</div>
+          <div class="metric-target">30% of budget</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-value">$100K</div>
+          <div class="metric-label">Agency/Contractors</div>
+          <div class="metric-target">20% of budget</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-value">$75K</div>
+          <div class="metric-label">Content Production</div>
+          <div class="metric-target">15% of budget</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-value">$75K</div>
+          <div class="metric-label">Events/Sponsorships</div>
+          <div class="metric-target">15% of budget</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-value">$50K</div>
+          <div class="metric-label">Tools/Tech Stack</div>
+          <div class="metric-target">10% of budget</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-value">$50K</div>
+          <div class="metric-label">Contingency</div>
+          <div class="metric-target">10% of budget</div>
+        </div>
+      </div>
+      
+      <div class="callout success mt-4">
+        <p><strong>Total Marketing Investment:</strong> $500K program budget + $390-460K headcount = <strong>$890K-$960K</strong> to generate $6M revenue (6.3-6.7x return)</p>
+      </div>
+      
+      <!-- Success Metrics -->
+      <h3 class="mt-5">Marketing Success Metrics</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Monthly Target</th>
+              <th>Quarterly Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>PCRI Assessments Completed</strong></td>
+              <td class="font-mono">50/month</td>
+              <td class="font-mono">150/quarter</td>
+            </tr>
+            <tr>
+              <td><strong>MQLs Generated</strong></td>
+              <td class="font-mono">30/month</td>
+              <td class="font-mono">90/quarter</td>
+            </tr>
+            <tr>
+              <td><strong>SDR Meetings Set</strong></td>
+              <td class="font-mono">15/month</td>
+              <td class="font-mono">45/quarter</td>
+            </tr>
+            <tr>
+              <td><strong>Pipeline Created</strong></td>
+              <td class="font-mono">$500K/month</td>
+              <td class="font-mono">$1.5M/quarter</td>
+            </tr>
+            <tr>
+              <td><strong>Existing Customer QBRs</strong></td>
+              <td class="font-mono">4/month</td>
+              <td class="font-mono">All 16 by Q1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Critical Success Factors -->
+      <h3 class="mt-5">Critical Success Factors</h3>
+      
+      <div class="health-grid">
+        <div class="health-zone green">
+          <div class="health-zone-title">Services Capacity</div>
+          <div class="health-zone-range">FDE hiring in M1</div>
+          <div class="health-zone-desc">Without delivery capacity, pipeline converts to nothing. FDE #2 hire is critical.</div>
+        </div>
+        
+        <div class="health-zone green">
+          <div class="health-zone-title">Customer Re-Engagement</div>
+          <div class="health-zone-range">All 16 QBRs by M2</div>
+          <div class="health-zone-desc">"Implemented ≠ Activated" message must land with every existing customer.</div>
+        </div>
+        
+        <div class="health-zone green">
+          <div class="health-zone-title">PCRI Traction</div>
+          <div class="health-zone-range">200+ in Q1</div>
+          <div class="health-zone-desc">Assessment needs 200+ completions in Q1 to validate market demand.</div>
+        </div>
+      </div>
+      
+      <!-- Immediate Next Steps -->
+      <div class="cheat-sheet mt-4">
+        <div class="cheat-sheet-header">
+          <div class="cheat-sheet-title">📋 Immediate Next Steps (Week 1-2)</div>
+          <div class="cheat-sheet-subtitle">Critical actions to launch the marketing strategy</div>
+        </div>
+        
+        <div class="comparison-grid">
+          <div class="comparison-card after" style="background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), rgba(22, 33, 62, 0.8)); border-color: rgba(16, 185, 129, 0.3);">
+            <div class="comparison-label" style="background: rgba(16, 185, 129, 0.2); color: var(--spectrum-green-400);">
+              <i data-lucide="check" style="width:12px;height:12px;"></i>
+              This Week
+            </div>
+            <ul class="comparison-list">
+              <li><i data-lucide="check"></i> Approve Product Marketing Manager hire</li>
+              <li><i data-lucide="check"></i> Run PCRI on all 16 existing accounts</li>
+              <li><i data-lucide="check"></i> Launch PCRI assessment publicly</li>
+              <li><i data-lucide="check"></i> Create FSS battle card</li>
+              <li><i data-lucide="check"></i> Schedule first 4 customer QBRs</li>
+            </ul>
+          </div>
+          
+          <div class="comparison-card after" style="background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), rgba(22, 33, 62, 0.8)); border-color: rgba(59, 130, 246, 0.3);">
+            <div class="comparison-label" style="background: rgba(59, 130, 246, 0.2); color: var(--spectrum-blue-400);">
+              <i data-lucide="arrow-right" style="width:12px;height:12px;"></i>
+              Week 2
+            </div>
+            <ul class="comparison-list">
+              <li><i data-lucide="check"></i> Finalize ROI calculator</li>
+              <li><i data-lucide="check"></i> Draft "Implemented to Activated" campaign</li>
+              <li><i data-lucide="check"></i> Create executive re-engagement email sequence</li>
+              <li><i data-lucide="check"></i> Brief SDR on PCRI follow-up playbook</li>
+              <li><i data-lucide="check"></i> Identify 10 Tier 1 ABM target accounts</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 9: GET HELP
+         ======================================================================== -->
+    <section class="section" id="help">
+      <div class="section-header">
+        <div class="section-number">9</div>
+        <h2>Get Help</h2>
+      </div>
+      
+      <p class="text-muted mb-4">Quick reference, FAQ, and support resources. Can't find your answer? Bring it to PCRI Office Hours (bi-weekly).</p>
+      
+      <!-- Quick Reference Cheat Sheet -->
+      <div class="cheat-sheet mb-4">
+        <div class="cheat-sheet-header">
+          <div class="cheat-sheet-title">📋 PCRI → Investment Path Cheat Sheet</div>
+          <div class="cheat-sheet-subtitle">Print this and keep it at your desk</div>
+        </div>
+        
+        <table style="width: 100%; border-collapse: collapse; font-size: var(--spectrum-font-size-100);">
+          <thead>
+            <tr>
+              <th style="background: var(--spectrum-purple-900); color: white; padding: 12px; text-align: left;">PCRI</th>
+              <th style="background: var(--spectrum-purple-900); color: white; padding: 12px; text-align: left;">Archetype</th>
+              <th style="background: var(--spectrum-purple-900); color: white; padding: 12px; text-align: left;">Path</th>
+              <th style="background: var(--spectrum-purple-900); color: white; padding: 12px; text-align: left;">Resources</th>
+              <th style="background: var(--spectrum-purple-900); color: white; padding: 12px; text-align: left;">Timeline</th>
+              <th style="background: var(--spectrum-purple-900); color: white; padding: 12px; text-align: left;">Budget</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);"><span class="font-mono" style="color: var(--spectrum-blue-400);">&lt;45</span></td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);"><strong>Emerging</strong></td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);">J1 Foundation</td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);">CX + 0.25 FDE</td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);">4-6 months</td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);">$50K+</td>
+            </tr>
+            <tr>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);"><span class="font-mono" style="color: var(--spectrum-cyan-400);">45-54</span></td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);"><strong>Developing</strong></td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);">J2 Acceleration</td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);">CX + 0.5 FDE</td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);">6-8 weeks</td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);">$50K+ sprint</td>
+            </tr>
+            <tr style="background: rgba(245, 197, 24, 0.1);">
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle);"><span class="font-mono" style="color: var(--spectrum-purple-400);">55-74</span></td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle);"><strong>Established</strong></td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle);">J3 Activation ⚠️</td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle);">CX + 1.0 FDE</td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle);">4-phase rollout</td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle);">$740K+ phased</td>
+            </tr>
+            <tr>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);"><span class="font-mono" style="color: var(--spectrum-green-400);">75+</span></td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);"><strong>Advanced</strong></td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);">J4 Intelligence</td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);">CX + 1.5 FDE</td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);">Continuous</td>
+              <td style="padding: 12px; border: 1px solid var(--spectrum-border-subtle); background: var(--spectrum-bg-layer-1);">$165K+ annual</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <p style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-yellow-400); margin-top: var(--spectrum-spacing-200);">
+          ⚠️ <strong>J3 Activation</strong> requires tri-party approval (GTM + Delivery + Product) before Contracting
+        </p>
+      </div>
+      
+      <!-- FAQ -->
+      <h3>Frequently Asked Questions</h3>
+      
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary class="faq-question">
+            What if a customer doesn't want to do the PCRI assessment?
+            <i data-lucide="chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>Frame PCRI as a <em>diagnostic</em>, not an obstacle: "Before we scope a solution, let me understand where you are today so we can recommend the right path." If they refuse any discovery, that's a qualification red flag.</p>
+            <p>For time-constrained prospects, use the "quick PCRI" (5-minute version) with the 3 most critical questions per pillar.</p>
+          </div>
+        </details>
+        
+        <details class="faq-item">
+          <summary class="faq-question">
+            Can we override the prescribed Investment Path?
+            <i data-lucide="chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes, but rarely. Overrides require AE + CX Partner approval and must be documented in HubSpot. Valid reasons:</p>
+            <ul>
+              <li>Strategic account with executive sponsorship pushing for accelerated path</li>
+              <li>Pilot conversion from previous engagement</li>
+              <li>Unusual technical circumstances</li>
+            </ul>
+            <p><strong>Invalid reasons:</strong> "Customer wants a discount" or "I think they're more mature than the score says." Trust the assessment.</p>
+          </div>
+        </details>
+        
+        <details class="faq-item">
+          <summary class="faq-question">
+            What if SE isn't available for Pre-Qualification?
+            <i data-lucide="chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>If AI signals are flagged and no SE is available:</p>
+            <ol>
+              <li>BDR schedules Pre-Qual for when SE <em>is</em> available (don't skip SE involvement)</li>
+              <li>If urgent, AE can cover SE questions using the PCRI question bank (but flag as sub-optimal)</li>
+              <li>Never move to Qualification Handover without AI signal capture if signals were flagged</li>
+            </ol>
+            <p>SE capacity is a constraint we need to manage. If this happens frequently, escalate to leadership.</p>
+          </div>
+        </details>
+        
+        <details class="faq-item">
+          <summary class="faq-question">
+            How does this affect my existing pipeline?
+            <i data-lucide="chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>Existing deals in Qualification Handover or later:</strong> Continue with current process, but try to retroactively score with PCRI if time permits.</p>
+            <p><strong>Existing deals in Pre-Qualification or earlier:</strong> Apply the new process — get SE involved if AI signals are present.</p>
+            <p><strong>Net new deals:</strong> Full new process from day one.</p>
+          </div>
+        </details>
+        
+        <details class="faq-item">
+          <summary class="faq-question">
+            What's the difference between Deal Desk and the GTM Operating Model?
+            <i data-lucide="chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>GTM Operating Model</strong> = The entire deal process from PCRI assessment through close.</p>
+            <p><strong>Deal Desk</strong> = One component of the operating model, focused on active deal management during Contracting/Procurement. It includes health monitoring, rescue playbooks, and procurement acceleration.</p>
+          </div>
+        </details>
+        
+        <details class="faq-item">
+          <summary class="faq-question">
+            Where can I get more detail on specific topics?
+            <i data-lucide="chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>This playbook consolidates content from the previous <code>onboarding_kit.html</code> and <code>operating_model.html</code>. For deep-dives:</p>
+            <ul>
+              <li><strong>Industry-specific discovery questions:</strong> See the Industry Intelligence section above</li>
+              <li><strong>PCRI pillar assessment questions:</strong> See the Understand PCRI section</li>
+              <li><strong>HubSpot implementation:</strong> Check with RevOps for property documentation</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+      
+      <div class="callout success mt-4">
+        <p><strong>Ongoing Support:</strong> Bi-weekly "PCRI Office Hours" for questions, edge cases, and continuous improvement feedback. Check the team calendar for the next session.</p>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         APPENDIX A: TRAINING SCHEDULE
+         ======================================================================== -->
+    <section class="section" id="training">
+      <div class="section-header">
+        <div class="section-number">A</div>
+        <h2>Training Schedule</h2>
+      </div>
+      
+      <p class="text-muted mb-4">A 3-week enablement program to ensure full adoption. All sessions will be recorded for async review.</p>
+      
+      <!-- Training Week Cards -->
+      <div style="display: flex; flex-direction: column; gap: var(--spectrum-spacing-300);">
+        <!-- Week 1 -->
+        <div style="background: rgba(22, 33, 62, 0.6); border: 1px solid var(--spectrum-border-default); border-radius: var(--spectrum-radius-lg); overflow: hidden;">
+          <div style="background: rgba(124, 58, 237, 0.15); padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300); font-weight: 600; display: flex; align-items: center; gap: var(--spectrum-spacing-200);">
+            <span style="background: var(--spectrum-purple-500); color: white; padding: 2px 10px; border-radius: 999px; font-size: var(--spectrum-font-size-75);">Week 1</span>
+            Foundation
+          </div>
+          <div style="padding: var(--spectrum-spacing-200);">
+            <div style="display: grid; grid-template-columns: 1fr auto auto auto; gap: var(--spectrum-spacing-200); padding: var(--spectrum-spacing-200); border-bottom: 1px solid var(--spectrum-border-subtle); align-items: center;">
+              <div style="font-weight: 500;">"Why PCRI?" — The Benchmark → Prescribe → Accelerate Model</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">All Sales</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">30 min</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">All-Hands</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr auto auto auto; gap: var(--spectrum-spacing-200); padding: var(--spectrum-spacing-200); border-bottom: 1px solid var(--spectrum-border-subtle); align-items: center;">
+              <div style="font-weight: 500;">Investment Path Deep Dive (J1-J4)</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">AE + SE</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">45 min</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">Workshop</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr auto auto auto; gap: var(--spectrum-spacing-200); padding: var(--spectrum-spacing-200); align-items: center;">
+              <div style="font-weight: 500;">AI Signal Capture for BDRs</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">BDR</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">20 min</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">Demo</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Week 2 -->
+        <div style="background: rgba(22, 33, 62, 0.6); border: 1px solid var(--spectrum-border-default); border-radius: var(--spectrum-radius-lg); overflow: hidden;">
+          <div style="background: rgba(124, 58, 237, 0.15); padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300); font-weight: 600; display: flex; align-items: center; gap: var(--spectrum-spacing-200);">
+            <span style="background: var(--spectrum-purple-500); color: white; padding: 2px 10px; border-radius: 999px; font-size: var(--spectrum-font-size-75);">Week 2</span>
+            Role Enablement
+          </div>
+          <div style="padding: var(--spectrum-spacing-200);">
+            <div style="display: grid; grid-template-columns: 1fr auto auto auto; gap: var(--spectrum-spacing-200); padding: var(--spectrum-spacing-200); border-bottom: 1px solid var(--spectrum-border-subtle); align-items: center;">
+              <div style="font-weight: 500;">PCRI Pillar Question Bank</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">Pre-Sales SE</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">45 min</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">Role-Play</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr auto auto auto; gap: var(--spectrum-spacing-200); padding: var(--spectrum-spacing-200); border-bottom: 1px solid var(--spectrum-border-subtle); align-items: center;">
+              <div style="font-weight: 500;">Pipeline Stage Changes in HubSpot</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">AE</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">30 min</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">Walkthrough</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr auto auto auto; gap: var(--spectrum-spacing-200); padding: var(--spectrum-spacing-200); align-items: center;">
+              <div style="font-weight: 500;">Path Validation & FDE Capacity</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">CX Partner</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">30 min</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">Workshop</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Week 3 -->
+        <div style="background: rgba(22, 33, 62, 0.6); border: 1px solid var(--spectrum-border-default); border-radius: var(--spectrum-radius-lg); overflow: hidden;">
+          <div style="background: rgba(124, 58, 237, 0.15); padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300); font-weight: 600; display: flex; align-items: center; gap: var(--spectrum-spacing-200);">
+            <span style="background: var(--spectrum-purple-500); color: white; padding: 2px 10px; border-radius: 999px; font-size: var(--spectrum-font-size-75);">Week 3</span>
+            Practice & Reinforcement
+          </div>
+          <div style="padding: var(--spectrum-spacing-200);">
+            <div style="display: grid; grid-template-columns: 1fr auto auto auto; gap: var(--spectrum-spacing-200); padding: var(--spectrum-spacing-200); border-bottom: 1px solid var(--spectrum-border-subtle); align-items: center;">
+              <div style="font-weight: 500;">Deal Desk: When to Escalate</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">All Sales</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">30 min</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">Case Study</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr auto auto auto; gap: var(--spectrum-spacing-200); padding: var(--spectrum-spacing-200); border-bottom: 1px solid var(--spectrum-border-subtle); align-items: center;">
+              <div style="font-weight: 500;">Live Deal Review with PCRI Lens</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">AE + SE</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">45 min</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">Deal Review</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr auto auto auto; gap: var(--spectrum-spacing-200); padding: var(--spectrum-spacing-200); align-items: center;">
+              <div style="font-weight: 500;">Q&A and Edge Cases</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">All Sales</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">30 min</div>
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); background: rgba(15, 15, 26, 0.6); padding: 4px 10px; border-radius: var(--spectrum-radius-sm);">Open Forum</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         APPENDIX B: ALPHA PILOT PROGRAM
+         ======================================================================== -->
+    <section class="section" id="alpha">
+      <div class="section-header">
+        <div class="section-number">B</div>
+        <h2>Alpha Pilot Program</h2>
+      </div>
+      
+      <p class="text-muted mb-4">The Alpha Program validates our PCRI assessment with real prospects before broad GTM launch. Understanding this program is essential for positioning Knapsack's maturity-driven approach.</p>
+      
+      <div class="callout" style="background: linear-gradient(145deg, rgba(249, 115, 22, 0.12) 0%, rgba(22, 33, 62, 0.7) 100%); border-color: rgba(249, 115, 22, 0.3); margin-bottom: 24px;">
+        <p style="margin-bottom: 12px;"><strong style="color: #f97316;">Guided Experience Flow:</strong></p>
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <span style="background: rgba(249, 115, 22, 0.2); padding: 6px 12px; border-radius: 6px; font-size: 0.9rem;">1. Participant completes assessment</span>
+          <span style="color: var(--spectrum-orange-400);">→</span>
+          <span style="background: rgba(249, 115, 22, 0.2); padding: 6px 12px; border-radius: 6px; font-size: 0.9rem;">2. Director of Delivery reviews & calibrates</span>
+          <span style="color: var(--spectrum-orange-400);">→</span>
+          <span style="background: rgba(249, 115, 22, 0.2); padding: 6px 12px; border-radius: 6px; font-size: 0.9rem;">3. Curated PDF delivered via personalized debrief</span>
+        </div>
+      </div>
+      
+      <h3>Alpha Program Metrics</h3>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;">
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px; text-align: center;">
+          <div style="font-size: 2rem; font-weight: 700; color: #f97316; font-family: 'JetBrains Mono', monospace;">20</div>
+          <div style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-top: 4px;">Participants</div>
+        </div>
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px; text-align: center;">
+          <div style="font-size: 2rem; font-weight: 700; color: #f97316; font-family: 'JetBrains Mono', monospace;">50/50</div>
+          <div style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-top: 4px;">Exec / Practitioner</div>
+        </div>
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px; text-align: center;">
+          <div style="font-size: 2rem; font-weight: 700; color: #f97316; font-family: 'JetBrains Mono', monospace;">5</div>
+          <div style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-top: 4px;">Industries</div>
+        </div>
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px; text-align: center;">
+          <div style="font-size: 2rem; font-weight: 700; color: #f97316; font-family: 'JetBrains Mono', monospace;">1:1</div>
+          <div style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin-top: 4px;">Curated Debrief</div>
+        </div>
+      </div>
+      
+      <h3>Why This Matters for GTM</h3>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px;">
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px;">
+          <p style="font-weight: 600; color: var(--spectrum-purple-300); margin-bottom: 8px;">🎯 Validates PCRI Scoring</p>
+          <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary); margin: 0;">Real-world calibration of pillar weights and archetype thresholds before we scale the assessment tool.</p>
+        </div>
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px;">
+          <p style="font-weight: 600; color: var(--spectrum-purple-300); margin-bottom: 8px;">📊 Establishes Benchmarks</p>
+          <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary); margin: 0;">Industry-specific benchmark data that powers "You're in the top X%" positioning in sales conversations.</p>
+        </div>
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px;">
+          <p style="font-weight: 600; color: var(--spectrum-purple-300); margin-bottom: 8px;">💬 Generates Testimonials</p>
+          <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary); margin: 0;">High-touch experience creates advocates who can speak to the value of structured maturity assessment.</p>
+        </div>
+        <div style="background: var(--spectrum-bg-surface); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px;">
+          <p style="font-weight: 600; color: var(--spectrum-purple-300); margin-bottom: 8px;">🚀 Seeds Pipeline</p>
+          <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary); margin: 0;">Alpha participants become warm leads with pre-qualified PCRI scores and known investment paths.</p>
+        </div>
+      </div>
+      
+      <div class="callout success">
+        <p><strong>Full Program Details:</strong> For email templates, recruitment strategy, timeline, and success metrics, see the Alpha Program & GTM Guide.</p>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         APPENDIX C: IMPLEMENTATION CHECKLIST
+         ======================================================================== -->
+    <section class="section" id="implementation">
+      <div class="section-header">
+        <div class="section-number">C</div>
+        <h2>Implementation Checklist</h2>
+      </div>
+      
+      <p class="text-muted mb-4">6-week rollout plan for the IPE Operating Model. Track progress week-by-week.</p>
+      
+      <!-- Checklist Weeks -->
+      <div style="display: flex; flex-direction: column; gap: var(--spectrum-spacing-300);">
+        <!-- Week 1 -->
+        <div style="background: rgba(22, 33, 62, 0.6); border: 1px solid var(--spectrum-border-default); border-radius: var(--spectrum-radius-lg); overflow: hidden;">
+          <div style="background: rgba(16, 185, 129, 0.15); padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300); font-weight: 600; display: flex; align-items: center; gap: var(--spectrum-spacing-200);">
+            <span style="background: var(--spectrum-green-500); color: white; padding: 2px 10px; border-radius: 999px; font-size: var(--spectrum-font-size-75);">Week 1</span>
+            Foundation
+          </div>
+          <div style="padding: var(--spectrum-spacing-300);">
+            <ul style="margin: 0; padding-left: var(--spectrum-spacing-300); color: var(--spectrum-text-secondary);">
+              <li style="margin-bottom: 8px;">☐ CEO approval on operating model changes</li>
+              <li style="margin-bottom: 8px;">☐ Distribute playbook to all team members</li>
+              <li style="margin-bottom: 8px;">☐ HubSpot audit of existing properties</li>
+              <li>☐ Baseline conversion rate, audit lost deals, document cycle times</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Week 2 -->
+        <div style="background: rgba(22, 33, 62, 0.6); border: 1px solid var(--spectrum-border-default); border-radius: var(--spectrum-radius-lg); overflow: hidden;">
+          <div style="background: rgba(16, 185, 129, 0.15); padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300); font-weight: 600; display: flex; align-items: center; gap: var(--spectrum-spacing-200);">
+            <span style="background: var(--spectrum-green-500); color: white; padding: 2px 10px; border-radius: 999px; font-size: var(--spectrum-font-size-75);">Week 2</span>
+            Build
+          </div>
+          <div style="padding: var(--spectrum-spacing-300);">
+            <ul style="margin: 0; padding-left: var(--spectrum-spacing-300); color: var(--spectrum-text-secondary);">
+              <li style="margin-bottom: 8px;">☐ Create new HubSpot deal properties (IPE Assessment)</li>
+              <li style="margin-bottom: 8px;">☐ Create new HubSpot deal properties (Deployment & Capacity)</li>
+              <li style="margin-bottom: 8px;">☐ Configure workflow automations</li>
+              <li style="margin-bottom: 8px;">☐ Build stage-gating rules</li>
+              <li style="margin-bottom: 8px;">☐ Create assessment score calculator</li>
+              <li>☐ Create health scorecard, build HubSpot dashboard, draft playbooks</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Week 3 -->
+        <div style="background: rgba(22, 33, 62, 0.6); border: 1px solid var(--spectrum-border-default); border-radius: var(--spectrum-radius-lg); overflow: hidden;">
+          <div style="background: rgba(16, 185, 129, 0.15); padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300); font-weight: 600; display: flex; align-items: center; gap: var(--spectrum-spacing-200);">
+            <span style="background: var(--spectrum-green-500); color: white; padding: 2px 10px; border-radius: 999px; font-size: var(--spectrum-font-size-75);">Week 3</span>
+            Systems Setup
+          </div>
+          <div style="padding: var(--spectrum-spacing-300);">
+            <ul style="margin: 0; padding-left: var(--spectrum-spacing-300); color: var(--spectrum-text-secondary);">
+              <li style="margin-bottom: 8px;">☐ Configure health monitoring alerts</li>
+              <li style="margin-bottom: 8px;">☐ Health score automation setup</li>
+              <li style="margin-bottom: 8px;">☐ Establish weekly Deal Desk meeting cadence</li>
+              <li>☐ Set up AI Governance Security Package</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Week 4 -->
+        <div style="background: rgba(22, 33, 62, 0.6); border: 1px solid var(--spectrum-border-default); border-radius: var(--spectrum-radius-lg); overflow: hidden;">
+          <div style="background: rgba(16, 185, 129, 0.15); padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300); font-weight: 600; display: flex; align-items: center; gap: var(--spectrum-spacing-200);">
+            <span style="background: var(--spectrum-green-500); color: white; padding: 2px 10px; border-radius: 999px; font-size: var(--spectrum-font-size-75);">Week 4</span>
+            Training
+          </div>
+          <div style="padding: var(--spectrum-spacing-300);">
+            <ul style="margin: 0; padding-left: var(--spectrum-spacing-300); color: var(--spectrum-text-secondary);">
+              <li style="margin-bottom: 8px;">☐ Train Pre-Sales SEs on Investment Path hypothesis & AI solutioning</li>
+              <li style="margin-bottom: 8px;">☐ Train AEs on IPE Readiness Assessment</li>
+              <li style="margin-bottom: 8px;">☐ Train SEs on path-tier compatibility</li>
+              <li style="margin-bottom: 8px;">☐ Train CX on capacity validation gate</li>
+              <li>☐ Train AEs, Legal on rescue playbooks, role-play scenarios</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Week 5 -->
+        <div style="background: rgba(22, 33, 62, 0.6); border: 1px solid var(--spectrum-border-default); border-radius: var(--spectrum-radius-lg); overflow: hidden;">
+          <div style="background: rgba(16, 185, 129, 0.15); padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300); font-weight: 600; display: flex; align-items: center; gap: var(--spectrum-spacing-200);">
+            <span style="background: var(--spectrum-green-500); color: white; padding: 2px 10px; border-radius: 999px; font-size: var(--spectrum-font-size-75);">Week 5</span>
+            Pilot
+          </div>
+          <div style="padding: var(--spectrum-spacing-300);">
+            <ul style="margin: 0; padding-left: var(--spectrum-spacing-300); color: var(--spectrum-text-secondary);">
+              <li style="margin-bottom: 8px;">☐ Apply to 2-3 active deals</li>
+              <li style="margin-bottom: 8px;">☐ Document friction points</li>
+              <li style="margin-bottom: 8px;">☐ Refine workflows based on feedback</li>
+              <li>☐ First Deal Desk review, execute 1-2 rescues</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Week 6 -->
+        <div style="background: rgba(22, 33, 62, 0.6); border: 1px solid var(--spectrum-border-default); border-radius: var(--spectrum-radius-lg); overflow: hidden;">
+          <div style="background: rgba(16, 185, 129, 0.15); padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300); font-weight: 600; display: flex; align-items: center; gap: var(--spectrum-spacing-200);">
+            <span style="background: var(--spectrum-green-500); color: white; padding: 2px 10px; border-radius: 999px; font-size: var(--spectrum-font-size-75);">Week 6</span>
+            Scale
+          </div>
+          <div style="padding: var(--spectrum-spacing-300);">
+            <ul style="margin: 0; padding-left: var(--spectrum-spacing-300); color: var(--spectrum-text-secondary);">
+              <li style="margin-bottom: 8px;">☐ All new deals through updated process</li>
+              <li style="margin-bottom: 8px;">☐ Monitor stage-gate compliance</li>
+              <li style="margin-bottom: 8px;">☐ Track assessment score accuracy</li>
+              <li>☐ Full deployment, metrics tracking, V3 planning</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Ongoing -->
+        <div style="background: rgba(22, 33, 62, 0.6); border: 1px solid var(--spectrum-border-default); border-radius: var(--spectrum-radius-lg); overflow: hidden;">
+          <div style="background: rgba(139, 92, 246, 0.15); padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300); font-weight: 600; display: flex; align-items: center; gap: var(--spectrum-spacing-200);">
+            <span style="background: var(--spectrum-purple-500); color: white; padding: 2px 10px; border-radius: 999px; font-size: var(--spectrum-font-size-75);">Ongoing</span>
+            Continuous Improvement
+          </div>
+          <div style="padding: var(--spectrum-spacing-300);">
+            <ul style="margin: 0; padding-left: var(--spectrum-spacing-300); color: var(--spectrum-text-secondary);">
+              <li style="margin-bottom: 8px;">☐ Weekly pipeline review includes Investment Path distribution</li>
+              <li style="margin-bottom: 8px;">☐ Monthly capacity planning includes path-based forecasting</li>
+              <li style="margin-bottom: 8px;">☐ Quarterly review of routing rule accuracy</li>
+              <li>☐ 100% of Contracting deals have health scores</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Change Log -->
+      <h3 class="mt-5">Change Log</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Version</th>
+              <th>Date</th>
+              <th>Author</th>
+              <th>Changes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="font-mono">4.0</td>
+              <td>Jan 2026</td>
+              <td>CX Partner</td>
+              <td>Investment Path framework, deployment tiers</td>
+            </tr>
+            <tr>
+              <td class="font-mono">4.1</td>
+              <td>Feb 2026</td>
+              <td>CX Partner</td>
+              <td>Aligned with HubSpot; added IPE Readiness Assessment gate; FDE capacity validation</td>
+            </tr>
+            <tr>
+              <td class="font-mono">4.2</td>
+              <td>Feb 2026</td>
+              <td>CX Partner</td>
+              <td>Restructured as IPE GTM Operating Model; PCRI Qualification Engine</td>
+            </tr>
+            <tr style="background: rgba(16, 185, 129, 0.1);">
+              <td class="font-mono"><strong>Playbook 1.0</strong></td>
+              <td><strong>Feb 2026</strong></td>
+              <td><strong>CX Partner</strong></td>
+              <td><strong>Consolidated Operating Model + Onboarding Kit into single GTM Playbook</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-meta">
+        <div class="footer-meta-item"><strong>Document Owner:</strong> CX Partner (Amber)</div>
+        <div class="footer-meta-item"><strong>Version:</strong> 1.1</div>
+        <div class="footer-meta-item"><strong>Updated:</strong> Feb 2026</div>
+        <div class="footer-meta-item"><strong>Consolidates:</strong> GTM Operating Model v4.2 + Onboarding Kit + Marketing Strategy</div>
+      </div>
+      <p class="footer-text">IPE GTM Playbook — Single Source of Truth for the Knapsack GTM Team</p>
+    </footer>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+    
+    // Navigation active state
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    function updateActiveNav() {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 100) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    }
+    
+    window.addEventListener('scroll', updateActiveNav);
+    
+    // Smooth scroll for nav links
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+

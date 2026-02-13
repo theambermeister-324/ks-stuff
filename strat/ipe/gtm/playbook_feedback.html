@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GTM Playbook Feedback | Help Shape H1 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --spectrum-bg-base: #0f0f1a;
+      --spectrum-bg-layer-1: #16213e;
+      --spectrum-bg-surface: rgba(22, 33, 62, 0.7);
+      --spectrum-text-primary: #ffffff;
+      --spectrum-text-secondary: rgba(255,255,255,0.9);
+      --spectrum-text-muted: rgba(255,255,255,0.55);
+      --spectrum-border-default: rgba(100, 54, 191, 0.3);
+      --spectrum-purple-500: #8b5cf6;
+      --spectrum-purple-400: #a78bfa;
+      --spectrum-purple-300: #c4b5fd;
+      --spectrum-green-500: #10b981;
+      --spectrum-green-400: #34d399;
+      --spectrum-blue-500: #3b82f6;
+      --spectrum-yellow-500: #f59e0b;
+    }
+    
+    *, *::before, *::after { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--spectrum-text-primary);
+      background: var(--spectrum-bg-base);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(100, 54, 191, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    header {
+      text-align: center;
+      padding: 2rem 0 3rem;
+      border-bottom: 1px solid var(--spectrum-border-default);
+      margin-bottom: 2rem;
+    }
+    
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(38, 128, 235, 0.2));
+      border: 1px solid rgba(124, 58, 237, 0.3);
+      border-radius: 999px;
+      padding: 0.375rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--spectrum-purple-300);
+      margin-bottom: 1rem;
+    }
+    
+    .header-badge i { width: 16px; height: 16px; }
+    
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0 0 0.75rem;
+      background: linear-gradient(135deg, #fff 0%, var(--spectrum-purple-300) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .subtitle {
+      font-size: 1.125rem;
+      color: var(--spectrum-text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .context-section {
+      background: var(--spectrum-bg-surface);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .context-section h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .context-section h2 i {
+      width: 24px;
+      height: 24px;
+      color: var(--spectrum-purple-400);
+    }
+    
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    @media (max-width: 600px) {
+      .context-grid { grid-template-columns: 1fr; }
+    }
+    
+    .context-card {
+      background: rgba(15, 15, 26, 0.6);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    
+    .context-card.green { border-left: 4px solid var(--spectrum-green-500); }
+    .context-card.purple { border-left: 4px solid var(--spectrum-purple-500); }
+    .context-card.blue { border-left: 4px solid var(--spectrum-blue-500); }
+    .context-card.yellow { border-left: 4px solid var(--spectrum-yellow-500); }
+    
+    .context-card h3 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--spectrum-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0 0 0.5rem;
+    }
+    
+    .context-card p {
+      font-size: 1rem;
+      color: var(--spectrum-text-primary);
+      margin: 0;
+    }
+    
+    .playbook-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--spectrum-purple-500), var(--spectrum-blue-500));
+      color: white;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      transition: all 0.2s;
+    }
+    
+    .playbook-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+    }
+    
+    .playbook-link i { width: 18px; height: 18px; }
+    
+    .focus-areas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .focus-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: rgba(139, 92, 246, 0.15);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 999px;
+      padding: 0.375rem 0.875rem;
+      font-size: 0.8125rem;
+      color: var(--spectrum-purple-300);
+    }
+    
+    .focus-tag i { width: 14px; height: 14px; }
+    
+    .sections-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    
+    @media (max-width: 600px) {
+      .sections-grid { grid-template-columns: 1fr; }
+    }
+    
+    .section-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(15, 15, 26, 0.6);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 0.875rem 1rem;
+      transition: border-color 0.2s;
+    }
+    
+    .section-item:hover {
+      border-color: var(--spectrum-purple-400);
+    }
+    
+    .section-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--spectrum-purple-500), var(--spectrum-blue-500));
+      color: white;
+      border-radius: 8px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    
+    .section-name {
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--spectrum-text-primary);
+      min-width: 90px;
+    }
+    
+    .section-desc {
+      font-size: 0.8125rem;
+      color: var(--spectrum-text-muted);
+      margin-left: auto;
+    }
+    
+    @media (max-width: 600px) {
+      .section-desc { display: none; }
+    }
+    
+    .form-section {
+      background: var(--spectrum-bg-surface);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .form-section h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .form-section h2 i {
+      width: 24px;
+      height: 24px;
+      color: var(--spectrum-green-400);
+    }
+    
+    .form-intro {
+      color: var(--spectrum-text-muted);
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-embed {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      min-height: 800px;
+    }
+    
+    .form-embed iframe {
+      width: 100%;
+      height: 800px;
+      border: none;
+    }
+    
+    .form-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      text-align: center;
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.95), rgba(26, 26, 46, 0.9));
+      border: 2px dashed var(--spectrum-border-default);
+      border-radius: 12px;
+      min-height: 400px;
+    }
+    
+    .form-placeholder i {
+      width: 48px;
+      height: 48px;
+      color: var(--spectrum-purple-400);
+      margin-bottom: 1rem;
+    }
+    
+    .form-placeholder h3 {
+      font-size: 1.25rem;
+      margin: 0 0 0.5rem;
+    }
+    
+    .form-placeholder p {
+      color: var(--spectrum-text-muted);
+      margin: 0 0 1.5rem;
+      max-width: 400px;
+    }
+    
+    .form-placeholder code {
+      display: block;
+      background: rgba(0,0,0,0.3);
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8125rem;
+      color: var(--spectrum-green-400);
+      word-break: break-all;
+      max-width: 100%;
+    }
+    
+    .questions-preview {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--spectrum-border-default);
+    }
+    
+    .questions-preview h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+      color: var(--spectrum-text-secondary);
+    }
+    
+    .question-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .question-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.9375rem;
+      color: var(--spectrum-text-secondary);
+    }
+    
+    .question-list li:last-child { border-bottom: none; }
+    
+    .question-list li i {
+      width: 18px;
+      height: 18px;
+      color: var(--spectrum-purple-400);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    
+    .question-type {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--spectrum-purple-300);
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    
+    .timeline-section {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .timeline-section h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--spectrum-green-400);
+    }
+    
+    .timeline-section h2 i {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .timeline-steps {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .timeline-step {
+      flex: 1;
+      min-width: 200px;
+      background: rgba(15, 15, 26, 0.6);
+      border-radius: 12px;
+      padding: 1.25rem;
+      position: relative;
+    }
+    
+    .timeline-step::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -0.75rem;
+      width: 0.5rem;
+      height: 0.5rem;
+      background: var(--spectrum-green-500);
+      border-radius: 50%;
+      display: none;
+    }
+    
+    @media (min-width: 600px) {
+      .timeline-step:not(:last-child)::before { display: block; }
+    }
+    
+    .timeline-step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: var(--spectrum-green-500);
+      color: white;
+      border-radius: 50%;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    
+    .timeline-step h4 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      margin: 0 0 0.25rem;
+    }
+    
+    .timeline-step p {
+      font-size: 0.8125rem;
+      color: var(--spectrum-text-muted);
+      margin: 0;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      border-top: 1px solid var(--spectrum-border-default);
+      color: var(--spectrum-text-muted);
+      font-size: 0.875rem;
+    }
+    
+    footer a {
+      color: var(--spectrum-purple-400);
+      text-decoration: none;
+    }
+    
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-badge">
+        <i data-lucide="message-circle"></i>
+        Team Feedback Request
+      </div>
+      <h1>GTM Playbook Review</h1>
+      <p class="subtitle">Review the complete GTM Playbook and help us build our WIN (What's Important Now) wheel for H1 2026.</p>
+    </header>
+    
+    <!-- Playbook Sections Overview -->
+    <section class="context-section">
+      <h2>
+        <i data-lucide="book-open"></i>
+        Playbook Sections to Review
+      </h2>
+      
+      <div class="sections-grid">
+        <div class="section-item">
+          <span class="section-num">1</span>
+          <span class="section-name">Start Here</span>
+          <span class="section-desc">Mission, targets & assumptions</span>
+        </div>
+        <div class="section-item">
+          <span class="section-num">2</span>
+          <span class="section-name">PCRI Framework</span>
+          <span class="section-desc">Pipeline, Customer, Revenue, Investment</span>
+        </div>
+        <div class="section-item">
+          <span class="section-num">3</span>
+          <span class="section-name">Routes</span>
+          <span class="section-desc">Investment paths & deal types</span>
+        </div>
+        <div class="section-item">
+          <span class="section-num">4</span>
+          <span class="section-name">Roles</span>
+          <span class="section-desc">Who does what & RACI</span>
+        </div>
+        <div class="section-item">
+          <span class="section-num">5</span>
+          <span class="section-name">Pipeline</span>
+          <span class="section-desc">Stages, qualification, velocity</span>
+        </div>
+        <div class="section-item">
+          <span class="section-num">6</span>
+          <span class="section-name">Deal Desk</span>
+          <span class="section-desc">Approvals, pricing, packaging</span>
+        </div>
+        <div class="section-item">
+          <span class="section-num">7</span>
+          <span class="section-name">Metrics</span>
+          <span class="section-desc">KPIs, dashboards, reporting</span>
+        </div>
+        <div class="section-item">
+          <span class="section-num">8</span>
+          <span class="section-name">Marketing</span>
+          <span class="section-desc">Product marketing strategy & roadmap</span>
+        </div>
+      </div>
+      
+      <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="gtm_playbook.html" class="playbook-link">
+          <i data-lucide="book-open"></i>
+          Open Full Playbook
+        </a>
+        <a href="gtm_playbook.html#start" class="playbook-link" style="background: rgba(139, 92, 246, 0.2); border: 1px solid var(--spectrum-purple-400);">
+          <i data-lucide="play"></i>
+          Start from Beginning
+        </a>
+      </div>
+    </section>
+    
+    <!-- Goals Context -->
+    <section class="context-section">
+      <h2>
+        <i data-lucide="target"></i>
+        Our H1 2026 Goals
+      </h2>
+      
+      <div class="context-grid">
+        <div class="context-card green">
+          <h3>Existing Customers</h3>
+          <p><strong>$3M</strong> from 16 accounts via J3 Activation</p>
+        </div>
+        <div class="context-card purple">
+          <h3>New Logos</h3>
+          <p><strong>$3M</strong> from 8-15 new enterprise accounts</p>
+        </div>
+        <div class="context-card blue">
+          <h3>Timeline</h3>
+          <p><strong>10 months</strong> — Phase-gated execution</p>
+        </div>
+        <div class="context-card yellow">
+          <h3>Critical Insight</h3>
+          <p>"Implemented ≠ Activated" — Services is the bottleneck</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+      <h2>
+        <i data-lucide="calendar"></i>
+        Feedback Timeline
+      </h2>
+      
+      <div class="timeline-steps">
+        <div class="timeline-step">
+          <div class="timeline-step-number">1</div>
+          <h4>Review Playbook</h4>
+          <p>Read through all sections relevant to your role</p>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-step-number">2</div>
+          <h4>Submit Feedback</h4>
+          <p>Complete the form below (~5 minutes)</p>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-step-number">3</div>
+          <h4>WIN Wheel</h4>
+          <p>We synthesize into H1 priorities</p>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-step-number">4</div>
+          <h4>Team Alignment</h4>
+          <p>Review priorities together</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Form Section -->
+    <section class="form-section">
+      <h2>
+        <i data-lucide="clipboard-list"></i>
+        Your Feedback
+      </h2>
+      <p class="form-intro">Takes ~5 minutes. Your responses directly shape our WIN (What's Important Now) priorities.</p>
+      
+      <!-- INSTRUCTIONS: Replace this placeholder with your actual Google Form embed -->
+      <div class="form-placeholder">
+        <i data-lucide="file-question"></i>
+        <h3>Google Form Embed Goes Here</h3>
+        <p>Replace this placeholder with your Google Form embed code. Get the embed code from Google Forms → Send → Embed icon.</p>
+        <code>
+          &lt;iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true"&gt;&lt;/iframe&gt;
+        </code>
+      </div>
+      
+      <!-- Preview of questions (helpful even before form is embedded) -->
+      <div class="questions-preview">
+        <h3>Questions You'll Be Asked</h3>
+        <ul class="question-list">
+          <li>
+            <i data-lucide="user"></i>
+            <span>What is your role?</span>
+            <span class="question-type">Dropdown</span>
+          </li>
+          <li>
+            <i data-lucide="check-square"></i>
+            <span>Which section(s) did you review?</span>
+            <span class="question-type">Checkboxes</span>
+          </li>
+        </ul>
+        
+        <h3 style="margin-top: 1.5rem;">✅ What Works</h3>
+        <ul class="question-list">
+          <li>
+            <i data-lucide="thumbs-up"></i>
+            <span>What sections/content are most useful to your role?</span>
+            <span class="question-type">Text</span>
+          </li>
+          <li>
+            <i data-lucide="star"></i>
+            <span>Rate overall clarity & usefulness of the playbook (1-5)</span>
+            <span class="question-type">Scale</span>
+          </li>
+          <li>
+            <i data-lucide="star"></i>
+            <span>Rate: Start Here (targets & assumptions)</span>
+            <span class="question-type">Scale</span>
+          </li>
+          <li>
+            <i data-lucide="star"></i>
+            <span>Rate: PCRI Framework</span>
+            <span class="question-type">Scale</span>
+          </li>
+          <li>
+            <i data-lucide="star"></i>
+            <span>Rate: Routes (investment paths)</span>
+            <span class="question-type">Scale</span>
+          </li>
+          <li>
+            <i data-lucide="star"></i>
+            <span>Rate: Roles & RACI</span>
+            <span class="question-type">Scale</span>
+          </li>
+          <li>
+            <i data-lucide="star"></i>
+            <span>Rate: Pipeline stages</span>
+            <span class="question-type">Scale</span>
+          </li>
+          <li>
+            <i data-lucide="star"></i>
+            <span>Rate: Deal Desk process</span>
+            <span class="question-type">Scale</span>
+          </li>
+          <li>
+            <i data-lucide="star"></i>
+            <span>Rate: Metrics & KPIs</span>
+            <span class="question-type">Scale</span>
+          </li>
+          <li>
+            <i data-lucide="star"></i>
+            <span>Rate: Marketing Strategy</span>
+            <span class="question-type">Scale</span>
+          </li>
+        </ul>
+        
+        <h3 style="margin-top: 1.5rem;">❌ What Doesn't Work</h3>
+        <ul class="question-list">
+          <li>
+            <i data-lucide="alert-circle"></i>
+            <span>What's missing that you need to do your job?</span>
+            <span class="question-type">Text</span>
+          </li>
+          <li>
+            <i data-lucide="alert-triangle"></i>
+            <span>What feels unrealistic or hard to execute?</span>
+            <span class="question-type">Text</span>
+          </li>
+          <li>
+            <i data-lucide="x-circle"></i>
+            <span>What should we remove or simplify?</span>
+            <span class="question-type">Text</span>
+          </li>
+        </ul>
+        
+        <h3 style="margin-top: 1.5rem;">❓ What's Confusing</h3>
+        <ul class="question-list">
+          <li>
+            <i data-lucide="help-circle"></i>
+            <span>What concepts or sections are unclear?</span>
+            <span class="question-type">Text</span>
+          </li>
+          <li>
+            <i data-lucide="git-branch"></i>
+            <span>Where do you get stuck or confused about handoffs?</span>
+            <span class="question-type">Text</span>
+          </li>
+        </ul>
+        
+        <h3 style="margin-top: 1.5rem;">🎯 WIN Wheel Priorities</h3>
+        <ul class="question-list">
+          <li>
+            <i data-lucide="target"></i>
+            <span>What's the ONE thing we should focus on first?</span>
+            <span class="question-type">Text</span>
+          </li>
+          <li>
+            <i data-lucide="list-ordered"></i>
+            <span>Rank H1 priorities (drag to order)</span>
+            <span class="question-type">Ranking</span>
+          </li>
+          <li>
+            <i data-lucide="zap"></i>
+            <span>Quick win: Something simple we could fix THIS WEEK?</span>
+            <span class="question-type">Text</span>
+          </li>
+          <li>
+            <i data-lucide="lightbulb"></i>
+            <span>Any other ideas or suggestions?</span>
+            <span class="question-type">Text</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+    
+    <footer>
+      <p>
+        <strong>GTM Playbook v1.1</strong> · 
+        <a href="gtm_playbook.html">Open Full Playbook</a> · 
+        Questions? Reach out to Amber
+      </p>
+    </footer>
+  </div>
+  
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
+

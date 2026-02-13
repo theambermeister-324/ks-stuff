@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waters + Knapsack Acquisition Playbook</title>
+  <style>
+    :root {
+      --primary: #6436bf;
+      --primary-dark: #42247f;
+      --primary-light: #f3effb;
+      --secondary: #e43a5c;
+      --secondary-light: #fdedf0;
+      --action: #05a2f0;
+      --action-light: #ebf8ff;
+      --success: #36bf7f;
+      --success-light: #effbf5;
+      --success-dark: #247f55;
+      --warning: #eb8d0a;
+      --warning-light: #fef6eb;
+      --warning-dark: #9d5e07;
+      --neutral-50: #faf9fa;
+      --neutral-100: #f5f4f6;
+      --neutral-150: #e0dee3;
+      --neutral-200: #cbc8d0;
+      --neutral-300: #a19cab;
+      --neutral-400: #787184;
+      --neutral-500: #645e6e;
+      --neutral-600: #504b58;
+      --neutral-700: #3c3842;
+      --neutral-800: #28262c;
+      --neutral-900: #141316;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--neutral-50); display: flex; min-height: 100vh; }
+    nav { width: 220px; background: white; border-right: 1px solid var(--neutral-150); padding: 20px 0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; }
+    .nav-header { padding: 0 16px 20px; border-bottom: 1px solid var(--neutral-150); }
+    .nav-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 4px; }
+    .nav-title { font-size: 16px; font-weight: 700; color: var(--neutral-900); }
+    .nav-subtitle { font-size: 11px; color: var(--neutral-400); margin-top: 4px; }
+    .nav-items { padding: 12px 8px; }
+    .nav-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 10px; border: none; border-radius: 6px; background: transparent; color: var(--neutral-600); font-size: 12px; font-weight: 400; cursor: pointer; text-align: left; margin-bottom: 1px; transition: all 0.15s; }
+    .nav-btn:hover { background: var(--neutral-100); }
+    .nav-btn.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+    .nav-num { width: 18px; height: 18px; border-radius: 4px; background: var(--neutral-200); color: var(--neutral-500); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; }
+    .nav-btn.active .nav-num { background: var(--primary); color: white; }
+    .nav-btn.linearb .nav-num { background: var(--secondary); color: white; }
+    main { flex: 1; padding: 28px; max-width: 900px; margin: 0 auto 0 220px; }
+    .section { display: none; }
+    .section.active { display: block; }
+    .card { background: white; border: 1px solid var(--neutral-150); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+    .hero { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 36px; border-radius: 16px; margin-bottom: 24px; position: relative; overflow: hidden; }
+    .hero-accent { position: absolute; top: -50%; right: -20%; width: 60%; height: 200%; background: rgba(255,255,255,0.05); transform: rotate(15deg); }
+    .hero-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.8; margin-bottom: 10px; }
+    .hero h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+    .hero p { font-size: 16px; opacity: 0.9; }
+    .hero .sub { font-size: 13px; opacity: 0.7; margin-top: 14px; }
+    h1.section-title { font-size: 26px; font-weight: 700; color: var(--neutral-900); margin-bottom: 6px; line-height: 1.2; }
+    .section-subtitle { font-size: 15px; color: var(--neutral-500); margin-bottom: 24px; line-height: 1.5; }
+    h2.heading { font-size: 16px; font-weight: 600; color: var(--neutral-800); margin-bottom: 14px; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+    .badge-primary { background: var(--primary-light); color: var(--primary); }
+    .badge-action { background: var(--action-light); color: var(--action); }
+    .badge-success { background: var(--success-light); color: var(--success-dark); }
+    .badge-warning { background: var(--warning-light); color: var(--warning-dark); }
+    .badge-secondary { background: var(--secondary-light); color: var(--secondary); }
+    .alert { display: flex; gap: 16px; align-items: flex-start; }
+    .alert-icon { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; flex-shrink: 0; }
+    .alert-success { background: var(--success-light); border: 1px solid var(--success); }
+    .alert-success .alert-icon { background: var(--success); color: white; }
+    .alert-success h3, .alert-success p { color: var(--success-dark); }
+    .alert-warning { background: var(--warning-light); border: 1px solid var(--warning); }
+    .alert-warning .alert-icon { background: var(--warning); color: white; }
+    .alert-warning h3, .alert-warning p { color: var(--warning-dark); }
+    .alert-secondary { background: var(--secondary-light); border: 2px solid var(--secondary); }
+    .alert-secondary .alert-icon { background: var(--secondary); color: white; }
+    .alert-secondary h3 { color: var(--secondary); }
+    .alert h3 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .alert p { font-size: 13px; line-height: 1.5; margin: 0; }
+    .callout { background: var(--primary-light); border-left: 4px solid var(--primary); border-radius: 0 12px 12px 0; }
+    .callout-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 6px; }
+    .callout p { font-size: 16px; color: var(--neutral-700); line-height: 1.6; margin: 0; }
+    .grid { display: grid; gap: 10px; }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .grid-item { display: flex; gap: 10px; padding: 12px; background: var(--neutral-50); border-radius: 8px; }
+    .grid-item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); margin-top: 6px; flex-shrink: 0; }
+    .grid-item .title { font-weight: 600; font-size: 13px; color: var(--neutral-800); margin-bottom: 2px; }
+    .grid-item .desc { font-size: 12px; color: var(--neutral-500); }
+    .metric-card { padding: 16px; background: var(--action-light); border-radius: 8px; text-align: center; }
+    .metric-card .value { font-size: 16px; font-weight: 700; color: var(--action); margin-bottom: 4px; }
+    .metric-card .label { font-size: 12px; color: var(--neutral-600); }
+    .timeline-item { display: flex; gap: 20px; margin-bottom: 24px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-track { display: flex; flex-direction: column; align-items: center; }
+    .timeline-dot { width: 14px; height: 14px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .timeline-line { width: 2px; flex: 1; background: var(--neutral-200); margin-top: 6px; }
+    .timeline-content { flex: 1; }
+    .timeline-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+    .timeline-date { font-size: 12px; font-weight: 700; }
+    .timeline-title { font-size: 14px; font-weight: 600; color: var(--neutral-800); }
+    .timeline-desc { font-size: 13px; color: var(--neutral-600); margin: 0; }
+    .stakeholder { padding: 8px 0; border-bottom: 1px solid var(--neutral-100); }
+    .stakeholder:last-child { border-bottom: none; }
+    .stakeholder .name { font-weight: 600; font-size: 13px; color: var(--neutral-800); }
+    .stakeholder .role { font-size: 11px; color: var(--primary); margin-bottom: 2px; }
+    .stakeholder .note { font-size: 11px; color: var(--neutral-500); }
+    .table-header { display: grid; gap: 8px; padding: 10px 14px; background: var(--neutral-50); border-radius: 6px; font-weight: 600; color: var(--neutral-500); font-size: 12px; margin-bottom: 8px; }
+    .table-row { display: grid; gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--neutral-100); font-size: 12px; }
+    .table-3col { grid-template-columns: 140px 1fr 1fr; }
+    .table-2col { grid-template-columns: 1fr 100px; }
+    .text-secondary { color: var(--secondary); }
+    .text-success { color: var(--success-dark); }
+    .text-primary { color: var(--primary); }
+    .text-neutral { color: var(--neutral-700); }
+    .fw-600 { font-weight: 600; }
+    .win-box { background: var(--success-light); border-left: 3px solid var(--success); padding: 10px; border-radius: 0 6px 6px 0; }
+    .win-box span:first-child { font-size: 11px; font-weight: 600; color: var(--success-dark); }
+    .win-box span:last-child { font-size: 12px; color: var(--success-dark); }
+    .theme-card { display: flex; gap: 14px; }
+    .theme-num { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+    .theme-content h3 { font-size: 15px; font-weight: 600; color: var(--neutral-900); margin-bottom: 6px; }
+    .theme-content p { font-size: 13px; color: var(--neutral-600); line-height: 1.5; margin-bottom: 10px; }
+    .roi-hero { background: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%); color: white; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .roi-hero .label { font-size: 10px; font-weight: 600; text-transform: uppercase; opacity: 0.8; margin-bottom: 3px; }
+    .roi-hero .value { font-size: 28px; font-weight: 700; }
+    .factor-item { display: flex; gap: 14px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--neutral-100); }
+    .factor-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .factor-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; color: white; }
+    .factor-num.critical { background: var(--primary); }
+    .factor-num.high { background: var(--action); }
+    .factor-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+    .factor-title { font-size: 14px; font-weight: 600; color: var(--neutral-800); }
+    .factor-desc { font-size: 13px; color: var(--neutral-600); margin: 0; }
+    .gap-row { background: var(--neutral-50); padding: 12px; border-radius: 8px; }
+    .gap-row .need { font-size: 12px; font-weight: 600; color: var(--neutral-800); margin-bottom: 6px; }
+    .gap-row .linearb { font-size: 11px; color: var(--secondary); margin-bottom: 2px; }
+    .gap-row .knapsack { font-size: 11px; color: var(--success-dark); }
+    .objection { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--neutral-100); }
+    .objection:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .objection-q { font-size: 13px; font-weight: 600; color: var(--secondary); margin-bottom: 6px; }
+    .objection-a { font-size: 12px; color: var(--neutral-600); margin: 0 0 8px 0; }
+    .question-item { display: flex; gap: 12px; padding: 12px; background: var(--neutral-50); border-radius: 8px; margin-bottom: 10px; }
+    .question-icon { width: 20px; height: 20px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+    .question-text { font-size: 12px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px; }
+    .question-answer { font-size: 11px; color: var(--success-dark); }
+    .workflow { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
+    .workflow-step { padding: 6px 14px; background: var(--primary-light); border-radius: 6px; font-size: 12px; font-weight: 500; color: var(--primary); }
+    .workflow-arrow { color: var(--neutral-300); font-size: 11px; }
+    .phase-box { background: var(--neutral-50); border-radius: 8px; padding: 14px; }
+    .phase-box .items { font-size: 12px; color: var(--neutral-600); }
+    .phase-box .items div { padding: 4px 0; display: flex; gap: 6px; }
+    .phase-box .items span { color: var(--neutral-300); }
+    .msg-card { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; }
+    .msg-card .label { font-size: 11px; font-weight: 600; text-transform: uppercase; opacity: 0.8; margin-bottom: 10px; }
+    .msg-card p { font-size: 15px; line-height: 1.6; margin: 0; }
+    .msg-card .quote { font-size: 14px; opacity: 0.9; margin-top: 14px; font-style: italic; }
+    .key-msg { display: flex; gap: 12px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--neutral-100); }
+    .key-msg:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .key-msg-num { background: var(--action); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+    .key-msg-title { font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 3px; }
+    .key-msg-desc { font-size: 12px; color: var(--neutral-600); margin: 0; }
+    .closing { background: var(--success-light); border: 1px solid var(--success); }
+    .closing h2 { color: var(--success-dark); }
+    .closing p { font-size: 14px; color: var(--success-dark); line-height: 1.6; margin: 0; font-weight: 500; }
+    @media (max-width: 768px) {
+      nav { width: 100%; height: auto; position: relative; }
+      main { margin-left: 0; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .table-3col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-header">
+      <div class="nav-label">Acquisition Playbook</div>
+      <div class="nav-title">Waters + Knapsack</div>
+      <div class="nav-subtitle">Post-Workshop Update • Feb 2026</div>
+    </div>
+    <div class="nav-items">
+      <button class="nav-btn active" data-section="overview"><span class="nav-num">1</span><span>Executive Overview</span></button>
+      <button class="nav-btn" data-section="context"><span class="nav-num">2</span><span>Account Context</span></button>
+      <button class="nav-btn" data-section="competitive"><span class="nav-num">3</span><span>Competitive Position</span></button>
+      <button class="nav-btn linearb" data-section="linearb"><span class="nav-num">4</span><span>LinearB Battle Card</span></button>
+      <button class="nav-btn" data-section="ma-battle"><span class="nav-num">5</span><span>M&A Battle Card</span></button>
+      <button class="nav-btn" data-section="workshop-learnings"><span class="nav-num">6</span><span>Workshop Learnings</span></button>
+      <button class="nav-btn" data-section="win-themes"><span class="nav-num">7</span><span>WIN Themes</span></button>
+      <button class="nav-btn" data-section="deal-strategy"><span class="nav-num">8</span><span>What Wins This Deal</span></button>
+      <button class="nav-btn" data-section="charter"><span class="nav-num">9</span><span>Systems Charter</span></button>
+      <button class="nav-btn" data-section="timeline"><span class="nav-num">10</span><span>Updated Timeline</span></button>
+      <button class="nav-btn" data-section="roi"><span class="nav-num">11</span><span>ROI Model</span></button>
+      <button class="nav-btn" data-section="executive"><span class="nav-num">12</span><span>VP Dave Messaging</span></button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- OVERVIEW SECTION -->
+    <div class="section active" id="overview">
+      <div class="hero">
+        <div class="hero-accent"></div>
+        <div class="hero-label">Enterprise Integration Framework</div>
+        <h1>Acquisition Integration Playbook</h1>
+        <p>Waters Corporation + Knapsack</p>
+        <p class="sub">Flow Design System — Control Plane Integration — Q1 2026</p>
+      </div>
+
+      <div class="card alert alert-success">
+        <div class="alert-icon">✓</div>
+        <div>
+          <h3>Workshop Completed: February 4, 2026</h3>
+          <p>6-hour onsite session with 11 Waters stakeholders. Journey mapping, pre-mortem, and 90-day planning completed. <strong>Strong alignment achieved.</strong> Finance approved business case—now finding budget accommodation. M&A urgency (BD acquisition imminent) adds momentum.</p>
+        </div>
+      </div>
+      
+      <div class="card alert alert-success">
+        <div class="alert-icon">+</div>
+        <div>
+          <h3>Deal Assessment: HIGH CONFIDENCE</h3>
+          <p>Waters wants Knapsack. Only barrier is AOP timing. Buy-in across Product, Design Ops, Engineering, Management, and Executive. Finance has approved the business case. Our job now: Define MVP, support cleanup, prepare for M&A.</p>
+        </div>
+      </div>
+
+      <div class="card alert alert-warning">
+        <div class="alert-icon">!</div>
+        <div>
+          <h3>Primary Budget Threat: LinearB</h3>
+          <p>LinearB is competing for the same AOP budget. Key differentiation: LinearB measures engineering <em>process</em>; Knapsack improves <em>product output</em>. See LinearB Battle Card section for full competitive positioning.</p>
+        </div>
+      </div>
+
+      <div class="card callout">
+        <div class="callout-label">Purpose</div>
+        <p>To provide a repeatable, scalable method for integrating acquired design and engineering teams into the Flow Design System and Knapsack control plane.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Why This Deal Is Special</h2>
+        <div class="grid grid-2">
+          <div class="grid-item"><div class="dot"></div><div><div class="title">Already evaluated vendors</div><div class="desc">They know what doesn't work (Zeroheight failed)</div></div></div>
+          <div class="grid-item"><div class="dot"></div><div><div class="title">Strong champions</div><div class="desc">Kaitlin & Drew are sharp, invested, and aligned</div></div></div>
+          <div class="grid-item"><div class="dot"></div><div><div class="title">Exec buy-in exists</div><div class="desc">Just needs ROI clarity for VP Dave</div></div></div>
+          <div class="grid-item"><div class="dot"></div><div><div class="title">Real daily pain</div><div class="desc">Not theoretical problems—tangible friction</div></div></div>
+          <div class="grid-item"><div class="dot"></div><div><div class="title">Perfect timing</div><div class="desc">AOP + AI pressure + maturity inflection</div></div></div>
+          <div class="grid-item"><div class="dot"></div><div><div class="title">Cultural fit</div><div class="desc">Value candor, pragmatism, partnership</div></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Success Metrics (Waters Definition)</h2>
+        <div class="grid grid-3">
+          <div class="metric-card"><div class="value">Confidence</div><div class="label">Devs and POs feel capable using the system</div></div>
+          <div class="metric-card"><div class="value">Speed</div><div class="label">Faster cycles, less QA overhead</div></div>
+          <div class="metric-card"><div class="value">Collaboration</div><div class="label">Better engagement measurement across teams</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTEXT SECTION -->
+    <div class="section" id="context">
+      <h1 class="section-title">Account Context & History</h1>
+      <p class="section-subtitle">Waters' journey to Knapsack and why they're back</p>
+
+      <div class="card">
+        <h2 class="heading">The Waters Journey (2022–2025)</h2>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--neutral-400);"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span class="timeline-date" style="color: var(--neutral-400);">2022–2024</span><span class="timeline-title">Foundation Building</span></div>
+            <p class="timeline-desc">Style guide → component library → design system ("Flow")</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--warning);"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span class="timeline-date" style="color: var(--warning);">2023</span><span class="timeline-title">First Evaluation</span></div>
+            <p class="timeline-desc">Evaluated Knapsack, chose Zeroheight (security concerns, timing issues)</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--secondary);"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span class="timeline-date" style="color: var(--secondary);">2024</span><span class="timeline-title">Zeroheight Failed</span></div>
+            <p class="timeline-desc">Too flat, limited hierarchy, no collaboration. Now "stuck" in Storybook</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--success);"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span class="timeline-date" style="color: var(--success);">2025</span><span class="timeline-title">Return to Knapsack</span></div>
+            <p class="timeline-desc">Stronger team, leadership support, AI urgency, security concerns resolved</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Key Stakeholders (Validated in Workshop)</h2>
+        <div class="grid grid-2" style="gap: 16px;">
+          <div>
+            <div style="font-size: 11px; font-weight: 600; color: var(--primary); margin-bottom: 10px; text-transform: uppercase;">Design System Core Team</div>
+            <div class="stakeholder"><div class="name">Caitlin Curbeau</div><div class="role">Product Owner, Design System</div><div class="note">Day-to-day owner, strong advocate. Key decision maker.</div></div>
+            <div class="stakeholder"><div class="name">Drew</div><div class="role">Design Ops / Content Manager</div><div class="note">Owns AOP, writes content. "I need ROI about Knapsack, not design systems"</div></div>
+            <div class="stakeholder"><div class="name">Dave Gadsby</div><div class="role">Design System Tech Lead</div><div class="note">UK-based (remote). Deep technical expertise. Already sold.</div></div>
+            <div class="stakeholder"><div class="name">Nicolae (Nick) Popa</div><div class="role">Design System Manager</div><div class="note">Romania-based. Works with Caitlin and Dave daily.</div></div>
+            <div class="stakeholder"><div class="name">Michelle Brooks</div><div class="role">Design System Designer</div><div class="note">Recently transitioned full-time to DS. Documentation templates.</div></div>
+            <div class="stakeholder"><div class="name">Danielle McDonald</div><div class="role">Creative Director</div><div class="note">Leadership. Sour candy enthusiast.</div></div>
+            <div style="font-size: 11px; font-weight: 600; color: var(--primary); margin-bottom: 10px; margin-top: 16px; text-transform: uppercase;">Product Team Stakeholders</div>
+            <div class="stakeholder"><div class="name">Scott Simmons</div><div class="role">Design Manager</div><div class="note">Supportive, sees strong business case</div></div>
+            <div class="stakeholder"><div class="name">Dipali Patil</div><div class="role">Team Lead, SCP</div><div class="note">Smart Connected Products. Has richer custom components than Flow.</div></div>
+            <div class="stakeholder"><div class="name">Scott McCall</div><div class="role">Product Owner, System Monitoring</div><div class="note">Cloud product, can release monthly. Bubs candy advocate.</div></div>
+            <div class="stakeholder"><div class="name">Carla Palmer</div><div class="role">Designer</div><div class="note">Assigned to products. Recently joined DS conversations.</div></div>
+            <div class="stakeholder"><div class="name">Kim Busker</div><div class="role">Scrum Master</div><div class="note">Project management. Attended workshop.</div></div>
+          </div>
+          <div>
+            <div style="font-size: 11px; font-weight: 600; color: var(--secondary); margin-bottom: 10px; text-transform: uppercase;">Executive / Budget Authority</div>
+            <div class="stakeholder"><div class="name">VP Dave Latham</div><div class="role">Head of Informatics</div><div class="note">Budget authority. Finance approved—finding accommodation.</div></div>
+            <div style="font-size: 11px; font-weight: 600; color: var(--action); margin-bottom: 10px; margin-top: 16px; text-transform: uppercase;">Knapsack Team</div>
+            <div class="stakeholder"><div class="name">Amber Atkins</div><div class="role" style="color: var(--action);">CX Partner</div><div class="note">CRITICAL. Pro services session after Feb 16—org patterns from GSK.</div></div>
+            <div class="stakeholder"><div class="name">Jon Boush</div><div class="role" style="color: var(--action);">Strategic AE</div><div class="note">Led workshop. Strong relationship with Drew & Caitlin.</div></div>
+            <div class="stakeholder"><div class="name">Chris Bloom</div><div class="role" style="color: var(--action);">Executive</div><div class="note">Workshop attendee. Strategic alignment.</div></div>
+            <div class="stakeholder"><div class="name">Brennan Thaney</div><div class="role" style="color: var(--action);">Service Designer</div><div class="note">Facilitated workshop. Journey mapping, pre-mortem.</div></div>
+            <div style="margin-top: 16px; background: var(--success-light); padding: 12px; border-radius: 6px;">
+              <div style="font-size: 11px; font-weight: 600; color: var(--success-dark); margin-bottom: 4px;">Cultural Notes (Validated)</div>
+              <div style="font-size: 11px; color: var(--success-dark); line-height: 1.4;">Direct communication • Warm & humorous (treats icebreaker was a hit) • Pragmatic ("messy reality") • Appreciate specificity over vendor claims • "Don't keep selling past the sell" • Team enjoys collaborative working sessions</div>
+            </div>
+            <div style="margin-top: 12px; background: var(--warning-light); padding: 12px; border-radius: 6px;">
+              <div style="font-size: 11px; font-weight: 600; color: var(--warning-dark); margin-bottom: 4px;">Key Quote from Drew</div>
+              <div style="font-size: 11px; color: var(--warning-dark); line-height: 1.4; font-style: italic;">"Every vendor comes in with '28 billion dollars ROI'—honestly, if you came in with something smaller, we'd say get out. But the reality is leadership wants local impact: I'm pointing to these six people, the impact will have this dollar amount."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPETITIVE SECTION -->
+    <div class="section" id="competitive">
+      <h1 class="section-title">Competitive Positioning</h1>
+      <p class="section-subtitle">How Knapsack wins against alternatives in Waters' evaluation</p>
+
+      <div class="card alert alert-secondary">
+        <div class="alert-icon">!</div>
+        <div>
+          <h3>Primary Budget Competitor: LinearB ($72M funded)</h3>
+          <p style="color: var(--neutral-700);">LinearB is competing for the same AOP budget. <strong>Critical insight:</strong> They solve a completely different problem. LinearB measures <em>engineering process</em>; Knapsack improves <em>product output</em>. See the dedicated <strong>LinearB Battle Card</strong> section for full competitive positioning.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">The Strategic Frame</h2>
+        <div class="grid grid-2" style="gap: 16px;">
+          <div style="background: var(--neutral-100); padding: 16px; border-radius: 8px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--neutral-500); margin-bottom: 8px; text-transform: uppercase;">LinearB Answers</div>
+            <div style="font-size: 14px; font-weight: 600; color: var(--neutral-700); margin-bottom: 6px;">"How fast are we shipping?"</div>
+            <div style="font-size: 12px; color: var(--neutral-500);">Rearview mirror on engineering process—PR velocity, cycle time, DORA metrics</div>
+          </div>
+          <div style="background: var(--primary-light); padding: 16px; border-radius: 8px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--primary); margin-bottom: 8px; text-transform: uppercase;">Knapsack Answers</div>
+            <div style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 6px;">"Is what we ship consistent & AI-ready?"</div>
+            <div style="font-size: 12px; color: var(--neutral-600);">Infrastructure that shapes product—consistency, governance, AI workflows</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Full Competitive Matrix</h2>
+        <div class="table-header table-3col"><span>Competitor</span><span>Limitation</span><span>Knapsack Advantage</span></div>
+        <div class="table-row table-3col"><span class="fw-600 text-neutral">LinearB</span><span class="text-secondary">Engineering metrics only—no design system capabilities</span><span class="text-success">Product infrastructure, not process reporting</span></div>
+        <div class="table-row table-3col"><span class="fw-600 text-neutral">Zeroheight</span><span class="text-secondary">Too flat, limited hierarchy, failed in 2024</span><span class="text-success">Richer features, hierarchy, true collaboration</span></div>
+        <div class="table-row table-3col"><span class="fw-600 text-neutral">Storybook Alone</span><span class="text-secondary">Non-collaborative, dev-only, hard to update</span><span class="text-success">Non-dev accessible, better content management</span></div>
+        <div class="table-row table-3col"><span class="fw-600 text-neutral">"Just Figma Make"</span><span class="text-secondary">No orchestration layer, siloed tool</span><span class="text-success">Control plane across Figma + Storybook MCP + AI</span></div>
+        <div class="table-row table-3col"><span class="fw-600 text-neutral">Build In-House</span><span class="text-secondary">No FE bandwidth, ongoing maintenance burden</span><span class="text-success">Managed platform, implementation support, roadmap</span></div>
+      </div>
+    </div>
+
+    <!-- LINEARB BATTLE CARD SECTION -->
+    <div class="section" id="linearb">
+      <h1 class="section-title">LinearB Battle Card</h1>
+      <p class="section-subtitle">Deep competitive intelligence for the primary budget threat</p>
+
+      <div class="card" style="background: linear-gradient(135deg, var(--secondary) 0%, #b82d4a 100%); color: white;">
+        <div style="font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.8; margin-bottom: 8px;">The Core Insight</div>
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">LinearB and Knapsack Solve Different Problems</h3>
+        <p style="font-size: 13px; opacity: 0.9; line-height: 1.6; margin: 0;">This isn't a competitive evaluation—it's a strategic choice. LinearB optimizes engineering process metrics. Knapsack builds product infrastructure. Waters needs to decide which gap is bigger.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">LinearB Profile</h2>
+        <div class="grid grid-3" style="gap: 12px;">
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 10px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Funding</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">$72.7M</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 10px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Customers</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">3,000+ teams</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 10px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Category</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">Engineering Intelligence</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 10px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Target Buyer</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">VP Engineering / CTO</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 10px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Pricing</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">$49/contributor/mo</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 10px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Minimum</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">$2,450/month</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Capability Gaps (Waters-Critical)</h2>
+        <div class="grid grid-2">
+          <div class="gap-row"><div class="need">Multi-brand portfolio</div><div class="linearb">❌ No capability</div><div class="knapsack">✅ Governance + theming</div></div>
+          <div class="gap-row"><div class="need">Acquisition integration</div><div class="linearb">❌ No capability</div><div class="knapsack">✅ System unification</div></div>
+          <div class="gap-row"><div class="need">AI workflow readiness</div><div class="linearb">❌ Code review only</div><div class="knapsack">✅ Design-to-code AI</div></div>
+          <div class="gap-row"><div class="need">Design-code alignment</div><div class="linearb">❌ No Figma integration</div><div class="knapsack">✅ Deep Figma sync</div></div>
+          <div class="gap-row"><div class="need">Customer-facing quality</div><div class="linearb">❌ Process metrics only</div><div class="knapsack">✅ Brand consistency</div></div>
+          <div class="gap-row"><div class="need">Non-dev accessibility</div><div class="linearb">❌ Developer-only tool</div><div class="knapsack">✅ All roles welcome</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Objection Handling</h2>
+        <div class="objection">
+          <div class="objection-q">"LinearB improves cycle time"</div>
+          <p class="objection-a">Cycle time measures PR velocity. Knapsack reduces the work itself by providing production-ready components.</p>
+          <div class="win-box"><span>Reframe: </span><span>47% faster PRs with inconsistent components = faster inconsistency</span></div>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"LinearB tracks DORA metrics"</div>
+          <p class="objection-a">DORA measures process health. Knapsack improves product health—brand consistency, design-code alignment.</p>
+          <div class="win-box"><span>Reframe: </span><span>Process metrics vs. product outcomes—which matters to customers?</span></div>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"LinearB has AI capabilities"</div>
+          <p class="objection-a">LinearB's AI reviews code for bugs. Knapsack's AI enables design-to-code generation from your actual design system.</p>
+          <div class="win-box"><span>Reframe: </span><span>Bug detection vs. product generation—which transforms how you build?</span></div>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"We need both tools"</div>
+          <p class="objection-a">They're complementary, but serve different priorities. The question is which problem Waters needs to solve now.</p>
+          <div class="win-box"><span>Reframe: </span><span>Which gap is bigger? Which investment delivers more strategic value?</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Killer Questions</h2>
+        <div class="question-item"><div class="question-icon">?</div><div><div class="question-text">"What specific product quality problem does LinearB solve?"</div><div class="question-answer">None—it measures process, not product</div></div></div>
+        <div class="question-item"><div class="question-icon">?</div><div><div class="question-text">"How does LinearB help unify design systems after an acquisition?"</div><div class="question-answer">It doesn't—complete gap</div></div></div>
+        <div class="question-item"><div class="question-icon">?</div><div><div class="question-text">"Can LinearB ensure Waters' multiple brands stay consistent?"</div><div class="question-answer">No—no multi-brand support</div></div></div>
+        <div class="question-item"><div class="question-icon">?</div><div><div class="question-text">"If engineering cycles get 47% faster but products are inconsistent, have you won?"</div><div class="question-answer">Speed without consistency = faster inconsistency</div></div></div>
+      </div>
+
+      <div class="card" style="background: var(--primary-light);">
+        <h2 class="heading" style="color: var(--primary);">The Winning Narrative</h2>
+        <p style="font-size: 13px; color: var(--primary); line-height: 1.6; margin: 0;">"LinearB measures engineering process efficiency—useful for understanding how fast PRs move. But Waters' strategic needs are product-focused: multi-brand consistency, acquisition integration readiness, and AI-enabled product development. LinearB has <strong>zero capabilities</strong> in these areas. Knapsack is infrastructure that shapes what Waters builds; LinearB is reporting on how fast they build it."</p>
+      </div>
+    </div>
+
+    <!-- M&A BATTLE CARD SECTION -->
+    <div class="section" id="ma-battle">
+      <h1 class="section-title">M&A Battle Card</h1>
+      <p class="section-subtitle">BD acquisition is imminent—positioning for M&A success</p>
+
+      <div class="card" style="background: linear-gradient(135deg, var(--warning) 0%, var(--warning-dark) 100%); color: white;">
+        <div style="font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.8; margin-bottom: 8px;">Critical Context</div>
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">BD Acquisition Imminent (~20 Days from Workshop)</h3>
+        <p style="font-size: 13px; opacity: 0.9; line-height: 1.6; margin: 0;">Waters is acquiring BD (Becton Dickinson) assets. The team cannot discuss details publicly, but this is a primary concern. The question: Will Waters be the "top dogs" or have to adopt BD's system?</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">M&A Risk Profile</h2>
+        <div class="grid grid-2" style="gap: 12px;">
+          <div style="background: var(--secondary-light); padding: 14px; border-radius: 8px; border: 1px solid var(--secondary);">
+            <div style="font-size: 11px; font-weight: 700; color: var(--secondary); margin-bottom: 8px; text-transform: uppercase;">Fear: Being Absorbed</div>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.5;">If BD has a more mature design system, Waters may have to adopt their tools and processes—losing years of Flow investment.</div>
+          </div>
+          <div style="background: var(--success-light); padding: 14px; border-radius: 8px; border: 1px solid var(--success);">
+            <div style="font-size: 11px; font-weight: 700; color: var(--success-dark); margin-bottom: 8px; text-transform: uppercase;">Opportunity: Lead the Integration</div>
+            <div style="font-size: 12px; color: var(--neutral-700); line-height: 1.5;">If Flow + Knapsack is "buttoned up," Waters becomes the destination system. BD assets adopt Flow, not vice versa.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">How Knapsack Helps M&A</h2>
+        <div class="grid grid-2">
+          <div class="gap-row"><div class="need">Multi-brand architecture</div><div class="knapsack">✅ Separate brand themes, shared components</div></div>
+          <div class="gap-row"><div class="need">Component inventory audit</div><div class="knapsack">✅ See both systems side-by-side</div></div>
+          <div class="gap-row"><div class="need">Contribution workflows</div><div class="knapsack">✅ BD teams can contribute without breaking Flow</div></div>
+          <div class="gap-row"><div class="need">Governance & control</div><div class="knapsack">✅ Clear ownership, review processes</div></div>
+          <div class="gap-row"><div class="need">Professional appearance</div><div class="knapsack">✅ "Buttoned up" system vs raw Storybook</div></div>
+          <div class="gap-row"><div class="need">Migration playbooks</div><div class="knapsack">✅ Proven acquisition integration patterns</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Key Quotes from Workshop</h2>
+        <div class="question-item"><div class="question-icon">💬</div><div><div class="question-text">"We want to come in as top dogs"</div><div class="question-answer">— on M&A positioning strategy</div></div></div>
+        <div class="question-item"><div class="question-icon">💬</div><div><div class="question-text">"Having something like Knapsack makes us look more buttoned up, more professional"</div><div class="question-answer">— Drew, on M&A readiness</div></div></div>
+        <div class="question-item"><div class="question-icon">💬</div><div><div class="question-text">"It's quiet confidence—demonstrating it, not having to be a jerk about it"</div><div class="question-answer">— on positioning as thought leaders</div></div></div>
+      </div>
+
+      <div class="card" style="background: var(--primary-light);">
+        <h2 class="heading" style="color: var(--primary);">M&A Action Items</h2>
+        <p style="font-size: 13px; color: var(--primary); line-height: 1.6; margin: 0 0 12px 0;">These are the team's own identified actions to prepare for M&A:</p>
+        <div class="phase-box" style="background: white;">
+          <div class="items">
+            <div><span>—</span> Create all-team contribution model (10% time)</div>
+            <div><span>—</span> Articulate Waters' planning capabilities clearly</div>
+            <div><span>—</span> Plan to be a good partner (not hostile takeover)</div>
+            <div><span>—</span> Show Waters + BD combined design system vision</div>
+            <div><span>—</span> Make assets consumable for external teams</div>
+            <div><span>—</span> Knapsack helps create strategy for merging systems</div>
+            <div><span>—</span> Grow contribution model: TA (React), SCP (Angular), etc.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card alert alert-warning">
+        <div class="alert-icon">!</div>
+        <div>
+          <h3>Timeline Pressure</h3>
+          <p>BD acquisition announcement expected within ~20 days of workshop (late Feb 2026). The team needs to show progress quickly. MVP cannot "limp out the door"—but waiting too long means missing the M&A window.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORKSHOP LEARNINGS SECTION -->
+    <div class="section" id="workshop-learnings">
+      <h1 class="section-title">Workshop Learnings</h1>
+      <p class="section-subtitle">Validated insights from February 4, 2026 onsite session</p>
+
+      <div class="card" style="background: var(--success); color: white;">
+        <div style="font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.8; margin-bottom: 8px;">Workshop Summary</div>
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">6 Hours • 11 Stakeholders • Full Alignment</h3>
+        <p style="font-size: 13px; opacity: 0.9; line-height: 1.6; margin: 0;">Journey mapping, pain point validation, pre-mortem exercise, and 90-day planning. The team is energized and ready to move. "The MVP can't limp out the door."</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Validated Technical Reality</h2>
+        <div class="grid grid-3" style="gap: 12px;">
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 10px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Tech Stack</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">99% Angular</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 10px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Repos</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">40–50</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 10px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">React Usage</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">Only TA (Thermal)</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 10px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Migration Plan</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">None planned</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 10px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Doc Updates</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">Require devs</div></div>
+          <div style="background: var(--neutral-50); padding: 12px; border-radius: 6px; text-align: center;"><div style="font-size: 10px; color: var(--neutral-500); margin-bottom: 4px; text-transform: uppercase;">Figma State</div><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800);">"Hot mess"</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Key Pain Points (Direct Quotes)</h2>
+        <div class="objection">
+          <div class="objection-q">"Shadow DOM hinders production tremendously—we can't override styling and testing is very painful"</div>
+          <p class="objection-a">Web components create Angular integration friction. This is a known technical constraint.</p>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"We don't have a design system documentation person"</div>
+          <p class="objection-a">Documentation updates require developer involvement—major bottleneck.</p>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"The Figma library is kind of a hot mess right now—we're trying to fix that"</div>
+          <p class="objection-a">Cleanup required before Knapsack ingestion. Team acknowledges this.</p>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"Every new team member restarts the standards discussion"</div>
+          <p class="objection-a">Standards not documented in one place. Institutional knowledge is lost.</p>
+        </div>
+        <div class="objection">
+          <div class="objection-q">"We have designs that are 2 years old getting deployed—the system has evolved since"</div>
+          <p class="objection-a">Designs get stale in backlog. Handoff timing misalignment.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Pre-Mortem: What Could Kill This</h2>
+        <div class="grid grid-2">
+          <div class="gap-row"><div class="need">Budget gets pulled</div><div class="linearb">Risk: High</div><div class="knapsack">Mitigation: Multi-year plan, generate demand</div></div>
+          <div class="gap-row"><div class="need">M&A disrupts everything</div><div class="linearb">Risk: High</div><div class="knapsack">Mitigation: Position as "top dogs"</div></div>
+          <div class="gap-row"><div class="need">MVP limps out</div><div class="linearb">Risk: Medium</div><div class="knapsack">Mitigation: Define scope carefully</div></div>
+          <div class="gap-row"><div class="need">Low adoption</div><div class="linearb">Risk: Medium</div><div class="knapsack">Mitigation: Roadshow, focus groups</div></div>
+          <div class="gap-row"><div class="need">No migration resources</div><div class="linearb">Risk: Medium</div><div class="knapsack">Mitigation: Contractor, define LOE</div></div>
+          <div class="gap-row"><div class="need">Leadership loses interest</div><div class="linearb">Risk: Low</div><div class="knapsack">Mitigation: Quarterly metrics</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">What Waters Wants from Knapsack</h2>
+        <div class="question-item"><div class="question-icon">?</div><div><div class="question-text">Org patterns from similar companies (GSK, biomed/pharma)</div><div class="question-answer">Pro services session after Feb 16 with Amber</div></div></div>
+        <div class="question-item"><div class="question-icon">?</div><div><div class="question-text">Migration level of effort per component type</div><div class="question-answer">Need accurate estimates for planning</div></div></div>
+        <div class="question-item"><div class="question-icon">?</div><div><div class="question-text">Best practices for design system team structure</div><div class="question-answer">"How do other companies organize this?"</div></div></div>
+        <div class="question-item"><div class="question-icon">?</div><div><div class="question-text">Multi-brand strategy for M&A</div><div class="question-answer">How to integrate BD's design system</div></div></div>
+      </div>
+
+      <div class="card" style="background: var(--primary-light);">
+        <h2 class="heading" style="color: var(--primary);">Key ROI Insight</h2>
+        <p style="font-size: 13px; color: var(--primary); line-height: 1.6; margin: 0;">"I need an ROI about Knapsack, not design systems. Every vendor says '28 billion dollars.' If you came in with something smaller, we'd say get out. But leadership wants local impact: I'm pointing to these six people, and the impact on them will have this dollar amount." <strong>—Drew</strong></p>
+      </div>
+    </div>
+
+    <!-- WIN THEMES SECTION -->
+    <div class="section" id="win-themes">
+      <h1 class="section-title">WIN Themes</h1>
+      <p class="section-subtitle">Six strategic positioning themes for Waters engagement</p>
+
+      <div class="card"><div class="theme-card"><div class="theme-num">1</div><div class="theme-content"><h3>The Control Plane for Waters' Design + Code + AI Ecosystem</h3><p>Knapsack unifies Figma, Storybook, and AI (Figma Make, MCPs) into a single orchestration layer. Scales design + code collaboration across 10+ products, multiple business units, and future acquisitions.</p><div class="win-box"><span>Why it wins: </span><span>Leadership wants clarity, not another tool. Knapsack is the spine connecting creative, engineering, and AI workflows.</span></div></div></div></div>
+      <div class="card"><div class="theme-card"><div class="theme-num">2</div><div class="theme-content"><h3>Multi-Brand Architecture for Growth-by-Acquisition</h3><p>Waters is onboarding designer-less teams and acquired orgs. Knapsack provides governance, hierarchy, and contribution workflows to bring them into Flow rapidly and consistently.</p><div class="win-box"><span>Why it wins: </span><span>Competitors cannot support this. Zeroheight failed here, Storybook is too developer-heavy, LinearB has no capability.</span></div></div></div></div>
+      <div class="card"><div class="theme-card"><div class="theme-num">3</div><div class="theme-content"><h3>AI-Ready Schemas ("Robot Food")</h3><p>Knapsack's structured content + component metadata become the trusted source for LLMs and AI agents. Exactly what Waters needs for Figma Make, Storybook MCP, and future LLM automation.</p><div class="win-box"><span>Why it wins: </span><span>Informatics org is under pressure to show AI readiness in 2026.</span></div></div></div></div>
+      <div class="card"><div class="theme-card"><div class="theme-num">4</div><div class="theme-content"><h3>Confidence for Designer-Less Teams</h3><p>Knapsack becomes the "front door" Waters has never had. Replaces 1990s webmaster tasks with repeatable processes and self-service workflows.</p><div class="win-box"><span>Why it wins: </span><span>Waters has uneven design maturity—Knapsack levels the playing field.</span></div></div></div></div>
+      <div class="card"><div class="theme-card"><div class="theme-num">5</div><div class="theme-content"><h3>Enterprise-Grade Risk Reduction</h3><p>Governance, versioning, security, contribution control, and DevOps integration reduce release risk in a regulated industry.</p><div class="win-box"><span>Why it wins: </span><span>Complements Waters' regulatory workflows and shortens QA cycles.</span></div></div></div></div>
+      <div class="card"><div class="theme-card"><div class="theme-num">6</div><div class="theme-content"><h3>Strategic Partner, Not Vendor</h3><p>CX-led engagement (Amber + Andrew) shows Waters that Knapsack is a multi-year systems transformation—with roadmap, WBS, and maturity model.</p><div class="win-box"><span>Why it wins: </span><span>Waters values candor, pragmatism, and alignment with messy real-world workflows.</span></div></div></div></div>
+    </div>
+
+    <!-- DEAL STRATEGY SECTION -->
+    <div class="section" id="deal-strategy">
+      <h1 class="section-title">What Wins This Deal</h1>
+      <p class="section-subtitle">Post-workshop: What we need to do now</p>
+
+      <div class="card" style="background: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%); color: white;">
+        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; opacity: 0.8; margin-bottom: 12px;">Workshop Complete ✓</div>
+        <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Now: Professional Services & MVP Definition</h3>
+        <p style="font-size: 14px; opacity: 0.9; line-height: 1.5; margin: 0;">Finance approved the business case. Budget accommodation is the only barrier. Our job now: Help define MVP, provide org pattern learnings, support M&A positioning.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Updated Winning Factors (Post-Workshop)</h2>
+        <div class="factor-item"><div class="factor-num critical">1</div><div><div class="factor-header"><span class="factor-title">Pro Services Session with Amber</span><span class="badge badge-primary">Critical</span></div><p class="factor-desc">After Feb 16: Org patterns from GSK, team structure best practices, migration LOE estimates</p></div></div>
+        <div class="factor-item"><div class="factor-num critical">2</div><div><div class="factor-header"><span class="factor-title">M&A Positioning Support</span><span class="badge badge-primary">Critical</span></div><p class="factor-desc">BD acquisition imminent. Help Waters show up as "top dogs" with buttoned-up system.</p></div></div>
+        <div class="factor-item"><div class="factor-num high">3</div><div><div class="factor-header"><span class="factor-title">MVP Definition Support</span><span class="badge badge-action">High</span></div><p class="factor-desc">Cannot "limp out the door." Help define what ships in V1—cannot be less than Storybook.</p></div></div>
+        <div class="factor-item"><div class="factor-num high">4</div><div><div class="factor-header"><span class="factor-title">Local ROI (Not Vendor Claims)</span><span class="badge badge-action">High</span></div><p class="factor-desc">"I'm pointing to these six people—the impact will have this dollar amount." Specific, not generic.</p></div></div>
+        <div class="factor-item"><div class="factor-num high" style="background: var(--warning);">5</div><div><div class="factor-header"><span class="factor-title">Patient Partnership</span><span class="badge badge-warning">Essential</span></div><p class="factor-desc">"Don't keep selling past the sell." Support and enable—they're already sold.</p></div></div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Immediate Knapsack Actions</h2>
+        <div class="grid grid-2" style="gap: 12px;">
+          <div style="background: var(--action-light); padding: 14px; border-radius: 8px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--action); margin-bottom: 6px;">SCHEDULE: Pro Services Call</div>
+            <div style="font-size: 12px; color: var(--neutral-700);">After Feb 16 with Drew. Amber leads. Org patterns from GSK and similar biomed/pharma customers.</div>
+          </div>
+          <div style="background: var(--action-light); padding: 14px; border-radius: 8px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--action); margin-bottom: 6px;">PREPARE: Migration LOE Estimates</div>
+            <div style="font-size: 12px; color: var(--neutral-700);">What's the effort per component type? They need accurate estimates before committing.</div>
+          </div>
+          <div style="background: var(--action-light); padding: 14px; border-radius: 8px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--action); margin-bottom: 6px;">CREATE: Best Practices Deck</div>
+            <div style="font-size: 12px; color: var(--neutral-700);">How other biomed/pharma customers organized design systems. They want industry patterns.</div>
+          </div>
+          <div style="background: var(--action-light); padding: 14px; border-radius: 8px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--action); margin-bottom: 6px;">DOCUMENT: Multi-brand M&A Strategy</div>
+            <div style="font-size: 12px; color: var(--neutral-700);">How Knapsack helps integrate BD acquisition. This is urgent.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHARTER SECTION -->
+    <div class="section" id="charter">
+      <h1 class="section-title">Systems Charter</h1>
+      <p class="section-subtitle">Vision, mission, and strategic framework for Flow</p>
+
+      <div class="card callout">
+        <div style="font-size: 13px; font-weight: 600; color: var(--primary); margin-bottom: 6px;">Vision</div>
+        <p style="font-size: 14px; color: var(--neutral-700); line-height: 1.6; margin: 0;">Create a unified, scalable design system—Flow—that connects design, code, and AI workflows across the entire Waters software ecosystem. Accelerate product delivery, reduce defects, support acquisition integration, and establish Waters as an AI-enabled software organization.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Target State (3-Year Journey)</h2>
+        <div class="grid grid-3" style="gap: 12px;">
+          <div class="phase-box">
+            <div style="font-size: 11px; font-weight: 700; color: var(--primary); margin-bottom: 4px;">Year 1</div>
+            <div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px;">System Foundation</div>
+            <div class="items"><div><span>—</span> Knapsack as control plane</div><div><span>—</span> Hierarchical, non-dev accessible docs</div><div><span>—</span> Storybook integration + alignment</div><div><span>—</span> Contribution workflow live</div><div><span>—</span> Pilot acquisition integration</div></div>
+          </div>
+          <div class="phase-box">
+            <div style="font-size: 11px; font-weight: 700; color: var(--primary); margin-bottom: 4px;">Year 2</div>
+            <div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px;">Expansion & AI</div>
+            <div class="items"><div><span>—</span> Multi-brand architecture</div><div><span>—</span> Schema-driven metadata for AI</div><div><span>—</span> AI-assisted prototyping, docs, QA</div><div><span>—</span> Portfolio-wide adoption</div></div>
+          </div>
+          <div class="phase-box">
+            <div style="font-size: 11px; font-weight: 700; color: var(--primary); margin-bottom: 4px;">Year 3</div>
+            <div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px;">Optimization & ROI</div>
+            <div class="items"><div><span>—</span> Enterprise-wide design ops model</div><div><span>—</span> Acquisition onboarding playbooks</div><div><span>—</span> System maturity 4–5</div><div><span>—</span> Automated design-to-code flows</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMELINE SECTION -->
+    <div class="section" id="timeline">
+      <h1 class="section-title">Updated Timeline</h1>
+      <p class="section-subtitle">Post-workshop execution plan (from February 4, 2026)</p>
+
+      <div class="card" style="background: var(--success); color: white; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 24px;">✓</span>
+          <div>
+            <div style="font-size: 16px; font-weight: 700;">Workshop Completed</div>
+            <div style="opacity: 0.9; font-size: 13px;">February 4, 2026 • Journey mapping, pre-mortem, 90-day planning</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Updated Execution Timeline</h2>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--success);"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span style="padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; background: var(--success-light); color: var(--success); text-transform: uppercase;">Feb 4 ✓</span><span class="timeline-title">Discovery Workshop</span></div>
+            <div class="phase-box" style="margin-top: 10px;"><div class="items"><div><span>—</span> Journey mapping completed</div><div><span>—</span> Pain points validated</div><div><span>—</span> Pre-mortem exercise done</div><div><span>—</span> 90-day framework created</div></div></div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--action);"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span style="padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; background: rgba(5,162,240,0.2); color: var(--action); text-transform: uppercase;">Feb 16+</span><span class="timeline-title">Pro Services Scoping</span></div>
+            <div class="phase-box" style="margin-top: 10px;"><div class="items"><div><span>—</span> Schedule call with Drew & Amber</div><div><span>—</span> Org patterns from GSK and similar</div><div><span>—</span> Best practices for team structure</div><div><span>—</span> Migration level of effort estimates</div></div></div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--primary);"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span style="padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; background: var(--primary-light); color: var(--primary); text-transform: uppercase;">Now–90 Days</span><span class="timeline-title">Cleanup & MVP Definition</span></div>
+            <div class="phase-box" style="margin-top: 10px;"><div class="items"><div><span>—</span> Figma library cleanup ("hot mess")</div><div><span>—</span> Define MVP scope (cannot be less than Storybook)</div><div><span>—</span> Storybook version consolidation</div><div><span>—</span> Documentation person decision</div><div><span>—</span> Security/IT approvals</div></div></div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--warning);"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span style="padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; background: var(--warning-light); color: var(--warning); text-transform: uppercase;">Q2 2026</span><span class="timeline-title">Knapsack MVP Launch</span></div>
+            <div class="phase-box" style="margin-top: 10px;"><div class="items"><div><span>—</span> Phased rollout (cannot "limp out")</div><div><span>—</span> Roadshow to product teams</div><div><span>—</span> Dev team focus groups</div><div><span>—</span> Training sessions</div></div></div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot" style="background: var(--neutral-400);"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-header"><span style="padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; background: var(--neutral-100); color: var(--neutral-600); text-transform: uppercase;">H2 2026+</span><span class="timeline-title">M&A Integration & Scale</span></div>
+            <div class="phase-box" style="margin-top: 10px;"><div class="items"><div><span>—</span> BD acquisition integration</div><div><span>—</span> Multi-brand architecture</div><div><span>—</span> Contribution model expansion</div><div><span>—</span> Quarterly audits</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card alert alert-warning">
+        <div class="alert-icon">!</div>
+        <div>
+          <h3>M&A Timeline Pressure</h3>
+          <p>BD acquisition announcement expected late Feb 2026. Waters needs to show progress before M&A integration discussions begin. The cleanup and MVP definition work is urgent.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROI SECTION -->
+    <div class="section" id="roi">
+      <h1 class="section-title">ROI Model</h1>
+      <p class="section-subtitle">Comprehensive financial impact for AOP justification</p>
+
+      <div class="card roi-hero">
+        <div><div class="label">Annual ROI Range</div><div class="value">$900K – $1.7M</div></div>
+        <div style="text-align: right;"><div class="label">3-Year Total Return</div><div class="value">$2.7M – $5.1M</div></div>
+      </div>
+
+      <div class="card" style="background: var(--primary-light);">
+        <div style="font-size: 12px; font-weight: 600; color: var(--primary); margin-bottom: 6px;">vs. LinearB ROI</div>
+        <p style="font-size: 12px; color: var(--neutral-600); margin: 0; line-height: 1.5;">LinearB claims ~47% cycle time improvement and ~$200K engineering savings. Knapsack delivers 671% design system ROI (Forrester research), $900K–$1.7M annual return for Waters, and 40% UI defect reduction. <strong>LinearB measures process; Knapsack improves outcomes.</strong></p>
+      </div>
+
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+          <div><div style="font-size: 10px; font-weight: 600; color: var(--action); text-transform: uppercase; margin-bottom: 3px;">Category 1</div><h3 style="font-size: 16px; font-weight: 600; color: var(--neutral-900); margin: 0;">Developer Efficiency</h3></div>
+          <span class="badge badge-success">$90K–$120K/year</span>
+        </div>
+        <p style="font-size: 13px; color: var(--neutral-600); line-height: 1.5; margin-bottom: 12px;">Eliminates manual "webmaster tasks": updating Storybook, fixing docs, rebuilding components.</p>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <span style="background: var(--action-light); color: var(--action); font-size: 11px; padding: 4px 10px; border-radius: 4px; font-weight: 500;">12–15 FE-adjacent engineers</span>
+          <span style="background: var(--action-light); color: var(--action); font-size: 11px; padding: 4px 10px; border-radius: 4px; font-weight: 500;">3–5 hrs/week saved</span>
+          <span style="background: var(--action-light); color: var(--action); font-size: 11px; padding: 4px 10px; border-radius: 4px; font-weight: 500;">600–800 hrs/year recovered</span>
+        </div>
+      </div>
+
+      <div class="card" style="border: 2px solid var(--primary);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+          <div><div style="font-size: 10px; font-weight: 600; color: var(--action); text-transform: uppercase; margin-bottom: 3px;">Category 4 — High Executive Interest</div><h3 style="font-size: 16px; font-weight: 600; color: var(--neutral-900); margin: 0;">Acquisition Integration</h3></div>
+          <span class="badge badge-success">$300K–$700K/year</span>
+        </div>
+        <p style="font-size: 13px; color: var(--neutral-600); line-height: 1.5; margin-bottom: 12px;">Currently loses 6–12 months integrating acquisitions. Knapsack accelerates by 3–6 months.</p>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <span style="background: var(--action-light); color: var(--action); font-size: 11px; padding: 4px 10px; border-radius: 4px; font-weight: 500;">Multi-brand architecture</span>
+          <span style="background: var(--action-light); color: var(--action); font-size: 11px; padding: 4px 10px; border-radius: 4px; font-weight: 500;">Onboarding playbooks</span>
+          <span style="background: var(--action-light); color: var(--action); font-size: 11px; padding: 4px 10px; border-radius: 4px; font-weight: 500;">Accelerated revenue recognition</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXECUTIVE SECTION -->
+    <div class="section" id="executive">
+      <h1 class="section-title">VP Dave Messaging</h1>
+      <p class="section-subtitle">Updated messaging for VP Dave Latham (Head of Informatics)</p>
+
+      <div class="card" style="background: var(--success-light); border: 1px solid var(--success);">
+        <div class="alert" style="gap: 12px;">
+          <div class="alert-icon" style="background: var(--success); font-size: 14px;">✓</div>
+          <div>
+            <h3 style="color: var(--success-dark);">Budget Status: Approved, Finding Accommodation</h3>
+            <p style="color: var(--success-dark);">Finance reviewed and approved the business case. Two finance people read our documentation—both said "fine." Now it's about finding budget accommodation in AOP, not justification.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card alert alert-warning">
+        <div class="alert-icon" style="font-size: 14px;">👤</div>
+        <div>
+          <h3>Audience Profile</h3>
+          <p>VP Dave is <strong>pragmatic, strategic, and budget-focused</strong>. Messaging must be crisp, non-salesy, and tied to execution, AI readiness, and acquisition integration. The team says he responds to <strong>local, specific impact</strong>—not vendor claims.</p>
+        </div>
+      </div>
+
+      <div class="card" style="background: var(--secondary-light); border: 1px solid var(--secondary);">
+        <div style="font-size: 11px; font-weight: 600; color: var(--secondary); margin-bottom: 8px;">If LinearB Comes Up</div>
+        <p style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin: 0;">"LinearB measures engineering process efficiency—useful for understanding how fast PRs move. But Waters' strategic needs are product-focused: multi-brand consistency, acquisition integration readiness, and AI-enabled product development. <strong>LinearB has zero capabilities in these areas.</strong> Knapsack is infrastructure that shapes what Waters builds; LinearB is reporting on how fast they build it."</p>
+      </div>
+
+      <div class="card msg-card">
+        <div class="label">Executive Summary (Short Version)</div>
+        <p>"Knapsack is the control plane that connects Figma, Storybook, and AI workflows into a single source of truth. It gives Waters the governance, scalability, and multi-brand architecture required to modernize our product portfolio and accelerate revenue—especially as we onboard new acquisitions."</p>
+        <p class="quote">"This isn't another tool. It's the foundation for our next 3 years of design, development, and AI transformation."</p>
+      </div>
+
+      <div class="card">
+        <h2 class="heading">Five Key Messages</h2>
+        <div class="key-msg"><div class="key-msg-num">1</div><div><div class="key-msg-title">Unified system reduces inconsistency and overhead</div><p class="key-msg-desc">Replaces fragmented workflows with governed process. Directly impacts Informatics KPIs: velocity, quality, consistency.</p></div></div>
+        <div class="key-msg"><div class="key-msg-num">2</div><div><div class="key-msg-title">Essential infrastructure for acquisition integration</div><p class="key-msg-desc">Multi-brand architecture, contribution workflows, rapid onboarding. Cuts 3–6 months off integration time.</p></div></div>
+        <div class="key-msg"><div class="key-msg-num">3</div><div><div class="key-msg-title">AI readiness for 2026 and beyond</div><p class="key-msg-desc">Structured data for Figma Make, Storybook MCP, LLM automation. Enables Informatics to compete with Thermo Fisher and Agilent.</p></div></div>
+        <div class="key-msg"><div class="key-msg-num">4</div><div><div class="key-msg-title">ROI is real, granular, and measurable</div><p class="key-msg-desc">3-year return: $2.7M–$5.1M through eng savings, QA reduction, acquisition integration, velocity, AI automation.</p></div></div>
+        <div class="key-msg"><div class="key-msg-num">5</div><div><div class="key-msg-title">Low risk, high reward</div><p class="key-msg-desc">Security approved. Works with existing stack. Storybook integration Year 1. Implementation-led, not vendor-led.</p></div></div>
+      </div>
+
+      <div class="card closing">
+        <h2 class="heading">Closing Statement (Post-Workshop)</h2>
+        <p>"Your team completed a full-day workshop with us. They're aligned, energized, and ready. Finance approved the business case. The BD acquisition is coming—and Knapsack positions Flow to be the destination system, not the one that gets absorbed. This is the moment."</p>
+      </div>
+
+      <div class="card" style="background: var(--primary-light); margin-top: 16px;">
+        <h2 class="heading" style="color: var(--primary);">Key Quote to Use</h2>
+        <p style="font-size: 13px; color: var(--primary); line-height: 1.6; margin: 0; font-style: italic;">"Having something like Knapsack makes us look more buttoned up, more professional—it's quiet confidence." <strong>—Drew, on M&A positioning</strong></p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(btn.dataset.section).classList.add('active');
+        window.scrollTo(0, 0);
+      });
+    });
+  </script>
+</body>
+</html>
