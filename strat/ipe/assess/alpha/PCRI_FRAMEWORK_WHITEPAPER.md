@@ -1,6 +1,6 @@
 # Product System Readiness Index (PCRI) Methodology
 
-**Version 1.2 | February 2026 | Knapsack**
+**Version 1.3 | February 2026 | Knapsack**
 
 ---
 
@@ -246,31 +246,79 @@ This prevents misclassification (e.g., high PCRI from AI alone without foundatio
 
 ---
 
-## 7. Multi-System Architecture Assessment
+## 7. Tool Stack Integration Assessment
 
 ### 7.1 Purpose
 
-Organizations with federated design systems, multi-brand portfolios, or multi-product ecosystems face unique challenges. The Multi-System Architecture assessment provides supplementary scoring for these organizations.
+Organizations with fragmented product tools face unique integration challenges. The Tool Stack Integration assessment measures an organization's readiness to benefit from Knapsack's integration platform capabilities—a key driver of TAM expansion beyond design systems.
 
-### 7.2 Multi-System Questions (6 questions)
+### 7.2 Integration Fragmentation Index
+
+The Integration Fragmentation Index (IFI) measures how many disconnected tools an organization uses across the product delivery workflow:
+
+| Tool Category | Common Tools | Integration Opportunity |
+|--------------|--------------|------------------------|
+| **Design** | Figma, Sketch, Adobe XD | Token sync, component mapping |
+| **Code** | GitHub, GitLab, Bitbucket | Code patterns, PR validation, CI/CD hooks |
+| **Workflow** | Jira, Linear, Asana | Ticket context, sprint planning, story links |
+| **Communication** | Slack, Teams, Discord | Decision capture, notifications, approval flows |
+| **Documentation** | Notion, Confluence, GitBook | Docs sync, pattern library, team wikis |
+| **Design System** | Zeroheight, Supernova, Storybook | Migration path, coexistence layer |
+
+### 7.3 Integration Questions (5 questions)
 
 | # | Focus Area | Weight | Key Capability |
 |---|------------|--------|----------------|
-| 27 | Token Architecture | 1.5 | Semantic vs. primitive token layers |
-| 28 | Component Abstraction | 1.5 | Cross-system component patterns |
-| 29 | Cross-System Governance | 2.0 | Decision rights across systems |
-| 30 | Cross-System AI Context | 1.5 | Unified AI training data |
-| 31 | Cross-System Contribution | 1.5 | Federated contribution models |
-| 32 | Release Coordination | 1.0 | Synchronized vs. independent releases |
+| 33 | Tool Count | 1.5 | How many product delivery tools are in active use? |
+| 34 | Context Fragmentation | 2.0 | How often does context need to be re-created across tools? |
+| 35 | Integration Maturity | 1.5 | What's the current state of tool integrations? |
+| 36 | Context Loss Impact | 1.5 | How much rework results from disconnected tools? |
+| 37 | Integration Priority | 1.0 | How important is integration consolidation? |
 
-### 7.3 Scoring
+### 7.4 IFI Scoring
+
+| IFI Score | Label | Integration Opportunity |
+|-----------|-------|------------------------|
+| 0-30 | Low Fragmentation | Limited integration value—tools already connected |
+| 31-60 | Moderate Fragmentation | Strong candidate—clear integration ROI |
+| 61-100 | High Fragmentation | Urgent need—significant context loss occurring |
+
+### 7.5 Implications for TAM Expansion
+
+Organizations with high IFI scores represent the expanded TAM beyond design system teams:
+- **Product teams** using 5+ disconnected tools
+- **Operations teams** manually bridging contexts
+- **Engineering teams** re-creating context for AI tools
+
+These represent the $1B+ TAM expansion opportunity for 2027.
+
+---
+
+## 8. Multi-System Architecture Assessment
+
+### 8.1 Purpose
+
+Organizations with federated design systems, multi-brand portfolios, or multi-product ecosystems face unique challenges. The Multi-System Architecture assessment provides supplementary scoring for these organizations.
+
+### 8.2 Multi-System Questions (6 questions)
+
+| # | Focus Area | Weight | Key Capability |
+|---|------------|--------|----------------|
+| 38 | Token Architecture | 1.5 | Semantic vs. primitive token layers |
+| 39 | Component Abstraction | 1.5 | Cross-system component patterns |
+| 40 | Cross-System Governance | 2.0 | Decision rights across systems |
+| 41 | Cross-System AI Context | 1.5 | Unified AI training data |
+| 42 | Cross-System Contribution | 1.5 | Federated contribution models |
+| 43 | Release Coordination | 1.0 | Synchronized vs. independent releases |
+
+### 8.3 Scoring
 
 - Multi-System score is calculated separately from PCRI
 - Score is 0-100 normalized scale
 - Only displayed for organizations selecting "Multi-System" landscape type
 - Does not affect core PCRI calculation (additive insight, not composite factor)
 
-### 7.4 System Landscape Types
+### 8.4 System Landscape Types
 
 | Type | Description | Shows Multi-System Questions |
 |------|-------------|------------------------------|
@@ -281,23 +329,23 @@ Organizations with federated design systems, multi-brand portfolios, or multi-pr
 
 ---
 
-## 8. Benchmarking Methodology
+## 9. Benchmarking Methodology
 
-### 8.1 Benchmark Sources
+### 9.1 Benchmark Sources
 
 Initial benchmarks are derived from:
 - 158 enterprise assessment records (as of Jan 2026)
 - Knapsack customer engagement data
 - Industry analyst reports (Gartner, Forrester)
 
-### 8.2 Industry Segmentation
+### 9.2 Industry Segmentation
 
 Benchmarks are segmented by:
 - **Industry vertical** (FinServ, Healthcare, Retail, Tech, etc.)
 - **Organization size** (SMB, Mid-market, Enterprise)
 - **Regulatory environment** (Standard, Regulated, Highly Regulated)
 
-### 8.3 Benchmark Labels
+### 9.3 Benchmark Labels
 
 | PCRI vs Industry Avg | Label |
 |----------------------|-------|
@@ -306,7 +354,7 @@ Benchmarks are segmented by:
 | ≥ 30 | **Below Average** |
 | < 30 | **Early Stage** |
 
-### 8.4 Benchmark Refresh Cadence
+### 9.4 Benchmark Refresh Cadence
 
 - **Quarterly**: Recalculate from aggregate data
 - **Annually**: Validate correlation with outcomes
@@ -314,16 +362,16 @@ Benchmarks are segmented by:
 
 ---
 
-## 9. Longitudinal Measurement
+## 10. Longitudinal Measurement
 
-### 9.1 Assessment Types
+### 10.1 Assessment Types
 
 | Type | When | Purpose |
 |------|------|---------|
 | **Baseline** | Pre-engagement | Establish starting point |
 | **Follow-up** | During/post engagement | Measure progress |
 
-### 9.2 Progress Metrics
+### 10.2 Progress Metrics
 
 | Metric | Calculation | Interpretation |
 |--------|-------------|----------------|
@@ -332,7 +380,7 @@ Benchmarks are segmented by:
 | **Archetype Movement** | Tier progression | Milestone achievement |
 | **Time-to-Tier** | Days to reach next tier | Velocity indicator |
 
-### 9.3 Target Improvements
+### 10.3 Target Improvements
 
 Based on engagement data, typical improvements:
 
@@ -344,9 +392,9 @@ Based on engagement data, typical improvements:
 
 ---
 
-## 10. Validation & Calibration
+## 11. Validation & Calibration
 
-### 10.1 Validation Approach
+### 11.1 Validation Approach
 
 PCRI validity is assessed through:
 
@@ -356,7 +404,7 @@ PCRI validity is assessed through:
 4. **Construct validity**: Factor analysis of pillar structure
 5. **Research validity**: Alignment with DORA, Project Aristotle, Westrum findings
 
-### 10.2 Calibration Process
+### 11.2 Calibration Process
 
 1. Run assessment on 10+ known customers with known outcomes
 2. Compare PCRI predictions to actual engagement results
@@ -364,7 +412,7 @@ PCRI validity is assessed through:
 4. Adjust weights or replace questions
 5. Document changes for version tracking
 
-### 10.3 Recommended Calibration Cadence
+### 11.3 Recommended Calibration Cadence
 
 | Activity | Frequency |
 |----------|-----------|
@@ -375,9 +423,9 @@ PCRI validity is assessed through:
 
 ---
 
-## 11. Versioning & Evolution
+## 12. Versioning & Evolution
 
-### 11.1 Version Numbering
+### 12.1 Version Numbering
 
 ```
 PCRI [Major].[Minor]
@@ -386,24 +434,27 @@ PCRI [Major].[Minor]
 - **Major**: Pillar structure or weight changes
 - **Minor**: Question updates, threshold adjustments
 
-### 11.2 Current Version
+### 12.2 Current Version
 
-**PCRI 1.2** (February 2026)
+**PCRI 1.3** (February 2026)
 - 5 pillars: Foundation, AI Readiness, Governance, Delivery, Culture
 - Weights: 20/20/20/15/25
-- 27 scored questions + 1 informational + 6 Multi-System (optional)
+- 27 scored questions + 1 informational + 5 Tool Stack Integration + 6 Multi-System (optional)
+- Tool Stack Integration Assessment (Integration Fragmentation Index)
 - Gated progression enabled
 - Research foundation: DORA, Project Aristotle, Team Topologies, Westrum, NIST AI RMF
+- TAM expansion alignment for 2027 integration platform positioning
 
-### 11.3 Version History
+### 12.3 Version History
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.3 | 2026-02-16 | Added Tool Stack Integration Assessment (Section 7), Integration Fragmentation Index, TAM expansion alignment, renumbered sections 8-15 |
 | 1.2 | 2026-02-05 | Added Culture pillar (25%), Multi-System Architecture assessment, expanded research foundation |
 | 1.1 | 2026-01 | Expanded questions based on DORA, Project Aristotle, Team Topologies, Westrum research |
 | 1.0 | 2026-02-04 | Initial release with 4 pillars |
 
-### 11.4 Planned Evolution
+### 12.4 Planned Evolution
 
 | Timeframe | Potential Change |
 |-----------|------------------|
@@ -411,7 +462,7 @@ PCRI [Major].[Minor]
 | 2027 | Industry-specific weight variants |
 | 2027+ | "Security & Compliance" pillar consideration |
 
-### 11.5 Backward Compatibility
+### 12.5 Backward Compatibility
 
 When versions change:
 - Historical scores are tagged with version
@@ -420,22 +471,22 @@ When versions change:
 
 ---
 
-## 12. Ethical Considerations
+## 13. Ethical Considerations
 
-### 12.1 Assessment Bias
+### 13.1 Assessment Bias
 
 PCRI is designed to minimize:
 - **Question bias**: Neutral language, no leading questions
 - **Cultural bias**: Applicable across industries and geographies
 - **Size bias**: Questions work for 100-person and 100,000-person orgs
 
-### 12.2 Data Privacy
+### 13.2 Data Privacy
 
 - No PII required for scoring
 - Organization data aggregated for benchmarks
 - Individual responses not shared externally
 
-### 12.3 Score Transparency
+### 13.3 Score Transparency
 
 - Scoring algorithm is documented
 - Weights are disclosed
@@ -443,9 +494,9 @@ PCRI is designed to minimize:
 
 ---
 
-## 13. Appendix: Technical Implementation
+## 14. Appendix: Technical Implementation
 
-### 13.1 Scoring Algorithm (Pseudocode)
+### 14.1 Scoring Algorithm (Pseudocode)
 
 ```javascript
 function calculatePCRI(answers) {
@@ -485,7 +536,7 @@ function calculatePCRI(answers) {
 }
 ```
 
-### 13.2 Data Schema
+### 14.2 Data Schema
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -509,7 +560,7 @@ function calculatePCRI(answers) {
 | `multiSystemNorm` | int | 0-100 (null if single system) |
 | `isMultiSystem` | bool | Whether multi-system questions were shown |
 
-### 13.3 Pillar Icon System
+### 14.3 Pillar Icon System
 
 | Pillar | Icon | Color | Label |
 |--------|------|-------|-------|
@@ -522,7 +573,7 @@ function calculatePCRI(answers) {
 
 ---
 
-## 14. References
+## 15. References
 
 1. CMMI Institute. (2018). *CMMI Model V2.0*.
 2. NASA. (2017). *Technology Readiness Level Definitions*.
@@ -542,6 +593,7 @@ function calculatePCRI(answers) {
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
+| 1.3 | 2026-02-16 | Knapsack | Added Tool Stack Integration Assessment (Section 7), Integration Fragmentation Index (IFI), aligned with TAM Expansion Analysis for 2027 integration platform positioning |
 | 1.2 | 2026-02-05 | Knapsack | Added Culture pillar (25%), Multi-System Architecture, expanded research foundation (DORA, Project Aristotle, Team Topologies, Westrum, NIST AI RMF) |
 | 1.1 | 2026-01 | Knapsack | Expanded question set based on organizational research |
 | 1.0 | 2026-02-04 | Knapsack | Initial release |

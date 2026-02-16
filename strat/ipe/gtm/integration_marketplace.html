@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integration Marketplace Vision | Knapsack IPE</title>
+  <meta name="description" content="Knapsack Integration Marketplace - The 2027 thesis for becoming the integration platform for enterprise product delivery.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --cyan-900: #164e63;
+      --cyan-700: #0e7490;
+      --cyan-600: #0891b2;
+      --cyan-500: #06b6d4;
+      --cyan-400: #22d3ee;
+      --cyan-300: #67e8f9;
+      --cyan-100: #cffafe;
+      --purple-500: #8b5cf6;
+      --purple-400: #a78bfa;
+      --green-500: #10b981;
+      --green-400: #34d399;
+      --blue-500: #3b82f6;
+      --blue-400: #60a5fa;
+      --amber-500: #f59e0b;
+      --amber-400: #fbbf24;
+      --red-500: #ef4444;
+      --red-400: #f87171;
+      --bg-base: #0f172a;
+      --bg-layer-1: #1e293b;
+      --bg-elevated: rgba(255,255,255,0.05);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255,255,255,0.85);
+      --text-muted: rgba(255,255,255,0.6);
+      --border-default: rgba(6, 182, 212, 0.3);
+      --border-subtle: rgba(255,255,255,0.08);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    
+    /* Header */
+    header {
+      text-align: center;
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border-default);
+      margin-bottom: 32px;
+    }
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(139, 92, 246, 0.2));
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cyan-300);
+      margin-bottom: 16px;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0 0 12px;
+      background: linear-gradient(135deg, #fff 0%, var(--cyan-300) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    /* Cards */
+    .card {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid var(--border-default);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card.hero {
+      background: linear-gradient(135deg, var(--cyan-900) 0%, var(--bg-layer-1) 100%);
+      border-color: var(--cyan-600);
+    }
+    .card h2 {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--cyan-400);
+      margin-bottom: 8px;
+    }
+    .card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .card p { color: var(--text-secondary); margin-bottom: 12px; }
+    
+    /* Grid */
+    .grid { display: grid; gap: 16px; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+    
+    /* Stats */
+    .stat-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--cyan-400);
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    
+    /* Integration cards */
+    .integration-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px;
+      position: relative;
+    }
+    .integration-card.live { border-color: var(--green-500); }
+    .integration-card.progress { border-color: var(--amber-500); }
+    .integration-card.planned { border-color: var(--blue-500); }
+    .integration-status {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .integration-card.live .integration-status { background: rgba(16, 185, 129, 0.2); color: var(--green-400); }
+    .integration-card.progress .integration-status { background: rgba(245, 158, 11, 0.2); color: var(--amber-400); }
+    .integration-card.planned .integration-status { background: rgba(59, 130, 246, 0.2); color: var(--blue-400); }
+    .integration-name {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .integration-category {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .integration-value {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    /* Competitor cards */
+    .competitor-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .competitor-name {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .competitor-weakness {
+      font-size: 12px;
+      color: var(--red-400);
+      margin-bottom: 8px;
+    }
+    .competitor-win {
+      font-size: 12px;
+      color: var(--green-400);
+    }
+    
+    /* Callouts */
+    .callout {
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 16px 0;
+    }
+    .callout.success {
+      background: rgba(16, 185, 129, 0.1);
+      border-left: 4px solid var(--green-500);
+    }
+    .callout.warning {
+      background: rgba(245, 158, 11, 0.1);
+      border-left: 4px solid var(--amber-500);
+    }
+    .callout.info {
+      background: rgba(6, 182, 212, 0.1);
+      border-left: 4px solid var(--cyan-500);
+    }
+    
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      background: rgba(6, 182, 212, 0.2);
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--cyan-300);
+    }
+    th:first-child { border-radius: 8px 0 0 0; }
+    th:last-child { border-radius: 0 8px 0 0; }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--cyan-500), var(--purple-500));
+    }
+    .timeline-item {
+      position: relative;
+      padding-bottom: 24px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -28px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--cyan-500);
+      border: 2px solid var(--bg-base);
+    }
+    .timeline-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--cyan-400);
+      margin-bottom: 4px;
+    }
+    .timeline-content {
+      background: var(--bg-elevated);
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 32px 0;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 48px;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-badge">
+        <i data-lucide="layers" style="width: 14px; height: 14px;"></i>
+        TAM EXPANSION THESIS
+      </div>
+      <h1>Integration Marketplace Vision</h1>
+      <p class="header-subtitle">By 2027, we'll have 15-20 integrations while competitors have 0-5. This document outlines how integrations become our competitive moat and unlock 11.5x TAM expansion.</p>
+    </header>
+
+    <!-- The Core Thesis -->
+    <div class="card hero">
+      <h2>THE CORE THESIS</h2>
+      <h3>Everyone is Building Generation. No One is Building the Integration Layer.</h3>
+      <p>Knapsack is positioning to become the <strong>integration platform for enterprise product delivery</strong>—not just a design system tool or AI context layer. Through network effects—both Knapsack-built and customer/partner-built integrations—we become the multi-industry kingmaker.</p>
+      
+      <div class="grid grid-4" style="margin-top: 20px;">
+        <div class="stat-box">
+          <div class="stat-value">5-8</div>
+          <div class="stat-label">2026 Integrations</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">15-20</div>
+          <div class="stat-label">2027 Integrations</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">0-5</div>
+          <div class="stat-label">Competitor Count</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">11.5x</div>
+          <div class="stat-label">TAM Expansion</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Context Gap -->
+    <div class="card">
+      <h2>THE STRATEGIC INSIGHT</h2>
+      <h3>Context is the Bottleneck, Not Generation</h3>
+      <div class="grid grid-2">
+        <div style="background: rgba(239, 68, 68, 0.1); border-radius: 12px; padding: 16px;">
+          <p style="font-size: 11px; color: var(--red-400); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">The Problem</p>
+          <ul style="color: var(--text-secondary); font-size: 13px; margin: 0; padding-left: 16px;">
+            <li>All generative tools operate with limited context windows</li>
+            <li>They regenerate solutions instead of understanding existing patterns</li>
+            <li>Every company manually re-teaches context to each tool</li>
+            <li>Fragmented tools = fragmented context = rework</li>
+          </ul>
+        </div>
+        <div style="background: rgba(16, 185, 129, 0.1); border-radius: 12px; padding: 16px;">
+          <p style="font-size: 11px; color: var(--green-400); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Our Solution</p>
+          <ul style="color: var(--text-secondary); font-size: 13px; margin: 0; padding-left: 16px;">
+            <li>Aggregate context from ALL sources (design, code, docs, workflow)</li>
+            <li>Provide persistent, structured context via MCP</li>
+            <li>Any generative tool plugged into Knapsack produces better output</li>
+            <li>We're infrastructure, not competition</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2026 Integration Roadmap -->
+    <div class="card">
+      <h2>2026 INTEGRATION ROADMAP</h2>
+      <h3>Ship 5-8 Core Integrations — The Foundation</h3>
+      
+      <div class="callout warning" style="margin-bottom: 20px;">
+        <p style="margin: 0;"><strong>⚠️ Critical Success Metric:</strong> Each integration shipped = competitive barrier for 2027. This is not a feature priority—it's the strategic foundation for hypergrowth.</p>
+      </div>
+      
+      <div class="grid grid-4">
+        <div class="integration-card live">
+          <span class="integration-status">Live</span>
+          <p class="integration-name">Figma</p>
+          <p class="integration-category">Design</p>
+          <p class="integration-value">Token sync, component mapping, design-to-code</p>
+        </div>
+        <div class="integration-card live">
+          <span class="integration-status">Live</span>
+          <p class="integration-name">GitHub</p>
+          <p class="integration-category">Code</p>
+          <p class="integration-value">Code patterns, PR validation, CI/CD hooks</p>
+        </div>
+        <div class="integration-card progress">
+          <span class="integration-status">In Progress</span>
+          <p class="integration-name">Jira</p>
+          <p class="integration-category">Workflow</p>
+          <p class="integration-value">Ticket context, sprint planning, story links</p>
+        </div>
+        <div class="integration-card progress">
+          <span class="integration-status">In Progress</span>
+          <p class="integration-name">Slack</p>
+          <p class="integration-category">Communication</p>
+          <p class="integration-value">Decision capture, notifications, approvals</p>
+        </div>
+        <div class="integration-card planned">
+          <span class="integration-status">Q3 2026</span>
+          <p class="integration-name">Notion</p>
+          <p class="integration-category">Documentation</p>
+          <p class="integration-value">Docs sync, pattern library, team wikis</p>
+        </div>
+        <div class="integration-card planned">
+          <span class="integration-status">Q3 2026</span>
+          <p class="integration-name">Linear</p>
+          <p class="integration-category">Workflow</p>
+          <p class="integration-value">Issue tracking, roadmap visibility</p>
+        </div>
+        <div class="integration-card planned">
+          <span class="integration-status">Q4 2026</span>
+          <p class="integration-name">Zeroheight</p>
+          <p class="integration-category">Design System</p>
+          <p class="integration-value">Migration path, coexistence layer</p>
+        </div>
+        <div class="integration-card planned">
+          <span class="integration-status">Q4 2026</span>
+          <p class="integration-name">Supernova</p>
+          <p class="integration-category">Design System</p>
+          <p class="integration-value">Import/export, parallel operation</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Virtuous Circle -->
+    <div class="card">
+      <h2>NETWORK EFFECTS</h2>
+      <h3>The Virtuous Circle That Creates Winner-Take-Most</h3>
+      
+      <div style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1)); border-radius: 12px; padding: 24px; margin-bottom: 20px;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; text-align: center;">
+          <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px 16px; min-width: 150px;">
+            <p style="font-size: 13px; font-weight: 600; color: var(--cyan-400); margin: 0;">More Integrations</p>
+            <p style="font-size: 11px; color: var(--text-muted); margin: 0;">Lower switching cost</p>
+          </div>
+          <span style="color: var(--cyan-400);">→</span>
+          <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px 16px; min-width: 150px;">
+            <p style="font-size: 13px; font-weight: 600; color: var(--green-400); margin: 0;">More Customers</p>
+            <p style="font-size: 11px; color: var(--text-muted); margin: 0;">Platform adoption</p>
+          </div>
+          <span style="color: var(--cyan-400);">→</span>
+          <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px 16px; min-width: 150px;">
+            <p style="font-size: 13px; font-weight: 600; color: var(--purple-400); margin: 0;">Partner Integrations</p>
+            <p style="font-size: 11px; color: var(--text-muted); margin: 0;">Marketplace growth</p>
+          </div>
+          <span style="color: var(--cyan-400);">→</span>
+          <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px 16px; min-width: 150px;">
+            <p style="font-size: 13px; font-weight: 600; color: var(--amber-400); margin: 0;">Higher Value</p>
+            <p style="font-size: 11px; color: var(--text-muted); margin: 0;">Network effects</p>
+          </div>
+          <span style="color: var(--cyan-400);">→</span>
+          <div style="background: var(--bg-elevated); border-radius: 8px; padding: 12px 16px; min-width: 150px;">
+            <p style="font-size: 13px; font-weight: 600; color: var(--cyan-400); margin: 0;">More Integrations</p>
+            <p style="font-size: 11px; color: var(--text-muted); margin: 0;">Cycle repeats</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="callout success">
+        <p style="margin: 0;"><strong>Key Insight:</strong> After 15-20 integrations, platform becomes <em>infrastructure</em> (not feature). Category locks in: "Use Knapsack or build it yourself for $2-5M."</p>
+      </div>
+    </div>
+
+    <!-- Competitive Battlecards -->
+    <div class="card">
+      <h2>COMPETITIVE LANDSCAPE</h2>
+      <h3>Why Competitors Can't Catch Up</h3>
+      
+      <div class="grid grid-2">
+        <div class="competitor-card" style="border-top: 3px solid var(--red-400);">
+          <p class="competitor-name">Microsoft (GitHub Copilot / Azure)</p>
+          <p class="competitor-weakness">✗ Microsoft ecosystem only, slow to ship</p>
+          <p class="competitor-win">✓ Our Win: Already integrated with non-Microsoft tools (Notion, Linear, Figma)</p>
+        </div>
+        <div class="competitor-card" style="border-top: 3px solid var(--blue-400);">
+          <p class="competitor-name">Vercel (v0)</p>
+          <p class="competitor-weakness">✗ Next.js ecosystem only, limited enterprise reach</p>
+          <p class="competitor-win">✓ Our Win: Broader use case, design system wedge into enterprise</p>
+        </div>
+        <div class="competitor-card" style="border-top: 3px solid var(--purple-400);">
+          <p class="competitor-name">Figma (Dev Mode)</p>
+          <p class="competitor-weakness">✗ Design-only, no code/workflow integration</p>
+          <p class="competitor-win">✓ Our Win: Full stack—design + code + docs + workflow</p>
+        </div>
+        <div class="competitor-card" style="border-top: 3px solid var(--amber-400);">
+          <p class="competitor-name">Zeroheight / Supernova</p>
+          <p class="competitor-weakness">✗ 0-5 integrations total, no AI context layer</p>
+          <p class="competitor-win">✓ Our Win: 15-20 integrations by 2027 + MCP context</p>
+        </div>
+      </div>
+      
+      <div class="callout info" style="margin-top: 20px;">
+        <p style="margin: 0;"><strong>The Sales Question:</strong> "Do you integrate with our stack?" Knapsack: "Yes, 15/20 of your tools already connected." Competitor: "We have 3 integrations, we can build the other 15..." Switching cost to competitor: <strong>$500K-$1M</strong> to rebuild integration layer.</p>
+      </div>
+    </div>
+
+    <!-- TAM Expansion -->
+    <div class="card">
+      <h2>TAM EXPANSION</h2>
+      <h3>From $112.5M to $1.3B — Design Systems are the Wedge</h3>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Market Focus</th>
+            <th>TAM</th>
+            <th>Integrations</th>
+            <th>Positioning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="font-mono">2026</td>
+            <td>Design System Teams (~450 addressable)</td>
+            <td class="font-mono">$112.5M</td>
+            <td class="font-mono">5-8</td>
+            <td>Design system intelligence</td>
+          </tr>
+          <tr style="background: rgba(6, 182, 212, 0.1);">
+            <td class="font-mono"><strong>2027</strong></td>
+            <td><strong>DS + Product + Ops Teams</strong></td>
+            <td class="font-mono"><strong>$1.3B</strong></td>
+            <td class="font-mono"><strong>15-20</strong></td>
+            <td><strong>Product delivery integration platform</strong></td>
+          </tr>
+          <tr>
+            <td class="font-mono">2028</td>
+            <td>Multi-industry expansion</td>
+            <td class="font-mono">$5B+</td>
+            <td class="font-mono">25-40</td>
+            <td>Multi-industry integration hub</td>
+          </tr>
+          <tr>
+            <td class="font-mono">2029</td>
+            <td>Knowledge work infrastructure</td>
+            <td class="font-mono">$20B+</td>
+            <td class="font-mono">50+</td>
+            <td>Knowledge work infrastructure</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div class="grid grid-3" style="margin-top: 20px;">
+        <div class="stat-box">
+          <div class="stat-value" style="color: var(--purple-400);">$250M</div>
+          <div class="stat-label">Design System Teams</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color: var(--blue-400);">$750M</div>
+          <div class="stat-label">Product/Eng Teams</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color: var(--green-400);">$300M</div>
+          <div class="stat-label">Operations Teams</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Marketplace Vision -->
+    <div class="card">
+      <h2>MARKETPLACE ARCHITECTURE</h2>
+      <h3>Partner-Built Integrations by Mid-2027</h3>
+      
+      <div class="grid grid-2">
+        <div>
+          <h4 style="font-size: 14px; font-weight: 600; color: var(--cyan-400); margin-bottom: 12px;">SDK & Documentation</h4>
+          <ul style="color: var(--text-secondary); font-size: 13px; padding-left: 16px;">
+            <li>Full SDK for building integrations</li>
+            <li>OAuth, webhooks, event-driven patterns</li>
+            <li>Integration testing infrastructure</li>
+            <li>Developer documentation</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size: 14px; font-weight: 600; color: var(--green-400); margin-bottom: 12px;">Partner Economics</h4>
+          <ul style="color: var(--text-secondary); font-size: 13px; padding-left: 16px;">
+            <li>Revenue share on integration usage</li>
+            <li>Certified partner program</li>
+            <li>Co-marketing opportunities</li>
+            <li>Integration marketplace listing</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="timeline" style="margin-top: 24px;">
+        <div class="timeline-item">
+          <p class="timeline-year">Q2 2026</p>
+          <div class="timeline-content">
+            <p style="font-size: 13px; margin: 0;"><strong>SDK Alpha:</strong> Internal integration development, documentation framework</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <p class="timeline-year">Q4 2026</p>
+          <div class="timeline-content">
+            <p style="font-size: 13px; margin: 0;"><strong>SDK Beta:</strong> Partner onboarding pilot, first external integrations</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <p class="timeline-year">Q2 2027</p>
+          <div class="timeline-content">
+            <p style="font-size: 13px; margin: 0;"><strong>Marketplace Launch:</strong> Public marketplace, partner-built integrations live</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <p class="timeline-year">H2 2027</p>
+          <div class="timeline-content">
+            <p style="font-size: 13px; margin: 0;"><strong>Flywheel Spinning:</strong> Customer/partner integrations benefit all customers</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="card">
+      <h2>2026 SUCCESS METRICS</h2>
+      <h3>What We Must Achieve This Year</h3>
+      
+      <div class="grid grid-2">
+        <div style="background: var(--bg-elevated); border-radius: 12px; padding: 16px;">
+          <h4 style="font-size: 14px; font-weight: 600; color: var(--cyan-400); margin-bottom: 12px;">Integration Targets</h4>
+          <ul style="color: var(--text-secondary); font-size: 13px; padding-left: 16px;">
+            <li>5-8 core integrations shipped</li>
+            <li>2-3 customers using 4+ integrations</li>
+            <li>Integration usage tracking live</li>
+            <li>SDK architecture documented</li>
+          </ul>
+        </div>
+        <div style="background: var(--bg-elevated); border-radius: 12px; padding: 16px;">
+          <h4 style="font-size: 14px; font-weight: 600; color: var(--green-400); margin-bottom: 12px;">Business Targets</h4>
+          <ul style="color: var(--text-secondary); font-size: 13px; padding-left: 16px;">
+            <li>40 customers (100% growth)</li>
+            <li>$6.6M ARR (4.1x growth)</li>
+            <li>10+ IPE customers</li>
+            <li>&lt;10% churn</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="callout warning" style="margin-top: 16px;">
+        <p style="margin: 0;"><strong>Without the 2026 foundation, the integration marketplace thesis fails.</strong> Every integration shipped = competitive barrier. This is the year we build the moat.</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p><strong>Document Owner:</strong> CX Partner (Amber) | <strong>Version:</strong> 1.0 | <strong>Updated:</strong> February 2026</p>
+      <p style="margin-top: 8px;">Aligned with TAM Expansion Analysis: Integration Marketplace Thesis</p>
+    </footer>
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
+
