@@ -2616,56 +2616,40 @@
               <i data-lucide="rocket" style="width: 14px; height: 14px; color: #fde047;" aria-hidden="true"></i>
               <span style="font-size: 0.8rem; font-weight: 600; color: #fff; text-transform: uppercase; letter-spacing: 0.05em;">Next Steps</span>
             </div>
-            <h2 id="cta-heading" style="font-size: 1.75rem; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.25;">Ready to accelerate your product context journey?</h2>
-            <p style="color: rgba(255,255,255,0.9); margin-bottom: 24px; font-size: 1.05rem; line-height: 1.6;">Schedule a personalized consultation with our product context experts to discuss your assessment results and explore how governed context can accelerate your AI-ready delivery.</p>
+            <h2 id="cta-heading" style="font-size: 1.75rem; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.25;">Get your personalized strategic readout</h2>
+            <p style="color: rgba(255,255,255,0.9); margin-bottom: 24px; font-size: 1.05rem; line-height: 1.6;">Your assessment results are ready for a strategic deep-dive. Schedule a consultation with Amber to receive your detailed report, personalized recommendations, and actionable next steps for your product context journey.</p>
             
             <div style="display: flex; flex-wrap: wrap; gap: 12px;">
               <div style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); border-radius: 10px; padding: 12px 16px; border: 1px solid rgba(255,255,255,0.15);">
                 <div style="width: 36px; height: 36px; background: rgba(255,255,255,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                  <i data-lucide="calendar" style="width: 18px; height: 18px;" aria-hidden="true"></i>
+                  <i data-lucide="file-text" style="width: 18px; height: 18px;" aria-hidden="true"></i>
                 </div>
                 <div>
-                  <p style="font-size: 0.9rem; font-weight: 600; color: #fff; margin: 0;">30-minute call</p>
-                  <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin: 0;">No commitment</p>
+                  <p style="font-size: 0.9rem; font-weight: 600; color: #fff; margin: 0;">Full detailed report</p>
+                  <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin: 0;">Delivered in consultation</p>
                 </div>
               </div>
               <div style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); border-radius: 10px; padding: 12px 16px; border: 1px solid rgba(255,255,255,0.15);">
                 <div style="width: 36px; height: 36px; background: rgba(255,255,255,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                  <i data-lucide="map" style="width: 18px; height: 18px;" aria-hidden="true"></i>
+                  <i data-lucide="compass" style="width: 18px; height: 18px;" aria-hidden="true"></i>
                 </div>
                 <div>
-                  <p style="font-size: 0.9rem; font-weight: 600; color: #fff; margin: 0;">Custom roadmap</p>
-                  <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin: 0;">Based on your results</p>
+                  <p style="font-size: 0.9rem; font-weight: 600; color: #fff; margin: 0;">Strategic guidance</p>
+                  <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin: 0;">Personalized to your org</p>
                 </div>
               </div>
             </div>
           </div>
           
-          <nav style="display: flex; flex-direction: column; gap: 12px; justify-content: center;" aria-label="Actions">
-            <a href="mailto:ipe@knapsack.cloud?subject=Product Context Readiness Assessment - Consultation Request" onclick="trackEvent('cta_schedule_consult')" style="background: #fff; color: #6436bf; padding: 14px 28px; border-radius: 10px; font-weight: 600; font-size: 1rem; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
-              <i data-lucide="mail" style="width: 20px; height: 20px;" aria-hidden="true"></i>
-              <span>Schedule Consultation</span>
+          <nav style="display: flex; flex-direction: column; gap: 16px; justify-content: center;" aria-label="Actions">
+            <a href="mailto:amber@knapsack.cloud?subject=PCRI Assessment - Strategic Consultation Request" onclick="trackEvent('cta_schedule_consult')" style="background: #fff; color: #6436bf; padding: 18px 32px; border-radius: 12px; font-weight: 600; font-size: 1.1rem; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.25);">
+              <i data-lucide="mail" style="width: 22px; height: 22px;" aria-hidden="true"></i>
+              <span>Request Strategic Readout</span>
             </a>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-              <button onclick="generatePDFReport()" style="background: rgba(255,255,255,0.15); color: #fff; padding: 12px 16px; border-radius: 10px; font-weight: 500; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.25); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                <i data-lucide="file-text" style="width: 18px; height: 18px;" aria-hidden="true"></i>
-                <span>PDF Report</span>
-              </button>
-              <button onclick="downloadResults()" style="background: rgba(255,255,255,0.1); color: #fff; padding: 12px 16px; border-radius: 10px; font-weight: 500; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                <i data-lucide="download" style="width: 18px; height: 18px;" aria-hidden="true"></i>
-                <span>JSON Data</span>
-              </button>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-              <button onclick="emailResults()" style="background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); padding: 12px 16px; border-radius: 10px; font-weight: 500; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.15); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                <i data-lucide="send" style="width: 18px; height: 18px;" aria-hidden="true"></i>
-                <span>Email Copy</span>
-              </button>
-              <button onclick="copyResultsSummary()" style="background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.8); padding: 12px 16px; border-radius: 10px; font-weight: 500; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                <i data-lucide="copy" style="width: 18px; height: 18px;" aria-hidden="true"></i>
-                <span>Copy Text</span>
-              </button>
-            </div>
+            <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); text-align: center; margin: 0; line-height: 1.5;">
+              <i data-lucide="lock" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 4px;" aria-hidden="true"></i>
+              Your detailed report will be delivered personally during your consultation
+            </p>
           </nav>
         </div>
       </section>
