@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IPE Assessment Analytics Dashboard</title>
+  <title>PCRI Assessment Analytics Dashboard</title>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
@@ -510,6 +510,7 @@
     .pillar-bar.ai .fill { background: var(--purple-400); }
     .pillar-bar.governance .fill { background: var(--blue-400); }
     .pillar-bar.delivery .fill { background: var(--amber-400); }
+    .pillar-bar.culture .fill { background: #f472b6; }
   </style>
 </head>
 <body>
@@ -520,8 +521,8 @@
           <i data-lucide="bar-chart-3" style="width: 22px; height: 22px; color: #fff;"></i>
         </div>
         <div>
-          <h1>IPE Assessment Analytics</h1>
-          <p style="font-size: 0.8rem; color: var(--text-muted);">Product System Maturity Dashboard</p>
+          <h1>PCRI Assessment Analytics</h1>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">Product Context Readiness Index Dashboard</p>
         </div>
       </div>
       <div class="header-actions">
@@ -567,9 +568,9 @@
       <div class="stat-card green">
         <div class="stat-label">
           <i data-lucide="trending-up" style="width: 14px; height: 14px;"></i>
-          Average PSRI
+          Average PCRI
         </div>
-        <div class="stat-value" id="stat-avg-psri">—</div>
+        <div class="stat-value" id="stat-avg-pcri">—</div>
         <div class="stat-change" id="stat-avg-change"></div>
       </div>
       
@@ -594,7 +595,7 @@
     <div class="charts-grid" id="charts-grid" style="display: none;">
       <div class="chart-card">
         <div class="chart-header">
-          <span class="chart-title">PSRI Trend Over Time</span>
+          <span class="chart-title">PCRI Trend Over Time</span>
           <select class="filter-select" id="trend-filter" onchange="updateTrendChart()">
             <option value="7">Last 7 days</option>
             <option value="30" selected>Last 30 days</option>
@@ -653,7 +654,7 @@
             <th>Date</th>
             <th>Company</th>
             <th>Industry</th>
-            <th>PSRI</th>
+            <th>PCRI</th>
             <th>Pillars</th>
             <th>Archetype</th>
             <th>Contact</th>
@@ -780,12 +781,12 @@
     
     function renderStats() {
       const total = assessments.length;
-      const avgPsri = Math.round(assessments.reduce((sum, a) => sum + (a['PSRI Score'] || 0), 0) / total);
+      const avgPcri = Math.round(assessments.reduce((sum, a) => sum + (a['PCRI Score'] || 0), 0) / total);
       const uniqueOrgs = new Set(assessments.map(a => a['Organization ID'] || a['Company'])).size;
       const leads = assessments.filter(a => a['Email']).length;
       
       document.getElementById('stat-total').textContent = total;
-      document.getElementById('stat-avg-psri').textContent = avgPsri;
+      document.getElementById('stat-avg-pcri').textContent = avgPcri;
       document.getElementById('stat-orgs').textContent = uniqueOrgs;
       document.getElementById('stat-leads').textContent = leads;
       
@@ -861,14 +862,14 @@
       filtered.forEach(a => {
         const day = new Date(a['Timestamp']).toISOString().split('T')[0];
         if (!byDay[day]) {
-          byDay[day] = { count: 0, totalPsri: 0 };
+          byDay[day] = { count: 0, totalPcri: 0 };
         }
         byDay[day].count++;
-        byDay[day].totalPsri += a['PSRI Score'] || 0;
+        byDay[day].totalPcri += a['PCRI Score'] || 0;
       });
       
       const labels = Object.keys(byDay).sort();
-      const avgScores = labels.map(day => Math.round(byDay[day].totalPsri / byDay[day].count));
+      const avgScores = labels.map(day => Math.round(byDay[day].totalPcri / byDay[day].count));
       const counts = labels.map(day => byDay[day].count);
       
       trendChart = new Chart(ctx, {
@@ -877,7 +878,7 @@
           labels: labels.map(d => new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })),
           datasets: [
             {
-              label: 'Avg PSRI',
+              label: 'Avg PCRI',
               data: avgScores,
               borderColor: '#8b5cf6',
               backgroundColor: 'rgba(139, 92, 246, 0.1)',
@@ -954,15 +955,16 @@
       const avgAI = Math.round(filtered.reduce((s, a) => s + (a['AI Readiness (Norm)'] || 0), 0) / filtered.length);
       const avgGov = Math.round(filtered.reduce((s, a) => s + (a['Governance (Norm)'] || 0), 0) / filtered.length);
       const avgDelivery = Math.round(filtered.reduce((s, a) => s + (a['Delivery (Norm)'] || 0), 0) / filtered.length);
+      const avgCulture = Math.round(filtered.reduce((s, a) => s + (a['Culture (Norm)'] || 0), 0) / filtered.length);
       
       pillarChart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['Foundation', 'AI Readiness', 'Governance', 'Delivery'],
+          labels: ['Culture (25%)', 'Foundation (20%)', 'AI Readiness (20%)', 'Governance (20%)', 'Delivery (15%)'],
           datasets: [{
             label: 'Average Score',
-            data: [avgFoundation, avgAI, avgGov, avgDelivery],
-            backgroundColor: ['#34d399', '#a78bfa', '#60a5fa', '#fbbf24'],
+            data: [avgCulture, avgFoundation, avgAI, avgGov, avgDelivery],
+            backgroundColor: ['#f472b6', '#34d399', '#a78bfa', '#60a5fa', '#fbbf24'],
             borderRadius: 6
           }]
         },
@@ -1018,8 +1020,8 @@
       
       const tbody = document.getElementById('table-body');
       tbody.innerHTML = filtered.map(a => {
-        const psri = a['PSRI Score'] || 0;
-        const scoreClass = psri >= 75 ? 'high' : psri >= 50 ? 'medium' : psri >= 25 ? 'low' : 'critical';
+        const pcri = a['PCRI Score'] || 0;
+        const scoreClass = pcri >= 75 ? 'high' : pcri >= 50 ? 'medium' : pcri >= 25 ? 'low' : 'critical';
         const archetypeKey = (a['Archetype Key'] || 'builder').toLowerCase();
         const archetypeName = a['Archetype'] || archetypeKey.charAt(0).toUpperCase() + archetypeKey.slice(1);
         
@@ -1027,15 +1029,17 @@
         const ai = a['AI Readiness (Norm)'] || 0;
         const gov = a['Governance (Norm)'] || 0;
         const delivery = a['Delivery (Norm)'] || 0;
+        const culture = a['Culture (Norm)'] || 0;
         
         return `
           <tr>
             <td>${new Date(a['Timestamp']).toLocaleDateString()}</td>
             <td>${a['Company'] || a['Organization ID'] || '—'}</td>
             <td>${a['Industry'] || '—'}</td>
-            <td><span class="score-badge ${scoreClass}">${psri}</span></td>
+            <td><span class="score-badge ${scoreClass}">${pcri}</span></td>
             <td>
-              <div class="pillar-bars" title="F:${foundation} A:${ai} G:${gov} D:${delivery}">
+              <div class="pillar-bars" title="C:${culture} F:${foundation} A:${ai} G:${gov} D:${delivery}">
+                <div class="pillar-bar culture"><div class="fill" style="height: ${culture}%"></div></div>
                 <div class="pillar-bar foundation"><div class="fill" style="height: ${foundation}%"></div></div>
                 <div class="pillar-bar ai"><div class="fill" style="height: ${ai}%"></div></div>
                 <div class="pillar-bar governance"><div class="fill" style="height: ${gov}%"></div></div>
@@ -1125,19 +1129,20 @@
       assessments = [];
       
       for (let i = 0; i < 50; i++) {
-        const psri = Math.floor(Math.random() * 70) + 20;
-        const archetypeKey = psri >= 75 ? 'transformer' : psri >= 55 ? 'optimizer' : psri >= 35 ? 'adopter' : 'builder';
+        const pcri = Math.floor(Math.random() * 70) + 20;
+        const archetypeKey = pcri >= 75 ? 'transformer' : pcri >= 55 ? 'optimizer' : pcri >= 35 ? 'adopter' : 'builder';
         const date = new Date(Date.now() - Math.random() * 60 * 24 * 60 * 60 * 1000);
         
         assessments.push({
           'Timestamp': date.toISOString(),
           'Organization ID': `org-${i}`,
           'Industry': industries[Math.floor(Math.random() * industries.length)],
-          'PSRI Score': psri,
+          'PCRI Score': pcri,
           'Foundation (Norm)': Math.floor(Math.random() * 40) + 40,
           'AI Readiness (Norm)': Math.floor(Math.random() * 50) + 20,
           'Governance (Norm)': Math.floor(Math.random() * 45) + 35,
           'Delivery (Norm)': Math.floor(Math.random() * 50) + 30,
+          'Culture (Norm)': Math.floor(Math.random() * 45) + 40,
           'Archetype': archetypeKey.charAt(0).toUpperCase() + archetypeKey.slice(1),
           'Archetype Key': archetypeKey,
           'Company': companies[Math.floor(Math.random() * companies.length)],

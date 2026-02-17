@@ -1,12 +1,12 @@
-# Product System Readiness Index (PCRI) Methodology
+# Product Context Readiness Index (PCRI) Methodology
 
-**Version 1.3 | February 2026 | Knapsack**
+**Version 2.0 | February 2026 | Knapsack**
 
 ---
 
 ## Executive Summary
 
-The Product System Readiness Index (PCRI) is a composite assessment framework designed to measure an organization's readiness to evolve from traditional design systems to governed product systems with AI-enabled delivery capabilities.
+The Product Context Readiness Index (PCRI) is a composite assessment framework designed to measure an organization's ability to deliver governed product context for AI-enabled delivery. Design systems solved yesterday's problem—fragmented interfaces and repeated implementation. But AI doesn't consume components; AI consumes context.
 
 Unlike generic AI readiness quizzes or traditional design system maturity models, PCRI uniquely combines **product system foundation**, **AI readiness**, **organizational governance**, **delivery workflow**, and **culture & contribution** into a single, actionable score that predicts engagement success and tracks progress over time.
 

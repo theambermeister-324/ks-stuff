@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product Context Readiness Assessment | PCRI</title>
-  <meta name="description" content="Benchmark your product context against 50+ enterprises. Discover if your decisions, constraints, and governance are ready for AI-powered delivery.">
+  <meta name="description" content="Benchmark your product context against 158 enterprises. Discover if your decisions, constraints, and governance are ready for AI-powered delivery.">
   <meta name="theme-color" content="#1a1a2e">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1774,6 +1774,20 @@
   <div id="a11y-announcer" class="a11y-live-region" aria-live="polite" aria-atomic="true"></div>
   <div id="a11y-alert" class="a11y-live-region" aria-live="assertive" aria-atomic="true"></div>
   
+  <!-- Alpha Program Banner (only shown when ALPHA_MODE is true) -->
+  <div id="alpha-banner" class="alpha-banner" style="display: none; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); padding: 12px 16px; text-align: center;">
+    <div style="max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;">
+      <span style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.2); padding: 4px 10px; border-radius: 999px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #fff;">
+        <i data-lucide="flask-conical" style="width: 12px; height: 12px;"></i>
+        Alpha Program
+      </span>
+      <span style="font-size: 0.9rem; font-weight: 600; color: #fff;">
+        You're part of our exclusive alpha cohort. Your feedback shapes the final product.
+      </span>
+      <span id="alpha-close-date" style="font-size: 0.8rem; color: rgba(255,255,255,0.85);"></span>
+    </div>
+  </div>
+  
   <!-- Main Content -->
   <main id="app" class="container" role="main" aria-label="Product Context Readiness Assessment">
     <h1 class="sr-only" id="main-content">Product Context Readiness Assessment</h1>
@@ -1785,7 +1799,7 @@
         <div class="logo-badge" style="margin-bottom: 28px;">KNAPSACK PCRI v<span id="pcri-version">2.0</span></div>
         <h1 style="font-size: 2.5rem; line-height: 1.15; margin-bottom: 20px; max-width: 700px; margin-left: auto; margin-right: auto;">AI Doesn't Consume Components—<br>It Consumes <span style="color: var(--spectrum-purple-400);">Context</span></h1>
         <p class="text-secondary" style="font-size: 1.15rem; max-width: 580px; margin: 0 auto 32px; line-height: 1.65; color: rgba(255,255,255,0.75);">
-          Benchmark your <strong style="color: var(--spectrum-text-primary);">product context</strong> against 50+ enterprises. Discover if your decisions, constraints, and governance are ready for AI-powered delivery.
+          Benchmark your <strong style="color: var(--spectrum-text-primary);">product context</strong> against 158 enterprises. Discover if your decisions, constraints, and governance are ready for AI-powered delivery.
         </p>
         
         <button onclick="startAssessment()" class="btn btn-primary btn-lg" style="padding: 18px 40px; font-size: 1.1rem; border-radius: 12px;">
@@ -1875,7 +1889,7 @@
           <!-- Left: Maturity Journey -->
           <div>
             <h2 class="text-primary" style="font-size: 1.125rem; font-weight: 600; margin-bottom: 6px;">Where will you land?</h2>
-            <p class="text-tertiary text-sm" style="margin: 0 0 8px 0;">Design systems solved yesterday's scaling problem. <strong>Product context</strong> is the work now. Our framework identifies patterns from 50+ enterprises so your roadmap is actionable, not generic.</p>
+            <p class="text-tertiary text-sm" style="margin: 0 0 8px 0;">Design systems solved yesterday's scaling problem. <strong>Product context</strong> is the work now. Our framework identifies patterns from 158 enterprises so your roadmap is actionable, not generic.</p>
             <a href="#" onclick="showMethodology(); return false;" class="text-purple text-sm" style="text-decoration: underline; display: inline-block; margin-bottom: 14px;">View PCRI framework →</a>
             <div role="list" aria-label="Maturity stages" style="display: flex; flex-direction: column; gap: 6px;">
               <div role="listitem" style="display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; background: linear-gradient(90deg, rgba(239, 68, 68, 0.12) 0%, transparent 100%); border-radius: 8px; border-left: 3px solid #ef4444;">
@@ -1932,7 +1946,7 @@
                 <i data-lucide="bar-chart-3" style="width: 18px; height: 18px; color: var(--spectrum-blue-400); flex-shrink: 0; margin-top: 2px;" aria-hidden="true"></i>
                 <div>
                   <p class="text-secondary text-sm font-semibold" style="margin-bottom: 2px;">Industry Benchmark</p>
-                  <p class="text-tertiary text-sm" style="margin: 0;">Compare to 50+ enterprises in your sector</p>
+                  <p class="text-tertiary text-sm" style="margin: 0;">Compare to 158 enterprises in your sector</p>
                 </div>
               </div>
               <div style="display: flex; align-items: flex-start; gap: 10px;">
@@ -2706,14 +2720,24 @@
     // PCRI CONFIGURATION - Product Context Readiness Index
     // =========================================================================
     
-    const PCRI_VERSION = '2.0';
-    const PCRI_VERSION_DATE = '2026-02-12';
-    // v2.0: Reframed as Product Context Readiness Index (PCRI) - "AI consumes context, not components"
+    const PCRI_VERSION = '1.3';
+    const PCRI_VERSION_DATE = '2026-02-16';
+    // v1.3: Added Tool Stack Integration Assessment, TAM expansion alignment
     // v1.2: Added Multi-System Architecture assessment for federated/multi-brand organizations
     // v1.1: Expanded research foundation (DORA, Project Aristotle, Team Topologies, Westrum, NIST AI RMF)
     
     // Google Sheets Web App URL - Replace with your deployed Apps Script URL
     const GOOGLE_SHEETS_WEBAPP_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
+    
+    // ==========================================================================
+    // ALPHA PROGRAM CONFIGURATION
+    // Set ALPHA_MODE to true for alpha release (disables PDF, requires Director review)
+    // Set to false for public launch
+    // ==========================================================================
+    const ALPHA_MODE = true;
+    const ALPHA_DEBRIEF_CALENDLY = 'https://calendly.com/amber-knapsack'; // Replace with actual Calendly link
+    const ALPHA_COHORT_SIZE = 20;
+    const ALPHA_CLOSE_DATE = '2026-03-03'; // Assessment window close date
     
     // PCRI Pillar Weights (must sum to 1.0)
     // Rationale:
@@ -4245,11 +4269,12 @@
     };
 
     // Map PCRI score to customer-facing archetype
+    // Aligned with PCRI Framework Whitepaper v2.0 thresholds
     function getArchetypeFromScore(pcriScore) {
-      if (pcriScore >= 80) return 'transformer';
-      if (pcriScore >= 60) return 'optimizer';
-      if (pcriScore >= 40) return 'adopter';
-      return 'builder';
+      if (pcriScore >= 75) return 'transformer';  // 75-100
+      if (pcriScore >= 55) return 'optimizer';    // 55-74
+      if (pcriScore >= 45) return 'adopter';      // 45-54
+      return 'builder';                            // 0-44
     }
 
     // Map internal journey to archetype (for backwards compatibility)
@@ -6015,8 +6040,8 @@
       // Archetype
       document.getElementById('exec-archetype').textContent = archetype.name;
       
-      // Percentile
-      const percentile = pcriScore >= 80 ? 'Top 10%' : pcriScore >= 60 ? 'Top 35%' : pcriScore >= 40 ? 'Top 65%' : 'Bottom 35%';
+      // Percentile (aligned with archetype thresholds: 75/55/45)
+      const percentile = pcriScore >= 75 ? 'Top 10%' : pcriScore >= 55 ? 'Top 35%' : pcriScore >= 45 ? 'Top 65%' : 'Bottom 35%';
       document.getElementById('exec-percentile').textContent = percentile;
       
       // Industry rank
@@ -6040,13 +6065,13 @@
       document.getElementById('exec-strength').textContent = `${strength.name} (${strength.score}%) — Your strongest pillar`;
       document.getElementById('exec-gap').textContent = `${gap.name} (${gap.score}%) — Priority improvement area`;
       
-      // Bottom line
+      // Bottom line (aligned with archetype thresholds: 75/55/45)
       let bottomLine = '';
       if (pcriScore >= 75) {
         bottomLine = `Your organization is among the most mature we've assessed. Focus on optimizing AI governance and scaling your contribution model to maintain competitive advantage.`;
       } else if (pcriScore >= 55) {
         bottomLine = `You have solid foundations in place. Prioritize ${gap.name.toLowerCase()} improvements to unlock the next tier of maturity and accelerate delivery velocity.`;
-      } else if (pcriScore >= 40) {
+      } else if (pcriScore >= 45) {
         bottomLine = `Your product context is developing but gaps remain. Concentrate on strengthening ${gap.name.toLowerCase()} while building governance practices to make context operational.`;
       } else {
         bottomLine = `You're in the early stages of product context readiness. Start with foundational context and governance before expanding to AI capabilities. Expected time to next tier: 6-9 months.`;
@@ -6862,7 +6887,41 @@
       });
     }
 
+    // ==========================================================================
+    // ALPHA MODE INITIALIZATION
+    // ==========================================================================
+    function initializeAlphaMode() {
+      if (ALPHA_MODE) {
+        // Show alpha banner
+        const banner = document.getElementById('alpha-banner');
+        if (banner) {
+          banner.style.display = 'block';
+        }
+        
+        // Update close date
+        const closeDateEl = document.getElementById('alpha-close-date');
+        if (closeDateEl && ALPHA_CLOSE_DATE) {
+          const closeDate = new Date(ALPHA_CLOSE_DATE);
+          const daysLeft = Math.ceil((closeDate - new Date()) / (1000 * 60 * 60 * 24));
+          if (daysLeft > 0) {
+            closeDateEl.textContent = `Assessment closes in ${daysLeft} days`;
+          } else {
+            closeDateEl.textContent = 'Assessment closed';
+          }
+        }
+        
+        // Update version display
+        const versionEl = document.getElementById('pcri-version');
+        if (versionEl) {
+          versionEl.textContent = PCRI_VERSION;
+        }
+        
+        console.log(`[PCRI Alpha] Mode: ALPHA | Version: ${PCRI_VERSION} | Cohort Size: ${ALPHA_COHORT_SIZE}`);
+      }
+    }
+    
     // Initialize
+    initializeAlphaMode();
     createAccessibleIcons();
   </script>
 </body>

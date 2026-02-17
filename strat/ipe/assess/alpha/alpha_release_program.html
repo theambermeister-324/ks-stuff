@@ -836,6 +836,30 @@
       
       <p>The PCRI Alpha Program is a structured validation initiative to test the Product Context Readiness Index assessment with a curated cohort of design system leaders and practitioners before public launch.</p>
       
+      <div class="callout">
+        <p><strong>Terminology Note: Archetype vs. Journey</strong></p>
+        <p style="margin-top: 8px; margin-bottom: 8px;">The PCRI framework distinguishes between two concepts:</p>
+        <ul style="margin-left: 20px;">
+          <li><strong>Archetype</strong> = Where you are (maturity state based on PCRI score)
+            <ul style="margin-left: 20px; margin-top: 4px;">
+              <li><strong>Builder</strong> (0-44): Establishing foundations</li>
+              <li><strong>Adopter</strong> (45-54): Rapid enablement needed</li>
+              <li><strong>Optimizer</strong> (55-74): Ready for transformation</li>
+              <li><strong>Transformer</strong> (75-100): AI workflow expansion ready</li>
+            </ul>
+          </li>
+          <li style="margin-top: 8px;"><strong>Journey</strong> = Recommended investment path based on fit criteria
+            <ul style="margin-left: 20px; margin-top: 4px;">
+              <li><strong>J1 Foundation</strong>: Build system of record first</li>
+              <li><strong>J2 Acceleration</strong>: Fast activation for trigger-driven orgs</li>
+              <li><strong>J3 Activation</strong>: Full transformation program</li>
+              <li><strong>J4 Intelligence</strong>: MCP activation for mature orgs</li>
+            </ul>
+          </li>
+        </ul>
+        <p style="margin-top: 8px;">Alpha reports include both: the archetype classification AND recommended journey path.</p>
+      </div>
+      
       <div class="card accent">
         <h3><i data-lucide="git-branch"></i> Alpha Process: Guided Delivery Model</h3>
         <p style="margin-bottom: 16px;">Unlike the public release, the alpha program uses a <strong>human-in-the-loop</strong> approach for validation and calibration:</p>
@@ -858,6 +882,43 @@
           <li><strong>Optimize conversion funnel</strong> — Measure drop-off points and time-to-complete to improve UX</li>
           <li><strong>Generate early pipeline</strong> — Identify qualified leads ready for IPE conversations</li>
         </ol>
+      </div>
+      
+      <div class="callout warning">
+        <p><strong>PCRI Lite vs. Full PCRI:</strong> The alpha assessment uses a simplified <strong>10-question, ~10-minute</strong> format ("PCRI Lite") that maps to the full 5-pillar framework:</p>
+        <table style="margin-top: 12px; font-size: 0.875rem;">
+          <tr>
+            <th>Full PCRI (5 Pillars)</th>
+            <th>Weight</th>
+            <th>Alpha Assessment Coverage</th>
+          </tr>
+          <tr>
+            <td>Culture</td>
+            <td>25%</td>
+            <td>Captured via Director of Delivery calibration</td>
+          </tr>
+          <tr>
+            <td>Foundation</td>
+            <td>20%</td>
+            <td>3 questions (design system state, governance, documentation)</td>
+          </tr>
+          <tr>
+            <td>AI Readiness</td>
+            <td>20%</td>
+            <td>3 questions (AI tools, API maturity, product data)</td>
+          </tr>
+          <tr>
+            <td>Governance</td>
+            <td>20%</td>
+            <td>3 questions (executive sponsor, budget, change capacity)</td>
+          </tr>
+          <tr>
+            <td>Delivery</td>
+            <td>15%</td>
+            <td>Captured via Director of Delivery calibration</td>
+          </tr>
+        </table>
+        <p style="margin-top: 12px;">The Director of Delivery supplements PCRI Lite scores with qualitative assessment of Culture and Delivery pillars during the debrief process. Post-alpha, the full 27-question PCRI will be available.</p>
       </div>
       
       <h3>Program Structure</h3>
@@ -1196,7 +1257,9 @@
             
             <p><strong>Quick preview:</strong></p>
             <ul>
-              <li>Your maturity archetype: <strong>[ARCHETYPE]</strong></li>
+              <li>Your PCRI score: <strong>[SCORE]/100</strong></li>
+              <li>Maturity archetype: <strong>[ARCHETYPE]</strong> (e.g., Builder, Adopter, Optimizer, Transformer)</li>
+              <li>Recommended journey: <strong>[JOURNEY]</strong> (J1-J4 investment path)</li>
               <li>How you compare to peers in [INDUSTRY]</li>
               <li>2-3 priority areas I've identified for your roadmap</li>
             </ul>
@@ -1403,7 +1466,9 @@ Thanks for completing the PCRI assessment! I'm [Director Name], Director of Deli
 I've prepared a curated executive report with your results, including some specific observations about [Company]'s product context maturity that I think you'll find valuable.
 
 Quick preview:
-• Your maturity archetype: [ARCHETYPE]
+• Your PCRI score: [SCORE]/100
+• Maturity archetype: [ARCHETYPE] (Builder, Adopter, Optimizer, or Transformer)
+• Recommended journey: [JOURNEY] (J1-J4 investment path)
 • How you compare to peers in [INDUSTRY]
 • 2-3 priority areas I've identified for your roadmap
 
