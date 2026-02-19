@@ -496,10 +496,11 @@
           <div class="card">
             <h2 class="heading">Flow's Evolution</h2>
             ${[
+              { year: '2022', title: 'Brad Frost / Big Medium', desc: 'Engaged Brad Frost to establish design system foundations—team still references those original documents as checkpoints today', color: 'var(--neutral-400)' },
               { year: '2022–2024', title: 'Foundation Built', desc: 'Style guide evolved into component library, then the Flow design system', color: 'var(--neutral-500)' },
               { year: '2024', title: 'Documentation Gap', desc: 'Storybook became the default, but lacks collaboration features and non-dev accessibility', color: 'var(--warning)' },
-              { year: '2025', title: 'Inflection Point', desc: 'AI urgency, acquisition needs, and team maturity create opportunity for transformation', color: 'var(--success)' },
-            ].map((p, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${p.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ${p.color}">${p.year}</span><span class="timeline-title">${p.title}</span></div><p class="timeline-desc">${p.desc}</p></div></div>`).join('')}
+              { year: '2025–2026', title: 'Design Leads Development', desc: 'Design system team now leading development org on front-end decisions. Waters has no FE team—investing in deep science instead.', color: 'var(--success)' },
+            ].map((p, i, arr) => '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ' + p.color + '"></div>' + (i < arr.length - 1 ? '<div class="timeline-line"></div>' : '') + '</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ' + p.color + '">' + p.year + '</span><span class="timeline-title">' + p.title + '</span></div><p class="timeline-desc">' + p.desc + '</p></div></div>').join('')}
           </div>
           <div class="card">
             <h2 class="heading">Current Pain Points (Validated in Workshop)</h2>
@@ -511,7 +512,19 @@
           <div class="card">
             <h2 class="heading">Organizational Context (Validated)</h2>
             <div class="grid-3">
-              ${[{ label: 'Angular Repos', value: '40–50', note: '99% Angular, some React in TA' },{ label: 'Design System Team', value: '6', note: 'Caitlin, Drew, Dave, Nick, Michelle, Danielle' },{ label: 'Products', value: '10+', note: 'Empower, SCP, System Monitoring, etc.' }].map(s => `<div class="stat-card"><div class="stat-value">${s.value}</div><div class="stat-label">${s.label}</div><div class="stat-note">${s.note}</div></div>`).join('')}
+              ${[{ label: 'Angular Repos', value: '40–50', note: '99% Angular, some React in TA' },{ label: 'Design System Team', value: '6', note: 'Caitlin, Drew, Dave, Nick, Michelle, Danielle' },{ label: 'Products', value: '10+', note: 'Empower, SCP, System Monitoring, etc.' }].map(s => '<div class="stat-card"><div class="stat-value">' + s.value + '</div><div class="stat-label">' + s.label + '</div><div class="stat-note">' + s.note + '</div></div>').join('')}
+            </div>
+          </div>
+          <div class="card" style="background: var(--primary-light); border: 1px solid #d9d0e8;">
+            <h2 class="heading" style="color: var(--primary);">Strategic Context: 3-Year UX Ecosystem Transformation</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6; margin-bottom: 16px;">Waters is embarking on a major UX ecosystem change across all software products over a 3-year roadmap. The design system team has been asked to lead this transformation while all product teams remain focused on delivery.</p>
+            <div class="grid-2">
+              ${[
+                { insight: 'Design Leading Development', detail: 'Design system team now advising development org on front-end decisions, Angular versions, and component standards' },
+                { insight: 'No Front-End Team', detail: 'Waters invests in "deep science of software"—design system fills the front-end leadership gap' },
+                { insight: 'Delivery-First Culture', detail: 'Product teams focused on "delivery, delivery, delivery"—design system must integrate without disruption' },
+                { insight: 'Seamless Integration Required', detail: 'Must fit into existing delivery roadmaps without creating chaos, bottlenecks, or problems' },
+              ].map(i => '<div style="background: white; padding: 12px; border-radius: 6px; border: 1px solid var(--neutral-150);"><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">' + i.insight + '</div><div style="font-size: 12px; color: var(--neutral-600);">' + i.detail + '</div></div>').join('')}
             </div>
           </div>`,
         solution: `
@@ -545,7 +558,20 @@
                 { title: 'Scales with Growth', desc: 'Multi-brand, multi-product architecture' },
                 { title: 'Security Approved', desc: 'Enterprise-grade infrastructure' },
                 { title: 'Implementation-Led', desc: 'Partnership, not just software' },
-              ].map(i => `<div class="check-item"><span class="check-icon">✓</span><div><div class="check-title">${i.title}</div><div class="check-desc">${i.desc}</div></div></div>`).join('')}
+              ].map(i => '<div class="check-item"><span class="check-icon">✓</span><div><div class="check-title">' + i.title + '</div><div class="check-desc">' + i.desc + '</div></div></div>').join('')}
+            </div>
+          </div>
+          <div class="card" style="background: var(--primary-light); border: 1px solid #d9d0e8;">
+            <h2 class="heading" style="color: var(--primary);">Six Strategic WIN Themes</h2>
+            <div class="grid-2">
+              ${[
+                { num: '1', theme: 'Control Plane for Design + Code + AI', why: 'Leadership wants clarity, not another tool. Knapsack is the spine connecting creative, engineering, and AI workflows.' },
+                { num: '2', theme: 'Multi-Brand Architecture for M&A', why: 'Competitors cannot support this. Zeroheight failed here, Storybook is dev-heavy, LinearB has zero capability.' },
+                { num: '3', theme: 'AI-Ready Schemas ("Robot Food")', why: 'Structured content + component metadata becomes trusted source for LLMs. Enables Figma Make, Storybook MCP, and future automation.' },
+                { num: '4', theme: 'Confidence for Designer-Less Teams', why: 'Waters has uneven design maturity. Knapsack becomes the "front door" they have never had—leveling the playing field.' },
+                { num: '5', theme: 'Enterprise-Grade Risk Reduction', why: 'Governance, versioning, security, contribution control. Complements regulated industry workflows and shortens QA cycles.' },
+                { num: '6', theme: 'Strategic Partner, Not Vendor', why: 'CX-led engagement shows Waters this is multi-year transformation—not just software. They value candor and pragmatism.' },
+              ].map(t => '<div style="background: white; padding: 14px; border-radius: 6px; border: 1px solid var(--neutral-150);"><div style="display: flex; gap: 10px; align-items: flex-start;"><span style="background: var(--primary); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">' + t.num + '</span><div><div style="font-size: 14px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">' + t.theme + '</div><div style="font-size: 12px; color: var(--neutral-600);">' + t.why + '</div></div></div></div>').join('')}
             </div>
           </div>`,
         'charter-outcomes': `
@@ -659,11 +685,11 @@
               </div>
               <div class="stack-card">
                 <div class="stack-label">Key Deliverables</div>
-                ${['Software assessment package', 'ROI model (time-saved)', 'Risk register', 'IT implementation brief', 'MVP scope definition'].map(d => '<div class="stack-item"><span class="stack-check">□</span> ' + d + '</div>').join('')}
+                ${['Maturity Assessment (Alpha)', 'Software assessment package', 'ROI model (time-saved)', 'Risk register', 'IT brief', 'MVP scope'].map(d => '<div class="stack-item"><span class="stack-check">□</span> ' + d + '</div>').join('')}
               </div>
               <div class="stack-card">
                 <div class="stack-label">Workshop Activities</div>
-                ${['Executive interviews', 'IT/InfoSec architecture session', 'Problem framing', 'Journey mapping'].map(a => '<div class="stack-item"><span class="stack-check">→</span> ' + a + '</div>').join('')}
+                ${['Executive interviews', 'IT/InfoSec architecture', 'Problem framing', 'Journey mapping'].map(a => '<div class="stack-item"><span class="stack-check">→</span> ' + a + '</div>').join('')}
               </div>
             </div>
           </div>
@@ -843,16 +869,26 @@
           </div>`,
         'workshop-summary': `
           <h1 class="section-title">Workshop Summary</h1>
-          <p class="section-subtitle">February 4, 2026 — Waters × Knapsack On-Site Workshop</p>
+          <p class="section-subtitle">Discovery workshops and strategic sessions — February 2026</p>
           
           <!-- Workshop Status Banner -->
           <div class="card" style="background: var(--success); color: white; border: none;">
             <div style="display: flex; align-items: center; gap: 12px;">
               <span style="font-size: 24px;">✓</span>
               <div>
-                <div style="font-size: 18px; font-weight: 700;">Workshop Successfully Completed</div>
+                <div style="font-size: 18px; font-weight: 700;">Discovery Workshop Completed</div>
                 <div style="opacity: 0.9;">February 4, 2026 • 9:30am – 3:30pm ET • On-site at Waters (Milford, MA)</div>
                 <div style="opacity: 0.85; margin-top: 4px; font-size: 13px;">6-hour collaborative session with 11 Waters stakeholders. Journey mapping, pre-mortem, and 90-day planning completed.</div>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="background: var(--action-light); border: 1px solid #b8d4e8;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="font-size: 24px; color: var(--action);">✓</span>
+              <div>
+                <div style="font-size: 18px; font-weight: 700; color: var(--action);">Leveling Up Flow Session Completed</div>
+                <div style="color: var(--neutral-600);">February 17, 2026 • Virtual • Scott, Caitlin, Drew + Knapsack CX team</div>
+                <div style="color: var(--neutral-500); margin-top: 4px; font-size: 13px;">Maturity assessment introduction, 3-year UX ecosystem roadmap discussion, design leading development, delivery integration planning.</div>
               </div>
             </div>
           </div>
@@ -863,6 +899,21 @@
             <div class="summary-text">
               <p><strong>Waters:</strong> Caitlin Curbeau (DS PO), Drew (Design Ops), Dave Gadsby (Tech Lead), Nicolae Popa (DS Manager), Michelle Brooks (DS Designer), Danielle McDonald (Creative Director), Scott Simmons (Design Manager), Kim Busker (Scrum Master), Carla Palmer (Designer), Dipali Patil (SCP Lead), Scott McCall (System Monitoring PO)</p>
               <p style="margin-top: 8px;"><strong>Knapsack:</strong> Jon Boush (AE), Chris Bloom, Brennan Thaney (Service Designer)</p>
+            </div>
+          </div>
+          
+          <!-- Cultural Insights -->
+          <div class="card" style="background: var(--success-light); border: 1px solid #c3ddd2;">
+            <h2 class="heading" style="color: var(--success);">Cultural Insights (Validated)</h2>
+            <div class="grid-2">
+              ${[
+                { insight: 'Direct Communication', detail: 'Team values candor and pragmatism—no corporate speak' },
+                { insight: 'Specificity Over Claims', detail: 'Leadership wants local, measurable impact—not generic vendor ROI' },
+                { insight: 'Do Not Oversell', detail: '"Do not keep selling past the sell"—they are already convinced' },
+                { insight: 'Partnership Orientation', detail: 'Value collaborative working sessions; enjoy treats icebreakers' },
+                { insight: 'Messy Reality Accepted', detail: 'Acknowledge "hot mess" state; appreciate honesty about challenges' },
+                { insight: 'Warm & Humorous', detail: 'Team is warm, enjoys banter—Bubs and sour candy advocates' },
+              ].map(i => '<div style="background: white; padding: 12px; border-radius: 6px; border: 1px solid var(--neutral-150);"><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">' + i.insight + '</div><div style="font-size: 12px; color: var(--neutral-600);">' + i.detail + '</div></div>').join('')}
             </div>
           </div>
           
@@ -929,15 +980,17 @@
           
           <!-- Key Quotes -->
           <div class="card">
-            <h2 class="heading">Key Quotes from Workshop</h2>
+            <h2 class="heading">Key Quotes from Workshops</h2>
             <div class="grid-2">
               ${[
+                '"To have design leading the development organization is a little weird. But its a nice place to be." — Scott (Feb 17)',
                 '"We dont have a design system documentation person" — Drew',
                 '"The Figma library is kind of a hot mess right now" — Caitlin',
                 '"Shadow DOM hinders production tremendously" — Dev survey',
                 '"The MVP cant limp out the door" — Drew',
                 '"We want to come in as top dogs" — on M&A positioning',
                 '"I need an ROI about Knapsack, not design systems" — Drew',
+                '"Waters is not a place that has a front end development team... they want to invest in the deep science of the software" — Scott (Feb 17)',
               ].map(q => '<div class="phase-item" style="font-style: italic; padding: 8px 12px; background: var(--neutral-50); border-radius: 4px; margin-bottom: 8px;">' + q + '</div>').join('')}
             </div>
           </div>
@@ -947,11 +1000,22 @@
             <h2 class="heading">Knapsack Action Items</h2>
             <div class="grid-2">
               ${[
-                { item: 'Professional Services Session', owner: 'Amber', desc: 'Org patterns from GSK and similar customers—after Feb 16' },
+                { item: 'Maturity Assessment (Alpha)', owner: 'Amber', desc: 'Send assessment link to Waters team—multiple stakeholders for different viewpoints' },
+                { item: 'Artifacts Review (Feb 20)', owner: 'Jon/Amber', desc: 'Review journey mapping artifacts, to-dos, and assessment outputs' },
+                { item: 'Strategic Playbook Update', owner: 'Amber', desc: 'Update playbook with Feb 17 learnings—3-year roadmap, delivery integration' },
                 { item: 'Migration LOE Documentation', owner: 'Chris/Andrew', desc: 'What effort per component type for accurate planning' },
-                { item: 'Best Practices Deck', owner: 'CX Team', desc: 'How other biomed/pharma customers organized design systems' },
                 { item: 'Multi-brand Strategy', owner: 'CX Team', desc: 'How Knapsack helps with BD acquisition integration' },
               ].map(a => '<div class="deliverable-item"><div class="deliverable-title">' + a.item + ' <span class="badge badge-action">' + a.owner + '</span></div><div class="deliverable-desc">' + a.desc + '</div></div>').join('')}
+            </div>
+          </div>
+          
+          <!-- Stakeholder Gap -->
+          <div class="card" style="background: var(--warning-light); border: 1px solid var(--warning);">
+            <h2 class="heading" style="color: var(--warning);">Stakeholder Gap Identified</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6; margin-bottom: 12px;">Drew noted the team is missing representation from the delivery side. For complete assessment and planning, include:</p>
+            <div style="background: white; padding: 12px; border-radius: 6px; border: 1px solid var(--neutral-150);">
+              <div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">Delivery Manager Perspective</div>
+              <div style="font-size: 12px; color: var(--neutral-600);">"We can talk about the pain from our side, but then there are the guys who get it over the line." — Drew. Consider including delivery managers in maturity assessment.</div>
             </div>
           </div>
           
@@ -1095,14 +1159,24 @@
             <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">Onsite Discovery Workshop</h3>
             <p style="font-size: 15px; opacity: 0.95;">February 4, 2026 — Full-day collaborative session at Waters' Milford, MA facility. Journey mapping, pre-mortem, 90-day planning completed.</p>
           </div>
+          <div class="card" style="background: var(--warning-light); border: 1px solid var(--warning);">
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <span style="font-size: 20px; color: var(--warning);">!</span>
+              <div>
+                <div style="font-size: 14px; font-weight: 600; color: var(--warning); margin-bottom: 4px;">M&A Timeline Pressure: BD Acquisition Imminent</div>
+                <p style="font-size: 13px; color: var(--neutral-700); margin: 0;">BD acquisition announcement expected late February 2026 (~20 days from workshop). Waters needs to demonstrate progress before M&A integration discussions begin. The cleanup and MVP definition work is urgent—Waters wants to enter as "top dogs" with a buttoned-up system, not be absorbed by BD.</p>
+              </div>
+            </div>
+          </div>
           <div class="card">
             <h2 class="heading">Updated Timeline (Post-Workshop)</h2>
             ${[
               { when: 'Feb 4, 2026', title: 'Discovery Workshop', desc: 'Completed: Journey mapping, pain point validation, 90-day plan created', color: 'var(--success)', status: 'Done' },
-              { when: 'Feb 16+, 2026', title: 'Professional Services Scoping', desc: 'Best practices session with Amber—org patterns from GSK and similar customers', color: 'var(--action)', status: 'Next' },
+              { when: 'Feb 17, 2026', title: 'Leveling Up Flow Session', desc: 'Completed: Maturity assessment intro, 3-year UX ecosystem roadmap discussion, delivery integration planning', color: 'var(--success)', status: 'Done' },
+              { when: 'Feb 20, 2026', title: 'Artifacts Review', desc: 'Review journey mapping artifacts, to-dos, and maturity assessment alpha program', color: 'var(--action)', status: 'Next' },
               { when: 'Feb–Mar 2026', title: 'MVP Definition & Cleanup', desc: 'Define MVP scope, Figma cleanup, Storybook consolidation before Knapsack rollout', color: 'var(--primary)', status: 'In Progress' },
               { when: 'Q2 2026', title: 'Knapsack MVP Launch', desc: 'Phased rollout—cannot "limp out the door"—roadshow and adoption push', color: 'var(--warning)', status: 'Target' },
-            ].map((m, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${m.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ${m.color}">${m.when}</span><span class="badge ${m.status === 'Done' ? 'badge-success' : m.status === 'Next' ? 'badge-action' : m.status === 'In Progress' ? 'badge-primary' : 'badge-warning'}">${m.status}</span></div><div class="timeline-title">${m.title}</div><p class="timeline-desc">${m.desc}</p></div></div>`).join('')}
+            ].map((m, i, arr) => '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ' + m.color + '"></div>' + (i < arr.length - 1 ? '<div class="timeline-line"></div>' : '') + '</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ' + m.color + '">' + m.when + '</span><span class="badge ' + (m.status === 'Done' ? 'badge-success' : m.status === 'Next' ? 'badge-action' : m.status === 'In Progress' ? 'badge-primary' : 'badge-warning') + '">' + m.status + '</span></div><div class="timeline-title">' + m.title + '</div><p class="timeline-desc">' + m.desc + '</p></div></div>').join('')}
           </div>
           <div class="card">
             <h2 class="heading">Immediate Action Items (Pre-Decision)</h2>
