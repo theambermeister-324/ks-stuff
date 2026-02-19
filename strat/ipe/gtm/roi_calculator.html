@@ -1,0 +1,4065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPE Business Case Builder | Sales Enablement</title>
+  <meta name="description" content="Build a complete business case for IPE: ROI Calculator, TCO Analyzer, and Time to Value projections. PCRI-aligned for sales conversations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS (Matched to GTM Playbook)
+       ========================================================================== */
+    :root {
+      --spectrum-gray-50: #fafafa;
+      --spectrum-gray-100: #f5f5f5;
+      --spectrum-gray-200: #e8e8e8;
+      --spectrum-gray-300: #d1d1d1;
+      --spectrum-gray-400: #b4b4b4;
+      --spectrum-gray-500: #909090;
+      --spectrum-gray-600: #6d6d6d;
+      --spectrum-gray-700: #464646;
+      --spectrum-gray-800: #222222;
+      --spectrum-gray-900: #131313;
+      
+      --spectrum-purple-900: #42247f;
+      --spectrum-purple-700: #6436bf;
+      --spectrum-purple-500: #8b5cf6;
+      --spectrum-purple-400: #a78bfa;
+      --spectrum-purple-300: #c4b5fd;
+      --spectrum-purple-100: #e0d4f7;
+      
+      --spectrum-blue-500: #3b82f6;
+      --spectrum-blue-400: #60a5fa;
+      --spectrum-blue-300: #93c5fd;
+      
+      --spectrum-green-500: #10b981;
+      --spectrum-green-400: #34d399;
+      --spectrum-green-300: #6ee7b7;
+      
+      --spectrum-yellow-500: #f59e0b;
+      --spectrum-yellow-400: #fbbf24;
+      
+      --spectrum-red-500: #ef4444;
+      --spectrum-red-400: #f87171;
+      
+      --spectrum-cyan-500: #0ea5e9;
+      --spectrum-cyan-400: #22d3ee;
+      
+      --spectrum-bg-base: #0f0f1a;
+      --spectrum-bg-layer-1: #16213e;
+      --spectrum-bg-layer-2: #1a1a2e;
+      --spectrum-bg-surface: rgba(22, 33, 62, 0.7);
+      --spectrum-bg-elevated: rgba(255,255,255,0.05);
+      
+      --spectrum-text-primary: #ffffff;
+      --spectrum-text-secondary: rgba(255,255,255,0.9);
+      --spectrum-text-tertiary: rgba(255,255,255,0.8);
+      --spectrum-text-muted: rgba(255,255,255,0.55);
+      
+      --spectrum-border-default: rgba(100, 54, 191, 0.3);
+      --spectrum-border-subtle: rgba(255,255,255,0.08);
+      --spectrum-border-hover: rgba(100, 54, 191, 0.5);
+      
+      --spectrum-font-size-75: 0.75rem;
+      --spectrum-font-size-100: 0.875rem;
+      --spectrum-font-size-200: 1rem;
+      --spectrum-font-size-300: 1.125rem;
+      --spectrum-font-size-400: 1.25rem;
+      --spectrum-font-size-500: 1.5rem;
+      --spectrum-font-size-600: 1.75rem;
+      --spectrum-font-size-700: 2rem;
+      --spectrum-font-size-800: 2.5rem;
+      
+      --spectrum-spacing-100: 0.25rem;
+      --spectrum-spacing-200: 0.5rem;
+      --spectrum-spacing-300: 1rem;
+      --spectrum-spacing-400: 1.5rem;
+      --spectrum-spacing-500: 2rem;
+      --spectrum-spacing-600: 3rem;
+      
+      --spectrum-radius-sm: 4px;
+      --spectrum-radius-md: 8px;
+      --spectrum-radius-lg: 12px;
+      --spectrum-radius-xl: 16px;
+      --spectrum-radius-full: 9999px;
+    }
+    
+    /* ==========================================================================
+       BASE STYLES
+       ========================================================================== */
+    *, *::before, *::after { box-sizing: border-box; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: var(--spectrum-font-size-200);
+      line-height: 1.6;
+      color: var(--spectrum-text-primary);
+      background: var(--spectrum-bg-base);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(100, 54, 191, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--spectrum-spacing-400);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .text-muted { color: var(--spectrum-text-muted); }
+    .text-green { color: var(--spectrum-green-400); }
+    
+    /* ==========================================================================
+       NAVIGATION
+       ========================================================================== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 15, 26, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--spectrum-border-default);
+      padding: var(--spectrum-spacing-200) var(--spectrum-spacing-400);
+    }
+    
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spectrum-spacing-300);
+    }
+    
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .nav-logo {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--spectrum-green-500), var(--spectrum-cyan-500));
+      border-radius: var(--spectrum-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .nav-logo i { width: 20px; height: 20px; color: white; }
+    
+    .nav-title {
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-300);
+      background: linear-gradient(135deg, #fff, var(--spectrum-green-300));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .nav-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-75);
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--spectrum-green-400);
+      padding: 4px 10px;
+      border-radius: var(--spectrum-radius-full);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .nav-link {
+      color: var(--spectrum-text-muted);
+      text-decoration: none;
+      font-size: var(--spectrum-font-size-100);
+      padding: 6px 12px;
+      border-radius: var(--spectrum-radius-md);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .nav-link:hover {
+      color: var(--spectrum-text-primary);
+      background: var(--spectrum-bg-elevated);
+    }
+    
+    .nav-link i { width: 14px; height: 14px; }
+    
+    /* ==========================================================================
+       HEADER
+       ========================================================================== */
+    header {
+      text-align: center;
+      padding: var(--spectrum-spacing-500) 0 var(--spectrum-spacing-400);
+    }
+    
+    header h1 {
+      font-size: var(--spectrum-font-size-700);
+      font-weight: 700;
+      margin: 0 0 var(--spectrum-spacing-200);
+      background: linear-gradient(135deg, #fff 0%, var(--spectrum-green-300) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .header-subtitle {
+      font-size: var(--spectrum-font-size-200);
+      color: var(--spectrum-text-muted);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--spectrum-green-400);
+      background: rgba(16, 185, 129, 0.15);
+      padding: 6px 14px;
+      border-radius: var(--spectrum-radius-full);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    
+    .header-badge i { width: 14px; height: 14px; }
+    
+    /* ==========================================================================
+       TABS
+       ========================================================================== */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px;
+      border-radius: var(--spectrum-radius-lg);
+      margin-bottom: var(--spectrum-spacing-400);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .tab {
+      flex: 1;
+      padding: 10px 16px;
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 600;
+      color: var(--spectrum-text-muted);
+      background: transparent;
+      border: none;
+      border-radius: var(--spectrum-radius-md);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .tab:hover {
+      color: var(--spectrum-text-secondary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .tab.active {
+      color: var(--spectrum-text-primary);
+      background: var(--spectrum-purple-700);
+    }
+    
+    .tab i { width: 16px; height: 16px; }
+    
+    /* ==========================================================================
+       CALCULATOR LAYOUT
+       ========================================================================== */
+    .calculator-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spectrum-spacing-400);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    .calculator-grid.three-col {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    
+    @media (max-width: 1100px) {
+      .calculator-grid {
+        grid-template-columns: 1fr;
+      }
+      .calculator-grid.three-col {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .section-card {
+      background: var(--spectrum-bg-surface);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-400);
+    }
+    
+    .section-card.full-width {
+      grid-column: span 2;
+    }
+    
+    @media (max-width: 1100px) {
+      .section-card.full-width {
+        grid-column: span 1;
+      }
+    }
+    
+    .section-card h3 {
+      font-size: var(--spectrum-font-size-300);
+      font-weight: 600;
+      margin: 0 0 var(--spectrum-spacing-300);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .section-card h3 i {
+      width: 18px;
+      height: 18px;
+      color: var(--spectrum-purple-400);
+    }
+    
+    .section-card.inputs h3 i { color: var(--spectrum-blue-400); }
+    .section-card.productivity h3 i { color: var(--spectrum-green-400); }
+    .section-card.consolidation h3 i { color: var(--spectrum-cyan-400); }
+    .section-card.results h3 i { color: var(--spectrum-yellow-400); }
+    .section-card.pcri h3 i { color: var(--spectrum-purple-400); }
+    .section-card.comparison h3 i { color: var(--spectrum-blue-400); }
+    
+    /* ==========================================================================
+       FORM INPUTS
+       ========================================================================== */
+    .input-group {
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    
+    .input-group:last-child {
+      margin-bottom: 0;
+    }
+    
+    .input-group.compact {
+      margin-bottom: var(--spectrum-spacing-200);
+    }
+    
+    .input-label {
+      display: block;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-secondary);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    
+    .input-hint {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      margin-top: 4px;
+    }
+    
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    input[type="number"],
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 10px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-primary);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-md);
+      outline: none;
+      transition: all 0.2s;
+    }
+    
+    input[type="number"]:focus,
+    input[type="text"]:focus,
+    select:focus {
+      border-color: var(--spectrum-purple-400);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+    
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      outline: none;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      background: var(--spectrum-purple-500);
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .slider-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-green-400);
+      min-width: 50px;
+      text-align: right;
+      font-weight: 600;
+    }
+    
+    .input-prefix,
+    .input-suffix {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+      white-space: nowrap;
+    }
+    
+    /* ==========================================================================
+       INDUSTRY PRESETS
+       ========================================================================== */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    
+    @media (max-width: 600px) {
+      .preset-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    .preset-btn {
+      padding: 12px 10px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 2px solid var(--spectrum-border-subtle);
+      border-radius: var(--spectrum-radius-md);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    
+    .preset-btn:hover {
+      border-color: var(--spectrum-border-default);
+      background: rgba(139, 92, 246, 0.1);
+    }
+    
+    .preset-btn.active {
+      border-color: var(--spectrum-purple-400);
+      background: rgba(139, 92, 246, 0.15);
+    }
+    
+    .preset-btn .preset-icon {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    
+    .preset-btn .preset-name {
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      color: var(--spectrum-text-secondary);
+    }
+    
+    /* ==========================================================================
+       PCRI PILLAR INPUTS
+       ========================================================================== */
+    .pcri-pillars {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    
+    @media (max-width: 800px) {
+      .pcri-pillars {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .pillar-input {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--spectrum-border-subtle);
+      border-radius: var(--spectrum-radius-md);
+      padding: 12px;
+      text-align: center;
+    }
+    
+    .pillar-input .pillar-label {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      margin-bottom: 6px;
+      display: block;
+    }
+    
+    .pillar-input input {
+      width: 60px;
+      text-align: center;
+      padding: 6px;
+      font-size: var(--spectrum-font-size-200);
+      font-weight: 600;
+    }
+    
+    .pillar-input .pillar-bar {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    
+    .pillar-input .pillar-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    
+    .pillar-input.foundation .pillar-fill { background: var(--spectrum-purple-400); }
+    .pillar-input.ai .pillar-fill { background: var(--spectrum-blue-400); }
+    .pillar-input.governance .pillar-fill { background: var(--spectrum-green-400); }
+    .pillar-input.delivery .pillar-fill { background: var(--spectrum-yellow-400); }
+    .pillar-input.culture .pillar-fill { background: var(--spectrum-cyan-400); }
+    
+    .pcri-composite {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 16px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: var(--spectrum-radius-md);
+    }
+    
+    .pcri-composite .score-label {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .pcri-composite .score-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-600);
+      font-weight: 700;
+      color: var(--spectrum-purple-400);
+    }
+    
+    .pcri-composite .path-badge {
+      padding: 6px 14px;
+      border-radius: var(--spectrum-radius-full);
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 600;
+    }
+    
+    .path-badge.j1 { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; }
+    .path-badge.j2 { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+    .path-badge.j3 { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+    .path-badge.j4 { background: rgba(6, 182, 212, 0.2); color: #67e8f9; }
+    
+    /* ==========================================================================
+       RESULTS DISPLAY
+       ========================================================================== */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .result-card {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--spectrum-border-subtle);
+      border-radius: var(--spectrum-radius-md);
+      padding: var(--spectrum-spacing-200);
+      text-align: center;
+    }
+    
+    .result-card.highlight {
+      grid-column: span 2;
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.15), rgba(22, 33, 62, 0.8));
+      border-color: rgba(16, 185, 129, 0.3);
+      padding: var(--spectrum-spacing-300);
+    }
+    
+    .result-label {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    
+    .result-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-400);
+      font-weight: 700;
+      color: var(--spectrum-text-primary);
+    }
+    
+    .result-card.highlight .result-value {
+      font-size: var(--spectrum-font-size-600);
+      color: var(--spectrum-green-400);
+    }
+    
+    .result-card.roi .result-value { color: var(--spectrum-green-400); }
+    .result-card.payback .result-value { color: var(--spectrum-cyan-400); }
+    .result-card.savings .result-value { color: var(--spectrum-blue-400); }
+    .result-card.productivity .result-value { color: var(--spectrum-purple-400); }
+    
+    .result-subtext {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      margin-top: 2px;
+    }
+    
+    /* ==========================================================================
+       BEFORE/AFTER COMPARISON
+       ========================================================================== */
+    .comparison-container {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: var(--spectrum-spacing-300);
+      align-items: stretch;
+    }
+    
+    @media (max-width: 900px) {
+      .comparison-container {
+        grid-template-columns: 1fr;
+      }
+      .comparison-arrow {
+        transform: rotate(90deg);
+      }
+    }
+    
+    .comparison-card {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-300);
+      border: 2px solid;
+    }
+    
+    .comparison-card.before {
+      border-color: rgba(239, 68, 68, 0.3);
+      background: linear-gradient(145deg, rgba(239, 68, 68, 0.08), rgba(22, 33, 62, 0.8));
+    }
+    
+    .comparison-card.after {
+      border-color: rgba(16, 185, 129, 0.3);
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.08), rgba(22, 33, 62, 0.8));
+    }
+    
+    .comparison-card .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: var(--spectrum-spacing-200);
+      padding-bottom: var(--spectrum-spacing-200);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .comparison-card .card-header i {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .comparison-card.before .card-header i { color: var(--spectrum-red-400); }
+    .comparison-card.after .card-header i { color: var(--spectrum-green-400); }
+    
+    .comparison-card .card-title {
+      font-weight: 600;
+      font-size: var(--spectrum-font-size-200);
+    }
+    
+    .comparison-card.before .card-title { color: var(--spectrum-red-400); }
+    .comparison-card.after .card-title { color: var(--spectrum-green-400); }
+    
+    .comparison-metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .comparison-metric:last-child {
+      border-bottom: none;
+    }
+    
+    .comparison-metric .metric-label {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-secondary);
+    }
+    
+    .comparison-metric .metric-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 600;
+    }
+    
+    .comparison-card.before .metric-value { color: var(--spectrum-red-400); }
+    .comparison-card.after .metric-value { color: var(--spectrum-green-400); }
+    
+    .comparison-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .comparison-arrow i {
+      width: 32px;
+      height: 32px;
+      color: var(--spectrum-purple-400);
+    }
+    
+    .delta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--spectrum-green-400);
+      border-radius: var(--spectrum-radius-full);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+    }
+    
+    /* ==========================================================================
+       SENSITIVITY ANALYSIS
+       ========================================================================== */
+    .sensitivity-toggle {
+      display: flex;
+      gap: 8px;
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    
+    .sensitivity-btn {
+      flex: 1;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--spectrum-border-subtle);
+      border-radius: var(--spectrum-radius-md);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .sensitivity-btn:hover {
+      border-color: var(--spectrum-border-default);
+    }
+    
+    .sensitivity-btn.active {
+      border-color: var(--spectrum-purple-400);
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--spectrum-text-primary);
+    }
+    
+    .sensitivity-btn .scenario-label {
+      font-weight: 600;
+      display: block;
+    }
+    
+    .sensitivity-btn .scenario-factor {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+    }
+    
+    /* ==========================================================================
+       JOURNEY VALUE MESSAGING
+       ========================================================================== */
+    .journey-message {
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: var(--spectrum-radius-md);
+      padding: var(--spectrum-spacing-300);
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    
+    .journey-message .message-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .journey-message .message-header i {
+      width: 18px;
+      height: 18px;
+      color: var(--spectrum-purple-400);
+    }
+    
+    .journey-message .message-title {
+      font-weight: 600;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-purple-400);
+    }
+    
+    .journey-message .message-content {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-secondary);
+      line-height: 1.6;
+    }
+    
+    .journey-message .value-frame {
+      display: flex;
+      gap: var(--spectrum-spacing-200);
+      margin-top: 12px;
+    }
+    
+    .journey-message .value-tag {
+      padding: 4px 10px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--spectrum-radius-sm);
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+    }
+    
+    /* ==========================================================================
+       MULTI-SYSTEM MODULE
+       ========================================================================== */
+    .multi-system-toggle {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: var(--spectrum-radius-md);
+      margin-bottom: var(--spectrum-spacing-300);
+      cursor: pointer;
+    }
+    
+    .multi-system-toggle input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--spectrum-cyan-400);
+    }
+    
+    .multi-system-toggle .toggle-label {
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 500;
+    }
+    
+    .multi-system-toggle .toggle-hint {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .multi-system-inputs {
+      display: none;
+      padding: var(--spectrum-spacing-200);
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--spectrum-radius-md);
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    
+    .multi-system-inputs.visible {
+      display: block;
+    }
+    
+    /* ==========================================================================
+       SUMMARY SECTION
+       ========================================================================== */
+    .summary-section {
+      background: var(--spectrum-bg-surface);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-400);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    .summary-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--spectrum-spacing-300);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    
+    .summary-header h3 {
+      font-size: var(--spectrum-font-size-300);
+      font-weight: 600;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .summary-header h3 i {
+      width: 18px;
+      height: 18px;
+      color: var(--spectrum-purple-400);
+    }
+    
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, var(--spectrum-purple-500), var(--spectrum-purple-700));
+      border: none;
+      border-radius: var(--spectrum-radius-md);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+    }
+    
+    .btn i { width: 16px; height: 16px; }
+    
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--spectrum-border-default);
+      color: var(--spectrum-text-secondary);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--spectrum-bg-elevated);
+      box-shadow: none;
+    }
+    
+    .summary-content {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--spectrum-radius-md);
+      padding: var(--spectrum-spacing-300);
+      font-size: var(--spectrum-font-size-100);
+      line-height: 1.7;
+    }
+    
+    .summary-content p {
+      margin: 0 0 12px;
+    }
+    
+    .summary-content p:last-child {
+      margin-bottom: 0;
+    }
+    
+    .summary-content strong {
+      color: var(--spectrum-green-400);
+    }
+    
+    .summary-content .highlight-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+    
+    /* ==========================================================================
+       VALUE BREAKDOWN
+       ========================================================================== */
+    .breakdown-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: var(--spectrum-spacing-200);
+    }
+    
+    .breakdown-table th,
+    .breakdown-table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--spectrum-border-subtle);
+    }
+    
+    .breakdown-table th {
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      color: var(--spectrum-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .breakdown-table td {
+      font-size: var(--spectrum-font-size-100);
+    }
+    
+    .breakdown-table .value-cell {
+      font-family: 'JetBrains Mono', monospace;
+      text-align: right;
+      color: var(--spectrum-green-400);
+    }
+    
+    .breakdown-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .breakdown-table .total-row {
+      background: rgba(16, 185, 129, 0.1);
+      font-weight: 600;
+    }
+    
+    .breakdown-table .total-row td {
+      border-top: 2px solid var(--spectrum-green-500);
+    }
+    
+    /* ==========================================================================
+       CALLOUTS
+       ========================================================================== */
+    .callout {
+      padding: var(--spectrum-spacing-200);
+      border-radius: var(--spectrum-radius-md);
+      margin: var(--spectrum-spacing-200) 0;
+      font-size: var(--spectrum-font-size-100);
+    }
+    
+    .callout.info {
+      background: rgba(59, 130, 246, 0.1);
+      border-left: 3px solid var(--spectrum-blue-400);
+    }
+    
+    .callout.success {
+      background: rgba(16, 185, 129, 0.1);
+      border-left: 3px solid var(--spectrum-green-400);
+    }
+    
+    .callout.warning {
+      background: rgba(245, 158, 11, 0.1);
+      border-left: 3px solid var(--spectrum-yellow-400);
+    }
+    
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    footer {
+      text-align: center;
+      padding: var(--spectrum-spacing-400) 0;
+      border-top: 1px solid var(--spectrum-border-default);
+      margin-top: var(--spectrum-spacing-400);
+    }
+    
+    .footer-text {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+      margin: 0;
+    }
+    
+    /* ==========================================================================
+       PRINT STYLES
+       ========================================================================== */
+    @media print {
+      body { background: white; color: black; }
+      nav { display: none; }
+      .btn { display: none; }
+      .main-tabs { display: none; }
+      .section-card { break-inside: avoid; }
+    }
+    
+    /* ==========================================================================
+       MAIN TAB NAVIGATION
+       ========================================================================== */
+    .main-tabs {
+      display: flex;
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 6px;
+      border-radius: var(--spectrum-radius-xl);
+      margin-bottom: var(--spectrum-spacing-400);
+      border: 1px solid var(--spectrum-border-default);
+    }
+    
+    .main-tab {
+      flex: 1;
+      padding: 14px 20px;
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 600;
+      color: var(--spectrum-text-muted);
+      background: transparent;
+      border: none;
+      border-radius: var(--spectrum-radius-lg);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+    }
+    
+    .main-tab:hover {
+      color: var(--spectrum-text-secondary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .main-tab.active {
+      color: var(--spectrum-text-primary);
+      background: linear-gradient(135deg, var(--spectrum-purple-700), var(--spectrum-purple-900));
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    }
+    
+    .main-tab.active.roi { background: linear-gradient(135deg, var(--spectrum-green-500), #047857); }
+    .main-tab.active.tco { background: linear-gradient(135deg, var(--spectrum-blue-500), #1d4ed8); }
+    .main-tab.active.ttv { background: linear-gradient(135deg, var(--spectrum-cyan-500), #0891b2); }
+    .main-tab.active.summary { background: linear-gradient(135deg, var(--spectrum-purple-500), var(--spectrum-purple-700)); }
+    
+    .main-tab i { width: 18px; height: 18px; }
+    
+    .main-tab .tab-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: var(--spectrum-radius-full);
+      background: rgba(255,255,255,0.2);
+      margin-left: 4px;
+    }
+    
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* ==========================================================================
+       SHARED INPUTS PANEL
+       ========================================================================== */
+    .shared-inputs-panel {
+      background: var(--spectrum-bg-surface);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-300);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    .shared-inputs-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--spectrum-spacing-200);
+      cursor: pointer;
+    }
+    
+    .shared-inputs-header h3 {
+      font-size: var(--spectrum-font-size-200);
+      font-weight: 600;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .shared-inputs-header h3 i {
+      width: 18px;
+      height: 18px;
+      color: var(--spectrum-purple-400);
+    }
+    
+    .shared-inputs-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .shared-inputs-toggle i {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s;
+    }
+    
+    .shared-inputs-body {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spectrum-spacing-300);
+    }
+    
+    .shared-inputs-body.collapsed {
+      display: none;
+    }
+    
+    @media (max-width: 1100px) {
+      .shared-inputs-body {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .shared-inputs-body {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .input-card {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--spectrum-radius-md);
+      padding: var(--spectrum-spacing-200);
+    }
+    
+    .input-card-title {
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      color: var(--spectrum-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    
+    /* ==========================================================================
+       TCO ANALYZER STYLES
+       ========================================================================== */
+    .tco-comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spectrum-spacing-400);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    @media (max-width: 900px) {
+      .tco-comparison-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .tco-column {
+      background: var(--spectrum-bg-surface);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-300);
+      border: 2px solid;
+    }
+    
+    .tco-column.current {
+      border-color: rgba(239, 68, 68, 0.3);
+      background: linear-gradient(145deg, rgba(239, 68, 68, 0.05), rgba(22, 33, 62, 0.8));
+    }
+    
+    .tco-column.ipe {
+      border-color: rgba(16, 185, 129, 0.3);
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.05), rgba(22, 33, 62, 0.8));
+    }
+    
+    .tco-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: var(--spectrum-spacing-300);
+      padding-bottom: var(--spectrum-spacing-200);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .tco-header i {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .tco-column.current .tco-header i { color: var(--spectrum-red-400); }
+    .tco-column.ipe .tco-header i { color: var(--spectrum-green-400); }
+    
+    .tco-header h4 {
+      margin: 0;
+      font-size: var(--spectrum-font-size-300);
+    }
+    
+    .tco-column.current .tco-header h4 { color: var(--spectrum-red-400); }
+    .tco-column.ipe .tco-header h4 { color: var(--spectrum-green-400); }
+    
+    .tco-line-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .tco-line-item:last-child {
+      border-bottom: none;
+    }
+    
+    .tco-line-item .item-label {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-secondary);
+    }
+    
+    .tco-line-item .item-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 600;
+    }
+    
+    .tco-column.current .item-value { color: var(--spectrum-red-400); }
+    .tco-column.ipe .item-value { color: var(--spectrum-green-400); }
+    
+    .tco-total {
+      margin-top: var(--spectrum-spacing-200);
+      padding: var(--spectrum-spacing-200);
+      background: rgba(0,0,0,0.2);
+      border-radius: var(--spectrum-radius-md);
+      text-align: center;
+    }
+    
+    .tco-total .total-label {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      margin-bottom: 4px;
+    }
+    
+    .tco-total .total-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-500);
+      font-weight: 700;
+    }
+    
+    .tco-column.current .total-value { color: var(--spectrum-red-400); }
+    .tco-column.ipe .total-value { color: var(--spectrum-green-400); }
+    
+    .tco-savings-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.1));
+      border: 2px solid rgba(16, 185, 129, 0.4);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-400);
+      text-align: center;
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    .tco-savings-banner .savings-label {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+      margin-bottom: 8px;
+    }
+    
+    .tco-savings-banner .savings-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-800);
+      font-weight: 700;
+      color: var(--spectrum-green-400);
+    }
+    
+    .tco-savings-banner .savings-percent {
+      font-size: var(--spectrum-font-size-200);
+      color: var(--spectrum-green-300);
+      margin-top: 4px;
+    }
+    
+    .chart-container {
+      background: var(--spectrum-bg-surface);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-300);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    .chart-container h4 {
+      font-size: var(--spectrum-font-size-200);
+      margin: 0 0 var(--spectrum-spacing-200);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .chart-container h4 i {
+      width: 18px;
+      height: 18px;
+      color: var(--spectrum-purple-400);
+    }
+    
+    /* ==========================================================================
+       TIME TO VALUE STYLES
+       ========================================================================== */
+    .ttv-timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+    
+    .ttv-timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--spectrum-purple-400), var(--spectrum-cyan-400));
+    }
+    
+    .ttv-phase {
+      position: relative;
+      margin-bottom: var(--spectrum-spacing-300);
+      padding: var(--spectrum-spacing-300);
+      background: var(--spectrum-bg-surface);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+    }
+    
+    .ttv-phase::before {
+      content: '';
+      position: absolute;
+      left: -24px;
+      top: 24px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--spectrum-purple-400);
+      border: 2px solid var(--spectrum-bg-base);
+    }
+    
+    .ttv-phase.completed::before {
+      background: var(--spectrum-green-400);
+    }
+    
+    .ttv-phase.active::before {
+      background: var(--spectrum-cyan-400);
+      box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.3);
+    }
+    
+    .ttv-phase-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    
+    .ttv-phase-title {
+      font-size: var(--spectrum-font-size-200);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .ttv-phase-title i {
+      width: 18px;
+      height: 18px;
+      color: var(--spectrum-purple-400);
+    }
+    
+    .ttv-phase-duration {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-cyan-400);
+      background: rgba(6, 182, 212, 0.15);
+      padding: 4px 12px;
+      border-radius: var(--spectrum-radius-full);
+    }
+    
+    .ttv-phase-content {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-secondary);
+    }
+    
+    .ttv-milestones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    
+    .ttv-milestone {
+      font-size: var(--spectrum-font-size-75);
+      padding: 4px 10px;
+      background: rgba(0,0,0,0.2);
+      border-radius: var(--spectrum-radius-sm);
+      color: var(--spectrum-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .ttv-milestone i {
+      width: 12px;
+      height: 12px;
+      color: var(--spectrum-green-400);
+    }
+    
+    .ttv-summary-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spectrum-spacing-200);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    @media (max-width: 900px) {
+      .ttv-summary-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    .ttv-summary-card {
+      background: var(--spectrum-bg-surface);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-300);
+      text-align: center;
+    }
+    
+    .ttv-summary-card .card-label {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    
+    .ttv-summary-card .card-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-500);
+      font-weight: 700;
+      color: var(--spectrum-cyan-400);
+    }
+    
+    .ttv-summary-card .card-subtext {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      margin-top: 4px;
+    }
+    
+    .risk-factors {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-300);
+      margin-top: var(--spectrum-spacing-400);
+    }
+    
+    .risk-factors h4 {
+      font-size: var(--spectrum-font-size-200);
+      color: var(--spectrum-yellow-400);
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .risk-factors h4 i {
+      width: 18px;
+      height: 18px;
+    }
+    
+    .risk-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(245, 158, 11, 0.15);
+    }
+    
+    .risk-item:last-child {
+      border-bottom: none;
+    }
+    
+    .risk-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    
+    .risk-indicator.low { background: var(--spectrum-green-400); }
+    .risk-indicator.medium { background: var(--spectrum-yellow-400); }
+    .risk-indicator.high { background: var(--spectrum-red-400); }
+    
+    .risk-label {
+      flex: 1;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-secondary);
+    }
+    
+    .risk-impact {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-yellow-400);
+    }
+    
+    /* ==========================================================================
+       BUSINESS CASE SUMMARY STYLES
+       ========================================================================== */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spectrum-spacing-300);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    @media (max-width: 900px) {
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .summary-metric-card {
+      background: var(--spectrum-bg-surface);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-400);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .summary-metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+    
+    .summary-metric-card.roi::before { background: linear-gradient(90deg, var(--spectrum-green-400), var(--spectrum-green-500)); }
+    .summary-metric-card.tco::before { background: linear-gradient(90deg, var(--spectrum-blue-400), var(--spectrum-blue-500)); }
+    .summary-metric-card.ttv::before { background: linear-gradient(90deg, var(--spectrum-cyan-400), var(--spectrum-cyan-500)); }
+    
+    .summary-metric-card .metric-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .summary-metric-card.roi .metric-icon { background: rgba(16, 185, 129, 0.15); }
+    .summary-metric-card.tco .metric-icon { background: rgba(59, 130, 246, 0.15); }
+    .summary-metric-card.ttv .metric-icon { background: rgba(6, 182, 212, 0.15); }
+    
+    .summary-metric-card .metric-icon i {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .summary-metric-card.roi .metric-icon i { color: var(--spectrum-green-400); }
+    .summary-metric-card.tco .metric-icon i { color: var(--spectrum-blue-400); }
+    .summary-metric-card.ttv .metric-icon i { color: var(--spectrum-cyan-400); }
+    
+    .summary-metric-card .metric-title {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    
+    .summary-metric-card .metric-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-700);
+      font-weight: 700;
+    }
+    
+    .summary-metric-card.roi .metric-value { color: var(--spectrum-green-400); }
+    .summary-metric-card.tco .metric-value { color: var(--spectrum-blue-400); }
+    .summary-metric-card.ttv .metric-value { color: var(--spectrum-cyan-400); }
+    
+    .summary-metric-card .metric-detail {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-secondary);
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-logo">
+          <i data-lucide="briefcase"></i>
+        </div>
+        <span class="nav-title">IPE Business Case Builder</span>
+        <span class="nav-badge">v3.0 • ROI + TCO + TTV</span>
+      </div>
+      <div class="nav-links">
+        <a href="../assess/alpha/ipe_assessment_ab.html" class="nav-link">
+          <i data-lucide="clipboard-check"></i>
+          PCRI Assessment
+        </a>
+        <a href="gtm_playbook.html" class="nav-link">
+          <i data-lucide="book-open"></i>
+          Playbook
+        </a>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="header-badge">
+        <i data-lucide="target"></i>
+        Complete Business Case Tool
+      </div>
+      <h1>IPE Business Case Builder</h1>
+      <p class="header-subtitle">Build a comprehensive business case with ROI projections, TCO analysis, and Time to Value estimates. PCRI-aligned for every buyer conversation.</p>
+    </header>
+    
+    <!-- Main Calculator Tabs -->
+    <div class="main-tabs">
+      <button class="main-tab roi active" onclick="switchMainTab('roi')">
+        <i data-lucide="trending-up"></i>
+        <span>ROI Calculator</span>
+      </button>
+      <button class="main-tab tco" onclick="switchMainTab('tco')">
+        <i data-lucide="wallet"></i>
+        <span>TCO Analyzer</span>
+      </button>
+      <button class="main-tab ttv" onclick="switchMainTab('ttv')">
+        <i data-lucide="clock"></i>
+        <span>Time to Value</span>
+      </button>
+      <button class="main-tab summary" onclick="switchMainTab('summary')">
+        <i data-lucide="file-check"></i>
+        <span>Business Case</span>
+      </button>
+    </div>
+    
+    <!-- Shared Inputs Panel -->
+    <div class="shared-inputs-panel">
+      <div class="shared-inputs-header" onclick="toggleSharedInputs()">
+        <h3>
+          <i data-lucide="settings-2"></i>
+          Organization Profile & Inputs
+        </h3>
+        <div class="shared-inputs-toggle">
+          <span id="sharedInputsToggleText">Click to expand</span>
+          <i data-lucide="chevron-down" id="sharedInputsChevron"></i>
+        </div>
+      </div>
+      
+      <div class="shared-inputs-body collapsed" id="sharedInputsBody">
+        <!-- Company & Industry -->
+        <div class="input-card">
+          <div class="input-card-title">Company</div>
+          <div class="input-group compact">
+            <input type="text" id="companyName" placeholder="Company Name" oninput="calculate()">
+          </div>
+          <div class="input-group compact" style="margin-top: 8px;">
+            <select id="industryPreset" onchange="applyPresetFromSelect()">
+              <option value="custom">Custom</option>
+              <option value="fss">Financial Services</option>
+              <option value="tech">Enterprise Software</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="retail">Retail / E-commerce</option>
+              <option value="media">Media / Telecom</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Team Size -->
+        <div class="input-card">
+          <div class="input-card-title">Team Size</div>
+          <div class="input-group compact">
+            <label class="input-label">Engineers</label>
+            <input type="number" id="numEngineers" value="30" min="1" oninput="calculate()">
+          </div>
+          <div class="input-group compact" style="margin-top: 8px;">
+            <label class="input-label">Designers</label>
+            <input type="number" id="numDesigners" value="10" min="1" oninput="calculate()">
+          </div>
+        </div>
+        
+        <!-- Costs -->
+        <div class="input-card">
+          <div class="input-card-title">Fully-Loaded Costs</div>
+          <div class="input-group compact">
+            <label class="input-label">Engineer (Annual)</label>
+            <div class="input-row">
+              <span class="input-prefix">$</span>
+              <input type="number" id="engineerCost" value="180000" min="50000" step="5000" oninput="calculate()">
+            </div>
+          </div>
+          <div class="input-group compact" style="margin-top: 8px;">
+            <label class="input-label">Designer (Annual)</label>
+            <div class="input-row">
+              <span class="input-prefix">$</span>
+              <input type="number" id="designerCost" value="150000" min="50000" step="5000" oninput="calculate()">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Investment Path -->
+        <div class="input-card">
+          <div class="input-card-title">Investment Path</div>
+          <div class="input-group compact">
+            <select id="investmentPath" onchange="calculate()">
+              <option value="j1">J1 Foundation ($98K Y1)</option>
+              <option value="j2">J2 Acceleration ($196K Y1)</option>
+              <option value="j3" selected>J3 Transformation ($355K Y1)</option>
+              <option value="j4">J4 Enterprise ($600K Y1)</option>
+            </select>
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 12px;">
+            <div style="flex: 1; text-align: center; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 6px;">
+              <div style="font-size: 10px; color: var(--spectrum-text-muted);">Services</div>
+              <div style="font-family: 'JetBrains Mono'; font-size: 12px; color: var(--spectrum-green-400);" id="navServicesCost">$175K</div>
+            </div>
+            <div style="flex: 1; text-align: center; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 6px;">
+              <div style="font-size: 10px; color: var(--spectrum-text-muted);">Software/yr</div>
+              <div style="font-family: 'JetBrains Mono'; font-size: 12px; color: var(--spectrum-green-400);" id="navSoftwareCost">$180K</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ==================== ROI CALCULATOR TAB ==================== -->
+    <div class="tab-content active" id="tab-roi">
+    
+    <!-- ROI Quick Reference -->
+    <div class="section-card" style="margin-bottom: var(--spectrum-spacing-400); background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), rgba(22, 33, 62, 0.9)); border-color: rgba(16, 185, 129, 0.3);">
+      <h3 style="color: var(--spectrum-green-400);"><i data-lucide="trending-up"></i> ROI Calculator</h3>
+      <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary); margin-bottom: 0;">
+        Calculate productivity gains, AI cost savings, and overall return on investment. Perfect for <strong>CFO / Finance</strong> conversations focused on value creation.
+      </p>
+    </div>
+    
+    <div class="calculator-grid">
+      <!-- LEFT COLUMN -->
+      <div>
+        <!-- PCRI Score Integration -->
+        <div class="section-card pcri" style="margin-bottom: var(--spectrum-spacing-400);">
+          <h3><i data-lucide="gauge"></i> PCRI Scores (Optional)</h3>
+          <p class="text-muted" style="font-size: var(--spectrum-font-size-100); margin-bottom: var(--spectrum-spacing-200);">Enter pillar scores from the PCRI Assessment to auto-align Investment Path and adjust TTV projections.</p>
+          
+          <div class="pcri-pillars">
+            <div class="pillar-input foundation">
+              <span class="pillar-label">Foundation</span>
+              <input type="number" id="pcriFoundation" value="65" min="0" max="100" oninput="updatePCRI()">
+              <div class="pillar-bar"><div class="pillar-fill" id="foundationBar" style="width: 65%;"></div></div>
+            </div>
+            <div class="pillar-input ai">
+              <span class="pillar-label">AI Ready</span>
+              <input type="number" id="pcriAI" value="55" min="0" max="100" oninput="updatePCRI()">
+              <div class="pillar-bar"><div class="pillar-fill" id="aiBar" style="width: 55%;"></div></div>
+            </div>
+            <div class="pillar-input governance">
+              <span class="pillar-label">Governance</span>
+              <input type="number" id="pcriGovernance" value="60" min="0" max="100" oninput="updatePCRI()">
+              <div class="pillar-bar"><div class="pillar-fill" id="governanceBar" style="width: 60%;"></div></div>
+            </div>
+            <div class="pillar-input delivery">
+              <span class="pillar-label">Delivery</span>
+              <input type="number" id="pcriDelivery" value="50" min="0" max="100" oninput="updatePCRI()">
+              <div class="pillar-bar"><div class="pillar-fill" id="deliveryBar" style="width: 50%;"></div></div>
+            </div>
+            <div class="pillar-input culture">
+              <span class="pillar-label">Culture</span>
+              <input type="number" id="pcriCulture" value="70" min="0" max="100" oninput="updatePCRI()">
+              <div class="pillar-bar"><div class="pillar-fill" id="cultureBar" style="width: 70%;"></div></div>
+            </div>
+          </div>
+          
+          <div class="pcri-composite">
+            <div>
+              <div class="score-label">Composite PCRI</div>
+              <div class="score-value" id="pcriComposite">61</div>
+            </div>
+            <div>
+              <div class="score-label">Recommended Path</div>
+              <div class="path-badge j3" id="recommendedPath">J3</div>
+            </div>
+            <div>
+              <div class="score-label">TTV Adjustment</div>
+              <div class="score-value" style="font-size: var(--spectrum-font-size-300);" id="ttvAdjustment">+2 wks</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Multi-System Module -->
+        <div class="section-card inputs" style="margin-bottom: var(--spectrum-spacing-400);">
+          <h3><i data-lucide="git-branch"></i> Multi-System Configuration</h3>
+          
+          <!-- Multi-System Toggle -->
+          <label class="multi-system-toggle">
+            <input type="checkbox" id="multiSystemEnabled" onchange="toggleMultiSystem()">
+            <div>
+              <div class="toggle-label">Multi-Product / Multi-Brand Organization</div>
+              <div class="toggle-hint">Enable for federated design systems, multiple product lines, or multi-brand portfolios</div>
+            </div>
+          </label>
+          
+          <div class="multi-system-inputs" id="multiSystemInputs">
+            <div class="input-group compact">
+              <label class="input-label">Number of Product Lines / Brands</label>
+              <input type="number" id="numProducts" value="4" min="2" max="20" oninput="calculate()">
+            </div>
+            <div class="input-group compact">
+              <label class="input-label">Token/Component Reuse Potential (%)</label>
+              <div class="slider-row">
+                <input type="range" id="reusePercent" min="20" max="80" value="50" oninput="updateSliderDisplay(this); calculate();">
+                <span class="slider-value" id="reusePercentValue">50%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Productivity Gains -->
+        <div class="section-card productivity" style="margin-bottom: var(--spectrum-spacing-400);">
+          <h3><i data-lucide="zap"></i> Productivity Gains</h3>
+          
+          <div class="input-group compact">
+            <label class="input-label">Developer Productivity Improvement</label>
+            <div class="slider-row">
+              <input type="range" id="devProductivity" min="15" max="50" value="30" oninput="updateSliderDisplay(this); calculate();">
+              <span class="slider-value" id="devProductivityValue">30%</span>
+            </div>
+            <p class="input-hint">Typical: 25-40%. Context-aware AI = fewer iterations.</p>
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">AI Regeneration Reduction</label>
+            <div class="slider-row">
+              <input type="range" id="regenReduction" min="30" max="80" value="60" oninput="updateSliderDisplay(this); calculate();">
+              <span class="slider-value" id="regenReductionValue">60%</span>
+            </div>
+            <p class="input-hint">IPE context improves first-attempt accuracy.</p>
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">Design System Adoption Acceleration</label>
+            <div class="slider-row">
+              <input type="range" id="dsAdoption" min="150" max="400" value="250" oninput="updateSliderDisplay(this); calculate();">
+              <span class="slider-value" id="dsAdoptionValue">2.5x</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- AI Cost Governance (TCO) -->
+        <div class="section-card consolidation">
+          <h3><i data-lucide="shield-check"></i> AI Cost Governance (TCO)</h3>
+          <p class="text-muted" style="font-size: var(--spectrum-font-size-75); margin-bottom: var(--spectrum-spacing-200);">Control AI costs and transform from cost center to value driver.</p>
+          
+          <div class="input-group compact">
+            <label class="input-label">Current AI/LLM API Spend (Monthly)</label>
+            <div class="input-row">
+              <span class="input-prefix">$</span>
+              <input type="number" id="aiApiSpend" value="8000" min="0" step="500" oninput="calculate()">
+            </div>
+            <p class="input-hint">OpenAI, Anthropic, Azure AI, etc. combined monthly spend</p>
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">Estimated Token Waste from Regenerations (%)</label>
+            <div class="slider-row">
+              <input type="range" id="tokenWaste" min="20" max="60" value="35" oninput="updateSliderDisplay(this); calculate();">
+              <span class="slider-value" id="tokenWasteValue">35%</span>
+            </div>
+            <p class="input-hint">% of API spend on regenerations due to poor context</p>
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">Number of AI Tools/Services in Use</label>
+            <input type="number" id="aiToolCount" value="5" min="1" max="20" oninput="calculate()">
+            <p class="input-hint">Copilot, ChatGPT, Claude, custom models, etc.</p>
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">Current Design System Tool Spend (Annual)</label>
+            <div class="input-row">
+              <span class="input-prefix">$</span>
+              <input type="number" id="currentToolSpend" value="55000" min="0" step="1000" oninput="calculate()">
+            </div>
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">Integration Maintenance Hours (Monthly)</label>
+            <input type="number" id="integrationHours" value="25" min="0" oninput="calculate()">
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">Number of Point Tools to Consolidate</label>
+            <input type="number" id="toolsToConsolidate" value="4" min="0" max="10" oninput="calculate()">
+          </div>
+        </div>
+        
+        <!-- Value Center Transformation -->
+        <div class="section-card" style="margin-top: var(--spectrum-spacing-400); background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), rgba(22, 33, 62, 0.8)); border-color: rgba(16, 185, 129, 0.3);">
+          <h3 style="color: var(--spectrum-green-400);"><i data-lucide="arrow-up-right"></i> Cost Center → Value Driver</h3>
+          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary); margin-bottom: 12px;">
+            IPE transforms your design system team from a cost center into an <strong>AI enablement function</strong> that controls costs and accelerates delivery across the organization.
+          </p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; text-align: center;">
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); margin-bottom: 4px;">Before: Cost Center</div>
+              <div style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-red-400);">Maintaining tools</div>
+            </div>
+            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; text-align: center;">
+              <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); margin-bottom: 4px;">After: Value Driver</div>
+              <div style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-green-400);">Enabling AI ROI</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- RIGHT COLUMN -->
+      <div>
+        <!-- Journey Value Messaging -->
+        <div class="journey-message" id="journeyMessage">
+          <div class="message-header">
+            <i data-lucide="message-square"></i>
+            <span class="message-title">J3 Value Frame: Activation Sequencing</span>
+          </div>
+          <div class="message-content" id="journeyContent">
+            Your AI is scaling faster than product governance—activate the control plane first. IPE helps sequence activation to build trust before scale.
+          </div>
+          <div class="value-frame" id="journeyValueTags">
+            <span class="value-tag">Risk Reduction</span>
+            <span class="value-tag">Control Plane</span>
+            <span class="value-tag">Trust Building</span>
+          </div>
+        </div>
+        
+        <!-- Sensitivity Analysis -->
+        <div class="section-card" style="margin-bottom: var(--spectrum-spacing-400);">
+          <h3><i data-lucide="sliders"></i> Projection Scenario</h3>
+          
+          <div class="sensitivity-toggle">
+            <button class="sensitivity-btn" onclick="setSensitivity('conservative')">
+              <span class="scenario-label">Conservative</span>
+              <span class="scenario-factor">75% of value</span>
+            </button>
+            <button class="sensitivity-btn active" onclick="setSensitivity('expected')">
+              <span class="scenario-label">Expected</span>
+              <span class="scenario-factor">100% baseline</span>
+            </button>
+            <button class="sensitivity-btn" onclick="setSensitivity('optimistic')">
+              <span class="scenario-label">Optimistic</span>
+              <span class="scenario-factor">125% with adoption</span>
+            </button>
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">Investment Path</label>
+            <select id="investmentPath" onchange="calculate()">
+              <option value="j1">J1 Foundation ($50K services + $48K software)</option>
+              <option value="j2">J2 Acceleration ($100K services + $96K software)</option>
+              <option value="j3" selected>J3 Transformation ($175K services + $180K software)</option>
+              <option value="j4">J4 Enterprise ($300K services + $300K software)</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Investment Summary -->
+        <div class="section-card" style="margin-bottom: var(--spectrum-spacing-400);">
+          <h3><i data-lucide="credit-card"></i> Investment Summary</h3>
+          
+          <div class="results-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="result-card">
+              <div class="result-label">Services (Year 1)</div>
+              <div class="result-value" id="servicesCost">$175K</div>
+            </div>
+            <div class="result-card">
+              <div class="result-label">Software License</div>
+              <div class="result-value" id="softwareCost">$180K/yr</div>
+            </div>
+          </div>
+          
+          <div class="result-card highlight" style="margin-top: var(--spectrum-spacing-200);">
+            <div class="result-label">Total Year 1 Investment</div>
+            <div class="result-value" id="totalInvestment">$355K</div>
+          </div>
+        </div>
+        
+        <!-- ROI Results -->
+        <div class="section-card results">
+          <h3><i data-lucide="trophy"></i> ROI Analysis</h3>
+          
+          <div class="results-grid">
+            <div class="result-card highlight">
+              <div class="result-label">Annual Value Created</div>
+              <div class="result-value" id="annualValue">$612K</div>
+              <div class="result-subtext">Productivity + TCO + Multi-System</div>
+            </div>
+            
+            <div class="result-card roi">
+              <div class="result-label">3-Year ROI</div>
+              <div class="result-value" id="threeYearROI">289%</div>
+            </div>
+            
+            <div class="result-card payback">
+              <div class="result-label">Payback Period</div>
+              <div class="result-value" id="paybackPeriod">7 mo</div>
+            </div>
+            
+            <div class="result-card productivity">
+              <div class="result-label">Productivity Value</div>
+              <div class="result-value" id="productivityValue">$520K</div>
+            </div>
+            
+            <div class="result-card savings">
+              <div class="result-label">AI Cost Governance</div>
+              <div class="result-value" id="tcoSavings">$92K</div>
+              <div class="result-subtext">Token + Tool Savings</div>
+            </div>
+          </div>
+          
+          <!-- Value Breakdown -->
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>Value Driver</th>
+                <th style="text-align: right;">Annual Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background: rgba(16, 185, 129, 0.05);">
+                <td colspan="2" style="font-weight: 600; color: var(--spectrum-green-400); font-size: var(--spectrum-font-size-75);">ROI: VALUE CREATION</td>
+              </tr>
+              <tr>
+                <td>Developer productivity gains</td>
+                <td class="value-cell" id="devProdValue">$405,000</td>
+              </tr>
+              <tr>
+                <td>Designer efficiency improvements</td>
+                <td class="value-cell" id="designerProdValue">$112,500</td>
+              </tr>
+              <tr style="background: rgba(59, 130, 246, 0.05);">
+                <td colspan="2" style="font-weight: 600; color: var(--spectrum-blue-400); font-size: var(--spectrum-font-size-75);">TCO: AI COST GOVERNANCE</td>
+              </tr>
+              <tr>
+                <td>AI token optimization savings</td>
+                <td class="value-cell" id="aiTokenSavingsValue">$33,600</td>
+              </tr>
+              <tr>
+                <td>AI tool consolidation / governance</td>
+                <td class="value-cell" id="aiToolSavingsValue">$12,000</td>
+              </tr>
+              <tr>
+                <td>Design system tool consolidation</td>
+                <td class="value-cell" id="toolSavingsValue">$38,500</td>
+              </tr>
+              <tr>
+                <td>Integration maintenance reduction</td>
+                <td class="value-cell" id="maintenanceValue">$25,962</td>
+              </tr>
+              <tr id="multiSystemRow" style="display: none;">
+                <td>Multi-system reuse efficiency</td>
+                <td class="value-cell" id="multiSystemValue">$0</td>
+              </tr>
+              <tr class="total-row">
+                <td><strong>Total Annual Value</strong></td>
+                <td class="value-cell" id="totalAnnualValue"><strong>$581,962</strong></td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <!-- TCO Summary Card -->
+          <div style="margin-top: 16px; padding: 16px; background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), rgba(22, 33, 62, 0.8)); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);">Total AI Cost Governance Savings</span>
+              <span style="font-size: var(--spectrum-font-size-300); font-weight: 700; color: var(--spectrum-blue-400);" id="totalAiSavings">$45,600/yr</span>
+            </div>
+            <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);">
+              <i data-lucide="info" style="width: 12px; height: 12px; display: inline; vertical-align: middle;"></i>
+              Controlled costs enable predictable AI scaling without budget overruns
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Before/After Comparison -->
+    <div class="section-card comparison full-width" style="margin-bottom: var(--spectrum-spacing-400);">
+      <h3><i data-lucide="git-compare"></i> Before / After Comparison</h3>
+      
+      <div class="comparison-container">
+        <div class="comparison-card before">
+          <div class="card-header">
+            <i data-lucide="x-circle"></i>
+            <span class="card-title">Current State (Without IPE)</span>
+          </div>
+          <div class="comparison-metric">
+            <span class="metric-label">AI regeneration rate</span>
+            <span class="metric-value" id="beforeRegen">~40% of outputs</span>
+          </div>
+          <div class="comparison-metric">
+            <span class="metric-label">AI token waste</span>
+            <span class="metric-value" id="beforeTokenWaste">35% of spend</span>
+          </div>
+          <div class="comparison-metric">
+            <span class="metric-label">Monthly AI cost control</span>
+            <span class="metric-value">Unpredictable / growing</span>
+          </div>
+          <div class="comparison-metric">
+            <span class="metric-label">Design-to-code handoff</span>
+            <span class="metric-value" id="beforeHandoff">3-5 days avg</span>
+          </div>
+          <div class="comparison-metric">
+            <span class="metric-label">AI tools in stack</span>
+            <span class="metric-value" id="beforeAiTools">5 tools</span>
+          </div>
+          <div class="comparison-metric">
+            <span class="metric-label">Team positioning</span>
+            <span class="metric-value" style="color: var(--spectrum-red-400);">Cost center</span>
+          </div>
+        </div>
+        
+        <div class="comparison-arrow">
+          <i data-lucide="arrow-right"></i>
+        </div>
+        
+        <div class="comparison-card after">
+          <div class="card-header">
+            <i data-lucide="check-circle"></i>
+            <span class="card-title">IPE-Enabled State</span>
+          </div>
+          <div class="comparison-metric">
+            <span class="metric-label">AI regeneration rate</span>
+            <span class="metric-value" id="afterRegen">~16% of outputs</span>
+            <span class="delta-badge">-60%</span>
+          </div>
+          <div class="comparison-metric">
+            <span class="metric-label">AI token waste</span>
+            <span class="metric-value" id="afterTokenWaste">&lt;10% of spend</span>
+            <span class="delta-badge" id="tokenWasteDelta">-25%</span>
+          </div>
+          <div class="comparison-metric">
+            <span class="metric-label">Monthly AI cost control</span>
+            <span class="metric-value">Governed & predictable</span>
+            <span class="delta-badge">Controlled</span>
+          </div>
+          <div class="comparison-metric">
+            <span class="metric-label">Design-to-code handoff</span>
+            <span class="metric-value" id="afterHandoff">Same day</span>
+            <span class="delta-badge">-80%</span>
+          </div>
+          <div class="comparison-metric">
+            <span class="metric-label">AI tools in stack</span>
+            <span class="metric-value" id="afterAiTools">Unified context</span>
+            <span class="delta-badge" id="aiToolsDelta">1 control plane</span>
+          </div>
+          <div class="comparison-metric">
+            <span class="metric-label">Team positioning</span>
+            <span class="metric-value" style="color: var(--spectrum-green-400);">Value driver</span>
+            <span class="delta-badge" style="background: var(--spectrum-green-500);">↑ Strategic</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Executive Summary -->
+    <div class="summary-section">
+      <div class="summary-header">
+        <h3><i data-lucide="file-text"></i> Executive Summary</h3>
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="copyToClipboard()">
+            <i data-lucide="copy"></i>
+            Copy Summary
+          </button>
+          <button class="btn" onclick="window.print()">
+            <i data-lucide="printer"></i>
+            Print / PDF
+          </button>
+        </div>
+      </div>
+      
+      <div class="summary-content" id="executiveSummary">
+        <!-- Generated dynamically -->
+      </div>
+    </div>
+    
+    <!-- Usage Notes -->
+    <div class="callout info">
+      <p><strong>📋 How to use this calculator:</strong></p>
+      <ul style="margin: 8px 0 0 0; padding-left: 20px; font-size: var(--spectrum-font-size-100);">
+        <li>Start with an industry preset or enter PCRI scores from the assessment</li>
+        <li>Enter AI/LLM spend to quantify AI cost governance savings (token waste + tool consolidation)</li>
+        <li>Adjust sensitivity to show conservative, expected, or optimistic projections</li>
+        <li>Enable Multi-System module for enterprise deals with multiple product lines</li>
+        <li>Copy the executive summary for proposals—emphasize the "cost center → value driver" transformation</li>
+      </ul>
+    </div>
+    
+    </div>
+    <!-- END ROI TAB -->
+    
+    <!-- ==================== TCO ANALYZER TAB ==================== -->
+    <div class="tab-content" id="tab-tco">
+      
+      <!-- TCO Intro -->
+      <div class="section-card" style="margin-bottom: var(--spectrum-spacing-400); background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), rgba(22, 33, 62, 0.9)); border-color: rgba(59, 130, 246, 0.3);">
+        <h3 style="color: var(--spectrum-blue-400);"><i data-lucide="wallet"></i> Total Cost of Ownership Analyzer</h3>
+        <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary); margin-bottom: 0;">
+          Compare 5-year costs: current state vs. IPE. Surfaces hidden costs and demonstrates long-term savings. Perfect for <strong>IT / Procurement</strong> conversations.
+        </p>
+      </div>
+      
+      <!-- TCO Inputs -->
+      <div class="calculator-grid" style="margin-bottom: var(--spectrum-spacing-400);">
+        <div class="section-card">
+          <h3><i data-lucide="receipt"></i> Current State Costs</h3>
+          
+          <div class="input-group compact">
+            <label class="input-label">Design System Tool Spend (Annual)</label>
+            <div class="input-row">
+              <span class="input-prefix">$</span>
+              <input type="number" id="tcoCurrentToolSpend" value="55000" min="0" step="1000" oninput="calculateTCO()">
+            </div>
+            <p class="input-hint">Figma, Storybook, Zeroheight, etc.</p>
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">AI/LLM API Spend (Monthly)</label>
+            <div class="input-row">
+              <span class="input-prefix">$</span>
+              <input type="number" id="tcoAiApiSpend" value="8000" min="0" step="500" oninput="calculateTCO()">
+            </div>
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">Integration Maintenance (Hours/Month)</label>
+            <input type="number" id="tcoIntegrationHours" value="25" min="0" oninput="calculateTCO()">
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">Context-Switching / Rework (Hours/Week per Dev)</label>
+            <input type="number" id="tcoContextSwitchHours" value="4" min="0" max="20" oninput="calculateTCO()">
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">AI Token Waste Rate (%)</label>
+            <div class="slider-row">
+              <input type="range" id="tcoTokenWaste" min="20" max="60" value="35" oninput="updateTcoSlider(this); calculateTCO();">
+              <span class="slider-value" id="tcoTokenWasteValue">35%</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="section-card">
+          <h3><i data-lucide="package-plus"></i> IPE Investment</h3>
+          
+          <div class="input-group compact">
+            <label class="input-label">Year 1 Services (One-time)</label>
+            <div class="input-row">
+              <span class="input-prefix">$</span>
+              <input type="number" id="tcoServicesY1" value="175000" readonly style="opacity: 0.7;">
+            </div>
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">Annual Software License</label>
+            <div class="input-row">
+              <span class="input-prefix">$</span>
+              <input type="number" id="tcoSoftware" value="180000" readonly style="opacity: 0.7;">
+            </div>
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">Expected Tool Consolidation (%)</label>
+            <div class="slider-row">
+              <input type="range" id="tcoToolConsolidation" min="40" max="90" value="70" oninput="updateTcoSlider(this); calculateTCO();">
+              <span class="slider-value" id="tcoToolConsolidationValue">70%</span>
+            </div>
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">AI Efficiency Improvement (%)</label>
+            <div class="slider-row">
+              <input type="range" id="tcoAiEfficiency" min="40" max="80" value="60" oninput="updateTcoSlider(this); calculateTCO();">
+              <span class="slider-value" id="tcoAiEfficiencyValue">60%</span>
+            </div>
+          </div>
+          
+          <div class="input-group compact">
+            <label class="input-label">Integration Maintenance Reduction (%)</label>
+            <div class="slider-row">
+              <input type="range" id="tcoMaintenanceReduction" min="40" max="80" value="60" oninput="updateTcoSlider(this); calculateTCO();">
+              <span class="slider-value" id="tcoMaintenanceReductionValue">60%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- TCO 5-Year Savings Banner -->
+      <div class="tco-savings-banner">
+        <div class="savings-label">5-Year Total Cost Savings with IPE</div>
+        <div class="savings-value" id="tco5YearSavings">$892,400</div>
+        <div class="savings-percent" id="tco5YearPercent">32% lower TCO over 5 years</div>
+      </div>
+      
+      <!-- TCO Comparison -->
+      <div class="tco-comparison-grid">
+        <div class="tco-column current">
+          <div class="tco-header">
+            <i data-lucide="alert-triangle"></i>
+            <h4>Current State (5-Year TCO)</h4>
+          </div>
+          
+          <div class="tco-line-item">
+            <span class="item-label">Design System Tools</span>
+            <span class="item-value" id="tcoCurrentTools5yr">$275,000</span>
+          </div>
+          <div class="tco-line-item">
+            <span class="item-label">AI/LLM API Costs</span>
+            <span class="item-value" id="tcoCurrentAi5yr">$480,000</span>
+          </div>
+          <div class="tco-line-item">
+            <span class="item-label">Integration Maintenance</span>
+            <span class="item-value" id="tcoCurrentMaint5yr">$129,808</span>
+          </div>
+          <div class="tco-line-item">
+            <span class="item-label">Context-Switching Cost</span>
+            <span class="item-value" id="tcoCurrentContext5yr">$519,231</span>
+          </div>
+          <div class="tco-line-item">
+            <span class="item-label">AI Token Waste</span>
+            <span class="item-value" id="tcoCurrentWaste5yr">$168,000</span>
+          </div>
+          
+          <div class="tco-total">
+            <div class="total-label">Total 5-Year Cost</div>
+            <div class="total-value" id="tcoCurrentTotal">$1,572,039</div>
+          </div>
+        </div>
+        
+        <div class="tco-column ipe">
+          <div class="tco-header">
+            <i data-lucide="check-circle-2"></i>
+            <h4>With IPE (5-Year TCO)</h4>
+          </div>
+          
+          <div class="tco-line-item">
+            <span class="item-label">IPE Services (Y1)</span>
+            <span class="item-value" id="tcoIpeServices">$175,000</span>
+          </div>
+          <div class="tco-line-item">
+            <span class="item-label">IPE Software (5 Years)</span>
+            <span class="item-value" id="tcoIpeSoftware5yr">$900,000</span>
+          </div>
+          <div class="tco-line-item">
+            <span class="item-label">Remaining Tool Spend</span>
+            <span class="item-value" id="tcoIpeTools5yr">$82,500</span>
+          </div>
+          <div class="tco-line-item">
+            <span class="item-label">Reduced AI Costs</span>
+            <span class="item-value" id="tcoIpeAi5yr">$192,000</span>
+          </div>
+          <div class="tco-line-item">
+            <span class="item-label">Reduced Maintenance</span>
+            <span class="item-value" id="tcoIpeMaint5yr">$51,923</span>
+          </div>
+          
+          <div class="tco-total">
+            <div class="total-label">Total 5-Year Cost</div>
+            <div class="total-value" id="tcoIpeTotal">$679,639</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- TCO Chart -->
+      <div class="chart-container">
+        <h4><i data-lucide="bar-chart-3"></i> Year-over-Year Cost Comparison</h4>
+        <canvas id="tcoChart" height="300"></canvas>
+      </div>
+      
+      <!-- Hidden Costs Callout -->
+      <div class="section-card" style="background: linear-gradient(145deg, rgba(245, 158, 11, 0.1), rgba(22, 33, 62, 0.9)); border-color: rgba(245, 158, 11, 0.3);">
+        <h3 style="color: var(--spectrum-yellow-400);"><i data-lucide="eye"></i> Hidden Costs Surfaced</h3>
+        <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary); margin-bottom: 16px;">
+          These costs are often invisible in annual budgets but significantly impact TCO:
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+          <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; text-align: center;">
+            <div style="font-size: 11px; color: var(--spectrum-text-muted); margin-bottom: 4px;">Context-Switching</div>
+            <div style="font-family: 'JetBrains Mono'; font-size: 18px; color: var(--spectrum-yellow-400);" id="hiddenContextCost">$519K</div>
+            <div style="font-size: 10px; color: var(--spectrum-text-muted);">5-year impact</div>
+          </div>
+          <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; text-align: center;">
+            <div style="font-size: 11px; color: var(--spectrum-text-muted); margin-bottom: 4px;">AI Token Waste</div>
+            <div style="font-family: 'JetBrains Mono'; font-size: 18px; color: var(--spectrum-yellow-400);" id="hiddenWasteCost">$168K</div>
+            <div style="font-size: 10px; color: var(--spectrum-text-muted);">5-year impact</div>
+          </div>
+          <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; text-align: center;">
+            <div style="font-size: 11px; color: var(--spectrum-text-muted); margin-bottom: 4px;">Integration Debt</div>
+            <div style="font-family: 'JetBrains Mono'; font-size: 18px; color: var(--spectrum-yellow-400);" id="hiddenIntegrationCost">$130K</div>
+            <div style="font-size: 10px; color: var(--spectrum-text-muted);">5-year impact</div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <!-- END TCO TAB -->
+    
+    <!-- ==================== TIME TO VALUE TAB ==================== -->
+    <div class="tab-content" id="tab-ttv">
+      
+      <!-- TTV Intro -->
+      <div class="section-card" style="margin-bottom: var(--spectrum-spacing-400); background: linear-gradient(145deg, rgba(6, 182, 212, 0.1), rgba(22, 33, 62, 0.9)); border-color: rgba(6, 182, 212, 0.3);">
+        <h3 style="color: var(--spectrum-cyan-400);"><i data-lucide="clock"></i> Time to Value Estimator</h3>
+        <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary); margin-bottom: 0;">
+          PCRI-driven implementation timeline with phase-by-phase milestones. Perfect for <strong>Executive Sponsors</strong> and <strong>Design System Leads</strong> who need to plan and set expectations.
+        </p>
+      </div>
+      
+      <!-- TTV Summary Cards -->
+      <div class="ttv-summary-cards">
+        <div class="ttv-summary-card">
+          <div class="card-label">First Value</div>
+          <div class="card-value" id="ttvFirstValue">2 wks</div>
+          <div class="card-subtext">Quick win delivered</div>
+        </div>
+        <div class="ttv-summary-card">
+          <div class="card-label">Foundation Complete</div>
+          <div class="card-value" id="ttvFoundation">6 wks</div>
+          <div class="card-subtext">Core system live</div>
+        </div>
+        <div class="ttv-summary-card">
+          <div class="card-label">Full Activation</div>
+          <div class="card-value" id="ttvActivation">12 wks</div>
+          <div class="card-subtext">Team onboarded</div>
+        </div>
+        <div class="ttv-summary-card">
+          <div class="card-label">Scaled Value</div>
+          <div class="card-value" id="ttvScale">20 wks</div>
+          <div class="card-subtext">Org-wide adoption</div>
+        </div>
+      </div>
+      
+      <!-- PCRI Impact on Timeline -->
+      <div class="section-card" style="margin-bottom: var(--spectrum-spacing-400);">
+        <h3><i data-lucide="gauge"></i> PCRI Impact on Timeline</h3>
+        <p class="text-muted" style="font-size: var(--spectrum-font-size-100); margin-bottom: var(--spectrum-spacing-200);">Your PCRI scores affect implementation speed. Adjust scores to see timeline impact.</p>
+        
+        <div class="pcri-pillars">
+          <div class="pillar-input foundation">
+            <span class="pillar-label">Foundation</span>
+            <input type="number" id="ttvPcriFoundation" value="65" min="0" max="100" oninput="updateTTV()">
+            <div class="pillar-bar"><div class="pillar-fill" id="ttvFoundationBar" style="width: 65%;"></div></div>
+          </div>
+          <div class="pillar-input ai">
+            <span class="pillar-label">AI Ready</span>
+            <input type="number" id="ttvPcriAI" value="55" min="0" max="100" oninput="updateTTV()">
+            <div class="pillar-bar"><div class="pillar-fill" id="ttvAiBar" style="width: 55%;"></div></div>
+          </div>
+          <div class="pillar-input governance">
+            <span class="pillar-label">Governance</span>
+            <input type="number" id="ttvPcriGovernance" value="60" min="0" max="100" oninput="updateTTV()">
+            <div class="pillar-bar"><div class="pillar-fill" id="ttvGovernanceBar" style="width: 60%;"></div></div>
+          </div>
+          <div class="pillar-input delivery">
+            <span class="pillar-label">Delivery</span>
+            <input type="number" id="ttvPcriDelivery" value="50" min="0" max="100" oninput="updateTTV()">
+            <div class="pillar-bar"><div class="pillar-fill" id="ttvDeliveryBar" style="width: 50%;"></div></div>
+          </div>
+          <div class="pillar-input culture">
+            <span class="pillar-label">Culture</span>
+            <input type="number" id="ttvPcriCulture" value="70" min="0" max="100" oninput="updateTTV()">
+            <div class="pillar-bar"><div class="pillar-fill" id="ttvCultureBar" style="width: 70%;"></div></div>
+          </div>
+        </div>
+        
+        <div class="pcri-composite" style="margin-top: var(--spectrum-spacing-200);">
+          <div>
+            <div class="score-label">Composite PCRI</div>
+            <div class="score-value" id="ttvPcriComposite">61</div>
+          </div>
+          <div>
+            <div class="score-label">Timeline Adjustment</div>
+            <div class="score-value" style="font-size: var(--spectrum-font-size-300);" id="ttvTimelineAdjust">+2 wks</div>
+          </div>
+          <div>
+            <div class="score-label">Risk Level</div>
+            <div class="path-badge j3" id="ttvRiskLevel">Moderate</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Implementation Timeline -->
+      <div class="section-card" style="margin-bottom: var(--spectrum-spacing-400);">
+        <h3><i data-lucide="milestone"></i> Implementation Phases</h3>
+        
+        <div class="ttv-timeline">
+          <div class="ttv-phase completed">
+            <div class="ttv-phase-header">
+              <span class="ttv-phase-title">
+                <i data-lucide="rocket"></i>
+                Phase 1: Quick Win
+              </span>
+              <span class="ttv-phase-duration" id="phase1Duration">Week 1-2</span>
+            </div>
+            <div class="ttv-phase-content">
+              Demonstrate immediate value with a focused proof-of-concept. AI-assisted component generation from existing Figma designs.
+            </div>
+            <div class="ttv-milestones">
+              <span class="ttv-milestone"><i data-lucide="check"></i> Figma plugin connected</span>
+              <span class="ttv-milestone"><i data-lucide="check"></i> First component generated</span>
+              <span class="ttv-milestone"><i data-lucide="check"></i> Stakeholder demo</span>
+            </div>
+          </div>
+          
+          <div class="ttv-phase active">
+            <div class="ttv-phase-header">
+              <span class="ttv-phase-title">
+                <i data-lucide="layers"></i>
+                Phase 2: Foundation
+              </span>
+              <span class="ttv-phase-duration" id="phase2Duration">Week 3-6</span>
+            </div>
+            <div class="ttv-phase-content">
+              Establish core token architecture, migrate key components, and set up governance workflows. This is where the "control plane" takes shape.
+            </div>
+            <div class="ttv-milestones">
+              <span class="ttv-milestone"><i data-lucide="check"></i> Token system defined</span>
+              <span class="ttv-milestone"><i data-lucide="check"></i> Core components migrated</span>
+              <span class="ttv-milestone"><i data-lucide="check"></i> CI/CD integration</span>
+              <span class="ttv-milestone"><i data-lucide="check"></i> Governance process live</span>
+            </div>
+          </div>
+          
+          <div class="ttv-phase">
+            <div class="ttv-phase-header">
+              <span class="ttv-phase-title">
+                <i data-lucide="users"></i>
+                Phase 3: Team Activation
+              </span>
+              <span class="ttv-phase-duration" id="phase3Duration">Week 7-12</span>
+            </div>
+            <div class="ttv-phase-content">
+              Roll out to development teams with training. Establish adoption metrics and feedback loops. AI assistance becomes daily workflow.
+            </div>
+            <div class="ttv-milestones">
+              <span class="ttv-milestone"><i data-lucide="check"></i> Developer training complete</span>
+              <span class="ttv-milestone"><i data-lucide="check"></i> Designer workflows live</span>
+              <span class="ttv-milestone"><i data-lucide="check"></i> Adoption metrics tracking</span>
+            </div>
+          </div>
+          
+          <div class="ttv-phase">
+            <div class="ttv-phase-header">
+              <span class="ttv-phase-title">
+                <i data-lucide="scale"></i>
+                Phase 4: Scale
+              </span>
+              <span class="ttv-phase-duration" id="phase4Duration">Week 13-20</span>
+            </div>
+            <div class="ttv-phase-content">
+              Expand to additional products/teams. Full AI cost governance in place. Team transitions from cost center to value driver.
+            </div>
+            <div class="ttv-milestones">
+              <span class="ttv-milestone"><i data-lucide="check"></i> Multi-product rollout</span>
+              <span class="ttv-milestone"><i data-lucide="check"></i> AI cost governance active</span>
+              <span class="ttv-milestone"><i data-lucide="check"></i> Value metrics reported</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Risk Factors -->
+      <div class="risk-factors">
+        <h4><i data-lucide="alert-triangle"></i> Risk Factors & Timeline Impact</h4>
+        
+        <div class="risk-item">
+          <span class="risk-indicator" id="risk1Indicator"></span>
+          <span class="risk-label">Foundation Score below 50 (token architecture gaps)</span>
+          <span class="risk-impact" id="risk1Impact">+2-4 weeks</span>
+        </div>
+        <div class="risk-item">
+          <span class="risk-indicator" id="risk2Indicator"></span>
+          <span class="risk-label">Governance Score below 50 (change management needed)</span>
+          <span class="risk-impact" id="risk2Impact">+2-3 weeks</span>
+        </div>
+        <div class="risk-item">
+          <span class="risk-indicator" id="risk3Indicator"></span>
+          <span class="risk-label">Culture Score below 50 (adoption resistance)</span>
+          <span class="risk-impact" id="risk3Impact">+3-4 weeks</span>
+        </div>
+        <div class="risk-item">
+          <span class="risk-indicator" id="risk4Indicator"></span>
+          <span class="risk-label">Multi-product organization (coordination overhead)</span>
+          <span class="risk-impact" id="risk4Impact">+2-6 weeks</span>
+        </div>
+      </div>
+      
+    </div>
+    <!-- END TTV TAB -->
+    
+    <!-- ==================== BUSINESS CASE SUMMARY TAB ==================== -->
+    <div class="tab-content" id="tab-summary">
+      
+      <!-- Summary Intro -->
+      <div class="section-card" style="margin-bottom: var(--spectrum-spacing-400); background: linear-gradient(145deg, rgba(139, 92, 246, 0.1), rgba(22, 33, 62, 0.9)); border-color: rgba(139, 92, 246, 0.3);">
+        <h3 style="color: var(--spectrum-purple-400);"><i data-lucide="file-check"></i> Complete Business Case</h3>
+        <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary); margin-bottom: 0;">
+          Unified view combining ROI, TCO, and Time to Value. Export-ready for proposals and executive presentations.
+        </p>
+      </div>
+      
+      <!-- Key Metrics Summary -->
+      <div class="summary-grid">
+        <div class="summary-metric-card roi">
+          <div class="metric-icon"><i data-lucide="trending-up"></i></div>
+          <div class="metric-title">3-Year ROI</div>
+          <div class="metric-value" id="summaryRoi">289%</div>
+          <div class="metric-detail">Payback in <span id="summaryPayback">7</span> months</div>
+        </div>
+        <div class="summary-metric-card tco">
+          <div class="metric-icon"><i data-lucide="wallet"></i></div>
+          <div class="metric-title">5-Year TCO Savings</div>
+          <div class="metric-value" id="summaryTcoSavings">$892K</div>
+          <div class="metric-detail"><span id="summaryTcoPercent">32%</span> lower total cost</div>
+        </div>
+        <div class="summary-metric-card ttv">
+          <div class="metric-icon"><i data-lucide="clock"></i></div>
+          <div class="metric-title">Time to Value</div>
+          <div class="metric-value" id="summaryTtv">12 wks</div>
+          <div class="metric-detail">Full team activation</div>
+        </div>
+      </div>
+      
+      <!-- Value Breakdown -->
+      <div class="calculator-grid">
+        <div class="section-card">
+          <h3><i data-lucide="bar-chart-2"></i> Annual Value Created</h3>
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>Value Driver</th>
+                <th style="text-align: right;">Annual Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background: rgba(16, 185, 129, 0.05);">
+                <td colspan="2" style="font-weight: 600; color: var(--spectrum-green-400); font-size: var(--spectrum-font-size-75);">PRODUCTIVITY GAINS</td>
+              </tr>
+              <tr>
+                <td>Developer productivity</td>
+                <td class="value-cell" id="summaryDevProd">$405,000</td>
+              </tr>
+              <tr>
+                <td>Designer efficiency</td>
+                <td class="value-cell" id="summaryDesignerProd">$112,500</td>
+              </tr>
+              <tr style="background: rgba(59, 130, 246, 0.05);">
+                <td colspan="2" style="font-weight: 600; color: var(--spectrum-blue-400); font-size: var(--spectrum-font-size-75);">COST GOVERNANCE</td>
+              </tr>
+              <tr>
+                <td>AI token optimization</td>
+                <td class="value-cell" id="summaryTokenSavings">$33,600</td>
+              </tr>
+              <tr>
+                <td>Tool consolidation</td>
+                <td class="value-cell" id="summaryToolSavings">$50,500</td>
+              </tr>
+              <tr class="total-row">
+                <td><strong>Total Annual Value</strong></td>
+                <td class="value-cell"><strong id="summaryTotalValue">$601,600</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="section-card">
+          <h3><i data-lucide="credit-card"></i> Investment Summary</h3>
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>Cost Item</th>
+                <th style="text-align: right;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Year 1 Services</td>
+                <td class="value-cell" id="summaryServices">$175,000</td>
+              </tr>
+              <tr>
+                <td>Year 1 Software</td>
+                <td class="value-cell" id="summarySoftwareY1">$180,000</td>
+              </tr>
+              <tr class="total-row">
+                <td><strong>Year 1 Total</strong></td>
+                <td class="value-cell"><strong id="summaryY1Total">$355,000</strong></td>
+              </tr>
+              <tr>
+                <td>Year 2-3 Software</td>
+                <td class="value-cell" id="summarySoftwareY23">$360,000</td>
+              </tr>
+              <tr class="total-row">
+                <td><strong>3-Year Total</strong></td>
+                <td class="value-cell"><strong id="summary3YrTotal">$715,000</strong></td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <div style="margin-top: 16px; padding: 12px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; text-align: center;">
+            <div style="font-size: 11px; color: var(--spectrum-text-muted);">3-Year Net Value</div>
+            <div style="font-family: 'JetBrains Mono'; font-size: 24px; color: var(--spectrum-green-400);" id="summary3YrNet">$1,089,800</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Executive Summary Export -->
+      <div class="summary-section" style="margin-top: var(--spectrum-spacing-400);">
+        <div class="summary-header">
+          <h3><i data-lucide="file-text"></i> Executive Summary</h3>
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="copyToClipboard()">
+              <i data-lucide="copy"></i>
+              Copy Summary
+            </button>
+            <button class="btn" onclick="window.print()">
+              <i data-lucide="printer"></i>
+              Print / PDF
+            </button>
+          </div>
+        </div>
+        
+        <div class="summary-content" id="executiveSummary">
+          <!-- Generated dynamically -->
+        </div>
+      </div>
+      
+    </div>
+    <!-- END SUMMARY TAB -->
+    
+    <!-- Global Disclaimer -->
+    <div class="callout warning" style="margin-top: var(--spectrum-spacing-400);">
+      <p><strong>Disclaimer:</strong> This calculator provides estimates based on industry benchmarks and customer data. Actual results may vary. All projections should be validated with the prospect during discovery.</p>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+      <p class="footer-text">IPE Business Case Builder v3.0 • ROI + TCO + Time to Value • Sales Enablement Tool • For Internal Use Only</p>
+    </footer>
+  </div>
+  
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+    
+    // ==========================================================================
+    // TAB SWITCHING
+    // ==========================================================================
+    
+    let currentTab = 'roi';
+    let tcoChart = null;
+    
+    function switchMainTab(tabId) {
+      currentTab = tabId;
+      
+      // Update tab buttons
+      document.querySelectorAll('.main-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelector(`.main-tab.${tabId}`).classList.add('active');
+      
+      // Update tab content
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      document.getElementById(`tab-${tabId}`).classList.add('active');
+      
+      // Recalculate for the active tab
+      if (tabId === 'tco') {
+        syncTCOInputs();
+        calculateTCO();
+      } else if (tabId === 'ttv') {
+        syncTTVInputs();
+        updateTTV();
+      } else if (tabId === 'summary') {
+        updateSummary();
+      }
+      
+      // Re-init icons
+      lucide.createIcons();
+    }
+    
+    function toggleSharedInputs() {
+      const body = document.getElementById('sharedInputsBody');
+      const chevron = document.getElementById('sharedInputsChevron');
+      const toggleText = document.getElementById('sharedInputsToggleText');
+      
+      if (body.classList.contains('collapsed')) {
+        body.classList.remove('collapsed');
+        chevron.style.transform = 'rotate(180deg)';
+        toggleText.textContent = 'Click to collapse';
+      } else {
+        body.classList.add('collapsed');
+        chevron.style.transform = 'rotate(0deg)';
+        toggleText.textContent = 'Click to expand';
+      }
+    }
+    
+    // ==========================================================================
+    // CONFIGURATION DATA
+    // ==========================================================================
+    
+    // Pricing by path
+    const pathPricing = {
+      j1: { services: 50000, software: 48000, name: 'J1 Foundation', fde: 0.25 },
+      j2: { services: 100000, software: 96000, name: 'J2 Acceleration', fde: 0.5 },
+      j3: { services: 175000, software: 180000, name: 'J3 Transformation', fde: 1.0 },
+      j4: { services: 300000, software: 300000, name: 'J4 Enterprise', fde: 1.5 }
+    };
+    
+    // Journey messaging - updated with value center transformation framing
+    const journeyMessaging = {
+      j1: {
+        title: 'J1 Value Frame: Foundation Building',
+        content: 'AI execution fails without operational product intent. IPE helps establish the governance basics needed to control AI costs before they scale uncontrollably.',
+        tags: ['Education', 'Cost Foundation', 'Governance Basics']
+      },
+      j2: {
+        title: 'J2 Value Frame: Fast Activation',
+        content: 'Activate IPE fast—governed AI usage + measurable cost control in ~90 days. Transform your design system team into an AI cost governance function.',
+        tags: ['90-Day ROI', 'Cost Control', 'Quick Win']
+      },
+      j3: {
+        title: 'J3 Value Frame: AI Cost Control',
+        content: 'Your AI spend is scaling faster than governance—activate the cost control plane first. IPE transforms your team from cost center to value driver by controlling AI token waste and tool sprawl.',
+        tags: ['Cost Governance', 'Value Driver', 'Token Optimization']
+      },
+      j4: {
+        title: 'J4 Value Frame: Enterprise AI Governance',
+        content: 'Control AI costs at enterprise scale. IPE provides the governance layer to manage tokenized commercial models across business units, transforming distributed cost centers into a unified value creation engine.',
+        tags: ['Enterprise Scale', 'Token Governance', 'Value Center']
+      }
+    };
+    
+    // Industry presets (based on account data benchmarks) - updated with AI cost governance
+    const industryPresets = {
+      fss: {
+        name: 'Financial Services',
+        numEngineers: 40,
+        numDesigners: 12,
+        engineerCost: 200000,
+        designerCost: 170000,
+        currentToolSpend: 75000,
+        integrationHours: 35,
+        toolsToConsolidate: 5,
+        aiApiSpend: 15000,       // Higher due to compliance needs
+        tokenWaste: 40,          // More regenerations for compliance language
+        aiToolCount: 6,          // Multiple specialized AI tools
+        devProductivity: 28,
+        regenReduction: 55,
+        dsAdoption: 220,
+        pcri: { foundation: 70, ai: 50, governance: 75, delivery: 55, culture: 65 }
+      },
+      tech: {
+        name: 'Enterprise Software',
+        numEngineers: 35,
+        numDesigners: 10,
+        engineerCost: 190000,
+        designerCost: 160000,
+        currentToolSpend: 55000,
+        integrationHours: 30,
+        toolsToConsolidate: 4,
+        aiApiSpend: 12000,       // Heavy AI usage for dev
+        tokenWaste: 30,          // Better AI maturity
+        aiToolCount: 7,          // Many AI tools in stack
+        devProductivity: 35,
+        regenReduction: 65,
+        dsAdoption: 280,
+        pcri: { foundation: 65, ai: 70, governance: 55, delivery: 65, culture: 70 }
+      },
+      healthcare: {
+        name: 'Healthcare',
+        numEngineers: 25,
+        numDesigners: 8,
+        engineerCost: 175000,
+        designerCost: 145000,
+        currentToolSpend: 60000,
+        integrationHours: 25,
+        toolsToConsolidate: 4,
+        aiApiSpend: 6000,        // Careful AI adoption due to HIPAA
+        tokenWaste: 45,          // High regen for compliance language
+        aiToolCount: 4,          // Conservative tool adoption
+        devProductivity: 25,
+        regenReduction: 50,
+        dsAdoption: 200,
+        pcri: { foundation: 60, ai: 45, governance: 70, delivery: 50, culture: 55 }
+      },
+      retail: {
+        name: 'Retail / E-commerce',
+        numEngineers: 20,
+        numDesigners: 8,
+        engineerCost: 160000,
+        designerCost: 140000,
+        currentToolSpend: 45000,
+        integrationHours: 20,
+        toolsToConsolidate: 3,
+        aiApiSpend: 8000,        // Growing AI adoption
+        tokenWaste: 35,          // Average waste
+        aiToolCount: 5,          // Moderate tool count
+        devProductivity: 32,
+        regenReduction: 60,
+        dsAdoption: 260,
+        pcri: { foundation: 55, ai: 60, governance: 50, delivery: 60, culture: 65 }
+      },
+      media: {
+        name: 'Media / Telecom',
+        numEngineers: 30,
+        numDesigners: 12,
+        engineerCost: 170000,
+        designerCost: 150000,
+        currentToolSpend: 65000,
+        integrationHours: 30,
+        toolsToConsolidate: 5,
+        aiApiSpend: 10000,       // Content generation heavy
+        tokenWaste: 38,          // Creative regen cycles
+        aiToolCount: 6,          // Multiple creative AI tools
+        devProductivity: 30,
+        regenReduction: 55,
+        dsAdoption: 240,
+        pcri: { foundation: 60, ai: 55, governance: 55, delivery: 55, culture: 60 }
+      },
+      custom: {
+        name: 'Custom',
+        numEngineers: 30,
+        numDesigners: 10,
+        engineerCost: 180000,
+        designerCost: 150000,
+        currentToolSpend: 55000,
+        integrationHours: 25,
+        toolsToConsolidate: 4,
+        aiApiSpend: 8000,
+        tokenWaste: 35,
+        aiToolCount: 5,
+        devProductivity: 30,
+        regenReduction: 60,
+        dsAdoption: 250,
+        pcri: { foundation: 65, ai: 55, governance: 60, delivery: 50, culture: 70 }
+      }
+    };
+    
+    // PCRI weights (matching assessment)
+    const PCRI_WEIGHTS = {
+      foundation: 0.20,
+      ai: 0.20,
+      governance: 0.20,
+      delivery: 0.15,
+      culture: 0.25
+    };
+    
+    // State
+    let currentSensitivity = 'expected';
+    let currentPreset = 'custom';
+    
+    // ==========================================================================
+    // UTILITY FUNCTIONS
+    // ==========================================================================
+    
+    function formatCurrency(value) {
+      if (value >= 1000000) {
+        return '$' + (value / 1000000).toFixed(2) + 'M';
+      } else if (value >= 1000) {
+        return '$' + Math.round(value / 1000) + 'K';
+      }
+      return '$' + value.toLocaleString();
+    }
+    
+    function formatCurrencyFull(value) {
+      return '$' + Math.round(value).toLocaleString();
+    }
+    
+    function updateSliderDisplay(slider) {
+      const valueSpan = document.getElementById(slider.id + 'Value');
+      if (slider.id === 'dsAdoption') {
+        valueSpan.textContent = (slider.value / 100).toFixed(1) + 'x';
+      } else {
+        valueSpan.textContent = slider.value + '%';
+      }
+    }
+    
+    // ==========================================================================
+    // PRESET HANDLING
+    // ==========================================================================
+    
+    function applyPreset(preset) {
+      currentPreset = preset;
+      const data = industryPresets[preset];
+      
+      // Update UI
+      document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.closest('.preset-btn').classList.add('active');
+      
+      // Apply values
+      document.getElementById('numEngineers').value = data.numEngineers;
+      document.getElementById('numDesigners').value = data.numDesigners;
+      document.getElementById('engineerCost').value = data.engineerCost;
+      document.getElementById('designerCost').value = data.designerCost;
+      document.getElementById('currentToolSpend').value = data.currentToolSpend;
+      document.getElementById('integrationHours').value = data.integrationHours;
+      document.getElementById('toolsToConsolidate').value = data.toolsToConsolidate;
+      
+      // Apply AI cost governance fields
+      document.getElementById('aiApiSpend').value = data.aiApiSpend;
+      document.getElementById('tokenWaste').value = data.tokenWaste;
+      document.getElementById('tokenWasteValue').textContent = data.tokenWaste + '%';
+      document.getElementById('aiToolCount').value = data.aiToolCount;
+      
+      document.getElementById('devProductivity').value = data.devProductivity;
+      document.getElementById('devProductivityValue').textContent = data.devProductivity + '%';
+      
+      document.getElementById('regenReduction').value = data.regenReduction;
+      document.getElementById('regenReductionValue').textContent = data.regenReduction + '%';
+      
+      document.getElementById('dsAdoption').value = data.dsAdoption;
+      document.getElementById('dsAdoptionValue').textContent = (data.dsAdoption / 100).toFixed(1) + 'x';
+      
+      // Apply PCRI scores
+      document.getElementById('pcriFoundation').value = data.pcri.foundation;
+      document.getElementById('pcriAI').value = data.pcri.ai;
+      document.getElementById('pcriGovernance').value = data.pcri.governance;
+      document.getElementById('pcriDelivery').value = data.pcri.delivery;
+      document.getElementById('pcriCulture').value = data.pcri.culture;
+      
+      updatePCRI();
+      calculate();
+    }
+    
+    // ==========================================================================
+    // PCRI CALCULATIONS
+    // ==========================================================================
+    
+    function updatePCRI() {
+      const foundation = parseInt(document.getElementById('pcriFoundation').value) || 0;
+      const ai = parseInt(document.getElementById('pcriAI').value) || 0;
+      const governance = parseInt(document.getElementById('pcriGovernance').value) || 0;
+      const delivery = parseInt(document.getElementById('pcriDelivery').value) || 0;
+      const culture = parseInt(document.getElementById('pcriCulture').value) || 0;
+      
+      // Update progress bars
+      document.getElementById('foundationBar').style.width = foundation + '%';
+      document.getElementById('aiBar').style.width = ai + '%';
+      document.getElementById('governanceBar').style.width = governance + '%';
+      document.getElementById('deliveryBar').style.width = delivery + '%';
+      document.getElementById('cultureBar').style.width = culture + '%';
+      
+      // Calculate composite PCRI
+      const composite = Math.round(
+        (foundation * PCRI_WEIGHTS.foundation) +
+        (ai * PCRI_WEIGHTS.ai) +
+        (governance * PCRI_WEIGHTS.governance) +
+        (delivery * PCRI_WEIGHTS.delivery) +
+        (culture * PCRI_WEIGHTS.culture)
+      );
+      
+      document.getElementById('pcriComposite').textContent = composite;
+      
+      // Determine recommended path
+      let path = 'j1';
+      let pathLabel = 'J1';
+      
+      if (composite >= 75 && foundation >= 70 && governance >= 60 && culture >= 60) {
+        path = 'j4';
+        pathLabel = 'J4';
+      } else if (composite >= 55 && foundation >= 60 && governance >= 55 && culture >= 50) {
+        path = 'j3';
+        pathLabel = 'J3';
+      } else if (composite >= 45 && governance >= 50 && culture >= 40) {
+        path = 'j2';
+        pathLabel = 'J2';
+      }
+      
+      const pathBadge = document.getElementById('recommendedPath');
+      pathBadge.textContent = pathLabel;
+      pathBadge.className = 'path-badge ' + path;
+      
+      // Update investment path dropdown
+      document.getElementById('investmentPath').value = path;
+      
+      // Calculate TTV adjustment based on PCRI
+      let ttvWeeks = 0;
+      if (composite < 45) ttvWeeks = 4;
+      else if (composite < 55) ttvWeeks = 2;
+      else if (composite < 65) ttvWeeks = 1;
+      else if (composite >= 75) ttvWeeks = -1;
+      
+      const ttvText = ttvWeeks === 0 ? 'Baseline' : (ttvWeeks > 0 ? '+' + ttvWeeks + ' wks' : ttvWeeks + ' wks');
+      document.getElementById('ttvAdjustment').textContent = ttvText;
+      
+      // Update journey messaging
+      updateJourneyMessage(path);
+      
+      calculate();
+    }
+    
+    function updateJourneyMessage(path) {
+      const msg = journeyMessaging[path];
+      document.querySelector('#journeyMessage .message-title').textContent = msg.title;
+      document.getElementById('journeyContent').textContent = msg.content;
+      
+      const tagsContainer = document.getElementById('journeyValueTags');
+      tagsContainer.innerHTML = msg.tags.map(tag => `<span class="value-tag">${tag}</span>`).join('');
+    }
+    
+    // ==========================================================================
+    // SENSITIVITY HANDLING
+    // ==========================================================================
+    
+    function setSensitivity(scenario) {
+      currentSensitivity = scenario;
+      
+      document.querySelectorAll('.sensitivity-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.closest('.sensitivity-btn').classList.add('active');
+      
+      calculate();
+    }
+    
+    function getSensitivityFactor() {
+      switch (currentSensitivity) {
+        case 'conservative': return 0.75;
+        case 'optimistic': return 1.25;
+        default: return 1.0;
+      }
+    }
+    
+    // ==========================================================================
+    // MULTI-SYSTEM HANDLING
+    // ==========================================================================
+    
+    function toggleMultiSystem() {
+      const enabled = document.getElementById('multiSystemEnabled').checked;
+      const inputs = document.getElementById('multiSystemInputs');
+      const row = document.getElementById('multiSystemRow');
+      
+      if (enabled) {
+        inputs.classList.add('visible');
+        row.style.display = 'table-row';
+      } else {
+        inputs.classList.remove('visible');
+        row.style.display = 'none';
+      }
+      
+      calculate();
+    }
+    
+    // ==========================================================================
+    // MAIN CALCULATION
+    // ==========================================================================
+    
+    function calculate() {
+      const sensitivity = getSensitivityFactor();
+      
+      // Get inputs
+      const numEngineers = parseInt(document.getElementById('numEngineers').value) || 0;
+      const numDesigners = parseInt(document.getElementById('numDesigners').value) || 0;
+      const engineerCost = parseInt(document.getElementById('engineerCost').value) || 0;
+      const designerCost = parseInt(document.getElementById('designerCost').value) || 0;
+      const devProductivity = parseInt(document.getElementById('devProductivity').value) || 0;
+      const regenReduction = parseInt(document.getElementById('regenReduction').value) || 0;
+      const dsAdoption = parseInt(document.getElementById('dsAdoption').value) || 0;
+      const currentToolSpend = parseInt(document.getElementById('currentToolSpend').value) || 0;
+      const integrationHours = parseInt(document.getElementById('integrationHours').value) || 0;
+      const toolsToConsolidate = parseInt(document.getElementById('toolsToConsolidate').value) || 0;
+      const path = document.getElementById('investmentPath').value;
+      const companyName = document.getElementById('companyName').value || 'the organization';
+      const multiSystemEnabled = document.getElementById('multiSystemEnabled').checked;
+      const numProducts = parseInt(document.getElementById('numProducts').value) || 0;
+      const reusePercent = parseInt(document.getElementById('reusePercent').value) || 0;
+      
+      // AI Cost Governance inputs
+      const aiApiSpend = parseInt(document.getElementById('aiApiSpend').value) || 0;
+      const tokenWaste = parseInt(document.getElementById('tokenWaste').value) || 0;
+      const aiToolCount = parseInt(document.getElementById('aiToolCount').value) || 0;
+      
+      // Get pricing
+      const pricing = pathPricing[path];
+      const totalInvestment = pricing.services + pricing.software;
+      const ongoingAnnualCost = pricing.software;
+      
+      // Calculate productivity value (ROI: Value Creation)
+      const devProdValue = numEngineers * engineerCost * (devProductivity / 100) * 0.5 * sensitivity;
+      const designerProdValue = numDesigners * designerCost * 0.15 * sensitivity;
+      const regenValue = numEngineers * engineerCost * 0.05 * (regenReduction / 100) * sensitivity;
+      const productivityValue = devProdValue + designerProdValue + regenValue;
+      
+      // Calculate AI Cost Governance savings (TCO)
+      const annualAiSpend = aiApiSpend * 12;
+      const tokenSavingsRate = (tokenWaste / 100) * 0.7; // 70% of waste can be recovered with context
+      const aiTokenSavings = annualAiSpend * tokenSavingsRate * sensitivity;
+      
+      // AI tool consolidation savings (fewer tools = less overhead + negotiation leverage)
+      const aiToolOverhead = aiToolCount > 1 ? (aiToolCount - 1) * 3000 * sensitivity : 0; // ~$3K overhead per extra tool
+      
+      // Traditional TCO savings
+      const toolSavings = currentToolSpend * 0.7 * sensitivity;
+      const hourlyRate = engineerCost / 2080;
+      const maintenanceSavings = integrationHours * 12 * hourlyRate * 0.6 * sensitivity;
+      
+      // Total TCO (AI Cost Governance)
+      const tcoSavings = aiTokenSavings + aiToolOverhead + toolSavings + maintenanceSavings;
+      
+      // Calculate multi-system value
+      let multiSystemValue = 0;
+      if (multiSystemEnabled && numProducts > 1) {
+        const reuseEfficiency = (reusePercent / 100) * (numProducts - 1) * 0.1;
+        multiSystemValue = (numEngineers * engineerCost * reuseEfficiency * 0.3) * sensitivity;
+      }
+      
+      // Total annual value
+      const annualValue = productivityValue + tcoSavings + multiSystemValue;
+      
+      // ROI calculations
+      const threeYearTotalValue = annualValue * 3;
+      const threeYearTotalCost = totalInvestment + (ongoingAnnualCost * 2);
+      const threeYearROI = ((threeYearTotalValue - threeYearTotalCost) / threeYearTotalCost) * 100;
+      
+      const monthlyValue = annualValue / 12;
+      const paybackMonths = Math.ceil(totalInvestment / monthlyValue);
+      
+      // Update display
+      document.getElementById('servicesCost').textContent = formatCurrency(pricing.services);
+      document.getElementById('softwareCost').textContent = formatCurrency(pricing.software) + '/yr';
+      document.getElementById('totalInvestment').textContent = formatCurrency(totalInvestment);
+      
+      document.getElementById('annualValue').textContent = formatCurrency(annualValue);
+      document.getElementById('threeYearROI').textContent = Math.round(threeYearROI) + '%';
+      document.getElementById('paybackPeriod').textContent = paybackMonths + ' mo';
+      document.getElementById('productivityValue').textContent = formatCurrency(productivityValue);
+      document.getElementById('tcoSavings').textContent = formatCurrency(tcoSavings);
+      
+      // Update breakdown table
+      document.getElementById('devProdValue').textContent = formatCurrencyFull(devProdValue);
+      document.getElementById('designerProdValue').textContent = formatCurrencyFull(designerProdValue + regenValue);
+      document.getElementById('aiTokenSavingsValue').textContent = formatCurrencyFull(aiTokenSavings);
+      document.getElementById('aiToolSavingsValue').textContent = formatCurrencyFull(aiToolOverhead);
+      document.getElementById('toolSavingsValue').textContent = formatCurrencyFull(toolSavings);
+      document.getElementById('maintenanceValue').textContent = formatCurrencyFull(maintenanceSavings);
+      document.getElementById('multiSystemValue').textContent = formatCurrencyFull(multiSystemValue);
+      document.getElementById('totalAnnualValue').innerHTML = '<strong>' + formatCurrencyFull(annualValue) + '</strong>';
+      document.getElementById('totalAiSavings').textContent = formatCurrencyFull(aiTokenSavings + aiToolOverhead) + '/yr';
+      
+      // Update Before/After comparison with AI cost metrics
+      document.getElementById('beforeTokenWaste').textContent = tokenWaste + '% of spend';
+      const afterTokenWaste = Math.round(tokenWaste * 0.3);
+      document.getElementById('afterTokenWaste').textContent = '<' + afterTokenWaste + '% of spend';
+      document.getElementById('tokenWasteDelta').textContent = '-' + Math.round(tokenWaste * 0.7) + '%';
+      document.getElementById('beforeAiTools').textContent = aiToolCount + ' tools';
+      document.getElementById('afterAiTools').textContent = 'Unified context';
+      document.getElementById('aiToolsDelta').textContent = '1 control plane';
+      document.getElementById('afterRegen').textContent = '~' + Math.round(40 * (1 - regenReduction/100)) + '% of outputs';
+      
+      // Generate executive summary with AI cost governance data
+      generateSummary(companyName, path, numEngineers, numDesigners, devProductivity, 
+                      annualValue, totalInvestment, threeYearROI, paybackMonths, 
+                      productivityValue, tcoSavings, toolsToConsolidate, multiSystemEnabled, multiSystemValue,
+                      aiApiSpend, tokenWaste, aiTokenSavings, aiToolOverhead, aiToolCount);
+      
+      // Update nav pricing
+      updateNavPricing();
+    }
+    
+    function generateSummary(company, path, engineers, designers, productivity,
+                             annualValue, investment, roi, payback, 
+                             prodValue, tcoValue, tools, multiSystem, multiSystemVal,
+                             aiMonthlySpend, tokenWastePct, aiTokenSavingsVal, aiToolOverheadVal, aiTools) {
+      const pathName = pathPricing[path].name;
+      const pcriScore = document.getElementById('pcriComposite').textContent;
+      const scenarioLabel = currentSensitivity.charAt(0).toUpperCase() + currentSensitivity.slice(1);
+      
+      let multiSystemText = '';
+      if (multiSystem && multiSystemVal > 0) {
+        multiSystemText = `<li>Multi-system reuse efficiency: ${formatCurrencyFull(multiSystemVal)}</li>`;
+      }
+      
+      // Calculate AI cost governance total
+      const aiGovernanceSavings = aiTokenSavingsVal + aiToolOverheadVal;
+      
+      const summary = `
+        <p><strong>Executive Summary for ${company}</strong></p>
+        
+        <p>Based on an organization with <span class="highlight-value">${engineers} engineers</span> and 
+        <span class="highlight-value">${designers} designers</span>, with a PCRI composite score of 
+        <span class="highlight-value">${pcriScore}</span>, implementing Knapsack IPE via the 
+        <strong>${pathName}</strong> path delivers significant measurable value while transforming 
+        your design system team from a cost center into a <strong>value driver</strong> for AI initiatives.</p>
+        
+        <p><strong>Investment:</strong> <span class="highlight-value">${formatCurrencyFull(investment)}</span> (Year 1 total including services and software)</p>
+        
+        <p><strong>Projected Annual Value (${scenarioLabel} Scenario):</strong> <span class="highlight-value">${formatCurrencyFull(annualValue)}</span></p>
+        
+        <p style="margin-top: 12px;"><em>Value Creation (ROI)</em></p>
+        <ul style="margin: 4px 0; padding-left: 20px;">
+          <li>Productivity gains: ${formatCurrencyFull(prodValue)} (${productivity}% developer efficiency improvement)</li>
+          ${multiSystemText}
+        </ul>
+        
+        <p style="margin-top: 12px;"><em>AI Cost Governance (TCO)</em></p>
+        <ul style="margin: 4px 0; padding-left: 20px;">
+          <li>AI token optimization: ${formatCurrencyFull(aiTokenSavingsVal)} (reducing ${tokenWastePct}% token waste from ~$${aiMonthlySpend * 12}/yr spend)</li>
+          <li>AI tool consolidation: ${formatCurrencyFull(aiToolOverheadVal)} (unifying ${aiTools} tools under governed context)</li>
+          <li>Design system consolidation: ${formatCurrencyFull(tcoValue - aiGovernanceSavings)} (consolidating ${tools} tools, reduced maintenance)</li>
+        </ul>
+        
+        <p><strong>Key Metrics:</strong></p>
+        <ul style="margin: 8px 0; padding-left: 20px;">
+          <li>3-Year ROI: <strong>${Math.round(roi)}%</strong></li>
+          <li>Payback Period: <strong>${payback} months</strong></li>
+          <li>3-Year Net Value: <strong>${formatCurrencyFull((annualValue * 3) - investment - (pathPricing[path].software * 2))}</strong></li>
+          <li>AI Cost Governance Savings: <strong>${formatCurrencyFull(aiGovernanceSavings)}/year</strong></li>
+        </ul>
+        
+        <p><strong>Strategic Transformation:</strong></p>
+        <p style="margin: 4px 0; padding-left: 20px; font-style: italic; background: rgba(16, 185, 129, 0.1); padding: 12px; border-radius: 8px;">
+          IPE enables your design system function to control AI costs across the organization—governing tokenized 
+          commercial models and preventing budget overruns from uncontrolled AI adoption. Your buyer becomes a 
+          <strong>value driver</strong> by delivering both productivity gains AND cost control for new AI capabilities.
+        </p>
+        
+        <p><strong>Value Frame (${pathName}):</strong> ${journeyMessaging[path].content}</p>
+        
+        <p><strong>Recommendation:</strong> Based on these projections and a PCRI score of ${pcriScore}, IPE represents a strategic investment that delivers rapid payback, sustained value creation, and positions your team as the enabler of responsible AI adoption. The ${pathName} path aligns with your organization's readiness level and provides appropriate support for successful activation.</p>
+      `;
+      
+      document.getElementById('executiveSummary').innerHTML = summary;
+    }
+    
+    function copyToClipboard() {
+      const summary = document.getElementById('executiveSummary').innerText;
+      navigator.clipboard.writeText(summary).then(() => {
+        alert('Summary copied to clipboard!');
+      });
+    }
+    
+    // ==========================================================================
+    // SHARED INPUT HANDLING
+    // ==========================================================================
+    
+    function applyPresetFromSelect() {
+      const preset = document.getElementById('industryPreset').value;
+      applyPreset(preset);
+    }
+    
+    function syncTCOInputs() {
+      // Sync from ROI tab inputs to TCO tab
+      const currentToolSpend = document.getElementById('currentToolSpend')?.value || 55000;
+      const aiApiSpend = document.getElementById('aiApiSpend')?.value || 8000;
+      const integrationHours = document.getElementById('integrationHours')?.value || 25;
+      const tokenWaste = document.getElementById('tokenWaste')?.value || 35;
+      
+      document.getElementById('tcoCurrentToolSpend').value = currentToolSpend;
+      document.getElementById('tcoAiApiSpend').value = aiApiSpend;
+      document.getElementById('tcoIntegrationHours').value = integrationHours;
+      document.getElementById('tcoTokenWaste').value = tokenWaste;
+      document.getElementById('tcoTokenWasteValue').textContent = tokenWaste + '%';
+      
+      // Sync investment path
+      const path = document.getElementById('investmentPath').value;
+      const pricing = pathPricing[path];
+      document.getElementById('tcoServicesY1').value = pricing.services;
+      document.getElementById('tcoSoftware').value = pricing.software;
+    }
+    
+    function syncTTVInputs() {
+      // Sync PCRI from ROI tab to TTV tab
+      document.getElementById('ttvPcriFoundation').value = document.getElementById('pcriFoundation').value;
+      document.getElementById('ttvPcriAI').value = document.getElementById('pcriAI').value;
+      document.getElementById('ttvPcriGovernance').value = document.getElementById('pcriGovernance').value;
+      document.getElementById('ttvPcriDelivery').value = document.getElementById('pcriDelivery').value;
+      document.getElementById('ttvPcriCulture').value = document.getElementById('pcriCulture').value;
+      
+      // Update bars
+      document.getElementById('ttvFoundationBar').style.width = document.getElementById('ttvPcriFoundation').value + '%';
+      document.getElementById('ttvAiBar').style.width = document.getElementById('ttvPcriAI').value + '%';
+      document.getElementById('ttvGovernanceBar').style.width = document.getElementById('ttvPcriGovernance').value + '%';
+      document.getElementById('ttvDeliveryBar').style.width = document.getElementById('ttvPcriDelivery').value + '%';
+      document.getElementById('ttvCultureBar').style.width = document.getElementById('ttvPcriCulture').value + '%';
+    }
+    
+    // ==========================================================================
+    // TCO CALCULATOR
+    // ==========================================================================
+    
+    function updateTcoSlider(slider) {
+      const valueSpan = document.getElementById(slider.id + 'Value');
+      valueSpan.textContent = slider.value + '%';
+    }
+    
+    function calculateTCO() {
+      const numEngineers = parseInt(document.getElementById('numEngineers').value) || 30;
+      const engineerCost = parseInt(document.getElementById('engineerCost').value) || 180000;
+      const hourlyRate = engineerCost / 2080;
+      
+      // Current state costs
+      const currentToolSpend = parseInt(document.getElementById('tcoCurrentToolSpend').value) || 55000;
+      const aiApiSpend = parseInt(document.getElementById('tcoAiApiSpend').value) || 8000;
+      const integrationHours = parseInt(document.getElementById('tcoIntegrationHours').value) || 25;
+      const contextSwitchHours = parseInt(document.getElementById('tcoContextSwitchHours').value) || 4;
+      const tokenWaste = parseInt(document.getElementById('tcoTokenWaste').value) || 35;
+      
+      // IPE improvements
+      const toolConsolidation = parseInt(document.getElementById('tcoToolConsolidation').value) || 70;
+      const aiEfficiency = parseInt(document.getElementById('tcoAiEfficiency').value) || 60;
+      const maintenanceReduction = parseInt(document.getElementById('tcoMaintenanceReduction').value) || 60;
+      
+      // Get investment path pricing
+      const path = document.getElementById('investmentPath').value;
+      const pricing = pathPricing[path];
+      
+      // Calculate 5-year current state costs
+      const currentTools5yr = currentToolSpend * 5;
+      const currentAi5yr = aiApiSpend * 12 * 5;
+      const currentMaint5yr = integrationHours * 12 * hourlyRate * 5;
+      const currentContext5yr = contextSwitchHours * 52 * numEngineers * hourlyRate * 5;
+      const currentWaste5yr = (aiApiSpend * 12 * (tokenWaste / 100)) * 5;
+      const currentTotal = currentTools5yr + currentAi5yr + currentMaint5yr + currentContext5yr + currentWaste5yr;
+      
+      // Calculate 5-year IPE costs
+      const ipeServices = pricing.services;
+      const ipeSoftware5yr = pricing.software * 5;
+      const ipeTools5yr = currentToolSpend * (1 - toolConsolidation / 100) * 5;
+      const ipeAi5yr = aiApiSpend * 12 * (1 - aiEfficiency / 100) * 5;
+      const ipeMaint5yr = integrationHours * 12 * hourlyRate * (1 - maintenanceReduction / 100) * 5;
+      const ipeTotal = ipeServices + ipeSoftware5yr + ipeTools5yr + ipeAi5yr + ipeMaint5yr;
+      
+      // Calculate savings
+      const totalSavings = currentTotal - ipeTotal;
+      const savingsPercent = Math.round((totalSavings / currentTotal) * 100);
+      
+      // Update display
+      document.getElementById('tco5YearSavings').textContent = formatCurrencyFull(totalSavings);
+      document.getElementById('tco5YearPercent').textContent = savingsPercent + '% lower TCO over 5 years';
+      
+      // Current state column
+      document.getElementById('tcoCurrentTools5yr').textContent = formatCurrencyFull(currentTools5yr);
+      document.getElementById('tcoCurrentAi5yr').textContent = formatCurrencyFull(currentAi5yr);
+      document.getElementById('tcoCurrentMaint5yr').textContent = formatCurrencyFull(currentMaint5yr);
+      document.getElementById('tcoCurrentContext5yr').textContent = formatCurrencyFull(currentContext5yr);
+      document.getElementById('tcoCurrentWaste5yr').textContent = formatCurrencyFull(currentWaste5yr);
+      document.getElementById('tcoCurrentTotal').textContent = formatCurrencyFull(currentTotal);
+      
+      // IPE column
+      document.getElementById('tcoIpeServices').textContent = formatCurrencyFull(ipeServices);
+      document.getElementById('tcoIpeSoftware5yr').textContent = formatCurrencyFull(ipeSoftware5yr);
+      document.getElementById('tcoIpeTools5yr').textContent = formatCurrencyFull(ipeTools5yr);
+      document.getElementById('tcoIpeAi5yr').textContent = formatCurrencyFull(ipeAi5yr);
+      document.getElementById('tcoIpeMaint5yr').textContent = formatCurrencyFull(ipeMaint5yr);
+      document.getElementById('tcoIpeTotal').textContent = formatCurrencyFull(ipeTotal);
+      
+      // Hidden costs
+      document.getElementById('hiddenContextCost').textContent = formatCurrency(currentContext5yr);
+      document.getElementById('hiddenWasteCost').textContent = formatCurrency(currentWaste5yr);
+      document.getElementById('hiddenIntegrationCost').textContent = formatCurrency(currentMaint5yr);
+      
+      // Update chart
+      updateTCOChart(currentTotal, ipeTotal, currentToolSpend, aiApiSpend, pricing, toolConsolidation, aiEfficiency);
+    }
+    
+    function updateTCOChart(currentTotal, ipeTotal, currentToolSpend, aiApiSpend, pricing, toolConsolidation, aiEfficiency) {
+      const ctx = document.getElementById('tcoChart');
+      if (!ctx) return;
+      
+      // Calculate year-by-year costs
+      const years = ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'];
+      const currentCosts = [];
+      const ipeCosts = [];
+      
+      let currentCumulative = 0;
+      let ipeCumulative = 0;
+      
+      for (let i = 0; i < 5; i++) {
+        const yearCurrentCost = currentTotal / 5;
+        currentCumulative += yearCurrentCost;
+        currentCosts.push(currentCumulative);
+        
+        const yearIpeCost = i === 0 
+          ? pricing.services + pricing.software + (currentToolSpend * (1 - toolConsolidation / 100)) + (aiApiSpend * 12 * (1 - aiEfficiency / 100))
+          : pricing.software + (currentToolSpend * (1 - toolConsolidation / 100)) + (aiApiSpend * 12 * (1 - aiEfficiency / 100));
+        ipeCumulative += yearIpeCost;
+        ipeCosts.push(ipeCumulative);
+      }
+      
+      if (tcoChart) {
+        tcoChart.destroy();
+      }
+      
+      tcoChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: years,
+          datasets: [
+            {
+              label: 'Current State (Cumulative)',
+              data: currentCosts,
+              borderColor: '#f87171',
+              backgroundColor: 'rgba(248, 113, 113, 0.1)',
+              fill: true,
+              tension: 0.3
+            },
+            {
+              label: 'With IPE (Cumulative)',
+              data: ipeCosts,
+              borderColor: '#34d399',
+              backgroundColor: 'rgba(52, 211, 153, 0.1)',
+              fill: true,
+              tension: 0.3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: { color: 'rgba(255,255,255,0.8)' }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255,255,255,0.1)' },
+              ticks: { color: 'rgba(255,255,255,0.7)' }
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.1)' },
+              ticks: { 
+                color: 'rgba(255,255,255,0.7)',
+                callback: function(value) {
+                  return '$' + (value / 1000000).toFixed(1) + 'M';
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+    
+    // ==========================================================================
+    // TIME TO VALUE CALCULATOR
+    // ==========================================================================
+    
+    function updateTTV() {
+      const foundation = parseInt(document.getElementById('ttvPcriFoundation').value) || 0;
+      const ai = parseInt(document.getElementById('ttvPcriAI').value) || 0;
+      const governance = parseInt(document.getElementById('ttvPcriGovernance').value) || 0;
+      const delivery = parseInt(document.getElementById('ttvPcriDelivery').value) || 0;
+      const culture = parseInt(document.getElementById('ttvPcriCulture').value) || 0;
+      
+      // Update progress bars
+      document.getElementById('ttvFoundationBar').style.width = foundation + '%';
+      document.getElementById('ttvAiBar').style.width = ai + '%';
+      document.getElementById('ttvGovernanceBar').style.width = governance + '%';
+      document.getElementById('ttvDeliveryBar').style.width = delivery + '%';
+      document.getElementById('ttvCultureBar').style.width = culture + '%';
+      
+      // Calculate composite
+      const composite = Math.round(
+        (foundation * 0.20) + (ai * 0.20) + (governance * 0.20) + (delivery * 0.15) + (culture * 0.25)
+      );
+      
+      document.getElementById('ttvPcriComposite').textContent = composite;
+      
+      // Calculate timeline adjustment
+      let adjustWeeks = 0;
+      if (composite < 40) adjustWeeks = 6;
+      else if (composite < 50) adjustWeeks = 4;
+      else if (composite < 60) adjustWeeks = 2;
+      else if (composite < 70) adjustWeeks = 1;
+      else if (composite >= 80) adjustWeeks = -2;
+      
+      const adjustText = adjustWeeks === 0 ? 'Baseline' : (adjustWeeks > 0 ? '+' + adjustWeeks + ' wks' : adjustWeeks + ' wks');
+      document.getElementById('ttvTimelineAdjust').textContent = adjustText;
+      
+      // Risk level
+      let riskLevel = 'Low';
+      let riskClass = 'j4';
+      if (composite < 45) { riskLevel = 'High'; riskClass = 'j1'; }
+      else if (composite < 60) { riskLevel = 'Moderate'; riskClass = 'j3'; }
+      else if (composite < 75) { riskLevel = 'Low'; riskClass = 'j2'; }
+      else { riskLevel = 'Minimal'; riskClass = 'j4'; }
+      
+      const riskBadge = document.getElementById('ttvRiskLevel');
+      riskBadge.textContent = riskLevel;
+      riskBadge.className = 'path-badge ' + riskClass;
+      
+      // Update timeline estimates
+      const baseFirstValue = 2;
+      const baseFoundation = 6;
+      const baseActivation = 12;
+      const baseScale = 20;
+      
+      const firstValue = Math.max(1, baseFirstValue + Math.floor(adjustWeeks * 0.2));
+      const foundationWeeks = Math.max(4, baseFoundation + Math.floor(adjustWeeks * 0.5));
+      const activationWeeks = Math.max(8, baseActivation + adjustWeeks);
+      const scaleWeeks = Math.max(16, baseScale + Math.floor(adjustWeeks * 1.5));
+      
+      document.getElementById('ttvFirstValue').textContent = firstValue + ' wks';
+      document.getElementById('ttvFoundation').textContent = foundationWeeks + ' wks';
+      document.getElementById('ttvActivation').textContent = activationWeeks + ' wks';
+      document.getElementById('ttvScale').textContent = scaleWeeks + ' wks';
+      
+      // Update phase durations
+      document.getElementById('phase1Duration').textContent = `Week 1-${firstValue}`;
+      document.getElementById('phase2Duration').textContent = `Week ${firstValue + 1}-${foundationWeeks}`;
+      document.getElementById('phase3Duration').textContent = `Week ${foundationWeeks + 1}-${activationWeeks}`;
+      document.getElementById('phase4Duration').textContent = `Week ${activationWeeks + 1}-${scaleWeeks}`;
+      
+      // Update risk factors
+      updateRiskIndicator('risk1', foundation, 50, '+2-4 weeks', '+1-2 weeks', 'Minimal');
+      updateRiskIndicator('risk2', governance, 50, '+2-3 weeks', '+1 week', 'Minimal');
+      updateRiskIndicator('risk3', culture, 50, '+3-4 weeks', '+1-2 weeks', 'Minimal');
+      
+      // Multi-product risk
+      const multiSystem = document.getElementById('multiSystemEnabled')?.checked || false;
+      const risk4Indicator = document.getElementById('risk4Indicator');
+      const risk4Impact = document.getElementById('risk4Impact');
+      if (multiSystem) {
+        risk4Indicator.className = 'risk-indicator medium';
+        risk4Impact.textContent = '+2-6 weeks';
+      } else {
+        risk4Indicator.className = 'risk-indicator low';
+        risk4Impact.textContent = 'N/A';
+      }
+    }
+    
+    function updateRiskIndicator(riskId, score, threshold, highImpact, mediumImpact, lowImpact) {
+      const indicator = document.getElementById(riskId + 'Indicator');
+      const impact = document.getElementById(riskId + 'Impact');
+      
+      if (score < threshold - 10) {
+        indicator.className = 'risk-indicator high';
+        impact.textContent = highImpact;
+      } else if (score < threshold + 10) {
+        indicator.className = 'risk-indicator medium';
+        impact.textContent = mediumImpact;
+      } else {
+        indicator.className = 'risk-indicator low';
+        impact.textContent = lowImpact;
+      }
+    }
+    
+    // ==========================================================================
+    // SUMMARY TAB
+    // ==========================================================================
+    
+    function updateSummary() {
+      const path = document.getElementById('investmentPath').value;
+      const pricing = pathPricing[path];
+      
+      // Get values from ROI calculation
+      const numEngineers = parseInt(document.getElementById('numEngineers').value) || 30;
+      const numDesigners = parseInt(document.getElementById('numDesigners').value) || 10;
+      const engineerCost = parseInt(document.getElementById('engineerCost').value) || 180000;
+      const designerCost = parseInt(document.getElementById('designerCost').value) || 150000;
+      const devProductivity = parseInt(document.getElementById('devProductivity').value) || 30;
+      const regenReduction = parseInt(document.getElementById('regenReduction').value) || 60;
+      const tokenWaste = parseInt(document.getElementById('tokenWaste').value) || 35;
+      const aiApiSpend = parseInt(document.getElementById('aiApiSpend').value) || 8000;
+      const currentToolSpend = parseInt(document.getElementById('currentToolSpend').value) || 55000;
+      
+      // Calculate values
+      const devProdValue = numEngineers * engineerCost * (devProductivity / 100) * 0.5;
+      const designerProdValue = numDesigners * designerCost * 0.15;
+      const tokenSavings = aiApiSpend * 12 * (tokenWaste / 100) * 0.7;
+      const toolSavings = currentToolSpend * 0.7;
+      const totalValue = devProdValue + designerProdValue + tokenSavings + toolSavings;
+      
+      // Investment calculations
+      const y1Total = pricing.services + pricing.software;
+      const y23Software = pricing.software * 2;
+      const total3Yr = y1Total + y23Software;
+      const threeYearValue = totalValue * 3;
+      const threeYearNet = threeYearValue - total3Yr;
+      const threeYearROI = Math.round(((threeYearValue - total3Yr) / total3Yr) * 100);
+      const paybackMonths = Math.ceil(y1Total / (totalValue / 12));
+      
+      // TCO calculations
+      const hourlyRate = engineerCost / 2080;
+      const currentContext5yr = 4 * 52 * numEngineers * hourlyRate * 5;
+      const currentWaste5yr = (aiApiSpend * 12 * (tokenWaste / 100)) * 5;
+      const currentTotal5yr = (currentToolSpend * 5) + (aiApiSpend * 12 * 5) + currentContext5yr + currentWaste5yr;
+      const ipeTotal5yr = pricing.services + (pricing.software * 5) + (currentToolSpend * 0.3 * 5) + (aiApiSpend * 12 * 0.4 * 5);
+      const tcoSavings = currentTotal5yr - ipeTotal5yr;
+      const tcoPercent = Math.round((tcoSavings / currentTotal5yr) * 100);
+      
+      // TTV
+      const composite = parseInt(document.getElementById('pcriComposite')?.textContent || '61');
+      let ttvWeeks = 12;
+      if (composite < 50) ttvWeeks = 16;
+      else if (composite < 60) ttvWeeks = 14;
+      else if (composite >= 75) ttvWeeks = 10;
+      
+      // Update summary cards
+      document.getElementById('summaryRoi').textContent = threeYearROI + '%';
+      document.getElementById('summaryPayback').textContent = paybackMonths;
+      document.getElementById('summaryTcoSavings').textContent = formatCurrency(tcoSavings);
+      document.getElementById('summaryTcoPercent').textContent = tcoPercent + '%';
+      document.getElementById('summaryTtv').textContent = ttvWeeks + ' wks';
+      
+      // Update breakdown tables
+      document.getElementById('summaryDevProd').textContent = formatCurrencyFull(devProdValue);
+      document.getElementById('summaryDesignerProd').textContent = formatCurrencyFull(designerProdValue);
+      document.getElementById('summaryTokenSavings').textContent = formatCurrencyFull(tokenSavings);
+      document.getElementById('summaryToolSavings').textContent = formatCurrencyFull(toolSavings);
+      document.getElementById('summaryTotalValue').textContent = formatCurrencyFull(totalValue);
+      
+      document.getElementById('summaryServices').textContent = formatCurrencyFull(pricing.services);
+      document.getElementById('summarySoftwareY1').textContent = formatCurrencyFull(pricing.software);
+      document.getElementById('summaryY1Total').textContent = formatCurrencyFull(y1Total);
+      document.getElementById('summarySoftwareY23').textContent = formatCurrencyFull(y23Software);
+      document.getElementById('summary3YrTotal').textContent = formatCurrencyFull(total3Yr);
+      document.getElementById('summary3YrNet').textContent = formatCurrencyFull(threeYearNet);
+      
+      // Generate executive summary
+      generateSummary(
+        document.getElementById('companyName').value || 'the organization',
+        path, numEngineers, numDesigners, devProductivity,
+        totalValue, y1Total, threeYearROI, paybackMonths,
+        devProdValue + designerProdValue, tokenSavings + toolSavings, 4, false, 0,
+        aiApiSpend, tokenWaste, tokenSavings, 0, 5
+      );
+    }
+    
+    // ==========================================================================
+    // NAV PRICING UPDATE
+    // ==========================================================================
+    
+    function updateNavPricing() {
+      const path = document.getElementById('investmentPath').value;
+      const pricing = pathPricing[path];
+      document.getElementById('navServicesCost').textContent = formatCurrency(pricing.services);
+      document.getElementById('navSoftwareCost').textContent = formatCurrency(pricing.software);
+    }
+    
+    // Override calculate to also update nav
+    const originalCalculate = typeof calculate === 'function' ? calculate : null;
+    
+    // ==========================================================================
+    // QUERY PARAMETER HANDLING (for integration with Proactive Business Case)
+    // ==========================================================================
+    
+    function parseQueryParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        company: params.get('company'),
+        numEngineers: params.get('numEngineers'),
+        numDesigners: params.get('numDesigners'),
+        industryPreset: params.get('industryPreset'),
+        investmentPath: params.get('investmentPath'),
+        pcriFoundation: params.get('pcriFoundation'),
+        pcriAI: params.get('pcriAI'),
+        pcriGovernance: params.get('pcriGovernance'),
+        pcriDelivery: params.get('pcriDelivery'),
+        pcriCulture: params.get('pcriCulture'),
+        source: params.get('source')
+      };
+    }
+    
+    function applyQueryParams(params) {
+      let hasParams = false;
+      
+      // Apply company name
+      if (params.company) {
+        document.getElementById('companyName').value = params.company;
+        hasParams = true;
+      }
+      
+      // Apply team size
+      if (params.numEngineers) {
+        document.getElementById('numEngineers').value = params.numEngineers;
+        hasParams = true;
+      }
+      if (params.numDesigners) {
+        document.getElementById('numDesigners').value = params.numDesigners;
+        hasParams = true;
+      }
+      
+      // Apply industry preset
+      if (params.industryPreset && params.industryPreset !== 'custom') {
+        document.getElementById('industryPreset').value = params.industryPreset;
+        // Apply some preset values but keep custom PCRI scores
+        const preset = industryPresets[params.industryPreset];
+        if (preset) {
+          document.getElementById('engineerCost').value = preset.engineerCost;
+          document.getElementById('designerCost').value = preset.designerCost;
+          document.getElementById('currentToolSpend').value = preset.currentToolSpend;
+          document.getElementById('integrationHours').value = preset.integrationHours;
+          document.getElementById('toolsToConsolidate').value = preset.toolsToConsolidate;
+          document.getElementById('aiApiSpend').value = preset.aiApiSpend;
+          document.getElementById('tokenWaste').value = preset.tokenWaste;
+          document.getElementById('tokenWasteValue').textContent = preset.tokenWaste + '%';
+          document.getElementById('aiToolCount').value = preset.aiToolCount;
+          document.getElementById('devProductivity').value = preset.devProductivity;
+          document.getElementById('devProductivityValue').textContent = preset.devProductivity + '%';
+          document.getElementById('regenReduction').value = preset.regenReduction;
+          document.getElementById('regenReductionValue').textContent = preset.regenReduction + '%';
+          document.getElementById('dsAdoption').value = preset.dsAdoption;
+          document.getElementById('dsAdoptionValue').textContent = (preset.dsAdoption / 100).toFixed(1) + 'x';
+        }
+        hasParams = true;
+      }
+      
+      // Apply investment path
+      if (params.investmentPath) {
+        document.getElementById('investmentPath').value = params.investmentPath;
+        hasParams = true;
+      }
+      
+      // Apply PCRI scores (override preset values)
+      if (params.pcriFoundation) {
+        document.getElementById('pcriFoundation').value = params.pcriFoundation;
+        hasParams = true;
+      }
+      if (params.pcriAI) {
+        document.getElementById('pcriAI').value = params.pcriAI;
+        hasParams = true;
+      }
+      if (params.pcriGovernance) {
+        document.getElementById('pcriGovernance').value = params.pcriGovernance;
+        hasParams = true;
+      }
+      if (params.pcriDelivery) {
+        document.getElementById('pcriDelivery').value = params.pcriDelivery;
+        hasParams = true;
+      }
+      if (params.pcriCulture) {
+        document.getElementById('pcriCulture').value = params.pcriCulture;
+        hasParams = true;
+      }
+      
+      // Show notification if loaded from proactive business case
+      if (params.source === 'proactive' && params.company) {
+        showProactiveNotification(params.company);
+      }
+      
+      return hasParams;
+    }
+    
+    function showProactiveNotification(companyName) {
+      // Create notification element
+      const notification = document.createElement('div');
+      notification.innerHTML = `
+        <div style="
+          position: fixed;
+          top: 80px;
+          right: 24px;
+          background: linear-gradient(145deg, rgba(249, 115, 22, 0.15), rgba(22, 33, 62, 0.95));
+          border: 1px solid rgba(249, 115, 22, 0.4);
+          border-radius: 12px;
+          padding: 16px 20px;
+          max-width: 380px;
+          z-index: 1000;
+          animation: slideIn 0.3s ease;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        ">
+          <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div style="
+              width: 36px;
+              height: 36px;
+              background: rgba(249, 115, 22, 0.2);
+              border-radius: 8px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+            ">
+              <i data-lucide="zap" style="width: 18px; height: 18px; color: #fb923c;"></i>
+            </div>
+            <div style="flex: 1;">
+              <div style="font-weight: 600; color: #fb923c; margin-bottom: 4px;">
+                Pre-populated from Account Data
+              </div>
+              <div style="font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.5;">
+                This calculator has been pre-filled with estimated values for <strong>${companyName}</strong>. 
+                Adjust inputs to refine the business case after completing a PCRI assessment.
+              </div>
+            </div>
+            <button onclick="this.parentElement.parentElement.remove()" style="
+              background: transparent;
+              border: none;
+              color: rgba(255,255,255,0.5);
+              cursor: pointer;
+              padding: 4px;
+            ">
+              <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+            </button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(notification);
+      lucide.createIcons();
+      
+      // Auto-dismiss after 10 seconds
+      setTimeout(() => {
+        notification.remove();
+      }, 10000);
+    }
+    
+    // Add animation keyframes
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from { opacity: 0; transform: translateX(50px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check for query parameters first
+      const params = parseQueryParams();
+      const hasParams = applyQueryParams(params);
+      
+      // Update PCRI display and calculations
+      updatePCRI();
+      calculate();
+      updateNavPricing();
+      
+      // Set initial risk indicators
+      updateTTV();
+      
+      // Expand shared inputs panel if loaded from proactive business case
+      if (hasParams && params.source === 'proactive') {
+        const body = document.getElementById('sharedInputsBody');
+        const chevron = document.getElementById('sharedInputsChevron');
+        const toggleText = document.getElementById('sharedInputsToggleText');
+        body.classList.remove('collapsed');
+        chevron.style.transform = 'rotate(180deg)';
+        toggleText.textContent = 'Click to collapse';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPE Account Intelligence | Knapsack GTM</title>
+  <meta name="description" content="Pipeline and account intelligence for BDRs and AEs — PCRI-aligned engagement guidance">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --bg-base: #0a0a12;
+      --bg-surface: rgba(17, 17, 28, 0.95);
+      --bg-elevated: rgba(26, 26, 42, 0.9);
+      --border-subtle: rgba(99, 102, 241, 0.15);
+      --border-accent: rgba(99, 102, 241, 0.4);
+      --text-primary: #f8fafc;
+      --text-secondary: rgba(248, 250, 252, 0.8);
+      --text-muted: rgba(248, 250, 252, 0.5);
+      --accent-indigo: #6366f1;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-cyan: #06b6d4;
+    }
+    
+    *, *::before, *::after { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 100% 60% at 50% -10%, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 40% at 100% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 40% at 0% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    
+    .glass {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      backdrop-filter: blur(12px);
+    }
+    
+    .glass-elevated {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-accent);
+      backdrop-filter: blur(16px);
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.3); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.5); }
+    
+    /* Journey badges */
+    .journey-j1 { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border-color: rgba(99, 102, 241, 0.4); }
+    .journey-j2 { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border-color: rgba(16, 185, 129, 0.4); }
+    .journey-j3 { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border-color: rgba(245, 158, 11, 0.4); }
+    .journey-j4 { background: rgba(6, 182, 212, 0.2); color: #67e8f9; border-color: rgba(6, 182, 212, 0.4); }
+    
+    /* Tier badges */
+    .tier-1 { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; }
+    .tier-2 { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; }
+    .tier-3 { background: rgba(148, 163, 184, 0.15); color: #cbd5e1; }
+    
+    /* Readiness bands */
+    .readiness-a { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+    .readiness-b { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+    .readiness-c { background: rgba(244, 63, 94, 0.2); color: #fda4af; }
+    
+    /* Record types */
+    .type-customer { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; }
+    .type-target { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; }
+    .type-prospect { background: rgba(6, 182, 212, 0.15); color: #67e8f9; }
+    .type-churned { background: rgba(244, 63, 94, 0.15); color: #fda4af; }
+    
+    /* Priority badges */
+    .priority-p1 { background: rgba(16, 185, 129, 0.3); color: #6ee7b7; }
+    .priority-p2 { background: rgba(99, 102, 241, 0.3); color: #a5b4fc; }
+    .priority-p3 { background: rgba(245, 158, 11, 0.3); color: #fcd34d; }
+    .priority-p4 { background: rgba(148, 163, 184, 0.2); color: #cbd5e1; }
+    
+    .account-row {
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+    
+    .account-row:hover {
+      background: rgba(99, 102, 241, 0.08);
+      transform: translateX(2px);
+    }
+    
+    .account-row.selected {
+      background: rgba(99, 102, 241, 0.15);
+      border-left: 3px solid var(--accent-indigo);
+    }
+    
+    .filter-btn {
+      transition: all 0.15s ease;
+    }
+    
+    .filter-btn:hover {
+      background: rgba(99, 102, 241, 0.2);
+    }
+    
+    .filter-btn.active {
+      background: rgba(99, 102, 241, 0.3);
+      border-color: var(--accent-indigo);
+    }
+    
+    .discovery-question {
+      background: rgba(6, 182, 212, 0.08);
+      border-left: 2px solid var(--accent-cyan);
+    }
+    
+    .outbound-card {
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      transition: all 0.15s ease;
+    }
+    
+    .outbound-card:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-2px);
+    }
+    
+    .copy-btn {
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+    
+    .outbound-card:hover .copy-btn {
+      opacity: 1;
+    }
+    
+    /* Maturity bar */
+    .maturity-bar {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    
+    .maturity-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-in {
+      animation: fadeIn 0.2s ease forwards;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Navigation -->
+  <nav class="glass sticky top-0 z-50 border-b border-[var(--border-subtle)]">
+    <div class="max-w-[1600px] mx-auto px-4 py-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center">
+              <i data-lucide="layers" class="w-4 h-4 text-white"></i>
+            </div>
+            <span class="font-semibold text-lg">IPE Account Intelligence</span>
+          </div>
+          <span class="text-[var(--text-muted)] text-sm">|</span>
+          <span class="text-[var(--text-muted)] text-sm font-mono" id="totalAccountCount">Loading...</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="playbook_feedback.html" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--accent-indigo)]/20 text-indigo-300 text-sm font-medium hover:bg-[var(--accent-indigo)]/30 transition">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            Playbook Feedback
+          </a>
+          <a href="ipe_fss.html" class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] text-sm font-medium hover:border-[var(--border-accent)] transition">
+            <i data-lucide="building-2" class="w-4 h-4"></i>
+            FS Programs
+          </a>
+          <a href="gtm_playbook.html" class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] text-sm font-medium hover:border-[var(--border-accent)] transition">
+            <i data-lucide="book-open" class="w-4 h-4"></i>
+            GTM Playbook
+          </a>
+          <span class="text-[var(--text-muted)] text-xs font-mono">v1.0 · Feb 2026</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-[1600px] mx-auto px-4 py-6 relative z-10">
+    <div class="grid grid-cols-12 gap-6">
+      <!-- Left Panel: Account List -->
+      <div class="col-span-4 space-y-4">
+        <!-- Search & Filters -->
+        <div class="glass rounded-xl p-4 space-y-4">
+          <div class="relative">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]"></i>
+            <input 
+              type="text" 
+              id="searchInput" 
+              placeholder="Search accounts..." 
+              class="w-full pl-10 pr-4 py-2.5 bg-[var(--bg-base)] border border-[var(--border-subtle)] rounded-lg text-sm focus:outline-none focus:border-[var(--accent-indigo)] transition"
+            >
+          </div>
+          
+          <!-- Quick Filters -->
+          <div class="space-y-3">
+            <div class="flex flex-wrap gap-2">
+              <button class="filter-btn active px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] text-xs font-medium" data-filter="all" data-filter-type="record">All</button>
+              <button class="filter-btn type-customer px-3 py-1.5 rounded-lg border border-transparent text-xs font-medium" data-filter="Customer" data-filter-type="record">Customers</button>
+              <button class="filter-btn type-target px-3 py-1.5 rounded-lg border border-transparent text-xs font-medium" data-filter="Target" data-filter-type="record">Targets</button>
+              <button class="filter-btn type-prospect px-3 py-1.5 rounded-lg border border-transparent text-xs font-medium" data-filter="Prospect" data-filter-type="record">Prospects</button>
+              <button class="filter-btn type-churned px-3 py-1.5 rounded-lg border border-transparent text-xs font-medium" data-filter="Churned" data-filter-type="record">Churned</button>
+            </div>
+            
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs text-[var(--text-muted)] self-center mr-1">Journey:</span>
+              <button class="filter-btn journey-j1 px-2.5 py-1 rounded border text-xs font-mono font-medium" data-filter="J1" data-filter-type="journey">J1</button>
+              <button class="filter-btn journey-j2 px-2.5 py-1 rounded border text-xs font-mono font-medium" data-filter="J2" data-filter-type="journey">J2</button>
+              <button class="filter-btn journey-j3 px-2.5 py-1 rounded border text-xs font-mono font-medium" data-filter="J3" data-filter-type="journey">J3</button>
+              <button class="filter-btn journey-j4 px-2.5 py-1 rounded border text-xs font-mono font-medium" data-filter="J4" data-filter-type="journey">J4</button>
+            </div>
+            
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs text-[var(--text-muted)] self-center mr-1">Tier:</span>
+              <button class="filter-btn tier-1 px-2.5 py-1 rounded text-xs font-medium" data-filter="Tier 1" data-filter-type="tier">Tier 1</button>
+              <button class="filter-btn tier-2 px-2.5 py-1 rounded text-xs font-medium" data-filter="Tier 2" data-filter-type="tier">Tier 2</button>
+              <button class="filter-btn tier-3 px-2.5 py-1 rounded text-xs font-medium" data-filter="Tier 3" data-filter-type="tier">Tier 3</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Account List -->
+        <div class="glass rounded-xl overflow-hidden">
+          <div class="px-4 py-3 border-b border-[var(--border-subtle)] flex items-center justify-between">
+            <span class="text-sm font-semibold">Accounts</span>
+            <span class="text-xs text-[var(--text-muted)] font-mono" id="accountCount">158 accounts</span>
+          </div>
+          <div class="max-h-[calc(100vh-320px)] overflow-y-auto" id="accountList">
+            <!-- Accounts will be rendered here -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Panel: Account Detail -->
+      <div class="col-span-8 space-y-4" id="detailPanel">
+        <!-- Welcome state -->
+        <div class="glass rounded-xl p-12 text-center" id="welcomeState">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-cyan-500/20 flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="building-2" class="w-8 h-8 text-indigo-400"></i>
+          </div>
+          <h2 class="text-xl font-semibold mb-2">Select an Account</h2>
+          <p class="text-[var(--text-muted)] max-w-md mx-auto">Choose an account from the list to view PCRI scores, journey messaging, discovery questions, and outbound sequences.</p>
+        </div>
+        
+        <!-- Account Detail (hidden by default) -->
+        <div id="accountDetail" class="hidden space-y-4 animate-in">
+          <!-- Header Card -->
+          <div class="glass-elevated rounded-xl p-6">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <div class="flex items-center gap-3 mb-2">
+                  <h1 class="text-2xl font-bold" id="detailCompanyName">Company Name</h1>
+                  <span class="px-2 py-0.5 rounded text-xs font-medium" id="detailRecordType">Target</span>
+                  <span class="px-2 py-0.5 rounded text-xs font-mono font-semibold" id="detailPriority">P2</span>
+                </div>
+                <p class="text-[var(--text-secondary)]" id="detailWhyTarget">Why we're targeting this account</p>
+              </div>
+              <div class="flex gap-2">
+                <span class="px-3 py-1 rounded-lg text-sm font-medium" id="detailTier">Tier 1</span>
+                <span class="px-3 py-1 rounded-lg border text-sm font-mono font-semibold" id="detailJourney">J3</span>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-4 gap-4">
+              <div class="bg-[var(--bg-base)] rounded-lg p-3">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Industry</p>
+                <p class="text-sm font-medium" id="detailIndustry">Financial Services</p>
+              </div>
+              <div class="bg-[var(--bg-base)] rounded-lg p-3">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Segment</p>
+                <p class="text-sm font-medium" id="detailSegment">Enterprise Software</p>
+              </div>
+              <div class="bg-[var(--bg-base)] rounded-lg p-3">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Company Size</p>
+                <p class="text-sm font-medium" id="detailSize">10k-49.9k</p>
+              </div>
+              <div class="bg-[var(--bg-base)] rounded-lg p-3">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Developer Scale</p>
+                <p class="text-sm font-medium" id="detailDevScale">500+ devs</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Readiness & Maturity -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="glass rounded-xl p-5">
+              <h3 class="text-sm font-semibold mb-3 flex items-center gap-2">
+                <i data-lucide="gauge" class="w-4 h-4 text-indigo-400"></i>
+                Readiness Assessment
+              </h3>
+              <div class="flex items-center gap-4 mb-4">
+                <div class="text-4xl font-bold font-mono" id="detailReadinessScore">85</div>
+                <div>
+                  <span class="px-2 py-0.5 rounded text-xs font-medium" id="detailReadinessBand">A (Fast-path)</span>
+                  <p class="text-xs text-[var(--text-muted)] mt-1" id="detailCampaignMotion">Fast IPE Activation</p>
+                </div>
+              </div>
+              <div class="maturity-bar">
+                <div class="maturity-fill bg-gradient-to-r from-indigo-500 to-emerald-500" id="readinessBar" style="width: 85%"></div>
+              </div>
+            </div>
+            
+            <div class="glass rounded-xl p-5">
+              <h3 class="text-sm font-semibold mb-3 flex items-center gap-2">
+                <i data-lucide="layers" class="w-4 h-4 text-cyan-400"></i>
+                Design System Maturity
+              </h3>
+              <div class="flex items-center gap-4 mb-4">
+                <div class="text-4xl font-bold font-mono" id="detailMaturityScore">4</div>
+                <div>
+                  <p class="text-sm text-[var(--text-secondary)]" id="detailDesignSystem">Polaris (public)</p>
+                  <p class="text-xs text-[var(--text-muted)]" id="detailDSUrl"></p>
+                </div>
+              </div>
+              <div class="flex gap-1">
+                <div class="flex-1 h-2 rounded bg-emerald-500/80" id="maturity1"></div>
+                <div class="flex-1 h-2 rounded bg-emerald-500/80" id="maturity2"></div>
+                <div class="flex-1 h-2 rounded bg-emerald-500/80" id="maturity3"></div>
+                <div class="flex-1 h-2 rounded bg-emerald-500/30" id="maturity4"></div>
+                <div class="flex-1 h-2 rounded bg-emerald-500/30" id="maturity5"></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Forecast -->
+          <div class="glass rounded-xl p-5">
+            <h3 class="text-sm font-semibold mb-4 flex items-center gap-2">
+              <i data-lucide="trending-up" class="w-4 h-4 text-emerald-400"></i>
+              Forecast
+            </h3>
+            <div class="grid grid-cols-4 gap-4">
+              <div class="bg-[var(--bg-base)] rounded-lg p-4 text-center">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Platform ARR</p>
+                <p class="text-xl font-bold font-mono text-emerald-400" id="detailPlatformARR">$467K</p>
+              </div>
+              <div class="bg-[var(--bg-base)] rounded-lg p-4 text-center">
+                <p class="text-xs text-[var(--text-muted)] mb-1">TCV (Year 1)</p>
+                <p class="text-xl font-bold font-mono text-indigo-400" id="detailTCV">$1.15M</p>
+              </div>
+              <div class="bg-[var(--bg-base)] rounded-lg p-4 text-center">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Win Probability</p>
+                <p class="text-xl font-bold font-mono text-amber-400" id="detailWinProb">80%</p>
+              </div>
+              <div class="bg-[var(--bg-base)] rounded-lg p-4 text-center">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Current ARR</p>
+                <p class="text-xl font-bold font-mono text-cyan-400" id="detailCurrentARR">$125K</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Deployment & AI -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="glass rounded-xl p-5">
+              <h3 class="text-sm font-semibold mb-3 flex items-center gap-2">
+                <i data-lucide="server" class="w-4 h-4 text-amber-400"></i>
+                Deployment
+              </h3>
+              <div class="space-y-2">
+                <div class="flex justify-between text-sm">
+                  <span class="text-[var(--text-muted)]">Model</span>
+                  <span id="detailDeployModel">SaaS (Dedicated Single-Tenant)</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-[var(--text-muted)]">Constraints</span>
+                  <span class="text-right max-w-[200px]" id="detailDeployConstraints">Strict change control</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="glass rounded-xl p-5">
+              <h3 class="text-sm font-semibold mb-3 flex items-center gap-2">
+                <i data-lucide="bot" class="w-4 h-4 text-purple-400"></i>
+                AI Signal
+              </h3>
+              <p class="text-sm" id="detailAISignal">Copilot deployment, AI labs</p>
+            </div>
+          </div>
+          
+          <!-- Journey Messaging -->
+          <div class="glass rounded-xl p-5">
+            <h3 class="text-sm font-semibold mb-4 flex items-center gap-2">
+              <i data-lucide="message-square" class="w-4 h-4 text-indigo-400"></i>
+              Journey Messaging
+              <span class="px-2 py-0.5 rounded border text-xs font-mono" id="detailJourneyBadge">J3</span>
+            </h3>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+              <div class="bg-[var(--bg-base)] rounded-lg p-4">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Target Persona</p>
+                <p class="text-sm" id="journeyWho">High-value ICP blocked on activation/trust</p>
+              </div>
+              <div class="bg-[var(--bg-base)] rounded-lg p-4">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Primary Goal</p>
+                <p class="text-sm" id="journeyGoal">Activation sequencing → control plane</p>
+              </div>
+            </div>
+            <div class="bg-gradient-to-r from-indigo-500/10 to-cyan-500/10 rounded-lg p-4 border border-indigo-500/20">
+              <p class="text-xs text-indigo-300 mb-1">Core Message</p>
+              <p class="text-sm font-medium" id="journeyMessage">Your AI is scaling faster than product governance—activate the control plane first.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mt-4">
+              <div class="bg-[var(--bg-base)] rounded-lg p-4">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Offer / CTA</p>
+                <p class="text-sm" id="journeyOffer">Activation Assessment</p>
+              </div>
+              <div class="bg-[var(--bg-base)] rounded-lg p-4">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Outbound Angle</p>
+                <p class="text-sm" id="journeyAngle">Pattern interrupt; risk framing</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Industry-Specific Messaging -->
+          <div class="glass rounded-xl p-5" id="industryMessagingSection">
+            <h3 class="text-sm font-semibold mb-4 flex items-center gap-2">
+              <i data-lucide="briefcase" class="w-4 h-4 text-amber-400"></i>
+              Industry-Specific Angle
+              <span class="text-xs text-[var(--text-muted)]" id="industryLabel">Financial Services</span>
+            </h3>
+            <div class="bg-amber-500/10 rounded-lg p-4 border border-amber-500/20">
+              <p class="text-sm" id="industryAngle">Risk + sequencing (activate first) — auditability, regulatory, DS compliance</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mt-4">
+              <div class="bg-[var(--bg-base)] rounded-lg p-4">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Primary Proof</p>
+                <p class="text-sm" id="industryProof">Implemented≠Activated; DS compliance</p>
+              </div>
+              <div class="bg-[var(--bg-base)] rounded-lg p-4">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Primary Offer</p>
+                <p class="text-sm" id="industryOffer">Activation Assessment</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Discovery Questions -->
+          <div class="glass rounded-xl p-5">
+            <h3 class="text-sm font-semibold mb-4 flex items-center gap-2">
+              <i data-lucide="help-circle" class="w-4 h-4 text-cyan-400"></i>
+              Discovery Questions
+            </h3>
+            <div class="space-y-2" id="discoveryQuestions">
+              <!-- Questions will be rendered here -->
+            </div>
+          </div>
+          
+          <!-- Outbound Sequences -->
+          <div class="glass rounded-xl p-5">
+            <h3 class="text-sm font-semibold mb-4 flex items-center gap-2">
+              <i data-lucide="send" class="w-4 h-4 text-indigo-400"></i>
+              Outbound Sequence
+            </h3>
+            <div class="grid grid-cols-2 gap-3" id="outboundSequence">
+              <!-- Sequences will be rendered here -->
+            </div>
+          </div>
+          
+          <!-- Customer Health (for existing customers) -->
+          <div class="glass rounded-xl p-5" id="customerHealthSection">
+            <h3 class="text-sm font-semibold mb-4 flex items-center gap-2">
+              <i data-lucide="heart-pulse" class="w-4 h-4 text-rose-400"></i>
+              Customer Health
+            </h3>
+            <div class="grid grid-cols-4 gap-4">
+              <div class="bg-[var(--bg-base)] rounded-lg p-4">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Risk Level</p>
+                <p class="text-sm font-medium" id="detailRiskLevel">Low</p>
+              </div>
+              <div class="bg-[var(--bg-base)] rounded-lg p-4">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Relationship</p>
+                <p class="text-sm font-medium" id="detailRelationship">Strong</p>
+              </div>
+              <div class="bg-[var(--bg-base)] rounded-lg p-4">
+                <p class="text-xs text-[var(--text-muted)] mb-1">Product Sentiment</p>
+                <p class="text-sm font-medium" id="detailSentiment">Positive</p>
+              </div>
+              <div class="bg-[var(--bg-base)] rounded-lg p-4">
+                <p class="text-xs text-[var(--text-muted)] mb-1">MCP/IPE Interest</p>
+                <p class="text-sm font-medium" id="detailMCPInterest">High</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load external data file -->
+  <script src="ipe_accounts_data.js"></script>
+  
+  <script>
+    // === JOURNEY & OUTBOUND DATA ===
+    const journeyMessaging = [{"Journey": "J1", "Who": "Non-ICP or low readiness; AI-native or early product system maturity", "Primary goal": "Educate & build credibility (no platform pressure)", "Core message": "AI execution fails without operational product intent (design → rules → enforcement).", "Offer / CTA": "Maturity POV + readiness checklist", "Content themes": "Maturity model; governance basics; product knowledge ops", "Outbound angle": "Research/POV; share checklist; low-stakes conversation"}, {"Journey": "J2", "Who": "Mature product system + strong AI; exec trigger; expansion-ready", "Primary goal": "Fast activation + lighthouse win", "Core message": "Activate IPE fast—governed change + measurable ROI in ~90 days.", "Offer / CTA": "IPE Activation Sprint", "Content themes": "90-day activation plan; reference architectures; executive ROI brief", "Outbound angle": "Time-bound activation; exec alignment; ship one governed change end-to-end"}, {"Journey": "J3", "Who": "High-value ICP blocked on activation/trust; AI scaling faster than governance", "Primary goal": "Activation sequencing → control plane → expansion", "Core message": "Your AI is scaling faster than product governance—activate the control plane first.", "Offer / CTA": "Activation Assessment → Context & Control Foundation", "Content themes": "AI drift vs DS; trust repair; governance operating model; token strategy", "Outbound angle": "Pattern interrupt; risk framing; implemented ≠ activated; assessment-first"}, {"Journey": "J4", "Who": "Mature systems; latent interest; needs trigger (reorg, mandate, consolidation)", "Primary goal": "Be ready when trigger hits", "Core message": "When the trigger hits, speed matters—pre-align an executive activation package.", "Offer / CTA": "Executive Activation Readiness Brief (trigger kit)", "Content themes": "Trigger readiness; reorg/M&A playbooks; fast activation plan", "Outbound angle": "Preparedness; don't start from zero; brief + template"}];
+    
+    const journeyIndustryMatrix = [{"Industry": "Financial Services", "Journey": "J1", "Message Angle": "POV + maturity education (auditability, regulatory, DS compliance)", "Primary Proof": "Maturity model + governance basics", "Primary Offer": "Checklist / POV brief"}, {"Industry": "Financial Services", "Journey": "J2", "Message Angle": "Fast activation + ROI (auditability, regulatory, DS compliance)", "Primary Proof": "90-day activation plan + reference architecture", "Primary Offer": "Activation Sprint"}, {"Industry": "Financial Services", "Journey": "J3", "Message Angle": "Risk + sequencing (activate first) (auditability, regulatory, DS compliance)", "Primary Proof": "Implemented≠Activated; DS compliance; auditability", "Primary Offer": "Activation Assessment"}, {"Industry": "Financial Services", "Journey": "J4", "Message Angle": "Trigger readiness (auditability, regulatory, DS compliance)", "Primary Proof": "Reorg/consolidation playbooks", "Primary Offer": "Exec Readiness Brief"}, {"Industry": "Enterprise Software", "Journey": "J1", "Message Angle": "POV + maturity education (platform sprawl, cross-product governance)", "Primary Proof": "Maturity model + governance basics", "Primary Offer": "Checklist / POV brief"}, {"Industry": "Enterprise Software", "Journey": "J2", "Message Angle": "Fast activation + ROI (platform sprawl, cross-product governance)", "Primary Proof": "90-day activation plan + reference architecture", "Primary Offer": "Activation Sprint"}, {"Industry": "Enterprise Software", "Journey": "J3", "Message Angle": "Risk + sequencing (activate first) (platform sprawl, cross-product governance)", "Primary Proof": "Implemented≠Activated; DS compliance; auditability", "Primary Offer": "Activation Assessment"}, {"Industry": "Enterprise Software", "Journey": "J4", "Message Angle": "Trigger readiness (platform sprawl, cross-product governance)", "Primary Proof": "Reorg/consolidation playbooks", "Primary Offer": "Exec Readiness Brief"}, {"Industry": "Healthcare / Life Sciences", "Journey": "J1", "Message Angle": "POV + maturity education (compliance, safety, multi-product governance)", "Primary Proof": "Maturity model + governance basics", "Primary Offer": "Checklist / POV brief"}, {"Industry": "Healthcare / Life Sciences", "Journey": "J2", "Message Angle": "Fast activation + ROI (compliance, safety, multi-product governance)", "Primary Proof": "90-day activation plan + reference architecture", "Primary Offer": "Activation Sprint"}, {"Industry": "Healthcare / Life Sciences", "Journey": "J3", "Message Angle": "Risk + sequencing (activate first) (compliance, safety, multi-product governance)", "Primary Proof": "Implemented≠Activated; DS compliance; auditability", "Primary Offer": "Activation Assessment"}, {"Industry": "Healthcare / Life Sciences", "Journey": "J4", "Message Angle": "Trigger readiness (compliance, safety, multi-product governance)", "Primary Proof": "Reorg/consolidation playbooks", "Primary Offer": "Exec Readiness Brief"}, {"Industry": "Retail / E-commerce", "Journey": "J1", "Message Angle": "POV + maturity education (omnichannel consistency, propagation speed)", "Primary Proof": "Maturity model + governance basics", "Primary Offer": "Checklist / POV brief"}, {"Industry": "Retail / E-commerce", "Journey": "J2", "Message Angle": "Fast activation + ROI (omnichannel consistency, propagation speed)", "Primary Proof": "90-day activation plan + reference architecture", "Primary Offer": "Activation Sprint"}, {"Industry": "Retail / E-commerce", "Journey": "J3", "Message Angle": "Risk + sequencing (activate first) (omnichannel consistency, propagation speed)", "Primary Proof": "Implemented≠Activated; DS compliance; auditability", "Primary Offer": "Activation Assessment"}, {"Industry": "Retail / E-commerce", "Journey": "J4", "Message Angle": "Trigger readiness (omnichannel consistency, propagation speed)", "Primary Proof": "Reorg/consolidation playbooks", "Primary Offer": "Exec Readiness Brief"}, {"Industry": "Telecommunications / Media", "Journey": "J1", "Message Angle": "POV + maturity education (multi-brand surfaces, speed vs governance)", "Primary Proof": "Maturity model + governance basics", "Primary Offer": "Checklist / POV brief"}, {"Industry": "Telecommunications / Media", "Journey": "J2", "Message Angle": "Fast activation + ROI (multi-brand surfaces, speed vs governance)", "Primary Proof": "90-day activation plan + reference architecture", "Primary Offer": "Activation Sprint"}, {"Industry": "Telecommunications / Media", "Journey": "J3", "Message Angle": "Risk + sequencing (activate first) (multi-brand surfaces, speed vs governance)", "Primary Proof": "Implemented≠Activated; DS compliance; auditability", "Primary Offer": "Activation Assessment"}, {"Industry": "Telecommunications / Media", "Journey": "J4", "Message Angle": "Trigger readiness (multi-brand surfaces, speed vs governance)", "Primary Proof": "Reorg/consolidation playbooks", "Primary Offer": "Exec Readiness Brief"}];
+    
+    const outboundSequences = [{"Journey": "J3", "Step": "Email 1", "Subject/Hook": "AI is scaling faster than governance", "Message": "AI output scales, but design intent + governance don't. We help activate product systems as control planes so AI ships compliant change safely. Open to compare notes?"}, {"Journey": "J3", "Step": "LinkedIn 1", "Subject/Hook": "AI drift vs DS", "Message": "Seeing teams hit 'AI output drift' vs design standards. How are you handling that at {{Company}}?"}, {"Journey": "J3", "Step": "Email 2", "Subject/Hook": "Implemented ≠ Activated", "Message": "Most teams are implemented, not activated: intent enforced, auditable, propagated. Want a 1-page activation checklist?"}, {"Journey": "J3", "Step": "Email 3", "Subject/Hook": "Low-lift assessment", "Message": "We can run a short activation assessment: where intent lives, what governs change, how AI is constrained."}, {"Journey": "J2", "Step": "Email 1", "Subject/Hook": "90 days to IPE activation", "Message": "Mature orgs don't need more tools—they need fast activation. Focused sprint to wire governance + ship one governed change end-to-end. 15-min fit check?"}, {"Journey": "J2", "Step": "LinkedIn 1", "Subject/Hook": "IPE-ready", "Message": "Your org looks IPE-ready. Curious if AI governance is keeping pace with delivery speed."}, {"Journey": "J2", "Step": "Email 2", "Subject/Hook": "What activation includes", "Message": "Activation = decision rights, token strategy, enforcement points, propagation model, quality gates. Tell me your critical surface area and I'll map the shortest path."}, {"Journey": "J4", "Step": "Email 1", "Subject/Hook": "When the trigger hits", "Message": "Mature teams stall during triggers (reorg, consolidation, AI mandates). We help pre-align an executive activation plan so you can move immediately. Want a 1-page brief?"}, {"Journey": "J4", "Step": "LinkedIn 1", "Subject/Hook": "Trigger readiness", "Message": "Often see maturity stall during reorgs. If you want a trigger-readiness brief, I can send it."}, {"Journey": "J1", "Step": "Email 1", "Subject/Hook": "Why AI changes fail at scale", "Message": "We're researching why AI-driven product change breaks down. Root cause: product intent isn't operationalized. Want a short POV + checklist? (No pitch.)"}];
+
+    // === STATE ===
+    let selectedAccount = null;
+    let filters = {
+      search: '',
+      record: 'all',
+      journey: null,
+      tier: null
+    };
+
+    // === HELPERS ===
+    function formatCurrency(value) {
+      if (!value || value === '') return '—';
+      const num = typeof value === 'string' ? parseFloat(value) : value;
+      if (isNaN(num)) return '—';
+      if (num >= 1000000) return `$${(num / 1000000).toFixed(2)}M`;
+      if (num >= 1000) return `$${(num / 1000).toFixed(0)}K`;
+      return `$${num.toFixed(0)}`;
+    }
+
+    function formatPercent(value) {
+      if (!value || value === '') return '—';
+      const num = typeof value === 'string' ? parseFloat(value) : value;
+      if (isNaN(num)) return '—';
+      return `${Math.round(num * 100)}%`;
+    }
+
+    function getJourneyClass(journey) {
+      const j = journey?.toUpperCase?.() || '';
+      if (j.includes('J1')) return 'journey-j1';
+      if (j.includes('J2')) return 'journey-j2';
+      if (j.includes('J3')) return 'journey-j3';
+      if (j.includes('J4')) return 'journey-j4';
+      return 'journey-j3';
+    }
+
+    function getTierClass(tier) {
+      if (tier === 'Tier 1') return 'tier-1';
+      if (tier === 'Tier 2') return 'tier-2';
+      return 'tier-3';
+    }
+
+    function getRecordTypeClass(type) {
+      if (type?.includes?.('Customer')) return 'type-customer';
+      if (type?.includes?.('Target')) return 'type-target';
+      if (type?.includes?.('Prospect')) return 'type-prospect';
+      if (type?.includes?.('Churned')) return 'type-churned';
+      return 'type-target';
+    }
+
+    function getReadinessClass(band) {
+      if (band?.includes?.('A')) return 'readiness-a';
+      if (band?.includes?.('B')) return 'readiness-b';
+      return 'readiness-c';
+    }
+
+    function getPriorityClass(priority) {
+      if (priority === 'P1') return 'priority-p1';
+      if (priority === 'P2') return 'priority-p2';
+      if (priority === 'P3') return 'priority-p3';
+      return 'priority-p4';
+    }
+
+    function getJourneyCode(account) {
+      const hypothesis = account[' Invesment Hypothesis (Primary)'] || '';
+      return hypothesis.toUpperCase();
+    }
+
+    // === FILTERING ===
+    function filterAccounts() {
+      return accountsData.filter(account => {
+        // Search filter
+        if (filters.search) {
+          const searchLower = filters.search.toLowerCase();
+          const matchesSearch = 
+            account.Company?.toLowerCase?.().includes(searchLower) ||
+            account['Industry (Best)']?.toLowerCase?.().includes(searchLower) ||
+            account.Segment?.toLowerCase?.().includes(searchLower);
+          if (!matchesSearch) return false;
+        }
+        
+        // Record type filter
+        if (filters.record !== 'all') {
+          if (!account['Record Type']?.includes?.(filters.record)) return false;
+        }
+        
+        // Journey filter
+        if (filters.journey) {
+          const journey = getJourneyCode(account);
+          if (journey !== filters.journey) return false;
+        }
+        
+        // Tier filter
+        if (filters.tier) {
+          if (account.Tier !== filters.tier) return false;
+        }
+        
+        return true;
+      });
+    }
+
+    // === RENDERING ===
+    function renderAccountList() {
+      const container = document.getElementById('accountList');
+      const filtered = filterAccounts();
+      
+      // Sort by tier, then priority, then readiness
+      filtered.sort((a, b) => {
+        // Tier 1 first
+        if (a.Tier !== b.Tier) {
+          const tierOrder = { 'Tier 1': 0, 'Tier 2': 1, 'Tier 3': 2 };
+          return (tierOrder[a.Tier] || 2) - (tierOrder[b.Tier] || 2);
+        }
+        // Then by priority
+        const prioA = a.Priority || 'P9';
+        const prioB = b.Priority || 'P9';
+        if (prioA !== prioB) return prioA.localeCompare(prioB);
+        // Then by readiness
+        const readA = a['Readiness Assessment Score (0-100)'] || 0;
+        const readB = b['Readiness Assessment Score (0-100)'] || 0;
+        return readB - readA;
+      });
+      
+      container.innerHTML = filtered.map(account => {
+        const journey = getJourneyCode(account);
+        const isSelected = selectedAccount?.Company === account.Company;
+        
+        return `
+          <div class="account-row px-4 py-3 border-b border-[var(--border-subtle)] ${isSelected ? 'selected' : ''}" data-company="${account.Company}">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-medium">${account.Company}</span>
+              <div class="flex gap-1.5">
+                ${account.Priority ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold ${getPriorityClass(account.Priority)}">${account.Priority}</span>` : ''}
+                <span class="px-1.5 py-0.5 rounded text-[10px] font-mono ${getJourneyClass(journey)}">${journey}</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between text-xs text-[var(--text-muted)]">
+              <span>${account['Industry (Best)'] || account.Segment || 'Unknown'}</span>
+              <div class="flex items-center gap-2">
+                <span class="px-1.5 py-0.5 rounded text-[10px] ${getTierClass(account.Tier)}">${account.Tier}</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] ${getRecordTypeClass(account['Record Type'])}">${account['Record Type']?.split(';')?.[0] || 'Target'}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      // Update count
+      document.getElementById('accountCount').textContent = `${filtered.length} accounts`;
+      
+      // Add click handlers
+      container.querySelectorAll('.account-row').forEach(row => {
+        row.addEventListener('click', () => {
+          const companyName = row.dataset.company;
+          selectedAccount = accountsData.find(a => a.Company === companyName);
+          renderAccountList();
+          renderAccountDetail();
+        });
+      });
+    }
+
+    function renderAccountDetail() {
+      if (!selectedAccount) {
+        document.getElementById('welcomeState').classList.remove('hidden');
+        document.getElementById('accountDetail').classList.add('hidden');
+        return;
+      }
+      
+      document.getElementById('welcomeState').classList.add('hidden');
+      document.getElementById('accountDetail').classList.remove('hidden');
+      
+      const account = selectedAccount;
+      const journey = getJourneyCode(account);
+      const journeyInfo = journeyMessaging.find(j => j.Journey === journey) || journeyMessaging[2]; // Default to J3
+      
+      // Basic info
+      document.getElementById('detailCompanyName').textContent = account.Company;
+      document.getElementById('detailRecordType').textContent = account['Record Type']?.split(';')?.[0] || 'Target';
+      document.getElementById('detailRecordType').className = `px-2 py-0.5 rounded text-xs font-medium ${getRecordTypeClass(account['Record Type'])}`;
+      
+      if (account.Priority) {
+        document.getElementById('detailPriority').textContent = account.Priority;
+        document.getElementById('detailPriority').className = `px-2 py-0.5 rounded text-xs font-mono font-semibold ${getPriorityClass(account.Priority)}`;
+        document.getElementById('detailPriority').classList.remove('hidden');
+      } else {
+        document.getElementById('detailPriority').classList.add('hidden');
+      }
+      
+      document.getElementById('detailWhyTarget').textContent = account['Why Target'] || account['Investment Path Rationale'] || 'Strategic target account';
+      
+      document.getElementById('detailTier').textContent = account.Tier;
+      document.getElementById('detailTier').className = `px-3 py-1 rounded-lg text-sm font-medium ${getTierClass(account.Tier)}`;
+      
+      document.getElementById('detailJourney').textContent = journey;
+      document.getElementById('detailJourney').className = `px-3 py-1 rounded-lg border text-sm font-mono font-semibold ${getJourneyClass(journey)}`;
+      
+      // Grid info
+      document.getElementById('detailIndustry').textContent = account['Industry (Best)'] || 'Unknown';
+      document.getElementById('detailSegment').textContent = account.Segment || 'Unknown';
+      document.getElementById('detailSize').textContent = account['Company Size Band (Employees)'] || 'Unknown';
+      document.getElementById('detailDevScale').textContent = account['Developer Scale (Proxy)'] || 'Unknown';
+      
+      // Readiness
+      const readiness = account['Readiness Assessment Score (0-100)'] || 0;
+      document.getElementById('detailReadinessScore').textContent = readiness;
+      document.getElementById('detailReadinessBand').textContent = account['Readiness Band'] || 'Unknown';
+      document.getElementById('detailReadinessBand').className = `px-2 py-0.5 rounded text-xs font-medium ${getReadinessClass(account['Readiness Band'])}`;
+      document.getElementById('detailCampaignMotion').textContent = account['Primary Campaign Motion'] || '';
+      document.getElementById('readinessBar').style.width = `${readiness}%`;
+      
+      // Maturity
+      const maturity = account['Design Maturity Score (1-5)'] || 2;
+      document.getElementById('detailMaturityScore').textContent = maturity;
+      document.getElementById('detailDesignSystem').textContent = account['Design System'] || 'Internal DS';
+      
+      const dsUrl = account['Public DS URL (if known)'];
+      if (dsUrl) {
+        document.getElementById('detailDSUrl').innerHTML = `<a href="${dsUrl}" target="_blank" class="text-indigo-400 hover:underline">${dsUrl}</a>`;
+      } else {
+        document.getElementById('detailDSUrl').textContent = '';
+      }
+      
+      // Maturity bars
+      for (let i = 1; i <= 5; i++) {
+        const el = document.getElementById(`maturity${i}`);
+        if (i <= maturity) {
+          el.className = 'flex-1 h-2 rounded bg-emerald-500/80';
+        } else {
+          el.className = 'flex-1 h-2 rounded bg-emerald-500/20';
+        }
+      }
+      
+      // Forecast
+      document.getElementById('detailPlatformARR').textContent = formatCurrency(account['Forecast Platform ARR (Potential)']);
+      document.getElementById('detailTCV').textContent = formatCurrency(account['Forecast TCV (Potential, Year 1)']);
+      document.getElementById('detailWinProb').textContent = formatPercent(account['Forecast Win Probability']);
+      document.getElementById('detailCurrentARR').textContent = formatCurrency(account['ARR']);
+      
+      // Deployment
+      document.getElementById('detailDeployModel').textContent = account['Deployment Model Hypothesis'] || 'TBD';
+      document.getElementById('detailDeployConstraints').textContent = account['Deployment Constraints'] || 'None identified';
+      
+      // AI Signal
+      document.getElementById('detailAISignal').textContent = account['AI Signal'] || 'No signal identified';
+      
+      // Journey Messaging
+      document.getElementById('detailJourneyBadge').textContent = journey;
+      document.getElementById('detailJourneyBadge').className = `px-2 py-0.5 rounded border text-xs font-mono ${getJourneyClass(journey)}`;
+      document.getElementById('journeyWho').textContent = journeyInfo.Who;
+      document.getElementById('journeyGoal').textContent = journeyInfo['Primary goal'];
+      document.getElementById('journeyMessage').textContent = journeyInfo['Core message'];
+      document.getElementById('journeyOffer').textContent = journeyInfo['Offer / CTA'];
+      document.getElementById('journeyAngle').textContent = journeyInfo['Outbound angle'];
+      
+      // Industry-specific messaging
+      const industryGroup = account['Industry Group'] || 'Other';
+      const industryForMatrix = mapIndustryToMatrix(account['Industry (Best)'], industryGroup);
+      const industryMatch = journeyIndustryMatrix.find(m => 
+        m.Industry === industryForMatrix && m.Journey === journey
+      );
+      
+      if (industryMatch) {
+        document.getElementById('industryMessagingSection').classList.remove('hidden');
+        document.getElementById('industryLabel').textContent = industryMatch.Industry;
+        document.getElementById('industryAngle').textContent = industryMatch['Message Angle'];
+        document.getElementById('industryProof').textContent = industryMatch['Primary Proof'];
+        document.getElementById('industryOffer').textContent = industryMatch['Primary Offer'];
+      } else {
+        document.getElementById('industryMessagingSection').classList.add('hidden');
+      }
+      
+      // Discovery Questions
+      const questions = account['Deployment Discovery Questions'] || '';
+      const questionList = questions.split('\n').filter(q => q.trim());
+      document.getElementById('discoveryQuestions').innerHTML = questionList.map(q => `
+        <div class="discovery-question rounded-lg p-3 text-sm">${q.trim()}</div>
+      `).join('');
+      
+      // Outbound Sequences
+      const sequences = outboundSequences.filter(s => s.Journey === journey);
+      document.getElementById('outboundSequence').innerHTML = sequences.map(s => `
+        <div class="outbound-card rounded-lg p-4 relative">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-indigo-300">${s.Step}</span>
+            <button class="copy-btn px-2 py-1 rounded bg-indigo-500/20 text-indigo-300 text-xs hover:bg-indigo-500/30" onclick="copyToClipboard('${s.Message.replace(/'/g, "\\'")}', '${account.Company}')">
+              <i data-lucide="copy" class="w-3 h-3 inline-block mr-1"></i>Copy
+            </button>
+          </div>
+          <p class="text-xs text-amber-300 font-medium mb-1">${s['Subject/Hook']}</p>
+          <p class="text-sm">${s.Message.replace(/{{Company}}/g, account.Company)}</p>
+        </div>
+      `).join('');
+      
+      // Re-initialize Lucide icons for new elements
+      lucide.createIcons();
+      
+      // Customer Health (only for customers)
+      const isCustomer = account['Record Type']?.includes?.('Customer');
+      const healthSection = document.getElementById('customerHealthSection');
+      if (isCustomer && account['Risk Level']) {
+        healthSection.classList.remove('hidden');
+        document.getElementById('detailRiskLevel').textContent = account['Risk Level'] || '—';
+        document.getElementById('detailRelationship').textContent = account['Relationship Strength'] || '—';
+        document.getElementById('detailSentiment').textContent = account['Product Sentiment'] || '—';
+        
+        const mcpInterest = account['MCP/IPE Interest'];
+        document.getElementById('detailMCPInterest').textContent = mcpInterest === 1 ? 'High' : mcpInterest === 0 ? 'Low' : '—';
+      } else {
+        healthSection.classList.add('hidden');
+      }
+    }
+
+    function mapIndustryToMatrix(industry, group) {
+      if (industry?.includes?.('Financial')) return 'Financial Services';
+      if (industry?.includes?.('Enterprise') || group === 'Enterprise Software') return 'Enterprise Software';
+      if (industry?.includes?.('Healthcare') || group?.includes?.('Healthcare')) return 'Healthcare / Life Sciences';
+      if (industry?.includes?.('Retail') || group?.includes?.('Retail')) return 'Retail / E-commerce';
+      if (industry?.includes?.('Telecom') || industry?.includes?.('Media') || group?.includes?.('Telecom')) return 'Telecommunications / Media';
+      return 'Other/Unknown';
+    }
+
+    function copyToClipboard(text, companyName) {
+      const finalText = text.replace(/{{Company}}/g, companyName);
+      navigator.clipboard.writeText(finalText).then(() => {
+        // Could add a toast notification here
+      });
+    }
+
+    // === EVENT LISTENERS ===
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      filters.search = e.target.value;
+      renderAccountList();
+    });
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filterType = btn.dataset.filterType;
+        const filterValue = btn.dataset.filter;
+        
+        if (filterType === 'record') {
+          // Reset all record filters
+          document.querySelectorAll('[data-filter-type="record"]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          filters.record = filterValue;
+        } else if (filterType === 'journey') {
+          if (filters.journey === filterValue) {
+            filters.journey = null;
+            btn.classList.remove('active');
+          } else {
+            document.querySelectorAll('[data-filter-type="journey"]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filters.journey = filterValue;
+          }
+        } else if (filterType === 'tier') {
+          if (filters.tier === filterValue) {
+            filters.tier = null;
+            btn.classList.remove('active');
+          } else {
+            document.querySelectorAll('[data-filter-type="tier"]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filters.tier = filterValue;
+          }
+        }
+        
+        renderAccountList();
+      });
+    });
+
+    // === INIT ===
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      document.getElementById('totalAccountCount').textContent = `${accountsData.length} Accounts`;
+      renderAccountList();
+    });
+  </script>
+</body>
+</html>
+

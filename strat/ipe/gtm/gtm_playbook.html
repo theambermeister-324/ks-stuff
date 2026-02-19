@@ -1205,12 +1205,12 @@
           <i data-lucide="book-open"></i>
         </div>
         <span class="nav-title">IPE GTM Playbook</span>
-        <span class="nav-version">v1.2</span>
+        <span class="nav-version">v1.3</span>
       </div>
       <div class="nav-links">
+        <a href="#glossary" class="nav-link">Glossary</a>
         <a href="#start" class="nav-link active">Start Here</a>
         <a href="#pcri" class="nav-link">PCRI</a>
-        <a href="#integrations" class="nav-link">Integrations</a>
         <a href="#routes" class="nav-link">Routes</a>
         <a href="#roles" class="nav-link">Roles</a>
         <a href="#pipeline" class="nav-link">Pipeline</a>
@@ -1284,6 +1284,131 @@
     </div>
 
     <!-- ========================================================================
+         SECTION 0: QUICK REFERENCE GLOSSARY
+         ======================================================================== -->
+    <section class="section" id="glossary">
+      <div class="section-header">
+        <div class="section-number">0</div>
+        <h2>Quick Reference Glossary</h2>
+      </div>
+      
+      <p class="text-muted mb-4">New to the playbook? Use this quick reference for common acronyms and terminology used throughout the IPE GTM Operating Model.</p>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 120px;">Acronym</th>
+              <th>Definition</th>
+              <th>Context</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: rgba(139, 92, 246, 0.1);">
+              <td colspan="3" style="font-weight: 600; color: var(--spectrum-purple-400);">Roles & Teams</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>AE</strong></td>
+              <td>Account Executive</td>
+              <td>Owns pipeline from L3 handover through close. Manages business relationships.</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>BDR</strong></td>
+              <td>Business Development Representative</td>
+              <td>Owns L1 qualification, MEDDIC capture, and PCRI distribution.</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>SE</strong></td>
+              <td>Solutions Engineer (Pre-Sales)</td>
+              <td>Validates Tech Fit, prescribes Investment Path, designs tailored demos.</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>CX</strong></td>
+              <td>Customer Experience</td>
+              <td>Post-sale delivery, onboarding, and customer success.</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>FDE</strong></td>
+              <td>Forward Deployed Engineer</td>
+              <td>Technical implementation specialist. Required for J3/J4 paths.</td>
+            </tr>
+            <tr style="background: rgba(59, 130, 246, 0.1);">
+              <td colspan="3" style="font-weight: 600; color: var(--spectrum-blue-400);">Frameworks & Processes</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>PCRI</strong></td>
+              <td>Product Context Readiness Index</td>
+              <td>Customer self-assessment that benchmarks maturity across 5 pillars. Primary input for Tech Fit.</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>MEDDIC</strong></td>
+              <td>Metrics, Economic Buyer, Decision Criteria, Decision Process, Identify Pain, Champion</td>
+              <td>BDR qualification framework. Must be complete before SE engagement.</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>MCP</strong></td>
+              <td>Model Context Protocol</td>
+              <td>Anthropic's open protocol for AI context sharing. Key IPE integration layer.</td>
+            </tr>
+            <tr style="background: rgba(16, 185, 129, 0.1);">
+              <td colspan="3" style="font-weight: 600; color: var(--spectrum-green-400);">Pipeline & Stages</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>L1-L3</strong></td>
+              <td>Lead Stages (Intro → Pre-Qual → Handover)</td>
+              <td>Pre-opportunity stages managed primarily by BDR with SE support at L2.</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>D1-D5</strong></td>
+              <td>Deal Stages (Demo → Alignment → Technical → Decision → Contract)</td>
+              <td>Opportunity stages managed by AE with SE/CX support.</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>J1-J4</strong></td>
+              <td>Investment Paths (Journey 1-4)</td>
+              <td>Prescriptive engagement paths based on PCRI score. J1=Foundation, J2=Acceleration, J3=Transformation, J4=Enterprise.</td>
+            </tr>
+            <tr style="background: rgba(245, 158, 11, 0.1);">
+              <td colspan="3" style="font-weight: 600; color: var(--spectrum-yellow-400);">Business & Metrics</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>TTV</strong></td>
+              <td>Time To Value</td>
+              <td>Duration from contract signature to measurable customer outcomes.</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>ROI</strong></td>
+              <td>Return on Investment</td>
+              <td>Primary IPE business case metric: productivity gains, velocity improvements.</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>TCO</strong></td>
+              <td>Total Cost of Ownership</td>
+              <td>Secondary business case: AI cost governance (token optimization, AI tool consolidation) + tool consolidation. Positions buyer as value driver.</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>ARR</strong></td>
+              <td>Annual Recurring Revenue</td>
+              <td>Annual value of software licenses (not including services).</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>ACV</strong></td>
+              <td>Annual Contract Value</td>
+              <td>Total annual value including services and software.</td>
+            </tr>
+            <tr>
+              <td class="font-mono"><strong>SOW</strong></td>
+              <td>Statement of Work</td>
+              <td>Services contract document defining deliverables and timeline.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <p class="text-muted" style="margin-top: 16px; font-size: 0.9rem;"><strong>💡 Tip:</strong> Use <code>Ctrl/Cmd + F</code> to search for any unfamiliar term.</p>
+    </section>
+
+    <!-- ========================================================================
          SECTION 1: START HERE
          ======================================================================== -->
     <section class="section" id="start">
@@ -1324,6 +1449,61 @@
           <div class="key-point-title">Accelerate</div>
           <div class="key-point-desc">Right-fit engagement = 35% faster close, 60% fewer pivots</div>
         </div>
+      </div>
+      
+      <!-- IPE Business Case Framework -->
+      <h3 class="mt-5">The IPE Business Case</h3>
+      
+      <p class="text-muted mb-3">Understanding how to articulate the IPE value proposition. IPE delivers <strong>ROI through acceleration</strong> and <strong>TCO reduction through AI cost governance</strong>—transforming your buyer from cost center to value driver.</p>
+      
+      <div class="comparison-grid">
+        <div class="comparison-card after" style="background: linear-gradient(145deg, rgba(16, 185, 129, 0.15), rgba(22, 33, 62, 0.8)); border-color: rgba(16, 185, 129, 0.3);">
+          <div class="comparison-label" style="background: rgba(16, 185, 129, 0.2); color: var(--spectrum-green-400);">
+            <i data-lucide="trending-up" style="width:12px;height:12px;"></i>
+            Primary: ROI (Return on Investment)
+          </div>
+          <ul class="comparison-list">
+            <li><i data-lucide="check"></i> <strong>Developer Productivity:</strong> 25-40% faster feature delivery</li>
+            <li><i data-lucide="check"></i> <strong>Design System Adoption:</strong> 3x faster component adoption</li>
+            <li><i data-lucide="check"></i> <strong>AI Output Quality:</strong> 60% fewer regenerations with context</li>
+            <li><i data-lucide="check"></i> <strong>Time to Market:</strong> Ship 2-3 weeks faster per release</li>
+          </ul>
+          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-green-400); margin-top: 12px; font-weight: 600;">Lead with productivity and velocity gains</p>
+        </div>
+        
+        <div class="comparison-card after" style="background: linear-gradient(145deg, rgba(59, 130, 246, 0.15), rgba(22, 33, 62, 0.8)); border-color: rgba(59, 130, 246, 0.3);">
+          <div class="comparison-label" style="background: rgba(59, 130, 246, 0.2); color: var(--spectrum-blue-400);">
+            <i data-lucide="shield-check" style="width:12px;height:12px;"></i>
+            Secondary: TCO (AI Cost Governance)
+          </div>
+          <ul class="comparison-list">
+            <li><i data-lucide="check"></i> <strong>AI Token Optimization:</strong> Reduce 25-40% API waste from regenerations</li>
+            <li><i data-lucide="check"></i> <strong>AI Tool Consolidation:</strong> Unify 5-7 AI tools under one control plane</li>
+            <li><i data-lucide="check"></i> <strong>Design System Tools:</strong> Replace 3-5 point solutions</li>
+            <li><i data-lucide="check"></i> <strong>Predictable AI Costs:</strong> Control tokenized commercial models</li>
+          </ul>
+          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-blue-400); margin-top: 12px; font-weight: 600;">Position buyer as value driver who controls AI costs</p>
+        </div>
+      </div>
+      
+      <div class="callout success mt-4">
+        <p>🔗 <strong>IPE ROI Calculator:</strong> <a href="roi_calculator.html" target="_blank" style="color: var(--spectrum-green-300); text-decoration: underline;">Launch Interactive ROI Calculator v2.1</a></p>
+        <p style="margin-top: 8px; font-size: 0.9rem;">Updated with AI Cost Governance module—quantify token savings, AI tool consolidation, and position your buyer as a value driver.</p>
+      </div>
+      
+      <div class="callout info mt-3">
+        <p><strong>🎯 Key Business Case Metrics to Surface:</strong></p>
+        <ul style="margin: 12px 0 0 0; padding-left: 20px;">
+          <li><strong>AI Spend:</strong> Monthly LLM/API costs (OpenAI, Anthropic, Azure)? Token waste from regenerations?</li>
+          <li><strong>AI Tool Stack:</strong> How many AI tools in use (Copilot, ChatGPT, Claude, custom)? Integration overhead?</li>
+          <li><strong>Design System:</strong> How many tools? What's integration maintenance costing? Component adoption velocity?</li>
+          <li><strong>Strategic Positioning:</strong> Is the buyer seen as a cost center? Opportunity to become AI enablement function?</li>
+        </ul>
+      </div>
+      
+      <div class="callout warning mt-3" style="background: linear-gradient(145deg, rgba(245, 158, 11, 0.1), rgba(22, 33, 62, 0.8));">
+        <p><strong>💡 Value Center Transformation Pitch:</strong></p>
+        <p style="margin-top: 8px; font-size: 0.95rem; font-style: italic;">"IPE transforms your design system team from a cost center into an <strong>AI enablement function</strong> that controls costs across the org. You become the team that makes AI adoption <em>affordable</em> and <em>predictable</em>—not just possible."</p>
       </div>
       
       <!-- What Changed -->
@@ -1559,253 +1739,9 @@
     </section>
 
     <!-- ========================================================================
-         SECTION 2.5: INTEGRATION PLATFORM ADVANTAGE
+         NOTE: Integration Platform Advantage section removed pending next IPE release.
+         This section will be restored with updated integration roadmap and competitive positioning.
          ======================================================================== -->
-    <section class="section" id="integrations">
-      <div class="section-header">
-        <div class="section-number" style="background: linear-gradient(135deg, var(--spectrum-green-500), var(--spectrum-cyan-500));">★</div>
-        <h2>Integration Platform Advantage</h2>
-      </div>
-      
-      <p class="text-muted mb-4">Our competitive moat isn't just governance—it's our <strong>integration breadth</strong>. By 2027, we'll have 15-20 integrations while competitors have 0-5. This section explains why integrations are the strategic battleground.</p>
-      
-      <!-- The Core Thesis -->
-      <div class="callout success mb-4" style="border-left-width: 6px;">
-        <p><strong>🎯 The Core Thesis:</strong> Everyone is building AI generation. No one is building the <em>integration layer that becomes infrastructure</em>. Knapsack aggregates context from ALL sources—design, code, docs, Jira, Figma, Slack—making any AI tool plugged into Knapsack produce better output.</p>
-      </div>
-      
-      <h3>Why Integration Count Matters</h3>
-      
-      <div class="comparison-grid">
-        <div class="comparison-card after" style="background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), rgba(22, 33, 62, 0.8)); border-color: rgba(16, 185, 129, 0.3);">
-          <div class="comparison-label" style="background: rgba(16, 185, 129, 0.2); color: var(--spectrum-green-400);">
-            <i data-lucide="check" style="width:12px;height:12px;"></i>
-            Customer Question
-          </div>
-          <p style="font-size: var(--spectrum-font-size-300); color: var(--spectrum-text-primary); margin-bottom: 12px; font-style: italic;">"Do you integrate with our stack?"</p>
-          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary);"><strong>Knapsack:</strong> "Yes, 15/20 of your tools are already connected."</p>
-          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted); margin-top: 8px;"><strong>Competitor:</strong> "We have 3 integrations, we can build the other 15..."</p>
-        </div>
-        
-        <div class="comparison-card after" style="background: linear-gradient(145deg, rgba(124, 58, 237, 0.1), rgba(22, 33, 62, 0.8)); border-color: rgba(124, 58, 237, 0.3);">
-          <div class="comparison-label" style="background: rgba(124, 58, 237, 0.2); color: var(--spectrum-purple-300);">
-            <i data-lucide="shield" style="width:12px;height:12px;"></i>
-            Switching Cost Moat
-          </div>
-          <p style="font-size: var(--spectrum-font-size-200); color: var(--spectrum-text-primary); margin-bottom: 12px;"><strong>$500K-$1M</strong> to rebuild integration layer</p>
-          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary);">After 15-20 integrations, platform becomes <strong>infrastructure</strong> (not feature). Category locks in: "Use Knapsack or build it yourself for $2-5M"</p>
-        </div>
-      </div>
-      
-      <!-- 2026 Integration Targets -->
-      <h3 class="mt-5">2026 Integration Roadmap</h3>
-      
-      <div class="callout warning mb-4">
-        <p><strong>⚠️ 2026 Critical Deliverable:</strong> Ship <strong>5-8 core integrations</strong>. Each integration shipped = competitive barrier for 2027. This is not a feature priority—it's the strategic foundation for hypergrowth.</p>
-      </div>
-      
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Integration</th>
-              <th>Category</th>
-              <th>Target</th>
-              <th>Status</th>
-              <th>Value Unlock</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Figma</strong></td>
-              <td>Design</td>
-              <td>Q1 2026</td>
-              <td><span class="status-badge green">Live</span></td>
-              <td>Design token sync, component mapping</td>
-            </tr>
-            <tr>
-              <td><strong>GitHub</strong></td>
-              <td>Code</td>
-              <td>Q1 2026</td>
-              <td><span class="status-badge green">Live</span></td>
-              <td>Code patterns, PR validation, CI/CD hooks</td>
-            </tr>
-            <tr>
-              <td><strong>Jira</strong></td>
-              <td>Workflow</td>
-              <td>Q2 2026</td>
-              <td><span class="status-badge yellow">In Progress</span></td>
-              <td>Ticket context, sprint planning, story links</td>
-            </tr>
-            <tr>
-              <td><strong>Slack</strong></td>
-              <td>Communication</td>
-              <td>Q2 2026</td>
-              <td><span class="status-badge yellow">In Progress</span></td>
-              <td>Decision capture, notifications, approval flows</td>
-            </tr>
-            <tr>
-              <td><strong>Notion</strong></td>
-              <td>Documentation</td>
-              <td>Q3 2026</td>
-              <td><span class="status-badge blue">Planned</span></td>
-              <td>Docs sync, pattern library, team wikis</td>
-            </tr>
-            <tr>
-              <td><strong>Linear</strong></td>
-              <td>Workflow</td>
-              <td>Q3 2026</td>
-              <td><span class="status-badge blue">Planned</span></td>
-              <td>Issue tracking, roadmap visibility</td>
-            </tr>
-            <tr>
-              <td><strong>Zeroheight</strong></td>
-              <td>Design System</td>
-              <td>Q4 2026</td>
-              <td><span class="status-badge blue">Planned</span></td>
-              <td>Migration path, coexistence layer</td>
-            </tr>
-            <tr>
-              <td><strong>Supernova</strong></td>
-              <td>Design System</td>
-              <td>Q4 2026</td>
-              <td><span class="status-badge blue">Planned</span></td>
-              <td>Import/export, parallel operation</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      
-      <!-- Competitive Battlecards -->
-      <h3 class="mt-5">Competitive Battlecards</h3>
-      
-      <p class="text-muted mb-4">Use these talking points when prospects mention competitors. Our advantage: <strong>integration breadth + context aggregation</strong>.</p>
-      
-      <div class="archetype-grid" style="grid-template-columns: repeat(2, 1fr);">
-        <div class="archetype-card" style="border-top: 3px solid var(--spectrum-red-400);">
-          <div class="archetype-header">
-            <div class="archetype-score" style="color: var(--spectrum-red-400);">MSFT</div>
-            <div>
-              <div class="archetype-name">Microsoft (GitHub Copilot/Azure)</div>
-              <div class="archetype-path">Biggest Threat</div>
-            </div>
-          </div>
-          <div class="archetype-prescription">
-            <div class="prescription-item"><i data-lucide="x" style="color: var(--spectrum-red-400);"></i> <span>Microsoft ecosystem only</span></div>
-            <div class="prescription-item"><i data-lucide="x" style="color: var(--spectrum-red-400);"></i> <span>Slow to ship new integrations</span></div>
-            <div class="prescription-item"><i data-lucide="check" style="color: var(--spectrum-green-400);"></i> <span><strong>Our Win:</strong> We integrate with non-Microsoft tools (Notion, Linear, Figma)</span></div>
-          </div>
-        </div>
-        
-        <div class="archetype-card" style="border-top: 3px solid var(--spectrum-cyan-400);">
-          <div class="archetype-header">
-            <div class="archetype-score" style="color: var(--spectrum-cyan-400);">▲</div>
-            <div>
-              <div class="archetype-name">Vercel (v0)</div>
-              <div class="archetype-path">Dev-Tool Focused</div>
-            </div>
-          </div>
-          <div class="archetype-prescription">
-            <div class="prescription-item"><i data-lucide="x" style="color: var(--spectrum-red-400);"></i> <span>Next.js ecosystem only</span></div>
-            <div class="prescription-item"><i data-lucide="x" style="color: var(--spectrum-red-400);"></i> <span>Limited enterprise reach</span></div>
-            <div class="prescription-item"><i data-lucide="check" style="color: var(--spectrum-green-400);"></i> <span><strong>Our Win:</strong> Broader use case, design system wedge into enterprise</span></div>
-          </div>
-        </div>
-        
-        <div class="archetype-card" style="border-top: 3px solid var(--spectrum-purple-400);">
-          <div class="archetype-header">
-            <div class="archetype-score" style="color: var(--spectrum-purple-400);">⬢</div>
-            <div>
-              <div class="archetype-name">Figma (Dev Mode)</div>
-              <div class="archetype-path">Design-Only</div>
-            </div>
-          </div>
-          <div class="archetype-prescription">
-            <div class="prescription-item"><i data-lucide="x" style="color: var(--spectrum-red-400);"></i> <span>No code/workflow integration</span></div>
-            <div class="prescription-item"><i data-lucide="x" style="color: var(--spectrum-red-400);"></i> <span>Context stays in design</span></div>
-            <div class="prescription-item"><i data-lucide="check" style="color: var(--spectrum-green-400);"></i> <span><strong>Our Win:</strong> Full stack—design + code + docs + workflow</span></div>
-          </div>
-        </div>
-        
-        <div class="archetype-card" style="border-top: 3px solid var(--spectrum-yellow-400);">
-          <div class="archetype-header">
-            <div class="archetype-score" style="color: var(--spectrum-yellow-400);">ZH</div>
-            <div>
-              <div class="archetype-name">Zeroheight / Supernova</div>
-              <div class="archetype-path">Design System Docs</div>
-            </div>
-          </div>
-          <div class="archetype-prescription">
-            <div class="prescription-item"><i data-lucide="x" style="color: var(--spectrum-red-400);"></i> <span>0-5 integrations total</span></div>
-            <div class="prescription-item"><i data-lucide="x" style="color: var(--spectrum-red-400);"></i> <span>No AI context layer</span></div>
-            <div class="prescription-item"><i data-lucide="check" style="color: var(--spectrum-green-400);"></i> <span><strong>Our Win:</strong> 15-20 integrations by 2027 + MCP context</span></div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Context Layer Positioning -->
-      <h3 class="mt-5">The Context Aggregation Value Prop</h3>
-      
-      <div class="callout info">
-        <p><strong>Key Talking Point:</strong> "AI tools regenerate solutions because they lack organizational context. Knapsack provides <em>persistent, structured context</em> via MCP—making every AI tool you use organization-aware on day one."</p>
-      </div>
-      
-      <div class="key-points">
-        <div class="key-point">
-          <div class="key-point-icon" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(51, 177, 255, 0.2));">
-            <i data-lucide="database"></i>
-          </div>
-          <div class="key-point-title">Aggregate</div>
-          <div class="key-point-desc">Pull context from design (Figma), code (GitHub), docs (Notion), workflow (Jira/Linear)</div>
-        </div>
-        
-        <div class="key-point">
-          <div class="key-point-icon" style="background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(51, 177, 255, 0.2));">
-            <i data-lucide="shield-check"></i>
-          </div>
-          <div class="key-point-title">Govern</div>
-          <div class="key-point-desc">Control which context AI tools can access. Enforce brand, compliance, standards.</div>
-        </div>
-        
-        <div class="key-point">
-          <div class="key-point-icon" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(239, 68, 68, 0.2));">
-            <i data-lucide="zap"></i>
-          </div>
-          <div class="key-point-title">Accelerate</div>
-          <div class="key-point-desc">Any generative tool (Cursor, Claude, Copilot) produces better output with Knapsack context.</div>
-        </div>
-      </div>
-      
-      <!-- TAM Expansion Note -->
-      <h3 class="mt-5">Beyond Design Systems: TAM Expansion</h3>
-      
-      <div class="comparison-grid">
-        <div class="comparison-card before">
-          <div class="comparison-label">
-            <i data-lucide="target" style="width:12px;height:12px;"></i>
-            2026 Focus: Design System Teams
-          </div>
-          <p style="font-size: var(--spectrum-font-size-300); color: var(--spectrum-text-primary); margin-bottom: 8px;">~1,000 teams globally</p>
-          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted);">TAM: $112.5M (450 addressable)</p>
-        </div>
-        
-        <div class="comparison-card after">
-          <div class="comparison-label">
-            <i data-lucide="trending-up" style="width:12px;height:12px;"></i>
-            2027+ Expansion: Integration Platform
-          </div>
-          <p style="font-size: var(--spectrum-font-size-300); color: var(--spectrum-text-primary); margin-bottom: 8px;">DS + Product + Ops Teams</p>
-          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary);">Design system teams: $250M</p>
-          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary);">Product/eng teams: $750M</p>
-          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary);">Operations teams: $300M</p>
-          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-green-400); margin-top: 8px;"><strong>2027 TAM: $1.3B (11.5x expansion)</strong></p>
-        </div>
-      </div>
-      
-      <div class="callout success mt-4">
-        <p><strong>Position Shift:</strong> In 2026, we're "design system intelligence." By 2027, we're "product delivery integration platform." Design systems are the wedge, not the ceiling.</p>
-      </div>
-    </section>
 
     <!-- ========================================================================
          SECTION 3: KNOW THE ROUTES
@@ -1818,9 +1754,198 @@
       
       <p class="text-muted mb-4">Investment Paths (J1-J4) define the customer journey based on PCRI score. Deployment Tiers (D1-D4) define technical complexity and pricing. Both are determined during the deal process.</p>
       
+      <!-- FDE Requirements -->
+      <h3>FDE Requirements by Path</h3>
+      
+      <p class="text-muted mb-3">Forward Deployed Engineers (FDEs) provide technical implementation support. Understanding when FDE involvement is required vs. optional is critical for accurate scoping and pricing.</p>
+      
+      <div class="table-wrapper mb-4">
+        <table>
+          <thead>
+            <tr>
+              <th>Path</th>
+              <th>FDE Allocation</th>
+              <th>Required?</th>
+              <th>Role & Scope</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="status-badge yellow">J1 Foundation</span></td>
+              <td class="font-mono">0.25 FDE</td>
+              <td><span style="color: var(--spectrum-blue-400);">Optional</span></td>
+              <td>Light-touch guidance. Customer mostly self-serves with documentation. FDE available for escalations.</td>
+            </tr>
+            <tr>
+              <td><span class="status-badge blue">J2 Acceleration</span></td>
+              <td class="font-mono">0.5 FDE</td>
+              <td><span style="color: var(--spectrum-yellow-400);">Recommended</span></td>
+              <td>Hands-on help with key integrations. Weekly syncs. Faster TTV but not blocking.</td>
+            </tr>
+            <tr style="background: rgba(139, 92, 246, 0.1);">
+              <td><span class="status-badge purple">J3 Transformation</span></td>
+              <td class="font-mono">1.0 FDE</td>
+              <td><span style="color: var(--spectrum-red-400);"><strong>Required</strong></span></td>
+              <td>Full delivery engagement. FDE embeds with customer team. Capacity validation in D3 is blocking gate.</td>
+            </tr>
+            <tr style="background: rgba(16, 185, 129, 0.1);">
+              <td><span class="status-badge green">J4 Enterprise</span></td>
+              <td class="font-mono">1.5 FDE</td>
+              <td><span style="color: var(--spectrum-red-400);"><strong>Required</strong></span></td>
+              <td>Dedicated FDE for complex deployments. On-site options. Multi-team rollouts.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="callout warning mb-4">
+        <p><strong>🚨 J3/J4 Gate:</strong> FDE capacity validation is a <strong>blocking requirement</strong> at D3 (Technical Feasibility). If FDE bandwidth is unavailable, deal cannot progress. Check FDE allocation with CX leadership before committing to J3/J4 timelines.</p>
+      </div>
+      
+      <!-- TTV Comparison -->
+      <h3 class="mt-4">Time-to-Value: DIY vs. FDE-Assisted</h3>
+      
+      <p class="text-muted mb-3">Different paths deliver different implementation velocities. Use this comparison when discussing value realization with prospects.</p>
+      
+      <div class="comparison-grid">
+        <div class="comparison-card before" style="background: linear-gradient(145deg, rgba(245, 158, 11, 0.1), rgba(22, 33, 62, 0.8)); border-color: rgba(245, 158, 11, 0.3);">
+          <div class="comparison-label" style="background: rgba(245, 158, 11, 0.2); color: var(--spectrum-yellow-400);">
+            <i data-lucide="user" style="width:12px;height:12px;"></i>
+            DIY Implementation (J1/J2)
+          </div>
+          <ul class="comparison-list">
+            <li><i data-lucide="clock"></i> <strong>Time-to-Value:</strong> 8-12 weeks typical</li>
+            <li><i data-lucide="alert-triangle"></i> <strong>Risk Level:</strong> Higher (depends on internal capacity)</li>
+            <li><i data-lucide="users"></i> <strong>Customer Effort:</strong> 15-25 hrs/week from internal team</li>
+            <li><i data-lucide="target"></i> <strong>Best For:</strong> High-maturity orgs (PCRI 76-100)</li>
+          </ul>
+          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-yellow-400); margin-top: 12px;"><strong>Savings:</strong> Lower services cost, but longer runway to outcomes</p>
+        </div>
+        
+        <div class="comparison-card after" style="background: linear-gradient(145deg, rgba(16, 185, 129, 0.15), rgba(22, 33, 62, 0.8)); border-color: rgba(16, 185, 129, 0.3);">
+          <div class="comparison-label" style="background: rgba(16, 185, 129, 0.2); color: var(--spectrum-green-400);">
+            <i data-lucide="users" style="width:12px;height:12px;"></i>
+            FDE-Assisted Implementation (J3/J4)
+          </div>
+          <ul class="comparison-list">
+            <li><i data-lucide="zap"></i> <strong>Time-to-Value:</strong> 4-6 weeks typical</li>
+            <li><i data-lucide="shield-check"></i> <strong>Risk Level:</strong> Lower (expert guidance throughout)</li>
+            <li><i data-lucide="coffee"></i> <strong>Customer Effort:</strong> 5-10 hrs/week from internal team</li>
+            <li><i data-lucide="target"></i> <strong>Best For:</strong> Lower-maturity orgs (PCRI 40-75)</li>
+          </ul>
+          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-green-400); margin-top: 12px;"><strong>Value:</strong> Faster ROI realization, reduced internal burden</p>
+        </div>
+      </div>
+      
+      <div class="callout info mt-4 mb-4">
+        <p><strong>💡 Positioning Tip:</strong> For prospects hesitant about J3/J4 pricing, frame FDE investment as "time-to-value insurance." The delta between 8-12 weeks and 4-6 weeks often represents significant opportunity cost that exceeds the services premium.</p>
+      </div>
+      
+      <!-- Workshops & Enablement -->
+      <h3 class="mt-4">Workshops & Enablement Sessions</h3>
+      
+      <p class="text-muted mb-3">Workshops provide structured enablement at key points in the customer journey. Here's what's available and when to use each:</p>
+      
+      <div class="table-wrapper mb-4">
+        <table>
+          <thead>
+            <tr>
+              <th>Workshop</th>
+              <th>Paid/Included</th>
+              <th>Duration</th>
+              <th>Value & Purpose</th>
+              <th>When to Offer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: rgba(245, 158, 11, 0.1);">
+              <td><strong>PCRI Assessment Workshop</strong></td>
+              <td><span class="status-badge yellow">Paid ($40-60K)</span></td>
+              <td>2-3 weeks</td>
+              <td>Deep-dive readiness assessment with executive debrief. Generates J1-J4 recommendation.</td>
+              <td>Tech Fit FAIL path. Prospects who need help understanding gaps.</td>
+            </tr>
+            <tr>
+              <td><strong>Executive Alignment Session</strong></td>
+              <td><span class="status-badge blue">Included</span></td>
+              <td>90 min</td>
+              <td>Champion enablement. Helps internal sponsor build business case for stakeholders.</td>
+              <td>D2 Stakeholder Alignment. Pre-procurement prep.</td>
+            </tr>
+            <tr>
+              <td><strong>Technical Architecture Review</strong></td>
+              <td><span class="status-badge blue">Included (J2+)</span></td>
+              <td>2-4 hours</td>
+              <td>Deep-dive on integration requirements, security review, deployment planning.</td>
+              <td>D3 Technical Feasibility. Required for D3/D4 deployments.</td>
+            </tr>
+            <tr>
+              <td><strong>Design System Activation Workshop</strong></td>
+              <td><span class="status-badge green">Included (J2+)</span></td>
+              <td>Half-day</td>
+              <td>Hands-on implementation kickoff. Team onboarding, integration setup, first MCP connections.</td>
+              <td>Post-close. First week of implementation.</td>
+            </tr>
+            <tr>
+              <td><strong>AI Governance Workshop</strong></td>
+              <td><span class="status-badge green">Included (J3/J4)</span></td>
+              <td>Half-day</td>
+              <td>Policy configuration, compliance setup, context access controls.</td>
+              <td>Post-close. Before production rollout.</td>
+            </tr>
+            <tr>
+              <td><strong>Train-the-Trainer Enablement</strong></td>
+              <td><span class="status-badge purple">Add-on ($15K)</span></td>
+              <td>Full day</td>
+              <td>Enables internal champions to train broader teams. Scales adoption.</td>
+              <td>Enterprise rollouts. Multi-team deployments.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="callout success">
+        <p><strong>💡 Workshop Positioning:</strong> Workshops aren't just deliverables — they're <strong>value acceleration moments</strong>. The Paid PCRI Assessment is a revenue opportunity for Tech Fit failures. Included workshops demonstrate investment in customer success and justify services pricing.</p>
+      </div>
+      
       <!-- Pricing Disclaimer -->
       <div class="callout warning mb-4">
         <p><strong>⚠️ Pricing Note:</strong> All Investment Path pricing shown below reflects <strong>services engagement costs only</strong>. Software licensing is billed separately based on the customer's selected package. See "Software Licensing" section below for platform pricing.</p>
+      </div>
+      
+      <!-- J1/J2 vs OG Knapsack Clarification -->
+      <div class="callout info mb-4">
+        <p><strong>📦 IPE Paths vs. Legacy (OG) Knapsack:</strong></p>
+        <p style="margin-top: 8px;"><strong>J1-J4 Investment Paths are IPE-specific offerings.</strong> They are not the same as legacy Knapsack implementations.</p>
+        <div class="table-wrapper mt-3">
+          <table>
+            <thead>
+              <tr>
+                <th>Scenario</th>
+                <th>Path</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>New IPE customer</td>
+                <td>J1-J4 (based on PCRI)</td>
+                <td>Standard IPE GTM process</td>
+              </tr>
+              <tr>
+                <td>Legacy customer → IPE migration</td>
+                <td>J1 or J2 (typically)</td>
+                <td>J1/J2 serve as upgrade/migration paths. Existing context accelerates onboarding.</td>
+              </tr>
+              <tr>
+                <td>Prospect wants "OG Knapsack" only</td>
+                <td>⚠️ Evaluate carefully</td>
+                <td>Legacy product is not actively sold. Position IPE benefits; use J1 as entry point if needed.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.9rem;"><strong>Bottom Line:</strong> J1 and J2 are not "lesser" paths — they're the right fit for high-maturity organizations. Legacy customers can use them as migration bridges. Do not position J1/J2 as "OG Knapsack repackaged" — IPE is fundamentally different (MCP layer, AI governance, context aggregation).</p>
       </div>
       
       <!-- Investment Paths -->
@@ -1974,7 +2099,7 @@
             <tr>
               <td><span class="status-badge green">Enterprise</span></td>
               <td class="font-mono">$180K/yr</td>
-              <td>Unlimited workspaces, MCP connectors, SSO/SCIM, dedicated CSM, SLA</td>
+              <td>Unlimited workspaces, MCP connectors, SSO/SCIM, dedicated CX partner, SLA</td>
               <td>Enterprise-wide rollouts, regulated industries</td>
               <td>J3, J4</td>
             </tr>
@@ -2135,6 +2260,22 @@
       
       <p class="text-muted mb-4">Each role has specific responsibilities in the PCRI-driven process. Find your role below to understand what changes for you.</p>
       
+      <!-- SE Pre-Qual Timing Clarification -->
+      <div class="callout info mb-4">
+        <p><strong>🔄 L2 Pre-Qualification: Who's Involved When?</strong></p>
+        <p style="margin-top: 8px;">The L2 Pre-Qualification call involves <strong>both SE and AE together</strong>. Here's the flow:</p>
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 12px; font-size: 0.85rem;">
+          <span style="background: rgba(59, 130, 246, 0.2); padding: 8px 12px; border-radius: 8px;">BDR completes MEDDIC + schedules L2</span>
+          <span style="color: var(--spectrum-purple-400);">→</span>
+          <span style="background: rgba(139, 92, 246, 0.2); padding: 8px 12px; border-radius: 8px;"><strong>SE leads Tech Fit validation</strong></span>
+          <span style="color: var(--spectrum-purple-400);">+</span>
+          <span style="background: rgba(245, 158, 11, 0.2); padding: 8px 12px; border-radius: 8px;"><strong>AE observes & builds relationship</strong></span>
+          <span style="color: var(--spectrum-purple-400);">→</span>
+          <span style="background: rgba(16, 185, 129, 0.2); padding: 8px 12px; border-radius: 8px;">AE takes ownership at L3</span>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.9rem;"><strong>Key Point:</strong> The SE validates tech fit <em>during</em> L2, not before it. The SE and AE are on the call together — SE leads the technical qualification while AE begins relationship building. This is a joint handover moment, not a sequential process.</p>
+      </div>
+      
       <div class="role-grid">
         <!-- BDR -->
         <div class="role-card bdr">
@@ -2161,6 +2302,18 @@
           <div class="role-first-action">
             <div class="role-first-action-label">GATE REQUIREMENT</div>
             <div class="role-first-action-text">No SE engagement without MEDDIC + PCRI complete. This is non-negotiable.</div>
+          </div>
+          
+          <div style="margin-top: 16px; padding: 12px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; border-left: 3px solid var(--spectrum-blue-400);">
+            <div style="font-weight: 600; color: var(--spectrum-blue-400); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 6px;">Beyond MEDDIC: Business Case Acceleration</div>
+            <p style="font-size: 0.85rem; margin: 0; color: var(--spectrum-text-secondary);">BDRs with strong business acumen can accelerate deals by surfacing business case elements during L1:</p>
+            <ul style="margin: 8px 0 0 0; padding-left: 16px; font-size: 0.85rem; color: var(--spectrum-text-secondary);">
+              <li>Current AI tool spend and pain points</li>
+              <li>Design system maturity and adoption challenges</li>
+              <li>Upcoming product initiatives or rebrands</li>
+              <li>ROI expectations and budget timeline</li>
+            </ul>
+            <p style="font-size: 0.8rem; margin: 8px 0 0 0; color: var(--spectrum-text-muted);"><strong>Tip:</strong> Document these in handoff notes — it accelerates AE discovery and shows deal quality.</p>
           </div>
         </div>
         
@@ -2373,6 +2526,39 @@
           <li><strong>Champion:</strong> Internal advocate identified</li>
         </ul>
         <p style="margin-top: 12px; background: rgba(239, 68, 68, 0.2); padding: 10px; border-radius: 6px;"><strong>⚠️ No MEDDIC = No SE.</strong> BDR returns to prospect to complete qualification before scheduling L2.</p>
+      </div>
+      
+      <!-- MEDDIC Timing Clarification -->
+      <div class="callout info mt-4">
+        <p><strong>📋 MEDDIC Timing Clarification (L1.5 vs D2):</strong></p>
+        <p style="margin-top: 8px;">There are <strong>two MEDDIC checkpoints</strong> in the process. This is intentional:</p>
+        <div class="table-wrapper mt-3">
+          <table>
+            <thead>
+              <tr>
+                <th>Stage</th>
+                <th>Owner</th>
+                <th>MEDDIC Depth</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>L1.5 MEDDIC Gate</strong></td>
+                <td>BDR</td>
+                <td>Initial capture (baseline)</td>
+                <td>Sufficient to unlock SE engagement. Basic qualification data.</td>
+              </tr>
+              <tr style="background: rgba(16, 185, 129, 0.1);">
+                <td><strong>D2 Stakeholder Alignment</strong></td>
+                <td>AE</td>
+                <td><strong>Full validation</strong></td>
+                <td>All criteria confirmed with economic buyer. Multi-stakeholder verification.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.9rem;"><strong>Why two checkpoints?</strong> BDR-level MEDDIC ensures we don't waste SE time on unqualified leads. AE-level validation in D2 ensures we have full deal intelligence before advancing to technical and contracting stages. The D2 validation often surfaces new stakeholders and decision criteria not visible in early conversations.</p>
       </div>
       
       <!-- Tech Fit Gate -->
@@ -3877,11 +4063,17 @@
               <td>CX Partner</td>
               <td>Added Integration Platform Advantage section (competitive battlecards, 2026 integration roadmap, TAM expansion thesis, context aggregation positioning). Aligned with TAM Expansion Analysis document.</td>
             </tr>
+            <tr>
+              <td class="font-mono">1.4</td>
+              <td>Feb 2026</td>
+              <td>CX Partner</td>
+              <td>Added MEDDIC Gate requirement: BDR must complete MEDDIC qualification as a hard gate before SE engagement. Updated BDR/SE role cards, added L1.5 MEDDIC Gate stage, updated qualification flow visualization.</td>
+            </tr>
             <tr style="background: rgba(16, 185, 129, 0.1);">
-              <td class="font-mono"><strong>1.4</strong></td>
+              <td class="font-mono"><strong>1.5</strong></td>
               <td><strong>Feb 2026</strong></td>
               <td><strong>CX Partner</strong></td>
-              <td><strong>Added MEDDIC Gate requirement: BDR must complete MEDDIC qualification as a hard gate before SE engagement. Updated BDR/SE role cards, added L1.5 MEDDIC Gate stage, updated qualification flow visualization.</strong></td>
+              <td><strong>Removed Integration Platform Advantage section pending next IPE release. Added AI Cost Governance positioning to TCO business case. Updated ROI Calculator link to v2.1 with AI cost governance module.</strong></td>
             </tr>
           </tbody>
         </table>
@@ -3892,9 +4084,9 @@
     <footer>
       <div class="footer-meta">
         <div class="footer-meta-item"><strong>Document Owner:</strong> CX Partner (Amber)</div>
-        <div class="footer-meta-item"><strong>Version:</strong> 1.4</div>
+        <div class="footer-meta-item"><strong>Version:</strong> 1.5</div>
         <div class="footer-meta-item"><strong>Updated:</strong> Feb 2026</div>
-        <div class="footer-meta-item"><strong>Consolidates:</strong> GTM Operating Model v4.2 + Onboarding Kit + Marketing Strategy + Tech Fit Gate + TAM Expansion Thesis + MEDDIC Gate</div>
+        <div class="footer-meta-item"><strong>Consolidates:</strong> GTM Operating Model v4.2 + Onboarding Kit + Marketing Strategy + Tech Fit Gate + MEDDIC Gate + AI Cost Governance</div>
       </div>
       <p class="footer-text">IPE GTM Playbook — Single Source of Truth for the Knapsack GTM Team</p>
     </footer>

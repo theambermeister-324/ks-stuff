@@ -764,6 +764,159 @@
     }
     
     /* ==========================================================================
+       FEEDBACK FORM
+       ========================================================================== */
+    .form-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .form-row.full-width {
+      grid-template-columns: 1fr;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    
+    .form-group label {
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--spectrum-text-muted);
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-md);
+      padding: var(--spectrum-spacing-100) var(--spectrum-spacing-200);
+      font-family: inherit;
+      font-size: var(--spectrum-font-size-200);
+      color: var(--spectrum-text-primary);
+      transition: all var(--spectrum-transition-fast);
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--spectrum-purple-500);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+    
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--spectrum-text-disabled);
+    }
+    
+    .form-group select {
+      cursor: pointer;
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+    
+    .form-divider {
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-200);
+      margin: var(--spectrum-spacing-200) 0;
+    }
+    
+    .form-divider::before,
+    .form-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--spectrum-border-default);
+    }
+    
+    .form-divider span {
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--spectrum-purple-400);
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: var(--spectrum-spacing-200);
+      margin-top: var(--spectrum-spacing-300);
+      padding-top: var(--spectrum-spacing-300);
+      border-top: 1px solid var(--spectrum-border-subtle);
+    }
+    
+    .btn-primary,
+    .btn-secondary,
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: var(--spectrum-spacing-100) var(--spectrum-spacing-300);
+      border-radius: var(--spectrum-radius-md);
+      font-family: inherit;
+      font-size: var(--spectrum-font-size-200);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--spectrum-transition-fast);
+      border: none;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--spectrum-purple-700) 0%, var(--spectrum-purple-900) 100%);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(100, 54, 191, 0.4);
+    }
+    
+    .btn-secondary {
+      background: rgba(100, 54, 191, 0.15);
+      border: 1px solid rgba(100, 54, 191, 0.3);
+      color: var(--spectrum-purple-300);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(100, 54, 191, 0.25);
+      border-color: var(--spectrum-purple-500);
+    }
+    
+    .btn-ghost {
+      background: transparent;
+      color: var(--spectrum-text-muted);
+    }
+    
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--spectrum-text-secondary);
+    }
+    
+    .btn-primary i,
+    .btn-secondary i,
+    .btn-ghost i {
+      width: 16px;
+      height: 16px;
+    }
+    
+    /* ==========================================================================
        PRINT STYLES
        ========================================================================== */
     @media print {
@@ -801,6 +954,19 @@
         gap: var(--spectrum-spacing-100);
         align-items: flex-start;
       }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .form-actions {
+        flex-direction: column;
+      }
+      
+      .form-actions button {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -826,6 +992,7 @@
         <li><a href="#email-results"><i data-lucide="arrow-right"></i> Email: Debrief Scheduling</a></li>
         <li><a href="#linkedin-outreach"><i data-lucide="arrow-right"></i> LinkedIn Outreach</a></li>
         <li><a href="#feedback-questions"><i data-lucide="arrow-right"></i> Debrief Feedback Questions</a></li>
+        <li><a href="#feedback-capture"><i data-lucide="arrow-right"></i> Feedback Capture Tool</a></li>
         <li><a href="#next-steps"><i data-lucide="arrow-right"></i> Post-Alpha Next Steps</a></li>
       </ul>
     </nav>
@@ -1095,49 +1262,44 @@
       
       <div class="timeline">
         <div class="timeline-item">
-          <div class="timeline-date">Week -1</div>
+          <div class="timeline-date">Feb 11-17</div>
           <div class="timeline-title">Pre-Launch Prep</div>
           <div class="timeline-desc">Finalize participant list, set up tracking, prepare email sequences, brief Director of Delivery</div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-date">Day 1</div>
-          <div class="timeline-title">Alpha Invitations Sent</div>
+          <div class="timeline-date">Feb 18 (Tues)</div>
+          <div class="timeline-title">Alpha Launch — Invitations Sent</div>
           <div class="timeline-desc">Send personalized invitations to all 20+ targets via email and LinkedIn</div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-date">Day 4</div>
+          <div class="timeline-date">Feb 21 (Fri)</div>
           <div class="timeline-title">Reminder #1</div>
           <div class="timeline-desc">Follow-up email to non-responders with social proof from early completers</div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-date">Day 7</div>
+          <div class="timeline-date">Feb 25 (Tues)</div>
           <div class="timeline-title">Mid-Point Check</div>
           <div class="timeline-desc">Review completion rates, adjust outreach if needed, recruit backup participants</div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-date">Day 10</div>
+          <div class="timeline-date">Feb 28 (Fri)</div>
           <div class="timeline-title">Final Reminder</div>
           <div class="timeline-desc">Last call email with deadline urgency</div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-date">Day 14</div>
+          <div class="timeline-date">March 4 (Tues)</div>
           <div class="timeline-title">Assessment Window Closes</div>
           <div class="timeline-desc">Lock submissions, Director of Delivery begins review</div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-date">Day 15-18</div>
-          <div class="timeline-title">Director Review & Calibration</div>
-          <div class="timeline-desc">Director of Delivery reviews each submission, validates archetype, curates personalized PDF reports</div>
+          <div class="timeline-date">March 4-6</div>
+          <div class="timeline-title">Director Review & 1:1 Debriefs</div>
+          <div class="timeline-desc">Director reviews submissions, validates archetypes, delivers curated PDFs via 30-min strategy sessions</div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-date">Day 15-21</div>
-          <div class="timeline-title">1:1 Debrief Calls (Rolling)</div>
-          <div class="timeline-desc">Director of Delivery delivers curated PDF via 30-min strategy session; captures feedback</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-date">Day 22-25</div>
-          <div class="timeline-title">Calibration Analysis</div>
-          <div class="timeline-desc">Compile calibration notes, adjust scoring weights, document patterns for algorithm tuning</div>
+          <div class="timeline-date">March 6 (Thurs)</div>
+          <div class="timeline-title">Calibration Complete</div>
+          <div class="timeline-desc">All debriefs complete; compile calibration notes, document patterns for algorithm tuning</div>
         </div>
       </div>
     </section>
@@ -1181,7 +1343,7 @@
             <div class="email-signature">
               [Your Name]<br>
               [Title], Knapsack<br>
-              <em>P.S. — Assessment closes [DATE]. You'll hear from our Director of Delivery within 48 hours of completing to schedule your debrief.</em>
+              <em>P.S. — Assessment closes March 4th. You'll hear from our Director of Delivery within 48 hours of completing to schedule your debrief.</em>
             </div>
           </div>
         </div>
@@ -1338,6 +1500,209 @@
       </div>
     </section>
     
+    <!-- Feedback Capture Tool -->
+    <section id="feedback-capture">
+      <h2><i data-lucide="clipboard-list"></i> Director Feedback Capture Tool</h2>
+      
+      <p>Use this form during or immediately after each debrief call. Fill in the fields and click "Copy for Spreadsheet" to paste directly into your tracking sheet.</p>
+      
+      <div class="card highlight" style="margin-top: 24px;">
+        <form id="feedback-form" onsubmit="return false;">
+          <div class="form-grid">
+            <!-- Row 1: Basic Info -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="participant-name">Participant Name</label>
+                <input type="text" id="participant-name" placeholder="Jane Smith">
+              </div>
+              <div class="form-group">
+                <label for="company-name">Company</label>
+                <input type="text" id="company-name" placeholder="Acme Corp">
+              </div>
+              <div class="form-group">
+                <label for="debrief-date">Debrief Date</label>
+                <input type="date" id="debrief-date">
+              </div>
+            </div>
+            
+            <!-- Row 2: PCRI Results -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="pcri-score">PCRI Score</label>
+                <input type="number" id="pcri-score" placeholder="0-100" min="0" max="100">
+              </div>
+              <div class="form-group">
+                <label for="archetype">Archetype</label>
+                <select id="archetype">
+                  <option value="">Select...</option>
+                  <option value="Builder">Builder (0-44)</option>
+                  <option value="Adopter">Adopter (45-54)</option>
+                  <option value="Optimizer">Optimizer (55-74)</option>
+                  <option value="Transformer">Transformer (75-100)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="journey">Recommended Journey</label>
+                <select id="journey">
+                  <option value="">Select...</option>
+                  <option value="J1 Foundation">J1 Foundation</option>
+                  <option value="J2 Acceleration">J2 Acceleration</option>
+                  <option value="J3 Activation">J3 Activation</option>
+                  <option value="J4 Intelligence">J4 Intelligence</option>
+                </select>
+              </div>
+            </div>
+            
+            <!-- Row 3: Industry -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="industry">Industry</label>
+                <select id="industry">
+                  <option value="">Select...</option>
+                  <option value="Financial Services">Financial Services</option>
+                  <option value="Enterprise Software">Enterprise Software</option>
+                  <option value="Healthcare">Healthcare</option>
+                  <option value="Retail">Retail</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="participant-track">Participant Track</label>
+                <select id="participant-track">
+                  <option value="">Select...</option>
+                  <option value="Executive">Executive (VP+)</option>
+                  <option value="Practitioner">Practitioner (IC-Manager)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="completion-time">Completion Time (min)</label>
+                <input type="number" id="completion-time" placeholder="e.g., 10" min="1">
+              </div>
+            </div>
+            
+            <!-- Divider -->
+            <div class="form-divider">
+              <span>Participant Feedback</span>
+            </div>
+            
+            <!-- Row 4: Quick Ratings -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="question-clarity">Question Clarity (1-5)</label>
+                <select id="question-clarity">
+                  <option value="">Select...</option>
+                  <option value="5">5 - Very Clear</option>
+                  <option value="4">4 - Mostly Clear</option>
+                  <option value="3">3 - Neutral</option>
+                  <option value="2">2 - Somewhat Confusing</option>
+                  <option value="1">1 - Very Confusing</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="time-perception">Time Perception</label>
+                <select id="time-perception">
+                  <option value="">Select...</option>
+                  <option value="Too Short">Too Short</option>
+                  <option value="About Right">About Right</option>
+                  <option value="Too Long">Too Long</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="report-value">Report Value (1-5)</label>
+                <select id="report-value">
+                  <option value="">Select...</option>
+                  <option value="5">5 - Extremely Valuable</option>
+                  <option value="4">4 - Very Valuable</option>
+                  <option value="3">3 - Somewhat Valuable</option>
+                  <option value="2">2 - Limited Value</option>
+                  <option value="1">1 - Not Valuable</option>
+                </select>
+              </div>
+            </div>
+            
+            <!-- Row 5: Confusing Questions -->
+            <div class="form-row full-width">
+              <div class="form-group">
+                <label for="confusing-questions">Confusing Questions (if any)</label>
+                <input type="text" id="confusing-questions" placeholder="Q3, Q7 - wording unclear on governance scope">
+              </div>
+            </div>
+            
+            <!-- Divider -->
+            <div class="form-divider">
+              <span>Director Calibration</span>
+            </div>
+            
+            <!-- Row 6: Director Assessment -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="archetype-accurate">Archetype Accurate?</label>
+                <select id="archetype-accurate">
+                  <option value="">Select...</option>
+                  <option value="Yes">Yes - Matches Reality</option>
+                  <option value="Close">Close - Minor Adjustment</option>
+                  <option value="No">No - Needs Override</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="archetype-override">Override To (if needed)</label>
+                <select id="archetype-override">
+                  <option value="">N/A</option>
+                  <option value="Builder">Builder</option>
+                  <option value="Adopter">Adopter</option>
+                  <option value="Optimizer">Optimizer</option>
+                  <option value="Transformer">Transformer</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="sales-ready">Sales Ready?</label>
+                <select id="sales-ready">
+                  <option value="">Select...</option>
+                  <option value="Hot">Hot - Ready for IPE convo</option>
+                  <option value="Warm">Warm - Nurture needed</option>
+                  <option value="Cold">Cold - Not a fit now</option>
+                </select>
+              </div>
+            </div>
+            
+            <!-- Row 7: Notes -->
+            <div class="form-row full-width">
+              <div class="form-group">
+                <label for="calibration-notes">Calibration Notes</label>
+                <textarea id="calibration-notes" rows="3" placeholder="Key observations, scoring anomalies, industry comparison notes..."></textarea>
+              </div>
+            </div>
+            
+            <!-- Row 8: Question Issues -->
+            <div class="form-row full-width">
+              <div class="form-group">
+                <label for="question-issues">Question Issues Flagged</label>
+                <textarea id="question-issues" rows="2" placeholder="Any questions where participant's answer didn't match reality..."></textarea>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Action Buttons -->
+          <div class="form-actions">
+            <button type="button" class="btn-primary" onclick="copyForSpreadsheet()">
+              <i data-lucide="table"></i> Copy for Spreadsheet
+            </button>
+            <button type="button" class="btn-secondary" onclick="copyAsMarkdown()">
+              <i data-lucide="file-text"></i> Copy as Markdown
+            </button>
+            <button type="button" class="btn-ghost" onclick="clearForm()">
+              <i data-lucide="rotate-ccw"></i> Clear Form
+            </button>
+          </div>
+        </form>
+      </div>
+      
+      <div class="callout" style="margin-top: 24px;">
+        <p><strong>Spreadsheet Headers (copy to first row):</strong></p>
+        <code style="display: block; margin-top: 8px; font-size: 0.75rem; word-break: break-all;">Participant Name	Company	Debrief Date	PCRI Score	Archetype	Journey	Industry	Track	Time (min)	Question Clarity	Time Perception	Report Value	Confusing Questions	Archetype Accurate	Override To	Sales Ready	Calibration Notes	Question Issues</code>
+      </div>
+    </section>
+    
     <!-- Next Steps -->
     <section id="next-steps">
       <h2><i data-lucide="rocket"></i> Post-Alpha Next Steps</h2>
@@ -1379,7 +1744,7 @@
           <tr>
             <td>Google Sheets webhook</td>
             <td>Lead capture → CRM sync</td>
-            <td><span class="status status-progress"><i data-lucide="loader"></i> In Progress</span></td>
+            <td><span class="status status-complete"><i data-lucide="check"></i> Complete</span></td>
           </tr>
           <tr>
             <td>Segment/Amplitude events</td>
@@ -1415,6 +1780,126 @@
     // Initialize Lucide icons
     lucide.createIcons();
     
+    // Set default date to today
+    document.addEventListener('DOMContentLoaded', function() {
+      const dateInput = document.getElementById('debrief-date');
+      if (dateInput) {
+        dateInput.valueAsDate = new Date();
+      }
+    });
+    
+    // Get all form values
+    function getFormData() {
+      return {
+        participantName: document.getElementById('participant-name')?.value || '',
+        companyName: document.getElementById('company-name')?.value || '',
+        debriefDate: document.getElementById('debrief-date')?.value || '',
+        pcriScore: document.getElementById('pcri-score')?.value || '',
+        archetype: document.getElementById('archetype')?.value || '',
+        journey: document.getElementById('journey')?.value || '',
+        industry: document.getElementById('industry')?.value || '',
+        participantTrack: document.getElementById('participant-track')?.value || '',
+        completionTime: document.getElementById('completion-time')?.value || '',
+        questionClarity: document.getElementById('question-clarity')?.value || '',
+        timePerception: document.getElementById('time-perception')?.value || '',
+        reportValue: document.getElementById('report-value')?.value || '',
+        confusingQuestions: document.getElementById('confusing-questions')?.value || '',
+        archetypeAccurate: document.getElementById('archetype-accurate')?.value || '',
+        archetypeOverride: document.getElementById('archetype-override')?.value || '',
+        salesReady: document.getElementById('sales-ready')?.value || '',
+        calibrationNotes: document.getElementById('calibration-notes')?.value || '',
+        questionIssues: document.getElementById('question-issues')?.value || ''
+      };
+    }
+    
+    // Copy as tab-separated values for spreadsheet
+    function copyForSpreadsheet() {
+      const data = getFormData();
+      const row = [
+        data.participantName,
+        data.companyName,
+        data.debriefDate,
+        data.pcriScore,
+        data.archetype,
+        data.journey,
+        data.industry,
+        data.participantTrack,
+        data.completionTime,
+        data.questionClarity,
+        data.timePerception,
+        data.reportValue,
+        data.confusingQuestions.replace(/\t/g, ' ').replace(/\n/g, ' '),
+        data.archetypeAccurate,
+        data.archetypeOverride,
+        data.salesReady,
+        data.calibrationNotes.replace(/\t/g, ' ').replace(/\n/g, ' '),
+        data.questionIssues.replace(/\t/g, ' ').replace(/\n/g, ' ')
+      ].join('\t');
+      
+      copyToClipboard(row, event.target.closest('button'), 'Copied for Sheets!');
+    }
+    
+    // Copy as Markdown for notes
+    function copyAsMarkdown() {
+      const data = getFormData();
+      const markdown = `## ${data.participantName} — ${data.companyName}
+**Date:** ${data.debriefDate}
+
+### PCRI Results
+- **Score:** ${data.pcriScore}/100
+- **Archetype:** ${data.archetype}
+- **Recommended Journey:** ${data.journey}
+- **Industry:** ${data.industry}
+- **Track:** ${data.participantTrack}
+- **Completion Time:** ${data.completionTime} min
+
+### Participant Feedback
+- **Question Clarity:** ${data.questionClarity}/5
+- **Time Perception:** ${data.timePerception}
+- **Report Value:** ${data.reportValue}/5
+- **Confusing Questions:** ${data.confusingQuestions || 'None noted'}
+
+### Director Calibration
+- **Archetype Accurate:** ${data.archetypeAccurate}
+- **Override To:** ${data.archetypeOverride || 'N/A'}
+- **Sales Ready:** ${data.salesReady}
+
+**Calibration Notes:**
+${data.calibrationNotes || 'None'}
+
+**Question Issues:**
+${data.questionIssues || 'None'}
+
+---`;
+      
+      copyToClipboard(markdown, event.target.closest('button'), 'Copied as Markdown!');
+    }
+    
+    // Clear the form
+    function clearForm() {
+      document.getElementById('feedback-form').reset();
+      document.getElementById('debrief-date').valueAsDate = new Date();
+    }
+    
+    // Helper function to copy to clipboard with button feedback
+    function copyToClipboard(text, btn, successMsg) {
+      navigator.clipboard.writeText(text).then(() => {
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i data-lucide="check"></i> ' + successMsg;
+        btn.style.background = 'var(--spectrum-green-500)';
+        btn.style.borderColor = 'var(--spectrum-green-500)';
+        btn.style.color = 'white';
+        lucide.createIcons();
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+          btn.style.background = '';
+          btn.style.borderColor = '';
+          btn.style.color = '';
+          lucide.createIcons();
+        }, 2000);
+      });
+    }
+    
     function copyEmail(type) {
       const emailBodies = {
         invite: `Hi [First Name],
@@ -1440,7 +1925,7 @@ Worth 10 minutes + a free strategy session?
 [Your Name]
 [Title], Knapsack
 
-P.S. — Assessment closes [DATE]. You'll hear from our Director of Delivery within 48 hours of completing to schedule your debrief.`,
+P.S. — Assessment closes March 4th. You'll hear from our Director of Delivery within 48 hours of completing to schedule your debrief.`,
         
         reminder: `Hi [First Name],
 
