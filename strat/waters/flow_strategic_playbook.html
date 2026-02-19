@@ -389,17 +389,14 @@
       { id: 'overview', label: 'Executive Summary' },
       { id: 'challenge', label: 'The Challenge' },
       { id: 'solution', label: 'The Solution' },
-      { id: 'charter', label: 'Systems Charter' },
-      { id: 'outcomes', label: 'Business Outcomes' },
-      { id: 'timeline', label: 'Implementation Timeline' },
-      { id: 'workshops', label: 'Engagement Model' },
+      { id: 'charter-outcomes', label: 'Charter & Outcomes' },
+      { id: 'engagement-plan', label: 'Engagement & Implementation' },
       { id: 'governance', label: 'Governance Framework' },
       { id: 'technical', label: 'Technical Integration' },
       { id: 'roi', label: 'ROI & Business Case' },
       { id: 'risks', label: 'Risk Mitigation' },
+      { id: 'workshop-summary', label: 'Workshop Summary' },
       { id: 'next-steps', label: 'Next Steps' },
-      { id: 'workshop-agenda', label: 'Workshop Agenda' },
-      { id: 'workshop-outcomes', label: 'Workshop Outcomes' },
     ];
     let activeSection = 'overview';
     function renderNav() {
@@ -457,6 +454,41 @@
           <div class="card roi-banner">
             <div><div class="roi-label">Projected 3-Year Return</div><div class="roi-value">$2.7M – $5.1M</div></div>
             <div style="text-align: right;"><div class="roi-label">Annual ROI Range</div><div class="roi-value">$900K – $1.7M</div></div>
+          </div>
+          <div class="card" style="background: var(--success-light); border: 1px solid var(--success);">
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <span style="font-size: 20px;">✓</span>
+              <div>
+                <div style="font-size: 14px; font-weight: 600; color: var(--success); margin-bottom: 4px;">Deal Status: HIGH CONFIDENCE</div>
+                <p style="font-size: 13px; color: var(--neutral-700); margin: 0;">Finance reviewed and approved the business case. Budget accommodation in AOP is the only remaining barrier. Strong buy-in across Product, Design Ops, Engineering, and Management.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="background: var(--warning-light); border: 1px solid var(--warning);">
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <span style="font-size: 20px;">!</span>
+              <div>
+                <div style="font-size: 14px; font-weight: 600; color: var(--warning); margin-bottom: 4px;">Budget Context: LinearB Competition</div>
+                <p style="font-size: 13px; color: var(--neutral-700); margin: 0;">LinearB is competing for the same AOP budget. Key differentiation: LinearB measures engineering <em>process</em> (PR velocity, DORA metrics); Knapsack improves <em>product outcomes</em> (consistency, governance, AI workflows). Different problems, different value.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Why This Opportunity Is Unique</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Already Evaluated Vendors', desc: 'Zeroheight failed in 2024—too flat, limited hierarchy. Waters knows what does not work.' },
+                { title: 'Strong Champions', desc: 'Caitlin (PO) and Drew (Design Ops) are sharp, invested, and aligned with Knapsack vision.' },
+                { title: 'Executive Buy-In Exists', desc: 'VP Dave supports—needs local, specific ROI (not generic vendor claims).' },
+                { title: 'Real Daily Pain', desc: 'Not theoretical problems—tangible friction validated in workshop.' },
+                { title: 'Perfect Timing', desc: 'AOP cycle + AI pressure + BD acquisition + team maturity inflection.' },
+                { title: 'Cultural Fit', desc: 'Value candor, pragmatism, partnership. "Do not keep selling past the sell."' },
+              ].map(v => '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">' + v.title + '</div><div class="value-desc">' + v.desc + '</div></div></div>').join('')}
+            </div>
+          </div>
+          <div class="card partnership-banner">
+            <div class="partnership-marker"></div>
+            <div><div class="partnership-title">Post-Workshop: Ready for Proposal</div><p class="partnership-desc">Feb 4 workshop validated pain points, aligned stakeholders, and established the "Now → 90 days → MVP → V2" framework. Six workstreams defined with clear deliverables. See <strong>Engagement & Implementation</strong> section for proposal details.</p></div>
           </div>`,
         challenge: `
           <h1 class="section-title">The Challenge</h1>
@@ -516,13 +548,40 @@
               ].map(i => `<div class="check-item"><span class="check-icon">✓</span><div><div class="check-title">${i.title}</div><div class="check-desc">${i.desc}</div></div></div>`).join('')}
             </div>
           </div>`,
-        charter: `
-          <h1 class="section-title">Systems Charter</h1>
-          <p class="section-subtitle">Vision and strategic framework for Flow's transformation</p>
+        'charter-outcomes': `
+          <h1 class="section-title">Systems Charter & Business Outcomes</h1>
+          <p class="section-subtitle">Vision, strategic framework, and measurable impact for Flow's transformation</p>
+          
+          <!-- Vision -->
           <div class="card summary-card">
-            <h3 style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 8px;">Vision</h3>
-            <p style="font-size: 16px; color: var(--neutral-700); line-height: 1.7;">Create a unified, scalable design system—Flow—that connects design, code, and AI workflows across the entire Waters software ecosystem. Accelerate product delivery, reduce defects, support acquisition integration, and establish Waters as an AI-enabled software organization.</p>
+            <div class="summary-label">Vision Statement</div>
+            <p class="summary-text">Create a unified, scalable design system—Flow—that connects design, code, and AI workflows across the entire Waters software ecosystem. Accelerate product delivery, reduce defects, support acquisition integration, and establish Waters as an AI-enabled software organization.</p>
           </div>
+          
+          <!-- Guiding Principles -->
+          <div class="card">
+            <h2 class="heading">Guiding Principles</h2>
+            <div class="grid-3">
+              ${['Consistency before customization', 'Governance as enablement', 'AI-ready by design', 'Accessibility as requirement', 'Contribution over handoff', 'Pragmatism over perfection'].map(p => '<div class="principle-item"><span class="principle-marker"></span> ' + p + '</div>').join('')}
+            </div>
+          </div>
+          
+          <!-- Business Outcomes -->
+          <div class="card" style="background: var(--primary); color: white; border: none;">
+            <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">Measurable Business Outcomes</div>
+            <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">Five Key Value Drivers</h3>
+            <p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">Projected impact across Waters operations, validated through workshop discussions and industry benchmarks.</p>
+          </div>
+          
+          ${[
+            { num: 1, title: 'Faster Time-to-Market', outcome: '10–20% velocity improvement across 5–10 products', desc: 'Consistent, reusable components eliminate redundant work and accelerate feature delivery across your portfolio.' },
+            { num: 2, title: 'Reduced QA Overhead', outcome: '10–30% defect reduction, 20–25% faster regression cycles', desc: 'Standardized implementations mean fewer bugs, less rework, and shorter QA cycles—directly impacting release confidence.' },
+            { num: 3, title: 'Accelerated Acquisition Integration', outcome: '3–6 months faster onboarding per acquisition', desc: 'Multi-brand architecture and contribution workflows bring acquired teams into Flow rapidly and consistently.' },
+            { num: 4, title: 'AI Workflow Readiness', outcome: 'Structured data for Figma Make, MCPs, and future automation', desc: 'Schema-driven component metadata becomes the foundation for AI tools—positioning Waters for 2026 and beyond.' },
+            { num: 5, title: 'Developer Efficiency', outcome: '600–800 hours/year recovered across 12–15 engineers', desc: 'Eliminate manual documentation tasks and redirect engineering capacity to high-value product work.' },
+          ].map(o => '<div class="card"><div class="outcome-card"><div class="outcome-num">' + o.num + '</div><div class="outcome-content"><h3 class="outcome-title">' + o.title + '</h3><div class="outcome-highlight">' + o.outcome + '</div><p class="outcome-desc">' + o.desc + '</p></div></div></div>').join('')}
+          
+          <!-- 3-Year Transformation Roadmap -->
           <div class="card">
             <h2 class="heading">3-Year Transformation Roadmap</h2>
             <div class="grid-3">
@@ -530,63 +589,275 @@
                 { year: 'Year 1', title: 'Foundation', items: ['Knapsack as control plane', 'Storybook integration', 'Contribution workflows', 'Pilot acquisition onboarding', 'Non-dev accessible docs'] },
                 { year: 'Year 2', title: 'Expansion', items: ['Multi-brand architecture', 'AI workflow enablement', 'Portfolio-wide adoption', 'Schema-driven automation', 'Enhanced governance'] },
                 { year: 'Year 3', title: 'Optimization', items: ['Enterprise design ops model', 'Acquisition playbooks', 'System maturity 4–5', 'Automated design-to-code', 'Full AI integration'] },
-              ].map(y => `<div class="year-card"><div class="year-label">${y.year}</div><div class="year-title">${y.title}</div>${y.items.map(i => `<div class="year-item">${i}</div>`).join('')}</div>`).join('')}
-            </div>
-          </div>
-          <div class="card">
-            <h2 class="heading">Guiding Principles</h2>
-            <div class="grid-3">
-              ${['Consistency before customization', 'Governance as enablement', 'AI-ready by design', 'Accessibility as requirement', 'Contribution over handoff', 'Pragmatism over perfection'].map(p => `<div class="principle-item"><span class="principle-marker"></span> ${p}</div>`).join('')}
+              ].map(y => '<div class="year-card"><div class="year-label">' + y.year + '</div><div class="year-title">' + y.title + '</div>' + y.items.map(i => '<div class="year-item">' + i + '</div>').join('') + '</div>').join('')}
             </div>
           </div>`,
-        outcomes: `
-          <h1 class="section-title">Business Outcomes</h1>
-          <p class="section-subtitle">Measurable impact across Waters' operations</p>
-          ${[
-            { num: 1, title: 'Faster Time-to-Market', outcome: '10–20% velocity improvement across 5–10 products', desc: 'Consistent, reusable components eliminate redundant work and accelerate feature delivery across your portfolio.' },
-            { num: 2, title: 'Reduced QA Overhead', outcome: '10–30% defect reduction, 20–25% faster regression cycles', desc: 'Standardized implementations mean fewer bugs, less rework, and shorter QA cycles—directly impacting release confidence.' },
-            { num: 3, title: 'Accelerated Acquisition Integration', outcome: '3–6 months faster onboarding per acquisition', desc: 'Multi-brand architecture and contribution workflows bring acquired teams into Flow rapidly and consistently.' },
-            { num: 4, title: 'AI Workflow Readiness', outcome: 'Structured data for Figma Make, MCPs, and future automation', desc: 'Schema-driven component metadata becomes the foundation for AI tools—positioning Waters for 2026 and beyond.' },
-            { num: 5, title: 'Developer Efficiency', outcome: '600–800 hours/year recovered across 12–15 engineers', desc: 'Eliminate manual documentation tasks and redirect engineering capacity to high-value product work.' },
-          ].map(o => `<div class="card"><div class="outcome-card"><div class="outcome-num">${o.num}</div><div class="outcome-content"><h3 class="outcome-title">${o.title}</h3><div class="outcome-highlight">${o.outcome}</div><p class="outcome-desc">${o.desc}</p></div></div></div>`).join('')}`,
-        timeline: `
-          <h1 class="section-title">Implementation Timeline</h1>
-          <p class="section-subtitle">12-month phased approach with clear milestones</p>
+        'engagement-plan': `
+          <h1 class="section-title">Engagement & Implementation Plan</h1>
+          <p class="section-subtitle">Comprehensive view: SOW alignment, workstreams, timeline, and delivery model</p>
+          
+          <!-- SOW Reference -->
+          <div class="card summary-card" style="margin-bottom: 20px;">
+            <div class="summary-label">Statement of Work Reference</div>
+            <p class="summary-text"><strong>SOW:</strong> Knapsack Engagement to Support Waters "Flow at Scale" Next Steps<br>
+            <strong>Prepared for:</strong> Waters Corporation | <strong>Prepared by:</strong> Knapsack | <strong>Date:</strong> February 19, 2026</p>
+          </div>
+          
+          <!-- Background & Context -->
           <div class="card">
+            <h2 class="heading">Background & Context</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.7;">Waters has invested in the Flow design system, but day-to-day delivery is constrained by operational friction: teams rely on multiple sources to determine what is safe to use, design intent and coded reality drift, documentation is costly to maintain, and version/release awareness is inconsistent across apps. Workshop and onsite discussions also surfaced enterprise constraints (IT/security), token and theming complexity, and the need for a phased MVP path that proves value quickly without disrupting teams.</p>
+          </div>
+          
+          <!-- Engagement Objectives -->
+          <div class="card">
+            <h2 class="heading">Engagement Objectives</h2>
+            <div class="grid-2">
+              ${[
+                { num: '1', objective: 'De-risk decision-making', detail: 'Clear architecture and IT/security alignment plan for a deployed Knapsack workspace' },
+                { num: '2', objective: 'Define MVP scope and phased roadmap', detail: 'Now → 90 days → MVP → V2 that balances speed, quality, and governance' },
+                { num: '3', objective: 'Establish token/theming visibility', detail: 'Governance patterns that work with the existing tiered token approach' },
+                { num: '4', objective: 'Create documentation and release ops', detail: 'Foundations to improve adoption, upgrade behavior, and confidence' },
+              ].map(o => '<div class="check-item"><span class="check-icon">' + o.num + '</span><div><div class="check-title">' + o.objective + '</div><div class="check-desc">' + o.detail + '</div></div></div>').join('')}
+            </div>
+          </div>
+          
+          <!-- Partnership Approach -->
+          <div class="card partnership-banner" style="margin-bottom: 20px;">
+            <div class="partnership-marker"></div>
+            <div><div class="partnership-title">Partnership Approach</div><p class="partnership-desc">Knapsack CX team works alongside Waters design system champions to co-create solutions that fit your unique needs and workflows.</p></div>
+          </div>
+          
+          <!-- Phased Roadmap Overview -->
+          <div class="card" style="background: var(--primary); color: white; border: none;">
+            <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">Phased Roadmap: Now → 90 Days → MVP → V2</div>
+            <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 16px;">Four-Phase Engagement Model</h3>
+            <div class="grid-2" style="gap: 12px;">
+              ${[
+                { phase: 'Phase 1', name: 'Decision Readiness', time: '2–3 weeks', color: 'rgba(255,255,255,0.15)' },
+                { phase: 'Phase 2', name: 'Pre-MVP Foundation', time: '4–6 weeks', color: 'rgba(255,255,255,0.15)' },
+                { phase: 'Phase 3', name: 'MVP Launch', time: '4–6 weeks', color: 'rgba(255,255,255,0.15)' },
+                { phase: 'Phase 4', name: 'V2 & Scale', time: 'Ongoing', color: 'rgba(255,255,255,0.15)' },
+              ].map(p => '<div style="background: ' + p.color + '; padding: 14px; border-radius: 6px;"><div style="font-size: 11px; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.05em;">' + p.phase + ' • ' + p.time + '</div><div style="font-size: 16px; font-weight: 600; margin-top: 4px;">' + p.name + '</div></div>').join('')}
+            </div>
+          </div>
+          
+          <!-- Phase 1: Decision Readiness -->
+          <div class="card" style="border-left: 4px solid var(--action);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+              <div>
+                <span class="badge badge-action">Phase 1</span>
+                <h2 class="heading" style="margin-top: 8px; margin-bottom: 0;">Decision Readiness</h2>
+              </div>
+              <span style="font-size: 13px; color: var(--neutral-500);">2–3 Weeks</span>
+            </div>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;"><strong>Goal:</strong> Unblock approval and de-risk infrastructure before commitment.</p>
+            <div class="grid-3" style="margin-bottom: 16px;">
+              <div class="stack-card">
+                <div class="stack-label">Workstreams</div>
+                ${['Decision Readiness & Executive Narrative', 'Technical Readiness (IT/Security)'].map(w => '<div class="stack-item"><span class="stack-check">●</span> ' + w + '</div>').join('')}
+              </div>
+              <div class="stack-card">
+                <div class="stack-label">Key Deliverables</div>
+                ${['Software assessment package', 'ROI model (time-saved)', 'Risk register', 'IT implementation brief', 'MVP scope definition'].map(d => '<div class="stack-item"><span class="stack-check">□</span> ' + d + '</div>').join('')}
+              </div>
+              <div class="stack-card">
+                <div class="stack-label">Workshop Activities</div>
+                ${['Executive interviews', 'IT/InfoSec architecture session', 'Problem framing', 'Journey mapping'].map(a => '<div class="stack-item"><span class="stack-check">→</span> ' + a + '</div>').join('')}
+              </div>
+            </div>
+          </div>
+          
+          <!-- Phase 2: Pre-MVP Foundation -->
+          <div class="card" style="border-left: 4px solid var(--primary);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+              <div>
+                <span class="badge badge-primary">Phase 2</span>
+                <h2 class="heading" style="margin-top: 8px; margin-bottom: 0;">Pre-MVP Foundation</h2>
+              </div>
+              <span style="font-size: 13px; color: var(--neutral-500);">4–6 Weeks</span>
+            </div>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;"><strong>Goal:</strong> Stand up infrastructure and establish foundation for credible MVP.</p>
+            <div class="grid-3" style="margin-bottom: 16px;">
+              <div class="stack-card">
+                <div class="stack-label">Workstreams</div>
+                ${['Token and Theming Strategy', 'MVP Definition and Pilot Build'].map(w => '<div class="stack-item"><span class="stack-check">●</span> ' + w + '</div>').join('')}
+              </div>
+              <div class="stack-card">
+                <div class="stack-label">Key Deliverables</div>
+                ${['Deployed workspace (prod)', 'Token visibility plan', 'Skeleton design system', 'Initial components', 'Doc templates'].map(d => '<div class="stack-item"><span class="stack-check">□</span> ' + d + '</div>').join('')}
+              </div>
+              <div class="stack-card">
+                <div class="stack-label">Workshop Activities</div>
+                ${['Component & token deep dive', 'Token mapping session', 'Storybook integration', 'Classification framework'].map(a => '<div class="stack-item"><span class="stack-check">→</span> ' + a + '</div>').join('')}
+              </div>
+            </div>
+          </div>
+          
+          <!-- Phase 3: MVP Launch -->
+          <div class="card" style="border-left: 4px solid var(--success);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+              <div>
+                <span class="badge badge-success">Phase 3</span>
+                <h2 class="heading" style="margin-top: 8px; margin-bottom: 0;">MVP Launch & Adoption</h2>
+              </div>
+              <span style="font-size: 13px; color: var(--neutral-500);">4–6 Weeks</span>
+            </div>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;"><strong>Goal:</strong> Ship MVP that exceeds Storybook baseline; activate adoption.</p>
+            <div class="grid-3" style="margin-bottom: 16px;">
+              <div class="stack-card">
+                <div class="stack-label">Workstreams</div>
+                ${['Documentation Governance', 'Adoption & Release Ops'].map(w => '<div class="stack-item"><span class="stack-check">●</span> ' + w + '</div>').join('')}
+              </div>
+              <div class="stack-card">
+                <div class="stack-label">Key Deliverables</div>
+                ${['MVP workspace live', 'Doc governance system', 'Release comms playbook', 'Training materials', 'Adoption telemetry'].map(d => '<div class="stack-item"><span class="stack-check">□</span> ' + d + '</div>').join('')}
+              </div>
+              <div class="stack-card">
+                <div class="stack-label">Workshop Activities</div>
+                ${['Governance design', 'RACI definition', 'Rollout planning', 'Training delivery'].map(a => '<div class="stack-item"><span class="stack-check">→</span> ' + a + '</div>').join('')}
+              </div>
+            </div>
+          </div>
+          
+          <!-- Phase 4: V2 & Scale -->
+          <div class="card" style="border-left: 4px solid var(--warning);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+              <div>
+                <span class="badge badge-warning">Phase 4</span>
+                <h2 class="heading" style="margin-top: 8px; margin-bottom: 0;">V2 & Scale</h2>
+              </div>
+              <span style="font-size: 13px; color: var(--neutral-500);">Ongoing</span>
+            </div>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;"><strong>Goal:</strong> Expand capabilities, deeper automation, and M&A integration strategy.</p>
+            <div class="grid-3" style="margin-bottom: 16px;">
+              <div class="stack-card">
+                <div class="stack-label">Expansion Areas</div>
+                ${['Multi-tech (React/Angular)', 'AI workflow activation', 'M&A integration'].map(w => '<div class="stack-item"><span class="stack-check">●</span> ' + w + '</div>').join('')}
+              </div>
+              <div class="stack-card">
+                <div class="stack-label">Key Deliverables</div>
+                ${['Multi-tech expansion plan', 'AI workflow activation', 'M&A playbook', 'Advanced governance', 'Continuous improvement'].map(d => '<div class="stack-item"><span class="stack-check">□</span> ' + d + '</div>').join('')}
+              </div>
+              <div class="stack-card">
+                <div class="stack-label">Ongoing Activities</div>
+                ${['AI enablement sessions', 'BD acquisition onboarding', 'Quarterly audits', 'Business reviews'].map(a => '<div class="stack-item"><span class="stack-check">→</span> ' + a + '</div>').join('')}
+              </div>
+            </div>
+          </div>
+          
+          <!-- 12-Month Timeline View -->
+          <div class="card">
+            <h2 class="heading">12-Month Implementation Timeline</h2>
             ${[
               { days: 'Months 1–2', title: 'Strategy & Setup', color: 'var(--action)', items: ['Systems charter finalization', 'Technical architecture', 'Component inventory', 'Team maturity assessment', 'Figma & Storybook analysis'] },
               { days: 'Months 2–4', title: 'Foundation', color: 'var(--primary)', items: ['Knapsack environment setup', 'Storybook integration', 'Token alignment', 'Contribution workflow design', 'Initial component migrations'] },
               { days: 'Months 4–8', title: 'Migration & Adoption', color: 'var(--warning)', items: ['Component migration (10–20)', 'Team training', 'Multi-brand structure', 'Governance integration', 'Pilot acquisition onboarding'] },
               { days: 'Months 6–12+', title: 'Scale & Optimize', color: 'var(--success)', items: ['AI workflow activation', 'Quarterly audits', 'Documentation refinement', 'Portfolio-wide rollout', 'Continuous improvement'] },
-            ].map((p, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${p.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: ${p.color}15; color: ${p.color}; border: 1px solid ${p.color}40;">${p.days}</span><span class="timeline-title">${p.title}</span></div><div class="phase-list">${p.items.map(i => `<div class="phase-item">${i}</div>`).join('')}</div></div></div>`).join('')}
-          </div>`,
-        workshops: `
-          <h1 class="section-title">Engagement Model</h1>
-          <p class="section-subtitle">Collaborative workshop series to ensure successful implementation</p>
-          <div class="card partnership-banner" style="margin-bottom: 28px;">
-            <div class="partnership-marker"></div>
-            <div><div class="partnership-title">Partnership Approach</div><p class="partnership-desc">Knapsack's CX team works alongside Waters' design system champions to co-create solutions that fit your organization's unique needs and workflows.</p></div>
+            ].map((p, i, arr) => '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ' + p.color + '"></div>' + (i < arr.length - 1 ? '<div class="timeline-line"></div>' : '') + '</div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: ' + p.color + '15; color: ' + p.color + '; border: 1px solid ' + p.color + '40;">' + p.days + '</span><span class="timeline-title">' + p.title + '</span></div><div class="phase-list">' + p.items.map(i => '<div class="phase-item">' + i + '</div>').join('') + '</div></div></div>').join('')}
           </div>
-          ${[
-            { num: 1, title: 'Framing & Alignment', outcome: 'Shared understanding of goals, pain points, and success criteria', activities: ['Problem framing', 'Journey mapping', 'North Star definition', 'AI opportunity identification'] },
-            { num: 2, title: 'Component & Token Deep Dive', outcome: 'Complete taxonomy alignment and migration priorities', activities: ['Live component audit', 'Classification framework', 'Token mapping', 'Prioritization matrix'] },
-            { num: 3, title: 'Governance Design', outcome: 'Clear roles, workflows, and versioning standards', activities: ['RACI definition', 'Contribution workflow', 'Review lifecycle', 'Versioning rules'] },
-            { num: 4, title: 'Technical Integration', outcome: 'Functional architecture and sync workflows', activities: ['Storybook integration', 'Figma sync', 'Schema creation', 'Multi-brand setup'] },
-            { num: 5, title: 'AI Enablement', outcome: 'AI-ready patterns and automation frameworks', activities: ['Automation scope', 'Schema definition', 'Pattern generation', 'Governance rules'] },
-            { num: 6, title: 'Rollout Planning', outcome: 'Comprehensive launch and change management plan', activities: ['Training plan', 'Onboarding content', 'KPI definitions', 'Communication strategy'] },
-          ].map(w => `<div class="card"><div class="workshop-card"><div class="workshop-num">${w.num}</div><div><h3 class="workshop-title">${w.title}</h3><p class="workshop-outcome">${w.outcome}</p><div class="workshop-activities">${w.activities.map(a => `<span class="workshop-tag">${a}</span>`).join('')}</div></div></div></div>`).join('')}`,
-        'workshop-agenda': `
-          <h1 class="section-title">Waters × Knapsack On-Site Workshop</h1>
-          <p class="section-subtitle">Flow Design System Alignment & Execution</p>
+          
+          <!-- Work Breakdown Structure -->
+          <div class="card">
+            <h2 class="heading">Work Breakdown Structure (WBS)</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 20px;">Task breakdown aligned to workshop To-Do buckets.</p>
+            <div class="grid-3">
+              <div class="year-card">
+                <div class="year-label" style="color: var(--action);">Before Decision</div>
+                <div class="year-title">Approval & Setup</div>
+                ${['Complete software assessment', 'Finalize ROI model', 'IT/InfoSec sign-off', 'Define MVP scope', 'Establish contribution model', 'Confirm deployment model', 'GitHub integration plan'].map(i => '<div class="year-item">' + i + '</div>').join('')}
+              </div>
+              <div class="year-card">
+                <div class="year-label" style="color: var(--primary);">Post-Decision / Pre-MVP</div>
+                <div class="year-title">Foundation Build</div>
+                ${['Deploy workspace (prod)', 'Token visibility setup', 'Figma library cleanup', 'Storybook consolidation', 'Initial component migration', 'Doc templates created', 'Version maintenance plan', 'Branding rules defined'].map(i => '<div class="year-item">' + i + '</div>').join('')}
+              </div>
+              <div class="year-card">
+                <div class="year-label" style="color: var(--success);">Post-MVP</div>
+                <div class="year-title">Adoption & Scale</div>
+                ${['MVP launch (exceeds baseline)', 'Training rollout', 'Adoption roadshow', 'Release ops active', 'Telemetry dashboard', 'Quarterly audits', 'M&A integration prep', 'V2 planning begins'].map(i => '<div class="year-item">' + i + '</div>').join('')}
+              </div>
+            </div>
+          </div>
+          
+          <!-- Workshop Series -->
+          <div class="card">
+            <h2 class="heading">Workshop Series (Mapped to Phases)</h2>
+            <div class="grid-2">
+              ${[
+                { num: 1, title: 'Framing & Alignment', phase: 'Phase 1', activities: ['Problem framing', 'Journey mapping', 'North Star definition'] },
+                { num: 2, title: 'Component & Token Deep Dive', phase: 'Phase 2', activities: ['Live component audit', 'Token mapping', 'Prioritization matrix'] },
+                { num: 3, title: 'Governance Design', phase: 'Phase 2–3', activities: ['RACI definition', 'Contribution workflow', 'Versioning rules'] },
+                { num: 4, title: 'Technical Integration', phase: 'Phase 2', activities: ['Storybook integration', 'Figma sync', 'Multi-brand setup'] },
+                { num: 5, title: 'AI Enablement', phase: 'Phase 4', activities: ['Automation scope', 'Schema definition', 'Pattern generation'] },
+                { num: 6, title: 'Rollout Planning', phase: 'Phase 3', activities: ['Training plan', 'KPI definitions', 'Communication strategy'] },
+              ].map(w => '<div class="card" style="margin-bottom: 0;"><div class="workshop-card"><div class="workshop-num">' + w.num + '</div><div><h3 class="workshop-title">' + w.title + ' <span class="badge badge-primary" style="font-size: 10px; padding: 2px 8px;">' + w.phase + '</span></h3><div class="workshop-activities">' + w.activities.map(a => '<span class="workshop-tag">' + a + '</span>').join('') + '</div></div></div></div>').join('')}
+            </div>
+          </div>
+          
+          <!-- Investment Summary -->
+          <div class="card" style="background: var(--success-light); border: 1px solid #c3ddd2;">
+            <h2 class="heading" style="color: var(--success);">Investment Summary</h2>
+            <div class="grid-3">
+              <div class="stat-card" style="background: white;">
+                <div class="stat-value">12–16</div>
+                <div class="stat-label">Weeks to MVP</div>
+                <div class="stat-note">Phases 1–3</div>
+              </div>
+              <div class="stat-card" style="background: white;">
+                <div class="stat-value">6</div>
+                <div class="stat-label">Workstreams</div>
+                <div class="stat-note">Across 4 phases</div>
+              </div>
+              <div class="stat-card" style="background: white;">
+                <div class="stat-value">Q2 2026</div>
+                <div class="stat-label">Target MVP</div>
+                <div class="stat-note">Per workshop alignment</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- SOW Structure -->
+          <div class="card">
+            <h2 class="heading">SOW Structure</h2>
+            <div class="phase-list">
+              <div class="phase-item"><strong>Phase 1: Discovery & Decision Readiness</strong> — Fixed scope, deliverable-based (2–3 weeks)</div>
+              <div class="phase-item"><strong>Phase 2: Implementation & MVP</strong> — Time & materials with defined milestones (8–12 weeks)</div>
+              <div class="phase-item"><strong>Phase 3: Ongoing Success</strong> — Quarterly engagement + support agreement</div>
+            </div>
+            <div class="solution-item" style="margin-top: 20px; background: var(--primary-light); border: 1px solid #d9d0e8;">
+              <div class="solution-challenge" style="color: var(--primary);">Key SOW Terms</div>
+              <div class="solution-answer">Deployment model (Waters-hosted preferred) • IP ownership for custom configs • Success criteria tied to adoption metrics • Change order process • Knowledge transfer requirements</div>
+            </div>
+          </div>
+          
+          <!-- MCP/AI Pilot -->
+          <div class="card" style="background: var(--action-light); border: 1px solid #b8d4e8;">
+            <h2 class="heading" style="color: var(--action);">Bonus: MCP/AI Pilot Opportunity</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">Low-risk pilot leveraging AI tooling and MCP-based audit capabilities.</p>
+            <div class="phase-list">
+              <div class="phase-item"><strong>Automated audit</strong> — flag components lacking documentation</div>
+              <div class="phase-item"><strong>Mismatch detection</strong> — identify gaps between Storybook and Figma</div>
+              <div class="phase-item"><strong>Prioritized remediation list</strong> — actionable output to drive immediate value</div>
+            </div>
+          </div>`,
+        'workshop-summary': `
+          <h1 class="section-title">Workshop Summary</h1>
+          <p class="section-subtitle">February 4, 2026 — Waters × Knapsack On-Site Workshop</p>
+          
+          <!-- Workshop Status Banner -->
           <div class="card" style="background: var(--success); color: white; border: none;">
             <div style="display: flex; align-items: center; gap: 12px;">
               <span style="font-size: 24px;">✓</span>
               <div>
-                <div style="font-size: 18px; font-weight: 700;">Workshop Completed</div>
+                <div style="font-size: 18px; font-weight: 700;">Workshop Successfully Completed</div>
                 <div style="opacity: 0.9;">February 4, 2026 • 9:30am – 3:30pm ET • On-site at Waters (Milford, MA)</div>
+                <div style="opacity: 0.85; margin-top: 4px; font-size: 13px;">6-hour collaborative session with 11 Waters stakeholders. Journey mapping, pre-mortem, and 90-day planning completed.</div>
               </div>
             </div>
           </div>
+          
+          <!-- Attendees -->
           <div class="card summary-card" style="margin-top: 20px;">
             <div class="summary-label">Attendees</div>
             <div class="summary-text">
@@ -594,181 +865,27 @@
               <p style="margin-top: 8px;"><strong>Knapsack:</strong> Jon Boush (AE), Chris Bloom, Brennan Thaney (Service Designer)</p>
             </div>
           </div>
-          <div class="card">
-            <h2 class="heading">Workshop Purpose</h2>
-            <p class="section-subtitle" style="margin-bottom: 12px;">This working session brings together Waters and Knapsack to align on the <strong>problem space, goals, risks, and near-term execution plan</strong> for evolving the Flow design system at scale.</p>
-            <p class="section-subtitle" style="margin-bottom: 16px;">By the end of the session, participants will have shared clarity on:</p>
-            <div class="phase-list">
-              ${[
-                'What must improve first',
-                'How success will be measured',
-                'How Flow can evolve safely within current constraints',
-                'What happens in the first 90 days',
-              ].map(i => `<div class="phase-item">${i}</div>`).join('')}
-            </div>
-            <p class="section-subtitle" style="margin-top: 16px; margin-bottom: 0;">This is <strong>not</strong> a tool training or procurement session. It is a focused, decision-oriented working workshop.</p>
-          </div>
-          <div class="card">
-            <h2 class="heading">What to Expect</h2>
-            <div class="phase-list">
-              ${[
-                'Structured, collaborative working sessions',
-                'Clear decision points and documented outcomes',
-                'Balanced focus on <strong>delivery reality</strong>, <strong>business value</strong>, and <strong>risk</strong>',
-                'Pragmatic scope appropriate for a half-day session',
-              ].map(i => `<div class="phase-item">${i}</div>`).join('')}
-            </div>
-          </div>
-          <div class="card">
-            <h2 class="heading">Pre-Work Summary</h2>
-            <p class="section-subtitle" style="margin-bottom: 12px;"><em>Requested from Waters; details shared separately</em></p>
-            <p class="section-subtitle" style="margin-bottom: 16px;">To ensure the workshop is focused on alignment and decision-making, the Waters team will share a small set of <strong>high-level, existing materials</strong> in advance. These inputs will be used to pre-seed discussions and avoid spending workshop time on discovery.</p>
-            <div class="phase-list">
-              ${[
-                'A <strong>current design system architecture diagram</strong>, showing data flows between existing tools',
-                'A brief <strong>“as-is” workflow overview</strong> describing how Flow is used today from design through release',
-                'Any available <strong>adoption or usage signals</strong> to inform the metrics discussion',
-              ].map(i => `<div class="phase-item">${i}</div>`).join('')}
-            </div>
-            <p class="section-subtitle" style="margin-top: 16px; margin-bottom: 0;">These materials do not need to be perfect or exhaustive; “good enough” is ideal.</p>
-          </div>
-          <div class="card">
-            <h2 class="heading">Logistics & Site Information</h2>
-            <p class="section-subtitle" style="margin-bottom: 12px;"><em>To be completed by Waters site host</em></p>
-            <div class="phase-list">
-              ${[
-                '<strong>Building / Room:</strong>',
-                '<strong>Arrival Instructions & Site Access:</strong>',
-                '<strong>Wi-Fi Access:</strong>',
-                '<strong>Coffee & Refreshments:</strong>',
-                '<strong>Lunch:</strong>',
-                '<strong>On-Site Contact:</strong>',
-              ].map(i => `<div class="phase-item">${i}</div>`).join('')}
-            </div>
-          </div>
-          <div class="card">
-            <h2 class="heading">Agenda Overview (9:30am – 3:00pm)</h2>
-            ${[
-              {
-                time: '9:30 – 9:40',
-                title: 'Welcome & Context Setting',
-                desc: 'Align on the goals of the workshop, intended outcomes, and how decisions will be made.',
-                outcomes: ['Shared understanding of purpose and scope', 'Clear expectations for participation'],
-              },
-              {
-                time: '9:40 – 10:55',
-                title: 'Current State Working Session: Flow at Scale',
-                note: '(Design, Development, Product – required)',
-                desc: 'A collaborative working session to establish a shared understanding of how Flow is used today across <strong>40+ applications</strong>, where friction exists, and what constraints must be respected.',
-                outcomes: ['Shared “As-Is” view of Flow in practice', 'Agreed list of high-impact pain points', 'Explicit constraints to guide all future decisions'],
-              },
-              {
-                time: '10:55 – 11:30',
-                title: 'Synthesis & Priority Focus Areas',
-                note: '(Core workshop team; cross-functional attendees may drop after this)',
-                desc: 'Consolidate insights from the morning and identify the most important problems to address.',
-                outcomes: ['Prioritized problem statements', 'Alignment on what must improve first', 'Clear inputs for architecture and execution planning'],
-              },
-              {
-                time: '11:30 – 12:00',
-                title: 'Architecture & Integration Options',
-                desc: 'Review Flow’s current technical architecture and discuss Knapsack integration options, including GitHub-based workflows and hosting considerations.',
-                outcomes: ['Shared understanding of viable integration patterns', 'Identified risks, open questions, and IT/procurement follow-ups'],
-              },
-              {
-                time: '12:00 – 12:35',
-                title: 'Defining Success & Measuring Value',
-                desc: 'Define how success will be measured in the first 90 days and beyond, including adoption signals, confidence indicators, and operational metrics.',
-                outcomes: ['Agreed success criteria', 'Initial metrics framework'],
-              },
-              {
-                time: '12:35 – 12:45',
-                title: 'Break',
-              },
-              {
-                time: '12:45 – 1:15',
-                title: 'Governance, Contribution & AI Guardrails',
-                desc: 'Define ownership, contribution pathways, and governance principles—including guardrails for AI-assisted content and workflows.',
-                outcomes: ['Clear roles and responsibilities', 'Contribution and review pathways', 'Shared principles for AI readiness and oversight'],
-              },
-              {
-                time: '1:15 – 1:35',
-                title: 'Pre-Mortem: What Could Go Wrong?',
-                desc: 'Run a structured pre-mortem to surface technical, organizational, and adoption risks that could undermine success.',
-                outcomes: ['Identified risks and failure modes', 'Inputs to a phased, lower-risk execution approach'],
-              },
-              {
-                time: '1:35 – 2:30',
-                title: 'Execution Planning & Near-Term Commitments',
-                desc: 'Translate the day’s decisions into a concrete near-term plan, including priorities, ownership, and checkpoints.',
-                outcomes: ['90-day execution plan', 'Clear owners and next steps'],
-              },
-              {
-                time: '2:30 – 3:00',
-                title: 'Wrap-Up & Executive Playback',
-                desc: 'Review decisions made, confirm commitments, and outline what happens after the workshop.',
-                outcomes: ['Shared understanding of decisions and risks', 'Confidence in the path forward'],
-              },
-            ].map(item => `
-              <div class="check-item" style="margin-bottom: 10px;">
-                <span class="check-icon">•</span>
-                <div>
-                  <div class="check-title">${item.time}</div>
-                  <div class="check-desc"><strong>${item.title}</strong>${item.note ? ` <em>${item.note}</em>` : ''}</div>
-                  ${item.desc ? `<div class="check-desc">${item.desc}</div>` : ''}
-                  ${item.outcomes ? `<div class="phase-list" style="margin-top: 10px;">${item.outcomes.map(o => `<div class="phase-item">${o}</div>`).join('')}</div>` : ''}
-                </div>
-              </div>
-            `).join('')}
-          </div>
-          <div class="card">
-            <h2 class="heading">Workshop Deliverables</h2>
-            <div class="phase-list">
-              ${[
-                '<strong>Systems Charter</strong> — Vision, outcomes, success criteria, and guiding principles',
-                '<strong>Work Breakdown Structure (WBS)</strong> — Detailed breakdown of workstreams to inform implementation timeline, resourcing, and budget planning',
-                '<strong>High-Level 90-Day Execution Plan</strong> — Near-term priorities, sequencing, and ownership',
-                '<strong>Architecture & Integration Alignment Summary</strong> — Documented integration options, constraints, and IT/procurement follow-ups',
-                '<strong>Updated Business Case</strong> — Refined value model grounded in agreed metrics, scope, and execution approach',
-              ].map(i => `<div class="phase-item">${i}</div>`).join('')}
-            </div>
-          </div>
-          <div class="card">
-            <h2 class="heading">Important Notes</h2>
-            <div class="phase-list">
-              ${[
-                'Some outcomes will require <strong>follow-up validation with IT and procurement</strong>; these dependencies will be documented.',
-                'The goal is <strong>alignment and direction</strong>, not finalizing every technical detail in one session.',
-              ].map(i => `<div class="phase-item">${i}</div>`).join('')}
-            </div>
-          </div>
-          <div class="card ready-card">
-            <h2 class="heading">Final Thought</h2>
-            <p>Participants should leave with <strong>clarity, alignment, and confidence</strong> in how Flow will evolve, how success will be measured, and how execution will be planned responsibly.</p>
-          </div>`,
-        'workshop-outcomes': `
-          <h1 class="section-title">Workshop Outcomes</h1>
-          <p class="section-subtitle">Key decisions and validated insights from February 4, 2026</p>
-          <div class="card" style="background: var(--success); color: white; border: none;">
-            <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">Workshop Status</div>
-            <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">✓ Successfully Completed</h3>
-            <p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">6-hour collaborative session with 11 Waters stakeholders. Journey mapping, pre-mortem, and 90-day planning completed. Strong alignment achieved across all participants.</p>
-          </div>
+          
+          <!-- Key Validated Pain Points -->
           <div class="card">
             <h2 class="heading">Key Validated Pain Points</h2>
             <div class="grid-2">
               ${[
+                { pain: 'Source-of-truth drift', detail: 'Figma and Storybook mismatch—teams unsure which version to use' },
                 { pain: 'Documentation requires developers', detail: 'All Storybook updates need dev involvement—major bottleneck' },
+                { pain: 'Documentation capacity gap', detail: '"No one dedicated to documentation writing, review, quality control"' },
                 { pain: 'Figma library is a "hot mess"', detail: 'Acknowledged by team—cleanup required before Knapsack' },
                 { pain: 'Shadow DOM friction', detail: 'Web components hinder styling overrides and testing significantly' },
-                { pain: 'Version fragmentation', detail: 'Different teams on different Flow versions for release independence' },
+                { pain: 'Version fragmentation', detail: 'Different teams on different Flow versions; releases not visible' },
                 { pain: 'No design-dev sync', detail: 'Gap in collaboration on technical constraints before handoff' },
                 { pain: 'Standards not centralized', detail: 'Every new team member restarts standards discussions' },
                 { pain: 'Product teams have own libraries', detail: 'SCP and others have richer custom components than Flow' },
-                { pain: 'Designs get stale in backlog', detail: '2-year-old designs deployed; system has evolved since' },
-              ].map(p => `<div class="solution-item"><div class="solution-challenge">${p.pain}</div><div class="solution-answer">${p.detail}</div></div>`).join('')}
+                { pain: 'Apps stay on old versions', detail: 'Teams avoid upgrades due to unclear migration path' },
+              ].map(p => '<div class="solution-item"><div class="solution-challenge">' + p.pain + '</div><div class="solution-answer">' + p.detail + '</div></div>').join('')}
             </div>
           </div>
+          
+          <!-- Pre-Mortem Risks -->
           <div class="card">
             <h2 class="heading">Pre-Mortem Risks Identified</h2>
             <div class="grid-2">
@@ -779,9 +896,11 @@
                 { risk: 'Knapsack MVP flops', mitigation: 'Cannot "limp out the door"—define MVP scope carefully' },
                 { risk: 'No resources for migration', mitigation: 'Hire contractor for transition, define level of effort first' },
                 { risk: 'Leadership loses interest', mitigation: 'Clear value metrics, quarterly progress reports' },
-              ].map(r => `<div class="card" style="margin-bottom: 0;"><div class="risk-header"><div class="risk-marker"></div><span class="risk-title">${r.risk}</span></div><div class="risk-mitigation">${r.mitigation}</div></div>`).join('')}
+              ].map(r => '<div class="card" style="margin-bottom: 0;"><div class="risk-header"><div class="risk-marker"></div><span class="risk-title">' + r.risk + '</span></div><div class="risk-mitigation">' + r.mitigation + '</div></div>').join('')}
             </div>
           </div>
+          
+          <!-- 90-Day Plan Framework -->
           <div class="card">
             <h2 class="heading">90-Day Plan Framework</h2>
             <div class="grid-3">
@@ -789,23 +908,41 @@
                 { phase: 'Now', title: 'Cleanup & Decisions', items: ['Figma library cleanup', 'Define MVP scope', 'Migration level of effort', 'Storybook consolidation', 'Documentation person gap'] },
                 { phase: 'Before MVP', title: 'Preparation', items: ['Complete cleanup', 'Create phased migration plan', 'Security/IT approvals', 'Define success metrics', 'Prepare roadshow materials'] },
                 { phase: 'Post-MVP', title: 'Rollout & Adoption', items: ['Dev team focus groups', 'Adoption roadshow', 'Training sessions', 'M&A integration prep', 'Quarterly audits'] },
-              ].map(y => `<div class="year-card"><div class="year-label">${y.phase}</div><div class="year-title">${y.title}</div>${y.items.map(i => `<div class="year-item">${i}</div>`).join('')}</div>`).join('')}
+              ].map(y => '<div class="year-card"><div class="year-label">' + y.phase + '</div><div class="year-title">' + y.title + '</div>' + y.items.map(i => '<div class="year-item">' + i + '</div>').join('') + '</div>').join('')}
             </div>
           </div>
+          
+          <!-- Critical Decisions Required -->
+          <div class="card">
+            <h2 class="heading">Critical Decisions Required</h2>
+            <div class="grid-2">
+              ${[
+                { decision: 'Contribution Model', detail: 'How do product teams contribute components back to Flow?' },
+                { decision: 'Version Maintenance Plan', detail: 'How many versions supported? How long? What triggers deprecation?' },
+                { decision: 'Variants/Branding Rules', detail: 'Modes vs themes vs accent colors—what is branded vs shared?' },
+                { decision: 'Cloud Alignment', detail: 'Deployed workspace: Waters-hosted vs Knapsack-managed?' },
+                { decision: 'Token Strategy', detail: '3-tier tokens + semantic layer visibility/permissions model' },
+                { decision: 'MVP Output Path', detail: 'Web components vs Angular wrapper vs React for V1?' },
+              ].map(d => '<div class="solution-item"><div class="solution-challenge">' + d.decision + '</div><div class="solution-answer">' + d.detail + '</div></div>').join('')}
+            </div>
+          </div>
+          
+          <!-- Key Quotes -->
           <div class="card">
             <h2 class="heading">Key Quotes from Workshop</h2>
-            <div class="phase-list">
+            <div class="grid-2">
               ${[
                 '"We dont have a design system documentation person" — Drew',
                 '"The Figma library is kind of a hot mess right now" — Caitlin',
                 '"Shadow DOM hinders production tremendously" — Dev survey',
                 '"The MVP cant limp out the door" — Drew',
                 '"We want to come in as top dogs" — on M&A positioning',
-                '"I need an ROI about Knapsack, not design systems" — Drew on budget justification',
-                '"Having something like Knapsack makes us look more buttoned up" — Drew',
-              ].map(q => `<div class="phase-item" style="font-style: italic;">${q}</div>`).join('')}
+                '"I need an ROI about Knapsack, not design systems" — Drew',
+              ].map(q => '<div class="phase-item" style="font-style: italic; padding: 8px 12px; background: var(--neutral-50); border-radius: 4px; margin-bottom: 8px;">' + q + '</div>').join('')}
             </div>
           </div>
+          
+          <!-- Knapsack Action Items -->
           <div class="card">
             <h2 class="heading">Knapsack Action Items</h2>
             <div class="grid-2">
@@ -814,7 +951,21 @@
                 { item: 'Migration LOE Documentation', owner: 'Chris/Andrew', desc: 'What effort per component type for accurate planning' },
                 { item: 'Best Practices Deck', owner: 'CX Team', desc: 'How other biomed/pharma customers organized design systems' },
                 { item: 'Multi-brand Strategy', owner: 'CX Team', desc: 'How Knapsack helps with BD acquisition integration' },
-              ].map(a => `<div class="deliverable-item"><div class="deliverable-title">${a.item} <span class="badge badge-action">${a.owner}</span></div><div class="deliverable-desc">${a.desc}</div></div>`).join('')}
+              ].map(a => '<div class="deliverable-item"><div class="deliverable-title">' + a.item + ' <span class="badge badge-action">' + a.owner + '</span></div><div class="deliverable-desc">' + a.desc + '</div></div>').join('')}
+            </div>
+          </div>
+          
+          <!-- Workshop Deliverables -->
+          <div class="card" style="background: var(--primary-light); border: 1px solid #d9d0e8;">
+            <h2 class="heading" style="color: var(--primary);">Workshop Deliverables Completed</h2>
+            <div class="phase-list">
+              ${[
+                '<strong>Systems Charter</strong> — Vision, outcomes, success criteria, and guiding principles',
+                '<strong>Work Breakdown Structure (WBS)</strong> — Detailed breakdown of workstreams',
+                '<strong>High-Level 90-Day Execution Plan</strong> — Near-term priorities, sequencing, and ownership',
+                '<strong>Architecture & Integration Summary</strong> — Integration options, constraints, IT/procurement follow-ups',
+                '<strong>Updated Business Case</strong> — Refined value model grounded in agreed metrics',
+              ].map(i => '<div class="phase-item">' + i + '</div>').join('')}
             </div>
           </div>`,
         governance: `
@@ -887,6 +1038,28 @@
             <div><div class="roi-label">Annual ROI Range</div><div class="roi-value">$900K – $1.7M</div></div>
             <div style="text-align: right;"><div class="roi-label">3-Year Total Return</div><div class="roi-value">$2.7M – $5.1M</div></div>
           </div>
+          <div class="card" style="background: var(--primary-light); border-left: 4px solid var(--primary);">
+            <div style="font-size: 12px; font-weight: 600; color: var(--primary); margin-bottom: 8px;">Key ROI Insight from Workshop</div>
+            <p style="font-size: 14px; color: var(--neutral-700); line-height: 1.6; margin: 0; font-style: italic;">"I need an ROI about Knapsack, not design systems. Every vendor says 28 billion dollars. If you came in with something smaller, we would say get out. But leadership wants local impact: I am pointing to these six people, and the impact will have this dollar amount."</p>
+            <p style="font-size: 13px; color: var(--neutral-500); margin-top: 8px; margin-bottom: 0;">— Drew, Design Ops</p>
+          </div>
+          <div class="card" style="background: var(--action-light); border: 1px solid #b8d4e8;">
+            <h2 class="heading" style="color: var(--action);">vs. LinearB: Different Value Propositions</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6; margin-bottom: 12px;">LinearB and Knapsack solve different problems and should be evaluated separately:</p>
+            <div class="grid-2">
+              <div style="background: white; padding: 14px; border-radius: 6px; border: 1px solid var(--neutral-150);">
+                <div style="font-size: 11px; font-weight: 600; color: var(--neutral-500); margin-bottom: 6px;">LINEARB MEASURES</div>
+                <div style="font-size: 14px; font-weight: 600; color: var(--neutral-700); margin-bottom: 4px;">Engineering Process</div>
+                <div style="font-size: 12px; color: var(--neutral-500);">PR velocity, cycle time, DORA metrics—rearview mirror on how fast PRs move</div>
+              </div>
+              <div style="background: white; padding: 14px; border-radius: 6px; border: 1px solid var(--primary);">
+                <div style="font-size: 11px; font-weight: 600; color: var(--primary); margin-bottom: 6px;">KNAPSACK IMPROVES</div>
+                <div style="font-size: 14px; font-weight: 600; color: var(--neutral-700); margin-bottom: 4px;">Product Outcomes</div>
+                <div style="font-size: 12px; color: var(--neutral-500);">Consistency, governance, AI workflows—infrastructure that shapes what you build</div>
+              </div>
+            </div>
+            <p style="font-size: 13px; color: var(--action); margin-top: 12px; margin-bottom: 0; font-weight: 500;">LinearB claims ~47% cycle time improvement. But faster PRs with inconsistent components = faster inconsistency.</p>
+          </div>
           ${[
             { cat: 1, title: 'Developer Efficiency', range: '$90K–$120K/year', desc: 'Eliminates manual documentation tasks, Storybook updates, and component rebuilds—redirecting engineering time to product work.', metrics: ['12–15 engineers impacted', '3–5 hrs/week saved', '600–800 hrs/year recovered'], highlight: false },
             { cat: 2, title: 'QA & Defect Reduction', range: '$150K–$250K/year', desc: 'Consistent component implementations reduce defects and accelerate regression testing cycles.', metrics: ['10–30% defect reduction', '20–25% faster regressions', '5–8 teams impacted'], highlight: false },
@@ -903,6 +1076,7 @@
           </div>
           <div class="risk-grid">
             ${[
+              { risk: 'Budget Allocated to LinearB', mitigation: 'Different value propositions: LinearB measures engineering process; Knapsack improves product infrastructure. Not competitive—solve different problems. Emphasize multi-brand, M&A, and AI capabilities LinearB cannot deliver.' },
               { risk: 'Budget Gets Pulled', mitigation: 'Negotiate multi-year plan with fixed pricing; generate internal demand; show local ROI (not vendor claims)' },
               { risk: 'BD Acquisition Disrupts Everything', mitigation: 'Position Flow as "top dogs"—buttoned-up system that acquired org adopts, not vice versa' },
               { risk: 'MVP "Limps Out the Door"', mitigation: 'Define MVP scope carefully; cannot ship less than current Storybook; phased approach approved' },
@@ -931,15 +1105,28 @@
             ].map((m, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${m.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ${m.color}">${m.when}</span><span class="badge ${m.status === 'Done' ? 'badge-success' : m.status === 'Next' ? 'badge-action' : m.status === 'In Progress' ? 'badge-primary' : 'badge-warning'}">${m.status}</span></div><div class="timeline-title">${m.title}</div><p class="timeline-desc">${m.desc}</p></div></div>`).join('')}
           </div>
           <div class="card">
-            <h2 class="heading">Immediate Action Items</h2>
+            <h2 class="heading">Immediate Action Items (Pre-Decision)</h2>
             <div class="grid-2">
               ${[
                 { title: 'Schedule Pro Services Call', desc: 'After Feb 16 with Drew & Amber—org pattern learnings from GSK' },
+                { title: 'Software Assessment Package', desc: 'Deployment model, security posture, roles/permissions for IT review' },
+                { title: 'IT Implementation Brief', desc: 'Network + auth + runtime + ownership doc for InfoSec handoff' },
                 { title: 'Define MVP Scope', desc: 'What ships in V1? Cannot be less than current Storybook' },
                 { title: 'Migration Level of Effort', desc: 'Document effort per component type for accurate planning' },
+                { title: 'ROI Model (Time-Saved)', desc: 'Doc maintenance, rework from drift, release comms overhead quantified' },
+              ].map(d => `<div class="deliverable-item"><div class="deliverable-title">${d.title}</div><div class="deliverable-desc">${d.desc}</div></div>`).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Pre-MVP Actions (Post-Decision)</h2>
+            <div class="grid-2">
+              ${[
                 { title: 'Figma Library Cleanup', desc: 'Address "hot mess" before Knapsack ingestion' },
-                { title: 'BD Acquisition Prep', desc: 'Position as "top dogs"—buttoned up for imminent M&A' },
+                { title: 'Token & Theme Working Session', desc: 'Decide: unidirectional (view) vs. bidirectional (govern + publish)' },
+                { title: 'Deployed Workspace Setup', desc: 'Waters-hosted vs Knapsack-managed; Artifactory integration' },
                 { title: 'Documentation Person', desc: 'Gap identified: need dedicated doc role (hire or reassign)' },
+                { title: 'Contribution Model Decision', desc: 'How do product teams contribute components back to Flow?' },
+                { title: 'BD Acquisition Prep', desc: 'Position as "top dogs"—buttoned up for imminent M&A' },
               ].map(d => `<div class="deliverable-item"><div class="deliverable-title">${d.title}</div><div class="deliverable-desc">${d.desc}</div></div>`).join('')}
             </div>
           </div>
