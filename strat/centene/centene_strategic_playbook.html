@@ -285,6 +285,7 @@
     .deliverable-item { background: var(--neutral-50); border: 1px solid var(--neutral-150); padding: 18px; border-radius: 6px; }
     .deliverable-title { font-size: 15px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px; }
     .deliverable-desc { font-size: 13px; color: var(--neutral-600); }
+    .quote-box { background: var(--neutral-100); border-left: 4px solid var(--neutral-500); padding: 16px 20px; margin: 16px 0; font-style: italic; }
     @media (max-width: 900px) {
       nav { display: none; }
       main { margin-left: 0; padding: 24px; }
@@ -297,19 +298,21 @@
     <div class="nav-header">
       <div class="nav-label">Strategic Partnership</div>
       <div class="nav-title">Centene × Knapsack</div>
-      <div class="nav-subtitle">Intelligent Product Engine (IPE)</div>
+      <div class="nav-subtitle">The Playbook</div>
     </div>
     <div class="nav-items" id="navItems" role="navigation"></div>
     <div class="nav-footer">
       <div class="nav-footer-label">Prepared for</div>
       <div class="nav-footer-title">Centene Corporation</div>
-      <div class="nav-footer-date">January 2026</div>
+      <div class="nav-footer-date">February 2026</div>
     </div>
   </nav>
   <main id="mainContent" role="main"></main>
   <script>
     const sections = [
       { id: 'overview', label: 'Executive Summary' },
+      { id: 'discovery', label: 'Discovery Insights' },
+      { id: 'tech-validation', label: 'Tech Validation Agenda' },
       { id: 'challenge', label: 'The Challenge' },
       { id: 'solution', label: 'The Solution' },
       { id: 'charter', label: 'Strategy Alignment' },
@@ -321,198 +324,508 @@
       { id: 'risks', label: 'Risk Mitigation' },
       { id: 'next-steps', label: 'Next Steps' },
     ];
+    
     let activeSection = 'overview';
+    
     function renderNav() {
       const nav = document.getElementById('navItems');
-      nav.innerHTML = sections.map((s, i) => `
-        <button class="nav-btn ${activeSection === s.id ? 'active' : ''}" onclick="setSection('${s.id}')" aria-current="${activeSection === s.id ? 'page' : 'false'}">
-          <span class="nav-num" aria-hidden="true">${i + 1}</span>
-          <span>${s.label}</span>
-        </button>
-      `).join('');
+      nav.innerHTML = sections.map((s, i) => 
+        '<button class="nav-btn ' + (activeSection === s.id ? 'active' : '') + '" onclick="setSection(\'' + s.id + '\')" aria-current="' + (activeSection === s.id ? 'page' : 'false') + '">' +
+          '<span class="nav-num" aria-hidden="true">' + (i + 1) + '</span>' +
+          '<span>' + s.label + '</span>' +
+        '</button>'
+      ).join('');
     }
+    
     function setSection(id) {
       activeSection = id;
       renderNav();
       renderContent();
       window.scrollTo(0, 0);
     }
+    
     function renderContent() {
       const main = document.getElementById('mainContent');
       const content = {
-        overview: `
-          <div class="hero">
-            <div class="hero-label">Executive Partnership Brief</div>
-            <h1>Centene + Knapsack</h1>
-            <p>Intelligent Product Engine (IPE) for Enterprise Design System Governance</p>
-            <p class="sub">Purpose-built for scale, compliance, and change control</p>
-          </div>
-          <div class="card summary-card">
-            <div class="summary-label">Executive Summary</div>
-            <p class="summary-text">Centene’s scale demands a governed control plane that keeps design and engineering aligned across 300+ properties. Knapsack provides the infrastructure to stabilize tokens, automate documentation, and embed change control—enabling consistent member experiences and faster delivery.</p>
-          </div>
-          <div class="card">
-            <h2 class="heading">Strategic Value for Centene</h2>
-            <div class="grid-2">
-              ${[
-                { title: 'Reduce Fragmentation', desc: 'Unified tokens and governance reduce variant sprawl' },
-                { title: 'Accelerate Delivery', desc: 'Reusable components and CI/CD gates shorten cycle time' },
-                { title: 'Increase Compliance Confidence', desc: 'Audit trails and approvals align with HIPAA and change control' },
-                { title: 'Improve Member Experience', desc: 'Consistent theming across web, mobile, and telephony' },
-              ].map(v => `<div class="value-item"><div class="value-marker"></div><div><div class="value-title">${v.title}</div><div class="value-desc">${v.desc}</div></div></div>`).join('')}
-            </div>
-          </div>`,
-        challenge: `
-          <h1 class="section-title">The Challenge</h1>
-          <p class="section-subtitle">Portfolio scale, governance friction, and documentation drift.</p>
-          <div class="card">
-            <h2 class="heading">Current State</h2>
-            ${[
-              { year: 'Portfolio Scale', title: '300+ properties', desc: 'Consistency is difficult across web, mobile, telephony', color: 'var(--neutral-500)' },
-              { year: 'Fragmentation', title: '50+ card variants', desc: 'Overly restrictive governance leads to workarounds', color: 'var(--warning)' },
-              { year: 'Documentation Drift', title: 'Manual updates', desc: 'Design and code diverge without automation', color: 'var(--success)' },
-            ].map((p, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${p.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ${p.color}">${p.year}</span><span class="timeline-title">${p.title}</span></div><p class="timeline-desc">${p.desc}</p></div></div>`).join('')}
-          </div>`,
-        solution: `
-          <h1 class="section-title">The Solution</h1>
-          <p class="section-subtitle">Knapsack as the control plane for Centene’s design system.</p>
-          <div class="card" style="background: var(--primary); color: white; border: none;">
-            <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">Core Value Proposition</div>
-            <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">Unified Control Plane for Tokens, Components, and Governance</h3>
-            <p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">Knapsack connects Figma, engineering, and compliance into a single governed system of record—reducing fragmentation while enabling enterprise-scale contribution.</p>
-          </div>
-          <div class="card">
-            <h2 class="heading">Capability-to-Outcome Map</h2>
-            <div class="grid-2">
-              ${[
-                { title: 'Token & Theme Control Plane', desc: 'Consistent theming across 300+ properties' },
-                { title: 'Governed Change Workflows', desc: 'Faster approvals and lower fragmentation' },
-                { title: 'Automated Documentation', desc: 'Reduced design-dev drift and higher accuracy' },
-                { title: 'Quality & Consistency Gates', desc: 'Higher adoption and consistent member experiences' },
-              ].map(v => `<div class="value-item"><div class="value-marker"></div><div><div class="value-title">${v.title}</div><div class="value-desc">${v.desc}</div></div></div>`).join('')}
-            </div>
-          </div>`,
-        charter: `
-          <h1 class="section-title">Strategy Alignment</h1>
-          <p class="section-subtitle">Guidance from discussions with Sam Choi, VP of Digital Design.</p>
-          <div class="card summary-card">
-            <h3 style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 8px;">Strategy Focus</h3>
-            <p style="font-size: 16px; color: var(--neutral-700); line-height: 1.7;">Stabilize governance and the system of record first, prove value through a focused Foundation pilot, and scale change propagation before expanding AI-enabled delivery.</p>
-          </div>
-          <div class="card">
-            <h2 class="heading">Guiding Principles</h2>
-            <div class="grid-3">
-              ${['Governance as enablement', 'Consistency before customization', 'AI-ready by design', 'Contribution over handoff', 'Pragmatism over perfection', 'Compliance by default'].map(p => `<div class="value-item"><div class="value-marker"></div><div><div class="value-title">${p}</div><div class="value-desc">Embedded across phases and workflows.</div></div></div>`).join('')}
-            </div>
-          </div>`,
-        outcomes: `
-          <h1 class="section-title">Business Outcomes</h1>
-          <p class="section-subtitle">Measurable impact across Centene’s operations.</p>
-          ${[
-            { num: 1, title: 'Reuse Rate', outcome: '> 60% of new UI built from system components', desc: 'Reduce fragmentation and scale adoption across properties.' },
-            { num: 2, title: 'Cycle Time', outcome: '40–60% faster UI implementation', desc: 'Reusable components and validated tokens accelerate delivery.' },
-            { num: 3, title: 'Documentation Accuracy', outcome: '> 95% validated docs', desc: 'Automated documentation reduces drift and rework.' },
-            { num: 4, title: 'Governance Speed', outcome: '< 48 hour approval-to-publish cycle', desc: 'Policy-aligned workflows enable safe, fast change.' },
-          ].map(o => `<div class="card"><div class="value-item" style="border: none;"><div class="value-marker"></div><div><div class="value-title">${o.title} — ${o.outcome}</div><div class="value-desc">${o.desc}</div></div></div></div>`).join('')}`,
-        timeline: `
-          <h1 class="section-title">Implementation Timeline</h1>
-          <p class="section-subtitle">Four phases with a pilot in Foundation.</p>
-          <div class="card">
-            ${[
-              { days: 'Phase 1', title: 'Foundation (20 weeks)', desc: 'Token taxonomy, governance workflows, pilot execution, CI/CD gates', color: 'var(--primary)' },
-              { days: 'Phase 2', title: 'Activation (16 weeks)', desc: 'Scale tokens, onboard teams, visual validation', color: 'var(--action)' },
-              { days: 'Phase 3', title: 'Control Plane (12 weeks)', desc: 'Enterprise governance, compliance integration, dashboards', color: 'var(--warning)' },
-              { days: 'Phase 4', title: 'Intelligence (8–12 weeks)', desc: 'MCP integration, AI guardrails, productivity metrics', color: 'var(--success)' },
-            ].map((p, i, arr) => `<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ${p.color}"></div>${i < arr.length - 1 ? '<div class="timeline-line"></div>' : ''}</div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: ${p.color}15; color: ${p.color}; border: 1px solid ${p.color}40;">${p.days}</span><span class="timeline-title">${p.title}</span></div><p class="timeline-desc">${p.desc}</p></div></div>`).join('')}
-          </div>`,
-        governance: `
-          <h1 class="section-title">Governance Framework</h1>
-          <p class="section-subtitle">Sustainable change control without stifling contribution.</p>
-          <div class="card">
-            <h2 class="heading">Contribution Workflow</h2>
-            <div class="workflow-steps">
-              ${['Proposal', 'Review', 'Approval', 'Implementation', 'Documentation', 'Release', 'Adoption'].map((s, i, arr) => `<div class="workflow-step">${s}</div>${i < arr.length - 1 ? '<span class="workflow-arrow">→</span>' : ''}`).join('')}
-            </div>
-          </div>
-          <div class="grid-2" style="margin-bottom: 24px;">
-            <div class="card">
-              <h2 class="heading">Design System Council</h2>
-              <p class="section-subtitle" style="margin-bottom: 0;">Executive sponsor, platform engineering, product and compliance leadership.</p>
-            </div>
-            <div class="card">
-              <h2 class="heading">Component Review Board</h2>
-              <p class="section-subtitle" style="margin-bottom: 0;">Quality, accessibility, and standards enforcement with audit trails.</p>
-            </div>
-          </div>`,
-        technical: `
-          <h1 class="section-title">Technical Integration</h1>
-          <p class="section-subtitle">Deployment and enterprise requirements.</p>
-          <div class="card">
-            <h2 class="heading">Deployment & Compliance</h2>
-            <div class="grid-2">
-              ${[
-                { req: 'D3 Private Cloud', note: 'Private networking and dedicated validation' },
-                { req: 'HIPAA Compliance', note: 'Security package and audit-ready controls' },
-                { req: 'SSO/SAML', note: 'Enterprise identity integration' },
-                { req: 'Change Control', note: 'Aligned to existing approval workflows' },
-              ].map(r => `<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">${r.req}</div><div class="integration-note">${r.note}</div></div></div>`).join('')}
-            </div>
-          </div>`,
-        roi: `
-          <h1 class="section-title">Success Metrics</h1>
-          <p class="section-subtitle">KPIs used to validate adoption and governance health.</p>
-          <div class="card roi-banner">
-            <div><div class="roi-label">Core Metrics</div><div class="roi-value">Reuse • Cycle Time • Accuracy</div></div>
-            <div style="text-align: right;"><div class="roi-label">Governance</div><div class="roi-value">< 48h approvals</div></div>
-          </div>
-          <div class="card">
-            <div class="grid-3">
-              ${[
-                { metric: 'Reuse Rate', desc: '> 60% new UI from system components' },
-                { metric: 'Cycle Time', desc: '40–60% faster UI implementation' },
-                { metric: 'Doc Accuracy', desc: '> 95% automated validation' },
-                { metric: 'Regressions', desc: '< 2 per quarter' },
-                { metric: 'Adoption', desc: '> 80% teams using standards' },
-                { metric: 'Fragmentation', desc: '< 10% net-new one-offs' },
-              ].map(m => `<div class="metric-card"><div class="metric-value">${m.metric}</div><div class="metric-label">${m.desc}</div></div>`).join('')}
-            </div>
-          </div>`,
-        risks: `
-          <h1 class="section-title">Risk Mitigation</h1>
-          <p class="section-subtitle">Proactive strategies to ensure implementation success.</p>
-          <div class="risk-grid">
-            ${[
-              { risk: 'Fragmentation Pressure', mitigation: 'Governed contribution workflows + validation gates' },
-              { risk: 'Change Resistance', mitigation: 'Pilot success metrics and executive reporting dashboards' },
-              { risk: 'Documentation Drift', mitigation: 'Automated docs tied to tokens and components' },
-              { risk: 'Compliance Delays', mitigation: 'Parallel InfoSec review and audit-ready controls' },
-            ].map(r => `<div class="card"><div class="risk-header"><div class="risk-marker"></div><span class="risk-title">${r.risk}</span></div><div class="risk-mitigation">${r.mitigation}</div></div>`).join('')}
-          </div>`,
-        'next-steps': `
-          <h1 class="section-title">Next Steps</h1>
-          <p class="section-subtitle">Recommended path forward for Centene and Knapsack partnership.</p>
-          <div class="card next-hero">
-            <div class="next-hero-label">Recommended First Step</div>
-            <h3>Focused Demo + Pilot Selection</h3>
-            <p>Figma import → token/theme change → governed approval → CI/CD → auto-updating docs.</p>
-          </div>
-          <div class="card">
-            <h2 class="heading">Immediate Actions</h2>
-            <div class="grid-2">
-              ${[
-                { title: 'Pilot Selection', desc: 'Identify a modernization workstream under consolidation pressure' },
-                { title: 'InfoSec Kickoff', desc: 'Begin vendor security review in parallel with diagnostic' },
-                { title: 'Success Criteria', desc: 'Agree on adoption rate, cycle time, doc freshness, regressions' },
-                { title: 'Governance Roles', desc: 'Confirm council and review board ownership' },
-              ].map(d => `<div class="deliverable-item"><div class="deliverable-title">${d.title}</div><div class="deliverable-desc">${d.desc}</div></div>`).join('')}
-            </div>
-          </div>`,
+        overview: 
+          '<div class="hero">' +
+            '<div class="hero-label">Strategic Partnership Brief</div>' +
+            '<h1>Centene + Knapsack</h1>' +
+            '<p>The Playbook: Single Source of Truth + AI-Queryable Design System</p>' +
+            '<p class="sub">Consolidate docs, enable Copilot integration, scale recipe-first architecture</p>' +
+          '</div>' +
+          '<div class="card summary-card">' +
+            '<div class="summary-label">Executive Summary</div>' +
+            '<p class="summary-text">Centene needs one playbook—a single source of truth that consolidates documentation from Figma, docsXP, and Storybook, while enabling AI-queryable access through their Copilot ecosystem. Knapsack delivers this without requiring Centene to build/maintain another platform, directly supporting James\'s 2026 AI innovation goal.</p>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">What We Heard (Feb 16 Discovery)</h2>' +
+            '<div class="grid-2">' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">"I want the playbook, just one"</div><div class="value-desc">James wants centralized docs so his team doesn\'t answer 30 questions/day about spacing and recipes.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">"Make the DS AI-queryable"</div><div class="value-desc">James\'s AI innovation goal: an agent that answers design system questions instantly.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">"Centene is going Copilot everything"</div><div class="value-desc">Integration with Microsoft Copilot ecosystem is critical path. MCP support required.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">"We passed on V0—it was vaporware"</div><div class="value-desc">Jason needs proven capability, not promises. Live demo of working integration is essential.</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Knapsack Value Proposition</h2>' +
+            '<div class="grid-2">' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Single Source of Truth</div><div class="value-desc">Consolidate Figma, docsXP, Storybook into one governed playbook with Airtable/NextJS integration.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">MCP-Powered AI Queries</div><div class="value-desc">Copilot asks "What\'s the spacing between Recipe 1 and X?" and gets reliable answers.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Recipe/Slot Documentation</div><div class="value-desc">Document configurable cards with slots—no 40 static copies. Visual constraints without variant explosion.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Cut 50%+ of Build Work</div><div class="value-desc">Platform, governance, MCP already built. Focus on content migration, not infrastructure.</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card" style="background: var(--action); color: white; border: none;">' +
+            '<div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">Key Stakeholders</div>' +
+            '<div style="display: flex; gap: 32px; flex-wrap: wrap;">' +
+              '<div><div style="font-size: 14px; font-weight: 700;">Jason Wishard</div><div style="font-size: 13px; opacity: 0.9;">Sr. Director, Product Design & DS</div></div>' +
+              '<div><div style="font-size: 14px; font-weight: 700;">James Bradshaw</div><div style="font-size: 13px; opacity: 0.9;">Systems Design Manager</div></div>' +
+              '<div><div style="font-size: 14px; font-weight: 700;">Sam Choi</div><div style="font-size: 13px; opacity: 0.9;">VP of Digital Design (Sponsor)</div></div>' +
+            '</div>' +
+          '</div>',
+
+        discovery: 
+          '<h1 class="section-title">Discovery Insights</h1>' +
+          '<p class="section-subtitle">Key findings from Feb 16, 2026 discovery session with James Bradshaw and Jason Wishard.</p>' +
+          '<div class="card">' +
+            '<h2 class="heading">Key Stakeholders</h2>' +
+            '<div class="grid-2">' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--action);"></div><div><div class="value-title">Jason Wishard</div><div class="value-desc">Sr. Director, Product Design and Design Systems. 20+ years design systems, ~40 designers reporting. Previously Meta, Capital One, H-shapes. Reports to Sam Choi.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--action);"></div><div><div class="value-title">James Bradshaw</div><div class="value-desc">Systems Design Manager. 21 years UX experience. Previously Nelnet (8-9 years). Running systems team for 1+ year. Reports to Jason.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--primary);"></div><div><div class="value-title">Sam Choi</div><div class="value-desc">VP of Digital Design. Jason\'s boss. Met at Patterns LA event. Executive sponsor for design system initiatives.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--neutral-500);"></div><div><div class="value-title">Justin (Airtable)</div><div class="value-desc">Full-time Airtable specialist. Manages data repo tracking elements, tokens, components, recipes, usage, and dashboards.</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card summary-card" style="background: var(--warning-light); border-left-color: var(--warning);">' +
+            '<div class="summary-label" style="color: var(--warning);">James\'s 2026 AI Goal</div>' +
+            '<p class="summary-text">"We want to make the design system AI-queryable. Meaning, we want an agent or something where people can go in and ask questions and get answers around design system stuff. That\'s actually one of my goals for the systems team this year."</p>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">What We Heard: Top Pain Points</h2>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--warning)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span style="width: 24px; height: 24px; background: var(--warning); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">1</span><span class="timeline-title">Documentation Sprawl</span></div><p class="timeline-desc">Docs live in 3 places: Figma (nobody reads), docsXP, and Storybook. James: "I want the playbook, just one."</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--warning)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span style="width: 24px; height: 24px; background: var(--warning); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">2</span><span class="timeline-title">Adoption Challenges</span></div><p class="timeline-desc">Biggest pain point is getting product teams to use the system. Some teams still on Angular while org is mainly React. No budget for native mobile design system.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--action)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span style="width: 24px; height: 24px; background: var(--action); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">3</span><span class="timeline-title">Recipe Explosion</span></div><p class="timeline-desc">Had 40+ static card recipes. Just consolidated to 1 configurable card with ~7-8 slots (header, icon, image, title, text, actions). Recipe education gap with designers.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--action)"></div></div><div class="timeline-content"><div class="timeline-header"><span style="width: 24px; height: 24px; background: var(--action); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">4</span><span class="timeline-title">Question Overhead</span></div><p class="timeline-desc">"My team answers 30 questions a day about spacing, padding between recipes, even though it\'s built in." Need self-service answers.</p></div></div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">What\'s Working Well</h2>' +
+            '<div class="grid-2">' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">WCAG 2.2 AA Complete</div><div class="value-desc">All components and recipes accessible as of end of 2024. Major lift completed.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Robust Airtable Data Repo</div><div class="value-desc">80% auto-generated data from Workday, GitLab, ServiceNow, Jira. Dashboards tracking growth and usage.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Slots & Configurability</div><div class="value-desc">Chris consolidated 40+ card recipes to 1 configurable card. Proving the recipe model works.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">NextJS + Airtable Publishing</div><div class="value-desc">Recently integrated Airtable → NextJS for blog posts. Auto-publish capability working.</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">2026 Strategic Priorities</h2>' +
+            '<div class="grid-3">' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Page Types & Templates</div><div class="value-desc">Year of page types: landing pages, about us, L1-L5 zones strategy</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">AI-Queryable DS</div><div class="value-desc">James\'s AI innovation goal: design system as queryable knowledge source</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Copilot Everything</div><div class="value-desc">"Centene is going Copilot everything" — integration is critical path</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Hybrid Federated Model</div><div class="value-desc">Moving toward federated contributions without full federated governance</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Single Source of Truth</div><div class="value-desc">"I want documentation out of Figma. I want a playbook."</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Recipe Education</div><div class="value-desc">Designers only know atoms/molecules — need recipe-level thinking</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card" style="background: var(--neutral-100); border: 1px dashed var(--neutral-200);">' +
+            '<h2 class="heading" style="color: var(--neutral-600);">Competitive Context</h2>' +
+            '<div class="grid-2">' +
+              '<div class="value-item" style="background: white;"><div class="value-marker" style="background: var(--neutral-500);"></div><div><div class="value-title">Zero Height (Past)</div><div class="value-desc">Jason: "Their long-term strategy is not a good one... it seemed just like an overpriced Wordpress."</div></div></div>' +
+              '<div class="value-item" style="background: white;"><div class="value-marker" style="background: var(--neutral-500);"></div><div><div class="value-title">V0 (Passed in 2025)</div><div class="value-desc">"They basically were like, yeah, we\'re kind of early days... are we paying you to train your model?" Passed before signing large contract.</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card summary-card">' +
+            '<div class="summary-label">Key Quote: Jason on Knapsack</div>' +
+            '<p class="summary-text">"I feel like you all are ahead of the game. I feel like you\'re one of the ones that is thinking longer term. So that\'s one of the reasons that I at least want to talk to you all today."</p>' +
+          '</div>',
+
+        'tech-validation': 
+          '<div class="hero" style="background: linear-gradient(135deg, var(--action) 0%, #0369a1 100%);">' +
+            '<div class="hero-label">Discovery Session</div>' +
+            '<h1>Tech Validation Session 2</h1>' +
+            '<p>60-Minute Deep Dive: Single Source of Truth + AI-Queryable Design System</p>' +
+            '<p class="sub">Validating Knapsack fit for docs, recipes, and Copilot integration</p>' +
+          '</div>' +
+          '<div class="card summary-card" style="background: var(--action-light); border-left-color: var(--action);">' +
+            '<div class="summary-label" style="color: var(--action);">Session Goal</div>' +
+            '<p class="summary-text">Validate (1) Knapsack\'s fit as a <strong>single source of truth</strong> for design system documentation + recipes, and (2) a credible path to making the design system <strong>AI-queryable inside Centene\'s Copilot ecosystem</strong>—without requiring Centene to build/maintain another platform.</p>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Recommended Attendees</h2>' +
+            '<div class="grid-2">' +
+              '<div>' +
+                '<h3 style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 12px;">Centene</h3>' +
+                '<div class="phase-list" style="margin-top: 0;">' +
+                  '<div class="phase-item">James (Systems Design Manager)</div>' +
+                  '<div class="phase-item">Jason (Sr Director)</div>' +
+                  '<div class="phase-item">1 Engineering Counterpart (dev-side peer)</div>' +
+                  '<div class="phase-item">Justin (Airtable) — optional</div>' +
+                  '<div class="phase-item">Eric (Copilot specialist) — 10–15 min if available</div>' +
+                '</div>' +
+              '</div>' +
+              '<div>' +
+                '<h3 style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 12px;">Knapsack</h3>' +
+                '<div class="phase-list" style="margin-top: 0;">' +
+                  '<div class="phase-item">Chris (Technical Lead)</div>' +
+                  '<div class="phase-item">Amber (Program/Assessment)</div>' +
+                  '<div class="phase-item">Angela (Facilitation)</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card" style="background: var(--warning-light); border: 1px solid #fcd34d;">' +
+            '<h2 class="heading" style="color: var(--warning);">Pre-work (Send 48 Hours Before)</h2>' +
+            '<div class="grid-3">' +
+              '<div class="value-item" style="background: white;"><div class="value-marker" style="background: var(--warning);"></div><div><div class="value-title">System Inventory Snapshot</div><div class="value-desc">Current docs locations (Figma, docsXP, Storybook, NextJS/Airtable blog flow) + 1–2 "highest pain" examples</div></div></div>' +
+              '<div class="value-item" style="background: white;"><div class="value-marker" style="background: var(--warning);"></div><div><div class="value-title">Current Recipe Example</div><div class="value-desc">The "one configurable card" (slots list) + how it\'s represented in Figma and in code today</div></div></div>' +
+              '<div class="value-item" style="background: white;"><div class="value-marker" style="background: var(--warning);"></div><div><div class="value-title">Copilot Context</div><div class="value-desc">Which Copilot surfaces matter most (M365, Edge, VS Code, internal work mode/agents)</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Session Exit Criteria</h2>' +
+            '<p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">Agree on these validation checkpoints before starting:</p>' +
+            '<div class="grid-3">' +
+              '<div class="metric-card" style="text-align: left;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;"><span style="width: 24px; height: 24px; background: var(--action); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">1</span><span class="metric-value" style="font-size: 14px; margin-bottom: 0;">Unify Docs Sources</span></div><div class="metric-label" style="text-align: left;">Knapsack can consolidate docs or provide a clear integration path</div></div>' +
+              '<div class="metric-card" style="text-align: left;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;"><span style="width: 24px; height: 24px; background: var(--action); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">2</span><span class="metric-value" style="font-size: 14px; margin-bottom: 0;">Recipe/Slot Patterns</span></div><div class="metric-label" style="text-align: left;">Knapsack can represent recipe/slot patterns cleanly</div></div>' +
+              '<div class="metric-card" style="text-align: left;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;"><span style="width: 24px; height: 24px; background: var(--action); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">3</span><span class="metric-value" style="font-size: 14px; margin-bottom: 0;">AI Query Support</span></div><div class="metric-label" style="text-align: left;">Knapsack can support AI querying through Centene\'s Copilot environment</div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Agenda (Minute-by-Minute)</h2>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--neutral-500)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #64748b15; color: var(--neutral-500); border: 1px solid #64748b40;">0–5 min</span><span class="timeline-title">Set the Frame + Success Criteria</span></div><p class="timeline-desc">Confirm what "validation" means. Re-state Session 1 outcomes: docs out of Figma, one playbook/SSOT, reduce recipe explosion via slots/config, AI-queryable DS as 2026 goal, fit with Copilot-first direction. Agree on exit criteria.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--primary)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #0f766e15; color: var(--primary); border: 1px solid #0f766e40;">5–15 min</span><span class="timeline-title">Where Docs Live Today + Target Future State</span></div><p class="timeline-desc">Fast Centene walkthrough: Figma docs, docsXP, Storybook, NextJS docs + Airtable flow. Define future-state model for: Component API + demos, Recipe usage guidance, Token references, Page types/templates, WCAG 2.2 AA guidance. Output: Source of Truth matrix.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--action)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #0ea5e915; color: var(--action); border: 1px solid #0ea5e940;">15–30 min</span><span class="timeline-title">Recipe Validation: Cards, Slots, Goldilocks Governance</span></div><p class="timeline-desc">Use the configurable card as live example. Validate: How slots are defined (header/icon/image/title/text/actions), How constraints prevent variant explosion, Can governance/permissions enforce "what\'s allowed." Output: Recipe documentation pattern to standardize.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--success)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #16a34a15; color: var(--success); border: 1px solid #16a34a40;">30–45 min</span><span class="timeline-title">AI-Queryable Design System: Copilot-First Validation</span></div><p class="timeline-desc">Demo/discuss: What\'s required for AI to answer DS questions reliably. Example questions: spacing/padding between recipes, card configurations, page type templates. Copilot fit check: VS Code? M365? MCP-style integration model. Output: AI Query scope (25 Q/A intents) + target surfaces.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--warning)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #d9770615; color: var(--warning); border: 1px solid #d9770640;">45–55 min</span><span class="timeline-title">Integration + Operating Model Fit</span></div><p class="timeline-desc">Integration checkpoints: Git (GitLab), Airtable, NextJS docs, Storybook, token locations, Figma variables mapping, publishing workflows. Operating model: Hybrid federated contribution goal, how contributions flow without breaking governance. Output: Required integrations + must-have workflow behaviors.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--secondary)"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #1d4ed815; color: var(--secondary); border: 1px solid #1d4ed840;">55–60 min</span><span class="timeline-title">Decisions + Next Steps</span></div><p class="timeline-desc">Confirm: Pilot candidate scope (components/recipes/templates), Who joins next time (dev-side peer + Copilot/AI lead), Centene artifacts (docs map, recipe example, Copilot target), Knapsack deliverables (pilot plan + integration approach + ROI template).</p></div></div>' +
+          '</div>' +
+          '<div class="card" style="background: var(--neutral-100); border: 1px dashed var(--neutral-200);">' +
+            '<h2 class="heading" style="color: var(--neutral-600);">Parking Lot (If Time Runs Tight)</h2>' +
+            '<div class="grid-3">' +
+              '<div class="value-item" style="background: white;"><div class="value-marker" style="background: var(--neutral-500);"></div><div><div class="value-title">Page Types/Templates</div><div class="value-desc">Zones L1–L5: how to represent in docs + governance</div></div></div>' +
+              '<div class="value-item" style="background: white;"><div class="value-marker" style="background: var(--neutral-500);"></div><div><div class="value-title">Adoption Mechanics</div><div class="value-desc">Making "starting with the system" easier than bypassing it</div></div></div>' +
+              '<div class="value-item" style="background: white;"><div class="value-marker" style="background: var(--neutral-500);"></div><div><div class="value-title">Metrics Approach</div><div class="value-desc">Usage tracking and growth dashboards (Airtable parallels)</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card next-hero" style="background: var(--action);">' +
+            '<div class="next-hero-label">Post-Session Deliverables</div>' +
+            '<h3>Produce Immediately After the Session</h3>' +
+            '<p style="margin-bottom: 0;">Four artifacts to maintain momentum and capture decisions.</p>' +
+          '</div>' +
+          '<div class="card">' +
+            '<div class="grid-2">' +
+              '<div class="deliverable-item"><div class="deliverable-title">1-Page Validation Summary</div><div class="deliverable-desc">What\'s proven / what\'s unclear / risks identified</div></div>' +
+              '<div class="deliverable-item"><div class="deliverable-title">Pilot Scope Draft</div><div class="deliverable-desc">Components + recipes + doc sources + AI query intents</div></div>' +
+              '<div class="deliverable-item"><div class="deliverable-title">Integration Checklist</div><div class="deliverable-desc">Tailored to Centene\'s stack (GitLab, Airtable, NextJS, Storybook)</div></div>' +
+              '<div class="deliverable-item"><div class="deliverable-title">Business Case Input List</div><div class="deliverable-desc">Time spent answering DS questions, doc maintenance burden, recipe explosion costs</div></div>' +
+            '</div>' +
+          '</div>',
+
+        challenge: 
+          '<h1 class="section-title">The Challenge</h1>' +
+          '<p class="section-subtitle">Documentation sprawl, adoption friction, and the path to AI-queryable design systems.</p>' +
+          '<div class="card">' +
+            '<h2 class="heading">Current State: Documentation Sprawl</h2>' +
+            '<p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 20px;">James: "I want documentation out of Figma. I want a playbook. I want something where I can tie into AI."</p>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--warning)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: var(--warning)">Figma Docs</span><span class="timeline-title">Nobody reads them</span></div><p class="timeline-desc">Designers just open asset panel, grab and use. Documentation in Figma files goes unread.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--action)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: var(--action)">docsXP</span><span class="timeline-title">Internal doc site</span></div><p class="timeline-desc">Separate platform for internal documentation. One of three sources of truth.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--primary)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: var(--primary)">Storybook</span><span class="timeline-title">Engineering docs</span></div><p class="timeline-desc">Technical component documentation lives here. Third source of truth.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--success)"></div></div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: var(--success)">NextJS + Airtable</span><span class="timeline-title">Blog publishing flow</span></div><p class="timeline-desc">Recently integrated Airtable → NextJS for blog posts. Auto-publish working.</p></div></div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Adoption Barriers</h2>' +
+            '<div class="grid-2">' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--warning);"></div><div><div class="value-title">Product Team Buy-In</div><div class="value-desc">Biggest pain point: getting product to want to jump on and retool. Budget constraints for migration.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--warning);"></div><div><div class="value-title">Angular → React Migration</div><div class="value-desc">Some teams still on Angular while org is mainly React. No budget to retool.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--warning);"></div><div><div class="value-title">No Native Mobile DS Budget</div><div class="value-desc">"Oh, no, we don\'t have budget to make a native mobile design system for our native mobile app."</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--warning);"></div><div><div class="value-title">Recipe Education Gap</div><div class="value-desc">Designers only know atoms/molecules. Struggle with recipe-level (organism) thinking.</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Recipe Explosion (Solved)</h2>' +
+            '<p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">Team member Chris consolidated 40+ static card recipes into 1 configurable card with slots.</p>' +
+            '<div class="grid-2">' +
+              '<div class="metric-card" style="border-left: 4px solid var(--warning);"><div class="metric-value" style="color: var(--warning);">40+</div><div class="metric-label">Static card recipes (before)</div></div>' +
+              '<div class="metric-card" style="border-left: 4px solid var(--success);"><div class="metric-value" style="color: var(--success);">1</div><div class="metric-label">Configurable card with 7-8 slots (after)</div></div>' +
+            '</div>' +
+            '<div style="margin-top: 16px; padding: 16px; background: var(--neutral-50); border-radius: 6px; border: 1px solid var(--neutral-150);">' +
+              '<div style="font-size: 13px; font-weight: 600; color: var(--neutral-700); margin-bottom: 8px;">Slot Architecture</div>' +
+              '<div class="workflow-steps">' +
+                '<div class="workflow-step">Header</div><span class="workflow-arrow">→</span>' +
+                '<div class="workflow-step">Icon</div><span class="workflow-arrow">→</span>' +
+                '<div class="workflow-step">Image</div><span class="workflow-arrow">→</span>' +
+                '<div class="workflow-step">Title</div><span class="workflow-arrow">→</span>' +
+                '<div class="workflow-step">Text</div><span class="workflow-arrow">→</span>' +
+                '<div class="workflow-step">Actions</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Funding Model Reality</h2>' +
+            '<p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">Jason: "We have moved to a new funding model that\'s very project based."</p>' +
+            '<div class="grid-2">' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--neutral-500);"></div><div><div class="value-title">Project-Based Funding</div><div class="value-desc">Health plans plan one year at a time. Contingent on Medicaid/Medicare congressional funding.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--neutral-500);"></div><div><div class="value-title">Cost Center Structure</div><div class="value-desc">James and Jason are cost centers, not funded. Limits ability to make large investments without justification.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--neutral-500);"></div><div><div class="value-title">Compliance Overhead</div><div class="value-desc">"Have you talked to compliance about this? We can\'t get you on the books for a month."</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--neutral-500);"></div><div><div class="value-title">Build vs Buy Constraint</div><div class="value-desc">Building own platform = $100K+ and key-person risk. Platform purchase requires business case.</div></div></div>' +
+            '</div>' +
+          '</div>',
+
+        solution: 
+          '<h1 class="section-title">The Solution</h1>' +
+          '<p class="section-subtitle">Knapsack as the playbook—single source of truth and AI-queryable design system.</p>' +
+          '<div class="card" style="background: var(--primary); color: white; border: none;">' +
+            '<div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">James\'s Vision, Delivered</div>' +
+            '<h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">"I Want the Playbook, Just One"</h3>' +
+            '<p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">Knapsack consolidates Figma docs, docsXP, and Storybook into a single source of truth—with MCP integration that makes the entire design system AI-queryable through Copilot.</p>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Pain Point → Knapsack Capability</h2>' +
+            '<div class="grid-2">' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Documentation Sprawl → Single Source of Truth</div><div class="value-desc">Replace 3 doc locations with one governed playbook. Sync with Storybook, integrate with Airtable/NextJS.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">30 Questions/Day → AI-Queryable DS</div><div class="value-desc">MCP integration enables Copilot to answer spacing, recipe, and usage questions instantly.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">40+ Card Recipes → Recipe Documentation</div><div class="value-desc">Document configurable recipes with slots. Show allowed configurations without 40 static copies.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Recipe Education Gap → Visual Prototyping</div><div class="value-desc">Non-coders can prototype with real components. Drag-and-drop recipes, see real React output.</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Why Knapsack vs Build In-House</h2>' +
+            '<p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">James has considered building from ground up. Here\'s why Knapsack accelerates:</p>' +
+            '<div class="grid-2">' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Cut 50%+ of Work</div><div class="value-desc">Platform, governance workflows, MCP integration already built. Focus on content, not infrastructure.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">No Key-Person Risk</div><div class="value-desc">Justin knows Airtable. Who maintains custom platform if they leave? Knapsack is supported product.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Copilot-Ready Now</div><div class="value-desc">MCP server connects to Claude, Copilot, any LLM. No connector work needed.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Recipe/Slot Native</div><div class="value-desc">Prototyping and documentation built for organism-level thinking. No custom dev required.</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card summary-card" style="background: var(--success-light); border-left-color: var(--success);">' +
+            '<div class="summary-label" style="color: var(--success);">Jason\'s Validation</div>' +
+            '<p class="summary-text">"I feel like you all are ahead of the game. I feel like you\'re one of the ones that is thinking longer term... I remember the person at Knapsack was like, yes. And I\'m like, are you working on something and you can\'t tell me? And then someone on your executive team yanked it out and showed us."</p>' +
+          '</div>',
+
+        charter: 
+          '<h1 class="section-title">Strategy Alignment</h1>' +
+          '<p class="section-subtitle">Insights from Sam Choi (VP), Jason Wishard (Sr. Director), and James Bradshaw (Systems Manager).</p>' +
+          '<div class="card summary-card">' +
+            '<h3 style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 8px;">Strategic Vision</h3>' +
+            '<p style="font-size: 16px; color: var(--neutral-700); line-height: 1.7;">Consolidate documentation into a single source of truth, enable AI-queryable design system via Copilot integration, and scale hybrid federated contributions—without building/maintaining another platform.</p>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">James\'s Stated Goals</h2>' +
+            '<div class="grid-2">' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Single Source of Truth</div><div class="value-desc">"I want a centralized repository for everybody to be able to get all their information quickly and easily."</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">AI-Queryable DS</div><div class="value-desc">"We want an agent where people can ask questions and get answers around design system stuff."</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Reduce Question Load</div><div class="value-desc">"So myself or my team don\'t have to answer 30 questions a day about spacing between recipes."</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Hybrid Federated Model</div><div class="value-desc">Working on strategy for semi/hybrid federated model. Not ready for full federated, but can enable contributions.</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Jason\'s Strategic Context</h2>' +
+            '<div class="grid-2">' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Recipe-First Architecture</div><div class="value-desc">Pushing team toward organisms/recipes vs atoms/molecules. "How do we get to consistent experiences if everything is only consistent at a small level?"</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Page Types Focus (2026)</div><div class="value-desc">This year = page types and templates. Landing pages, about us, zones L1-L5. Strategy in place, team needs to document and crank it out.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Copilot Direction</div><div class="value-desc">"Centene is going Copilot everything." Integration with Microsoft Copilot ecosystem is critical path.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">No Vaporware</div><div class="value-desc">Passed on V0 in 2025 after discovering it was early days. "Are we paying you to train your model?" Need proven capability.</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Guiding Principles (Aligned)</h2>' +
+            '<div class="grid-3">' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Governance as enablement</div><div class="value-desc">Not blocking contributions, enabling safe change</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Recipes over atoms</div><div class="value-desc">Consistent experiences at the organism level</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">AI-ready by design</div><div class="value-desc">Context-rich metadata for queryable systems</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Copilot-first integration</div><div class="value-desc">MCP/agent architecture that fits Microsoft stack</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Pragmatism over perfection</div><div class="value-desc">James: "Nothing stops me from going off and doing something on my own"</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Compliance by default</div><div class="value-desc">WCAG 2.2 AA achieved, healthcare regulatory alignment</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card" style="background: var(--action); color: white; border: none;">' +
+            '<div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">AI Innovation Goal (Sam\'s Mandate)</div>' +
+            '<h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">Every Specialty Must Have an AI Innovation Goal</h3>' +
+            '<p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">James: "Sam owns every specialty under him to have some type of AI innovation goal. Mine, after going back and forth with Jason over what\'s possible, we landed on: we want to make the design system AI-queryable."</p>' +
+          '</div>',
+
+        outcomes: 
+          '<h1 class="section-title">Business Outcomes</h1>' +
+          '<p class="section-subtitle">Measurable impact across Centene\'s operations.</p>' +
+          '<div class="card"><div class="value-item" style="border: none;"><div class="value-marker"></div><div><div class="value-title">Reuse Rate — > 60% of new UI built from system components</div><div class="value-desc">Reduce fragmentation and scale adoption across properties.</div></div></div></div>' +
+          '<div class="card"><div class="value-item" style="border: none;"><div class="value-marker"></div><div><div class="value-title">Cycle Time — 40–60% faster UI implementation</div><div class="value-desc">Reusable components and validated tokens accelerate delivery.</div></div></div></div>' +
+          '<div class="card"><div class="value-item" style="border: none;"><div class="value-marker"></div><div><div class="value-title">Documentation Accuracy — > 95% validated docs</div><div class="value-desc">Automated documentation reduces drift and rework.</div></div></div></div>' +
+          '<div class="card"><div class="value-item" style="border: none;"><div class="value-marker"></div><div><div class="value-title">Governance Speed — < 48 hour approval-to-publish cycle</div><div class="value-desc">Policy-aligned workflows enable safe, fast change.</div></div></div></div>',
+
+        timeline: 
+          '<h1 class="section-title">Implementation Timeline</h1>' +
+          '<p class="section-subtitle">Four phases with a pilot in Foundation.</p>' +
+          '<div class="card">' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--primary)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #0f766e15; color: var(--primary); border: 1px solid #0f766e40;">Phase 1</span><span class="timeline-title">Foundation (20 weeks)</span></div><p class="timeline-desc">Token taxonomy, governance workflows, pilot execution, CI/CD gates</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--action)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #0ea5e915; color: var(--action); border: 1px solid #0ea5e940;">Phase 2</span><span class="timeline-title">Activation (16 weeks)</span></div><p class="timeline-desc">Scale tokens, onboard teams, visual validation</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--warning)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #d9770615; color: var(--warning); border: 1px solid #d9770640;">Phase 3</span><span class="timeline-title">Control Plane (12 weeks)</span></div><p class="timeline-desc">Enterprise governance, compliance integration, dashboards</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--success)"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #16a34a15; color: var(--success); border: 1px solid #16a34a40;">Phase 4</span><span class="timeline-title">Intelligence (8–12 weeks)</span></div><p class="timeline-desc">MCP integration, AI guardrails, productivity metrics</p></div></div>' +
+          '</div>',
+
+        governance: 
+          '<h1 class="section-title">Governance Framework</h1>' +
+          '<p class="section-subtitle">Sustainable change control without stifling contribution.</p>' +
+          '<div class="card">' +
+            '<h2 class="heading">Contribution Workflow</h2>' +
+            '<div class="workflow-steps">' +
+              '<div class="workflow-step">Proposal</div><span class="workflow-arrow">→</span>' +
+              '<div class="workflow-step">Review</div><span class="workflow-arrow">→</span>' +
+              '<div class="workflow-step">Approval</div><span class="workflow-arrow">→</span>' +
+              '<div class="workflow-step">Implementation</div><span class="workflow-arrow">→</span>' +
+              '<div class="workflow-step">Documentation</div><span class="workflow-arrow">→</span>' +
+              '<div class="workflow-step">Release</div><span class="workflow-arrow">→</span>' +
+              '<div class="workflow-step">Adoption</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="grid-2" style="margin-bottom: 24px;">' +
+            '<div class="card">' +
+              '<h2 class="heading">Design System Council</h2>' +
+              '<p class="section-subtitle" style="margin-bottom: 0;">Executive sponsor, platform engineering, product and compliance leadership.</p>' +
+            '</div>' +
+            '<div class="card">' +
+              '<h2 class="heading">Component Review Board</h2>' +
+              '<p class="section-subtitle" style="margin-bottom: 0;">Quality, accessibility, and standards enforcement with audit trails.</p>' +
+            '</div>' +
+          '</div>',
+
+        technical: 
+          '<h1 class="section-title">Technical Integration</h1>' +
+          '<p class="section-subtitle">Centene\'s current stack and integration requirements.</p>' +
+          '<div class="card">' +
+            '<h2 class="heading">Current Tech Stack</h2>' +
+            '<div class="grid-2">' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">Airtable</div><div class="integration-note">Robust data repo: elements, tokens, components, recipes, usage tracking. Full-time person (Justin). ~80% auto-generated data.</div></div></div>' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">GitLab</div><div class="integration-note">Git repos for version control. Data pooled into Airtable for tracking.</div></div></div>' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">NextJS</div><div class="integration-note">Documentation site. Recently integrated with Airtable for auto-publishing blog posts via markdown.</div></div></div>' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">Storybook</div><div class="integration-note">Engineering component documentation. One of three current doc sources.</div></div></div>' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">React (Primary)</div><div class="integration-note">Main framework. Some teams still on Angular, migration constrained by budget.</div></div></div>' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">Figma</div><div class="integration-note">Design tooling with slots/configurability. Docs in Figma go unread.</div></div></div>' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">ServiceNow</div><div class="integration-note">Tracking incidents and money. Data pooled into Airtable.</div></div></div>' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">Workday</div><div class="integration-note">HR data for tracking humans/roster. Auto-synced to Airtable.</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card" style="background: var(--action); color: white; border: none;">' +
+            '<div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">Critical Integration</div>' +
+            '<h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">Microsoft Copilot Ecosystem</h3>' +
+            '<p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">James: "Can we make sure we tie into Copilot because that\'s where Centene is going—Copilot everything." Copilot surfaces: VS Code, M365, work mode, custom agents.</p>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">MCP Integration Path</h2>' +
+            '<p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">James asked about MCP connectors for Copilot. Chris confirmed: "MCP is a standard. It plugs into all major LLM providers."</p>' +
+            '<div class="grid-2">' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">MCP Standard</div><div class="integration-note">Protocol for connecting design system context to any LLM. Works with Copilot, Claude, etc.</div></div></div>' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">VS Code Copilot</div><div class="integration-note">Add MCP server directly. Query design system from IDE.</div></div></div>' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">M365 Copilot</div><div class="integration-note">Enterprise Copilot surfaces for broader org access.</div></div></div>' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">Custom Agents</div><div class="integration-note">Centene building internal agents. MCP provides queryable DS context.</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Compliance & Enterprise Requirements</h2>' +
+            '<div class="grid-2">' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">WCAG 2.2 AA</div><div class="integration-note">Already achieved for all components and recipes. Page-level accessibility is 2026 focus.</div></div></div>' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">HIPAA Compliance</div><div class="integration-note">Healthcare data requirements. Audit-ready controls needed.</div></div></div>' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">Medicaid/Medicare Alignment</div><div class="integration-note">Funding contingent on congressional cycles. Project-based budgeting.</div></div></div>' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">Change Control</div><div class="integration-note">Enterprise approval workflows. "Have you talked to compliance?" is a constant.</div></div></div>' +
+            '</div>' +
+          '</div>',
+
+        roi: 
+          '<h1 class="section-title">Success Metrics</h1>' +
+          '<p class="section-subtitle">KPIs used to validate adoption and governance health.</p>' +
+          '<div class="card roi-banner">' +
+            '<div><div class="roi-label">Core Metrics</div><div class="roi-value">Reuse • Cycle Time • Accuracy</div></div>' +
+            '<div style="text-align: right;"><div class="roi-label">Governance</div><div class="roi-value">< 48h approvals</div></div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<div class="grid-3">' +
+              '<div class="metric-card"><div class="metric-value">Reuse Rate</div><div class="metric-label">> 60% new UI from system components</div></div>' +
+              '<div class="metric-card"><div class="metric-value">Cycle Time</div><div class="metric-label">40–60% faster UI implementation</div></div>' +
+              '<div class="metric-card"><div class="metric-value">Doc Accuracy</div><div class="metric-label">> 95% automated validation</div></div>' +
+              '<div class="metric-card"><div class="metric-value">Regressions</div><div class="metric-label">< 2 per quarter</div></div>' +
+              '<div class="metric-card"><div class="metric-value">Adoption</div><div class="metric-label">> 80% teams using standards</div></div>' +
+              '<div class="metric-card"><div class="metric-value">Fragmentation</div><div class="metric-label">< 10% net-new one-offs</div></div>' +
+            '</div>' +
+          '</div>',
+
+        risks: 
+          '<h1 class="section-title">Risk Mitigation</h1>' +
+          '<p class="section-subtitle">Addressing concerns raised in discovery and competitive context.</p>' +
+          '<div class="risk-grid">' +
+            '<div class="card"><div class="risk-header"><div class="risk-marker"></div><span class="risk-title">Vaporware Concern</span></div><div class="risk-mitigation">Jason passed on V0 after discovering "early days" reality. Knapsack must demonstrate working MCP integration, not promises. Live demo of Copilot/Claude querying design system is critical.</div></div>' +
+            '<div class="card"><div class="risk-header"><div class="risk-marker"></div><span class="risk-title">Build vs Buy Hesitation</span></div><div class="risk-mitigation">James has threatened to "blow up the entire team and start from the ground up." Show that Knapsack cuts 50%+ of the work vs building in-house, while eliminating key-person risk.</div></div>' +
+            '<div class="card"><div class="risk-header"><div class="risk-marker"></div><span class="risk-title">Funding Model Constraints</span></div><div class="risk-mitigation">Project-based annual funding tied to Medicaid/Medicare cycles. Frame as AI innovation goal investment with clear ROI tied to question reduction and documentation consolidation.</div></div>' +
+            '<div class="card"><div class="risk-header"><div class="risk-marker"></div><span class="risk-title">Copilot Integration Uncertainty</span></div><div class="risk-mitigation">James: "Can we make sure we tie into Copilot?" Confirm MCP standard works across providers. Show VS Code Copilot + M365 integration path. Bring Eric (Copilot specialist) into next call.</div></div>' +
+            '<div class="card"><div class="risk-header"><div class="risk-marker"></div><span class="risk-title">Adoption Barriers</span></div><div class="risk-mitigation">Biggest pain point is getting product to use the system. Show how Knapsack makes starting with the system easier than bypassing it—self-service answers, prototyping, recipe documentation.</div></div>' +
+            '<div class="card"><div class="risk-header"><div class="risk-marker"></div><span class="risk-title">Documentation Sprawl</span></div><div class="risk-mitigation">Docs in 3 places today. Show clear migration path: Knapsack as single source of truth that syncs with Storybook, replaces Figma docs, and integrates with NextJS/Airtable publishing.</div></div>' +
+          '</div>',
+
+        'next-steps': 
+          '<h1 class="section-title">Next Steps</h1>' +
+          '<p class="section-subtitle">Action items from Feb 16 discovery. Tech Validation Session 2 scheduled.</p>' +
+          '<div class="card next-hero">' +
+            '<div class="next-hero-label">Scheduled: Tech Validation Session 2</div>' +
+            '<h3>60-Minute Deep Dive: SSOT + AI-Queryable DS + Copilot</h3>' +
+            '<p>Validate docs consolidation, recipe/slot documentation, and MCP integration with Copilot ecosystem.</p>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Pre-Session: Centene to Provide</h2>' +
+            '<div class="grid-2">' +
+              '<div class="deliverable-item"><div class="deliverable-title">System Inventory Snapshot</div><div class="deliverable-desc">Links to current docs locations (Figma, docsXP, Storybook, NextJS/Airtable). 1-2 highest pain examples.</div></div>' +
+              '<div class="deliverable-item"><div class="deliverable-title">Configurable Card Example</div><div class="deliverable-desc">The "one configurable card" with slots list. How it\'s represented in Figma and code today.</div></div>' +
+              '<div class="deliverable-item"><div class="deliverable-title">Copilot Context</div><div class="deliverable-desc">Which Copilot surfaces matter: M365, VS Code, Edge, work mode, custom agents. Invite Eric if available.</div></div>' +
+              '<div class="deliverable-item"><div class="deliverable-title">AI Innovation Goal Brief</div><div class="deliverable-desc">James\'s stated goal: "Make the design system AI-queryable." Document current state and success criteria.</div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Pre-Session: Knapsack to Provide</h2>' +
+            '<div class="grid-2">' +
+              '<div class="deliverable-item"><div class="deliverable-title">AI Readiness Assessment</div><div class="deliverable-desc">Amber\'s alpha assessment. Takes ~10 minutes. Calibrates recommendations to Centene\'s maturity.</div></div>' +
+              '<div class="deliverable-item"><div class="deliverable-title">MCP Demo Prep</div><div class="deliverable-desc">Live demo of Copilot/Claude querying design system. Answer questions like "What\'s the spacing between Recipe 1 and X?"</div></div>' +
+              '<div class="deliverable-item"><div class="deliverable-title">Business Case Template</div><div class="deliverable-desc">Inputs needed: team size, product spend, time spent answering DS questions, doc maintenance burden.</div></div>' +
+              '<div class="deliverable-item"><div class="deliverable-title">Integration Checklist</div><div class="deliverable-desc">Tailored to Centene stack: GitLab, Airtable, NextJS, Storybook, Figma variables, Copilot.</div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Session Exit Criteria</h2>' +
+            '<div class="grid-3">' +
+              '<div class="metric-card" style="text-align: left;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;"><span style="width: 24px; height: 24px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">1</span><span class="metric-value" style="font-size: 14px; margin-bottom: 0;">Docs Consolidation</span></div><div class="metric-label" style="text-align: left;">Knapsack can unify sources or provide clear integration path</div></div>' +
+              '<div class="metric-card" style="text-align: left;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;"><span style="width: 24px; height: 24px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">2</span><span class="metric-value" style="font-size: 14px; margin-bottom: 0;">Recipe Documentation</span></div><div class="metric-label" style="text-align: left;">Knapsack can represent recipe/slot patterns cleanly</div></div>' +
+              '<div class="metric-card" style="text-align: left;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;"><span style="width: 24px; height: 24px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">3</span><span class="metric-value" style="font-size: 14px; margin-bottom: 0;">AI Query Support</span></div><div class="metric-label" style="text-align: left;">MCP works with Centene\'s Copilot environment</div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card" style="background: var(--neutral-100); border: 1px dashed var(--neutral-200);">' +
+            '<h2 class="heading" style="color: var(--neutral-600);">Recommended Session Attendees</h2>' +
+            '<div class="grid-2">' +
+              '<div>' +
+                '<h3 style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 12px;">Centene</h3>' +
+                '<div class="phase-list" style="margin-top: 0;">' +
+                  '<div class="phase-item">James Bradshaw (Systems Design Manager)</div>' +
+                  '<div class="phase-item">Jason Wishard (Sr. Director)</div>' +
+                  '<div class="phase-item">Engineering counterpart (dev-side peer)</div>' +
+                  '<div class="phase-item">Justin (Airtable) — optional</div>' +
+                  '<div class="phase-item">Eric (Copilot specialist) — 10-15 min</div>' +
+                '</div>' +
+              '</div>' +
+              '<div>' +
+                '<h3 style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 12px;">Knapsack</h3>' +
+                '<div class="phase-list" style="margin-top: 0;">' +
+                  '<div class="phase-item">Chris Bloom (Technical Lead)</div>' +
+                  '<div class="phase-item">Amber Atkins (Program/Assessment)</div>' +
+                  '<div class="phase-item">Angela Stevenson (Account Executive)</div>' +
+                  '<div class="phase-item">Robin Cannon (VP Product) — optional</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>'
       };
+      
       main.innerHTML = content[activeSection] || content.overview;
     }
+    
     renderNav();
     renderContent();
   </script>
 </body>
 </html>
-
