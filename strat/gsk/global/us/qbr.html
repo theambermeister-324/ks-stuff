@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quarterly Business Review — Q1 2026</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4338ca;
+      --primary-light: #eef2ff;
+      --secondary: #10b981;
+      --secondary-light: #d1fae5;
+      --action: #0ea5e9;
+      --action-light: #e0f2fe;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --warning: #f59e0b;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fef2f2;
+      --neutral-50: #fafafa;
+      --neutral-100: #f5f5f5;
+      --neutral-150: #e5e5e5;
+      --neutral-200: #d4d4d4;
+      --neutral-500: #737373;
+      --neutral-600: #525252;
+      --neutral-700: #404040;
+      --neutral-800: #262626;
+      --neutral-900: #171717;
+    }
+    
+    @media print {
+      body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .page { box-shadow: none; margin: 0; max-width: 100%; }
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--neutral-100);
+      color: var(--neutral-700);
+      line-height: 1.5;
+      padding: 24px;
+    }
+    
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 28px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    
+    .header-left { flex: 1; }
+    .header-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.85; margin-bottom: 6px; }
+    .header h1 { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+    .header-sub { font-size: 14px; opacity: 0.9; }
+    
+    .header-right { text-align: right; }
+    .header-date { font-size: 13px; opacity: 0.85; margin-bottom: 4px; }
+    .header-period { font-size: 20px; font-weight: 700; }
+    
+    /* Health Score Badge */
+    .health-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.2);
+      padding: 8px 16px;
+      border-radius: 6px;
+      margin-top: 12px;
+    }
+    .health-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .health-dot.green { background: #4ade80; box-shadow: 0 0 8px #4ade80; }
+    .health-dot.yellow { background: #facc15; box-shadow: 0 0 8px #facc15; }
+    .health-dot.red { background: #f87171; box-shadow: 0 0 8px #f87171; }
+    .health-label { font-size: 13px; font-weight: 600; }
+    
+    /* Main Content */
+    .content { padding: 24px 32px 32px; }
+    
+    /* Section Grid */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    
+    /* Metrics Row */
+    .metrics-row { margin-bottom: 24px; }
+    
+    .metric-card {
+      background: var(--neutral-50);
+      border: 1px solid var(--neutral-150);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+    }
+    .metric-value { font-size: 28px; font-weight: 800; color: var(--primary); line-height: 1; margin-bottom: 6px; }
+    .metric-value.success { color: var(--success); }
+    .metric-value.warning { color: var(--warning); }
+    .metric-value.danger { color: var(--danger); }
+    .metric-label { font-size: 11px; font-weight: 600; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.04em; }
+    .metric-change { font-size: 11px; color: var(--neutral-500); margin-top: 4px; }
+    .metric-change.up { color: var(--success); }
+    .metric-change.down { color: var(--danger); }
+    
+    /* Section Cards */
+    .section { margin-bottom: 20px; }
+    .section:last-child { margin-bottom: 0; }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .section-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .section-icon.wins { background: var(--success-light); color: var(--success); }
+    .section-icon.challenges { background: var(--warning-light); color: var(--warning); }
+    .section-icon.priorities { background: var(--action-light); color: var(--action); }
+    .section-icon.risks { background: var(--danger-light); color: var(--danger); }
+    
+    .section-title { font-size: 14px; font-weight: 700; color: var(--neutral-800); text-transform: uppercase; letter-spacing: 0.04em; }
+    
+    .section-content {
+      background: var(--neutral-50);
+      border: 1px solid var(--neutral-150);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    
+    /* List Items */
+    .list-item {
+      display: flex;
+      gap: 10px;
+      padding: 6px 0;
+      font-size: 13px;
+      color: var(--neutral-700);
+      align-items: flex-start;
+    }
+    .list-item:not(:last-child) { border-bottom: 1px solid var(--neutral-150); }
+    .list-icon { flex-shrink: 0; font-weight: 700; width: 16px; }
+    .list-icon.success { color: var(--success); }
+    .list-icon.warning { color: var(--warning); }
+    .list-icon.action { color: var(--action); }
+    .list-icon.danger { color: var(--danger); }
+    
+    /* Timeline / Milestones */
+    .milestone {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      font-size: 13px;
+    }
+    .milestone:not(:last-child) { border-bottom: 1px solid var(--neutral-150); }
+    .milestone-date {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--neutral-500);
+      text-transform: uppercase;
+      width: 60px;
+      flex-shrink: 0;
+    }
+    .milestone-status {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .milestone-status.complete { background: var(--success); }
+    .milestone-status.in-progress { background: var(--action); }
+    .milestone-status.upcoming { background: var(--neutral-300); }
+    .milestone-text { flex: 1; color: var(--neutral-700); }
+    
+    /* Summary Banner */
+    .summary-banner {
+      background: var(--primary-light);
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+    .summary-label { font-size: 11px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .summary-text { font-size: 14px; color: var(--neutral-700); line-height: 1.6; }
+    
+    /* Footer */
+    .footer {
+      background: var(--neutral-50);
+      border-top: 1px solid var(--neutral-150);
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--neutral-500);
+    }
+    .footer-contact { display: flex; gap: 24px; }
+    .footer-item { display: flex; align-items: center; gap: 6px; }
+    
+    /* Responsive */
+    @media (max-width: 800px) {
+      body { padding: 12px; }
+      .header { flex-direction: column; padding: 20px; }
+      .header-right { text-align: left; }
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .content { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <div class="header-label">Quarterly Business Review</div>
+        <h1>[Customer Name] × Knapsack</h1>
+        <div class="header-sub">Design System Partnership</div>
+        <div class="health-badge">
+          <span class="health-dot green"></span>
+          <span class="health-label">Account Health: Strong</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="header-date">Review Date: [Month Day, Year]</div>
+        <div class="header-period">Q1 2026</div>
+      </div>
+    </div>
+    
+    <!-- Content -->
+    <div class="content">
+      <!-- Executive Summary -->
+      <div class="summary-banner">
+        <div class="summary-label">Executive Summary</div>
+        <div class="summary-text">[Brief 2-3 sentence summary of the quarter. Highlight the most important outcome, any major milestone achieved, and overall trajectory of the partnership.]</div>
+      </div>
+      
+      <!-- Key Metrics -->
+      <div class="metrics-row">
+        <div class="grid-4">
+          <div class="metric-card">
+            <div class="metric-value success">[XX]%</div>
+            <div class="metric-label">Adoption Rate</div>
+            <div class="metric-change up">↑ [X]% vs last quarter</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">[XXX]</div>
+            <div class="metric-label">Monthly Active Users</div>
+            <div class="metric-change up">↑ [X]% vs last quarter</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value success">[XX]%</div>
+            <div class="metric-label">Component Reuse</div>
+            <div class="metric-change up">↑ [X]% vs last quarter</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">[X.X]</div>
+            <div class="metric-label">NPS Score</div>
+            <div class="metric-change">— No change</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Two Column Layout -->
+      <div class="grid-2">
+        <!-- Left Column -->
+        <div>
+          <!-- Wins -->
+          <div class="section">
+            <div class="section-header">
+              <div class="section-icon wins">✓</div>
+              <div class="section-title">Q1 Wins & Accomplishments</div>
+            </div>
+            <div class="section-content">
+              <div class="list-item"><span class="list-icon success">✓</span> [Major accomplishment or milestone achieved]</div>
+              <div class="list-item"><span class="list-icon success">✓</span> [Second key win for the quarter]</div>
+              <div class="list-item"><span class="list-icon success">✓</span> [Third significant achievement]</div>
+              <div class="list-item"><span class="list-icon success">✓</span> [Additional win or positive outcome]</div>
+            </div>
+          </div>
+          
+          <!-- Challenges -->
+          <div class="section">
+            <div class="section-header">
+              <div class="section-icon challenges">!</div>
+              <div class="section-title">Challenges & Blockers</div>
+            </div>
+            <div class="section-content">
+              <div class="list-item"><span class="list-icon warning">!</span> [Current challenge and brief context]</div>
+              <div class="list-item"><span class="list-icon warning">!</span> [Second challenge or blocker]</div>
+              <div class="list-item"><span class="list-icon warning">!</span> [Additional challenge if applicable]</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Column -->
+        <div>
+          <!-- Q2 Priorities -->
+          <div class="section">
+            <div class="section-header">
+              <div class="section-icon priorities">→</div>
+              <div class="section-title">Q2 Priorities & Goals</div>
+            </div>
+            <div class="section-content">
+              <div class="list-item"><span class="list-icon action">1</span> [Top priority for next quarter]</div>
+              <div class="list-item"><span class="list-icon action">2</span> [Second priority area]</div>
+              <div class="list-item"><span class="list-icon action">3</span> [Third priority or goal]</div>
+              <div class="list-item"><span class="list-icon action">4</span> [Additional focus area]</div>
+            </div>
+          </div>
+          
+          <!-- Key Milestones -->
+          <div class="section">
+            <div class="section-header">
+              <div class="section-icon risks">◆</div>
+              <div class="section-title">Upcoming Milestones</div>
+            </div>
+            <div class="section-content">
+              <div class="milestone">
+                <span class="milestone-date">Apr</span>
+                <span class="milestone-status in-progress"></span>
+                <span class="milestone-text">[Milestone description]</span>
+              </div>
+              <div class="milestone">
+                <span class="milestone-date">May</span>
+                <span class="milestone-status upcoming"></span>
+                <span class="milestone-text">[Milestone description]</span>
+              </div>
+              <div class="milestone">
+                <span class="milestone-date">Jun</span>
+                <span class="milestone-status upcoming"></span>
+                <span class="milestone-text">[Milestone description]</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-contact">
+        <div class="footer-item"><strong>CSM:</strong> [Name]</div>
+        <div class="footer-item"><strong>Account Lead:</strong> [Name]</div>
+        <div class="footer-item"><strong>Next Review:</strong> [Date]</div>
+      </div>
+      <div>Knapsack — Intelligent Product Engine</div>
+    </div>
+  </div>
+</body>
+</html>
+
