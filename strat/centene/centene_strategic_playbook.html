@@ -304,7 +304,7 @@
     <div class="nav-footer">
       <div class="nav-footer-label">Prepared for</div>
       <div class="nav-footer-title">Centene Corporation</div>
-      <div class="nav-footer-date">February 2026</div>
+      <div class="nav-footer-date">Updated: Feb 24, 2026</div>
     </div>
   </nav>
   <main id="mainContent" role="main"></main>
@@ -312,6 +312,7 @@
     const sections = [
       { id: 'overview', label: 'Executive Summary' },
       { id: 'discovery', label: 'Discovery Insights' },
+      { id: 'session2-outcomes', label: 'Session 2 Outcomes' },
       { id: 'tech-validation', label: 'Tech Validation Agenda' },
       { id: 'challenge', label: 'The Challenge' },
       { id: 'solution', label: 'The Solution' },
@@ -356,7 +357,7 @@
           '</div>' +
           '<div class="card summary-card">' +
             '<div class="summary-label">Executive Summary</div>' +
-            '<p class="summary-text">Centene needs one playbook—a single source of truth that consolidates documentation from Figma, docsXP, and Storybook, while enabling AI-queryable access through their Copilot ecosystem. Knapsack delivers this without requiring Centene to build/maintain another platform, directly supporting James\'s 2026 AI innovation goal.</p>' +
+            '<p class="summary-text">Centene needs one playbook—a single source of truth that consolidates documentation from Figma, docsXP, and Storybook, while enabling AI-queryable access through their Copilot ecosystem. Knapsack delivers this without requiring Centene to build/maintain another platform, directly supporting James\'s 2026 AI innovation goal. Session 2 validated MCP capabilities; James\'s vision has expanded to "everything"—accessibility, writing, brand, systems.</p>' +
           '</div>' +
           '<div class="card">' +
             '<h2 class="heading">What We Heard (Feb 16 Discovery)</h2>' +
@@ -438,6 +439,70 @@
           '<div class="card summary-card">' +
             '<div class="summary-label">Key Quote: Jason on Knapsack</div>' +
             '<p class="summary-text">"I feel like you all are ahead of the game. I feel like you\'re one of the ones that is thinking longer term. So that\'s one of the reasons that I at least want to talk to you all today."</p>' +
+          '</div>',
+
+        'session2-outcomes': 
+          '<div class="hero" style="background: linear-gradient(135deg, var(--success) 0%, #15803d 100%);">' +
+            '<div class="hero-label">Session 2 Complete</div>' +
+            '<h1>Tech Validation Outcomes</h1>' +
+            '<p>MCP Demo, Prototyping, Figma Integration, and Tokens Validated</p>' +
+            '<p class="sub">Feb 24, 2026 — "This is not vaporware" confirmed</p>' +
+          '</div>' +
+          '<div class="card summary-card" style="background: var(--success-light); border-left-color: var(--success);">' +
+            '<div class="summary-label" style="color: var(--success);">Key Validation</div>' +
+            '<p class="summary-text">Chris Bloom demonstrated live MCP integration with Claude Desktop, querying the Toby design system. James confirmed: "This is not vaporware." Session validated local dev experience, Figma spec alignment, token management, and prototyping with slots.</p>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">What Was Demonstrated</h2>' +
+            '<div class="grid-2">' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Local Development Experience</div><div class="value-desc">Knapsack runs locally just like Storybook. Developers code and see changes recompiling in real-time. Same experience online and local.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Documentation Status Tracking</div><div class="value-desc">Status pills like "ready", "design needs updates", "guidelines to do". James: "The amount of clarity that provides, it\'s just really good."</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Figma Spec Alignment</div><div class="value-desc">Side-by-side comparison of Figma components vs coded React components. Green/red status shows alignment. Catches drift early.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Token Management</div><div class="value-desc">Figma variables import, CSS variables, multi-brand theming with modes. Token changes cascade through in real-time.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Prototyping with Slots</div><div class="value-desc">Non-coders can drop patterns into pages, configure slots, and generate real React code. James excited about using slots for page types.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Live MCP Integration</div><div class="value-desc">Claude Desktop querying Toby design system via SSO-authenticated MCP. Documentation audits, pattern listing, spec validation—all instant.</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card" style="background: var(--action); color: white; border: none;">' +
+            '<div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">James\'s Expanded Vision</div>' +
+            '<h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">"I Want Everything"</h3>' +
+            '<p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">"I stole Jason\'s idea and then I morphed it to make it even bigger and grander... I want accessibility, I want writing, I want anything on brand, whatever we want to do around systems. I want it all. And I want it easily found and easily discovered."</p>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">MCP Capabilities Validated</h2>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--success)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #16a34a15; color: var(--success); border: 1px solid #16a34a40;">Audit</span><span class="timeline-title">Documentation Gap Analysis</span></div><p class="timeline-desc">"Tell me all of my patterns and which one of them lack documentation." Instant audit of governance compliance.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--action)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #0ea5e915; color: var(--action); border: 1px solid #0ea5e940;">Query</span><span class="timeline-title">Pattern & Spec Questions</span></div><p class="timeline-desc">"Am I missing any React props for my button?" MCP validates against spec metadata, not source code—enforces curated governance.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--primary)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #0f766e15; color: var(--primary); border: 1px solid #0f766e40;">Compose</span><span class="timeline-title">Creative Composition Suggestions</span></div><p class="timeline-desc">Based on existing patterns and metadata, suggest new experiences and how to compose components together.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--warning)"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #d9770615; color: var(--warning); border: 1px solid #d9770640;">Auth</span><span class="timeline-title">SSO-Authenticated Access</span></div><p class="timeline-desc">MCP requires SSO sign-in. Same authentication as knapsack instance. Secure, private design system queries.</p></div></div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">James\'s Key Question: MCP Interoperability</h2>' +
+            '<p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">"Does your MCP talk to other MCPs?"</p>' +
+            '<div class="value-item" style="border: none; background: var(--primary-light);"><div class="value-marker"></div><div><div class="value-title">Robin\'s Answer: Intelligent Product Engine</div><div class="value-desc">IPE aggregates multiple MCPs (Storybook, Figma, Jira, etc.) into a single orchestration layer—"like GraphQL for UX." Reduces AI spend by eliminating 15 separate MCP calls. Can create positive feedback loop: surface conflicts between Figma, code, and accessibility guidelines, then make updates in relevant places. V1 launching April 2026.</div></div></div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">New Insights from Session</h2>' +
+            '<div class="grid-2">' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--action);"></div><div><div class="value-title">Cursor Consideration</div><div class="value-desc">"We do use Copilot and we\'re looking at getting Cursor at some point this year." MCP works across both.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--action);"></div><div><div class="value-title">Writer Integration Interest</div><div class="value-desc">Content team uses Writer. James wants to connect to Writer too—part of "I want everything" vision.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--warning);"></div><div><div class="value-title">Enterprise ChatGPT Uncertainty</div><div class="value-desc">"For the last year we\'ve heard, oh, you know, OpenAI Corporate\'s coming." Still waiting on enterprise version.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--warning);"></div><div><div class="value-title">Airtable Omni Challenges</div><div class="value-desc">Multiple bases talking to each other. Omni "still has a ways to go" but agents are decent.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--neutral-500);"></div><div><div class="value-title">James\'s LLM Background</div><div class="value-desc">Has been training LLMs for 3-4 years. Running experiments on personal PC with 128GB RAM. Playing with Figma MCP privately.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--neutral-500);"></div><div><div class="value-title">Charlie (Security Relationship)</div><div class="value-desc">Product partner Charlie has strong relationship with SVP of Security. Can expedite firewall approvals in 24 hours.</div></div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card summary-card">' +
+            '<div class="summary-label">James on Page Types + Slots</div>' +
+            '<p class="summary-text">"Makes me wonder how much we could also use slots to configure page types... We have a page concept and there is one slot. And then it is up to teams to have containers that have slots. And then now you\'ve got a fully composable system."</p>' +
+          '</div>' +
+          '<div class="card" style="background: var(--neutral-100); border: 1px dashed var(--neutral-200);">' +
+            '<h2 class="heading" style="color: var(--neutral-600);">eBay Playbook Aspiration</h2>' +
+            '<p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6;">James: "One of the things that we\'re aspiring to is what eBay has done with their playbook... I would like knapsack if it could to sort of be at least the internal instance of that where we can point PDF templates, PowerPoint templates, icon libraries. Just a way to be a central source of truth not just for the digital design system of Fondue but the larger brand system."</p>' +
+            '<div style="margin-top: 12px; display: flex; gap: 12px;">' +
+              '<span class="badge badge-primary">centene.design</span>' +
+              '<span class="badge badge-primary">fondue.design</span>' +
+              '<span class="badge" style="background: var(--neutral-150); color: var(--neutral-600);">Domains purchased, public launch ~2 years out</span>' +
+            '</div>' +
           '</div>',
 
         'tech-validation': 
@@ -704,6 +769,8 @@
               '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">Figma</div><div class="integration-note">Design tooling with slots/configurability. Docs in Figma go unread.</div></div></div>' +
               '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">ServiceNow</div><div class="integration-note">Tracking incidents and money. Data pooled into Airtable.</div></div></div>' +
               '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">Workday</div><div class="integration-note">HR data for tracking humans/roster. Auto-synced to Airtable.</div></div></div>' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">Writer</div><div class="integration-note">Content team uses Writer for writing guidelines. James wants to connect to larger "everything" vision.</div></div></div>' +
+              '<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">Cursor (Evaluating)</div><div class="integration-note">"We\'re looking at getting Cursor at some point this year." MCP works across Copilot and Cursor.</div></div></div>' +
             '</div>' +
           '</div>' +
           '<div class="card" style="background: var(--action); color: white; border: none;">' +
@@ -763,58 +830,77 @@
 
         'next-steps': 
           '<h1 class="section-title">Next Steps</h1>' +
-          '<p class="section-subtitle">Action items from Feb 16 discovery. Tech Validation Session 2 scheduled.</p>' +
+          '<p class="section-subtitle">Action items from Feb 24 Tech Validation Session 2. Reverse demo and NDA process initiated.</p>' +
           '<div class="card next-hero">' +
-            '<div class="next-hero-label">Scheduled: Tech Validation Session 2</div>' +
-            '<h3>60-Minute Deep Dive: SSOT + AI-Queryable DS + Copilot</h3>' +
-            '<p>Validate docs consolidation, recipe/slot documentation, and MCP integration with Copilot ecosystem.</p>' +
+            '<div class="next-hero-label">Immediate Priority</div>' +
+            '<h3>NDA + Assessment + Reverse Demo</h3>' +
+            '<p>Start NDA process, complete AI Readiness Assessment, and schedule reverse demo with Fondue team member.</p>' +
           '</div>' +
           '<div class="card">' +
-            '<h2 class="heading">Pre-Session: Centene to Provide</h2>' +
+            '<h2 class="heading">Immediate Actions (Next 10 Days)</h2>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--warning)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #d9770615; color: var(--warning); border: 1px solid #d9770640;">Owner: Jason</span><span class="timeline-title">Procurement Introduction for NDA</span></div><p class="timeline-desc">Introduce Knapsack to procurement team to start NDA process. Required before reverse demo can include sensitive details.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--action)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #0ea5e915; color: var(--action); border: 1px solid #0ea5e940;">Owner: James + Jason</span><span class="timeline-title">Complete AI Readiness Assessment</span></div><p class="timeline-desc">Both fill out assessment for better calibration. Link: knapsackenable.com (password sent by Amber). If blocked, Amber can facilitate live session.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--primary)"></div><div class="timeline-line"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #0f766e15; color: var(--primary); border: 1px solid #0f766e40;">Owner: Charlie (if needed)</span><span class="timeline-title">Firewall Access for Assessment Link</span></div><p class="timeline-desc">Link is "half blocked" (can access but limited function). Charlie can escalate to SVP of Security if needed—typically 24hr resolution.</p></div></div>' +
+            '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: var(--success)"></div></div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: #16a34a15; color: var(--success); border: 1px solid #16a34a40;">Owner: Angie</span><span class="timeline-title">Full Follow-Up Note</span></div><p class="timeline-desc">Meeting with Amber tomorrow (Feb 25). Will send comprehensive follow-up with all action items and links.</p></div></div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Knapsack Actions (Completed/In Progress)</h2>' +
             '<div class="grid-2">' +
-              '<div class="deliverable-item"><div class="deliverable-title">System Inventory Snapshot</div><div class="deliverable-desc">Links to current docs locations (Figma, docsXP, Storybook, NextJS/Airtable). 1-2 highest pain examples.</div></div>' +
-              '<div class="deliverable-item"><div class="deliverable-title">Configurable Card Example</div><div class="deliverable-desc">The "one configurable card" with slots list. How it\'s represented in Figma and code today.</div></div>' +
-              '<div class="deliverable-item"><div class="deliverable-title">Copilot Context</div><div class="deliverable-desc">Which Copilot surfaces matter: M365, VS Code, Edge, work mode, custom agents. Invite Eric if available.</div></div>' +
-              '<div class="deliverable-item"><div class="deliverable-title">AI Innovation Goal Brief</div><div class="deliverable-desc">James\'s stated goal: "Make the design system AI-queryable." Document current state and success criteria.</div></div>' +
+              '<div class="deliverable-item" style="border-left: 4px solid var(--success);"><div class="deliverable-title">✓ Assessment Link + Password Sent</div><div class="deliverable-desc">Owner: Amber — Sent in chat and via follow-up email</div></div>' +
+              '<div class="deliverable-item" style="border-left: 4px solid var(--success);"><div class="deliverable-title">✓ Light Actions Email Today</div><div class="deliverable-desc">Owner: Amber — Initial action items sent same-day</div></div>' +
+              '<div class="deliverable-item" style="border-left: 4px solid var(--action);"><div class="deliverable-title">→ Full Follow-Up Note</div><div class="deliverable-desc">Owner: Angie — After Feb 25 meeting with Amber</div></div>' +
+              '<div class="deliverable-item" style="border-left: 4px solid var(--action);"><div class="deliverable-title">→ IPE Details Post-NDA</div><div class="deliverable-desc">Owner: Robin — Share Intelligent Product Engine roadmap once NDA signed</div></div>' +
             '</div>' +
           '</div>' +
           '<div class="card">' +
-            '<h2 class="heading">Pre-Session: Knapsack to Provide</h2>' +
+            '<h2 class="heading">Reverse Demo: Fondue Configuration</h2>' +
+            '<p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">James: "I\'ll grab someone from the Fondue team to have them do the demo, because they will do a much better job demoing the configurations than I would."</p>' +
             '<div class="grid-2">' +
-              '<div class="deliverable-item"><div class="deliverable-title">AI Readiness Assessment</div><div class="deliverable-desc">Amber\'s alpha assessment. Takes ~10 minutes. Calibrates recommendations to Centene\'s maturity.</div></div>' +
-              '<div class="deliverable-item"><div class="deliverable-title">MCP Demo Prep</div><div class="deliverable-desc">Live demo of Copilot/Claude querying design system. Answer questions like "What\'s the spacing between Recipe 1 and X?"</div></div>' +
-              '<div class="deliverable-item"><div class="deliverable-title">Business Case Template</div><div class="deliverable-desc">Inputs needed: team size, product spend, time spent answering DS questions, doc maintenance burden.</div></div>' +
-              '<div class="deliverable-item"><div class="deliverable-title">Integration Checklist</div><div class="deliverable-desc">Tailored to Centene stack: GitLab, Airtable, NextJS, Storybook, Figma variables, Copilot.</div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Owner: James</div><div class="value-desc">Identify Fondue team member to demo slot configurations, variables, and recipe patterns.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker"></div><div><div class="value-title">Timing: Post-NDA</div><div class="value-desc">Schedule once NDA process complete. Will inform Knapsack\'s integration approach and pilot scope.</div></div></div>' +
             '</div>' +
           '</div>' +
+          '<div class="card" style="background: var(--action); color: white; border: none;">' +
+            '<div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">Coming in April 2026</div>' +
+            '<h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">Intelligent Product Engine (IPE) V1</h3>' +
+            '<p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">Aggregation layer for multiple MCPs. Reduces AI spend by consolidating Figma, Storybook, Jira, etc. into single orchestration layer. Full assessment release included. Deep dive available post-NDA.</p>' +
+          '</div>' +
           '<div class="card">' +
-            '<h2 class="heading">Session Exit Criteria</h2>' +
+            '<h2 class="heading">Session 2 Exit Criteria Status</h2>' +
             '<div class="grid-3">' +
-              '<div class="metric-card" style="text-align: left;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;"><span style="width: 24px; height: 24px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">1</span><span class="metric-value" style="font-size: 14px; margin-bottom: 0;">Docs Consolidation</span></div><div class="metric-label" style="text-align: left;">Knapsack can unify sources or provide clear integration path</div></div>' +
-              '<div class="metric-card" style="text-align: left;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;"><span style="width: 24px; height: 24px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">2</span><span class="metric-value" style="font-size: 14px; margin-bottom: 0;">Recipe Documentation</span></div><div class="metric-label" style="text-align: left;">Knapsack can represent recipe/slot patterns cleanly</div></div>' +
-              '<div class="metric-card" style="text-align: left;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;"><span style="width: 24px; height: 24px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">3</span><span class="metric-value" style="font-size: 14px; margin-bottom: 0;">AI Query Support</span></div><div class="metric-label" style="text-align: left;">MCP works with Centene\'s Copilot environment</div></div>' +
+              '<div class="metric-card" style="text-align: left; border-left: 4px solid var(--success);"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;"><span style="width: 24px; height: 24px; background: var(--success); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">✓</span><span class="metric-value" style="font-size: 14px; margin-bottom: 0;">Local Dev Experience</span></div><div class="metric-label" style="text-align: left;">Validated: Works like Storybook with live recompilation</div></div>' +
+              '<div class="metric-card" style="text-align: left; border-left: 4px solid var(--success);"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;"><span style="width: 24px; height: 24px; background: var(--success); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">✓</span><span class="metric-value" style="font-size: 14px; margin-bottom: 0;">MCP Integration</span></div><div class="metric-label" style="text-align: left;">Validated: SSO-authenticated, works across Copilot/Cursor</div></div>' +
+              '<div class="metric-card" style="text-align: left; border-left: 4px solid var(--success);"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;"><span style="width: 24px; height: 24px; background: var(--success); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">✓</span><span class="metric-value" style="font-size: 14px; margin-bottom: 0;">Figma Alignment</span></div><div class="metric-label" style="text-align: left;">Validated: Spec comparison, visual side-by-side</div></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card">' +
+            '<h2 class="heading">Open Questions for Reverse Demo</h2>' +
+            '<div class="grid-2">' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--warning);"></div><div><div class="value-title">Writer Integration Path</div><div class="value-desc">Content team uses Writer. How does this fit into "everything" vision?</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--warning);"></div><div><div class="value-title">Airtable Omni Challenges</div><div class="value-desc">Multiple bases talking to each other. Can IPE help with aggregation?</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--warning);"></div><div><div class="value-title">Page Types + Slots</div><div class="value-desc">James excited about using slots for page types. Document current approach and gaps.</div></div></div>' +
+              '<div class="value-item"><div class="value-marker" style="background: var(--warning);"></div><div><div class="value-title">Multi-MCP Architecture</div><div class="value-desc">James following Storybook MCP efforts, playing with Figma MCP. How does IPE aggregate these?</div></div></div>' +
             '</div>' +
           '</div>' +
           '<div class="card" style="background: var(--neutral-100); border: 1px dashed var(--neutral-200);">' +
-            '<h2 class="heading" style="color: var(--neutral-600);">Recommended Session Attendees</h2>' +
+            '<h2 class="heading" style="color: var(--neutral-600);">Key Stakeholders Updated</h2>' +
             '<div class="grid-2">' +
               '<div>' +
                 '<h3 style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 12px;">Centene</h3>' +
                 '<div class="phase-list" style="margin-top: 0;">' +
-                  '<div class="phase-item">James Bradshaw (Systems Design Manager)</div>' +
-                  '<div class="phase-item">Jason Wishard (Sr. Director)</div>' +
-                  '<div class="phase-item">Engineering counterpart (dev-side peer)</div>' +
-                  '<div class="phase-item">Justin (Airtable) — optional</div>' +
-                  '<div class="phase-item">Eric (Copilot specialist) — 10-15 min</div>' +
+                  '<div class="phase-item">James Bradshaw (Systems Design Manager) — Primary contact</div>' +
+                  '<div class="phase-item">Jason Wishard (Sr. Director) — Procurement intro</div>' +
+                  '<div class="phase-item">Charlie (Product Partner) — Security escalation path</div>' +
+                  '<div class="phase-item">Fondue Team Member (TBD) — Reverse demo presenter</div>' +
                 '</div>' +
               '</div>' +
               '<div>' +
                 '<h3 style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 12px;">Knapsack</h3>' +
                 '<div class="phase-list" style="margin-top: 0;">' +
-                  '<div class="phase-item">Chris Bloom (Technical Lead)</div>' +
-                  '<div class="phase-item">Amber Atkins (Program/Assessment)</div>' +
-                  '<div class="phase-item">Angela Stevenson (Account Executive)</div>' +
-                  '<div class="phase-item">Robin Cannon (VP Product) — optional</div>' +
+                  '<div class="phase-item">Chris Bloom (Technical Lead) — MCP demo lead</div>' +
+                  '<div class="phase-item">Amber Atkins (Program/Assessment) — Assessment + follow-up</div>' +
+                  '<div class="phase-item">Angie (Account Executive) — Full follow-up coordination</div>' +
+                  '<div class="phase-item">Robin Cannon (VP Product) — IPE roadmap post-NDA</div>' +
                 '</div>' +
               '</div>' +
             '</div>' +
