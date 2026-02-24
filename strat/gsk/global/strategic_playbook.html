@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSK Global × Knapsack Strategic Partnership</title>
+  <style>
+    :root {
+      --primary: #f36633;
+      --primary-dark: #d14d1f;
+      --primary-light: #fef4f0;
+      --secondary: #00857c;
+      --secondary-light: #e6f5f4;
+      --action: #0077b6;
+      --action-light: #e8f4fa;
+      --success: #2a7d5f;
+      --success-light: #eef7f3;
+      --warning: #b06d00;
+      --warning-light: #fef7eb;
+      --neutral-50: #fafafa;
+      --neutral-100: #f5f5f5;
+      --neutral-150: #e5e5e5;
+      --neutral-200: #d4d4d4;
+      --neutral-500: #525252;
+      --neutral-600: #404040;
+      --neutral-700: #333333;
+      --neutral-800: #1f1f1f;
+      --neutral-900: #0a0a0a;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--neutral-50);
+      display: flex;
+      min-height: 100vh;
+      color: var(--neutral-700);
+      line-height: 1.5;
+    }
+    nav {
+      width: 260px;
+      background: white;
+      border-right: 1px solid var(--neutral-150);
+      padding: 24px 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .nav-header {
+      padding: 0 20px 24px;
+      border-bottom: 1px solid var(--neutral-150);
+    }
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .nav-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--neutral-900);
+    }
+    .nav-subtitle {
+      font-size: 13px;
+      color: var(--neutral-600);
+      margin-top: 4px;
+    }
+    .nav-items { padding: 16px 12px; }
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 12px;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--neutral-600);
+      font-size: 13px;
+      font-weight: 400;
+      cursor: pointer;
+      text-align: left;
+      margin-bottom: 2px;
+      transition: background 0.15s;
+    }
+    .nav-btn:hover { background: var(--neutral-100); }
+    .nav-btn:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .nav-btn.active {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .nav-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
+      background: var(--neutral-150);
+      color: var(--neutral-600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .nav-btn.active .nav-num {
+      background: var(--primary);
+      color: white;
+    }
+    .nav-footer {
+      padding: 20px;
+      border-top: 1px solid var(--neutral-150);
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: white;
+    }
+    .nav-footer-label {
+      font-size: 11px;
+      color: var(--neutral-500);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .nav-footer-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--neutral-800);
+    }
+    .nav-footer-date {
+      font-size: 13px;
+      color: var(--neutral-600);
+      margin-top: 2px;
+    }
+    main {
+      flex: 1;
+      padding: 32px 40px;
+      max-width: 880px;
+      margin-left: 260px;
+    }
+    .card {
+      background: white;
+      border: 1px solid var(--neutral-150);
+      border-radius: 8px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--neutral-900);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--neutral-600);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+    .heading {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--neutral-800);
+      margin-bottom: 16px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge-primary { background: var(--primary-light); color: var(--primary); }
+    .badge-action { background: var(--action-light); color: var(--action); }
+    .badge-success { background: var(--success-light); color: var(--success); }
+    .badge-warning { background: var(--warning-light); color: var(--warning); }
+    .badge-secondary { background: var(--secondary-light); color: var(--secondary); }
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 40px;
+      border-radius: 8px;
+      margin-bottom: 28px;
+    }
+    .hero-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.9;
+      margin-bottom: 12px;
+    }
+    .hero h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+    .hero p { font-size: 18px; opacity: 0.95; }
+    .hero .sub { font-size: 14px; opacity: 0.85; margin-top: 16px; }
+    .summary-card {
+      background: var(--primary-light);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 8px 8px 0;
+    }
+    .summary-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .summary-text { font-size: 16px; color: var(--neutral-700); line-height: 1.7; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .value-item {
+      display: flex;
+      gap: 12px;
+      padding: 16px;
+      background: var(--neutral-50);
+      border-radius: 6px;
+      border: 1px solid var(--neutral-150);
+    }
+    .value-marker { width: 4px; background: var(--success); border-radius: 2px; flex-shrink: 0; }
+    .value-title { font-weight: 600; font-size: 14px; color: var(--neutral-800); margin-bottom: 4px; }
+    .value-desc { font-size: 13px; color: var(--neutral-600); }
+    .metric-card {
+      padding: 20px;
+      background: var(--neutral-50);
+      border: 1px solid var(--neutral-150);
+      border-radius: 6px;
+      text-align: center;
+    }
+    .metric-value { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+    .metric-label { font-size: 13px; color: var(--neutral-600); }
+    .roi-banner {
+      background: var(--success);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      padding: 32px;
+    }
+    .roi-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.9;
+      margin-bottom: 4px;
+    }
+    .roi-value { font-size: 32px; font-weight: 700; }
+    .timeline-item { display: flex; gap: 20px; margin-bottom: 28px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-track { display: flex; flex-direction: column; align-items: center; padding-top: 4px; }
+    .timeline-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+    .timeline-line { width: 2px; flex: 1; background: var(--neutral-200); margin-top: 8px; }
+    .timeline-content { flex: 1; }
+    .timeline-header { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+    .timeline-date { font-size: 13px; font-weight: 700; }
+    .timeline-title { font-size: 15px; font-weight: 600; color: var(--neutral-800); }
+    .timeline-desc { font-size: 14px; color: var(--neutral-600); line-height: 1.5; }
+    .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .pain-card { padding: 20px; border-radius: 6px; border: 1px solid; }
+    .pain-card.operational { background: var(--warning-light); border-color: #e8d4b8; }
+    .pain-card.strategic { background: var(--secondary-light); border-color: #b8d4d2; }
+    .pain-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+    .pain-card.operational .pain-label { color: var(--warning); }
+    .pain-card.strategic .pain-label { color: var(--secondary); }
+    .pain-item { font-size: 13px; padding: 5px 0; display: flex; gap: 8px; align-items: flex-start; color: var(--neutral-700); }
+    .pain-icon { font-weight: 600; flex-shrink: 0; width: 16px; }
+    .pain-card.operational .pain-icon { color: var(--warning); }
+    .pain-card.strategic .pain-icon { color: var(--secondary); }
+    .stat-card { padding: 20px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; text-align: center; }
+    .stat-value { font-size: 28px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+    .stat-label { font-size: 14px; font-weight: 600; color: var(--neutral-700); }
+    .stat-note { font-size: 12px; color: var(--neutral-500); margin-top: 2px; }
+    .solution-item { padding: 20px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; }
+    .solution-challenge { font-size: 12px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 6px; }
+    .solution-answer { font-size: 14px; color: var(--neutral-800); font-weight: 500; margin-bottom: 12px; }
+    .solution-kpis { display: flex; flex-wrap: wrap; gap: 6px; }
+    .kpi-tag { background: var(--action-light); color: var(--action); font-size: 11px; padding: 4px 10px; border-radius: 4px; font-weight: 500; }
+    .check-item { display: flex; gap: 12px; padding: 14px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; }
+    .check-icon { color: var(--success); font-weight: 700; font-size: 16px; flex-shrink: 0; }
+    .check-title { font-size: 14px; font-weight: 600; color: var(--neutral-800); }
+    .check-desc { font-size: 12px; color: var(--neutral-600); margin-top: 2px; }
+    .year-card { background: var(--neutral-50); border: 1px solid var(--neutral-150); padding: 20px; border-radius: 6px; }
+    .year-label { font-size: 12px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+    .year-title { font-size: 16px; font-weight: 600; color: var(--neutral-800); margin-bottom: 12px; }
+    .year-item { font-size: 13px; color: var(--neutral-600); padding: 4px 0; padding-left: 16px; position: relative; }
+    .year-item::before { content: "—"; position: absolute; left: 0; color: var(--neutral-500); }
+    .principle-item { display: flex; align-items: center; gap: 10px; padding: 14px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; font-size: 13px; color: var(--neutral-700); }
+    .principle-marker { width: 6px; height: 6px; background: var(--success); border-radius: 50%; flex-shrink: 0; }
+    .outcome-card { display: flex; gap: 20px; }
+    .outcome-num { background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+    .outcome-content { flex: 1; }
+    .outcome-title { font-size: 17px; font-weight: 600; color: var(--neutral-800); margin-bottom: 8px; }
+    .outcome-highlight { background: var(--success-light); border: 1px solid #c3ddd2; padding: 8px 14px; border-radius: 4px; display: inline-block; margin-bottom: 10px; font-size: 13px; font-weight: 600; color: var(--success); }
+    .outcome-desc { font-size: 14px; color: var(--neutral-600); line-height: 1.6; }
+    .phase-badge { padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+    .phase-list { background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; padding: 16px 20px; margin-top: 12px; }
+    .phase-item { font-size: 13px; color: var(--neutral-600); padding: 5px 0; padding-left: 20px; position: relative; }
+    .phase-item::before { content: "—"; position: absolute; left: 0; color: var(--neutral-500); }
+    .workshop-card { display: grid; grid-template-columns: 40px 1fr; gap: 20px; }
+    .workshop-num { background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; }
+    .workshop-title { font-size: 16px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px; }
+    .workshop-outcome { font-size: 14px; color: var(--neutral-600); margin-bottom: 12px; }
+    .workshop-activities { display: flex; flex-wrap: wrap; gap: 8px; }
+    .workshop-tag { background: var(--neutral-100); border: 1px solid var(--neutral-150); color: var(--neutral-600); font-size: 12px; padding: 5px 12px; border-radius: 4px; font-weight: 500; }
+    .partnership-banner { background: var(--primary-light); border: 1px solid #f5d4c8; display: flex; gap: 20px; align-items: flex-start; }
+    .partnership-marker { width: 4px; height: 48px; background: var(--primary); border-radius: 2px; flex-shrink: 0; }
+    .partnership-title { font-size: 16px; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
+    .partnership-desc { font-size: 14px; color: var(--neutral-600); line-height: 1.5; }
+    .workflow-steps { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .workflow-step { padding: 10px 18px; background: var(--primary-light); border: 1px solid #f5d4c8; border-radius: 6px; font-size: 13px; font-weight: 500; color: var(--primary); }
+    .workflow-arrow { color: var(--neutral-500); font-size: 14px; }
+    .council-card p { font-size: 14px; color: var(--neutral-600); line-height: 1.6; }
+    .council-resp { margin-top: 16px; padding: 14px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; }
+    .council-resp-label { font-size: 12px; font-weight: 600; color: var(--neutral-600); margin-bottom: 8px; }
+    .council-resp-item { font-size: 13px; color: var(--neutral-600); padding: 3px 0; padding-left: 16px; position: relative; }
+    .council-resp-item::before { content: "•"; position: absolute; left: 0; color: var(--neutral-500); }
+    .audit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .audit-item { padding: 14px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; font-size: 13px; color: var(--neutral-600); }
+    .stack-card { background: var(--neutral-50); border: 1px solid var(--neutral-150); padding: 20px; border-radius: 6px; }
+    .stack-label { font-size: 12px; font-weight: 600; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+    .stack-item { font-size: 14px; color: var(--neutral-700); padding: 6px 0; display: flex; align-items: center; gap: 10px; }
+    .stack-check { color: var(--success); font-weight: 600; }
+    .integration-item { display: flex; gap: 12px; padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px; }
+    .integration-marker { width: 4px; background: var(--action); border-radius: 2px; flex-shrink: 0; }
+    .integration-title { font-size: 14px; font-weight: 600; color: var(--neutral-800); }
+    .integration-note { font-size: 13px; color: var(--neutral-600); margin-top: 2px; }
+    .roi-card { margin-bottom: 20px; }
+    .roi-card.highlight { border: 2px solid var(--primary); }
+    .roi-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+    .roi-cat { font-size: 11px; font-weight: 600; color: var(--neutral-500); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 4px; }
+    .roi-cat-priority { color: var(--primary); }
+    .roi-title { font-size: 18px; font-weight: 600; color: var(--neutral-800); }
+    .roi-desc { font-size: 14px; color: var(--neutral-600); line-height: 1.6; margin-bottom: 14px; }
+    .roi-metrics { display: flex; gap: 10px; flex-wrap: wrap; }
+    .roi-metric { background: var(--neutral-100); border: 1px solid var(--neutral-150); color: var(--neutral-600); font-size: 12px; padding: 6px 12px; border-radius: 4px; font-weight: 500; }
+    .risk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .risk-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .risk-marker { width: 4px; height: 24px; background: var(--warning); border-radius: 2px; flex-shrink: 0; }
+    .risk-title { font-size: 15px; font-weight: 600; color: var(--neutral-800); }
+    .risk-mitigation { background: var(--success-light); border: 1px solid #c3ddd2; padding: 14px; border-radius: 6px; font-size: 13px; color: var(--neutral-700); line-height: 1.5; }
+    .next-hero { background: var(--primary); color: white; }
+    .next-hero-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px; }
+    .next-hero h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+    .next-hero p { font-size: 15px; opacity: 0.95; line-height: 1.6; }
+    .deliverable-item { background: var(--neutral-50); border: 1px solid var(--neutral-150); padding: 18px; border-radius: 6px; }
+    .deliverable-title { font-size: 15px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px; }
+    .deliverable-desc { font-size: 13px; color: var(--neutral-600); }
+    .ready-card { background: var(--success-light); border: 1px solid #c3ddd2; }
+    .ready-card p { font-size: 15px; color: var(--neutral-700); line-height: 1.7; }
+    .ai-card { background: var(--secondary-light); border: 1px solid #b8d4d2; padding: 20px; border-radius: 6px; }
+    .ai-label { font-size: 12px; font-weight: 600; color: var(--secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .ai-title { font-size: 16px; font-weight: 600; color: var(--neutral-800); margin-bottom: 6px; }
+    .ai-desc { font-size: 13px; color: var(--neutral-600); line-height: 1.5; }
+    @media (max-width: 900px) {
+      nav { display: none; }
+      main { margin-left: 0; padding: 24px; }
+      .grid-2, .grid-3, .pain-grid, .risk-grid, .audit-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="Section navigation">
+    <div class="nav-header">
+      <div class="nav-label">Strategic Partnership</div>
+      <div class="nav-title">GSK Global × Knapsack</div>
+      <div class="nav-subtitle">Omni Design System & Enterprise AI</div>
+    </div>
+    <div class="nav-items" id="navItems" role="navigation"></div>
+    <div class="nav-footer">
+      <div class="nav-footer-label">Prepared for</div>
+      <div class="nav-footer-title">GlaxoSmithKline plc</div>
+      <div class="nav-footer-date">February 2026</div>
+    </div>
+  </nav>
+  <main id="mainContent" role="main"></main>
+  <script>
+    const sections = [
+      { id: 'overview', label: 'Executive Summary' },
+      { id: 'challenge', label: 'The Challenge' },
+      { id: 'ai-landscape', label: 'AI & Agent Ecosystem' },
+      { id: 'solution', label: 'The Solution' },
+      { id: 'charter-outcomes', label: 'Charter & Outcomes' },
+      { id: 'engagement-plan', label: 'Engagement & Roadmap' },
+      { id: 'technical', label: 'Technical Integration' },
+      { id: 'analytics', label: 'Analytics & Measurement' },
+      { id: 'risks', label: 'Risk Mitigation' },
+      { id: 'sync-summary', label: 'Feb 24 Sync Summary' },
+      { id: 'next-steps', label: 'Next Steps' },
+    ];
+    let activeSection = 'overview';
+    function renderNav() {
+      const nav = document.getElementById('navItems');
+      nav.innerHTML = sections.map((s, i) => `
+        <button class="nav-btn ${activeSection === s.id ? 'active' : ''}" onclick="setSection('${s.id}')" aria-current="${activeSection === s.id ? 'page' : 'false'}">
+          <span class="nav-num" aria-hidden="true">${i + 1}</span>
+          <span>${s.label}</span>
+        </button>
+      `).join('');
+    }
+    function setSection(id) {
+      activeSection = id;
+      renderNav();
+      renderContent();
+      window.scrollTo(0, 0);
+    }
+    function renderContent() {
+      const main = document.getElementById('mainContent');
+      const content = {
+        overview: `
+          <div class="hero">
+            <div class="hero-label">Design System & AI Integration</div>
+            <h1>Omni + Knapsack</h1>
+            <p>The Front Door for AI-Enabled Design Systems</p>
+            <p class="sub">Strategic Partnership Proposal — GSK Global Commercial & Medical</p>
+          </div>
+          <div class="card summary-card">
+            <div class="summary-label">Executive Summary</div>
+            <p class="summary-text">GSK Global is pursuing an ambitious vision of orchestrated omnichannel experiences powered by AI agents. Knapsack serves as the "front door" — the unified control plane connecting design systems, code repositories, and AI workflows. With two parallel initiatives (Enterprise AI and Omni Channel), GSK needs a platform that enables vibe-coded experiences while maintaining brand governance and providing measurable adoption analytics.</p>
+          </div>
+          <div class="card">
+            <h2 class="heading">Strategic Value for GSK</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Front Door for Design Systems', desc: 'Single entry point for agencies, brand teams, marketers, and AI agents' },
+                { title: 'MCP-Enabled AI Workflows', desc: 'Connect design systems to vibe coding tools like Builder, Lovable.dev, and custom agents' },
+                { title: 'Analytics & Adoption Tracking', desc: 'Measurable metrics for design system utilization and ROI' },
+                { title: 'Speed & Efficiency', desc: 'Reduce funnel from design to production-ready code' },
+                { title: 'Enterprise AI Ready', desc: 'Build kits and templates for rapid product ideation and delivery' },
+                { title: 'Multi-Stakeholder Access', desc: 'Documentation for designers, developers, marketers, and business stakeholders' },
+              ].map(v => `<div class="value-item"><div class="value-marker"></div><div><div class="value-title">${v.title}</div><div class="value-desc">${v.desc}</div></div></div>`).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Two Strategic Tracks</h2>
+            <div class="grid-2">
+              <div class="ai-card">
+                <div class="ai-label">Track 1</div>
+                <div class="ai-title">Enterprise AI Design System</div>
+                <div class="ai-desc">New initiative led by Richard and Wojciech. Using Untitled UI with React components. Needs destination workspace, MCP connectivity, and sandbox for experimentation.</div>
+              </div>
+              <div class="ai-card" style="background: var(--primary-light); border-color: #f5d4c8;">
+                <div class="ai-label" style="color: var(--primary);">Track 2</div>
+                <div class="ai-title">Omni Channel Design System</div>
+                <div class="ai-desc">Existing system with GSK Pro (flagship), email, and 35+ component structures in GitHub. Powers digital marketing with Omni Agent for schema generation.</div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Key Stakeholders</h2>
+            <div class="grid-3">
+              ${[
+                { label: 'Global UX Lead', value: 'Jon Warden', note: 'Commercial, Medical, Enterprise AI' },
+                { label: 'Design System Lead', value: 'Matt', note: 'Commercial design systems, Omni Agent' },
+                { label: 'Enterprise AI', value: 'Richard Moon', note: 'Lead UX, MCP integration focus' },
+              ].map(s => '<div class="stat-card"><div class="stat-value" style="font-size: 16px;">' + s.value + '</div><div class="stat-label">' + s.label + '</div><div class="stat-note">' + s.note + '</div></div>').join('')}
+            </div>
+          </div>
+          <div class="card partnership-banner">
+            <div class="partnership-marker"></div>
+            <div><div class="partnership-title">Feb 24 Sync: Urgent Need for Velocity</div><p class="partnership-desc">"We need to get going and crack on... We've got to do that tomorrow. I'm not mucking about. We've got to get on with it like yesterday." — Jon Warden. GSK needs rapid integration to stay ahead of senior leadership expectations for AI-built experiences.</p></div>
+          </div>`,
+        challenge: `
+          <h1 class="section-title">The Challenge</h1>
+          <p class="section-subtitle">Understanding GSK's current state and strategic imperatives</p>
+          <div class="card">
+            <h2 class="heading">Design System Evolution</h2>
+            ${[
+              { year: 'Legacy', title: 'Supermodel (Previous Vendor)', desc: 'Previously used Supermodel for digital marketing stack—found not fit for purpose, transitioned to Knapsack', color: 'var(--neutral-400)' },
+              { year: 'Current', title: 'Omni Design System', desc: 'GSK Pro flagship (design + code), email system, 35+ components in GitHub, Storybook as engineering playground', color: 'var(--primary)' },
+              { year: 'Emerging', title: 'Enterprise AI Design System', desc: 'New initiative using Untitled UI, React/Web/iOS components, needs destination workspace', color: 'var(--secondary)' },
+              { year: 'Future', title: 'Orchestrated Omni Channel', desc: 'AI brain on one end, delivery vehicle on the other—connected dots across the ecosystem', color: 'var(--success)' },
+            ].map((p, i, arr) => '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ' + p.color + '"></div>' + (i < arr.length - 1 ? '<div class="timeline-line"></div>' : '') + '</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ' + p.color + '">' + p.year + '</span><span class="timeline-title">' + p.title + '</span></div><p class="timeline-desc">' + p.desc + '</p></div></div>').join('')}
+          </div>
+          <div class="card">
+            <h2 class="heading">Current Pain Points (Validated in Sync)</h2>
+            <div class="pain-grid">
+              <div class="pain-card operational"><div class="pain-label">Operational Gaps</div>${['No analytics to showcase design system adoption', 'Blind to utilization metrics—"I don\'t know what they are"', 'No Tealium/analytics integration in Knapsack', 'Knapsack and AEM don\'t connect', 'Need metrics for month-over-month trajectory', 'Manual reporting processes'].map(i => `<div class="pain-item"><span class="pain-icon">×</span> ${i}</div>`).join('')}</div>
+              <div class="pain-card strategic"><div class="pain-label">Strategic Challenges</div>${['People using Lovable.dev without design system connection', 'Senior leadership sees AI demos and wants them "tomorrow"', 'Need MCP-enabled world for vibe coding', 'Where does Knapsack vs Figma fit?', 'Two parallel initiatives need unified approach', 'Learning loop models require measurement'].map(i => `<div class="pain-item"><span class="pain-icon">!</span> ${i}</div>`).join('')}</div>
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Organizational Context</h2>
+            <div class="grid-3">
+              ${[{ label: 'Component Structures', value: '35+', note: 'In GitHub repo for Omni' },{ label: 'Teams Served', value: 'Multiple', note: 'Agencies, brand, marketers, third parties' },{ label: 'AI Products', value: '4+', note: 'Content Multiplier, Marketing Navigator, Omni Agent, Chatbots' }].map(s => '<div class="stat-card"><div class="stat-value">' + s.value + '</div><div class="stat-label">' + s.label + '</div><div class="stat-note">' + s.note + '</div></div>').join('')}
+            </div>
+          </div>
+          <div class="card" style="background: var(--primary-light); border: 1px solid #f5d4c8;">
+            <h2 class="heading" style="color: var(--primary);">The Core Question</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6; margin-bottom: 16px;">"We're now writing documentation for the AI to then use into other services... as opposed to a design agency coming in and needing to know how to build something manually. We're all going down this prompting approach."</p>
+            <div style="font-size: 13px; color: var(--primary); font-weight: 500;">— Jon Warden, Global Director UX</div>
+          </div>`,
+        'ai-landscape': `
+          <h1 class="section-title">AI & Agent Ecosystem</h1>
+          <p class="section-subtitle">GSK's advanced AI product landscape and integration needs</p>
+          <div class="card" style="background: var(--secondary); color: white; border: none;">
+            <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">Strategic Vision</div>
+            <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">Orchestrated Omni Channel Experiences</h3>
+            <p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">"A brain on one end and a delivery vehicle on the other end... the fulcrum of that is a design system." GSK envisions connected dots across their ecosystem where AI agents orchestrate content creation and delivery.</p>
+          </div>
+          <div class="card">
+            <h2 class="heading">Current AI Products</h2>
+            <div class="grid-2">
+              ${[
+                { name: 'Content Multiplier', desc: 'Creates single assets (web pages, emails) using pre-approved content as knowledge base. LLM generates derivative content from approved materials.', status: 'Production' },
+                { name: 'Marketing Navigator', desc: 'Campaign orchestration tool. Identifies objectives, determines assets needed, searches approved content, identifies cohorts, and can brief Content Multiplier for missing pieces.', status: 'Production' },
+                { name: 'Omni Agent', desc: 'Generates schema required to build webpages using React components. Very structured, focused tool that doesn\'t currently require MCP.', status: 'Active Development' },
+                { name: 'Medical Chatbots', desc: 'Reference approved materials and clinical data to answer questions on different drugs. Part of broader AI ecosystem.', status: 'Production' },
+              ].map(p => `<div class="ai-card"><div class="ai-label">${p.status}</div><div class="ai-title">${p.name}</div><div class="ai-desc">${p.desc}</div></div>`).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">MCP Integration Status</h2>
+            <div class="grid-2">
+              <div class="solution-item">
+                <div class="solution-challenge">Experimentation Done</div>
+                <div class="solution-answer">Matt tested Knapsack MCP + Figma MCP before Christmas. It recognized components and layouts, pulled correct components from codebase. "All worked fine."</div>
+                <div class="solution-kpis">
+                  <span class="kpi-tag">Figma MCP</span>
+                  <span class="kpi-tag">Knapsack MCP</span>
+                  <span class="kpi-tag">Component Recognition</span>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-challenge">Open Question</div>
+                <div class="solution-answer">"I'm interested in where an MCP from Knapsack would actually help us, where it would benefit us." — Matt. Omni Agent currently doesn't require MCP due to focused, structured nature.</div>
+                <div class="solution-kpis">
+                  <span class="kpi-tag">Use Case Discovery</span>
+                  <span class="kpi-tag">Value Demonstration</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">The "Three Horse Race"</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">"It's like a three horse race. I don't care which one wins. But as long as we get that to a point of making it kick." — Jon Warden</p>
+            <div class="grid-3">
+              ${[
+                { num: '1', title: 'Omni Agent + Schema', desc: 'Vibe coding via structured schema generation from React components' },
+                { num: '2', title: 'Builder Integration', desc: 'Looking at Builder for Microsoft management and production-ready code' },
+                { num: '3', title: 'MCP Ecosystem', desc: 'Knapsack as control plane connecting multiple AI tools' },
+              ].map(t => '<div style="background: var(--neutral-50); padding: 14px; border-radius: 6px; border: 1px solid var(--neutral-150);"><div style="display: flex; gap: 10px; align-items: flex-start;"><span style="background: var(--primary); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">' + t.num + '</span><div><div style="font-size: 14px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">' + t.title + '</div><div style="font-size: 12px; color: var(--neutral-600);">' + t.desc + '</div></div></div></div>').join('')}
+            </div>
+          </div>
+          <div class="card" style="background: var(--warning-light); border: 1px solid #e8d4b8;">
+            <h2 class="heading" style="color: var(--warning);">Urgency: Uncontrolled AI Adoption</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6;">"The risk we have... is people go off and use a Lovable.dev or whatever it may be, and then put it in front of our senior leadership without connecting it to our design ethos or our brand guidance. And then before you know it, they're going: I want that tomorrow because I can see it on the screen in front of me."</p>
+            <div style="margin-top: 12px; font-size: 13px; color: var(--warning); font-weight: 500;">Need: Connect design system to any vibe coding tool immediately so users can experiment within guardrails.</div>
+          </div>`,
+        solution: `
+          <h1 class="section-title">The Solution</h1>
+          <p class="section-subtitle">Knapsack as the front door and control plane for GSK's AI-enabled future</p>
+          <div class="card" style="background: var(--primary); color: white; border: none;">
+            <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">Core Value Proposition</div>
+            <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">The Front Door + Control Plane</h3>
+            <p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">"I still think we need a front door... We're not about to change out and switch out. We're going to stay with you because that's where the front door is." Knapsack serves as the single entry point connecting agencies, brand teams, AI agents, and vibe coding tools to GSK's design systems.</p>
+          </div>
+          <div class="card">
+            <h2 class="heading">How Knapsack Addresses GSK's Needs</h2>
+            <div class="grid-2">
+              ${[
+                { challenge: 'No unified entry point', solution: 'Front door for agencies, marketers, brand teams, third parties, and AI agents', kpis: ['Single MCP connection', 'Multi-stakeholder access', 'Role-based views'] },
+                { challenge: 'Blind to adoption', solution: 'Analytics dashboard for utilization, retention, and trajectory tracking', kpis: ['Month-over-month metrics', 'Adoption tracking', 'Success measurement'] },
+                { challenge: 'AI tool sprawl', solution: 'MCP as single connector for Builder, Lovable.dev, and custom agents', kpis: ['One connection point', 'Brand guardrails', 'Flexible tooling'] },
+                { challenge: 'Enterprise AI workspace', solution: 'Sandbox environment for experimentation and new design system build', kpis: ['Rapid prototyping', 'Template structures', 'Build kits'] },
+                { challenge: 'Documentation for AI', solution: 'Structured content that feeds AI agents, not just humans', kpis: ['Schema-driven docs', 'Machine-readable', 'Auto-improvement'] },
+                { challenge: 'Figma vs Knapsack clarity', solution: 'Knapsack as catch-all, Figma as designer tool—clear role separation', kpis: ['Designer workflow', 'Dev workflow', 'AI workflow'] },
+              ].map(i => `<div class="solution-item"><div class="solution-challenge">${i.challenge}</div><div class="solution-answer">${i.solution}</div><div class="solution-kpis">${i.kpis.map(k => '<span class="kpi-tag">' + k + '</span>').join('')}</div></div>`).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Knapsack Roadmap Alignment (March–Q2 2026)</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Multi-Source Context (March)', desc: 'Add Storybook, MDX, Figma as context sources feeding Knapsack MCP', icon: '✓' },
+                { title: 'Conflict Detection', desc: 'Identify conflicts between Figma files and codebase, surface documentation gaps', icon: '✓' },
+                { title: 'Contextual Intelligence', desc: 'Aggregation layer that makes the single Knapsack MCP connection intelligent', icon: '✓' },
+                { title: 'Builder Integration', desc: 'Provide context to Builder so generative outputs are closer to correct', icon: '✓' },
+                { title: 'Health Dashboard (Q2)', desc: 'Persistent analytics showing Knapsack value—not manual reports', icon: '◐' },
+                { title: 'Integration Marketplace (Future)', desc: 'Connect Jira, AEM, and other tools into the control plane', icon: '○' },
+              ].map(i => '<div class="check-item"><span class="check-icon">' + i.icon + '</span><div><div class="check-title">' + i.title + '</div><div class="check-desc">' + i.desc + '</div></div></div>').join('')}
+            </div>
+          </div>
+          <div class="card" style="background: var(--secondary-light); border: 1px solid #b8d4d2;">
+            <h2 class="heading" style="color: var(--secondary);">Intelligent Product Engine Vision</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">Robin's vision for where Knapsack is heading:</p>
+            <div class="grid-3">
+              ${[
+                { num: '1', output: 'Generate Product', desc: 'Vibe code marketing sites or applications in a much more complete way' },
+                { num: '2', output: 'Insights', desc: 'Effectiveness of existing products or design system health' },
+                { num: '3', output: 'Improvement', desc: 'Positive feedback loop that improves underlying architecture' },
+              ].map(o => '<div style="background: white; padding: 14px; border-radius: 6px; border: 1px solid var(--neutral-150);"><div style="display: flex; gap: 10px; align-items: flex-start;"><span style="background: var(--secondary); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">' + o.num + '</span><div><div style="font-size: 14px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">' + o.output + '</div><div style="font-size: 12px; color: var(--neutral-600);">' + o.desc + '</div></div></div></div>').join('')}
+            </div>
+          </div>`,
+        'charter-outcomes': `
+          <h1 class="section-title">Charter & Business Outcomes</h1>
+          <p class="section-subtitle">Vision, strategic framework, team structure, and measurable impact</p>
+          
+          <!-- Vision -->
+          <div class="card summary-card">
+            <div class="summary-label">Vision Statement</div>
+            <p class="summary-text">Establish Knapsack as the front door and control plane for GSK's design systems—connecting Omni Channel and Enterprise AI initiatives through a unified MCP-enabled architecture that empowers agencies, marketers, and AI agents while providing measurable adoption analytics and governance.</p>
+          </div>
+          
+          <!-- Guiding Principles -->
+          <div class="card">
+            <h2 class="heading">Guiding Principles</h2>
+            <div class="grid-3">
+              ${['Front door for all stakeholders', 'MCP-enabled by default', 'Measurable adoption & ROI', 'Speed over perfection', 'AI-ready documentation', 'Governance without friction'].map(p => '<div class="principle-item"><span class="principle-marker"></span> ' + p + '</div>').join('')}
+            </div>
+          </div>
+          
+          <!-- Stakeholder Map -->
+          <div class="card">
+            <h2 class="heading">Stakeholder Map & Working Group</h2>
+            <p style="font-size: 14px; color: var(--neutral-700); margin-bottom: 16px; line-height: 1.6;">Primary partners and responsibilities aligned from the Feb 24 sync.</p>
+            <div class="grid-2">
+              <div>
+                <div class="summary-label" style="margin-bottom: 12px;">GSK Global Roles</div>
+                ${[
+                  { member: 'Jon Warden (Global Director UX)', role: 'Executive sponsor, strategic direction for Commercial, Medical, and Enterprise AI' },
+                  { member: 'Matt (Design Lead)', role: 'Commercial design systems, Omni Agent development, MCP experimentation' },
+                  { member: 'Richard Moon (Lead UX)', role: 'Enterprise AI design system, MCP integration focus, sandbox requirements' },
+                  { member: 'Chris Scull (UX Lead)', role: 'AI Enterprise strategy, ecosystem architecture, content creation/distribution' },
+                  { member: 'Wojciech Andrzejewski (Sr. Product Designer)', role: 'Enterprise AI design system, Untitled UI implementation' },
+                ].map(m => '<div class="check-item"><span class="check-icon">✓</span><div><div class="check-title">' + m.member + '</div><div class="check-desc">' + m.role + '</div></div></div>').join('')}
+              </div>
+              <div>
+                <div class="summary-label" style="margin-bottom: 12px;">Knapsack Roles</div>
+                ${[
+                  { member: 'Amber Atkins (CX Partner)', role: 'Strategic advisory, ecosystem mapping, Richard/Chris deep dives' },
+                  { member: 'Robin Cannon (Sr. Director of Product)', role: 'Product roadmap, IPE vision, technical direction' },
+                  { member: 'Jon Boush (Strategic AE)', role: 'Account management, monthly analytics reports, QBR coordination' },
+                ].map(m => '<div class="check-item"><span class="check-icon">✓</span><div><div class="check-title">' + m.member + '</div><div class="check-desc">' + m.role + '</div></div></div>').join('')}
+              </div>
+            </div>
+          </div>
+          
+          <!-- Business Outcomes -->
+          <div class="card" style="background: var(--primary); color: white; border: none;">
+            <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; margin-bottom: 14px;">Measurable Business Outcomes</div>
+            <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">Four Key Value Drivers</h3>
+            <p style="font-size: 15px; opacity: 0.95; line-height: 1.6;">Success metrics aligned with GSK's need for trajectory data and leadership reporting.</p>
+          </div>
+          
+          ${[
+            { num: 1, title: 'Design System Adoption', outcome: 'Month-over-month tracking of agency and team utilization', desc: 'Provide the analytics GSK needs to demonstrate 10% uplift trajectories and justify continued investment.' },
+            { num: 2, title: 'AI Workflow Enablement', outcome: 'Single MCP connection for any vibe coding tool', desc: 'Enable teams to experiment with Builder, Lovable.dev, or custom agents while staying connected to design system guardrails.' },
+            { num: 3, title: 'Enterprise AI Workspace', outcome: 'Sandbox environment live within weeks', desc: 'Give Richard and the Enterprise AI team a destination to experiment, connect dots, and showcase templates.' },
+            { num: 4, title: 'Speed to Production', outcome: 'Reduced funnel from design to production-ready code', desc: 'Feed Builder and other tools with rich context so initial outputs are closer to correct and done.' },
+          ].map(o => '<div class="card"><div class="outcome-card"><div class="outcome-num">' + o.num + '</div><div class="outcome-content"><h3 class="outcome-title">' + o.title + '</h3><div class="outcome-highlight">' + o.outcome + '</div><p class="outcome-desc">' + o.desc + '</p></div></div></div>').join('')}
+          
+          <!-- Success Metrics -->
+          <div class="card">
+            <h2 class="heading">Success Metrics (Per Jon Warden)</h2>
+            <div class="grid-3">
+              ${[
+                { metric: 'Adoption Rate', desc: 'Month-over-month agency designer utilization' },
+                { metric: 'Retention', desc: 'Repeat usage of design system resources' },
+                { metric: 'Trajectory', desc: '10%+ quarterly uplift in engagement' },
+              ].map(m => `<div class="metric-card"><div class="metric-value">${m.metric}</div><div class="metric-label">${m.desc}</div></div>`).join('')}
+            </div>
+          </div>
+          
+          <!-- Operating Cadence -->
+          <div class="card">
+            <h2 class="heading">Operating Cadence</h2>
+            <div class="grid-3">
+              ${[
+                { frequency: 'Monthly', meeting: 'Analytics Report', purpose: 'Jon Boush delivers adoption metrics to Jon Warden' },
+                { frequency: 'Quarterly', meeting: 'Business Review', purpose: 'Strategic alignment, roadmap discussion, adoption tracking' },
+                { frequency: 'As Needed', meeting: 'Deep Dive Sessions', purpose: 'Technical working sessions with Richard, Chris, Matt' },
+              ].map(o => '<div style="padding: 16px; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 6px;"><div style="font-size: 12px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">' + o.frequency + '</div><div style="font-size: 14px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">' + o.meeting + '</div><div style="font-size: 12px; color: var(--neutral-600);">' + o.purpose + '</div></div>').join('')}
+            </div>
+          </div>
+          
+          <!-- QBR Schedule -->
+          <div class="card">
+            <h2 class="heading">Quarterly Business Review Schedule</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">Regular cadence for strategic alignment between GSK and Knapsack leadership.</p>
+            <div class="grid-3">
+              ${[
+                { quarter: 'Q1 2026', focus: 'Foundation & Analytics', items: ['Analytics baseline established', 'Enterprise AI sandbox setup', 'MCP experimentation kickoff'] },
+                { quarter: 'Q2 2026', focus: 'Multi-Source & Builder', items: ['Multi-source context live', 'Builder integration pilot', 'Adoption tracking active'] },
+                { quarter: 'Q3 2026', focus: 'Scale & Optimization', items: ['Health dashboard deployed', 'Learning loop models', 'ROI reporting mature'] },
+              ].map(q => '<div class="year-card"><div class="year-label">' + q.quarter + '</div><div class="year-title">' + q.focus + '</div>' + q.items.map(i => '<div class="year-item">' + i + '</div>').join('') + '</div>').join('')}
+            </div>
+          </div>
+          
+          <!-- Partnership Commitment -->
+          <div class="card ready-card">
+            <h2 class="heading">Partnership Commitment</h2>
+            <p>"We're not about to rip out Knapsack. And if we don't make Knapsack fundamental to the processes, then we'll be in a struggle point... Spend time with Richard and Chris has got a wonderful ecosystem that will probably blow your brain apart." — Jon Warden</p>
+            <p style="margin-top: 12px;">GSK is committed to the partnership. The opportunity is making Knapsack essential to their AI-enabled future—the front door and control plane for orchestrated omnichannel experiences.</p>
+          </div>`,
+        'engagement-plan': `
+          <h1 class="section-title">Engagement & Roadmap</h1>
+          <p class="section-subtitle">Immediate actions and Knapsack product roadmap alignment</p>
+          
+          <!-- Urgency Banner -->
+          <div class="card" style="background: var(--warning); color: white; border: none;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="font-size: 24px;">⚡</span>
+              <div>
+                <div style="font-size: 18px; font-weight: 700;">Velocity is Critical</div>
+                <div style="opacity: 0.9;">"We've got to get going... We've got to do that tomorrow. I'm not mucking about. We've got to get on with it like yesterday, it's got to happen. Otherwise we could be out of practice." — Jon Warden</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Knapsack Product Roadmap -->
+          <div class="card">
+            <h2 class="heading">Knapsack Product Roadmap (Q1–Q2 2026)</h2>
+            ${[
+              { days: 'By End of March', title: 'Multi-Source Context', color: 'var(--success)', items: ['Storybook integration as context source', 'MDX/Markdown file support', 'Figma file connection', 'Conflict detection between sources', 'Documentation gap surfacing'] },
+              { days: 'Q2 2026', title: 'Core Platform Improvements', color: 'var(--primary)', items: ['Health dashboard & persistent analytics', 'Figma sync performance fixes', 'Token performance improvements', 'Accessibility compliance tools', 'Improved contribution workflows'] },
+              { days: 'Future', title: 'Integration Marketplace', color: 'var(--action)', items: ['Jira integration', 'AEM connection', 'Additional MCP sources', 'Context stack ranking', 'Profile-based instructions'] },
+            ].map((p, i, arr) => '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ' + p.color + '"></div>' + (i < arr.length - 1 ? '<div class="timeline-line"></div>' : '') + '</div><div class="timeline-content"><div class="timeline-header"><span class="phase-badge" style="background: ' + p.color + '15; color: ' + p.color + '; border: 1px solid ' + p.color + '40;">' + p.days + '</span><span class="timeline-title">' + p.title + '</span></div><div class="phase-list">' + p.items.map(i => '<div class="phase-item">' + i + '</div>').join('') + '</div></div></div>').join('')}
+          </div>
+          
+          <!-- Immediate Actions -->
+          <div class="card" style="border-left: 4px solid var(--primary);">
+            <h2 class="heading">Immediate Actions (This Week)</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Monthly Analytics Report', owner: 'Jon Boush', desc: 'Send initial analytics report today, establish monthly cadence' },
+                { title: 'Enterprise AI Sandbox', owner: 'Knapsack CX', desc: 'Set up workspace for Richard and team experimentation' },
+                { title: 'State of Knapsack Brief', owner: 'Amber', desc: 'Document current GSK setup for Chris and new team members' },
+                { title: 'Ecosystem Map Review', owner: 'Chris/Amber', desc: 'Share and review GSK content ecosystem architecture' },
+                { title: 'Richard Deep Dive', owner: 'Amber + Richard', desc: 'MCP integration session for Enterprise AI requirements' },
+                { title: 'Chris Deep Dive', owner: 'Amber + Chris', desc: 'AI ecosystem walkthrough and integration opportunities' },
+              ].map(d => `<div class="deliverable-item"><div class="deliverable-title">${d.title} <span class="badge badge-action">${d.owner}</span></div><div class="deliverable-desc">${d.desc}</div></div>`).join('')}
+            </div>
+          </div>
+          
+          <!-- Early Adopter Program -->
+          <div class="card" style="background: var(--success-light); border: 1px solid #c3ddd2;">
+            <h2 class="heading" style="color: var(--success);">Early Adopter Opportunity</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6; margin-bottom: 12px;">"Can we be early adopters of the March releases to make sure that we're flying in that space?" — Jon Warden</p>
+            <div class="phase-list">
+              <div class="phase-item"><strong>Multi-Source Context</strong> — Early access to Storybook + MDX integration</div>
+              <div class="phase-item"><strong>Conflict Detection</strong> — Beta testing documentation gap analysis</div>
+              <div class="phase-item"><strong>Builder Context</strong> — Priority integration for vibe coding workflows</div>
+            </div>
+          </div>
+          
+          <!-- Quarterly Business Reviews -->
+          <div class="card">
+            <h2 class="heading">Quarterly Business Review Cadence</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); margin-bottom: 16px;">Regular syncs to track adoption, discuss roadmap, and align on priorities.</p>
+            <div class="grid-3">
+              ${[
+                { quarter: 'Q1 2026', focus: 'Foundation', items: ['Analytics baseline', 'Enterprise AI sandbox', 'MCP experimentation'] },
+                { quarter: 'Q2 2026', focus: 'Integration', items: ['Multi-source context', 'Builder connection', 'Adoption tracking'] },
+                { quarter: 'Q3 2026', focus: 'Scale', items: ['Health dashboard', 'Learning loop models', 'ROI reporting'] },
+              ].map(q => '<div class="year-card"><div class="year-label">' + q.quarter + '</div><div class="year-title">' + q.focus + '</div>' + q.items.map(i => '<div class="year-item">' + i + '</div>').join('') + '</div>').join('')}
+            </div>
+          </div>`,
+        technical: `
+          <h1 class="section-title">Technical Integration</h1>
+          <p class="section-subtitle">Current stack and integration requirements</p>
+          <div class="card">
+            <h2 class="heading">Current Technical Landscape</h2>
+            <div class="grid-2">
+              <div class="stack-card"><div class="stack-label">Design System Stack</div>${['GSK Pro (flagship—design + code)', 'Email system (design + code)', '35+ component structures in GitHub', 'Storybook as engineering playground', 'React components (primary)', 'Untitled UI (Enterprise AI base)'].map(t => `<div class="stack-item"><span class="stack-check">✓</span> ${t}</div>`).join('')}</div>
+              <div class="stack-card"><div class="stack-label">AI & Delivery Stack</div>${['Content Multiplier (single assets)', 'Marketing Navigator (campaigns)', 'Omni Agent (schema generation)', 'AEM (Adobe Experience Manager)', 'Salesforce Marketing Cloud', 'Power BI dashboards'].map(t => `<div class="stack-item"><span class="stack-check">✓</span> ${t}</div>`).join('')}</div>
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">MCP Integration Architecture</h2>
+            <div class="grid-2">
+              ${[
+                { req: 'Knapsack MCP as Single Connector', note: 'All context aggregated through one MCP connection point for any AI tool' },
+                { req: 'Storybook Context Integration', note: 'Pull component documentation from Storybook into Knapsack context layer' },
+                { req: 'Figma MCP Connection', note: 'Already tested—recognize components and layouts from Figma files' },
+                { req: 'Builder Context Feed', note: 'Provide rich context to Builder so generative outputs are closer to correct' },
+                { req: 'Schema Reference', note: 'Omni Agent uses schema reference files—align with Knapsack structure' },
+                { req: 'GitHub Repo Connection', note: 'React components in GitHub need exposure through MCP' },
+              ].map(r => `<div class="integration-item"><div class="integration-marker"></div><div><div class="integration-title">${r.req}</div><div class="integration-note">${r.note}</div></div></div>`).join('')}
+            </div>
+          </div>
+          <div class="card" style="background: var(--action-light); border: 1px solid #b8d4e8;">
+            <h2 class="heading" style="color: var(--action);">Matt's MCP Experiment Results</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6; margin-bottom: 12px;">"I connected Knapsack MCP, Figma MCP, and it all worked fine. I had to do some tweaking but it recognized components and layouts that I was feeding to it via Figma, and was able to pull the correct components out of the codebase."</p>
+            <div class="grid-3">
+              <div style="background: white; padding: 12px; border-radius: 6px; border: 1px solid var(--neutral-150); text-align: center;">
+                <div style="font-size: 24px; margin-bottom: 4px;">✓</div>
+                <div style="font-size: 13px; font-weight: 600;">Component Recognition</div>
+              </div>
+              <div style="background: white; padding: 12px; border-radius: 6px; border: 1px solid var(--neutral-150); text-align: center;">
+                <div style="font-size: 24px; margin-bottom: 4px;">✓</div>
+                <div style="font-size: 13px; font-weight: 600;">Layout Detection</div>
+              </div>
+              <div style="background: white; padding: 12px; border-radius: 6px; border: 1px solid var(--neutral-150); text-align: center;">
+                <div style="font-size: 24px; margin-bottom: 4px;">✓</div>
+                <div style="font-size: 13px; font-weight: 600;">Codebase Pull</div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Enterprise AI Workspace Requirements</h2>
+            <div class="grid-2">
+              ${[
+                { req: 'Sandbox Environment', note: 'Experimentation space for connecting dots and testing integrations' },
+                { req: 'Template Structures', note: 'Showcase "what good looks like" for product delivery' },
+                { req: 'Build Kits', note: 'Collect vibe-coded experiences and build rapidly' },
+                { req: 'MCP Front Door', note: 'Connect to GitHub repo for Untitled UI React components' },
+              ].map(r => `<div class="integration-item"><div class="integration-marker" style="background: var(--secondary);"></div><div><div class="integration-title">${r.req}</div><div class="integration-note">${r.note}</div></div></div>`).join('')}
+            </div>
+          </div>`,
+        analytics: `
+          <h1 class="section-title">Analytics & Measurement</h1>
+          <p class="section-subtitle">Critical requirement for demonstrating design system value</p>
+          <div class="card" style="background: var(--warning-light); border: 1px solid #e8d4b8;">
+            <h2 class="heading" style="color: var(--warning);">The Analytics Gap</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6; margin-bottom: 16px;">"We haven't got any analytics to showcase how our design system is doing... I'm blind. I don't know what they are... We are being measured on success. And if I can't turn around at some point in the future and say, well, actually I've got month on month or quarter on quarter, a 10 percent uplift of agency designers coming in and using our services... I can't show them any trajectory—we'll get culled regardless whether it's our system or not."</p>
+            <div style="font-size: 13px; color: var(--warning); font-weight: 500;">— Jon Warden, Global Director UX</div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Required Metrics</h2>
+            <div class="grid-3">
+              ${[
+                { metric: 'Adoption', desc: 'Who is coming to the design system? How many unique visitors?' },
+                { metric: 'Retention', desc: 'Are users returning? What is repeat visit rate?' },
+                { metric: 'Journey', desc: 'Where do users go? What paths do they take?' },
+              ].map(m => `<div class="metric-card"><div class="metric-value">${m.metric}</div><div class="metric-label">${m.desc}</div></div>`).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">GSK Analytics Tool Chain</h2>
+            <div class="grid-2">
+              <div class="stack-card"><div class="stack-label">Available Tools</div>${['Tealium (tag management)', 'Decibel (experience analytics)', 'Qualtrics (feedback/surveys)', 'Power BI (dashboards)', 'Adobe Analytics'].map(t => `<div class="stack-item"><span class="stack-check">✓</span> ${t}</div>`).join('')}</div>
+              <div class="stack-card"><div class="stack-label">Integration Needs</div>${['Tealium instance in Knapsack', 'Decibel connection for UX metrics', 'Power BI dashboard feeds', 'Month-over-month reporting', 'Custom event tracking'].map(t => `<div class="stack-item"><span class="stack-check">→</span> ${t}</div>`).join('')}</div>
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="heading">Immediate Analytics Actions</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Monthly Analytics Report', owner: 'Jon Boush', desc: 'Starting today—send current available metrics to Jon Warden', status: 'Committed' },
+                { title: 'Vibe-Coded Dashboard', owner: 'GSK + Knapsack', desc: 'Create Power BI dashboard using Knapsack analytics data', status: 'Proposed' },
+                { title: 'Tealium Integration', owner: 'Product Roadmap', desc: 'On roadmap—needs prioritization based on GSK requirements', status: 'Roadmap' },
+                { title: 'Health Dashboard', owner: 'Q2 Product', desc: 'Persistent analytics view within Knapsack platform', status: 'Q2 2026' },
+              ].map(a => `<div class="deliverable-item"><div class="deliverable-title">${a.title} <span class="badge ${a.status === 'Committed' ? 'badge-success' : a.status === 'Proposed' ? 'badge-action' : 'badge-warning'}">${a.status}</span></div><div class="deliverable-desc">${a.owner}: ${a.desc}</div></div>`).join('')}
+            </div>
+          </div>
+          <div class="card" style="background: var(--primary-light); border: 1px solid #f5d4c8;">
+            <h2 class="heading" style="color: var(--primary);">Knapsack Analytics Maturity</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6; margin-bottom: 12px;">"To be quite honest, the truth is analytics as a practice at Knapsack is immature. I'm just going to be honest. There's no way to sidebar that... I'm very interested in your tool chain so that we can figure out how might we just connect the tooling to do the job for us." — Amber Atkins</p>
+            <div style="font-size: 13px; color: var(--primary); font-weight: 500;">Opportunity: GSK's analytics expertise can help shape Knapsack's analytics roadmap.</div>
+          </div>`,
+        risks: `
+          <h1 class="section-title">Risk Mitigation</h1>
+          <p class="section-subtitle">Identified risks and mitigation strategies</p>
+          <div class="risk-grid">
+            ${[
+              { risk: 'Uncontrolled AI Tool Adoption', mitigation: 'Make Knapsack MCP the single connector so any vibe coding tool (Lovable.dev, Builder, etc.) uses design system context. Enable experimentation within guardrails.' },
+              { risk: 'No Adoption Metrics', mitigation: 'Implement monthly analytics reporting immediately. Explore Tealium/Decibel integration. Build health dashboard in Q2.' },
+              { risk: 'Front Door Becomes Irrelevant', mitigation: 'Position Knapsack as control plane, not just documentation. Multi-source context aggregation makes it essential for AI workflows.' },
+              { risk: 'Two Tracks Diverge', mitigation: 'Unified workspace strategy for Enterprise AI and Omni Channel. Shared MCP architecture. Coordinated governance.' },
+              { risk: 'Leadership Loses Patience', mitigation: 'Demonstrate quick wins—sandbox workspace this week, analytics report today, early adopter access to March features.' },
+              { risk: 'Competition from Figma', mitigation: 'Clear positioning: Knapsack is the catch-all, Figma is the designer tool. Different user groups, complementary roles.' },
+            ].map(r => `<div class="card"><div class="risk-header"><div class="risk-marker"></div><span class="risk-title">${r.risk}</span></div><div class="risk-mitigation">${r.mitigation}</div></div>`).join('')}
+          </div>`,
+        'sync-summary': `
+          <h1 class="section-title">Feb 24 Sync Summary</h1>
+          <p class="section-subtitle">Key takeaways from CX Delivery + Product sync with GSK Global</p>
+          
+          <!-- Meeting Status -->
+          <div class="card" style="background: var(--success); color: white; border: none;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="font-size: 24px;">✓</span>
+              <div>
+                <div style="font-size: 18px; font-weight: 700;">Sync Completed</div>
+                <div style="opacity: 0.9;">February 24, 2026 • 58 minutes via Zoom</div>
+                <div style="opacity: 0.85; margin-top: 4px; font-size: 13px;">Strategic alignment on AI roadmap, analytics requirements, and immediate actions.</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Attendees -->
+          <div class="card summary-card" style="margin-top: 20px;">
+            <div class="summary-label">Attendees</div>
+            <div class="summary-text">
+              <p><strong>GSK:</strong> Jon Warden (Global Director UX), Matt (Design Lead, Commercial DS), Richard Moon (Lead UX, Enterprise AI), Chris Scull (UX Lead, AI Enterprise), Wojciech Andrzejewski (Senior Product Designer)</p>
+              <p style="margin-top: 8px;"><strong>Knapsack:</strong> Amber Atkins (CX Partner), Robin Cannon (Senior Director of Product), Jon Boush (Strategic Account Executive)</p>
+            </div>
+          </div>
+          
+          <!-- Key Insights -->
+          <div class="card" style="background: var(--secondary-light); border: 1px solid #b8d4d2;">
+            <h2 class="heading" style="color: var(--secondary);">Key Strategic Insights</h2>
+            <div class="grid-2">
+              ${[
+                { insight: 'AI-First Mindset', detail: 'GSK is writing documentation for AI consumption, not just human readers' },
+                { insight: 'Urgency is Real', detail: '"We\'ve got to get on with it like yesterday"—senior leadership pressure' },
+                { insight: 'Front Door Essential', detail: '"We\'re not about to change out... we\'re going to stay with you"' },
+                { insight: 'Analytics Critical', detail: '"We\'ll get culled" without adoption metrics—existential need' },
+                { insight: 'MCP-Enabled World', detail: 'Future is connecting design systems to any vibe coding tool via MCP' },
+                { insight: 'Three Horse Race', detail: 'Multiple AI initiatives running—whichever wins, design system is fulcrum' },
+              ].map(i => '<div style="background: white; padding: 12px; border-radius: 6px; border: 1px solid var(--neutral-150);"><div style="font-size: 13px; font-weight: 600; color: var(--neutral-800); margin-bottom: 4px;">' + i.insight + '</div><div style="font-size: 12px; color: var(--neutral-600);">' + i.detail + '</div></div>').join('')}
+            </div>
+          </div>
+          
+          <!-- Key Quotes -->
+          <div class="card">
+            <h2 class="heading">Key Quotes</h2>
+            <div class="grid-2">
+              ${[
+                '"It\'s no point having a front door if no one\'s going to it." — Jon Warden',
+                '"We\'re now writing documentation for the AI to then use into other services." — Jon Warden',
+                '"The fulcrum of that is a design system." — Jon Warden',
+                '"I\'m desperate to make sure that we can map in the utilization and usage." — Jon Warden',
+                '"Can we be early adopters of the March releases?" — Jon Warden',
+                '"I\'m very interested in your tool chain." — Amber Atkins',
+                '"Figma is not a design system." — Robin Cannon',
+                '"We need to be fluid to be able to connect those things up." — Jon Warden',
+              ].map(q => '<div class="phase-item" style="font-style: italic; padding: 8px 12px; background: var(--neutral-50); border-radius: 4px; margin-bottom: 8px;">' + q + '</div>').join('')}
+            </div>
+          </div>
+          
+          <!-- Action Items -->
+          <div class="card">
+            <h2 class="heading">Committed Action Items</h2>
+            <div class="grid-2">
+              ${[
+                { item: 'Monthly Analytics Report', owner: 'Jon Boush', desc: 'Send initial report TODAY, establish monthly cadence' },
+                { item: 'Richard + Amber Session', owner: 'Amber', desc: 'Deep dive on Enterprise AI MCP requirements' },
+                { item: 'Chris + Amber Session', owner: 'Amber', desc: 'AI ecosystem walkthrough and integration opportunities' },
+                { item: 'State of Knapsack Brief', owner: 'Amber', desc: 'Document current GSK setup for onboarding new stakeholders' },
+                { item: 'Calendar Links', owner: 'Amber', desc: 'Send scheduling links for follow-up sessions' },
+                { item: 'Early Adopter Access', owner: 'Robin/Product', desc: 'Include GSK in March release beta program' },
+              ].map(a => '<div class="deliverable-item"><div class="deliverable-title">' + a.item + ' <span class="badge badge-action">' + a.owner + '</span></div><div class="deliverable-desc">' + a.desc + '</div></div>').join('')}
+            </div>
+          </div>
+          
+          <!-- Roadmap Shared -->
+          <div class="card" style="background: var(--primary-light); border: 1px solid #f5d4c8;">
+            <h2 class="heading" style="color: var(--primary);">Knapsack Roadmap Highlights Shared</h2>
+            <div class="phase-list">
+              ${[
+                '<strong>Multi-Source Context (March)</strong> — Storybook + MDX + Figma as context sources',
+                '<strong>Conflict Detection</strong> — Surface documentation gaps and source conflicts',
+                '<strong>Contextual Intelligence</strong> — Single MCP aggregates all context',
+                '<strong>Builder Integration</strong> — Provide context for more accurate generative output',
+                '<strong>Health Dashboard (Q2)</strong> — Persistent analytics within platform',
+                '<strong>Integration Marketplace (Future)</strong> — Jira, AEM, and more',
+              ].map(i => '<div class="phase-item">' + i + '</div>').join('')}
+            </div>
+          </div>`,
+        'next-steps': `
+          <h1 class="section-title">Next Steps</h1>
+          <p class="section-subtitle">Immediate actions following February 24, 2026 sync</p>
+          <div class="card" style="background: var(--primary); color: white; border: none;">
+            <div class="next-hero-label" style="opacity: 0.9;">Immediate Priority</div>
+            <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">Velocity Over Perfection</h3>
+            <p style="font-size: 15px; opacity: 0.95;">"We've got to get on with it like yesterday." GSK needs rapid execution to stay ahead of senior leadership AI expectations and prevent uncontrolled tool adoption.</p>
+          </div>
+          <div class="card">
+            <h2 class="heading">This Week (Feb 24–28)</h2>
+            ${[
+              { when: 'Feb 24', title: 'Analytics Report Sent', desc: 'Jon Boush sends initial analytics report to Jon Warden', color: 'var(--success)', status: 'Today' },
+              { when: 'Feb 24', title: 'Calendar Links', desc: 'Amber sends scheduling links to Richard and Chris', color: 'var(--success)', status: 'Today' },
+              { when: 'This Week', title: 'Richard Deep Dive', desc: 'MCP integration session for Enterprise AI workspace requirements', color: 'var(--action)', status: 'Schedule' },
+              { when: 'This Week', title: 'Chris Deep Dive', desc: 'AI ecosystem walkthrough and integration opportunity mapping', color: 'var(--action)', status: 'Schedule' },
+              { when: 'This Week', title: 'State of Knapsack', desc: 'Document current GSK setup for new stakeholder onboarding', color: 'var(--primary)', status: 'Prepare' },
+            ].map((m, i, arr) => '<div class="timeline-item"><div class="timeline-track"><div class="timeline-dot" style="background: ' + m.color + '"></div>' + (i < arr.length - 1 ? '<div class="timeline-line"></div>' : '') + '</div><div class="timeline-content"><div class="timeline-header"><span class="timeline-date" style="color: ' + m.color + '">' + m.when + '</span><span class="badge ' + (m.status === 'Today' ? 'badge-success' : m.status === 'Schedule' ? 'badge-action' : 'badge-primary') + '">' + m.status + '</span></div><div class="timeline-title">' + m.title + '</div><p class="timeline-desc">' + m.desc + '</p></div></div>').join('')}
+          </div>
+          <div class="card">
+            <h2 class="heading">March 2026</h2>
+            <div class="grid-2">
+              ${[
+                { title: 'Enterprise AI Sandbox', desc: 'Set up workspace for Richard and team experimentation with MCP' },
+                { title: 'Early Adopter Access', desc: 'GSK gets preview access to multi-source context features' },
+                { title: 'Ecosystem Map Review', desc: 'Detailed walkthrough of GSK content creation/distribution ecosystem' },
+                { title: 'Analytics Cadence', desc: 'First monthly analytics report delivered' },
+                { title: 'Builder Context Pilot', desc: 'Test providing Knapsack context to Builder for vibe coding' },
+                { title: 'AI Readiness Assessment', desc: 'Evaluate current Knapsack setup for AI optimization opportunities' },
+              ].map(d => `<div class="deliverable-item"><div class="deliverable-title">${d.title}</div><div class="deliverable-desc">${d.desc}</div></div>`).join('')}
+            </div>
+          </div>
+          <div class="card" style="background: var(--success-light); border: 1px solid #c3ddd2;">
+            <h2 class="heading" style="color: var(--success);">Ready to Execute</h2>
+            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6;">GSK has clear urgency and commitment. The next 30 days are critical for demonstrating value through quick wins: analytics reporting, Enterprise AI sandbox, and deep dive sessions with Richard and Chris.</p>
+            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6; margin-top: 12px;">See <strong>Charter & Outcomes</strong> for stakeholder map, QBR schedule, and operating cadence details.</p>
+          </div>`,
+      };
+      main.innerHTML = content[activeSection] || content.overview;
+    }
+    renderNav();
+    renderContent();
+  </script>
+</body>
+</html>
+
