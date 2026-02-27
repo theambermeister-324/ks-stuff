@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="pricing-engine.js"></script>
   <style>
     /* ==========================================================================
        DESIGN TOKENS (Matched to GTM Playbook)
@@ -906,6 +907,311 @@
     
     .multi-system-inputs.visible {
       display: block;
+    }
+    
+    /* ==========================================================================
+       PRICING MODIFIERS
+       ========================================================================== */
+    .pricing-modifiers {
+      border-color: rgba(139, 92, 246, 0.3);
+      background: linear-gradient(145deg, rgba(139, 92, 246, 0.08), rgba(22, 33, 62, 0.95));
+    }
+    
+    /* ==========================================================================
+       COMPETITIVE COMPARISON
+       ========================================================================== */
+    .competitive-comparison {
+      margin-top: var(--spectrum-spacing-400);
+    }
+    
+    .comparison-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spectrum-spacing-200);
+      margin-top: var(--spectrum-spacing-300);
+    }
+    
+    @media (max-width: 1000px) {
+      .comparison-options {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .comparison-options {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .comparison-option {
+      background: rgba(0, 0, 0, 0.2);
+      border: 2px solid var(--spectrum-border-subtle);
+      border-radius: var(--spectrum-radius-md);
+      padding: var(--spectrum-spacing-200);
+      text-align: center;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .comparison-option h4 {
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--spectrum-text-secondary);
+    }
+    
+    .comparison-option .option-cost {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-300);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    
+    .comparison-option .option-timeline {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      margin-bottom: 4px;
+    }
+    
+    .comparison-option .option-risk {
+      font-size: var(--spectrum-font-size-75);
+      padding: 4px 8px;
+      border-radius: var(--spectrum-radius-sm);
+      display: inline-block;
+    }
+    
+    .comparison-option.internal {
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    .comparison-option.internal .option-cost { color: var(--spectrum-red-400); }
+    .comparison-option.internal .option-risk { 
+      background: rgba(239, 68, 68, 0.15); 
+      color: var(--spectrum-red-400); 
+    }
+    
+    .comparison-option.point-solutions {
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+    .comparison-option.point-solutions .option-cost { color: var(--spectrum-yellow-400); }
+    .comparison-option.point-solutions .option-risk { 
+      background: rgba(245, 158, 11, 0.15); 
+      color: var(--spectrum-yellow-400); 
+    }
+    
+    .comparison-option.consulting {
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    .comparison-option.consulting .option-cost { color: var(--spectrum-blue-400); }
+    .comparison-option.consulting .option-risk { 
+      background: rgba(59, 130, 246, 0.15); 
+      color: var(--spectrum-blue-400); 
+    }
+    
+    .comparison-option.ipe {
+      border-color: rgba(16, 185, 129, 0.5);
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.12), rgba(22, 33, 62, 0.9));
+    }
+    .comparison-option.ipe .option-cost { color: var(--spectrum-green-400); }
+    .comparison-option.ipe .option-risk { 
+      background: rgba(16, 185, 129, 0.15); 
+      color: var(--spectrum-green-400); 
+    }
+    
+    .comparison-option .option-badge {
+      position: absolute;
+      top: -10px;
+      right: 10px;
+      background: var(--spectrum-green-500);
+      color: white;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--spectrum-radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .savings-summary {
+      display: flex;
+      gap: var(--spectrum-spacing-200);
+      margin-top: var(--spectrum-spacing-300);
+      padding: var(--spectrum-spacing-200);
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: var(--spectrum-radius-md);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .savings-item {
+      text-align: center;
+      padding: 0 var(--spectrum-spacing-200);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .savings-item:last-child {
+      border-right: none;
+    }
+    
+    .savings-item .savings-label {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      margin-bottom: 2px;
+    }
+    
+    .savings-item .savings-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-200);
+      font-weight: 700;
+      color: var(--spectrum-green-400);
+    }
+    
+    /* ==========================================================================
+       SUCCESS-BASED PRICING
+       ========================================================================== */
+    .success-pricing-section {
+      margin-top: var(--spectrum-spacing-400);
+    }
+    
+    .success-toggle {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: var(--spectrum-radius-md);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .success-toggle:hover {
+      background: rgba(139, 92, 246, 0.12);
+    }
+    
+    .success-toggle input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--spectrum-purple-400);
+    }
+    
+    .success-toggle .toggle-content {
+      flex: 1;
+    }
+    
+    .success-toggle .toggle-title {
+      font-weight: 600;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-purple-400);
+    }
+    
+    .success-toggle .toggle-subtitle {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      margin-top: 2px;
+    }
+    
+    .success-pricing-details {
+      display: none;
+      margin-top: var(--spectrum-spacing-200);
+      padding: var(--spectrum-spacing-300);
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--spectrum-radius-md);
+    }
+    
+    .success-pricing-details.visible {
+      display: block;
+    }
+    
+    .fee-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spectrum-spacing-200);
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    
+    .fee-card {
+      padding: var(--spectrum-spacing-200);
+      border-radius: var(--spectrum-radius-md);
+      text-align: center;
+    }
+    
+    .fee-card.base {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    
+    .fee-card.success {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    
+    .fee-card .fee-label {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      margin-bottom: 4px;
+    }
+    
+    .fee-card .fee-amount {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-300);
+      font-weight: 700;
+    }
+    
+    .fee-card.base .fee-amount { color: var(--spectrum-blue-400); }
+    .fee-card.success .fee-amount { color: var(--spectrum-green-400); }
+    
+    .fee-card .fee-percent {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      margin-top: 2px;
+    }
+    
+    .success-metrics {
+      display: grid;
+      gap: 10px;
+    }
+    
+    .success-metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--spectrum-radius-sm);
+    }
+    
+    .success-metric .metric-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .success-metric .metric-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(139, 92, 246, 0.2);
+      border-radius: var(--spectrum-radius-sm);
+      color: var(--spectrum-purple-400);
+    }
+    
+    .success-metric .metric-icon i {
+      width: 14px;
+      height: 14px;
+    }
+    
+    .success-metric .metric-name {
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 500;
+    }
+    
+    .success-metric .metric-target {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-green-400);
     }
     
     /* ==========================================================================
@@ -1853,6 +2159,58 @@
             </div>
           </div>
         </div>
+        
+        <!-- Pricing Modifiers -->
+        <div class="input-card pricing-modifiers">
+          <div class="input-card-title" style="display: flex; align-items: center; justify-content: space-between;">
+            <span>Pricing Modifiers</span>
+            <span id="effectiveMultiplier" style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--spectrum-purple-400); background: rgba(139, 92, 246, 0.15); padding: 2px 8px; border-radius: 4px;">1.0x</span>
+          </div>
+          <div class="input-group compact">
+            <label class="input-label">Developer Scale</label>
+            <select id="pricingDevScale" onchange="updatePricingModifiers()">
+              <option value="<100">Small (&lt;100 devs)</option>
+              <option value="100-500" selected>Mid-size (100-500 devs)</option>
+              <option value="500-1000">Large (500-1000 devs)</option>
+              <option value="1000+">Enterprise (1000+ devs)</option>
+            </select>
+          </div>
+          <div class="input-group compact" style="margin-top: 8px;">
+            <label class="input-label">Deployment Model</label>
+            <select id="pricingDeployment" onchange="updatePricingModifiers()">
+              <option value="saas-multi" selected>SaaS Multi-tenant</option>
+              <option value="saas-single">SaaS Single-tenant (+15%)</option>
+              <option value="private-cloud">Private Cloud / VPC (+25%)</option>
+              <option value="on-prem">On-prem / Hybrid (+50%)</option>
+            </select>
+          </div>
+          <div class="input-group compact" style="margin-top: 8px;">
+            <label class="input-label">Regulatory Environment</label>
+            <select id="pricingRegulatory" onchange="updatePricingModifiers()">
+              <option value="standard" selected>Standard</option>
+              <option value="regulated">Regulated (FinServ, Healthcare) +15%</option>
+              <option value="highly-regulated">Highly Regulated (Fed, Defense) +30%</option>
+            </select>
+          </div>
+          <div class="input-group compact" style="margin-top: 8px;">
+            <label class="input-label">Commitment Term</label>
+            <select id="pricingCommitment" onchange="updatePricingModifiers()">
+              <option value="1-year" selected>1 Year</option>
+              <option value="2-year">2 Years (Prepaid) -10%</option>
+              <option value="3-year">3 Years (Prepaid) -15%</option>
+            </select>
+          </div>
+          <div style="margin-top: 12px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 6px;">
+            <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 4px;">
+              <span style="color: var(--spectrum-text-muted);">Adjusted Year 1</span>
+              <span id="adjustedY1Total" style="font-family: 'JetBrains Mono'; color: var(--spectrum-green-400); font-weight: 600;">$355,000</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 10px;">
+              <span style="color: var(--spectrum-text-muted);">Services / Platform</span>
+              <span id="adjustedBreakdown" style="font-family: 'JetBrains Mono'; color: var(--spectrum-text-secondary);">$175K / $180K</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     
@@ -2287,6 +2645,146 @@
             <span class="metric-value" style="color: var(--spectrum-green-400);">Value driver</span>
             <span class="delta-badge" style="background: var(--spectrum-green-500);">↑ Strategic</span>
           </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Competitive Investment Comparison -->
+    <div class="section-card competitive-comparison full-width" style="margin-bottom: var(--spectrum-spacing-400);">
+      <h3><i data-lucide="scale"></i> Investment Comparison (3-Year TCO)</h3>
+      <p class="text-muted" style="font-size: var(--spectrum-font-size-100); margin-bottom: 0;">Compare IPE investment against alternative approaches to achieve similar outcomes.</p>
+      
+      <div class="comparison-options">
+        <div class="comparison-option internal">
+          <h4>Internal Build</h4>
+          <div class="option-cost" id="compInternalCost">$1.35M</div>
+          <div class="option-timeline">18-24 months to first value</div>
+          <div class="option-risk">High Risk</div>
+          <div style="margin-top: 10px; font-size: 10px; color: var(--spectrum-text-muted); text-align: left; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px;">
+            <div>• 2-3 senior engineers + designer</div>
+            <div>• Key person dependency</div>
+            <div>• No AI governance built-in</div>
+          </div>
+        </div>
+        
+        <div class="comparison-option point-solutions">
+          <h4>Point Solutions Stack</h4>
+          <div class="option-cost" id="compPointSolutionsCost">$540K</div>
+          <div class="option-timeline">Ongoing integration debt</div>
+          <div class="option-risk">Medium Risk</div>
+          <div style="margin-top: 10px; font-size: 10px; color: var(--spectrum-text-muted); text-align: left; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px;">
+            <div>• Supernova/Zeroheight + AI tools</div>
+            <div>• No unified governance</div>
+            <div>• AI waste continues</div>
+          </div>
+        </div>
+        
+        <div class="comparison-option consulting">
+          <h4>Consulting Only</h4>
+          <div class="option-cost" id="compConsultingCost">$450K</div>
+          <div class="option-timeline">Repeat engagements needed</div>
+          <div class="option-risk">Medium-High Risk</div>
+          <div style="margin-top: 10px; font-size: 10px; color: var(--spectrum-text-muted); text-align: left; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px;">
+            <div>• Knowledge walks out</div>
+            <div>• No platform leverage</div>
+            <div>• No ongoing optimization</div>
+          </div>
+        </div>
+        
+        <div class="comparison-option ipe">
+          <div class="option-badge">Recommended</div>
+          <h4>IPE Platform + Services</h4>
+          <div class="option-cost" id="compIpeCost">$715K</div>
+          <div class="option-timeline">12-16 weeks to first value</div>
+          <div class="option-risk">Low Risk</div>
+          <div style="margin-top: 10px; font-size: 10px; color: var(--spectrum-text-muted); text-align: left; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px;">
+            <div>• Proven methodology</div>
+            <div>• Built-in AI governance</div>
+            <div>• Continuous optimization</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="savings-summary">
+        <div class="savings-item">
+          <div class="savings-label">vs Internal Build</div>
+          <div class="savings-value" id="savingsVsInternal">$635K saved</div>
+        </div>
+        <div class="savings-item">
+          <div class="savings-label">vs Point Solutions</div>
+          <div class="savings-value" id="savingsVsPointSolutions">-$175K</div>
+        </div>
+        <div class="savings-item">
+          <div class="savings-label">vs Consulting Only</div>
+          <div class="savings-value" id="savingsVsConsulting">-$265K</div>
+        </div>
+        <div class="savings-item">
+          <div class="savings-label">IPE Net Value</div>
+          <div class="savings-value" id="ipeNetValue">$2.1M value created</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Success-Based Pricing Option -->
+    <div class="section-card success-pricing-section full-width" style="margin-bottom: var(--spectrum-spacing-400);">
+      <h3><i data-lucide="trophy"></i> Success-Based Pricing (Enterprise Option)</h3>
+      
+      <label class="success-toggle">
+        <input type="checkbox" id="successPricingEnabled" onchange="toggleSuccessPricing()">
+        <div class="toggle-content">
+          <div class="toggle-title">Enable Outcome-Linked Pricing</div>
+          <div class="toggle-subtitle">Split fee into guaranteed base (80%) and success-contingent component (20%) tied to measurable outcomes</div>
+        </div>
+      </label>
+      
+      <div class="success-pricing-details" id="successPricingDetails">
+        <div class="fee-split">
+          <div class="fee-card base">
+            <div class="fee-label">Base Fee (Guaranteed)</div>
+            <div class="fee-amount" id="successBaseFee">$284,000</div>
+            <div class="fee-percent">80% of Year 1</div>
+          </div>
+          <div class="fee-card success">
+            <div class="fee-label">Success Fee (At Risk)</div>
+            <div class="fee-amount" id="successAtRiskFee">$71,000</div>
+            <div class="fee-percent">20% tied to outcomes</div>
+          </div>
+        </div>
+        
+        <div style="font-size: var(--spectrum-font-size-100); font-weight: 600; margin-bottom: 10px; color: var(--spectrum-text-secondary);">
+          Success Metrics (measured at 6 months)
+        </div>
+        
+        <div class="success-metrics">
+          <div class="success-metric">
+            <div class="metric-info">
+              <div class="metric-icon"><i data-lucide="trending-up"></i></div>
+              <span class="metric-name">PCRI Score Improvement</span>
+            </div>
+            <span class="metric-target">+15-30 points</span>
+          </div>
+          <div class="success-metric">
+            <div class="metric-info">
+              <div class="metric-icon"><i data-lucide="zap"></i></div>
+              <span class="metric-name">Developer Productivity Gain</span>
+            </div>
+            <span class="metric-target">+20-40%</span>
+          </div>
+          <div class="success-metric">
+            <div class="metric-info">
+              <div class="metric-icon"><i data-lucide="piggy-bank"></i></div>
+              <span class="metric-name">AI Token Waste Reduction</span>
+            </div>
+            <span class="metric-target">40-60% reduction</span>
+          </div>
+        </div>
+        
+        <div class="callout info" style="margin-top: var(--spectrum-spacing-200);">
+          <p style="font-size: var(--spectrum-font-size-75); margin: 0;">
+            <strong>💡 How it works:</strong> Success fees are earned when documented metrics meet or exceed targets. 
+            This model is available for J3/J4 engagements with multi-year commitments. 
+            Knapsack provides measurement dashboards and quarterly business reviews to track progress.
+          </p>
         </div>
       </div>
     </div>
@@ -3862,6 +4360,170 @@
       document.getElementById('navSoftwareCost').textContent = formatCurrency(pricing.software);
     }
     
+    // ==========================================================================
+    // PRICING MODIFIERS (using IPEPricingEngine)
+    // ==========================================================================
+    
+    let currentAdjustedPricing = null;
+    
+    function updatePricingModifiers() {
+      if (typeof IPEPricingEngine === 'undefined') {
+        console.warn('IPEPricingEngine not loaded');
+        return;
+      }
+      
+      const pcriScore = parseInt(document.getElementById('pcriComposite')?.textContent || '61');
+      const devScale = document.getElementById('pricingDevScale').value;
+      const deployment = document.getElementById('pricingDeployment').value;
+      const regulatory = document.getElementById('pricingRegulatory').value;
+      const commitment = document.getElementById('pricingCommitment').value;
+      
+      // Calculate pricing using the engine
+      currentAdjustedPricing = IPEPricingEngine.calculatePricing({
+        pcriScore,
+        developerScale: devScale,
+        deployment,
+        regulatory,
+        commitment,
+        useTypical: true
+      });
+      
+      // Update display
+      document.getElementById('effectiveMultiplier').textContent = 
+        currentAdjustedPricing.effectiveMultiplier.toFixed(2) + 'x';
+      document.getElementById('adjustedY1Total').textContent = 
+        IPEPricingEngine.formatCurrency(currentAdjustedPricing.year1.total);
+      document.getElementById('adjustedBreakdown').textContent = 
+        IPEPricingEngine.formatCurrency(currentAdjustedPricing.services.amount, { compact: true }) + 
+        ' / ' + 
+        IPEPricingEngine.formatCurrency(currentAdjustedPricing.platform.annual, { compact: true });
+      
+      // Update nav pricing display
+      document.getElementById('navServicesCost').textContent = 
+        IPEPricingEngine.formatCurrency(currentAdjustedPricing.services.amount, { compact: true });
+      document.getElementById('navSoftwareCost').textContent = 
+        IPEPricingEngine.formatCurrency(currentAdjustedPricing.platform.annual, { compact: true });
+      
+      // Update competitive comparison
+      updateCompetitiveComparison();
+      
+      // Update success-based pricing if enabled
+      updateSuccessPricing();
+      
+      // Recalculate main ROI
+      calculate();
+    }
+    
+    // ==========================================================================
+    // COMPETITIVE COMPARISON
+    // ==========================================================================
+    
+    function updateCompetitiveComparison() {
+      if (typeof IPEPricingEngine === 'undefined') return;
+      
+      const numEngineers = parseInt(document.getElementById('numEngineers').value) || 30;
+      const numDesigners = parseInt(document.getElementById('numDesigners').value) || 10;
+      const currentToolSpend = parseInt(document.getElementById('currentToolSpend')?.value || document.getElementById('tcoCurrentToolSpend')?.value) || 55000;
+      
+      // Use current adjusted pricing or calculate fresh
+      const ipePricing = currentAdjustedPricing || IPEPricingEngine.calculatePricing({ pcriScore: 61 });
+      
+      // Get competitive comparison
+      const comparison = IPEPricingEngine.calculateCompetitiveComparison({
+        numDevs: numEngineers,
+        numDesigners,
+        currentToolSpend,
+        ipePricing
+      });
+      
+      // Update comparison cards
+      document.getElementById('compInternalCost').textContent = 
+        IPEPricingEngine.formatCurrency(comparison.options.internalBuild.threeYear, { compact: true });
+      document.getElementById('compPointSolutionsCost').textContent = 
+        IPEPricingEngine.formatCurrency(comparison.options.pointSolutions.threeYear, { compact: true });
+      document.getElementById('compConsultingCost').textContent = 
+        IPEPricingEngine.formatCurrency(comparison.options.consultingOnly.threeYear, { compact: true });
+      document.getElementById('compIpeCost').textContent = 
+        IPEPricingEngine.formatCurrency(comparison.options.ipe.threeYear, { compact: true });
+      
+      // Update savings summary
+      const savingsVsInternal = document.getElementById('savingsVsInternal');
+      const savingsVsPointSolutions = document.getElementById('savingsVsPointSolutions');
+      const savingsVsConsulting = document.getElementById('savingsVsConsulting');
+      
+      if (comparison.savings.vsInternal.amount > 0) {
+        savingsVsInternal.textContent = IPEPricingEngine.formatCurrency(comparison.savings.vsInternal.amount, { compact: true }) + ' saved';
+        savingsVsInternal.style.color = '';
+      } else {
+        savingsVsInternal.textContent = '+' + IPEPricingEngine.formatCurrency(Math.abs(comparison.savings.vsInternal.amount), { compact: true });
+        savingsVsInternal.style.color = 'var(--spectrum-yellow-400)';
+      }
+      
+      if (comparison.savings.vsPointSolutions.amount > 0) {
+        savingsVsPointSolutions.textContent = IPEPricingEngine.formatCurrency(comparison.savings.vsPointSolutions.amount, { compact: true }) + ' saved';
+        savingsVsPointSolutions.style.color = '';
+      } else {
+        savingsVsPointSolutions.textContent = '+' + IPEPricingEngine.formatCurrency(Math.abs(comparison.savings.vsPointSolutions.amount), { compact: true }) + ' (platform value)';
+        savingsVsPointSolutions.style.color = 'var(--spectrum-blue-400)';
+      }
+      
+      if (comparison.savings.vsConsulting.amount > 0) {
+        savingsVsConsulting.textContent = IPEPricingEngine.formatCurrency(comparison.savings.vsConsulting.amount, { compact: true }) + ' saved';
+        savingsVsConsulting.style.color = '';
+      } else {
+        savingsVsConsulting.textContent = '+' + IPEPricingEngine.formatCurrency(Math.abs(comparison.savings.vsConsulting.amount), { compact: true }) + ' (platform value)';
+        savingsVsConsulting.style.color = 'var(--spectrum-blue-400)';
+      }
+      
+      // Calculate and display IPE net value created
+      const annualValue = IPEPricingEngine.calculateAnnualValue({
+        numDevs: numEngineers,
+        numDesigners,
+        avgDevCost: parseInt(document.getElementById('engineerCost').value) || 180000,
+        avgDesignerCost: parseInt(document.getElementById('designerCost').value) || 150000,
+        productivityGain: (parseInt(document.getElementById('devProductivity').value) || 30) / 100,
+        aiMonthlySpend: parseInt(document.getElementById('aiApiSpend').value) || 8000,
+        tokenWasteReduction: (parseInt(document.getElementById('tokenWaste').value) || 35) / 100 * 0.7,
+        currentToolSpend,
+        toolConsolidation: 0.70
+      });
+      
+      const threeYearValue = annualValue.total * 3;
+      const threeYearNet = threeYearValue - comparison.options.ipe.threeYear;
+      document.getElementById('ipeNetValue').textContent = 
+        IPEPricingEngine.formatCurrency(threeYearNet, { compact: true }) + ' value created';
+    }
+    
+    // ==========================================================================
+    // SUCCESS-BASED PRICING
+    // ==========================================================================
+    
+    function toggleSuccessPricing() {
+      const enabled = document.getElementById('successPricingEnabled').checked;
+      const details = document.getElementById('successPricingDetails');
+      
+      if (enabled) {
+        details.classList.add('visible');
+        updateSuccessPricing();
+      } else {
+        details.classList.remove('visible');
+      }
+      
+      lucide.createIcons();
+    }
+    
+    function updateSuccessPricing() {
+      if (typeof IPEPricingEngine === 'undefined') return;
+      
+      const ipePricing = currentAdjustedPricing || IPEPricingEngine.calculatePricing({ pcriScore: 61 });
+      const successPricing = IPEPricingEngine.calculateSuccessPricing(ipePricing.year1.total);
+      
+      document.getElementById('successBaseFee').textContent = 
+        IPEPricingEngine.formatCurrency(successPricing.baseFee);
+      document.getElementById('successAtRiskFee').textContent = 
+        IPEPricingEngine.formatCurrency(successPricing.successFee);
+    }
+
     // Override calculate to also update nav
     const originalCalculate = typeof calculate === 'function' ? calculate : null;
     
@@ -4041,15 +4703,21 @@
       // Check for query parameters first
       const params = parseQueryParams();
       const hasParams = applyQueryParams(params);
-      
+
       // Update PCRI display and calculations
       updatePCRI();
       calculate();
       updateNavPricing();
       
+      // Initialize pricing modifiers and competitive comparison
+      if (typeof IPEPricingEngine !== 'undefined') {
+        updatePricingModifiers();
+        updateCompetitiveComparison();
+      }
+
       // Set initial risk indicators
       updateTTV();
-      
+
       // Expand shared inputs panel if loaded from proactive business case
       if (hasParams && params.source === 'proactive') {
         const body = document.getElementById('sharedInputsBody');

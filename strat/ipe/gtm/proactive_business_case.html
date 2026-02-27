@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="pricing-engine.js"></script>
   <style>
     /* ==========================================================================
        DESIGN TOKENS (Matched to GTM Playbook)
@@ -979,6 +980,111 @@
     }
     
     /* ==========================================================================
+       COMPETITIVE COMPARISON
+       ========================================================================== */
+    .section-card.competitive {
+      border-color: rgba(59, 130, 246, 0.3);
+      background: linear-gradient(145deg, rgba(59, 130, 246, 0.08), var(--spectrum-bg-surface));
+    }
+    
+    .competitive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    @media (max-width: 700px) {
+      .competitive-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .comp-option {
+      padding: var(--spectrum-spacing-200);
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--spectrum-radius-md);
+      text-align: center;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    
+    .comp-option.internal {
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    
+    .comp-option.point-solutions {
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+    
+    .comp-option.ipe.selected {
+      border-color: rgba(16, 185, 129, 0.5);
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.12), rgba(0, 0, 0, 0.2));
+    }
+    
+    .comp-label {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .comp-cost {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-300);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    
+    .comp-option.internal .comp-cost {
+      color: var(--spectrum-red-400);
+    }
+    
+    .comp-option.point-solutions .comp-cost {
+      color: var(--spectrum-yellow-400);
+    }
+    
+    .comp-option.ipe .comp-cost {
+      color: var(--spectrum-green-400);
+    }
+    
+    .comp-timeline {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .comp-risk {
+      font-size: var(--spectrum-font-size-75);
+      padding: 2px 8px;
+      border-radius: var(--spectrum-radius-sm);
+      display: inline-block;
+      margin-top: 6px;
+    }
+    
+    .comp-option.internal .comp-risk {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--spectrum-red-400);
+    }
+    
+    .comp-option.point-solutions .comp-risk {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--spectrum-yellow-400);
+    }
+    
+    .comp-option.ipe .comp-risk {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--spectrum-green-400);
+    }
+    
+    .comp-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-green-400);
+      margin-top: 6px;
+      font-weight: 600;
+    }
+    
+    /* ==========================================================================
        EXECUTIVE SUMMARY
        ========================================================================== */
     .executive-summary {
@@ -1622,6 +1728,17 @@
         </div>
       </div>
       
+      <!-- Competitive Comparison -->
+      <div class="section-card competitive" id="comparisonSection" style="display: none;">
+        <h3><i data-lucide="scale"></i> Investment Alternatives (3-Year TCO)</h3>
+        <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted); margin-bottom: var(--spectrum-spacing-200);">
+          Compare IPE investment against alternative approaches.
+        </p>
+        <div id="comparisonContainer" class="comparison-container">
+          <!-- Generated dynamically -->
+        </div>
+      </div>
+      
       <!-- Executive Summary -->
       <div class="section-card">
         <h3><i data-lucide="file-text"></i> Preliminary Executive Summary</h3>
@@ -2072,6 +2189,40 @@
       const devCost = 180000;
       const designerCost = 150000;
       
+      // Use IPEPricingEngine for dynamic pricing if available
+      let adjustedPricing = { services: pricing.services, platform: pricing.software };
+      let competitiveComparison = null;
+      
+      if (typeof IPEPricingEngine !== 'undefined') {
+        // Map account data to pricing inputs
+        const deploymentKey = IPEPricingEngine.mapDeployment(account.deploymentModel);
+        const devScaleKey = IPEPricingEngine.mapDeveloperScale(account.developerScale);
+        const regulatory = IPEPricingEngine.INDUSTRY_TO_REGULATORY[account.industryGroup] || 'standard';
+        
+        // Calculate adjusted pricing
+        const pricingResult = IPEPricingEngine.calculatePricing({
+          pcriScore: pcri.composite,
+          developerScale: devScaleKey,
+          deployment: deploymentKey,
+          regulatory: regulatory,
+          commitment: '1-year',
+          useTypical: true
+        });
+        
+        adjustedPricing.services = pricingResult.services.amount;
+        adjustedPricing.platform = pricingResult.platform.annual;
+        adjustedPricing.pathName = pricingResult.pathName;
+        adjustedPricing.effectiveMultiplier = pricingResult.effectiveMultiplier;
+        
+        // Calculate competitive comparison
+        competitiveComparison = IPEPricingEngine.calculateCompetitiveComparison({
+          numDevs,
+          numDesigners,
+          currentToolSpend: numDevs * 500, // Estimate
+          ipePricing: pricingResult
+        });
+      }
+      
       // Productivity calculations
       const productivityRate = 0.25 + (pcri.composite / 500); // 25-45% based on readiness
       const devProdValue = numDevs * devCost * productivityRate * 0.5;
@@ -2086,10 +2237,10 @@
       
       const totalAnnualValue = devProdValue + designerProdValue + aiAnnualSavings + toolSavings;
       
-      // ROI calculation
-      const yearOneInvestment = pricing.services + pricing.software;
+      // ROI calculation using adjusted pricing
+      const yearOneInvestment = adjustedPricing.services + adjustedPricing.platform;
       const threeYearValue = totalAnnualValue * 3;
-      const threeYearCost = yearOneInvestment + (pricing.software * 2);
+      const threeYearCost = yearOneInvestment + (adjustedPricing.platform * 2);
       const threeYearROI = Math.round(((threeYearValue - threeYearCost) / threeYearCost) * 100);
       const paybackMonths = Math.ceil(yearOneInvestment / (totalAnnualValue / 12));
       
@@ -2103,7 +2254,7 @@
       document.getElementById('resultROI').textContent = threeYearROI + '%';
       document.getElementById('resultPayback').textContent = paybackMonths;
       document.getElementById('resultTCV').textContent = formatCurrency(account.forecastTCV || yearOneInvestment);
-      document.getElementById('resultPath').textContent = pricing.name;
+      document.getElementById('resultPath').textContent = adjustedPricing.pathName || pricing.name;
       document.getElementById('resultTTV').textContent = ttvWeeks + ' wks';
       
       document.getElementById('valueDevProd').textContent = formatCurrencyFull(devProdValue);
@@ -2112,17 +2263,58 @@
       document.getElementById('valueTools').textContent = formatCurrencyFull(toolSavings);
       document.getElementById('valueTotal').textContent = formatCurrencyFull(totalAnnualValue);
       
-      document.getElementById('investServices').textContent = formatCurrencyFull(pricing.services);
-      document.getElementById('investSoftware').textContent = formatCurrencyFull(pricing.software);
+      document.getElementById('investServices').textContent = formatCurrencyFull(adjustedPricing.services);
+      document.getElementById('investSoftware').textContent = formatCurrencyFull(adjustedPricing.platform);
       document.getElementById('investTotal').textContent = formatCurrencyFull(yearOneInvestment);
-      document.getElementById('investARR').textContent = formatCurrencyFull(account.forecastARR || pricing.software);
+      document.getElementById('investARR').textContent = formatCurrencyFull(account.forecastARR || adjustedPricing.platform);
       document.getElementById('investACV').textContent = formatCurrencyFull(account.forecastACV || yearOneInvestment);
+      
+      // Update competitive comparison display if available
+      if (competitiveComparison && document.getElementById('comparisonContainer')) {
+        updateCompetitiveDisplay(competitiveComparison, yearOneInvestment, totalAnnualValue);
+        document.getElementById('comparisonSection').style.display = 'block';
+      } else {
+        document.getElementById('comparisonSection').style.display = 'none';
+      }
       
       // Store for summary
       account._calculated = {
         devProdValue, designerProdValue, aiAnnualSavings, toolSavings,
-        totalAnnualValue, threeYearROI, paybackMonths, ttvWeeks, yearOneInvestment
+        totalAnnualValue, threeYearROI, paybackMonths, ttvWeeks, yearOneInvestment,
+        competitiveComparison, effectiveMultiplier: adjustedPricing.effectiveMultiplier
       };
+    }
+    
+    function updateCompetitiveDisplay(comparison, ipeY1, annualValue) {
+      const container = document.getElementById('comparisonContainer');
+      if (!container) return;
+      
+      const threeYearValue = annualValue * 3;
+      const threeYearNet = threeYearValue - comparison.options.ipe.threeYear;
+      
+      container.innerHTML = `
+        <div class="competitive-grid">
+          <div class="comp-option internal">
+            <div class="comp-label">Internal Build</div>
+            <div class="comp-cost">${formatCurrency(comparison.options.internalBuild.threeYear)}</div>
+            <div class="comp-timeline">18-24 months</div>
+            <div class="comp-risk">High Risk</div>
+          </div>
+          <div class="comp-option point-solutions">
+            <div class="comp-label">Point Solutions</div>
+            <div class="comp-cost">${formatCurrency(comparison.options.pointSolutions.threeYear)}</div>
+            <div class="comp-timeline">Ongoing debt</div>
+            <div class="comp-risk">Medium Risk</div>
+          </div>
+          <div class="comp-option ipe selected">
+            <div class="comp-label">IPE Platform</div>
+            <div class="comp-cost">${formatCurrency(comparison.options.ipe.threeYear)}</div>
+            <div class="comp-timeline">12-16 weeks</div>
+            <div class="comp-risk">Low Risk</div>
+            <div class="comp-value">+${formatCurrency(threeYearNet)} net value</div>
+          </div>
+        </div>
+      `;
     }
     
     function generateExecutiveSummary(account, pcri, pricing) {
@@ -2157,6 +2349,15 @@
         <p><strong>Recommended Approach (${journey}):</strong> ${msg.content}</p>
         
         <p><strong>Suggested Offer:</strong> ${msg.offer}</p>
+        
+        ${calc.competitiveComparison ? `
+        <p><strong>Competitive Positioning:</strong></p>
+        <ul style="margin: 8px 0; padding-left: 20px;">
+          <li>vs Internal Build: <span class="highlight-value">${formatCurrencyFull(calc.competitiveComparison.savings.vsInternal.amount)}</span> savings over 3 years, 12-18 months faster</li>
+          <li>vs Point Solutions: IPE provides unified AI governance not available from fragmented tooling</li>
+          <li>vs Consulting Only: Platform-enabled delivery with retained IP and continuous optimization</li>
+        </ul>
+        ` : ''}
         
         <p style="background: rgba(245, 158, 11, 0.1); padding: 12px; border-radius: 8px; margin-top: 16px;">
           <strong>⚠️ Next Step:</strong> These are preliminary estimates based on available intelligence. 
