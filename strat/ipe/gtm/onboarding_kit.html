@@ -866,6 +866,50 @@
         page-break-inside: avoid;
       }
     }
+    
+    /* Screen reader only - visually hidden but accessible */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    
+    /* High contrast mode support for accessibility */
+    @media (prefers-contrast: high) {
+      :root {
+        --bg-base: #000000;
+        --bg-surface: #0d0d0d;
+        --text-primary: #ffffff;
+        --text-secondary: #ffffff;
+        --text-muted: #e0e0e0;
+        --border-default: #ffffff;
+        --border-subtle: #666666;
+      }
+      
+      .section {
+        border-width: 2px;
+      }
+      
+      .phase-card {
+        border-width: 2px;
+      }
+      
+      .callout {
+        border-left-width: 6px;
+      }
+    }
+    
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -985,10 +1029,10 @@
           <li><strong style="color: var(--spectrum-purple-300);">RAW Markdown</strong> — Premium source ingestion (paid tier).</li>
         </ul>
         
-        <p style="font-weight: 600; margin-bottom: 8px;">Freemium Model:</p>
+        <p style="font-weight: 600; margin-bottom: 8px;">Platform + Consumption Model:</p>
         <ul style="margin: 0 0 16px 0; padding-left: 20px;">
-          <li><strong>Free Tier:</strong> Core Docs (Knapsack content ingestion) — immediate value from existing Knapsack content</li>
-          <li><strong>Paid Tier:</strong> Additional source ingestion (Storybook, Markdown) — clear upgrade path</li>
+          <li><strong>Tier 0 (Included):</strong> Knapsack MCP with usage quota — included in platform fee for all paying customers</li>
+          <li><strong>Consumption Tiers:</strong> Operations-based pricing above quota. Sources not charged separately — they drive consumption.</li>
         </ul>
         
         <p style="font-weight: 600; margin-bottom: 8px;">V1 Launch Timeline:</p>
@@ -1025,8 +1069,8 @@
           <thead>
             <tr>
               <th style="width: 100px;">Term</th>
-              <th>Definition</th>
-              <th>Context</th>
+              <th scope="col">Definition</th>
+              <th scope="col">Context</th>
             </tr>
           </thead>
           <tbody>
@@ -1169,7 +1213,7 @@
         <thead>
           <tr>
             <th style="width: 30%;">Context</th>
-            <th>Say This</th>
+            <th scope="col">Say This</th>
           </tr>
         </thead>
         <tbody>
@@ -1493,11 +1537,11 @@
         <table class="archetype-table" style="min-width: 900px;">
           <thead>
             <tr>
-              <th>Industry</th>
-              <th>Lead Hook</th>
-              <th>Key Compliance</th>
-              <th>Typical Deployment</th>
-              <th>Primary Value Driver</th>
+              <th scope="col">Industry</th>
+              <th scope="col">Lead Hook</th>
+              <th scope="col">Key Compliance</th>
+              <th scope="col">Typical Deployment</th>
+              <th scope="col">Primary Value Driver</th>
             </tr>
           </thead>
           <tbody>
@@ -2365,13 +2409,13 @@
         <table class="archetype-table">
           <thead>
             <tr>
-              <th>PCRI Score</th>
-              <th>Archetype</th>
-              <th>Investment Path</th>
-              <th>Roadmap</th>
-              <th>Resources</th>
-              <th>Timeline</th>
-              <th>Budget</th>
+              <th scope="col">PCRI Score</th>
+              <th scope="col">Archetype</th>
+              <th scope="col">Investment Path</th>
+              <th scope="col">Roadmap</th>
+              <th scope="col">Resources</th>
+              <th scope="col">Timeline</th>
+              <th scope="col">Budget</th>
             </tr>
           </thead>
           <tbody>
@@ -2602,7 +2646,7 @@
             <i data-lucide="link" style="width: 24px; height: 24px; color: var(--spectrum-green-400);"></i>
           </div>
           <p style="font-weight: 600; margin-bottom: 4px;">Connect First Source</p>
-          <p style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin: 0;">Knapsack content (free) — validate ingestion successful</p>
+          <p style="font-size: 0.85rem; color: var(--spectrum-text-muted); margin: 0;">Knapsack content (included) — validate ingestion successful</p>
         </div>
         
         <div style="background: linear-gradient(145deg, rgba(59, 130, 246, 0.15), rgba(22, 33, 62, 0.9)); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 20px; text-align: center; position: relative;">

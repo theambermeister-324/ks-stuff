@@ -1121,7 +1121,7 @@
       gap: 4px;
       padding: 4px 12px;
       border-radius: var(--spectrum-radius-full);
-      font-size: var(--spectrum-font-size-75);
+      font-size: var(--spectrum-font-size-100); /* Increased from 75 (12px) to 100 (14px) for readability */
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.03em;
@@ -1194,6 +1194,92 @@
       nav { display: none; }
       .section { break-inside: avoid; page-break-inside: avoid; }
     }
+    
+    /* Screen reader only - visually hidden but accessible */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    
+    /* Glossary styling */
+    .glossary {
+      margin-bottom: var(--spectrum-spacing-400);
+      background: rgba(15, 15, 26, 0.6);
+      border: 1px solid var(--spectrum-border-subtle);
+      border-radius: var(--spectrum-radius-md);
+      padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300);
+    }
+    
+    .glossary summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--spectrum-text-secondary);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spectrum-spacing-200);
+      margin-top: var(--spectrum-spacing-200);
+      padding-top: var(--spectrum-spacing-200);
+      border-top: 1px solid var(--spectrum-border-subtle);
+      font-size: var(--spectrum-font-size-100);
+    }
+    
+    @media (max-width: 1024px) {
+      .glossary-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    
+    @media (max-width: 768px) {
+      .glossary-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    /* High contrast mode support for accessibility */
+    @media (prefers-contrast: high) {
+      :root {
+        --spectrum-bg-base: #000000;
+        --spectrum-bg-layer-1: #1a1a1a;
+        --spectrum-bg-surface: #0d0d0d;
+        --spectrum-text-primary: #ffffff;
+        --spectrum-text-secondary: #ffffff;
+        --spectrum-text-muted: #e0e0e0;
+        --spectrum-border-default: #ffffff;
+        --spectrum-border-subtle: #666666;
+      }
+      
+      .status-badge {
+        border: 1px solid currentColor;
+      }
+      
+      .section {
+        border-width: 2px;
+      }
+      
+      .stat-card {
+        border-width: 2px;
+      }
+      
+      .callout {
+        border-left-width: 6px;
+      }
+    }
+    
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -1208,17 +1294,16 @@
         <span class="nav-version">V1 GA</span>
       </div>
       <div class="nav-links">
-        <a href="#glossary" class="nav-link">Glossary</a>
+        <a href="ipe_offering_kit.html" class="nav-link" style="background: rgba(16, 185, 129, 0.2); color: var(--spectrum-green-300);">Offering Kit</a>
         <a href="#start" class="nav-link active">Start Here</a>
         <a href="#pcri" class="nav-link">PCRI</a>
+        <a href="#competitive" class="nav-link">Competitive</a>
         <a href="#routes" class="nav-link">Routes</a>
         <a href="#roles" class="nav-link">Roles</a>
         <a href="#pipeline" class="nav-link">Pipeline</a>
         <a href="#deal-desk" class="nav-link">Deal Desk</a>
         <a href="#metrics" class="nav-link">Metrics</a>
-        <a href="#marketing" class="nav-link">Marketing</a>
         <a href="#help" class="nav-link">Help</a>
-        <a href="#training" class="nav-link">Appendix</a>
       </div>
     </div>
   </nav>
@@ -1228,11 +1313,57 @@
     <header>
       <div class="header-badge">
         <i data-lucide="compass"></i>
-        Single Source of Truth
+        V1 GA — March 31, 2026
       </div>
       <h1>IPE GTM Playbook</h1>
-      <p class="header-subtitle">Everything you need to understand and execute the IPE GTM Operating Model — from PCRI assessment through close.</p>
+      <p class="header-subtitle">Single source of truth for selling, solutioning, and delivering IPE — from PCRI assessment through close.</p>
     </header>
+    
+    <!-- V1 GA Hero Message -->
+    <div style="background: linear-gradient(145deg, rgba(16, 185, 129, 0.15), rgba(14, 165, 233, 0.1)); border: 2px solid rgba(16, 185, 129, 0.4); border-radius: 16px; padding: 32px; text-align: center; margin-bottom: 32px;">
+      <h2 style="font-size: 1.5rem; margin: 0 0 12px; color: var(--spectrum-green-300);">IPE Intelligence — Included at GA</h2>
+      <p style="font-size: 1.125rem; color: var(--spectrum-text-secondary); max-width: 700px; margin: 0 auto 16px;">On April 1st, every paying Knapsack customer gets IPE (Knapsack MCP) <strong>included in their platform</strong>. Your design system becomes AI-ready intelligence — differentiating us from every competitor.</p>
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <a href="ipe_offering_kit.html" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--spectrum-green-500), var(--spectrum-cyan-500)); color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.875rem;">
+          <i data-lucide="package" style="width: 16px; height: 16px;"></i>
+          Offering Kit
+        </a>
+        <a href="ipe_one_pager.html" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(139, 92, 246, 0.2); border: 1px solid rgba(139, 92, 246, 0.4); color: var(--spectrum-purple-300); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.875rem;">
+          <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+          1-Pager
+        </a>
+        <a href="ipe_j3_case_study.html" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(139, 92, 246, 0.2); border: 1px solid rgba(139, 92, 246, 0.4); color: var(--spectrum-purple-300); text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.875rem;">
+          <i data-lucide="bar-chart-3" style="width: 16px; height: 16px;"></i>
+          J3 Case Study
+        </a>
+      </div>
+    </div>
+    
+    <!-- Glossary -->
+    <details class="glossary">
+      <summary>
+        <i data-lucide="book-open" style="width: 16px; height: 16px;" aria-hidden="true"></i> Acronym Glossary
+        <span style="font-weight: 400; font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);">(click to expand)</span>
+      </summary>
+      <div class="glossary-grid">
+        <div><strong style="color: var(--spectrum-cyan-400);">PCRI</strong> — Product/Capability Readiness Index</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">RACI</strong> — Responsible, Accountable, Consulted, Informed</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">SBOM</strong> — Software Bill of Materials</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">DPA</strong> — Data Processing Agreement</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">MCP</strong> — Model Context Protocol</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">MSA</strong> — Master Service Agreement</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">SOW</strong> — Statement of Work</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">TCV</strong> — Total Contract Value</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">GA</strong> — General Availability</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">NRR</strong> — Net Revenue Retention</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">ToS</strong> — Terms of Service</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">CX</strong> — Customer Experience</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">WBS</strong> — Work Breakdown Structure</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">BDR</strong> — Business Development Rep</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">SE</strong> — Solutions Engineer</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">AE</strong> — Account Executive</div>
+      </div>
+    </details>
     
     <!-- Hero Stats -->
     <div class="stats-grid">
@@ -1299,8 +1430,8 @@
           <thead>
             <tr>
               <th style="width: 120px;">Acronym</th>
-              <th>Definition</th>
-              <th>Context</th>
+              <th scope="col">Definition</th>
+              <th scope="col">Context</th>
             </tr>
           </thead>
           <tbody>
@@ -1506,6 +1637,69 @@
         <p style="margin-top: 8px; font-size: 0.95rem; font-style: italic;">"IPE transforms your design system team from a cost center into an <strong>AI enablement function</strong> that controls costs across the org. You become the team that makes AI adoption <em>affordable</em> and <em>predictable</em>—not just possible."</p>
       </div>
       
+      <!-- Sales Toolkit -->
+      <h3 class="mt-5">Sales Toolkit</h3>
+      <p class="text-muted mb-3">Every asset you need to position, sell, and close IPE. Use the right asset at the right stage.</p>
+      
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px;">
+        <a href="ipe_offering_kit.html" style="display: flex; align-items: center; gap: 12px; background: linear-gradient(145deg, rgba(16, 185, 129, 0.15), rgba(22, 33, 62, 0.8)); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; padding: 16px; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.borderColor='rgba(16, 185, 129, 0.6)'" onmouseout="this.style.borderColor='rgba(16, 185, 129, 0.3)'">
+          <i data-lucide="package" style="width: 20px; height: 20px; color: var(--spectrum-green-400); flex-shrink: 0;"></i>
+          <div>
+            <p style="font-weight: 600; font-size: 0.9rem; color: var(--spectrum-green-300); margin: 0;">IPE V1 Offering Kit</p>
+            <p style="font-size: 0.8rem; color: var(--spectrum-text-muted); margin: 4px 0 0;">Solutioning, delivery BOM, SOW templates, procurement FAQ. <strong>Primary reference.</strong></p>
+          </div>
+        </a>
+        <a href="ipe_one_pager.html" style="display: flex; align-items: center; gap: 12px; background: var(--spectrum-bg-elevated); border: 1px solid var(--spectrum-border-default); border-radius: 10px; padding: 16px; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.borderColor='rgba(139, 92, 246, 0.6)'" onmouseout="this.style.borderColor='rgba(100, 54, 191, 0.3)'">
+          <i data-lucide="file-text" style="width: 20px; height: 20px; color: var(--spectrum-purple-400); flex-shrink: 0;"></i>
+          <div>
+            <p style="font-weight: 600; font-size: 0.9rem; color: var(--spectrum-purple-300); margin: 0;">IPE 1-Pager</p>
+            <p style="font-size: 0.8rem; color: var(--spectrum-text-muted); margin: 4px 0 0;">Printable leave-behind for BDR outreach and first meetings. Problem, ROI, competitive diff.</p>
+          </div>
+        </a>
+        <a href="ipe_j3_case_study.html" style="display: flex; align-items: center; gap: 12px; background: var(--spectrum-bg-elevated); border: 1px solid var(--spectrum-border-default); border-radius: 10px; padding: 16px; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.borderColor='rgba(139, 92, 246, 0.6)'" onmouseout="this.style.borderColor='rgba(100, 54, 191, 0.3)'">
+          <i data-lucide="bar-chart-3" style="width: 20px; height: 20px; color: var(--spectrum-purple-400); flex-shrink: 0;"></i>
+          <div>
+            <p style="font-weight: 600; font-size: 0.9rem; color: var(--spectrum-purple-300); margin: 0;">J3 Case Study</p>
+            <p style="font-size: 0.8rem; color: var(--spectrum-text-muted); margin: 4px 0 0;">Composite FinServ case study: PCRI 63→82, $1.3M TCV, 52% rework reduction. Use for J3 pipeline.</p>
+          </div>
+        </a>
+        <a href="roi_calculator.html" style="display: flex; align-items: center; gap: 12px; background: var(--spectrum-bg-elevated); border: 1px solid var(--spectrum-border-default); border-radius: 10px; padding: 16px; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.borderColor='rgba(139, 92, 246, 0.6)'" onmouseout="this.style.borderColor='rgba(100, 54, 191, 0.3)'">
+          <i data-lucide="calculator" style="width: 20px; height: 20px; color: var(--spectrum-purple-400); flex-shrink: 0;"></i>
+          <div>
+            <p style="font-weight: 600; font-size: 0.9rem; color: var(--spectrum-purple-300); margin: 0;">ROI Calculator v2.1</p>
+            <p style="font-size: 0.8rem; color: var(--spectrum-text-muted); margin: 4px 0 0;">Interactive calculator with AI cost governance. Use in discovery and business case building.</p>
+          </div>
+        </a>
+        <a href="#competitive" style="display: flex; align-items: center; gap: 12px; background: var(--spectrum-bg-elevated); border: 1px solid var(--spectrum-border-default); border-radius: 10px; padding: 16px; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.borderColor='rgba(139, 92, 246, 0.6)'" onmouseout="this.style.borderColor='rgba(100, 54, 191, 0.3)'">
+          <i data-lucide="swords" style="width: 20px; height: 20px; color: var(--spectrum-purple-400); flex-shrink: 0;"></i>
+          <div>
+            <p style="font-weight: 600; font-size: 0.9rem; color: var(--spectrum-purple-300); margin: 0;">Competitive Battlecard</p>
+            <p style="font-size: 0.8rem; color: var(--spectrum-text-muted); margin: 4px 0 0;">Category positioning, comparison table, reframe scripts. Lead with category, not features.</p>
+          </div>
+        </a>
+        <a href="proactive_business_case.html" style="display: flex; align-items: center; gap: 12px; background: var(--spectrum-bg-elevated); border: 1px solid var(--spectrum-border-default); border-radius: 10px; padding: 16px; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.borderColor='rgba(139, 92, 246, 0.6)'" onmouseout="this.style.borderColor='rgba(100, 54, 191, 0.3)'">
+          <i data-lucide="briefcase" style="width: 20px; height: 20px; color: var(--spectrum-purple-400); flex-shrink: 0;"></i>
+          <div>
+            <p style="font-weight: 600; font-size: 0.9rem; color: var(--spectrum-purple-300); margin: 0;">Proactive Business Case</p>
+            <p style="font-size: 0.8rem; color: var(--spectrum-text-muted); margin: 4px 0 0;">Generate preliminary business cases from target accounts. Email templates and ROI projections.</p>
+          </div>
+        </a>
+        <a href="../roadmap.html" style="display: flex; align-items: center; gap: 12px; background: var(--spectrum-bg-elevated); border: 1px solid var(--spectrum-border-default); border-radius: 10px; padding: 16px; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.borderColor='rgba(139, 92, 246, 0.6)'" onmouseout="this.style.borderColor='rgba(100, 54, 191, 0.3)'">
+          <i data-lucide="map" style="width: 20px; height: 20px; color: var(--spectrum-purple-400); flex-shrink: 0;"></i>
+          <div>
+            <p style="font-weight: 600; font-size: 0.9rem; color: var(--spectrum-purple-300); margin: 0;">IPE Roadmap</p>
+            <p style="font-size: 0.8rem; color: var(--spectrum-text-muted); margin: 4px 0 0;">Customer-facing roadmap: V1 capabilities, Q2 analytics, Q3 onboarding, V2 integrations.</p>
+          </div>
+        </a>
+        <a href="onboarding_kit.html" style="display: flex; align-items: center; gap: 12px; background: var(--spectrum-bg-elevated); border: 1px solid var(--spectrum-border-default); border-radius: 10px; padding: 16px; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.borderColor='rgba(139, 92, 246, 0.6)'" onmouseout="this.style.borderColor='rgba(100, 54, 191, 0.3)'">
+          <i data-lucide="graduation-cap" style="width: 20px; height: 20px; color: var(--spectrum-purple-400); flex-shrink: 0;"></i>
+          <div>
+            <p style="font-weight: 600; font-size: 0.9rem; color: var(--spectrum-purple-300); margin: 0;">Team Onboarding Kit</p>
+            <p style="font-size: 0.8rem; color: var(--spectrum-text-muted); margin: 4px 0 0;">Role-specific onboarding for AEs, SEs, CX Partners, BDRs, PMs.</p>
+          </div>
+        </a>
+      </div>
+
       <!-- What Changed -->
       <h3 class="mt-5">What Changed</h3>
       
@@ -1565,8 +1759,8 @@
             IPE — The Product
           </div>
           <p style="font-size: var(--spectrum-font-size-200); color: var(--spectrum-text-primary); margin-bottom: 12px;"><strong>Intelligent Product Engine</strong></p>
-          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary);">The Knapsack platform that delivers governed product context to AI tools—making Claude, Cursor, and Copilot organization-aware.</p>
-          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted); margin-top: 12px;"><strong>Delivers:</strong> Connect context, govern AI access, enable AI workflows, measure impact.</p>
+          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary);">The governed AI control plane for product delivery. Knapsack IPE delivers governed product context to AI tools — making Claude, Cursor, and Copilot organization-aware.</p>
+          <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted); margin-top: 12px;"><strong>Delivers:</strong> Aggregate context, govern AI access, enable AI workflows, measure impact.</p>
         </div>
       </div>
       
@@ -1588,15 +1782,15 @@
         
         <p style="font-weight: 600; margin-bottom: 8px;">V1 Context Sources:</p>
         <ul style="margin: 0 0 16px 0; padding-left: 20px;">
-          <li><strong style="color: var(--spectrum-green-400);">Knapsack Content</strong> — FREE for all customers. Cloud-native ingestion of existing Knapsack design system content. This is our differentiator: competitors mostly offer local installs or limited cloud MCPs.</li>
-          <li><strong style="color: var(--spectrum-purple-300);">Storybook</strong> — Premium source ingestion. Living component documentation and examples.</li>
-          <li><strong style="color: var(--spectrum-purple-300);">RAW Markdown</strong> — Premium source ingestion. Design decisions, patterns, guidelines.</li>
+          <li><strong style="color: var(--spectrum-green-400);">Knapsack Content</strong> — INCLUDED with platform. Cloud-native ingestion of existing Knapsack design system content. This is our differentiator: competitors require building their own MCP.</li>
+          <li><strong style="color: var(--spectrum-cyan-400);">Storybook</strong> — Additional source. Living component documentation and examples.</li>
+          <li><strong style="color: var(--spectrum-cyan-400);">RAW Markdown</strong> — Additional source. Design decisions, patterns, guidelines.</li>
         </ul>
         
-        <p style="font-weight: 600; margin-bottom: 8px;">Freemium Model:</p>
+        <p style="font-weight: 600; margin-bottom: 8px;">Platform + Consumption Model:</p>
         <ul style="margin: 0 0 16px 0; padding-left: 20px;">
-          <li><strong>Free Tier:</strong> Core Docs functionality (Knapsack content ingestion) — immediate value from existing Knapsack content</li>
-          <li><strong>Paid Tier:</strong> Additional source ingestion (Storybook, Markdown) — clear upgrade path tied to additional sources</li>
+          <li><strong>Tier 0 (Included):</strong> Knapsack MCP with usage quota — included in platform fee for all paying customers</li>
+          <li><strong>Consumption Tiers:</strong> Operations-based pricing above quota. Sources not charged separately — they drive consumption.</li>
         </ul>
         
         <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted); margin: 0;"><em>V2 Roadmap: Input/output integrations (Jira, Zero Height), integration marketplace</em></p>
@@ -1616,10 +1810,11 @@
       
       <!-- V1 Positioning Guidance -->
       <div class="callout warning mt-3">
-        <p><strong>V1 Positioning — Aggregated Intelligence, Not MCP Technology:</strong></p>
-        <p style="margin-top: 8px;">MCP is a <em>delivery mechanism</em>, not the value proposition. The value is <strong>aggregated intelligence</strong> — the ability to ingest, weight, and surface context from multiple sources so AI agents produce better output.</p>
-        <p style="margin-top: 8px;"><strong>Say this:</strong> "We're not selling an MCP server. We're selling the intelligence layer that makes every AI tool in your ecosystem smarter."</p>
-        <p style="margin-top: 8px; font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted);">V1 use cases stay narrow: assessing, recommending, and quantifying design system value. This aligns with customer feedback from accounts like College Board and Accutech.</p>
+        <p><strong>V1 Positioning — Governed AI Control Plane, Not MCP Technology:</strong></p>
+        <p style="margin-top: 8px;">MCP is a <em>delivery mechanism</em>, not the value proposition. The value is <strong>aggregated intelligence</strong> — the ability to ingest, weight, and surface context from multiple sources so AI agents produce better output. We are defining and owning a new category: <strong>Governed AI Control Plane</strong>.</p>
+        <p style="margin-top: 8px;"><strong>Say this:</strong> "We're not selling an MCP server. We're building the governed AI control plane for product delivery — the intelligence layer that makes every AI tool in your ecosystem organization-aware."</p>
+        <p style="margin-top: 8px;"><strong>Never say:</strong> "Design system management" · "Component library" · "Figma plugin" · "Just a docs platform"</p>
+        <p style="margin-top: 8px; font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted);">V1 use cases stay narrow: assessing, recommending, and quantifying design system value. This aligns with customer feedback from accounts like College Board and Accutech. See <a href="#competitive" style="color: var(--spectrum-purple-300);">Section 2B: Competitive Positioning</a> for full category strategy and battlecard.</p>
       </div>
     </section>
 
@@ -1780,9 +1975,135 @@
     </section>
 
     <!-- ========================================================================
-         NOTE: Integration Platform Advantage section removed pending next IPE release.
-         This section will be restored with updated integration roadmap and competitive positioning.
+         SECTION 2B: COMPETITIVE POSITIONING — GOVERNED AI CONTROL PLANE
          ======================================================================== -->
+    <section class="section" id="competitive">
+      <div class="section-header">
+        <div class="section-number" style="background: linear-gradient(135deg, var(--spectrum-purple-500), var(--spectrum-cyan-500));">&#x2694;</div>
+        <h2>Competitive Positioning: Own the Category</h2>
+      </div>
+
+      <div class="callout info mb-4">
+        <p><strong>Category-First Positioning:</strong> We are not competing on features. We are defining and owning a new category: <strong>Governed AI Control Plane</strong>. No competitor occupies this space. Point tools optimize design or code, but none enforce policy, auditability, and execution safety across systems. Lead every conversation with the category problem, not a feature comparison.</p>
+      </div>
+
+      <h3>The Category We Own</h3>
+      <div style="background: linear-gradient(145deg, rgba(100, 54, 191, 0.15), rgba(14, 165, 233, 0.1)); border: 2px solid rgba(100, 54, 191, 0.3); border-radius: 16px; padding: 32px; margin-bottom: 24px;">
+        <p style="font-size: 1.25rem; font-weight: 700; color: var(--spectrum-purple-300); margin-bottom: 12px;">Governed AI Execution at Enterprise Scale</p>
+        <p style="margin-bottom: 16px;">The control plane that makes AI output safe, auditable, and production-ready. Knapsack IPE consolidates design system data, applies policy enforcement, and uses MCP governance to validate AI output before it ships.</p>
+        <p style="margin-bottom: 0;"><strong>Goal:</strong> In 12–18 months, when enterprises search for AI governance and execution infrastructure, "Governed AI Control Plane" is the category they search for—and Knapsack is synonymous with it.</p>
+      </div>
+
+      <h3>Why This Positioning Wins</h3>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px;">
+        <div style="background: var(--spectrum-bg-elevated); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px;">
+          <p style="font-weight: 700; color: var(--spectrum-purple-300); margin-bottom: 8px;">Differentiation</p>
+          <p style="font-size: 0.9rem; color: var(--spectrum-text-muted); margin: 0;">No competitor owns governed AI control plane. Point tools optimize design or code, but none enforce policy, auditability, and execution safety across systems.</p>
+        </div>
+        <div style="background: var(--spectrum-bg-elevated); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px;">
+          <p style="font-weight: 700; color: var(--spectrum-green-300); margin-bottom: 8px;">Relevance</p>
+          <p style="font-size: 0.9rem; color: var(--spectrum-text-muted); margin: 0;">Enterprise leaders feel the risk: ungoverned AI output, compliance exposure, tool sprawl, and rework. This speaks to operational risk reduction—not just features.</p>
+        </div>
+        <div style="background: var(--spectrum-bg-elevated); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px;">
+          <p style="font-weight: 700; color: var(--spectrum-cyan-300); margin-bottom: 8px;">Proof</p>
+          <p style="font-size: 0.9rem; color: var(--spectrum-text-muted); margin: 0;">158 enterprise benchmarks via PCRI, proven FDE playbook, and alpha partners validating the model. We operationalize governance, not just promise it.</p>
+        </div>
+        <div style="background: var(--spectrum-bg-elevated); border: 1px solid var(--spectrum-border-default); border-radius: 12px; padding: 20px;">
+          <p style="font-weight: 700; color: var(--spectrum-amber-300); margin-bottom: 8px;">Timing</p>
+          <p style="font-size: 0.9rem; color: var(--spectrum-text-muted); margin: 0;">AI adoption is accelerating while governance scrutiny increases. The window for category ownership is open now. First mover wins the analyst conversation.</p>
+        </div>
+      </div>
+
+      <h3>Competitive Landscape</h3>
+      <p class="text-muted mb-3">Use this table as supporting evidence after leading with category positioning. Never lead with feature-by-feature comparisons.</p>
+      <div style="overflow-x: auto;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 20%;">Capability</th>
+              <th style="width: 20%;">Knapsack IPE</th>
+              <th style="width: 20%;">Zeroheight</th>
+              <th style="width: 20%;">Supernova</th>
+              <th style="width: 20%;">Custom / Internal Build</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Category</strong></td>
+              <td style="color: var(--spectrum-green-300);">Governed AI Control Plane</td>
+              <td style="color: var(--spectrum-text-muted);">Design system docs</td>
+              <td style="color: var(--spectrum-text-muted);">Design system management</td>
+              <td style="color: var(--spectrum-text-muted);">Varies / no category</td>
+            </tr>
+            <tr>
+              <td><strong>MCP included</strong></td>
+              <td style="color: var(--spectrum-green-300);">Yes — day one, Tier 0</td>
+              <td style="color: var(--spectrum-red-300);">No — build your own</td>
+              <td style="color: var(--spectrum-red-300);">No — build your own</td>
+              <td style="color: var(--spectrum-amber-300);">6–12 months to build</td>
+            </tr>
+            <tr>
+              <td><strong>Multi-source ingestion</strong></td>
+              <td style="color: var(--spectrum-green-300);">Knapsack + Storybook + MDX</td>
+              <td style="color: var(--spectrum-red-300);">Single source</td>
+              <td style="color: var(--spectrum-red-300);">Single source</td>
+              <td style="color: var(--spectrum-amber-300);">Custom per source</td>
+            </tr>
+            <tr>
+              <td><strong>Conflict surfacing</strong></td>
+              <td style="color: var(--spectrum-green-300);">Automated, cross-source</td>
+              <td style="color: var(--spectrum-red-300);">None</td>
+              <td style="color: var(--spectrum-red-300);">None</td>
+              <td style="color: var(--spectrum-amber-300);">Manual</td>
+            </tr>
+            <tr>
+              <td><strong>Governance & audit</strong></td>
+              <td style="color: var(--spectrum-green-300);">Enterprise-grade (SOC 2, GDPR, ISO 27001)</td>
+              <td style="color: var(--spectrum-amber-300);">Limited</td>
+              <td style="color: var(--spectrum-amber-300);">Limited</td>
+              <td style="color: var(--spectrum-red-300);">Build and maintain yourself</td>
+            </tr>
+            <tr>
+              <td><strong>Readiness assessment</strong></td>
+              <td style="color: var(--spectrum-green-300);">PCRI (158 enterprise benchmarks)</td>
+              <td style="color: var(--spectrum-red-300);">None</td>
+              <td style="color: var(--spectrum-red-300);">None</td>
+              <td style="color: var(--spectrum-red-300);">None</td>
+            </tr>
+            <tr>
+              <td><strong>Integration roadmap (2027)</strong></td>
+              <td style="color: var(--spectrum-green-300);">15–20 integrations</td>
+              <td style="color: var(--spectrum-text-muted);">0–5</td>
+              <td style="color: var(--spectrum-text-muted);">0–5</td>
+              <td style="color: var(--spectrum-text-muted);">Custom per integration</td>
+            </tr>
+            <tr>
+              <td><strong>Switching cost</strong></td>
+              <td style="color: var(--spectrum-green-300);">Low — cloud-native, day 1 value</td>
+              <td style="color: var(--spectrum-text-muted);">Moderate</td>
+              <td style="color: var(--spectrum-text-muted);">Moderate</td>
+              <td style="color: var(--spectrum-red-300);">$500K+ to rebuild</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top: 24px;">Positioning by Conversation</h3>
+      <div style="display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 16px;">
+        <div style="background: var(--spectrum-bg-elevated); border: 1px solid var(--spectrum-border-default); border-radius: 10px; padding: 16px 20px;">
+          <p style="font-weight: 700; color: var(--spectrum-green-300); margin-bottom: 4px;">Use</p>
+          <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary); margin: 0;">"Governed AI control plane for product delivery" · "We connect your entire stack on day one" · "15 integrations vs competitors' 3" · "Any AI tool becomes organization-aware" · "Switching cost: $500K to rebuild integrations"</p>
+        </div>
+        <div style="background: var(--spectrum-bg-elevated); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 10px; padding: 16px 20px;">
+          <p style="font-weight: 700; color: var(--spectrum-red-300); margin-bottom: 4px;">Avoid</p>
+          <p style="font-size: 0.9rem; color: var(--spectrum-text-secondary); margin: 0;">"Design system management" · "Component library" · "Figma plugin" · "Just a docs platform" · Feature-by-feature comparisons without first framing the category</p>
+        </div>
+      </div>
+
+      <div class="callout success mt-3">
+        <p><strong>Seller tip:</strong> When a prospect asks "How are you different from Zeroheight/Supernova?" — reframe: <em>"That's a docs tool. We're building the governed AI control plane for product delivery. Think of it as the difference between a file server and Salesforce. They store things; we operate things."</em></p>
+      </div>
+    </section>
 
     <!-- ========================================================================
          SECTION 3: KNOW THE ROUTES
@@ -1804,10 +2125,10 @@
         <table>
           <thead>
             <tr>
-              <th>Path</th>
-              <th>FDE Allocation</th>
-              <th>Required?</th>
-              <th>Role & Scope</th>
+              <th scope="col">Path</th>
+              <th scope="col">FDE Allocation</th>
+              <th scope="col">Required?</th>
+              <th scope="col">Role & Scope</th>
             </tr>
           </thead>
           <tbody>
@@ -1891,11 +2212,11 @@
         <table>
           <thead>
             <tr>
-              <th>Workshop</th>
-              <th>Paid/Included</th>
-              <th>Duration</th>
-              <th>Value & Purpose</th>
-              <th>When to Offer</th>
+              <th scope="col">Workshop</th>
+              <th scope="col">Paid/Included</th>
+              <th scope="col">Duration</th>
+              <th scope="col">Value & Purpose</th>
+              <th scope="col">When to Offer</th>
             </tr>
           </thead>
           <tbody>
@@ -1962,9 +2283,9 @@
           <table>
             <thead>
               <tr>
-                <th>Scenario</th>
-                <th>Path</th>
-                <th>Notes</th>
+                <th scope="col">Scenario</th>
+                <th scope="col">Path</th>
+                <th scope="col">Notes</th>
               </tr>
             </thead>
             <tbody>
@@ -1996,11 +2317,11 @@
         <table>
           <thead>
             <tr>
-              <th>Path</th>
-              <th>PCRI</th>
-              <th>Pillar Minimums</th>
-              <th>Demo Track</th>
-              <th>Services TCV</th>
+              <th scope="col">Path</th>
+              <th scope="col">PCRI</th>
+              <th scope="col">Pillar Minimums</th>
+              <th scope="col">Demo Track</th>
+              <th scope="col">Services TCV</th>
             </tr>
           </thead>
           <tbody>
@@ -2104,75 +2425,70 @@
       </div>
       
       <!-- Software Licensing -->
-      <h3 class="mt-5">Software Licensing — Platform Pricing</h3>
-      <p class="text-muted mb-3">IPE platform licensing follows a <strong>freemium model</strong> at GA. Core Docs (Knapsack content ingestion) is free for all customers; additional source ingestion is a premium, paid feature.</p>
+      <h3 class="mt-5">IPE Pricing — Platform + Consumption</h3>
+      <p class="text-muted mb-3">IPE pricing follows a <strong>Platform + Consumption</strong> model at GA. Knapsack MCP is <strong>included</strong> in the platform for all paying customers. Revenue growth comes from consumption expansion, not platform fees.</p>
       
-      <!-- Pricing Blocker Notice -->
-      <div class="callout danger mb-4" style="background: linear-gradient(145deg, rgba(239, 68, 68, 0.15), rgba(22, 33, 62, 0.8)); border-color: rgba(239, 68, 68, 0.5);">
-        <p><strong>⚠️ PRICING PENDING FINAL APPROVAL</strong></p>
-        <p style="margin-top: 8px;">Specific tier definitions and price points are <strong>not yet finalized</strong>. This is a blocker for GTM materials. <strong>Check with Chris or Amber before quoting any pricing to customers.</strong></p>
-        <p style="margin-top: 8px; font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted);">Target resolution: Early March 2026. Robin to push for decision.</p>
+      <!-- Pricing Update Notice -->
+      <div class="callout warning mb-4" style="border-left: 4px solid var(--spectrum-yellow-400);">
+        <p><strong>📋 PRICING MODEL UPDATED (Feb 26 Pricing Jam)</strong></p>
+        <p style="margin-top: 8px;">Key decisions from pricing jam. See <a href="ipe_offering_kit.html#gtm" style="color: var(--spectrum-cyan-400);">Offering Kit</a> for full model.</p>
+        <ul style="margin: 8px 0 0 0; padding-left: 20px; font-size: var(--spectrum-font-size-100);">
+          <li><strong>Tier 0 (Included):</strong> Knapsack MCP with usage quota — included in platform fee</li>
+          <li><strong>Consumption Tiers:</strong> Operations-based (not tokens), tier boundaries TBD</li>
+          <li><strong>Sources:</strong> Don't charge for integrations — they drive consumption</li>
+          <li><strong>Expansion:</strong> Predefined spend → overage → expansion negotiation</li>
+        </ul>
+        <p style="margin-top: 8px; font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted);"><strong>Pending:</strong> Tier 0 quota, operation costing, tier boundaries, adoption dashboards.</p>
       </div>
       
       <div class="callout info mb-4">
-        <p><strong>V1 Freemium Model:</strong></p>
+        <p><strong>Platform + Consumption Model:</strong></p>
         <ul style="margin: 8px 0 0 0; padding-left: 20px;">
-          <li><strong>Free:</strong> Core Docs (Knapsack content ingestion) — immediate value from existing Knapsack content</li>
-          <li><strong>Paid:</strong> Additional source ingestion (Storybook, RAW Markdown) — clear upgrade path</li>
+          <li><strong>Platform Fee:</strong> Current Knapsack seat-based pricing (unchanged)</li>
+          <li><strong>IPE Tier 0:</strong> Knapsack MCP included with usage quota — our differentiator</li>
+          <li><strong>IPE Consumption:</strong> Operations-based tiers for usage above quota</li>
         </ul>
-        <p style="margin-top: 12px;"><strong>Deal Structure:</strong> Total deal value = <strong>Services (J1-J4)</strong> + <strong>Software License (annual)</strong> + <strong>Deployment Tier Premium (if D2-D4)</strong></p>
+        <p style="margin-top: 12px;"><strong>Deal Structure:</strong> Total deal value = <strong>Platform Fee</strong> + <strong>Services (J1-J4)</strong> + <strong>IPE Consumption Tier</strong></p>
       </div>
       
       <div class="table-wrapper">
         <table>
           <thead>
             <tr>
-              <th>Package</th>
-              <th>Annual License</th>
-              <th>Context Sources</th>
-              <th>Included</th>
-              <th>Best For</th>
+              <th scope="col">Component</th>
+              <th scope="col">Model</th>
+              <th scope="col">Typical Range</th>
+              <th scope="col">Revenue Driver</th>
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td><strong>Platform Fee</strong></td>
+              <td>Seat-based (current Knapsack tiers)</td>
+              <td class="font-mono">$24-150K/yr</td>
+              <td>Team size, existing pricing</td>
+            </tr>
             <tr style="background: rgba(16, 185, 129, 0.1);">
-              <td><span class="status-badge green">MCP Free</span></td>
-              <td class="font-mono" style="color: var(--spectrum-green-400);">$0</td>
-              <td>Knapsack content only</td>
-              <td>Core Docs ingestion, cloud-native MCP delivery, basic analytics</td>
-              <td>All customers (baseline), self-service adoption</td>
+              <td><strong>IPE Tier 0 (Included)</strong></td>
+              <td>Knapsack MCP + usage quota</td>
+              <td class="font-mono" style="color: var(--spectrum-green-400);">$0 (included)</td>
+              <td>Differentiator, adoption driver</td>
             </tr>
             <tr>
-              <td><span class="status-badge blue">Essentials</span></td>
-              <td class="font-mono">$48K/yr*</td>
-              <td>Knapsack + 1 additional source</td>
-              <td>Core platform, 1 workspace, Storybook OR Markdown ingestion, email support</td>
-              <td>Single product teams, pilot programs</td>
+              <td><strong>IPE Consumption (Tier 1-3)</strong></td>
+              <td>Operations-based tiers</td>
+              <td class="font-mono">$24-180K/yr*</td>
+              <td>Usage growth, adoption spread</td>
             </tr>
             <tr>
-              <td><span class="status-badge purple">Professional</span></td>
-              <td class="font-mono">$96K/yr*</td>
-              <td>All V1 sources</td>
-              <td>Multi-workspace, Storybook + Markdown, AI governance, priority support</td>
-              <td>Multi-product orgs, scaling teams</td>
-            </tr>
-            <tr>
-              <td><span class="status-badge green">Enterprise</span></td>
-              <td class="font-mono">$180K/yr*</td>
-              <td>All V1 sources + conflict surfacing</td>
-              <td>Unlimited workspaces, source conflict resolution, SSO/SCIM, dedicated CX partner, SLA</td>
-              <td>Enterprise-wide rollouts, regulated industries</td>
-            </tr>
-            <tr style="background: rgba(245, 158, 11, 0.1);">
-              <td><span class="status-badge yellow">Enterprise+</span></td>
-              <td class="font-mono">$300K+/yr*</td>
-              <td>All V1 sources + V2 roadmap priority</td>
-              <td>All Enterprise + custom source integrations, on-prem option, dedicated FDE</td>
-              <td>FSS, Healthcare, Government, Aerospace</td>
+              <td><strong>Services (J1-J4)</strong></td>
+              <td>PCRI-based engagement</td>
+              <td class="font-mono">$50K-740K</td>
+              <td>Maturity gap, activation effort</td>
             </tr>
           </tbody>
         </table>
-        <p style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); margin-top: 8px;">* Pricing pending final approval. Check with Chris/Amber before quoting. V1 source types: Knapsack (free), Storybook (paid), RAW Markdown (paid).</p>
+        <p style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); margin-top: 8px;">* Consumption tier boundaries pending. Grant to provide cost per operation. Check with Chris/Amber before quoting.</p>
       </div>
       
       <h4>Package Selection by Investment Path</h4>
@@ -2251,11 +2567,11 @@
         <table class="industry-table">
           <thead>
             <tr>
-              <th>Industry</th>
-              <th>Lead Hook</th>
-              <th>Key Compliance</th>
-              <th>Typical Tier</th>
-              <th>Primary Value</th>
+              <th scope="col">Industry</th>
+              <th scope="col">Lead Hook</th>
+              <th scope="col">Key Compliance</th>
+              <th scope="col">Typical Tier</th>
+              <th scope="col">Primary Value</th>
             </tr>
           </thead>
           <tbody>
@@ -2376,6 +2692,15 @@
             </ul>
             <p style="font-size: 0.8rem; margin: 8px 0 0 0; color: var(--spectrum-text-muted);"><strong>Tip:</strong> Document these in handoff notes — it accelerates AE discovery and shows deal quality.</p>
           </div>
+          
+          <div style="margin-top: 12px; padding: 12px; background: rgba(139, 92, 246, 0.1); border-radius: 8px; border-left: 3px solid var(--spectrum-purple-400);">
+            <div style="font-weight: 600; color: var(--spectrum-purple-400); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 6px;">Your Toolkit</div>
+            <ul style="margin: 0; padding-left: 16px; font-size: 0.85rem; color: var(--spectrum-text-secondary);">
+              <li><a href="ipe_one_pager.html" style="color: var(--spectrum-purple-300);">IPE 1-Pager</a> — attach to outreach emails and leave-behinds</li>
+              <li><a href="proactive_business_case.html" style="color: var(--spectrum-purple-300);">Proactive Business Case</a> — pre-build account-specific business case for cold outreach</li>
+              <li>PCRI self-assessment link — send after L1 qualification</li>
+            </ul>
+          </div>
         </div>
         
         <!-- Pre-Sales SE -->
@@ -2405,6 +2730,15 @@
             <div class="role-first-action-label">GATE CHECK</div>
             <div class="role-first-action-text">Before joining any L2: "Is MEDDIC complete? Is PCRI submitted?" If no to either → send back to BDR.</div>
           </div>
+          
+          <div style="margin-top: 12px; padding: 12px; background: rgba(139, 92, 246, 0.1); border-radius: 8px; border-left: 3px solid var(--spectrum-purple-400);">
+            <div style="font-weight: 600; color: var(--spectrum-purple-400); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 6px;">Your Toolkit</div>
+            <ul style="margin: 0; padding-left: 16px; font-size: 0.85rem; color: var(--spectrum-text-secondary);">
+              <li><a href="#competitive" style="color: var(--spectrum-purple-300);">Competitive Battlecard</a> — category positioning and reframe scripts for competitive conversations</li>
+              <li><a href="ipe_offering_kit.html" style="color: var(--spectrum-purple-300);">Offering Kit</a> — solutioning playbook, WBS, and delivery BOM for path design</li>
+              <li><a href="roi_calculator.html" style="color: var(--spectrum-purple-300);">ROI Calculator</a> — build business case during Tech Fit validation</li>
+            </ul>
+          </div>
         </div>
         
         <!-- AE -->
@@ -2433,6 +2767,16 @@
             <div class="role-first-action-label">Your First Action</div>
             <div class="role-first-action-text">Never demo without checking: "Is MEDDIC complete? Did Tech Fit pass?"</div>
           </div>
+          
+          <div style="margin-top: 12px; padding: 12px; background: rgba(139, 92, 246, 0.1); border-radius: 8px; border-left: 3px solid var(--spectrum-purple-400);">
+            <div style="font-weight: 600; color: var(--spectrum-purple-400); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 6px;">Your Toolkit</div>
+            <ul style="margin: 0; padding-left: 16px; font-size: 0.85rem; color: var(--spectrum-text-secondary);">
+              <li><a href="ipe_j3_case_study.html" style="color: var(--spectrum-purple-300);">J3 Case Study</a> — composite FinServ scenario for J3 pipeline conversations</li>
+              <li><a href="roi_calculator.html" style="color: var(--spectrum-purple-300);">ROI Calculator</a> — live business case building in stakeholder alignment meetings</li>
+              <li><a href="ipe_offering_kit.html" style="color: var(--spectrum-purple-300);">Offering Kit</a> — SOW templates, procurement FAQ, compliance matrix</li>
+              <li><a href="../roadmap.html" style="color: var(--spectrum-purple-300);">IPE Roadmap</a> — customer-facing roadmap for future value positioning</li>
+            </ul>
+          </div>
         </div>
         
         <!-- CX Partner -->
@@ -2460,6 +2804,15 @@
           <div class="role-first-action">
             <div class="role-first-action-label">Your First Action</div>
             <div class="role-first-action-text">Know the Paid PCRI deliverables: 5-pillar assessment, curated PDF, exec debrief, J1-J4 recommendation</div>
+          </div>
+          
+          <div style="margin-top: 12px; padding: 12px; background: rgba(139, 92, 246, 0.1); border-radius: 8px; border-left: 3px solid var(--spectrum-purple-400);">
+            <div style="font-weight: 600; color: var(--spectrum-purple-400); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 6px;">Your Toolkit</div>
+            <ul style="margin: 0; padding-left: 16px; font-size: 0.85rem; color: var(--spectrum-text-secondary);">
+              <li><a href="ipe_j3_case_study.html" style="color: var(--spectrum-purple-300);">J3 Case Study</a> — use PCRI progression (63→82) and phased outcomes to set transformation expectations</li>
+              <li><a href="ipe_offering_kit.html" style="color: var(--spectrum-purple-300);">Offering Kit</a> — delivery BOM, RACI, WBS for scoping engagements</li>
+              <li><a href="onboarding_kit.html" style="color: var(--spectrum-purple-300);">Onboarding Kit</a> — role playbooks and operating model for delivery team alignment</li>
+            </ul>
           </div>
         </div>
         
@@ -2522,10 +2875,10 @@
         <table>
           <thead>
             <tr>
-              <th>Stage</th>
-              <th>Owner</th>
-              <th>Exit Criteria</th>
-              <th>PCRI Integration</th>
+              <th scope="col">Stage</th>
+              <th scope="col">Owner</th>
+              <th scope="col">Exit Criteria</th>
+              <th scope="col">PCRI Integration</th>
             </tr>
           </thead>
           <tbody>
@@ -2597,10 +2950,10 @@
           <table>
             <thead>
               <tr>
-                <th>Stage</th>
-                <th>Owner</th>
-                <th>MEDDIC Depth</th>
-                <th>Purpose</th>
+                <th scope="col">Stage</th>
+                <th scope="col">Owner</th>
+                <th scope="col">MEDDIC Depth</th>
+                <th scope="col">Purpose</th>
               </tr>
             </thead>
             <tbody>
@@ -2679,10 +3032,10 @@
         <table>
           <thead>
             <tr>
-              <th>Stage</th>
-              <th>Owner</th>
-              <th>Exit Criteria</th>
-              <th>Key Activities</th>
+              <th scope="col">Stage</th>
+              <th scope="col">Owner</th>
+              <th scope="col">Exit Criteria</th>
+              <th scope="col">Key Activities</th>
             </tr>
           </thead>
           <tbody>
@@ -2795,10 +3148,10 @@
         <table>
           <thead>
             <tr>
-              <th>Signal</th>
-              <th><span class="status-badge green">Green</span></th>
-              <th><span class="status-badge yellow">Yellow</span></th>
-              <th><span class="status-badge red">Red</span></th>
+              <th scope="col">Signal</th>
+              <th scope="col"><span class="status-badge green">Green</span></th>
+              <th scope="col"><span class="status-badge yellow">Yellow</span></th>
+              <th scope="col"><span class="status-badge red">Red</span></th>
             </tr>
           </thead>
           <tbody>
@@ -2847,11 +3200,11 @@
         <table>
           <thead>
             <tr>
-              <th>Scenario</th>
-              <th>Trigger</th>
-              <th>Day 1-2</th>
-              <th>Day 3-5</th>
-              <th>Day 7</th>
+              <th scope="col">Scenario</th>
+              <th scope="col">Trigger</th>
+              <th scope="col">Day 1-2</th>
+              <th scope="col">Day 3-5</th>
+              <th scope="col">Day 7</th>
             </tr>
           </thead>
           <tbody>
@@ -2926,10 +3279,10 @@
         <table>
           <thead>
             <tr>
-              <th>Metric</th>
-              <th>Current</th>
-              <th>Target</th>
-              <th>Rationale</th>
+              <th scope="col">Metric</th>
+              <th scope="col">Current</th>
+              <th scope="col">Target</th>
+              <th scope="col">Rationale</th>
             </tr>
           </thead>
           <tbody>
@@ -2967,9 +3320,9 @@
         <table>
           <thead>
             <tr>
-              <th>Metric</th>
-              <th>Target</th>
-              <th>Escalation Trigger</th>
+              <th scope="col">Metric</th>
+              <th scope="col">Target</th>
+              <th scope="col">Escalation Trigger</th>
             </tr>
           </thead>
           <tbody>
@@ -3051,6 +3404,7 @@
       <!-- Strategic Insight -->
       <div class="callout warning mb-4">
         <p><strong>Critical Insight:</strong> Most existing customers have Knapsack installed but aren't extracting value. The path to $3M from existing customers is <strong>J3 Activation</strong>, not new logos. Services capacity is the bottleneck.</p>
+        <p style="margin-top: 8px; font-size: 0.9rem;">See the <a href="ipe_j3_case_study.html" style="color: var(--spectrum-yellow-400); text-decoration: underline;">composite J3 case study</a> for a detailed scenario: FinServ enterprise, PCRI 63→82, $1.3M TCV, 40-week phased engagement with 52% rework reduction.</p>
       </div>
       
       <!-- Revenue Math -->
@@ -3060,11 +3414,11 @@
         <table>
           <thead>
             <tr>
-              <th>Path</th>
-              <th>% of Base (16)</th>
-              <th>Accounts</th>
-              <th>Avg TCV</th>
-              <th>Revenue</th>
+              <th scope="col">Path</th>
+              <th scope="col">% of Base (16)</th>
+              <th scope="col">Accounts</th>
+              <th scope="col">Avg TCV</th>
+              <th scope="col">Revenue</th>
             </tr>
           </thead>
           <tbody>
@@ -3105,10 +3459,10 @@
         <table>
           <thead>
             <tr>
-              <th>Path</th>
-              <th>Target Accounts</th>
-              <th>Avg TCV</th>
-              <th>Revenue</th>
+              <th scope="col">Path</th>
+              <th scope="col">Target Accounts</th>
+              <th scope="col">Avg TCV</th>
+              <th scope="col">Revenue</th>
             </tr>
           </thead>
           <tbody>
@@ -3158,9 +3512,10 @@
           <ul class="comparison-list">
             <li><i data-lucide="x"></i> "Design system management"</li>
             <li><i data-lucide="x"></i> "Component library"</li>
+            <li><i data-lucide="x"></i> "Just a docs platform"</li>
+            <li><i data-lucide="x"></i> "Figma plugin"</li>
             <li><i data-lucide="x"></i> "Engagement model"</li>
             <li><i data-lucide="x"></i> "Meet you where you are"</li>
-            <li><i data-lucide="x"></i> "Figma plugin"</li>
           </ul>
         </div>
         
@@ -3170,11 +3525,12 @@
             Start Saying
           </div>
           <ul class="comparison-list">
-            <li><i data-lucide="check"></i> "Governable control plane"</li>
-            <li><i data-lucide="check"></i> "Model Risk Management for product systems"</li>
-            <li><i data-lucide="check"></i> "AI execution with enterprise guardrails"</li>
-            <li><i data-lucide="check"></i> "From intent to production, governed"</li>
-            <li><i data-lucide="check"></i> "Operational resilience through consistency"</li>
+            <li><i data-lucide="check"></i> "Governed AI control plane for product delivery"</li>
+            <li><i data-lucide="check"></i> "We connect your entire stack on day one"</li>
+            <li><i data-lucide="check"></i> "Any AI tool becomes organization-aware"</li>
+            <li><i data-lucide="check"></i> "Aggregated intelligence, not just another MCP server"</li>
+            <li><i data-lucide="check"></i> "15 integrations vs competitors' 3"</li>
+            <li><i data-lucide="check"></i> "Governed AI execution at enterprise scale"</li>
           </ul>
         </div>
       </div>
@@ -3186,10 +3542,10 @@
         <table class="industry-table">
           <thead>
             <tr>
-              <th>Industry</th>
-              <th>Lead Hook</th>
-              <th>Value Prop</th>
-              <th>Regulatory Angle</th>
+              <th scope="col">Industry</th>
+              <th scope="col">Lead Hook</th>
+              <th scope="col">Value Prop</th>
+              <th scope="col">Regulatory Angle</th>
             </tr>
           </thead>
           <tbody>
@@ -3343,10 +3699,10 @@
         <table>
           <thead>
             <tr>
-              <th>Phase</th>
-              <th>Content Assets</th>
-              <th>Purpose</th>
-              <th>Target Audience</th>
+              <th scope="col">Phase</th>
+              <th scope="col">Content Assets</th>
+              <th scope="col">Purpose</th>
+              <th scope="col">Target Audience</th>
             </tr>
           </thead>
           <tbody>
@@ -3500,9 +3856,9 @@
         <table>
           <thead>
             <tr>
-              <th>Metric</th>
-              <th>Monthly Target</th>
-              <th>Quarterly Target</th>
+              <th scope="col">Metric</th>
+              <th scope="col">Monthly Target</th>
+              <th scope="col">Quarterly Target</th>
             </tr>
           </thead>
           <tbody>
@@ -4100,10 +4456,10 @@
         <table>
           <thead>
             <tr>
-              <th>Version</th>
-              <th>Date</th>
-              <th>Author</th>
-              <th>Changes</th>
+              <th scope="col">Version</th>
+              <th scope="col">Date</th>
+              <th scope="col">Author</th>
+              <th scope="col">Changes</th>
             </tr>
           </thead>
           <tbody>
@@ -4161,11 +4517,29 @@
               <td>CX Partner</td>
               <td>Removed Integration Platform Advantage section pending next IPE release. Added AI Cost Governance positioning to TCO business case. Updated ROI Calculator link to v2.1 with AI cost governance module.</td>
             </tr>
+            <tr>
+              <td class="font-mono">V1 GA</td>
+              <td>Feb 2026</td>
+              <td>CX Partner</td>
+              <td>V1 GA Launch Update: Added V1 source types; initial pricing model; V1 launch timeline (Mar 31); security/ToS readiness status; updated positioning to "aggregated intelligence".</td>
+            </tr>
+            <tr>
+              <td class="font-mono">V1 GA+</td>
+              <td>Feb 2026</td>
+              <td>Amber</td>
+              <td>Added IPE V1 Offering Kit (ipe_offering_kit.html) with 4 components: GTM Value Prop, Solutioning Playbook, Delivery BOM, Procurement Kit. Streamlined playbook navigation. Updated footer with quick links.</td>
+            </tr>
+            <tr>
+              <td class="font-mono">V1 GA++</td>
+              <td>Feb 27, 2026</td>
+              <td>Amber</td>
+              <td>Pricing model update per Feb 26 Pricing Jam: Changed from "freemium" to "Platform + Consumption" model. IPE Tier 0 (Knapsack MCP) included in platform fee. Operations-based consumption tiers. Don't charge for integrations. Added account prioritization for consumption model.</td>
+            </tr>
             <tr style="background: rgba(16, 185, 129, 0.1);">
-              <td class="font-mono"><strong>V1 GA</strong></td>
-              <td><strong>Feb 2026</strong></td>
-              <td><strong>CX Partner</strong></td>
-              <td><strong>V1 GA Launch Update: Added V1 source types (Knapsack free, Storybook/Markdown paid); freemium pricing model; V1 launch timeline (Mar 31); security/ToS readiness status; updated positioning to "aggregated intelligence" (MCP is delivery mechanism, not value prop); pending pricing blocker notice; updated MCP references to Intelligence Layer.</strong></td>
+              <td class="font-mono"><strong>1.6</strong></td>
+              <td><strong>Mar 3, 2026</strong></td>
+              <td><strong>Amber</strong></td>
+              <td><strong>GTM acceleration update: (1) Added Competitive Positioning section — category-first "Governed AI Control Plane" framing with competitive landscape table and seller reframe scripts. (2) Created IPE 1-Pager (ipe_one_pager.html) for BDR outreach. (3) Created composite J3 Case Study (ipe_j3_case_study.html) from 158-account PCRI benchmark dataset. (4) Added Sales Toolkit section with links to all GTM assets. (5) Added role-specific toolkit cards to BDR, SE, AE, and CX role playbooks. (6) Added "Competitive" to nav bar. (7) Updated V1 positioning to lead with "Governed AI Control Plane" category. (8) Updated IPE product description with category framing. (9) Updated hero CTAs with 1-Pager and J3 Case Study links. (10) Updated footer with new asset links.</strong></td>
             </tr>
           </tbody>
         </table>
@@ -4175,13 +4549,19 @@
     <!-- Footer -->
     <footer>
       <div class="footer-meta">
-        <div class="footer-meta-item"><strong>Document Owner:</strong> CX Partner (Amber)</div>
-        <div class="footer-meta-item"><strong>Version:</strong> V1 GA</div>
-        <div class="footer-meta-item"><strong>Updated:</strong> Feb 2026</div>
+        <div class="footer-meta-item"><strong>Document Owner:</strong> Amber</div>
+        <div class="footer-meta-item"><strong>Version:</strong> 1.6</div>
         <div class="footer-meta-item"><strong>GA Date:</strong> March 31, 2026</div>
-        <div class="footer-meta-item"><strong>Consolidates:</strong> GTM Operating Model v4.2 + Onboarding Kit + Marketing Strategy + Tech Fit Gate + MEDDIC Gate + AI Cost Governance + V1 Launch Strategy</div>
       </div>
-      <p class="footer-text">IPE GTM Playbook — Single Source of Truth for the Knapsack GTM Team</p>
+      <div style="display: flex; justify-content: center; gap: 16px; margin: 16px 0; flex-wrap: wrap;">
+        <a href="ipe_offering_kit.html" style="color: var(--spectrum-green-400); text-decoration: none; font-size: 0.875rem;">Offering Kit</a>
+        <a href="ipe_one_pager.html" style="color: var(--spectrum-purple-400); text-decoration: none; font-size: 0.875rem;">1-Pager</a>
+        <a href="ipe_j3_case_study.html" style="color: var(--spectrum-purple-400); text-decoration: none; font-size: 0.875rem;">J3 Case Study</a>
+        <a href="roi_calculator.html" style="color: var(--spectrum-purple-400); text-decoration: none; font-size: 0.875rem;">ROI Calculator</a>
+        <a href="onboarding_kit.html" style="color: var(--spectrum-blue-400); text-decoration: none; font-size: 0.875rem;">Onboarding Kit</a>
+        <a href="../index.html" style="color: var(--spectrum-cyan-400); text-decoration: none; font-size: 0.875rem;">IPE Hub</a>
+      </div>
+      <p class="footer-text">IPE GTM Playbook — The Governed AI Control Plane for Product Delivery</p>
     </footer>
   </div>
 

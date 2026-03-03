@@ -1,0 +1,2207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPE V1 Offering Kit | Sell, Solution, Deliver</title>
+  <meta name="description" content="Complete offering kit for IPE V1: GTM value proposition, solutioning playbook, delivery BOM, and procurement acceleration.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --spectrum-gray-50: #fafafa;
+      --spectrum-gray-100: #f5f5f5;
+      --spectrum-gray-200: #e8e8e8;
+      --spectrum-gray-300: #d1d1d1;
+      --spectrum-gray-400: #b4b4b4;
+      --spectrum-gray-500: #909090;
+      --spectrum-gray-600: #6d6d6d;
+      --spectrum-gray-700: #464646;
+      --spectrum-gray-800: #222222;
+      --spectrum-gray-900: #131313;
+      
+      --spectrum-purple-900: #42247f;
+      --spectrum-purple-700: #6436bf;
+      --spectrum-purple-500: #8b5cf6;
+      --spectrum-purple-400: #a78bfa;
+      --spectrum-purple-300: #c4b5fd;
+      --spectrum-purple-100: #e0d4f7;
+      
+      --spectrum-blue-500: #3b82f6;
+      --spectrum-blue-400: #60a5fa;
+      --spectrum-blue-300: #93c5fd;
+      
+      --spectrum-green-500: #10b981;
+      --spectrum-green-400: #34d399;
+      --spectrum-green-300: #6ee7b7;
+      
+      --spectrum-yellow-500: #f59e0b;
+      --spectrum-yellow-400: #fbbf24;
+      
+      --spectrum-red-500: #ef4444;
+      --spectrum-red-400: #f87171;
+      
+      --spectrum-cyan-500: #0ea5e9;
+      --spectrum-cyan-400: #22d3ee;
+      
+      --spectrum-orange-500: #f97316;
+      --spectrum-orange-400: #fb923c;
+      
+      --spectrum-bg-base: #0f0f1a;
+      --spectrum-bg-layer-1: #16213e;
+      --spectrum-bg-layer-2: #1a1a2e;
+      --spectrum-bg-surface: rgba(22, 33, 62, 0.7);
+      --spectrum-bg-elevated: rgba(255,255,255,0.05);
+      
+      --spectrum-text-primary: #ffffff;
+      --spectrum-text-secondary: rgba(255,255,255,0.9);
+      --spectrum-text-tertiary: rgba(255,255,255,0.8);
+      --spectrum-text-muted: rgba(255,255,255,0.7); /* Increased from 0.55 for WCAG AA contrast */
+      
+      --spectrum-border-default: rgba(100, 54, 191, 0.3);
+      --spectrum-border-subtle: rgba(255,255,255,0.08);
+      --spectrum-border-hover: rgba(100, 54, 191, 0.5);
+      
+      --spectrum-font-size-75: 0.75rem;
+      --spectrum-font-size-100: 0.875rem;
+      --spectrum-font-size-200: 1rem;
+      --spectrum-font-size-300: 1.125rem;
+      --spectrum-font-size-400: 1.25rem;
+      --spectrum-font-size-500: 1.5rem;
+      --spectrum-font-size-600: 1.75rem;
+      --spectrum-font-size-700: 2rem;
+      --spectrum-font-size-800: 2.5rem;
+      
+      --spectrum-spacing-100: 0.25rem;
+      --spectrum-spacing-200: 0.5rem;
+      --spectrum-spacing-300: 1rem;
+      --spectrum-spacing-400: 1.5rem;
+      --spectrum-spacing-500: 2rem;
+      --spectrum-spacing-600: 3rem;
+      
+      --spectrum-radius-sm: 4px;
+      --spectrum-radius-md: 8px;
+      --spectrum-radius-lg: 12px;
+      --spectrum-radius-xl: 16px;
+      --spectrum-radius-full: 9999px;
+    }
+    
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: var(--spectrum-font-size-200);
+      line-height: 1.6;
+      color: var(--spectrum-text-primary);
+      background: var(--spectrum-bg-base);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spectrum-spacing-400);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .text-muted { color: var(--spectrum-text-muted); }
+    .text-green { color: var(--spectrum-green-400); }
+    
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 15, 26, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--spectrum-border-default);
+      padding: var(--spectrum-spacing-200) var(--spectrum-spacing-400);
+    }
+    
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spectrum-spacing-300);
+    }
+    
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .nav-logo {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--spectrum-green-500), var(--spectrum-cyan-500));
+      border-radius: var(--spectrum-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .nav-logo i { width: 20px; height: 20px; color: white; }
+    
+    .nav-title {
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-300);
+      background: linear-gradient(135deg, #fff, var(--spectrum-green-300));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .nav-version {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-75);
+      background: linear-gradient(135deg, var(--spectrum-green-500), var(--spectrum-cyan-500));
+      padding: 4px 10px;
+      border-radius: var(--spectrum-radius-full);
+      color: white;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: var(--spectrum-spacing-100);
+      flex-wrap: wrap;
+    }
+    
+    .nav-link {
+      color: var(--spectrum-text-muted);
+      text-decoration: none;
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 500;
+      padding: var(--spectrum-spacing-100) var(--spectrum-spacing-200);
+      border-radius: var(--spectrum-radius-sm);
+      transition: all 0.2s;
+    }
+    
+    .nav-link:hover {
+      color: var(--spectrum-text-primary);
+      background: var(--spectrum-bg-elevated);
+    }
+    
+    .nav-link:focus {
+      outline: 2px solid var(--spectrum-cyan-400);
+      outline-offset: 2px;
+    }
+    
+    .nav-link.active {
+      color: var(--spectrum-green-300);
+      background: rgba(16, 185, 129, 0.2);
+    }
+    
+    /* Skip to content link for accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--spectrum-green-500);
+      color: white;
+      padding: 8px 16px;
+      z-index: 1000;
+      text-decoration: none;
+      border-radius: 0 0 var(--spectrum-radius-md) 0;
+    }
+    
+    .skip-link:focus {
+      top: 0;
+    }
+    
+    header {
+      text-align: center;
+      padding: var(--spectrum-spacing-600) 0;
+      border-bottom: 1px solid var(--spectrum-border-default);
+      margin-bottom: var(--spectrum-spacing-500);
+    }
+    
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-100);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(14, 165, 233, 0.2));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 999px;
+      padding: var(--spectrum-spacing-100) var(--spectrum-spacing-300);
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 500;
+      color: var(--spectrum-green-300);
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    
+    .header-badge i { width: 16px; height: 16px; }
+    
+    header h1 {
+      font-size: var(--spectrum-font-size-800);
+      font-weight: 700;
+      margin: 0 0 var(--spectrum-spacing-200);
+      background: linear-gradient(135deg, #fff 0%, var(--spectrum-green-300) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .header-subtitle {
+      font-size: var(--spectrum-font-size-300);
+      color: var(--spectrum-text-muted);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .section {
+      background: var(--spectrum-bg-surface);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-xl);
+      padding: var(--spectrum-spacing-500);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-300);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    .section-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--spectrum-green-500), var(--spectrum-cyan-500));
+      border-radius: var(--spectrum-radius-md);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-100);
+      color: white;
+    }
+    
+    h2 {
+      font-size: var(--spectrum-font-size-600);
+      font-weight: 700;
+      margin: 0;
+    }
+    
+    h3 {
+      font-size: var(--spectrum-font-size-400);
+      font-weight: 600;
+      color: var(--spectrum-green-300);
+      margin: var(--spectrum-spacing-400) 0 var(--spectrum-spacing-200);
+    }
+    
+    h3:first-child { margin-top: 0; }
+    
+    h4 {
+      font-size: var(--spectrum-font-size-200);
+      font-weight: 600;
+      color: var(--spectrum-text-primary);
+      margin: var(--spectrum-spacing-300) 0 var(--spectrum-spacing-200);
+    }
+    
+    .callout {
+      padding: var(--spectrum-spacing-300);
+      border-radius: var(--spectrum-radius-md);
+      border-left: 4px solid;
+      margin: var(--spectrum-spacing-300) 0;
+    }
+    
+    .callout p { margin: 0; }
+    .callout.info { background: rgba(38, 128, 235, 0.1); border-color: var(--spectrum-blue-500); }
+    .callout.info strong { color: var(--spectrum-blue-400); }
+    .callout.success { background: rgba(16, 185, 129, 0.1); border-color: var(--spectrum-green-500); }
+    .callout.success strong { color: var(--spectrum-green-400); }
+    .callout.warning { background: rgba(245, 158, 11, 0.1); border-color: var(--spectrum-yellow-500); }
+    .callout.warning strong { color: var(--spectrum-yellow-400); }
+    .callout.danger { background: rgba(239, 68, 68, 0.1); border-color: var(--spectrum-red-500); }
+    .callout.danger strong { color: var(--spectrum-red-400); }
+    
+    .hero-message {
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.15), rgba(14, 165, 233, 0.1));
+      border: 2px solid rgba(16, 185, 129, 0.4);
+      border-radius: var(--spectrum-radius-xl);
+      padding: var(--spectrum-spacing-500);
+      text-align: center;
+      margin-bottom: var(--spectrum-spacing-500);
+    }
+    
+    .hero-message h2 {
+      font-size: var(--spectrum-font-size-500);
+      margin-bottom: var(--spectrum-spacing-200);
+      color: var(--spectrum-green-300);
+    }
+    
+    .hero-message p {
+      font-size: var(--spectrum-font-size-300);
+      color: var(--spectrum-text-secondary);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spectrum-spacing-300);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    .stat-card {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.95), rgba(26, 26, 46, 0.9));
+      border-radius: var(--spectrum-radius-xl);
+      padding: var(--spectrum-spacing-300);
+      border: 1px solid var(--spectrum-border-default);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    
+    .stat-card.green::before { background: linear-gradient(90deg, var(--spectrum-green-500), var(--spectrum-green-400)); }
+    .stat-card.blue::before { background: linear-gradient(90deg, var(--spectrum-blue-500), var(--spectrum-blue-400)); }
+    .stat-card.purple::before { background: linear-gradient(90deg, var(--spectrum-purple-500), var(--spectrum-purple-400)); }
+    .stat-card.amber::before { background: linear-gradient(90deg, var(--spectrum-yellow-500), var(--spectrum-yellow-400)); }
+    
+    .stat-label {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--spectrum-spacing-100);
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-100);
+    }
+    
+    .stat-value {
+      font-size: var(--spectrum-font-size-700);
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: var(--spectrum-spacing-100);
+    }
+    
+    .stat-note {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .table-wrapper {
+      overflow-x: auto;
+      margin: var(--spectrum-spacing-300) 0;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--spectrum-font-size-100);
+    }
+    
+    th {
+      background: var(--spectrum-green-500);
+      color: white;
+      font-weight: 600;
+      text-align: left;
+      padding: var(--spectrum-spacing-200);
+      border: 1px solid var(--spectrum-border-default);
+      white-space: nowrap;
+    }
+    
+    th:first-child { border-radius: var(--spectrum-radius-md) 0 0 0; }
+    th:last-child { border-radius: 0 var(--spectrum-radius-md) 0 0; }
+    
+    td {
+      padding: var(--spectrum-spacing-200);
+      border: 1px solid var(--spectrum-border-subtle);
+      color: var(--spectrum-text-secondary);
+      background: var(--spectrum-bg-layer-1);
+    }
+    
+    tr:last-child td:first-child { border-radius: 0 0 0 var(--spectrum-radius-md); }
+    tr:last-child td:last-child { border-radius: 0 0 var(--spectrum-radius-md) 0; }
+    tr:hover td { background: rgba(255,255,255,0.03); }
+    
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: var(--spectrum-radius-full);
+      font-size: var(--spectrum-font-size-100); /* Increased from 75 (12px) to 100 (14px) for readability */
+      font-weight: 600;
+    }
+    
+    .status-badge.green { background: rgba(16, 185, 129, 0.2); color: var(--spectrum-green-400); }
+    .status-badge.blue { background: rgba(59, 130, 246, 0.2); color: var(--spectrum-blue-400); }
+    .status-badge.purple { background: rgba(139, 92, 246, 0.2); color: var(--spectrum-purple-400); }
+    .status-badge.yellow { background: rgba(245, 158, 11, 0.2); color: var(--spectrum-yellow-400); }
+    .status-badge.red { background: rgba(239, 68, 68, 0.2); color: var(--spectrum-red-400); }
+    
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spectrum-spacing-300);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    
+    @media (max-width: 900px) {
+      .component-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    .component-card {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.95), rgba(26, 26, 46, 0.9));
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-300);
+      border: 1px solid var(--spectrum-border-default);
+      text-align: center;
+      transition: all 0.2s;
+    }
+    
+    .component-card:hover {
+      border-color: var(--spectrum-green-500);
+      transform: translateY(-2px);
+    }
+    
+    .component-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto var(--spectrum-spacing-200);
+      background: linear-gradient(135deg, var(--spectrum-green-500), var(--spectrum-cyan-500));
+      border-radius: var(--spectrum-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .component-icon i { width: 24px; height: 24px; color: white; }
+    
+    .component-title {
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-200);
+      margin-bottom: var(--spectrum-spacing-100);
+    }
+    
+    .component-desc {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spectrum-spacing-300);
+    }
+    
+    @media (max-width: 800px) {
+      .persona-grid { grid-template-columns: 1fr; }
+    }
+    
+    .persona-card {
+      background: rgba(15, 15, 26, 0.6);
+      border: 1px solid var(--spectrum-border-subtle);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-400);
+    }
+    
+    .persona-header {
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-200);
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    
+    .persona-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--spectrum-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .persona-avatar.design { background: rgba(167, 139, 250, 0.2); color: var(--spectrum-purple-400); }
+    .persona-avatar.eng { background: rgba(96, 165, 250, 0.2); color: var(--spectrum-blue-400); }
+    .persona-avatar.exec { background: rgba(52, 211, 153, 0.2); color: var(--spectrum-green-400); }
+    
+    .persona-avatar i { width: 20px; height: 20px; }
+    
+    .persona-title { font-weight: 600; font-size: var(--spectrum-font-size-200); }
+    .persona-role { font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted); }
+    
+    .persona-pain {
+      background: rgba(239, 68, 68, 0.1);
+      border-radius: var(--spectrum-radius-sm);
+      padding: var(--spectrum-spacing-200);
+      margin-bottom: var(--spectrum-spacing-200);
+      font-size: var(--spectrum-font-size-100);
+    }
+    
+    .persona-pain-label {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-red-400);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .persona-value {
+      background: rgba(16, 185, 129, 0.1);
+      border-radius: var(--spectrum-radius-sm);
+      padding: var(--spectrum-spacing-200);
+      font-size: var(--spectrum-font-size-100);
+    }
+    
+    .persona-value-label {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-green-400);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .phase-timeline {
+      display: flex;
+      gap: var(--spectrum-spacing-100);
+      margin: var(--spectrum-spacing-400) 0;
+    }
+    
+    .phase-item {
+      flex: 1;
+      text-align: center;
+      padding: var(--spectrum-spacing-200);
+      border-radius: var(--spectrum-radius-md);
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+    }
+    
+    .phase-item.active {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: var(--spectrum-green-400);
+    }
+    
+    .phase-item.upcoming {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--spectrum-border-subtle);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .wbs-phase {
+      background: rgba(22, 33, 62, 0.6);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      overflow: hidden;
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    
+    .wbs-phase-header {
+      background: rgba(16, 185, 129, 0.15);
+      padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .wbs-phase-badge {
+      background: var(--spectrum-green-500);
+      color: white;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: var(--spectrum-font-size-75);
+    }
+    
+    .wbs-tasks {
+      padding: var(--spectrum-spacing-200);
+    }
+    
+    .wbs-task {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: var(--spectrum-spacing-200);
+      padding: var(--spectrum-spacing-200);
+      border-bottom: 1px solid var(--spectrum-border-subtle);
+      align-items: center;
+      font-size: var(--spectrum-font-size-100);
+    }
+    
+    .wbs-task:last-child { border-bottom: none; }
+    
+    .wbs-task-owner {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-text-muted);
+      background: rgba(15, 15, 26, 0.6);
+      padding: 4px 10px;
+      border-radius: var(--spectrum-radius-sm);
+    }
+    
+    .wbs-task-duration {
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-cyan-400);
+      background: rgba(14, 165, 233, 0.15);
+      padding: 4px 10px;
+      border-radius: var(--spectrum-radius-sm);
+    }
+    
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .checklist li {
+      padding: var(--spectrum-spacing-200) 0;
+      border-bottom: 1px solid var(--spectrum-border-subtle);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spectrum-spacing-200);
+    }
+    
+    .checklist li:last-child { border-bottom: none; }
+    
+    .checklist li i {
+      width: 16px;
+      height: 16px;
+      color: var(--spectrum-green-400);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    
+    .doc-card {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.95), rgba(26, 26, 46, 0.9));
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-300);
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-300);
+    }
+    
+    .doc-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--spectrum-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .doc-icon.legal { background: rgba(139, 92, 246, 0.2); color: var(--spectrum-purple-400); }
+    .doc-icon.security { background: rgba(16, 185, 129, 0.2); color: var(--spectrum-green-400); }
+    .doc-icon.tech { background: rgba(59, 130, 246, 0.2); color: var(--spectrum-blue-400); }
+    
+    .doc-icon i { width: 24px; height: 24px; }
+    
+    .doc-content { flex: 1; }
+    .doc-title { font-weight: 600; margin-bottom: 4px; }
+    .doc-desc { font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted); }
+    
+    .doc-status {
+      font-size: var(--spectrum-font-size-75);
+      padding: 4px 12px;
+      border-radius: var(--spectrum-radius-full);
+      font-weight: 600;
+    }
+    
+    .doc-status.ready { background: rgba(16, 185, 129, 0.2); color: var(--spectrum-green-400); }
+    .doc-status.pending { background: rgba(245, 158, 11, 0.2); color: var(--spectrum-yellow-400); }
+    .doc-status.blocked { background: rgba(239, 68, 68, 0.2); color: var(--spectrum-red-400); }
+    
+    footer {
+      text-align: center;
+      padding: var(--spectrum-spacing-500) 0;
+      border-top: 1px solid var(--spectrum-border-default);
+      margin-top: var(--spectrum-spacing-500);
+    }
+    
+    .footer-meta {
+      display: flex;
+      justify-content: center;
+      gap: var(--spectrum-spacing-400);
+      flex-wrap: wrap;
+      margin-bottom: var(--spectrum-spacing-200);
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+    
+    .footer-text {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+    
+    /* Screen reader only - visually hidden but accessible */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    
+    /* Glossary styling */
+    .glossary {
+      margin-bottom: var(--spectrum-spacing-400);
+      background: rgba(15, 15, 26, 0.6);
+      border: 1px solid var(--spectrum-border-subtle);
+      border-radius: var(--spectrum-radius-md);
+      padding: var(--spectrum-spacing-200) var(--spectrum-spacing-300);
+    }
+    
+    .glossary summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--spectrum-text-secondary);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spectrum-spacing-200);
+      margin-top: var(--spectrum-spacing-200);
+      padding-top: var(--spectrum-spacing-200);
+      border-top: 1px solid var(--spectrum-border-subtle);
+    }
+    
+    @media (max-width: 768px) {
+      .glossary-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    /* Print styles */
+    @media print {
+      body::before { display: none; }
+      nav { display: none; }
+      .container { padding: 0; }
+      section { break-inside: avoid; }
+      .skip-link { display: none; }
+    }
+    
+    /* High contrast mode support for accessibility */
+    @media (prefers-contrast: high) {
+      :root {
+        --spectrum-bg-base: #000000;
+        --spectrum-bg-layer-1: #1a1a1a;
+        --spectrum-bg-surface: #0d0d0d;
+        --spectrum-text-primary: #ffffff;
+        --spectrum-text-secondary: #ffffff;
+        --spectrum-text-muted: #e0e0e0;
+        --spectrum-border-default: #ffffff;
+        --spectrum-border-subtle: #666666;
+      }
+      
+      .status-badge {
+        border: 1px solid currentColor;
+      }
+      
+      section {
+        border-width: 2px;
+      }
+      
+      .stat-card {
+        border-width: 2px;
+      }
+      
+      .callout {
+        border-left-width: 6px;
+      }
+    }
+    
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#gtm" class="skip-link">Skip to main content</a>
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-logo"><i data-lucide="package"></i></div>
+        <span class="nav-title">IPE V1 Offering Kit</span>
+        <span class="nav-version">GA Mar 31</span>
+      </div>
+      <div class="nav-links">
+        <a href="ipe_launch_checklist.html" class="nav-link" style="background: rgba(239, 68, 68, 0.2); color: #f87171;">Sprint Checklist</a>
+        <a href="#gtm" class="nav-link active">GTM</a>
+        <a href="#solutioning" class="nav-link">Solutioning</a>
+        <a href="#delivery" class="nav-link">Delivery</a>
+        <a href="#procurement" class="nav-link">Procurement</a>
+        <a href="gtm_playbook.html" class="nav-link">GTM Playbook</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header>
+      <div class="header-badge">
+        <i data-lucide="sparkles"></i>
+        IPE V1 | Generally Available March 31, 2026
+      </div>
+      <h1>IPE V1 Offering Kit</h1>
+      <p class="header-subtitle">Everything your team needs to sell, solution, and deliver IPE V1. Four components, one source of truth.</p>
+    </header>
+
+    <!-- Hero GTM Message -->
+    <div class="hero-message">
+      <h2>IPE Intelligence — Included at GA</h2>
+      <p>On April 1st, every paying Knapsack customer gets IPE (Knapsack MCP) <strong>included in their platform</strong>. No separate purchase. Your design system becomes AI-ready intelligence — differentiating us from every competitor.</p>
+    </div>
+
+    <!-- Component Overview -->
+    <div class="component-grid">
+      <a href="#gtm" class="component-card">
+        <div class="component-icon"><i data-lucide="target"></i></div>
+        <div class="component-title">GTM Value Prop</div>
+        <div class="component-desc">Personas, use cases, pricing, engagement model</div>
+      </a>
+      <a href="#solutioning" class="component-card">
+        <div class="component-icon"><i data-lucide="puzzle"></i></div>
+        <div class="component-title">Solutioning</div>
+        <div class="component-desc">Discovery, sizing, WBS, RACI, onboarding</div>
+      </a>
+      <a href="#delivery" class="component-card">
+        <div class="component-icon"><i data-lucide="box"></i></div>
+        <div class="component-title">Delivery BOM</div>
+        <div class="component-desc">SBOM, security docs, architecture</div>
+      </a>
+      <a href="#procurement" class="component-card">
+        <div class="component-icon"><i data-lucide="file-signature"></i></div>
+        <div class="component-title">Procurement Kit</div>
+        <div class="component-desc">MSA, SOW templates, acceleration</div>
+      </a>
+    </div>
+
+    <!-- Glossary -->
+    <details class="glossary">
+      <summary>
+        <i data-lucide="book-open" style="width: 16px; height: 16px;" aria-hidden="true"></i> Acronym Glossary
+        <span style="font-weight: 400; font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);">(click to expand)</span>
+      </summary>
+      <div class="glossary-grid">
+        <div><strong style="color: var(--spectrum-cyan-400);">PCRI</strong> — Product/Capability Readiness Index</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">RACI</strong> — Responsible, Accountable, Consulted, Informed</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">SBOM</strong> — Software Bill of Materials</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">DPA</strong> — Data Processing Agreement</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">MCP</strong> — Model Context Protocol</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">MSA</strong> — Master Service Agreement</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">SOW</strong> — Statement of Work</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">TCV</strong> — Total Contract Value</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">GA</strong> — General Availability</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">NRR</strong> — Net Revenue Retention</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">ToS</strong> — Terms of Service</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">CX</strong> — Customer Experience</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">WBS</strong> — Work Breakdown Structure</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">BDR</strong> — Business Development Rep</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">SE</strong> — Solutions Engineer</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">AE</strong> — Account Executive</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">ROI</strong> — Return on Investment</div>
+        <div><strong style="color: var(--spectrum-cyan-400);">TCO</strong> — Total Cost of Ownership</div>
+      </div>
+    </details>
+
+    <!-- ========================================================================
+         SECTION 1: GTM VALUE PROPOSITION
+         ======================================================================== -->
+    <section class="section" id="gtm">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <h2>GTM Value Proposition</h2>
+      </div>
+      
+      <p class="text-muted mb-4">Positioning, personas, commercial model, and engagement framework for IPE V1.</p>
+
+      <!-- Pricing Decisions Pending -->
+      <div class="callout warning mb-4" style="border-left: 4px solid var(--spectrum-yellow-400);">
+        <p style="margin-bottom: 12px;"><strong><i data-lucide="alert-triangle" style="width:16px;height:16px;display:inline;vertical-align:middle;margin-right:6px;"></i>Pricing Decisions Pending (from Feb 26 Pricing Jam)</strong></p>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; font-size: 0.875rem;">
+          <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+            <strong style="color: var(--spectrum-yellow-400);">1. Tier 0 Quota</strong><br>
+            What's the included usage quota for Knapsack-only MCP? Enough to see value, not unlimited.
+          </div>
+          <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+            <strong style="color: var(--spectrum-yellow-400);">2. Operation Costing</strong><br>
+            Grant to provide cost per operation type. What does 195 tool requests cost us?
+          </div>
+          <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+            <strong style="color: var(--spectrum-yellow-400);">3. Tier Boundaries</strong><br>
+            Where do consumption tiers start/stop? Need usage baselines before setting.
+          </div>
+          <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+            <strong style="color: var(--spectrum-yellow-400);">4. Adoption Reporting</strong><br>
+            No current visibility into customer adoption. Need dashboards before consumption pricing works.
+          </div>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.8125rem; color: var(--spectrum-text-muted);"><strong>Owners:</strong> Grant (costing + reporting), Chris (tier boundaries), Amber (deal application)</p>
+      </div>
+
+      <!-- Core Positioning -->
+      <h3>Core Positioning</h3>
+      
+      <div class="callout success">
+        <p><strong>Intelligence, Not Technology</strong></p>
+        <p style="margin-top: 8px;">MCP is the delivery mechanism, not the value proposition. The value is <strong>aggregated intelligence</strong> — the ability to ingest, weight, and surface context from multiple sources so AI agents produce better output.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card green">
+          <div class="stat-label"><i data-lucide="zap" style="width:14px;height:14px;"></i> V1 Core Value</div>
+          <div class="stat-value" style="font-size: var(--spectrum-font-size-500);">Context Intelligence</div>
+          <div class="stat-note">Assess, recommend, quantify design system value</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-label"><i data-lucide="database" style="width:14px;height:14px;"></i> V1 Sources</div>
+          <div class="stat-value" style="font-size: var(--spectrum-font-size-500);">3 Types</div>
+          <div class="stat-note">Knapsack (included) + Storybook + Markdown</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-label"><i data-lucide="cloud" style="width:14px;height:14px;"></i> Delivery</div>
+          <div class="stat-value" style="font-size: var(--spectrum-font-size-500);">Cloud MCP</div>
+          <div class="stat-note">Cloud-native, no local install required</div>
+        </div>
+        <div class="stat-card amber">
+          <div class="stat-label"><i data-lucide="shield" style="width:14px;height:14px;"></i> Differentiator</div>
+          <div class="stat-value" style="font-size: var(--spectrum-font-size-500);">Governed AI</div>
+          <div class="stat-note">Enterprise guardrails, audit trails</div>
+        </div>
+      </div>
+
+      <!-- Pricing Model -->
+      <h3>V1 Pricing Model: Platform + Consumption</h3>
+      
+      <div class="callout success mb-4">
+        <p><strong>Key Insight:</strong> IPE V1 (Knapsack MCP) is <strong>included with the platform</strong> for all paying customers on April 1st. This is our differentiation vs Zero Height, Supernova, etc. — customers don't need to build their own MCP. Revenue growth comes from <strong>consumption expansion</strong>, not platform fees.</p>
+      </div>
+      
+      <h4>Pricing Structure</h4>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Component</th>
+              <th scope="col">Model</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Platform Fee</strong></td>
+              <td>Current Knapsack tiers (seat-based)</td>
+              <td>Existing pricing unchanged. IPE adds value to existing platform.</td>
+            </tr>
+            <tr style="background: rgba(16, 185, 129, 0.1);">
+              <td><strong>IPE Tier 0 (Included)</strong></td>
+              <td>Knapsack source only + usage quota</td>
+              <td>Included in platform fee. Enough quota to see value. Differentiator.</td>
+            </tr>
+            <tr>
+              <td><strong>IPE Consumption</strong></td>
+              <td>Operations-based tiers (not tokens)</td>
+              <td>Usage above Tier 0 quota. More sources = more consumption = more revenue.</td>
+            </tr>
+            <tr>
+              <td><strong>Additional Sources</strong></td>
+              <td>Included (not charged separately)</td>
+              <td>Don't charge for integrations — inhibits adoption. Sources drive consumption.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <h4>Consumption Tiers (Recommended)</h4>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Tier</th>
+              <th scope="col">Operations/Month</th>
+              <th scope="col">Sources</th>
+              <th scope="col">Annual Add-On</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: rgba(16, 185, 129, 0.1);">
+              <td><span class="status-badge green">Tier 0 — Included</span></td>
+              <td class="font-mono">TBD quota*</td>
+              <td>Knapsack only</td>
+              <td class="font-mono text-green">$0</td>
+              <td>Included in platform. Enough to demonstrate value.</td>
+            </tr>
+            <tr>
+              <td><span class="status-badge blue">Tier 1 — Starter</span></td>
+              <td class="font-mono">TBD*</td>
+              <td>All V1 sources</td>
+              <td class="font-mono">$24-48K/yr*</td>
+              <td>Single team, moderate usage. Entry expansion tier.</td>
+            </tr>
+            <tr>
+              <td><span class="status-badge purple">Tier 2 — Growth</span></td>
+              <td class="font-mono">TBD*</td>
+              <td>All V1 sources + conflict surfacing</td>
+              <td class="font-mono">$60-96K/yr*</td>
+              <td>Multi-team, growing adoption. Conflict detection valuable.</td>
+            </tr>
+            <tr>
+              <td><span class="status-badge green">Tier 3 — Enterprise</span></td>
+              <td class="font-mono">TBD*</td>
+              <td>All V1 + priority V2</td>
+              <td class="font-mono">$120-180K/yr*</td>
+              <td>Org-wide adoption, high consumption, dedicated support.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="callout warning">
+        <p><strong>* Operations Quotas Pending</strong> — Grant/Engineering to provide cost data per operation type. Need usage baselines before setting tier boundaries. Current highest MCP usage: 195 requests/2 weeks.</p>
+      </div>
+      
+      <h4>Overage & Expansion Model</h4>
+      <div class="callout info">
+        <p><strong>Predefined Spend Strategy:</strong></p>
+        <ul style="margin: 12px 0 0 0; padding-left: 20px;">
+          <li><strong>Initial Contract:</strong> Intentionally undersize at Tier 1 knowing adoption will exceed quota</li>
+          <li><strong>Mid-Contract:</strong> Customer hits overage territory as adoption grows</li>
+          <li><strong>Expansion Offer:</strong> Waive overages if they sign next year at higher tier (e.g., Tier 2)</li>
+          <li><strong>Outcome:</strong> Natural expansion path tied to adoption success, not sales pressure</li>
+        </ul>
+        <p style="margin-top: 12px;"><strong>Example:</strong> Contract at $50K (Tier 1) knowing they'll consume $100K. At overage point, offer 2-year at $75K/yr = $150K TCV vs $100K one-time. Customer gets predictability, we get commitment.</p>
+      </div>
+
+      <!-- Personas -->
+      <h3>Persona Value Matrix</h3>
+      
+      <div class="persona-grid">
+        <div class="persona-card">
+          <div class="persona-header">
+            <div class="persona-avatar design"><i data-lucide="palette"></i></div>
+            <div>
+              <div class="persona-title">Design System Lead</div>
+              <div class="persona-role">Primary Champion</div>
+            </div>
+          </div>
+          <div class="persona-pain">
+            <div class="persona-pain-label">Pain Point</div>
+            "I can't prove the ROI of our design system to leadership."
+          </div>
+          <div class="persona-value">
+            <div class="persona-value-label">IPE Value</div>
+            Quantified adoption metrics, AI-powered consistency scoring, executive-ready reports
+          </div>
+        </div>
+        
+        <div class="persona-card">
+          <div class="persona-header">
+            <div class="persona-avatar eng"><i data-lucide="cpu"></i></div>
+            <div>
+              <div class="persona-title">AI/Platform Engineering</div>
+              <div class="persona-role">Technical Buyer</div>
+            </div>
+          </div>
+          <div class="persona-pain">
+            <div class="persona-pain-label">Pain Point</div>
+            "AI tools generate inconsistent, off-brand code."
+          </div>
+          <div class="persona-value">
+            <div class="persona-value-label">IPE Value</div>
+            Context-aware AI with design system knowledge, governed output, reduced rework
+          </div>
+        </div>
+        
+        <div class="persona-card">
+          <div class="persona-header">
+            <div class="persona-avatar exec"><i data-lucide="trending-up"></i></div>
+            <div>
+              <div class="persona-title">VP/CTO</div>
+              <div class="persona-role">Economic Buyer</div>
+            </div>
+          </div>
+          <div class="persona-pain">
+            <div class="persona-pain-label">Pain Point</div>
+            "We're paying for AI tools but not seeing productivity gains."
+          </div>
+          <div class="persona-value">
+            <div class="persona-value-label">IPE Value</div>
+            Maximize AI ROI with context intelligence, reduce AI waste, measurable velocity gains
+          </div>
+        </div>
+      </div>
+
+      <!-- Use Cases -->
+      <h3>V1 Use Cases</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Use Case</th>
+              <th scope="col">Description</th>
+              <th scope="col">Persona</th>
+              <th scope="col">Success Metric</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Assess Design System Health</strong></td>
+              <td>Ingest Knapsack content, surface coverage gaps, benchmark against peers</td>
+              <td>Design System Lead</td>
+              <td>PCRI score, pillar breakdowns</td>
+            </tr>
+            <tr>
+              <td><strong>Govern AI Output</strong></td>
+              <td>Feed design system context to AI agents via MCP for consistent code gen</td>
+              <td>AI/Platform Eng</td>
+              <td>Rework reduction %, consistency score</td>
+            </tr>
+            <tr>
+              <td><strong>Quantify Design System ROI</strong></td>
+              <td>Measure adoption, calculate time savings, build executive business case</td>
+              <td>VP/CTO</td>
+              <td>$ saved, velocity improvement</td>
+            </tr>
+            <tr>
+              <td><strong>Conflict Detection</strong></td>
+              <td>Surface conflicts between Knapsack, Storybook, and Markdown sources</td>
+              <td>Design System Lead</td>
+              <td>Conflicts resolved, source alignment %</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Engagement Model -->
+      <h3>Deal Structure: Platform + Services + Consumption</h3>
+      
+      <div class="callout info mb-4">
+        <p><strong>Three Revenue Streams:</strong> Deals combine platform fees, services (J1-J4), and IPE consumption. PCRI score drives services path. Adoption drives consumption tier.</p>
+      </div>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Component</th>
+              <th scope="col">Driver</th>
+              <th scope="col">Typical Range</th>
+              <th scope="col">Who Owns</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Platform Fee</strong></td>
+              <td>Seats / team size</td>
+              <td class="font-mono">$24-150K/yr</td>
+              <td>AE</td>
+            </tr>
+            <tr>
+              <td><strong>Services (J1-J4)</strong></td>
+              <td>PCRI score → Investment Path</td>
+              <td class="font-mono">$50K-740K</td>
+              <td>CX Partner</td>
+            </tr>
+            <tr>
+              <td><strong>IPE Consumption</strong></td>
+              <td>Adoption / usage</td>
+              <td class="font-mono">$0-180K/yr</td>
+              <td>CX (drives adoption)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <h4>Services Pricing by PCRI Path</h4>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">PCRI Score</th>
+              <th scope="col">Path</th>
+              <th scope="col">Services TCV</th>
+              <th scope="col">IPE Consumption (Year 1)</th>
+              <th scope="col">Total Deal Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="font-mono">&lt;45</td>
+              <td><span class="status-badge blue">J1 Foundation</span></td>
+              <td class="font-mono">$50K+</td>
+              <td>Tier 0 (included) — low adoption initially</td>
+              <td class="font-mono text-green">$74K+ (platform + services)</td>
+            </tr>
+            <tr>
+              <td class="font-mono">45-54</td>
+              <td><span class="status-badge blue">J2 Acceleration</span></td>
+              <td class="font-mono">$50K+ sprint</td>
+              <td>Tier 0-1 — moderate adoption</td>
+              <td class="font-mono text-green">$100-150K</td>
+            </tr>
+            <tr>
+              <td class="font-mono">55-74</td>
+              <td><span class="status-badge purple">J3 Activation</span></td>
+              <td class="font-mono">$740K+ phased</td>
+              <td>Tier 2 — growing adoption</td>
+              <td class="font-mono text-green">$850K+ (phased)</td>
+            </tr>
+            <tr>
+              <td class="font-mono">75+</td>
+              <td><span class="status-badge green">J4 Intelligence</span></td>
+              <td class="font-mono">$165K+</td>
+              <td>Tier 2-3 — high adoption ready</td>
+              <td class="font-mono text-green">$285-345K+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="callout success">
+        <p><strong>Revenue Shift:</strong> Platform fees are not where Knapsack makes significant margin. The <strong>consumption growth</strong> is the margin driver. CX/Delivery's primary job is driving adoption, which directly drives consumption revenue.</p>
+      </div>
+
+      <!-- Account Prioritization -->
+      <h3>Account Prioritization for Consumption Model</h3>
+      
+      <div class="callout info mb-4">
+        <p><strong>Adoption-First Targeting:</strong> With consumption-based pricing, account value is driven by <strong>breadth of adoption potential</strong>, not just deal size. Prioritize accounts that can drive high usage.</p>
+      </div>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Priority</th>
+              <th scope="col">Account Profile</th>
+              <th scope="col">Why Valuable</th>
+              <th scope="col">Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: rgba(16, 185, 129, 0.1);">
+              <td><span class="status-badge green">Tier 1</span></td>
+              <td><strong>Broad User Base</strong></td>
+              <td>Large existing user pool = immediate consumption potential</td>
+              <td>Home Depot (many teams, high platform usage)</td>
+            </tr>
+            <tr style="background: rgba(16, 185, 129, 0.1);">
+              <td><span class="status-badge green">Tier 1</span></td>
+              <td><strong>High Untapped Potential</strong></td>
+              <td>Many potential users not yet on platform</td>
+              <td>GSK (expansion into additional divisions)</td>
+            </tr>
+            <tr>
+              <td><span class="status-badge blue">Tier 2</span></td>
+              <td><strong>New Division Play</strong></td>
+              <td>Take IPE to separate group within org = new user pool</td>
+              <td>Memorial Sloan Kettering (global branding group)</td>
+            </tr>
+            <tr>
+              <td><span class="status-badge blue">Tier 2</span></td>
+              <td><strong>High Ambition, Low Current Usage</strong></td>
+              <td>Undefined usage today but stated AI ambitions</td>
+              <td>Edison (ambitious roadmap, needs activation)</td>
+            </tr>
+            <tr>
+              <td><span class="status-badge yellow">Tier 3</span></td>
+              <td><strong>Small but Replicable</strong></td>
+              <td>Low ceiling but proves model for mid-market (2027)</td>
+              <td>Accutech (won't hit $100K but proves pattern)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="callout warning">
+        <p><strong>Mid-Market (2027):</strong> Self-serve mid-market requires growth marketing, automated payments, and different CX model. Parking this for 2027 planning. Current focus: enterprise adoption.</p>
+      </div>
+
+      <!-- Success Metrics -->
+      <h3>Success Metrics Framework</h3>
+      
+      <div class="callout success mb-4">
+        <p><strong>Key Insight:</strong> Adoption metrics are now <strong>revenue metrics</strong>. More adoption = more consumption = more revenue. CX must have visibility into adoption dashboards.</p>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Category</th>
+              <th scope="col">Metrics</th>
+              <th scope="col">Revenue Impact</th>
+              <th scope="col">Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: rgba(16, 185, 129, 0.1);">
+              <td><strong>Operations (Consumption)</strong></td>
+              <td>MCP tool calls/month, operations by tier</td>
+              <td><strong>Direct:</strong> Consumption billing</td>
+              <td>Product + CX</td>
+            </tr>
+            <tr style="background: rgba(16, 185, 129, 0.1);">
+              <td><strong>User Spread</strong></td>
+              <td>Active users, unique users/month, user growth rate</td>
+              <td><strong>Direct:</strong> 8 users 1x/hr > 1 user every 10 min</td>
+              <td>CX</td>
+            </tr>
+            <tr>
+              <td><strong>Sources Ingested</strong></td>
+              <td># of sources connected, completeness of ingestion</td>
+              <td><strong>Indirect:</strong> More sources → more queries</td>
+              <td>CX + SE</td>
+            </tr>
+            <tr>
+              <td><strong>Maturity Progression</strong></td>
+              <td>PCRI score change, readiness level</td>
+              <td><strong>Indirect:</strong> Higher maturity → more adoption</td>
+              <td>CX</td>
+            </tr>
+            <tr>
+              <td><strong>Value Realization</strong></td>
+              <td>Consistency scores, dev velocity, rework reduction</td>
+              <td><strong>Retention:</strong> Proven value → renewal</td>
+              <td>CX</td>
+            </tr>
+            <tr>
+              <td><strong>Expansion</strong></td>
+              <td>Tier upgrades, overage rate, NRR</td>
+              <td><strong>Direct:</strong> Expansion revenue</td>
+              <td>AE + CX</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="callout warning">
+        <p><strong>Visibility Gap:</strong> We currently lack real-time adoption dashboards. Grant's data: highest site = 195 MCP requests in 2 weeks. Need to build reporting before we can set consumption tier boundaries.</p>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 2: SOLUTIONING PLAYBOOK
+         ======================================================================== -->
+    <section class="section" id="solutioning">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <h2>Solutioning Playbook</h2>
+      </div>
+      
+      <p class="text-muted mb-4">Discovery questions, complexity sizing, WBS templates, and RACI for right-sizing implementations.</p>
+
+      <!-- Discovery Framework -->
+      <h3>Discovery Question Bank</h3>
+      
+      <div class="callout info mb-4">
+        <p><strong>Discovery Goal:</strong> Validate PCRI self-assessment, determine deployment tier (D1-D4), and confirm investment path (J1-J4). These questions are used by SE during L2 Pre-Qualification and by CX during scoping.</p>
+      </div>
+      
+      <h4>Foundation Pillar (Weight: 25%)</h4>
+      <ul class="checklist">
+        <li><i data-lucide="check-circle"></i> Do you have a documented design system today? Where does it live?</li>
+        <li><i data-lucide="check-circle"></i> How many components are in your system? What % are actively maintained?</li>
+        <li><i data-lucide="check-circle"></i> Is your design system in Knapsack, Storybook, or another tool?</li>
+        <li><i data-lucide="check-circle"></i> Do you have design tokens defined? Are they synced across design/dev?</li>
+      </ul>
+      
+      <h4>AI Readiness Pillar (Weight: 20%)</h4>
+      <ul class="checklist">
+        <li><i data-lucide="check-circle"></i> What AI coding tools are your teams using today? (Cursor, Copilot, etc.)</li>
+        <li><i data-lucide="check-circle"></i> Are AI tools generating UI/component code? How consistent is the output?</li>
+        <li><i data-lucide="check-circle"></i> Have you tried connecting context sources to AI agents? What was the result?</li>
+        <li><i data-lucide="check-circle"></i> What % of AI-generated code requires rework for brand/system compliance?</li>
+      </ul>
+      
+      <h4>Governance Pillar (Weight: 25%)</h4>
+      <ul class="checklist">
+        <li><i data-lucide="check-circle"></i> Who owns design system governance? Is there a cross-functional team?</li>
+        <li><i data-lucide="check-circle"></i> Do you have contribution guidelines? How are changes reviewed/approved?</li>
+        <li><i data-lucide="check-circle"></i> What happens when teams deviate from the system? Is it tracked?</li>
+        <li><i data-lucide="check-circle"></i> Do you have audit requirements for AI tool usage? (FSS/Healthcare)</li>
+      </ul>
+      
+      <h4>Deployment Tier Signals</h4>
+      <ul class="checklist">
+        <li><i data-lucide="check-circle"></i> What are your data residency requirements? Can data leave your environment?</li>
+        <li><i data-lucide="check-circle"></i> Do you require SOC 2 / HIPAA / FedRAMP compliance from vendors?</li>
+        <li><i data-lucide="check-circle"></i> Is VPC deployment or on-premises required? (signals D3/D4)</li>
+        <li><i data-lucide="check-circle"></i> What is your typical procurement timeline for SaaS products?</li>
+      </ul>
+
+      <!-- Complexity Sizing -->
+      <h3>Complexity Sizing Matrix</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Factor</th>
+              <th scope="col">Simple (D1)</th>
+              <th scope="col">Moderate (D2)</th>
+              <th scope="col">Complex (D3)</th>
+              <th scope="col">Enterprise (D4)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Deployment</strong></td>
+              <td>Cloud Standard</td>
+              <td>Cloud Dedicated</td>
+              <td>Private Cloud/VPC</td>
+              <td>Self-Hosted</td>
+            </tr>
+            <tr>
+              <td><strong>Timeline</strong></td>
+              <td class="font-mono">2-4 weeks</td>
+              <td class="font-mono">4-8 weeks</td>
+              <td class="font-mono">8-16 weeks</td>
+              <td class="font-mono">16-24+ weeks</td>
+            </tr>
+            <tr>
+              <td><strong>Sources</strong></td>
+              <td>Knapsack only</td>
+              <td>+1 source</td>
+              <td>All V1 sources</td>
+              <td>Custom sources</td>
+            </tr>
+            <tr>
+              <td><strong>Security Review</strong></td>
+              <td>Standard ToS</td>
+              <td>Extended review</td>
+              <td>Full audit</td>
+              <td>Pen test required</td>
+            </tr>
+            <tr>
+              <td><strong>FDE Allocation</strong></td>
+              <td class="font-mono">0.25 FTE</td>
+              <td class="font-mono">0.5 FTE</td>
+              <td class="font-mono">1.0 FTE</td>
+              <td class="font-mono">1.5+ FTE</td>
+            </tr>
+            <tr>
+              <td><strong>Price Premium</strong></td>
+              <td>Base</td>
+              <td class="font-mono">+25-40%</td>
+              <td class="font-mono">+50-75%</td>
+              <td class="font-mono">+100%+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- WBS Templates -->
+      <h3>Work Breakdown Structure</h3>
+      
+      <div class="wbs-phase">
+        <div class="wbs-phase-header">
+          <span class="wbs-phase-badge">Phase 0</span>
+          Pre-Engagement (1-2 weeks)
+        </div>
+        <div class="wbs-tasks">
+          <div class="wbs-task">
+            <span>PCRI Assessment (self-service or paid)</span>
+            <span class="wbs-task-owner">Customer</span>
+            <span class="wbs-task-duration">1-2 days</span>
+          </div>
+          <div class="wbs-task">
+            <span>Tech Fit Validation</span>
+            <span class="wbs-task-owner">SE</span>
+            <span class="wbs-task-duration">1 call</span>
+          </div>
+          <div class="wbs-task">
+            <span>Investment Path + Deployment Tier recommendation</span>
+            <span class="wbs-task-owner">CX Partner</span>
+            <span class="wbs-task-duration">1 day</span>
+          </div>
+          <div class="wbs-task">
+            <span>SOW scoping and commercial negotiation</span>
+            <span class="wbs-task-owner">AE</span>
+            <span class="wbs-task-duration">1-2 weeks</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="wbs-phase">
+        <div class="wbs-phase-header">
+          <span class="wbs-phase-badge">Phase 1</span>
+          Foundation (2-4 weeks, varies by tier)
+        </div>
+        <div class="wbs-tasks">
+          <div class="wbs-task">
+            <span>ToS/DPA acceptance + Security review</span>
+            <span class="wbs-task-owner">Customer Legal</span>
+            <span class="wbs-task-duration">1-3 weeks</span>
+          </div>
+          <div class="wbs-task">
+            <span>Environment provisioning</span>
+            <span class="wbs-task-owner">FDE</span>
+            <span class="wbs-task-duration">2-5 days</span>
+          </div>
+          <div class="wbs-task">
+            <span>Initial source connection (Knapsack)</span>
+            <span class="wbs-task-owner">FDE + Customer</span>
+            <span class="wbs-task-duration">1-2 days</span>
+          </div>
+          <div class="wbs-task">
+            <span>MCP configuration + validation</span>
+            <span class="wbs-task-owner">FDE</span>
+            <span class="wbs-task-duration">1 day</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="wbs-phase">
+        <div class="wbs-phase-header">
+          <span class="wbs-phase-badge">Phase 2</span>
+          Activation (2-8 weeks, varies by path)
+        </div>
+        <div class="wbs-tasks">
+          <div class="wbs-task">
+            <span>Additional source ingestion (paid tiers)</span>
+            <span class="wbs-task-owner">FDE + Customer</span>
+            <span class="wbs-task-duration">1-2 weeks</span>
+          </div>
+          <div class="wbs-task">
+            <span>Conflict surfacing configuration (Enterprise)</span>
+            <span class="wbs-task-owner">FDE</span>
+            <span class="wbs-task-duration">1 week</span>
+          </div>
+          <div class="wbs-task">
+            <span>Admin training (source management, analytics)</span>
+            <span class="wbs-task-owner">CX Partner</span>
+            <span class="wbs-task-duration">2 hours</span>
+          </div>
+          <div class="wbs-task">
+            <span>End-user training (MCP usage, AI integration)</span>
+            <span class="wbs-task-owner">CX Partner</span>
+            <span class="wbs-task-duration">1 hour</span>
+          </div>
+          <div class="wbs-task">
+            <span>Champion onboarding + internal rollout plan</span>
+            <span class="wbs-task-owner">Customer + CX</span>
+            <span class="wbs-task-duration">1 week</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="wbs-phase">
+        <div class="wbs-phase-header">
+          <span class="wbs-phase-badge">Phase 3</span>
+          Scale (Ongoing)
+        </div>
+        <div class="wbs-tasks">
+          <div class="wbs-task">
+            <span>Monthly usage analytics review</span>
+            <span class="wbs-task-owner">CX Partner</span>
+            <span class="wbs-task-duration">Monthly</span>
+          </div>
+          <div class="wbs-task">
+            <span>Quarterly business review (QBR)</span>
+            <span class="wbs-task-owner">CX Partner + AE</span>
+            <span class="wbs-task-duration">Quarterly</span>
+          </div>
+          <div class="wbs-task">
+            <span>Expansion opportunity assessment</span>
+            <span class="wbs-task-owner">AE</span>
+            <span class="wbs-task-duration">Ongoing</span>
+          </div>
+          <div class="wbs-task">
+            <span>ROI validation + case study development</span>
+            <span class="wbs-task-owner">CX + Marketing</span>
+            <span class="wbs-task-duration">Quarter 2+</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RACI -->
+      <h3>RACI Matrix</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Decision Area</th>
+              <th scope="col">R (Responsible)</th>
+              <th scope="col">A (Accountable)</th>
+              <th scope="col">C (Consulted)</th>
+              <th scope="col">I (Informed)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Investment Path Selection</strong></td>
+              <td>SE</td>
+              <td>CX Partner</td>
+              <td>AE, FDE</td>
+              <td>PM</td>
+            </tr>
+            <tr>
+              <td><strong>Deployment Tier Determination</strong></td>
+              <td>SE</td>
+              <td>CX Partner</td>
+              <td>FDE, Security</td>
+              <td>AE</td>
+            </tr>
+            <tr>
+              <td><strong>Technical Feasibility</strong></td>
+              <td>FDE</td>
+              <td>CX Partner</td>
+              <td>SE, PM</td>
+              <td>AE</td>
+            </tr>
+            <tr>
+              <td><strong>Timeline & Milestones</strong></td>
+              <td>PM</td>
+              <td>CX Partner</td>
+              <td>FDE</td>
+              <td>AE, Customer</td>
+            </tr>
+            <tr>
+              <td><strong>Commercial Terms</strong></td>
+              <td>AE</td>
+              <td>AE</td>
+              <td>CX Partner, Finance</td>
+              <td>FDE</td>
+            </tr>
+            <tr>
+              <td><strong>MCP Unlock Authorization</strong></td>
+              <td>FDE</td>
+              <td>CX Partner</td>
+              <td>Executive</td>
+              <td>AE</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 3: DELIVERY BOM
+         ======================================================================== -->
+    <section class="section" id="delivery">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <h2>Delivery Bill of Materials</h2>
+      </div>
+      
+      <p class="text-muted mb-4">Software components, security documentation, and technical artifacts for IPE V1 delivery.</p>
+
+      <!-- V1 Component Inventory -->
+      <h3>V1 Component Inventory (SBOM)</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Component</th>
+              <th scope="col">Version</th>
+              <th scope="col">License</th>
+              <th scope="col">Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>IPE Core Engine</strong></td>
+              <td class="font-mono">1.0.0</td>
+              <td>Proprietary</td>
+              <td>Context ingestion, weighting, conflict detection</td>
+            </tr>
+            <tr>
+              <td><strong>MCP Server</strong></td>
+              <td class="font-mono">1.0.0</td>
+              <td>Proprietary</td>
+              <td>Model Context Protocol delivery endpoint</td>
+            </tr>
+            <tr>
+              <td><strong>Knapsack Connector</strong></td>
+              <td class="font-mono">1.0.0</td>
+              <td>Proprietary</td>
+              <td>Native Knapsack content ingestion</td>
+            </tr>
+            <tr>
+              <td><strong>Storybook Connector</strong></td>
+              <td class="font-mono">1.0.0</td>
+              <td>Proprietary</td>
+              <td>Storybook component metadata ingestion</td>
+            </tr>
+            <tr>
+              <td><strong>Markdown Connector</strong></td>
+              <td class="font-mono">1.0.0</td>
+              <td>Proprietary</td>
+              <td>Raw markdown documentation ingestion</td>
+            </tr>
+            <tr>
+              <td><strong>Admin Console</strong></td>
+              <td class="font-mono">1.0.0</td>
+              <td>Proprietary</td>
+              <td>Source management, analytics, user admin</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="callout info">
+        <p><strong>Full SBOM Available:</strong> Complete software bill of materials with dependency tree available upon request for enterprise security reviews.</p>
+      </div>
+
+      <!-- Security Documentation -->
+      <h3>Security Documentation Status</h3>
+      
+      <div style="display: flex; flex-direction: column; gap: var(--spectrum-spacing-300); margin-bottom: var(--spectrum-spacing-400);">
+        <div class="doc-card">
+          <div class="doc-icon security"><i data-lucide="shield-check"></i></div>
+          <div class="doc-content">
+            <div class="doc-title">SOC 2 Type II Report</div>
+            <div class="doc-desc">Annual audit report covering security, availability, and confidentiality controls</div>
+          </div>
+          <span class="doc-status ready">Available</span>
+        </div>
+        
+        <div class="doc-card">
+          <div class="doc-icon legal"><i data-lucide="file-text"></i></div>
+          <div class="doc-content">
+            <div class="doc-title">Terms of Service (IPE Addendum)</div>
+            <div class="doc-desc">Updated ToS with IPE-specific data processing terms</div>
+          </div>
+          <span class="doc-status pending">Target: Mar 21</span>
+        </div>
+        
+        <div class="doc-card">
+          <div class="doc-icon legal"><i data-lucide="file-lock"></i></div>
+          <div class="doc-content">
+            <div class="doc-title">Data Processing Agreement (DPA)</div>
+            <div class="doc-desc">GDPR-compliant DPA with IPE storage patterns</div>
+          </div>
+          <span class="doc-status pending">Target: Mar 21</span>
+        </div>
+        
+        <div class="doc-card">
+          <div class="doc-icon security"><i data-lucide="help-circle"></i></div>
+          <div class="doc-content">
+            <div class="doc-title">Security FAQ</div>
+            <div class="doc-desc">Pre-emptive answers to common procurement security questions</div>
+          </div>
+          <span class="doc-status pending">Target: Mar 21</span>
+        </div>
+        
+        <div class="doc-card">
+          <div class="doc-icon tech"><i data-lucide="git-branch"></i></div>
+          <div class="doc-content">
+            <div class="doc-title">Data Flow Diagram</div>
+            <div class="doc-desc">Visual showing ingestion → processing → MCP delivery architecture</div>
+          </div>
+          <span class="doc-status ready">Available</span>
+        </div>
+        
+        <div class="doc-card">
+          <div class="doc-icon tech"><i data-lucide="server"></i></div>
+          <div class="doc-content">
+            <div class="doc-title">Infrastructure Architecture</div>
+            <div class="doc-desc">D1-D4 deployment reference architectures</div>
+          </div>
+          <span class="doc-status ready">Available</span>
+        </div>
+      </div>
+
+      <!-- Compliance Matrix -->
+      <h3>Compliance Matrix</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Framework</th>
+              <th scope="col">Status</th>
+              <th scope="col">Certification</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>SOC 2 Type II</strong></td>
+              <td><span class="status-badge green">Certified</span></td>
+              <td>Annual</td>
+              <td>Report available under NDA</td>
+            </tr>
+            <tr>
+              <td><strong>GDPR</strong></td>
+              <td><span class="status-badge green">Compliant</span></td>
+              <td>Self-attested</td>
+              <td>DPA available, EU data processing</td>
+            </tr>
+            <tr>
+              <td><strong>ISO 27001</strong></td>
+              <td><span class="status-badge yellow">In Progress</span></td>
+              <td>Target Q3 2026</td>
+              <td>Certification audit scheduled</td>
+            </tr>
+            <tr>
+              <td><strong>HIPAA</strong></td>
+              <td><span class="status-badge blue">BAA Available</span></td>
+              <td>Upon request</td>
+              <td>Requires D3+ deployment tier</td>
+            </tr>
+            <tr>
+              <td><strong>FedRAMP</strong></td>
+              <td><span class="status-badge yellow">Roadmap</span></td>
+              <td>Target 2027</td>
+              <td>Government customers: contact sales</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SLA -->
+      <h3>SLA by Consumption Tier</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Metric</th>
+              <th scope="col">Tier 0 (Included)</th>
+              <th scope="col">Tier 1</th>
+              <th scope="col">Tier 2</th>
+              <th scope="col">Tier 3 (Enterprise)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Uptime</strong></td>
+              <td>Best effort</td>
+              <td class="font-mono">99.5%</td>
+              <td class="font-mono">99.9%</td>
+              <td class="font-mono">99.95%</td>
+            </tr>
+            <tr>
+              <td><strong>Support Response</strong></td>
+              <td>Email (business hours)</td>
+              <td>48hr email</td>
+              <td>24hr email</td>
+              <td>4hr priority</td>
+            </tr>
+            <tr>
+              <td><strong>Dedicated CX</strong></td>
+              <td>—</td>
+              <td>Pooled</td>
+              <td>Shared</td>
+              <td>Named partner</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 4: PROCUREMENT KIT
+         ======================================================================== -->
+    <section class="section" id="procurement">
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <h2>MSA/SOW Procurement Kit</h2>
+      </div>
+      
+      <p class="text-muted mb-4">Templates, checklists, and acceleration tactics to get deals through procurement faster.</p>
+
+      <!-- SOW Templates -->
+      <h3>SOW Templates by Path</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Path</th>
+              <th scope="col">SOW Template</th>
+              <th scope="col">Typical Scope</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="status-badge blue">J1 Foundation</span></td>
+              <td>SOW-J1-Foundation-v1.docx</td>
+              <td>PCRI assessment, basic onboarding, Essentials/Pro license</td>
+              <td><span class="status-badge green">Ready</span></td>
+            </tr>
+            <tr>
+              <td><span class="status-badge blue">J2 Acceleration</span></td>
+              <td>SOW-J2-Sprint-v1.docx</td>
+              <td>6-8 week sprint, specific capability activation</td>
+              <td><span class="status-badge green">Ready</span></td>
+            </tr>
+            <tr>
+              <td><span class="status-badge purple">J3 Activation</span></td>
+              <td>SOW-J3-Phased-v1.docx</td>
+              <td>Multi-phase transformation, milestone-gated payments</td>
+              <td><span class="status-badge yellow">Draft</span></td>
+            </tr>
+            <tr>
+              <td><span class="status-badge green">J4 Intelligence</span></td>
+              <td>SOW-J4-Enterprise-v1.docx</td>
+              <td>Enterprise rollout, dedicated FDE, custom integration</td>
+              <td><span class="status-badge yellow">Draft</span></td>
+            </tr>
+            <tr>
+              <td><span class="status-badge yellow">Paid PCRI</span></td>
+              <td>SOW-PCRI-Assessment-v1.docx</td>
+              <td>$40-60K diagnostic engagement for Tech Fit failures</td>
+              <td><span class="status-badge green">Ready</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- MSA Amendment -->
+      <h3>MSA Amendment (IPE Addendum)</h3>
+      
+      <div class="callout warning">
+        <p><strong>For Existing Customers:</strong> IPE introduces new data storage patterns. Existing MSA customers adding IPE will need to accept an addendum covering:</p>
+        <ul style="margin: 12px 0 0 0; padding-left: 20px;">
+          <li>Context data ingestion and storage terms</li>
+          <li>MCP delivery and API access rights</li>
+          <li>Source conflict resolution data handling</li>
+        </ul>
+        <p style="margin-top: 12px;"><strong>Owner:</strong> Legal + Robin. Target: March 21.</p>
+      </div>
+
+      <!-- Procurement FAQ -->
+      <h3>Procurement FAQ (Pre-Answers)</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Question</th>
+              <th scope="col">Standard Response</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Where is data stored?</strong></td>
+              <td>US (default), EU available. D3+ customers can specify region. All data encrypted at rest (AES-256) and in transit (TLS 1.3).</td>
+            </tr>
+            <tr>
+              <td><strong>Do you have SOC 2?</strong></td>
+              <td>Yes, SOC 2 Type II certified. Report available under NDA upon request.</td>
+            </tr>
+            <tr>
+              <td><strong>What data do you collect?</strong></td>
+              <td>Design system content (components, tokens, docs) from connected sources. No PII unless embedded in documentation.</td>
+            </tr>
+            <tr>
+              <td><strong>Can we do a pen test?</strong></td>
+              <td>Yes for Enterprise+ customers. Coordinate with security@knapsack.cloud. Standard pen test results available for Enterprise.</td>
+            </tr>
+            <tr>
+              <td><strong>What's your DR/BC plan?</strong></td>
+              <td>Multi-region failover, daily backups with 30-day retention, documented incident response. Details in SOC 2 report.</td>
+            </tr>
+            <tr>
+              <td><strong>Do you support SSO?</strong></td>
+              <td>Yes, SAML 2.0 and OIDC for Professional+. SCIM provisioning for Enterprise+.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Security Questionnaire Pre-Fill -->
+      <h3>Security Questionnaire Support</h3>
+      
+      <div class="callout success">
+        <p><strong>Pre-Filled Responses Available:</strong></p>
+        <ul style="margin: 12px 0 0 0; padding-left: 20px;">
+          <li><strong>SIG Lite</strong> — 90% pre-filled, request from security@knapsack.cloud</li>
+          <li><strong>CAIQ (CSA)</strong> — 85% pre-filled, request from security@knapsack.cloud</li>
+          <li><strong>VSQ (Vendor Security)</strong> — 80% pre-filled, request from security@knapsack.cloud</li>
+          <li><strong>Custom questionnaires</strong> — Allow 5 business days turnaround</li>
+        </ul>
+      </div>
+
+      <!-- Procurement Acceleration -->
+      <h3>Procurement Acceleration Tactics</h3>
+      
+      <ul class="checklist">
+        <li><i data-lucide="zap"></i> <strong>Security Pre-Package:</strong> Bundle SOC 2 + Security FAQ + Data Flow Diagram in first outreach to procurement</li>
+        <li><i data-lucide="zap"></i> <strong>Parallel Path Legal:</strong> Identify procurement contact early, send pre-approved redline positions with initial contract</li>
+        <li><i data-lucide="zap"></i> <strong>Reference Architecture:</strong> Provide deployment diagram (D1-D4) to accelerate technical review</li>
+        <li><i data-lucide="zap"></i> <strong>Executive Sponsor Letter:</strong> Template letter from customer champion to procurement explaining urgency</li>
+        <li><i data-lucide="zap"></i> <strong>Mutual Action Plan:</strong> Shared timeline with customer showing key milestones and dependencies</li>
+      </ul>
+
+      <!-- Redline Response Playbook -->
+      <h3>Common Redlines + Approved Responses</h3>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Redline Request</th>
+              <th scope="col">Approved Position</th>
+              <th scope="col">Escalation Required?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Unlimited liability</td>
+              <td>Cap at 12 months fees; negotiate 24 months for Enterprise+</td>
+              <td>Yes, if &gt;24 months</td>
+            </tr>
+            <tr>
+              <td>Indemnification expansion</td>
+              <td>Standard IP indemnification; no general indemnity</td>
+              <td>Yes, if general indemnity</td>
+            </tr>
+            <tr>
+              <td>Data deletion timeline</td>
+              <td>30 days post-termination; can negotiate 14 days</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>Audit rights</td>
+              <td>Annual audit with 30 days notice; customer bears cost</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>SLA credits</td>
+              <td>Service credits per SLA schedule; no cash refunds</td>
+              <td>Yes, if cash refunds</td>
+            </tr>
+            <tr>
+              <td>Governing law</td>
+              <td>Delaware (preferred); will accept customer's state for Enterprise+</td>
+              <td>No, for US states</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Deal Health Monitoring -->
+      <h3>Procurement Stage Health</h3>
+      
+      <div class="callout info">
+        <p><strong>Days-in-Contracting Monitoring:</strong></p>
+        <ul style="margin: 12px 0 0 0; padding-left: 20px;">
+          <li><strong style="color: var(--spectrum-green-400);">Green (Days 1-14):</strong> Normal cycle, no intervention</li>
+          <li><strong style="color: var(--spectrum-yellow-400);">Yellow (Days 15-21):</strong> Elevated risk, Deal Desk check-in required</li>
+          <li><strong style="color: var(--spectrum-red-400);">Red (Days 22+):</strong> High risk, rescue protocol activated</li>
+        </ul>
+        <p style="margin-top: 12px;">See <a href="gtm_playbook.html#deal-desk" style="color: var(--spectrum-cyan-400);">GTM Playbook Section 6</a> for full rescue playbooks.</p>
+      </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="section" id="links">
+      <div class="section-header">
+        <div class="section-number"><i data-lucide="link" style="width:18px;height:18px;"></i></div>
+        <h2>Quick Links</h2>
+      </div>
+      
+      <div class="component-grid">
+        <a href="gtm_playbook.html" class="component-card">
+          <div class="component-icon" style="background: linear-gradient(135deg, var(--spectrum-purple-500), var(--spectrum-purple-700));"><i data-lucide="book-open"></i></div>
+          <div class="component-title">GTM Playbook</div>
+          <div class="component-desc">Full PCRI process, role playbooks, pipeline stages</div>
+        </a>
+        <a href="roi_calculator.html" class="component-card">
+          <div class="component-icon" style="background: linear-gradient(135deg, var(--spectrum-green-500), var(--spectrum-cyan-500));"><i data-lucide="calculator"></i></div>
+          <div class="component-title">ROI Calculator</div>
+          <div class="component-desc">Business case builder, TCO analysis</div>
+        </a>
+        <a href="onboarding_kit.html" class="component-card">
+          <div class="component-icon" style="background: linear-gradient(135deg, var(--spectrum-blue-500), var(--spectrum-cyan-500));"><i data-lucide="users"></i></div>
+          <div class="component-title">Onboarding Kit</div>
+          <div class="component-desc">Team enablement, training schedule</div>
+        </a>
+        <a href="../index.html" class="component-card">
+          <div class="component-icon" style="background: linear-gradient(135deg, var(--spectrum-orange-500), var(--spectrum-yellow-500));"><i data-lucide="home"></i></div>
+          <div class="component-title">IPE Hub</div>
+          <div class="component-desc">All IPE documentation</div>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-meta">
+        <div class="footer-meta-item"><strong>Document Owner:</strong> Amber</div>
+        <div class="footer-meta-item"><strong>Version:</strong> 1.0</div>
+        <div class="footer-meta-item"><strong>GA Date:</strong> March 31, 2026</div>
+      </div>
+      <p class="footer-text">IPE V1 Offering Kit — Sell, Solution, Deliver</p>
+    </footer>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    function updateActiveNav() {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 100) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    }
+    
+    window.addEventListener('scroll', updateActiveNav);
+    
+    navLinks.forEach(link => {
+      if (link.getAttribute('href').startsWith('#')) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetSection = document.getElementById(targetId);
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPE Case Study — J3 Activation | Financial Services Enterprise</title>
+  <meta name="description" content="Composite case study: How a Fortune 500 financial services company achieved governed AI execution through Knapsack IPE J3 Activation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple-900: #42247f;
+      --purple-700: #6436bf;
+      --purple-500: #8b5cf6;
+      --purple-400: #a78bfa;
+      --purple-300: #c4b5fd;
+      --purple-100: #ede9fe;
+      --green-500: #10b981;
+      --green-400: #34d399;
+      --green-300: #6ee7b7;
+      --blue-500: #3b82f6;
+      --blue-400: #60a5fa;
+      --blue-300: #93c5fd;
+      --amber-500: #f59e0b;
+      --amber-400: #fbbf24;
+      --amber-300: #fcd34d;
+      --red-500: #ef4444;
+      --red-400: #f87171;
+      --cyan-500: #0ea5e9;
+      --cyan-400: #22d3ee;
+      --bg-base: #0f0f1a;
+      --bg-layer: #16213e;
+      --bg-elevated: rgba(255,255,255,0.05);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255,255,255,0.85);
+      --text-muted: rgba(255,255,255,0.6);
+      --border-default: rgba(100, 54, 191, 0.3);
+      --border-subtle: rgba(255,255,255,0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(100, 54, 191, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    header {
+      padding: 40px 0 32px;
+      border-bottom: 1px solid var(--border-default);
+      margin-bottom: 40px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--purple-300);
+      background: rgba(139, 92, 246, 0.15);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+
+    .badge-green {
+      color: var(--green-300);
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #fff 0%, var(--purple-300) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 650px;
+    }
+
+    .meta-row {
+      display: flex;
+      gap: 24px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .meta-value {
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    /* Cards */
+    .card {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.9) 0%, rgba(26, 26, 46, 0.8) 100%);
+      border: 1px solid var(--border-default);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .card.highlight {
+      border-color: var(--purple-500);
+      background: linear-gradient(145deg, rgba(100, 54, 191, 0.15) 0%, rgba(22, 33, 62, 0.9) 100%);
+    }
+
+    .card.hero {
+      background: linear-gradient(135deg, var(--purple-900) 0%, var(--bg-layer) 100%);
+      border-color: var(--purple-700);
+    }
+
+    .card h2 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--purple-300);
+      margin-bottom: 8px;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .card p { color: var(--text-secondary); margin-bottom: 10px; }
+
+    /* Grid */
+    .grid { display: grid; gap: 16px; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+
+    /* Stat boxes */
+    .stat-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 18px 14px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--purple-300);
+    }
+
+    .stat-value.green { color: var(--green-300); }
+    .stat-value.blue { color: var(--blue-300); }
+    .stat-value.amber { color: var(--amber-300); }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      line-height: 1.3;
+    }
+
+    /* Section */
+    section { padding: 32px 0; }
+    section + section { border-top: 1px solid var(--border-subtle); }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--purple-400);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .section-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+
+    /* Timeline */
+    .timeline-item {
+      display: flex;
+      gap: 20px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .timeline-item:last-child { border-bottom: none; }
+
+    .timeline-phase {
+      flex-shrink: 0;
+      width: 140px;
+    }
+
+    .timeline-phase-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .timeline-phase-label.p1 {
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--purple-300);
+    }
+
+    .timeline-phase-label.p2 {
+      background: rgba(14, 165, 233, 0.2);
+      color: var(--cyan-400);
+    }
+
+    .timeline-phase-label.p3 {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--green-300);
+    }
+
+    .timeline-duration {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .timeline-body { flex: 1; }
+
+    .timeline-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .timeline-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .timeline-deliverables {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .deliverable-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+    }
+
+    /* Quote */
+    .quote {
+      background: linear-gradient(135deg, rgba(100, 54, 191, 0.1), rgba(14, 165, 233, 0.05));
+      border-left: 3px solid var(--purple-500);
+      border-radius: 0 10px 10px 0;
+      padding: 20px 24px;
+      margin: 20px 0;
+    }
+
+    .quote p {
+      font-size: 15px;
+      font-style: italic;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    .quote .attribution {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* PCRI Pillar bars */
+    .pillar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+    }
+
+    .pillar-name {
+      width: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .pillar-bar-bg {
+      flex: 1;
+      height: 8px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .pillar-bar {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+
+    .pillar-score {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      width: 36px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* Callout */
+    .callout {
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 16px 0;
+    }
+
+    .callout.success {
+      background: rgba(16, 185, 129, 0.1);
+      border-left: 3px solid var(--green-500);
+    }
+
+    .callout.info {
+      background: rgba(139, 92, 246, 0.1);
+      border-left: 3px solid var(--purple-500);
+    }
+
+    .callout p { margin: 0; font-size: 14px; }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .data-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 48px 0 32px;
+      border-top: 1px solid var(--border-default);
+      margin-top: 32px;
+    }
+
+    .cta-section h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .cta-section p {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 20px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple-700) 0%, var(--purple-900) 100%);
+      color: white;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 24px 0;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <header>
+      <div class="badge">Case Study — J3 Activation</div>
+      <div class="badge badge-green" style="margin-left: 8px;">Composite Scenario</div>
+      <h1>From Context Fragmentation to<br>Governed AI Execution</h1>
+      <p class="header-subtitle">How a Fortune 500 financial services enterprise used Knapsack IPE to govern AI-generated output across 8 product teams, reduce rework by 52%, and prove design system ROI to the C-suite.</p>
+      <div class="meta-row">
+        <div class="meta-item">
+          <span>Industry:</span>
+          <span class="meta-value">Financial Services</span>
+        </div>
+        <div class="meta-item">
+          <span>Size:</span>
+          <span class="meta-value">10,000+ employees, 300+ developers</span>
+        </div>
+        <div class="meta-item">
+          <span>Deployment:</span>
+          <span class="meta-value">Private Cloud (D3)</span>
+        </div>
+        <div class="meta-item">
+          <span>Engagement:</span>
+          <span class="meta-value">J3 Activation — 40 weeks phased</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Company Profile -->
+    <section>
+      <div class="card hero">
+        <h2>The Customer</h2>
+        <h3>A Top-20 US Financial Services Company</h3>
+        <p>This Fortune 500 financial services company operates consumer banking, wealth management, and insurance platforms serving 12 million customers. Their digital product organization consists of 8 cross-functional product teams (300+ developers, 45 designers) shipping across web and native mobile. They had invested 3 years in building an internal design system ("Meridian") but struggled to prove its value to executive leadership — and AI adoption was making the problem worse.</p>
+      </div>
+
+      <div class="callout info">
+        <p><strong>Note:</strong> This is a composite scenario derived from Knapsack's PCRI benchmark dataset of 158 enterprise assessments and pipeline account profiles in financial services. It represents a typical J3 Activation engagement pattern. Company details are illustrative.</p>
+      </div>
+    </section>
+
+    <!-- The Challenge -->
+    <section>
+      <p class="section-label">The Challenge</p>
+      <h2 class="section-title">Three Tools, Zero Governance, Growing Risk</h2>
+      <p class="section-desc">When the VP of Engineering mandated AI coding tools (Cursor, Copilot) across all product teams, the design system team saw adoption — and drift — accelerate simultaneously.</p>
+
+      <div class="grid grid-3" style="margin-bottom: 20px;">
+        <div class="card">
+          <h3 style="font-size: 16px;">Context Fragmentation</h3>
+          <p style="font-size: 13px;">Meridian lived in Knapsack. Component examples lived in Storybook. Usage guidelines lived in 200+ Markdown files across 3 repos. AI tools couldn't see any of it.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size: 16px;">Invisible Compliance Risk</h3>
+          <p style="font-size: 13px;">AI-generated UI components were bypassing WCAG 2.1 AA requirements and internal brand guidelines. Accessibility violations caught in QA doubled in 6 months.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size: 16px;">Unprovable Design System ROI</h3>
+          <p style="font-size: 13px;">The design system team couldn't measure adoption, prove time savings, or show executive leadership that Meridian was delivering value. Budget renewal was at risk.</p>
+        </div>
+      </div>
+
+      <div class="quote">
+        <p>"Our developers loved Cursor and Copilot. But every sprint, we spent more time fixing AI-generated components than we saved creating them. The design system team was drowning in rework tickets they couldn't even quantify."</p>
+        <p class="attribution">— VP of Design Systems (composite)</p>
+      </div>
+    </section>
+
+    <!-- PCRI Assessment -->
+    <section>
+      <p class="section-label">Assessment</p>
+      <h2 class="section-title">PCRI Revealed the Gaps — And the Path</h2>
+      <p class="section-desc">A 15-minute PCRI assessment scored the organization and mapped them to the Optimizer archetype, confirming J3 Activation as the right investment path.</p>
+
+      <div class="grid grid-2" style="gap: 20px;">
+        <!-- PCRI Score -->
+        <div class="card highlight">
+          <h2>PCRI Score</h2>
+          <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 48px; font-weight: 700; color: var(--purple-300);">63</span>
+            <span style="font-size: 14px; color: var(--text-muted);">/ 100</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; background: rgba(139, 92, 246, 0.2); color: var(--purple-300); padding: 4px 10px; border-radius: 4px;">OPTIMIZER</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Financial Services industry average: 83.4 · Top quartile: 88.0</p>
+          <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">This score placed them below industry peers, confirming governance and AI readiness as key gaps.</p>
+        </div>
+
+        <!-- Pillar Breakdown -->
+        <div class="card">
+          <h2>Pillar Breakdown</h2>
+          <div class="pillar-row">
+            <span class="pillar-name">Foundation</span>
+            <div class="pillar-bar-bg"><div class="pillar-bar" style="width: 78%; background: var(--blue-400);"></div></div>
+            <span class="pillar-score" style="color: var(--blue-400);">78</span>
+          </div>
+          <div class="pillar-row">
+            <span class="pillar-name">AI Readiness</span>
+            <div class="pillar-bar-bg"><div class="pillar-bar" style="width: 38%; background: var(--red-400);"></div></div>
+            <span class="pillar-score" style="color: var(--red-400);">38</span>
+          </div>
+          <div class="pillar-row">
+            <span class="pillar-name">Governance</span>
+            <div class="pillar-bar-bg"><div class="pillar-bar" style="width: 52%; background: var(--amber-400);"></div></div>
+            <span class="pillar-score" style="color: var(--amber-400);">52</span>
+          </div>
+          <div class="pillar-row">
+            <span class="pillar-name">Delivery</span>
+            <div class="pillar-bar-bg"><div class="pillar-bar" style="width: 70%; background: var(--green-400);"></div></div>
+            <span class="pillar-score" style="color: var(--green-400);">70</span>
+          </div>
+          <div class="pillar-row">
+            <span class="pillar-name">Culture</span>
+            <div class="pillar-bar-bg"><div class="pillar-bar" style="width: 72%; background: var(--purple-400);"></div></div>
+            <span class="pillar-score" style="color: var(--purple-400);">72</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-muted); margin-top: 12px;">Strong foundation and culture. Critical gaps in AI Readiness (38) and Governance (52) — exactly where IPE delivers the most value.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Engagement -->
+    <section>
+      <p class="section-label">The Engagement</p>
+      <h2 class="section-title">J3 Activation: 3 Phases, 40 Weeks</h2>
+      <p class="section-desc">The J3 Activation path delivered transformation in three milestone-gated phases. Each phase earned the right to the next by proving measurable outcomes.</p>
+
+      <div class="timeline-item">
+        <div class="timeline-phase">
+          <span class="timeline-phase-label p1">Phase 1</span>
+          <p class="timeline-duration">16 weeks · $400K</p>
+        </div>
+        <div class="timeline-body">
+          <p class="timeline-title">Foundation</p>
+          <p class="timeline-desc">Unified context layer across Knapsack, Storybook, and 200+ Markdown files. Deployed Knapsack on Private Cloud (D3) within the customer's VPC. Established governance policies, access controls, and audit trail infrastructure. Connected MCP to Cursor and Copilot instances across 3 pilot teams.</p>
+          <div class="timeline-deliverables">
+            <span class="deliverable-tag">D3 deployment</span>
+            <span class="deliverable-tag">3 sources ingested</span>
+            <span class="deliverable-tag">governance policies</span>
+            <span class="deliverable-tag">MCP for 3 teams</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-phase">
+          <span class="timeline-phase-label p2">Phase 2</span>
+          <p class="timeline-duration">12 weeks · $275K</p>
+        </div>
+        <div class="timeline-body">
+          <p class="timeline-title">Activation</p>
+          <p class="timeline-desc">Rolled MCP to all 8 product teams. Activated conflict surfacing between Knapsack and Storybook sources. Implemented WCAG compliance rules in governance layer. Built executive dashboard showing adoption, coverage, and compliance metrics. Trained 45 designers and 120 developers on governed AI workflows.</p>
+          <div class="timeline-deliverables">
+            <span class="deliverable-tag">8 teams activated</span>
+            <span class="deliverable-tag">conflict surfacing</span>
+            <span class="deliverable-tag">compliance rules</span>
+            <span class="deliverable-tag">executive dashboard</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-phase">
+          <span class="timeline-phase-label p3">Phase 3</span>
+          <p class="timeline-duration">12 weeks · $200K</p>
+        </div>
+        <div class="timeline-body">
+          <p class="timeline-title">Intelligence</p>
+          <p class="timeline-desc">Advanced analytics and AI cost governance. Optimized source prioritization to reduce token waste. Built ROI model validated with production data. Prepared business case for Phase 4 expansion (Jira integration, additional brands). Established continuous improvement cadence.</p>
+          <div class="timeline-deliverables">
+            <span class="deliverable-tag">AI cost governance</span>
+            <span class="deliverable-tag">ROI model</span>
+            <span class="deliverable-tag">expansion business case</span>
+            <span class="deliverable-tag">continuous improvement</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Commercial Summary -->
+    <section>
+      <p class="section-label">Commercial</p>
+      <h2 class="section-title">Deal Structure</h2>
+
+      <div style="overflow-x: auto; margin-bottom: 20px;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Description</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Platform</strong></td>
+              <td>Knapsack Enterprise, 300+ seats, Private Cloud (D3)</td>
+              <td style="font-family: 'JetBrains Mono', monospace; color: var(--green-300);">$328K ARR</td>
+            </tr>
+            <tr>
+              <td><strong>Services (J3)</strong></td>
+              <td>3-phase Activation: Foundation + Activation + Intelligence</td>
+              <td style="font-family: 'JetBrains Mono', monospace; color: var(--green-300);">$875K</td>
+            </tr>
+            <tr>
+              <td><strong>IPE Consumption</strong></td>
+              <td>Tier 2 Growth — multi-team, conflict detection</td>
+              <td style="font-family: 'JetBrains Mono', monospace; color: var(--green-300);">$96K/yr</td>
+            </tr>
+            <tr>
+              <td><strong>Year 1 TCV</strong></td>
+              <td>Platform + Services + Consumption</td>
+              <td style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--purple-300);">$1.30M</td>
+            </tr>
+            <tr>
+              <td><strong>Ongoing ARR</strong></td>
+              <td>Platform + Consumption (post-services)</td>
+              <td style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--purple-300);">$424K</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section>
+      <p class="section-label">Projected Outcomes</p>
+      <h2 class="section-title">Measured Impact at 40 Weeks</h2>
+      <p class="section-desc">These projected outcomes are modeled from Knapsack's ROI calculator using the customer's PCRI profile, team size, and deployment tier — validated against the PCRI benchmark dataset.</p>
+
+      <div class="grid grid-4" style="margin-bottom: 24px;">
+        <div class="stat-box">
+          <div class="stat-value green">52%</div>
+          <div class="stat-label">Reduction in AI rework cycles</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value blue">34%</div>
+          <div class="stat-label">Increase in design system adoption</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value amber">$1.8M</div>
+          <div class="stat-label">Projected 3-year savings</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">7 mo</div>
+          <div class="stat-label">Payback period</div>
+        </div>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h2>Before IPE</h2>
+          <ul style="list-style: none; padding: 0; font-size: 13px; color: var(--text-muted);">
+            <li style="padding: 6px 0; border-bottom: 1px solid var(--border-subtle);">AI-generated components required <strong style="color: var(--red-400);">2.4 average revision cycles</strong></li>
+            <li style="padding: 6px 0; border-bottom: 1px solid var(--border-subtle);">Design system adoption measured <strong style="color: var(--red-400);">anecdotally</strong> — no metrics</li>
+            <li style="padding: 6px 0; border-bottom: 1px solid var(--border-subtle);">WCAG violations caught in QA: <strong style="color: var(--red-400);">18/sprint average</strong></li>
+            <li style="padding: 6px 0; border-bottom: 1px solid var(--border-subtle);">New-hire developer ramp: <strong style="color: var(--red-400);">8 weeks</strong> to first production PR</li>
+            <li style="padding: 6px 0;">Design system budget justification: <strong style="color: var(--red-400);">subjective</strong></li>
+          </ul>
+        </div>
+        <div class="card" style="border-color: var(--green-500);">
+          <h2 style="color: var(--green-300);">After IPE (Projected)</h2>
+          <ul style="list-style: none; padding: 0; font-size: 13px; color: var(--text-muted);">
+            <li style="padding: 6px 0; border-bottom: 1px solid var(--border-subtle);">AI-generated components: <strong style="color: var(--green-300);">1.15 average revision cycles</strong></li>
+            <li style="padding: 6px 0; border-bottom: 1px solid var(--border-subtle);">Design system adoption: <strong style="color: var(--green-300);">quantified — 34% improvement</strong></li>
+            <li style="padding: 6px 0; border-bottom: 1px solid var(--border-subtle);">WCAG violations caught in QA: <strong style="color: var(--green-300);">4/sprint average</strong></li>
+            <li style="padding: 6px 0; border-bottom: 1px solid var(--border-subtle);">New-hire developer ramp: <strong style="color: var(--green-300);">4 weeks</strong> to first production PR</li>
+            <li style="padding: 6px 0;">Design system budget justification: <strong style="color: var(--green-300);">data-driven executive dashboard</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="quote" style="margin-top: 20px;">
+        <p>"For the first time, I can walk into a board meeting and show exactly what the design system delivers — in dollars, in velocity, in risk reduction. That changed the entire conversation about our team's value."</p>
+        <p class="attribution">— Design System Lead (composite)</p>
+      </div>
+    </section>
+
+    <!-- PCRI Movement -->
+    <section>
+      <p class="section-label">Maturity Progression</p>
+      <h2 class="section-title">PCRI: From Optimizer to Transformer</h2>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h2>PCRI at Assessment</h2>
+          <div style="display: flex; align-items: baseline; gap: 8px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 36px; font-weight: 700; color: var(--amber-400);">63</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; background: rgba(245, 158, 11, 0.2); color: var(--amber-300); padding: 4px 10px; border-radius: 4px;">OPTIMIZER</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px;">Below Financial Services industry average (83.4). Critical AI Readiness and Governance gaps identified.</p>
+        </div>
+        <div class="card" style="border-color: var(--green-500);">
+          <h2 style="color: var(--green-300);">Projected PCRI at Phase 3 Close</h2>
+          <div style="display: flex; align-items: baseline; gap: 8px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 36px; font-weight: 700; color: var(--green-300);">82</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; background: rgba(16, 185, 129, 0.2); color: var(--green-300); padding: 4px 10px; border-radius: 4px;">TRANSFORMER</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px;">At industry peer level. AI Readiness from 38 to 75. Governance from 52 to 78. Unlocks J4 Intelligence expansion.</p>
+        </div>
+      </div>
+
+      <div class="callout success" style="margin-top: 16px;">
+        <p><strong>Expansion opportunity:</strong> Reaching Transformer status (PCRI 75+) unlocks J4 Intelligence path — projected at $165–325K additional TCV. This customer's expansion business case targets Jira integration, second brand onboarding, and advanced analytics.</p>
+      </div>
+    </section>
+
+    <!-- Key Takeaways -->
+    <section>
+      <p class="section-label">Seller Takeaways</p>
+      <h2 class="section-title">Why This Deal Pattern Works</h2>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h3 style="font-size: 15px;">PCRI as Entry Point</h3>
+          <p style="font-size: 13px;">The 15-minute PCRI assessment created urgency: the customer was below their Financial Services peers. The gap between their score (63) and industry top quartile (88) gave the champion internal ammunition to justify budget.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size: 15px;">Phase-Gated De-Risk</h3>
+          <p style="font-size: 13px;">Milestone-gated phases reduced procurement friction. The customer approved $400K for Phase 1 Foundation, then expanded to Phases 2–3 after measurable results. Each phase earned the right to the next.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size: 15px;">Champion Enablement</h3>
+          <p style="font-size: 13px;">The Design System Lead couldn't prove ROI before IPE. The executive dashboard became their most powerful tool — transforming them from a cost center advocate to a strategic value driver with board-level visibility.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size: 15px;">Built-In Expansion</h3>
+          <p style="font-size: 13px;">J3 Activation naturally leads to J4 Intelligence. The customer's PCRI movement from 63 to 82 unlocked expansion conversations. Year 2 projected ARR: $600K+ (platform + Tier 3 consumption + second brand).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h3>See How This Applies to Your Pipeline</h3>
+      <p>Use the PCRI Assessment to identify your J3 candidates. Accounts scoring 55–74 with existing design systems and AI adoption signals are your highest-value targets.</p>
+      <a href="ipe_offering_kit.html" class="btn btn-primary">View IPE Offering Kit &rarr;</a>
+    </div>
+
+    <footer>
+      <p>Knapsack — The Governed AI Control Plane for Product Delivery<br>Composite case study derived from PCRI benchmark dataset (158 enterprises) and pipeline account profiles. © 2026 Knapsack.</p>
+    </footer>
+  </div>
+</body>
+</html>

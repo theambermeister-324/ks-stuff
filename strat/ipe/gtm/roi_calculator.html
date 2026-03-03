@@ -1414,6 +1414,51 @@
     }
     
     /* ==========================================================================
+       ACCESSIBILITY STYLES
+       ========================================================================== */
+    
+    /* Screen reader only - visually hidden but accessible */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      :root {
+        --spectrum-bg-base: #000000;
+        --spectrum-bg-layer-1: #1a1a1a;
+        --spectrum-bg-surface: #0d0d0d;
+        --spectrum-text-primary: #ffffff;
+        --spectrum-text-secondary: #ffffff;
+        --spectrum-text-muted: #e0e0e0;
+        --spectrum-border-default: #ffffff;
+        --spectrum-border-subtle: #666666;
+      }
+      
+      .section-card {
+        border-width: 2px;
+      }
+      
+      .input-field {
+        border-width: 2px;
+      }
+    }
+    
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; animation: none !important; }
+    }
+    
+    /* ==========================================================================
        MAIN TAB NAVIGATION
        ========================================================================== */
     .main-tabs {
@@ -2509,7 +2554,7 @@
           <table class="breakdown-table">
             <thead>
               <tr>
-                <th>Value Driver</th>
+                <th scope="col">Value Driver</th>
                 <th style="text-align: right;">Annual Value</th>
               </tr>
             </thead>
@@ -3265,7 +3310,7 @@
           <table class="breakdown-table">
             <thead>
               <tr>
-                <th>Value Driver</th>
+                <th scope="col">Value Driver</th>
                 <th style="text-align: right;">Annual Value</th>
               </tr>
             </thead>
@@ -3305,7 +3350,7 @@
           <table class="breakdown-table">
             <thead>
               <tr>
-                <th>Cost Item</th>
+                <th scope="col">Cost Item</th>
                 <th style="text-align: right;">Amount</th>
               </tr>
             </thead>

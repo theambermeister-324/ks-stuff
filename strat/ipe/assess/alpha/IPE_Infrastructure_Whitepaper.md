@@ -32,7 +32,7 @@ When enterprises deploy AI coding assistants, design generators, and documentati
 - **Technical debt multiplies** because AI outputs ignore established patterns
 - **Review cycles expand** because humans must catch AI's organizational blind spots
 
-A 2025 survey of enterprise development teams found that **73% of AI-generated code required significant modification** to align with organizational standards—modifications that often exceeded the time saved by AI generation.
+Industry benchmarks confirm the gap: AI-generated code introduces **15–18% more security vulnerabilities** (Opsera 2026 Benchmark), AI-driven pull requests wait **4.6x longer in review** without governance structures, and only **45% of organizations have formal AI usage policies** (Cortex 2026 Benchmark). Across Knapsack's PCRI dataset of 158 enterprise assessments, organizations without governed context delivery averaged a **42% AI Readiness pillar score**—well below the threshold for production-safe AI output.
 
 The problem is not the AI. The problem is context starvation.
 

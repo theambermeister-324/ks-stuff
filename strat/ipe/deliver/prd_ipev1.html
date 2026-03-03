@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPE V1 Launch Readiness PRD</title>
+  <meta name="description" content="Product Requirements Document for IPE V1 GA — March 31, 2026. Single source of truth for what 'V1 ready' means.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --spectrum-gray-50: #fafafa;
+      --spectrum-gray-100: #f5f5f5;
+      --spectrum-gray-800: #222222;
+      --spectrum-gray-900: #131313;
+
+      --spectrum-purple-500: #8b5cf6;
+      --spectrum-purple-400: #a78bfa;
+
+      --spectrum-blue-500: #3b82f6;
+      --spectrum-blue-400: #60a5fa;
+
+      --spectrum-green-500: #10b981;
+      --spectrum-green-400: #34d399;
+      --spectrum-green-300: #6ee7b7;
+
+      --spectrum-yellow-500: #f59e0b;
+      --spectrum-yellow-400: #fbbf24;
+
+      --spectrum-red-500: #ef4444;
+      --spectrum-red-400: #f87171;
+
+      --spectrum-cyan-500: #0ea5e9;
+      --spectrum-cyan-400: #22d3ee;
+
+      --spectrum-orange-500: #f97316;
+      --spectrum-orange-400: #fb923c;
+
+      --spectrum-bg-base: #0f0f1a;
+      --spectrum-bg-layer-1: #16213e;
+      --spectrum-bg-layer-2: #1a1a2e;
+      --spectrum-bg-surface: rgba(22, 33, 62, 0.7);
+      --spectrum-bg-elevated: rgba(255,255,255,0.05);
+
+      --spectrum-text-primary: #ffffff;
+      --spectrum-text-secondary: rgba(255,255,255,0.9);
+      --spectrum-text-muted: rgba(255,255,255,0.7);
+
+      --spectrum-border-default: rgba(100, 54, 191, 0.3);
+      --spectrum-border-subtle: rgba(255,255,255,0.08);
+
+      --spectrum-font-size-75: 0.75rem;
+      --spectrum-font-size-100: 0.875rem;
+      --spectrum-font-size-200: 1rem;
+      --spectrum-font-size-300: 1.125rem;
+      --spectrum-font-size-400: 1.25rem;
+      --spectrum-font-size-500: 1.5rem;
+      --spectrum-font-size-600: 1.75rem;
+      --spectrum-font-size-700: 2rem;
+      --spectrum-font-size-800: 2.5rem;
+
+      --spectrum-spacing-100: 0.25rem;
+      --spectrum-spacing-200: 0.5rem;
+      --spectrum-spacing-300: 1rem;
+      --spectrum-spacing-400: 1.5rem;
+      --spectrum-spacing-500: 2rem;
+      --spectrum-spacing-600: 3rem;
+
+      --spectrum-radius-sm: 4px;
+      --spectrum-radius-md: 8px;
+      --spectrum-radius-lg: 12px;
+      --spectrum-radius-xl: 16px;
+      --spectrum-radius-full: 9999px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: var(--spectrum-font-size-200);
+      line-height: 1.6;
+      color: var(--spectrum-text-primary);
+      background: var(--spectrum-bg-base);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: var(--spectrum-spacing-400);
+      position: relative;
+      z-index: 1;
+    }
+
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .text-muted { color: var(--spectrum-text-muted); }
+    .text-green { color: var(--spectrum-green-400); }
+    .text-yellow { color: var(--spectrum-yellow-400); }
+    .text-red { color: var(--spectrum-red-400); }
+    .text-blue { color: var(--spectrum-blue-400); }
+    .text-purple { color: var(--spectrum-purple-400); }
+    .text-cyan { color: var(--spectrum-cyan-400); }
+
+    a { color: var(--spectrum-cyan-400); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--spectrum-blue-500);
+      color: white;
+      padding: 8px 16px;
+      z-index: 1000;
+      text-decoration: none;
+      border-radius: 0 0 var(--spectrum-radius-md) 0;
+    }
+    .skip-link:focus { top: 0; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 15, 26, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--spectrum-border-default);
+      padding: var(--spectrum-spacing-200) var(--spectrum-spacing-400);
+    }
+
+    .nav-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spectrum-spacing-300);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-200);
+    }
+
+    .nav-logo {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--spectrum-blue-500), var(--spectrum-purple-500));
+      border-radius: var(--spectrum-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-logo i { width: 20px; height: 20px; color: white; }
+
+    .nav-title {
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-300);
+      background: linear-gradient(135deg, #fff, var(--spectrum-blue-400));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-version {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-75);
+      background: linear-gradient(135deg, var(--spectrum-blue-500), var(--spectrum-purple-500));
+      padding: 4px 10px;
+      border-radius: var(--spectrum-radius-full);
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: var(--spectrum-spacing-100);
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: var(--spectrum-text-muted);
+      text-decoration: none;
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 500;
+      padding: var(--spectrum-spacing-100) var(--spectrum-spacing-200);
+      border-radius: var(--spectrum-radius-sm);
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--spectrum-text-primary);
+      background: var(--spectrum-bg-elevated);
+      text-decoration: none;
+    }
+
+    header {
+      text-align: center;
+      padding: var(--spectrum-spacing-500) 0;
+      border-bottom: 1px solid var(--spectrum-border-default);
+      margin-bottom: var(--spectrum-spacing-500);
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-100);
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 999px;
+      padding: var(--spectrum-spacing-100) var(--spectrum-spacing-300);
+      font-size: var(--spectrum-font-size-100);
+      font-weight: 500;
+      color: var(--spectrum-blue-400);
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+
+    .header-badge i { width: 16px; height: 16px; }
+
+    header h1 {
+      font-size: var(--spectrum-font-size-800);
+      font-weight: 700;
+      margin: 0 0 var(--spectrum-spacing-200);
+      background: linear-gradient(135deg, #fff 0%, var(--spectrum-blue-400) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-subtitle {
+      font-size: var(--spectrum-font-size-300);
+      color: var(--spectrum-text-muted);
+      max-width: 800px;
+      margin: 0 auto var(--spectrum-spacing-300);
+    }
+
+    .header-meta {
+      display: flex;
+      justify-content: center;
+      gap: var(--spectrum-spacing-400);
+      flex-wrap: wrap;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+
+    .header-meta strong { color: var(--spectrum-text-secondary); }
+
+    .section {
+      background: var(--spectrum-bg-surface);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-xl);
+      padding: var(--spectrum-spacing-500);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-300);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+
+    .section-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--spectrum-radius-md);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: var(--spectrum-font-size-100);
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .section-number.blue { background: linear-gradient(135deg, var(--spectrum-blue-500), var(--spectrum-cyan-500)); }
+    .section-number.green { background: linear-gradient(135deg, var(--spectrum-green-500), var(--spectrum-cyan-500)); }
+    .section-number.purple { background: linear-gradient(135deg, var(--spectrum-purple-500), var(--spectrum-blue-500)); }
+    .section-number.red { background: linear-gradient(135deg, var(--spectrum-red-500), var(--spectrum-orange-500)); }
+    .section-number.yellow { background: linear-gradient(135deg, var(--spectrum-yellow-500), var(--spectrum-orange-500)); }
+    .section-number.cyan { background: linear-gradient(135deg, var(--spectrum-cyan-500), var(--spectrum-blue-500)); }
+
+    h2 {
+      font-size: var(--spectrum-font-size-600);
+      font-weight: 700;
+      margin: 0;
+    }
+
+    h3 {
+      font-size: var(--spectrum-font-size-400);
+      font-weight: 600;
+      color: var(--spectrum-cyan-400);
+      margin: var(--spectrum-spacing-400) 0 var(--spectrum-spacing-200);
+    }
+
+    h3:first-child { margin-top: 0; }
+
+    h4 {
+      font-size: var(--spectrum-font-size-300);
+      font-weight: 600;
+      color: var(--spectrum-text-secondary);
+      margin: var(--spectrum-spacing-300) 0 var(--spectrum-spacing-200);
+    }
+
+    .callout {
+      padding: var(--spectrum-spacing-300);
+      border-radius: var(--spectrum-radius-md);
+      border-left: 4px solid;
+      margin: var(--spectrum-spacing-300) 0;
+    }
+
+    .callout p { margin: 0; }
+    .callout.info { background: rgba(38, 128, 235, 0.1); border-color: var(--spectrum-blue-500); }
+    .callout.info strong { color: var(--spectrum-blue-400); }
+    .callout.success { background: rgba(16, 185, 129, 0.1); border-color: var(--spectrum-green-500); }
+    .callout.success strong { color: var(--spectrum-green-400); }
+    .callout.warning { background: rgba(245, 158, 11, 0.1); border-color: var(--spectrum-yellow-500); }
+    .callout.warning strong { color: var(--spectrum-yellow-400); }
+    .callout.danger { background: rgba(239, 68, 68, 0.1); border-color: var(--spectrum-red-500); }
+    .callout.danger strong { color: var(--spectrum-red-400); }
+
+    .table-wrapper {
+      overflow-x: auto;
+      margin: var(--spectrum-spacing-300) 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--spectrum-font-size-100);
+    }
+
+    th {
+      background: var(--spectrum-blue-500);
+      color: white;
+      font-weight: 600;
+      text-align: left;
+      padding: var(--spectrum-spacing-200);
+      border: 1px solid var(--spectrum-border-default);
+      white-space: nowrap;
+    }
+
+    th.purple { background: var(--spectrum-purple-500); }
+    th.green { background: var(--spectrum-green-500); }
+    th.red { background: var(--spectrum-red-500); }
+    th.yellow { background: var(--spectrum-yellow-500); color: var(--spectrum-gray-900); }
+    th.cyan { background: var(--spectrum-cyan-500); }
+    th.orange { background: var(--spectrum-orange-500); }
+
+    th:first-child { border-radius: var(--spectrum-radius-md) 0 0 0; }
+    th:last-child { border-radius: 0 var(--spectrum-radius-md) 0 0; }
+
+    td {
+      padding: var(--spectrum-spacing-200);
+      border: 1px solid var(--spectrum-border-subtle);
+      color: var(--spectrum-text-secondary);
+      background: var(--spectrum-bg-layer-1);
+      vertical-align: top;
+    }
+
+    tr:last-child td:first-child { border-radius: 0 0 0 var(--spectrum-radius-md); }
+    tr:last-child td:last-child { border-radius: 0 0 var(--spectrum-radius-md) 0; }
+    tr:hover td { background: rgba(255,255,255,0.03); }
+
+    .req-id {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .priority-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: var(--spectrum-radius-full);
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .priority-badge.blocker { background: rgba(239, 68, 68, 0.2); color: var(--spectrum-red-400); }
+    .priority-badge.must { background: rgba(245, 158, 11, 0.2); color: var(--spectrum-yellow-400); }
+    .priority-badge.should { background: rgba(59, 130, 246, 0.2); color: var(--spectrum-blue-400); }
+
+    .linear-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: var(--spectrum-radius-full);
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .linear-status.on-track { background: rgba(16, 185, 129, 0.2); color: var(--spectrum-green-400); }
+    .linear-status.no-updates { background: rgba(239, 68, 68, 0.2); color: var(--spectrum-red-400); }
+    .linear-status.being-defined { background: rgba(245, 158, 11, 0.2); color: var(--spectrum-yellow-400); }
+    .linear-status.in-prep { background: rgba(139, 92, 246, 0.2); color: var(--spectrum-purple-400); }
+    .linear-status.completed { background: rgba(16, 185, 129, 0.2); color: var(--spectrum-green-400); }
+    .linear-status.na { background: rgba(255, 255, 255, 0.1); color: var(--spectrum-text-muted); }
+
+    .decision-item {
+      display: flex;
+      gap: var(--spectrum-spacing-300);
+      padding: var(--spectrum-spacing-300);
+      background: rgba(15, 15, 26, 0.6);
+      border: 1px solid var(--spectrum-border-subtle);
+      border-radius: var(--spectrum-radius-md);
+      margin-bottom: var(--spectrum-spacing-200);
+    }
+
+    .decision-item.made { border-left: 4px solid var(--spectrum-green-500); }
+    .decision-item.pending { border-left: 4px solid var(--spectrum-yellow-500); }
+
+    .decision-marker {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .decision-marker.made { background: var(--spectrum-green-500); color: white; }
+    .decision-marker.pending { background: var(--spectrum-yellow-500); color: var(--spectrum-gray-900); }
+
+    .decision-content { flex: 1; }
+    .decision-title { font-weight: 600; color: var(--spectrum-text-primary); margin-bottom: 4px; }
+    .decision-detail { font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted); }
+
+    .decision-meta {
+      font-size: var(--spectrum-font-size-75);
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--spectrum-cyan-400);
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+
+    .dep-chain {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.95), rgba(26, 26, 46, 0.9));
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-400);
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+
+    .dep-chain-title {
+      font-size: var(--spectrum-font-size-300);
+      font-weight: 700;
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+
+    .dep-flow {
+      display: flex;
+      align-items: center;
+      gap: var(--spectrum-spacing-200);
+      flex-wrap: wrap;
+      margin-bottom: var(--spectrum-spacing-200);
+    }
+
+    .dep-node {
+      padding: 6px 14px;
+      border-radius: var(--spectrum-radius-md);
+      font-size: var(--spectrum-font-size-75);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .dep-node.done { background: rgba(16, 185, 129, 0.2); color: var(--spectrum-green-400); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .dep-node.active { background: rgba(59, 130, 246, 0.2); color: var(--spectrum-blue-400); border: 1px solid rgba(59, 130, 246, 0.3); }
+    .dep-node.stalled { background: rgba(239, 68, 68, 0.2); color: var(--spectrum-red-400); border: 1px solid rgba(239, 68, 68, 0.3); }
+    .dep-node.undefined { background: rgba(245, 158, 11, 0.2); color: var(--spectrum-yellow-400); border: 1px solid rgba(245, 158, 11, 0.3); }
+
+    .dep-arrow { color: var(--spectrum-text-muted); font-size: 18px; }
+
+    .gate-card {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.95), rgba(26, 26, 46, 0.9));
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-400);
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+
+    .gate-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+
+    .gate-title {
+      font-size: var(--spectrum-font-size-300);
+      font-weight: 700;
+    }
+
+    .gate-dates {
+      font-size: var(--spectrum-font-size-100);
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--spectrum-cyan-400);
+    }
+
+    .gate-criteria {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .gate-criteria li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spectrum-spacing-200);
+      padding: var(--spectrum-spacing-200) 0;
+      border-bottom: 1px solid var(--spectrum-border-subtle);
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-secondary);
+    }
+
+    .gate-criteria li:last-child { border-bottom: none; }
+
+    .gate-req {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--spectrum-font-size-75);
+      color: var(--spectrum-cyan-400);
+      white-space: nowrap;
+      flex-shrink: 0;
+      min-width: 100px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--spectrum-spacing-300);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .stat-card {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.95), rgba(26, 26, 46, 0.9));
+      border-radius: var(--spectrum-radius-xl);
+      padding: var(--spectrum-spacing-300);
+      border: 1px solid var(--spectrum-border-default);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .stat-card.red::before { background: linear-gradient(90deg, var(--spectrum-red-500), var(--spectrum-red-400)); }
+    .stat-card.yellow::before { background: linear-gradient(90deg, var(--spectrum-yellow-500), var(--spectrum-yellow-400)); }
+    .stat-card.blue::before { background: linear-gradient(90deg, var(--spectrum-blue-500), var(--spectrum-blue-400)); }
+    .stat-card.green::before { background: linear-gradient(90deg, var(--spectrum-green-500), var(--spectrum-green-400)); }
+    .stat-card.purple::before { background: linear-gradient(90deg, var(--spectrum-purple-500), var(--spectrum-purple-400)); }
+
+    .stat-value {
+      font-size: var(--spectrum-font-size-700);
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      line-height: 1;
+      margin-bottom: var(--spectrum-spacing-100);
+    }
+
+    .stat-card.red .stat-value { color: var(--spectrum-red-400); }
+    .stat-card.yellow .stat-value { color: var(--spectrum-yellow-400); }
+    .stat-card.blue .stat-value { color: var(--spectrum-blue-400); }
+    .stat-card.green .stat-value { color: var(--spectrum-green-400); }
+    .stat-card.purple .stat-value { color: var(--spectrum-purple-400); }
+
+    .stat-label {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+
+    footer {
+      text-align: center;
+      padding: var(--spectrum-spacing-500) 0;
+      border-top: 1px solid var(--spectrum-border-default);
+      margin-top: var(--spectrum-spacing-500);
+    }
+
+    .footer-meta {
+      display: flex;
+      justify-content: center;
+      gap: var(--spectrum-spacing-400);
+      flex-wrap: wrap;
+      margin-bottom: var(--spectrum-spacing-200);
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+
+    .footer-text {
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-muted);
+    }
+
+    @media print {
+      body::before { display: none; }
+      nav { display: none; }
+      .container { padding: 0; }
+      .section { break-inside: avoid; }
+      .skip-link { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+
+    @media (prefers-contrast: high) {
+      :root {
+        --spectrum-bg-base: #000000;
+        --spectrum-bg-layer-1: #1a1a1a;
+        --spectrum-bg-surface: #0d0d0d;
+        --spectrum-text-primary: #ffffff;
+        --spectrum-text-secondary: #ffffff;
+        --spectrum-text-muted: #e0e0e0;
+        --spectrum-border-default: #ffffff;
+        --spectrum-border-subtle: #666666;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#v1-definition" class="skip-link">Skip to main content</a>
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-logo"><i data-lucide="file-check-2"></i></div>
+        <span class="nav-title">IPE V1 Launch Readiness PRD</span>
+        <span class="nav-version">V1 GA</span>
+      </div>
+      <div class="nav-links">
+        <a href="#v1-definition" class="nav-link">V1 Scope</a>
+        <a href="#decisions" class="nav-link">Decisions</a>
+        <a href="#requirements" class="nav-link">Requirements</a>
+        <a href="#dependencies" class="nav-link">Dependencies</a>
+        <a href="#gates" class="nav-link">Sprint Gates</a>
+        <a href="#risks" class="nav-link">Risk Register</a>
+        <a href="../gtm/ipe_launch_checklist.html" class="nav-link" style="background: rgba(239, 68, 68, 0.2); color: #f87171;">Launch Checklist</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header>
+      <div class="header-badge">
+        <i data-lucide="file-check-2"></i>
+        Single Source of Truth — V1 Readiness
+      </div>
+      <h1>IPE V1 Launch Readiness PRD</h1>
+      <p class="header-subtitle">What must be true on March 31, 2026 for IPE V1 to be generally available. Every requirement enumerated, every acceptance criterion testable, every dependency mapped.</p>
+      <div class="header-meta">
+        <span><strong>Owner:</strong> Robin Cannon</span>
+        <span><strong>Sprint Lead:</strong> Amber Atkins</span>
+        <span><strong>Created:</strong> February 27, 2026</span>
+        <span><strong>GA Target:</strong> March 31, 2026</span>
+      </div>
+    </header>
+
+    <!-- Summary Stats -->
+    <div class="stats-grid">
+      <div class="stat-card red">
+        <div class="stat-value">20</div>
+        <div class="stat-label">Blocker Reqs</div>
+      </div>
+      <div class="stat-card yellow">
+        <div class="stat-value">11</div>
+        <div class="stat-label">Must-Have Reqs</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-value">7</div>
+        <div class="stat-label">Should-Have Reqs</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-value">9</div>
+        <div class="stat-label">Workstreams</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-value">38</div>
+        <div class="stat-label">Total Requirements</div>
+      </div>
+    </div>
+
+    <div class="callout info" style="margin-bottom: var(--spectrum-spacing-400);">
+      <p><strong>How to use this document:</strong> This PRD is the authoritative reference for V1 readiness. The <a href="../gtm/ipe_launch_checklist.html">Launch Checklist</a> tracks execution against these requirements. The <a href="../gtm/ipe_offering_kit.html">Offering Kit</a>, <a href="../gtm/gtm_playbook.html">GTM Playbook</a>, and <a href="../gtm/roi_calculator.html">ROI Calculator</a> are downstream deliverables. If a requirement here is green, it's ready. If it's red, GA is at risk.</p>
+    </div>
+
+    <!-- ====================================================================
+         SECTION 1: V1 DEFINITION
+         ==================================================================== -->
+    <section class="section" id="v1-definition">
+      <div class="section-header">
+        <div class="section-number blue"><i data-lucide="target" style="width:18px;height:18px;"></i></div>
+        <h2>V1 Definition</h2>
+      </div>
+
+      <h3>What IPE V1 Is</h3>
+      <ul style="color: var(--spectrum-text-secondary); padding-left: 20px;">
+        <li><strong>New source ingestion:</strong> Storybook, Raw Markdown/MDX, and Knapsack content ingested, normalized, and available to AI tools</li>
+        <li><strong>User-configurable conflict surfacing:</strong> When multiple sources provide conflicting guidance, conflicts are detected, surfaced, and resolvable by admins</li>
+        <li><strong>MCP-based consumption:</strong> All context delivered to AI tools via Model Context Protocol, cloud-native</li>
+        <li><strong>Admin capabilities:</strong> Source management interface for adding, configuring, and monitoring context sources</li>
+        <li><strong>Platform + Consumption pricing:</strong> Tier 0 (Knapsack MCP) included in platform fee; premium tiers for additional sources and higher consumption</li>
+        <li><strong>GA, not beta:</strong> Positioned as an active, sellable product from day one with full legal, sales, and operational readiness</li>
+      </ul>
+
+      <h3>What IPE V1 Is Not</h3>
+      <ul style="color: var(--spectrum-text-secondary); padding-left: 20px;">
+        <li><strong>Not an integration marketplace:</strong> V2+ scope. V1 ships with 3 source types only (Knapsack, Storybook, MDX)</li>
+        <li><strong>Not input/output integrations:</strong> Jira, Zero Height, and other bidirectional integrations are V2 scope</li>
+        <li><strong>Not multi-tool instrumentation:</strong> Deferred to v1.1 per Linear. V1 captures basic MCP usage metrics only</li>
+        <li><strong>Not self-serve mid-market:</strong> V1 is enterprise-motion, human-delivered. Growth marketing, automated payments, and self-serve are 2027</li>
+        <li><strong>Not a soft launch:</strong> No beta buffer. Quality bar is GA from day one</li>
+      </ul>
+
+      <h3>V1 Positioning</h3>
+      <div class="callout success">
+        <p><strong>Core positioning (Feb 17 alignment):</strong> MCP is a delivery mechanism, not the value proposition. The value is <strong>aggregated intelligence</strong> — the ability to ingest, weight, and surface context from multiple sources so AI agents produce better output. We are not selling an MCP server. We are selling the intelligence layer that makes every AI tool in the customer's ecosystem smarter.</p>
+      </div>
+
+      <h3>V1 Use Cases (Narrow Scope)</h3>
+      <ol style="color: var(--spectrum-text-secondary); padding-left: 20px;">
+        <li><strong>Assessing</strong> design system adoption and coverage</li>
+        <li><strong>Recommending</strong> component usage and best practices to AI-assisted development</li>
+        <li><strong>Quantifying</strong> design system value and ROI via measurable improvement metrics</li>
+      </ol>
+
+      <div class="callout info">
+        <p><strong>Source documents:</strong> <a href="https://linear.app/knapsack/initiative/the-intelligent-product-engine-ipe-3778914864ee">Linear: IPE Initiative</a> | Robin Cannon's IPE V1 Launch Strategy (Feb 23) | IPE Pricing Jam transcript (Feb 26)</p>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 2: DECISIONS REGISTER
+         ==================================================================== -->
+    <section class="section" id="decisions">
+      <div class="section-header">
+        <div class="section-number green"><i data-lucide="gavel" style="width:18px;height:18px;"></i></div>
+        <h2>Decisions Register</h2>
+      </div>
+
+      <p class="text-muted">Authoritative record of decisions made and decisions still required. "Made" decisions should not be relitigated without executive override.</p>
+
+      <h3>Decisions Made</h3>
+
+      <div class="decision-item made">
+        <div class="decision-marker made">&#10003;</div>
+        <div class="decision-content">
+          <div class="decision-title">V1 ships as GA, not beta</div>
+          <div class="decision-detail">No prolonged beta stage. IPE is positioned as an active, sellable product from day one. This raises the quality bar — there is no soft-launch buffer.</div>
+        </div>
+        <div class="decision-meta">Feb 17</div>
+      </div>
+
+      <div class="decision-item made">
+        <div class="decision-marker made">&#10003;</div>
+        <div class="decision-content">
+          <div class="decision-title">Platform + Consumption pricing model</div>
+          <div class="decision-detail">Replaces prior "Freemium" language. Customers pay a platform fee (existing Knapsack pricing). IPE Tier 0 (Knapsack MCP) is included in that platform fee. Revenue growth comes from consumption tiers and additional source ingestion.</div>
+        </div>
+        <div class="decision-meta">Feb 26</div>
+      </div>
+
+      <div class="decision-item made">
+        <div class="decision-marker made">&#10003;</div>
+        <div class="decision-content">
+          <div class="decision-title">Tier 0 = "Included," not "Free"</div>
+          <div class="decision-detail">Knapsack MCP is included in the platform fee with a usage quota. Messaging must say "included" not "free" or "freemium." This is a genuine differentiator vs. competitors who require separate setup.</div>
+        </div>
+        <div class="decision-meta">Feb 26</div>
+      </div>
+
+      <div class="decision-item made">
+        <div class="decision-marker made">&#10003;</div>
+        <div class="decision-content">
+          <div class="decision-title">Consumption priced by operations, not tokens</div>
+          <div class="decision-detail">We do not pass through token costs. Consumption is measured in MCP operations (tool calls). Operations may be tiered by cost/complexity in the future, but the unit is "operation," not "token."</div>
+        </div>
+        <div class="decision-meta">Feb 26</div>
+      </div>
+
+      <div class="decision-item made">
+        <div class="decision-marker made">&#10003;</div>
+        <div class="decision-content">
+          <div class="decision-title">Don't charge for integrations (sources)</div>
+          <div class="decision-detail">Charging per source inhibits onboarding. More sources = more consumption = more revenue. Sources should be frictionless to add.</div>
+        </div>
+        <div class="decision-meta">Feb 26</div>
+      </div>
+
+      <div class="decision-item made">
+        <div class="decision-marker made">&#10003;</div>
+        <div class="decision-content">
+          <div class="decision-title">Predefined spend with overage expansion model</div>
+          <div class="decision-detail">Contracts set at a predefined consumption level, intentionally undersized. Adoption drives usage past the cap. Overage waiver tied to expansion/renewal. This is the core commercial lever.</div>
+        </div>
+        <div class="decision-meta">Feb 26</div>
+      </div>
+
+      <div class="decision-item made">
+        <div class="decision-marker made">&#10003;</div>
+        <div class="decision-content">
+          <div class="decision-title">Adoption is the revenue driver, not seat count</div>
+          <div class="decision-detail">Revenue risk shifts from selling to adoption. CX and delivery become critical to revenue growth. 8 people using it once an hour > 1 person using it every 10 minutes.</div>
+        </div>
+        <div class="decision-meta">Feb 26</div>
+      </div>
+
+      <div class="decision-item made">
+        <div class="decision-marker made">&#10003;</div>
+        <div class="decision-content">
+          <div class="decision-title">Intelligence, not technology, is the value proposition</div>
+          <div class="decision-detail">Position around aggregated intelligence delivered to AI agents, not around MCP as a protocol. Differentiates from IBM Carbon MCP, NY State MCP, and build-your-own approaches.</div>
+        </div>
+        <div class="decision-meta">Feb 17</div>
+      </div>
+
+      <h3>Decisions Still Required</h3>
+
+      <div class="decision-item pending">
+        <div class="decision-marker pending">?</div>
+        <div class="decision-content">
+          <div class="decision-title">Specific consumption tier boundaries and price points</div>
+          <div class="decision-detail">Tier 1/2/3 thresholds and dollar amounts. Current ranges ($24-48K) too wide to quote. Requires operation costing data from Grant first. <strong>Blocks:</strong> all GTM materials, AE enablement, CRM configuration.</div>
+        </div>
+        <div class="decision-meta">Owner: Chris | Due: Mar 14</div>
+      </div>
+
+      <div class="decision-item pending">
+        <div class="decision-marker pending">?</div>
+        <div class="decision-content">
+          <div class="decision-title">Tier 0 usage quota number</div>
+          <div class="decision-detail">Specific operation count included in platform fee. Must be "enough to see value, not unlimited." Requires understanding of current MCP usage patterns (highest site: 195 requests/2 weeks).</div>
+        </div>
+        <div class="decision-meta">Owner: Grant + Chris | Due: Mar 7</div>
+      </div>
+
+      <div class="decision-item pending">
+        <div class="decision-marker pending">?</div>
+        <div class="decision-content">
+          <div class="decision-title">ToS amendment vs. re-acceptance approach</div>
+          <div class="decision-detail">Do existing customers re-accept terms entirely, or can we use addendums? Impacts engineering work on acceptance tracking mechanism.</div>
+        </div>
+        <div class="decision-meta">Owner: Robin + Legal | Due: Mar 7</div>
+      </div>
+
+      <div class="decision-item pending">
+        <div class="decision-marker pending">?</div>
+        <div class="decision-content">
+          <div class="decision-title">Enterprise test account for QA</div>
+          <div class="decision-detail">Need non-internal data with enterprise-scale source volume, concurrent users, and data complexity for pre-GA testing.</div>
+        </div>
+        <div class="decision-meta">Owner: Amber | Due: Mar 7</div>
+      </div>
+
+      <div class="decision-item pending">
+        <div class="decision-marker pending">?</div>
+        <div class="decision-content">
+          <div class="decision-title">MDM strategy scope for V1</div>
+          <div class="decision-detail">Grant flagged need for master data management strategy across PPP. What's required for V1 vs. what can wait?</div>
+        </div>
+        <div class="decision-meta">Owner: Grant | Due: Mar 7</div>
+      </div>
+
+      <div class="decision-item pending">
+        <div class="decision-marker pending">?</div>
+        <div class="decision-content">
+          <div class="decision-title">Feature flag approach for MCP GA</div>
+          <div class="decision-detail">MCP is currently behind a feature flag. Need to decide: Does V1 GA mean feature flag removal? Or do we keep it for controlled rollout? What are the criteria for removing the flag? Per Sprint Kick-Off: "At what point does the feature flag go away?"</div>
+        </div>
+        <div class="decision-meta">Owner: Sam + Robin | Due: Mar 14</div>
+      </div>
+
+      <div class="decision-item pending">
+        <div class="decision-marker pending">?</div>
+        <div class="decision-content">
+          <div class="decision-title">Storybook access gating during beta</div>
+          <div class="decision-detail">Storybook ingestion is a V1 source type, but should it be gated during MCP beta? If gated, need criteria for opening access. Impacts ENG-002 acceptance criteria and QA-004 beta feedback scope.</div>
+        </div>
+        <div class="decision-meta">Owner: Robin + Sam | Due: Mar 7</div>
+      </div>
+
+      <div class="decision-item pending">
+        <div class="decision-marker pending">?</div>
+        <div class="decision-content">
+          <div class="decision-title">SLA tier mapping to consumption tiers</div>
+          <div class="decision-detail">Do SLA levels (response times, uptime guarantees) map directly to consumption tiers, or are they independent? Current Offering Kit shows Essentials/Pro/Enterprise SLA levels that don't clearly align with Tier 0/1/2/3 consumption model. Per Security Planning and Sprint Kick-Off discussions.</div>
+        </div>
+        <div class="decision-meta">Owner: Chris + Robin | Due: Mar 14</div>
+      </div>
+
+      <div class="callout info" style="margin-top: var(--spectrum-spacing-400);">
+        <p><strong>Legal counsel engagement model:</strong> Donna Santucci is the gatekeeper for all legal review. All legal documents (ToS, DPA, MSA) route through Donna, who escalates to corporate counsel as needed. Per Sprint Kick-Off: existing SOC 2 report and corporate counsel relationship are in place. Nick (Security Ideals) has Linear access and is engaged for security documentation.</p>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 3: REQUIREMENTS MATRIX
+         ==================================================================== -->
+    <section class="section" id="requirements">
+      <div class="section-header">
+        <div class="section-number purple"><i data-lucide="list-checks" style="width:18px;height:18px;"></i></div>
+        <h2>Requirements Matrix</h2>
+      </div>
+
+      <p class="text-muted">Every requirement for V1 GA, organized by workstream. <strong>Blocker</strong> = no GA without it. <strong>Must-Have</strong> = degraded GA without it. <strong>Should-Have</strong> = better GA with it.</p>
+
+      <!-- ==================== ENGINEERING ==================== -->
+      <h3 id="req-eng">1. Engineering Delivery</h3>
+      <p class="text-muted" style="margin-bottom: var(--spectrum-spacing-300);">Linear Initiative: <a href="https://linear.app/knapsack/initiative/the-intelligent-product-engine-ipe-3778914864ee">Control Plane (IPE MVP)</a> | Owner: Sam Alexander / Grant Gaudet</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Requirement</th>
+              <th>Acceptance Criteria</th>
+              <th>Linear Status</th>
+              <th>Priority</th>
+              <th>Owner</th>
+              <th>Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="req-id">PRD-ENG-001</td>
+              <td><strong>Knapsack content ingestion</strong></td>
+              <td>Knapsack content successfully ingested, normalized to PCIF, and retrievable via MCP. Tested with at least 1 production workspace.</td>
+              <td><span class="linear-status on-track">On Track</span><br><a href="https://linear.app/knapsack/project/source-ingestion-and-storage-4d2ac5b2742d" style="font-size: 11px;">Source ingestion</a></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Varun</td>
+              <td class="font-mono">Mar 14</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-ENG-002</td>
+              <td><strong>Storybook source ingestion</strong></td>
+              <td>Storybook component metadata ingested, normalized to PCIF, available via MCP. At least component names, props, and usage examples captured.</td>
+              <td><span class="linear-status on-track">On Track</span><br><a href="https://linear.app/knapsack/project/source-ingestion-and-storage-4d2ac5b2742d" style="font-size: 11px;">Source ingestion</a></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Varun</td>
+              <td class="font-mono">Mar 14</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-ENG-003</td>
+              <td><strong>MDX/Markdown source ingestion</strong></td>
+              <td>Raw MDX and Markdown files ingested, normalized to PCIF, available via MCP. Handles frontmatter, code blocks, and structured content.</td>
+              <td><span class="linear-status on-track">On Track</span><br><span style="font-size: 11px; color: var(--spectrum-green-400);">MDX 85%</span></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Varun</td>
+              <td class="font-mono">Mar 14</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-ENG-004</td>
+              <td><strong>Product Context Interchange Format (PCIF)</strong></td>
+              <td>Normalization schema finalized and implemented. All 3 source types normalize to a common PCIF schema. Schema reviewed and approved by engineering.</td>
+              <td><span class="linear-status on-track">On Track</span><br><a href="https://linear.app/knapsack/project/source-normalization-and-orchestration-product-context-interchange-format-3adf1ec23fa0" style="font-size: 11px;">PCIF schema 75%</a></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Sam</td>
+              <td class="font-mono">Mar 7</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-ENG-005</td>
+              <td><strong>Source conflict enrichment service</strong></td>
+              <td>When 2+ sources provide conflicting guidance for the same component/pattern, conflicts are detected, enriched with source context, and available for resolution.</td>
+              <td><span class="linear-status on-track">On Track</span><br><a href="https://linear.app/knapsack/project/source-conflict-enrichment-service-067c9632f640" style="font-size: 11px;">Implementation 17%</a></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Rizchel</td>
+              <td class="font-mono">Mar 14</td>
+            </tr>
+            <tr style="background: rgba(239, 68, 68, 0.05);">
+              <td class="req-id">PRD-ENG-006</td>
+              <td><strong>MCP distribution pipeline</strong></td>
+              <td>Aggregated, weighted context from all connected sources delivered to AI tools via MCP server. Verified with at least 1 AI tool (Cursor, Claude, etc.). Multi-source queries return combined context.</td>
+              <td><span class="linear-status no-updates">No Updates</span><br><a href="https://linear.app/knapsack/project/mcp-distribution-pipeline-10e001fb22f6" style="font-size: 11px;">In Prep since Jan 22</a></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Sam</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+            <tr style="background: rgba(239, 68, 68, 0.05);">
+              <td class="req-id">PRD-ENG-007</td>
+              <td><strong>Source management UI</strong></td>
+              <td>Admin interface where authorized users can: add a new context source, remove a source, view ingestion status, and see source health. Minimum viable CRUD.</td>
+              <td><span class="linear-status no-updates">No Updates</span><br><a href="https://linear.app/knapsack/project/source-management-ui-067c9632f640" style="font-size: 11px;">In Delivery since Feb 4</a></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Carly</td>
+              <td class="font-mono">Mar 14</td>
+            </tr>
+            <tr style="background: rgba(239, 68, 68, 0.05);">
+              <td class="req-id">PRD-ENG-008</td>
+              <td><strong>IPE user management &amp; permissions</strong></td>
+              <td>Role-based access control: admin users can manage sources and configure conflict resolution; standard users consume via MCP only. Permissions enforced at API level.</td>
+              <td><span class="linear-status no-updates">No Updates</span><br><a href="https://linear.app/knapsack/project/ipe-user-management-and-permissions-e97dacc174de" style="font-size: 11px;">In Prep since Jan 16</a></td>
+              <td><span class="priority-badge must">Must-Have</span></td>
+              <td>Robin</td>
+              <td class="font-mono">Mar 14</td>
+            </tr>
+            <tr style="background: rgba(239, 68, 68, 0.05);">
+              <td class="req-id">PRD-ENG-009</td>
+              <td><strong>Conflict resolution UI</strong></td>
+              <td>Interface where admins can view detected conflicts between sources, set priority/weighting, and resolve conflicts. Resolutions persist and affect MCP output.</td>
+              <td><span class="linear-status no-updates">No Updates</span><br><a href="https://linear.app/knapsack/project/conflict-resolution-ui-8a19e6ee4349" style="font-size: 11px;">In Prep, no priority</a></td>
+              <td><span class="priority-badge must">Must-Have</span></td>
+              <td>Robin</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout danger" style="margin-top: var(--spectrum-spacing-200);">
+        <p><strong>Engineering risk:</strong> 4 of 9 engineering requirements (ENG-006 through ENG-009) have "No Updates" in Linear. ENG-006 (MCP distribution pipeline) is the mechanism that actually delivers IPE to customers and has been stalled since January 22. Immediate status check required.</p>
+      </div>
+
+      <!-- ==================== ANALYTICS ==================== -->
+      <h3 id="req-anl">2. Analytics &amp; Instrumentation</h3>
+      <p class="text-muted" style="margin-bottom: var(--spectrum-spacing-300);">Proves IPE works and enables consumption billing. Without this, the commercial model has no foundation.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Requirement</th>
+              <th>Acceptance Criteria</th>
+              <th>Linear Status</th>
+              <th>Priority</th>
+              <th>Owner</th>
+              <th>Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: rgba(239, 68, 68, 0.05);">
+              <td class="req-id">PRD-ANL-001</td>
+              <td><strong>MCP usage data capture</strong></td>
+              <td>Per-customer operation counts, request types, and timestamps captured and queryable. Sufficient for consumption billing and usage reporting. Basic event capture only for V1.</td>
+              <td><span class="linear-status no-updates">No Updates</span><br><a href="https://linear.app/knapsack/project/data-capture-and-metrics-instrumentation-10e001fb22f6" style="font-size: 11px;">Discovery phase</a></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Grant</td>
+              <td class="font-mono">Mar 14</td>
+            </tr>
+            <tr style="background: rgba(245, 158, 11, 0.05);">
+              <td class="req-id">PRD-ANL-002</td>
+              <td><strong>Analytics platform (core metrics)</strong></td>
+              <td>Backend pipeline capturing regeneration rate, acceptance rate, and error rate. Baseline data established for at least 1 customer. Sufficient to demonstrate "X% improvement since enabling IPE."</td>
+              <td><span class="linear-status being-defined">Being Defined</span><br><a href="https://linear.app/knapsack/project/analytics-platform-core-metrics-only-8a2d1fccd292" style="font-size: 11px;">No updates</a></td>
+              <td><span class="priority-badge must">Must-Have</span></td>
+              <td>Carly</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+            <tr style="background: rgba(245, 158, 11, 0.05);">
+              <td class="req-id">PRD-ANL-003</td>
+              <td><strong>Adoption dashboard (basic view)</strong></td>
+              <td>Single internal dashboard showing per-customer MCP usage: operation counts, usage trends over time, active users. Sufficient for CX to track adoption and trigger expansion conversations.</td>
+              <td><span class="linear-status being-defined">Being Defined</span><br><a href="https://linear.app/knapsack/project/analytics-ui-basic-view-4d2a868fd48c" style="font-size: 11px;">No updates</a></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Carly</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+            <tr style="background: rgba(234, 179, 8, 0.05);">
+              <td class="req-id">PRD-ANL-004</td>
+              <td><strong>Adoption metric definition</strong></td>
+              <td>Formal definition of what constitutes "adoption" for IPE. Must answer: What counts as an active user? What is a "meaningful" operation vs. a health check? What usage threshold = "adopted"? Per Sprint Kick-Off: "We're supposed to drive adoption so it's consumed — but we haven't defined what adoption means." This is upstream of ANL-003 (dashboard) and all commercial reporting.</td>
+              <td><span class="linear-status being-defined">Undefined</span><br><span style="font-size: 11px;">New — from Sprint Kick-Off</span></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Chris + Grant</td>
+              <td class="font-mono">Mar 7</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warning">
+        <p><strong>Critical dependency:</strong> ANL-004 (adoption definition) is now upstream of ANL-001 (usage data capture), ANL-003 (adoption dashboard), AND consumption billing. Without defining what "adoption" means, we can't instrument the right metrics, build the right dashboard, or validate the commercial model. Grant noted in the Pricing Jam: "the highest site usage in the last two weeks is 195 requests to a tool call" — we need this data to set tier boundaries, but first we need to agree on what to count.</p>
+      </div>
+
+      <!-- ==================== LEGAL ==================== -->
+      <h3 id="req-leg">3. Legal &amp; Compliance</h3>
+      <p class="text-muted" style="margin-bottom: var(--spectrum-spacing-300);"><a href="https://linear.app/knapsack/project/tos-dpa-security-review-ipe-launch-readiness-cf540dd55dfa">Linear: ToS / DPA / Security Review</a> | "The workstream with the least compressible timeline" — Robin</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Requirement</th>
+              <th>Acceptance Criteria</th>
+              <th>Linear Status</th>
+              <th>Priority</th>
+              <th>Owner</th>
+              <th>Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="req-id">PRD-LEG-001</td>
+              <td><strong>Terms of Service addendum</strong></td>
+              <td>Updated ToS with IPE-specific data processing terms drafted, reviewed by counsel, and approved. Covers: ingestion of customer source materials, storage of context sources, aggregation/weighting across inputs, and any third-party involvement.</td>
+              <td><span class="linear-status on-track">On Track</span><br><span style="font-size: 11px;">In progress</span></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Legal + Robin</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-LEG-002</td>
+              <td><strong>Data Processing Agreement</strong></td>
+              <td>GDPR-compliant DPA covering IPE storage patterns. <strong>Must include complete sub-processor inventory</strong> (Cloudflare, BrainTrust, Snowflake, and all vendors that touch customer data). Current DPA is out of date and missing recently added vendors. Addresses EU customer requirements and US enterprise procurement. Reviewed and approved.</td>
+              <td><span class="linear-status being-defined">At Risk</span><br><span style="font-size: 11px;">DPA out of date per Bloom</span></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Legal + Bloom</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-LEG-003</td>
+              <td><strong>MSA amendment template</strong></td>
+              <td>IPE addendum template for existing customers adding IPE to current contracts. Covers context ingestion, MCP delivery, and conflict data handling. Ready for AE/Legal to use in deal cycles.</td>
+              <td><span class="linear-status on-track">On Track</span><br><span style="font-size: 11px;">In progress</span></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Legal + Robin</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-LEG-004</td>
+              <td><strong>Security FAQ</strong></td>
+              <td>Published document with pre-emptive answers to enterprise procurement security questions about IPE. References SOC 2 Type II. Accelerates deal cycles by front-loading security review.</td>
+              <td><span class="linear-status on-track">On Track</span><br><span style="font-size: 11px;">In progress</span></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Security (Nick)</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-LEG-005</td>
+              <td><strong>ToS acceptance tracking</strong></td>
+              <td>Mechanism for customers to accept updated terms with an audit trail. Acceptance status queryable per customer. Required before IPE can be enabled for any customer.</td>
+              <td><span class="linear-status in-prep">In Prep</span><br><span style="font-size: 11px;">Engineering TBD</span></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Product + Legal</td>
+              <td class="font-mono">Mar 28</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ==================== COMMERCIAL ==================== -->
+      <h3 id="req-com">4. Commercial &amp; Pricing</h3>
+      <p class="text-muted" style="margin-bottom: var(--spectrum-spacing-300);"><a href="https://linear.app/knapsack/project/monetization-model-33254133cae8">Linear: Monetization model</a> (Being defined, no updates) | Owner: Chris Strahl</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Requirement</th>
+              <th>Acceptance Criteria</th>
+              <th>Linear Status</th>
+              <th>Priority</th>
+              <th>Owner</th>
+              <th>Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: rgba(245, 158, 11, 0.05);">
+              <td class="req-id">PRD-COM-001</td>
+              <td><strong>Pricing model framework + costing data</strong></td>
+              <td>Pricing model framework defined (what levers, what tiers, what counts as an operation). Current operational cost is ~$200/month ("trivial" per Bloom) — this is value-based pricing, not cost-plus. Usage data exists back to September 2025. Deliverable: the model itself with pluggable numbers, not necessarily final prices. Sam: "The model is more important than the actual numbers."</td>
+              <td><span class="linear-status being-defined">Being Defined</span><br><a href="https://linear.app/knapsack/project/monetization-model-33254133cae8" style="font-size: 11px;">Monetization model</a></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Grant</td>
+              <td class="font-mono">Mar 7</td>
+            </tr>
+            <tr style="background: rgba(245, 158, 11, 0.05);">
+              <td class="req-id">PRD-COM-002</td>
+              <td><strong>Tier 0 usage quota</strong></td>
+              <td>Specific operation count for Tier 0 (platform-included) defined and approved. Based on: current usage patterns, cost data, and "enough to demonstrate value." Documented with rationale.</td>
+              <td><span class="linear-status being-defined">Being Defined</span></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Grant + Chris</td>
+              <td class="font-mono">Mar 7</td>
+            </tr>
+            <tr style="background: rgba(245, 158, 11, 0.05);">
+              <td class="req-id">PRD-COM-003</td>
+              <td><strong>Consumption tier boundaries</strong></td>
+              <td>Tier 1, 2, 3 thresholds defined with specific operation ranges and price points. <strong>Value-based, not cost-plus</strong> — operational costs are trivial (~$200/mo total infrastructure), so pricing reflects value delivered to customer, not cost to serve. Quotable by AEs without further approval. Documented in pricing card format.</td>
+              <td><span class="linear-status being-defined">Being Defined</span></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Chris</td>
+              <td class="font-mono">Mar 14</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-COM-004</td>
+              <td><strong>CRM/HubSpot configuration</strong></td>
+              <td>Deal structure updated to reflect Platform + Services + Consumption. Pipeline stages match new model. Deal properties include consumption tier and estimated usage. AEs can create IPE deals without workarounds.</td>
+              <td><span class="linear-status na">N/A</span></td>
+              <td><span class="priority-badge must">Must-Have</span></td>
+              <td>Rev Ops</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout danger">
+        <p><strong>Dependency chain:</strong> COM-001 (costing) &#8594; COM-002 (Tier 0 quota) &#8594; COM-003 (tier boundaries) &#8594; COM-004 (CRM update) &#8594; All sales readiness materials. If costing data is not delivered by March 7, the entire commercial and sales readiness workstream cascades.</p>
+      </div>
+
+      <!-- ==================== UX & ONBOARDING ==================== -->
+      <h3 id="req-ux">5. UX &amp; Onboarding</h3>
+      <p class="text-muted" style="margin-bottom: var(--spectrum-spacing-300);">Owner: Robin, with Carly, Matt, Brennan | "The 'what's next' experience after adding a context source is the primary gap" — Robin's Strategy</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Requirement</th>
+              <th>Acceptance Criteria</th>
+              <th>Linear Status</th>
+              <th>Priority</th>
+              <th>Owner</th>
+              <th>Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="req-id">PRD-UX-001</td>
+              <td><strong>"What's next" post-connection experience</strong></td>
+              <td>After adding a context source, user is guided to at least 1 actionable next step (e.g., "Try asking your AI tool about [component]"). No dead-end experience.</td>
+              <td><span class="linear-status in-prep">In Design</span><br><span style="font-size: 11px;">Discussions ongoing</span></td>
+              <td><span class="priority-badge must">Must-Have</span></td>
+              <td>Robin + Carly</td>
+              <td class="font-mono">Mar 14</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-UX-002</td>
+              <td><strong>End-to-end admin workflow</strong></td>
+              <td>Admin can complete full flow: add source &#8594; configure &#8594; see ingestion status &#8594; view conflicts &#8594; resolve conflicts &#8594; verify MCP output. No step requires CLI or direct DB access.</td>
+              <td><span class="linear-status na">N/A</span><br><span style="font-size: 11px;">Spans ENG-007/009</span></td>
+              <td><span class="priority-badge must">Must-Have</span></td>
+              <td>Carly</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ==================== DEMO & ENGAGEMENT ==================== -->
+      <h3 id="req-dem">6. Demo &amp; Engagement</h3>
+      <p class="text-muted" style="margin-bottom: var(--spectrum-spacing-300);">Owner: Robin | "No demo assets exist yet" — Robin's Strategy</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Requirement</th>
+              <th>Acceptance Criteria</th>
+              <th>Linear Status</th>
+              <th>Priority</th>
+              <th>Owner</th>
+              <th>Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="req-id">PRD-DEM-001</td>
+              <td><strong>Demo assets</strong></td>
+              <td>At minimum: scripted video walkthrough or live demo environment showing IPE flow (add source &#8594; context ingested &#8594; conflict surfaced &#8594; use in AI tool &#8594; better output). Usable by AE/SE without product team present.</td>
+              <td><span class="linear-status na">N/A</span></td>
+              <td><span class="priority-badge must">Must-Have</span></td>
+              <td>Product + Mktg</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-DEM-002</td>
+              <td><strong>Competitive battle cards</strong></td>
+              <td>1-page positioning against: IBM Carbon MCP, NY State MCP, and "build your own MCP" approaches. Includes differentiation points, talk track, and objection responses.</td>
+              <td><span class="linear-status na">N/A</span></td>
+              <td><span class="priority-badge should">Should-Have</span></td>
+              <td>Marketing</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ==================== QA & LAUNCH ==================== -->
+      <h3 id="req-qa">7. QA &amp; Launch Readiness</h3>
+      <p class="text-muted" style="margin-bottom: var(--spectrum-spacing-300);">Owner: Robin | "V1 is not a beta. The launch plan goes straight from internal testing to GA." — Robin's Strategy</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Requirement</th>
+              <th>Acceptance Criteria</th>
+              <th>Linear Status</th>
+              <th>Priority</th>
+              <th>Owner</th>
+              <th>Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="req-id">PRD-QA-001</td>
+              <td><strong>Enterprise-scale testing</strong></td>
+              <td>IPE tested with enterprise-scale data: realistic source volume (not just internal test data), concurrent users, and data complexity. At least 1 test with non-Knapsack-internal workspace.</td>
+              <td><span class="linear-status na">N/A</span></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Robin</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-QA-002</td>
+              <td><strong>CX product knowledge transfer</strong></td>
+              <td>CX team has completed hands-on training with IPE. Can: demo the product, troubleshoot basic issues, answer top 10 customer questions, and support onboarding without escalating to product.</td>
+              <td><span class="linear-status na">N/A</span></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Product + CX</td>
+              <td class="font-mono">Mar 28</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-QA-003</td>
+              <td><strong>Go/No-Go decision gate</strong></td>
+              <td>All Blocker-priority requirements in this PRD are green. Executive sign-off documented. Fallback plan defined if any Blocker is not met.</td>
+              <td><span class="linear-status na">N/A</span></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Robin + Chris</td>
+              <td class="font-mono">Mar 28</td>
+            </tr>
+            <tr style="background: rgba(234, 179, 8, 0.05);">
+              <td class="req-id">PRD-QA-004</td>
+              <td><strong>MCP beta feedback collection</strong></td>
+              <td>Structured process for collecting and triaging MCP beta feedback from internal and early-access users. Includes: feedback intake form, severity classification, weekly triage, and clear criteria for "beta-blocking" vs. "post-GA." Must inform QA-005 graduation criteria.</td>
+              <td><span class="linear-status na">N/A</span><br><span style="font-size: 11px;">New — from Sprint Kick-Off</span></td>
+              <td><span class="priority-badge must">Must-Have</span></td>
+              <td>Robin + Product</td>
+              <td class="font-mono">Mar 14</td>
+            </tr>
+            <tr style="background: rgba(234, 179, 8, 0.05);">
+              <td class="req-id">PRD-QA-005</td>
+              <td><strong>MCP graduation plan (beta → GA)</strong></td>
+              <td>Documented plan for transitioning MCP from beta to GA. Includes: graduation criteria (stability, performance, coverage), feature flag removal strategy, customer communication plan, and rollback procedure. Per Sprint Kick-Off: "MCP is in beta today — what are the criteria for graduating it?"</td>
+              <td><span class="linear-status na">N/A</span><br><span style="font-size: 11px;">New — from Sprint Kick-Off</span></td>
+              <td><span class="priority-badge blocker">Blocker</span></td>
+              <td>Robin + Sam</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ==================== SALES READINESS ==================== -->
+      <h3 id="req-sal">8. Sales Readiness (Parallel Workstream)</h3>
+      <p class="text-muted" style="margin-bottom: var(--spectrum-spacing-300);">Owner: Amber | No dependencies on pricing decisions for initial drafting. Finalize with actual numbers in Week 2.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th class="purple">ID</th>
+              <th class="purple">Requirement</th>
+              <th class="purple">Acceptance Criteria</th>
+              <th class="purple">Priority</th>
+              <th class="purple">Owner</th>
+              <th class="purple">Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="req-id">PRD-SAL-001</td>
+              <td><strong>Pricing &amp; positioning training</strong></td>
+              <td>1-hour session delivered to all AE/SE/CX. Covers: Platform + Consumption model, "included not free" positioning, adoption-first selling, overage expansion model. Recorded for async access.</td>
+              <td><span class="priority-badge must">Must-Have</span></td>
+              <td>Amber + Chris</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-SAL-002</td>
+              <td><strong>IPE quick reference card</strong></td>
+              <td>Single page with: value prop, 3 personas, 4 use cases, pricing tier summary, and key objection responses. Printable for sales calls.</td>
+              <td><span class="priority-badge must">Must-Have</span></td>
+              <td>Amber</td>
+              <td class="font-mono">Mar 14</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-SAL-003</td>
+              <td><strong>Objection handling guide</strong></td>
+              <td>Top 10 objections with scripted responses. Must include: "Why not build our own MCP?", "What's the ROI?", "Why consumption pricing?", "Token cost concerns", and security/compliance objections.</td>
+              <td><span class="priority-badge must">Must-Have</span></td>
+              <td>Amber + CX</td>
+              <td class="font-mono">Mar 14</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-SAL-004</td>
+              <td><strong>Discovery call script</strong></td>
+              <td>Structured discovery flow: opener, PCRI validation questions, AI readiness signals, deployment tier signals, next steps. Tested by at least 1 AE before GA.</td>
+              <td><span class="priority-badge should">Should-Have</span></td>
+              <td>CX</td>
+              <td class="font-mono">Mar 14</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-SAL-005</td>
+              <td><strong>Email templates (3 sequences)</strong></td>
+              <td>Published and approved: 1) Existing customer IPE intro, 2) New prospect cold outreach, 3) Post-demo follow-up. All use "IPE included" messaging.</td>
+              <td><span class="priority-badge should">Should-Have</span></td>
+              <td>Mktg + CX</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-SAL-006</td>
+              <td><strong>CX adoption playbook</strong></td>
+              <td>30-60-90 day adoption milestones defined. Usage triggers for expansion conversation documented. QBR template focused on consumption growth.</td>
+              <td><span class="priority-badge should">Should-Have</span></td>
+              <td>CX</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-SAL-007</td>
+              <td><strong>Customer overview deck</strong></td>
+              <td>10-slide presentation covering: what is IPE, why now, how it works, pricing overview, getting started. Usable for first call or email attachment.</td>
+              <td><span class="priority-badge should">Should-Have</span></td>
+              <td>Marketing</td>
+              <td class="font-mono">Mar 21</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ==================== DOCUMENT CONSISTENCY ==================== -->
+      <h3 id="req-doc">9. Document Consistency</h3>
+      <p class="text-muted" style="margin-bottom: var(--spectrum-spacing-300);">Messaging alignment required across all customer-facing and internal documents.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th class="cyan">ID</th>
+              <th class="cyan">Requirement</th>
+              <th class="cyan">Acceptance Criteria</th>
+              <th class="cyan">Priority</th>
+              <th class="cyan">Owner</th>
+              <th class="cyan">Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="req-id">PRD-DOC-001</td>
+              <td><strong>Remove "Freemium" language</strong></td>
+              <td>All documents updated: "Free" &#8594; "Tier 0" or "Included." "Freemium" &#8594; "Platform + Consumption." Applies to: Offering Kit, Onboarding Kit, Index page, ROI Calculator.</td>
+              <td><span class="priority-badge should">Should-Have</span></td>
+              <td>Amber</td>
+              <td class="font-mono">Mar 7</td>
+            </tr>
+            <tr>
+              <td class="req-id">PRD-DOC-002</td>
+              <td><strong>Align SLA tiers to consumption tiers</strong></td>
+              <td>SLA table in Offering Kit maps Essentials/Pro/Enterprise to Tier 0/1/2/3. No orphaned tier references.</td>
+              <td><span class="priority-badge should">Should-Have</span></td>
+              <td>Amber</td>
+              <td class="font-mono">Mar 14</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 4: DEPENDENCY MAP
+         ==================================================================== -->
+    <section class="section" id="dependencies">
+      <div class="section-header">
+        <div class="section-number cyan"><i data-lucide="git-branch" style="width:18px;height:18px;"></i></div>
+        <h2>Dependency Map</h2>
+      </div>
+
+      <p class="text-muted">Critical chains where a delay in one requirement cascades to downstream work. Red nodes = stalled/no updates. Yellow = being defined. Blue = active. Green = on track or done.</p>
+
+      <div class="dep-chain">
+        <div class="dep-chain-title">Chain 1: Engineering Critical Path</div>
+        <div class="dep-flow">
+          <span class="dep-node active">ENG-001/002/003<br>Source Ingestion</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node active">ENG-004<br>PCIF Schema</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node active">ENG-005<br>Conflict Enrichment</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node stalled">ENG-006<br>MCP Distribution</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node stalled">ANL-001<br>Data Capture</span>
+        </div>
+        <div class="callout danger" style="margin-top: 12px; margin-bottom: 0;">
+          <p><strong>Bottleneck:</strong> ENG-006 (MCP distribution) depends on ENG-005 (conflict enrichment, at 17%) and ENG-001/002/003 (source ingestion). It is also the upstream dependency for ANL-001 (data capture). No updates since January 22.</p>
+        </div>
+      </div>
+
+      <div class="dep-chain">
+        <div class="dep-chain-title">Chain 2: Commercial Critical Path</div>
+        <div class="dep-flow">
+          <span class="dep-node undefined">ANL-004<br>Adoption Def</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node stalled">ANL-001<br>Data Capture</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node undefined">COM-001<br>Pricing Model</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node undefined">COM-002<br>Tier 0 Quota</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node undefined">COM-003<br>Tier Boundaries</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node undefined">COM-004<br>CRM Update</span>
+        </div>
+        <div class="dep-flow" style="margin-top: 8px;">
+          <span style="width: 108px; display: inline-block;"></span>
+          <span style="width: 24px; display: inline-block;"></span>
+          <span style="width: 108px; display: inline-block;"></span>
+          <span style="width: 24px; display: inline-block;"></span>
+          <span style="width: 108px; display: inline-block;"></span>
+          <span class="dep-arrow" style="transform: rotate(135deg); display: inline-block;">&#8594;</span>
+          <span class="dep-node undefined" style="font-size: 10px;">All SAL-* materials<br>finalized with pricing</span>
+        </div>
+      </div>
+
+      <div class="dep-chain">
+        <div class="dep-chain-title">Chain 3: Legal &amp; Access Control</div>
+        <div class="dep-flow">
+          <span class="dep-node active">LEG-001/002/003<br>ToS + DPA + MSA</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node active">LEG-005<br>Acceptance Tracking</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node active">IPE enabled<br>for customers</span>
+        </div>
+      </div>
+
+      <div class="dep-chain">
+        <div class="dep-chain-title">Chain 4: UI Critical Path</div>
+        <div class="dep-flow">
+          <span class="dep-node stalled">ENG-008<br>User Mgmt</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node stalled">ENG-007<br>Source Mgmt UI</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node stalled">ENG-009<br>Conflict UI</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node undefined">UX-002<br>Admin Workflow</span>
+        </div>
+        <div class="callout danger" style="margin-top: 12px; margin-bottom: 0;">
+          <p><strong>Blocked chain:</strong> ENG-008 (permissions) blocks ENG-007 (source management UI), which blocks ENG-009 (conflict resolution UI). All three have "no updates" in Linear. This entire UI chain is stalled.</p>
+        </div>
+      </div>
+
+      <div class="dep-chain">
+        <div class="dep-chain-title">Chain 5: MCP Graduation Path</div>
+        <div class="dep-flow">
+          <span class="dep-node undefined">QA-004<br>Beta Feedback</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node undefined">QA-005<br>Graduation Plan</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node undefined">DECISION<br>Feature Flag</span>
+          <span class="dep-arrow">&#8594;</span>
+          <span class="dep-node active">QA-003<br>Go/No-Go</span>
+        </div>
+        <div class="callout warning" style="margin-top: 12px; margin-bottom: 0;">
+          <p><strong>New chain:</strong> MCP is currently in beta behind a feature flag. Beta feedback collection (QA-004) informs the graduation plan (QA-005), which includes the feature flag removal criteria. This chain must complete before the Go/No-Go gate.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 5: SPRINT GATE CRITERIA
+         ==================================================================== -->
+    <section class="section" id="gates">
+      <div class="section-header">
+        <div class="section-number green"><i data-lucide="calendar-check" style="width:18px;height:18px;"></i></div>
+        <h2>Sprint Gate Criteria</h2>
+      </div>
+
+      <p class="text-muted">Each Friday checkpoint has a clear set of requirements that must be met. Pass = proceed. Fail = escalate and adjust.</p>
+
+      <div class="gate-card">
+        <div class="gate-header">
+          <div class="gate-title">Gate 1: Pricing Foundation</div>
+          <div class="gate-dates">Friday, March 7</div>
+        </div>
+        <ul class="gate-criteria">
+          <li><span class="gate-req">PRD-ENG-004</span> PCIF schema finalized and approved</li>
+          <li><span class="gate-req">PRD-COM-001</span> Operation costing data delivered by Grant</li>
+          <li><span class="gate-req">PRD-COM-002</span> Tier 0 usage quota recommended</li>
+          <li><span class="gate-req">PRD-ANL-004</span> Adoption metric definition agreed (what counts as "adopted")</li>
+          <li><span class="gate-req">PRD-DOC-001</span> "Freemium" language removed from all documents</li>
+          <li><span class="gate-req">DECISION</span> ToS amendment vs. re-acceptance approach decided</li>
+          <li><span class="gate-req">DECISION</span> Enterprise test account identified</li>
+          <li><span class="gate-req">DECISION</span> MDM strategy scope for V1 defined</li>
+          <li><span class="gate-req">DECISION</span> Storybook access gating during beta decided</li>
+          <li><span class="gate-req">STATUS</span> ENG-006 (MCP distribution) status check — still stalled?</li>
+          <li><span class="gate-req">STATUS</span> ENG-007/008/009 status check — UI chain still stalled?</li>
+          <li><span class="gate-req">STATUS</span> DPA sub-processor inventory started (LEG-002)</li>
+        </ul>
+      </div>
+
+      <div class="gate-card">
+        <div class="gate-header">
+          <div class="gate-title">Gate 2: Pricing Locked + Internal Testing</div>
+          <div class="gate-dates">Friday, March 14</div>
+        </div>
+        <ul class="gate-criteria">
+          <li><span class="gate-req">PRD-ENG-001</span> Knapsack ingestion complete and tested</li>
+          <li><span class="gate-req">PRD-ENG-002</span> Storybook ingestion complete and tested</li>
+          <li><span class="gate-req">PRD-ENG-003</span> MDX ingestion complete and tested</li>
+          <li><span class="gate-req">PRD-ENG-005</span> Conflict enrichment service functional</li>
+          <li><span class="gate-req">PRD-ENG-007</span> Source management UI — minimum viable CRUD</li>
+          <li><span class="gate-req">PRD-ENG-008</span> User permissions enforced</li>
+          <li><span class="gate-req">PRD-COM-003</span> Consumption tier boundaries and pricing approved by Chris</li>
+          <li><span class="gate-req">PRD-UX-001</span> "What's next" experience designed and in development</li>
+          <li><span class="gate-req">PRD-QA-004</span> MCP beta feedback collection process operational</li>
+          <li><span class="gate-req">PRD-SAL-002</span> Quick reference card drafted (placeholder pricing OK)</li>
+          <li><span class="gate-req">PRD-SAL-003</span> Objection handling guide drafted</li>
+          <li><span class="gate-req">PRD-DOC-002</span> SLA tiers aligned to consumption tiers</li>
+          <li><span class="gate-req">DECISION</span> Feature flag approach for MCP GA decided</li>
+          <li><span class="gate-req">DECISION</span> SLA tier mapping to consumption tiers decided</li>
+        </ul>
+      </div>
+
+      <div class="gate-card">
+        <div class="gate-header">
+          <div class="gate-title">Gate 3: Legal + Operations Complete</div>
+          <div class="gate-dates">Friday, March 21</div>
+        </div>
+        <ul class="gate-criteria">
+          <li><span class="gate-req">PRD-ENG-006</span> MCP distribution pipeline functional — multi-source context served</li>
+          <li><span class="gate-req">PRD-ENG-009</span> Conflict resolution UI functional</li>
+          <li><span class="gate-req">PRD-ANL-001</span> MCP usage data capture operational</li>
+          <li><span class="gate-req">PRD-ANL-003</span> Adoption dashboard MVP available</li>
+          <li><span class="gate-req">PRD-LEG-001</span> ToS addendum finalized</li>
+          <li><span class="gate-req">PRD-LEG-002</span> DPA finalized</li>
+          <li><span class="gate-req">PRD-LEG-003</span> MSA amendment finalized</li>
+          <li><span class="gate-req">PRD-LEG-004</span> Security FAQ published</li>
+          <li><span class="gate-req">PRD-COM-004</span> CRM/HubSpot configuration updated</li>
+          <li><span class="gate-req">PRD-DEM-001</span> Demo assets finalized</li>
+          <li><span class="gate-req">PRD-QA-001</span> Enterprise-scale testing underway or complete</li>
+          <li><span class="gate-req">PRD-QA-005</span> MCP graduation plan documented and approved</li>
+          <li><span class="gate-req">PRD-SAL-001</span> Training session materials ready</li>
+          <li><span class="gate-req">PRD-SAL-005</span> Email templates published</li>
+          <li><span class="gate-req">PRD-SAL-007</span> Customer overview deck published</li>
+        </ul>
+        <div class="callout warning" style="margin-top: 12px; margin-bottom: 0;">
+          <p><strong>Critical milestone:</strong> All legal documents finalized. ToS acceptance tracking must be in development. Security FAQ ready for enterprise prospects.</p>
+        </div>
+      </div>
+
+      <div class="gate-card" style="border: 2px solid var(--spectrum-red-500);">
+        <div class="gate-header">
+          <div class="gate-title" style="color: var(--spectrum-red-400);">Gate 4: Go/No-Go</div>
+          <div class="gate-dates">Friday, March 28</div>
+        </div>
+        <ul class="gate-criteria">
+          <li><span class="gate-req">PRD-LEG-005</span> ToS acceptance tracking live and functional</li>
+          <li><span class="gate-req">PRD-QA-001</span> Enterprise-scale testing complete — no P0 issues</li>
+          <li><span class="gate-req">PRD-QA-002</span> CX product knowledge transfer complete</li>
+          <li><span class="gate-req">PRD-QA-003</span> All Blocker-priority requirements green</li>
+          <li><span class="gate-req">PRD-SAL-001</span> Sales enablement training session delivered</li>
+          <li><span class="gate-req">PRD-UX-002</span> End-to-end admin workflow verified</li>
+          <li><span class="gate-req">ALL</span> Updated terms published to customers</li>
+          <li><span class="gate-req">ALL</span> Customer-facing teams briefed and ready</li>
+          <li><span class="gate-req">EXEC</span> Executive sign-off: Robin + Chris</li>
+        </ul>
+        <div class="callout danger" style="margin-top: 12px; margin-bottom: 0;">
+          <p><strong>Decision:</strong> If any Blocker requirement is not green, the Go/No-Go decision must include: what's not ready, impact assessment, and whether to proceed with mitigation or delay GA.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 6: RISK REGISTER
+         ==================================================================== -->
+    <section class="section" id="risks">
+      <div class="section-header">
+        <div class="section-number red"><i data-lucide="alert-triangle" style="width:18px;height:18px;"></i></div>
+        <h2>Risk Register</h2>
+      </div>
+
+      <p class="text-muted">Projects and requirements flagged for immediate attention based on Linear status and dependency analysis.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th class="red">Risk</th>
+              <th class="red">PRD Req</th>
+              <th class="red">Linear Status</th>
+              <th class="red">Impact</th>
+              <th class="red">Mitigation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>MCP distribution pipeline stalled</strong></td>
+              <td class="req-id">PRD-ENG-006</td>
+              <td>In Prep, no updates since Jan 22</td>
+              <td class="text-red"><strong>Critical.</strong> This is how IPE delivers value. Without it, nothing else matters. Blocks ANL-001 (data capture).</td>
+              <td>Immediate status check with Sam. If blocked on ENG-005, assess parallel path. Escalate to Robin if stalled.</td>
+            </tr>
+            <tr>
+              <td><strong>UI chain entirely stalled</strong></td>
+              <td class="req-id">ENG-007/008/009</td>
+              <td>No updates (Jan 16 – Feb 17)</td>
+              <td class="text-red"><strong>High.</strong> Source management UI, user permissions, and conflict resolution UI form a dependency chain. All stalled. V1 scope includes "admin capabilities."</td>
+              <td>Status check at Gate 1. Assess minimum viable scope: can V1 launch with CLI-only source management? If yes, reduce ENG-007 scope.</td>
+            </tr>
+            <tr>
+              <td><strong>Monetization model undefined</strong></td>
+              <td class="req-id">COM-001/002/003</td>
+              <td>Being defined, no updates</td>
+              <td class="text-yellow"><strong>High.</strong> Entire commercial model depends on costing data and tier definitions. Cascades to all sales materials and CRM config.</td>
+              <td>Grant delivers costing data by Mar 7 (Gate 1). Chris makes tier decision by Mar 14 (Gate 2). If missed, sales readiness materials ship with placeholder pricing.</td>
+            </tr>
+            <tr>
+              <td><strong>Analytics projects undefined</strong></td>
+              <td class="req-id">ANL-002/003</td>
+              <td>Both "Being defined," no updates</td>
+              <td class="text-yellow"><strong>Medium-High.</strong> Without adoption dashboard, CX cannot track consumption. Without core metrics, cannot prove ROI to customers. Commercial model lacks validation.</td>
+              <td>Minimum viable: even a spreadsheet-based usage report from raw data is acceptable for V1 if dashboard is not ready. Reduce scope to internal-only view.</td>
+            </tr>
+            <tr>
+              <td><strong>Legal timeline incompressible</strong></td>
+              <td class="req-id">LEG-001-005</td>
+              <td>On track (Feb 24 update)</td>
+              <td class="text-blue"><strong>Medium.</strong> Currently on track, but legal drafting doesn't accelerate with more effort. If any review cycle slips, Mar 21 target is at risk.</td>
+              <td>Weekly check-in with Grant and Robin. Nick from Security Ideals engaged. No mitigation for external counsel delays — just awareness.</td>
+            </tr>
+            <tr>
+              <td><strong>No demo assets</strong></td>
+              <td class="req-id">DEM-001</td>
+              <td>Not started</td>
+              <td class="text-yellow"><strong>Medium.</strong> AEs cannot independently demo IPE. All demos require product team presence, limiting deal velocity.</td>
+              <td>Fallback: recorded video walkthrough (lower effort than live demo environment). Bloom building PCRI-aligned demos — coordinate.</td>
+            </tr>
+            <tr>
+              <td><strong>Conflict enrichment at 17%</strong></td>
+              <td class="req-id">ENG-005</td>
+              <td>On track but early</td>
+              <td class="text-yellow"><strong>Medium.</strong> At 17% implementation with 4 weeks remaining. Upstream of MCP distribution (ENG-006) and conflict resolution UI (ENG-009).</td>
+              <td>Track weekly. If not at 60%+ by Gate 1, assess whether conflict resolution can be scoped down to V1.1.</td>
+            </tr>
+            <tr style="background: rgba(239, 68, 68, 0.05);">
+              <td><strong>DPA out of date — missing sub-processors</strong></td>
+              <td class="req-id">LEG-002</td>
+              <td>Confirmed stale per Sprint Kick-Off</td>
+              <td class="text-red"><strong>High.</strong> Current DPA does not list all sub-processors (Cloudflare, BrainTrust, Snowflake added since last update). Enterprise procurement will flag this. Could block deals with audit-heavy customers.</td>
+              <td>Bloom owns comprehensive sub-processor inventory. Route through Donna for legal review. Target completion before Gate 3 (Mar 21). Start immediately — legal review cycles are incompressible.</td>
+            </tr>
+            <tr style="background: rgba(239, 68, 68, 0.05);">
+              <td><strong>Adoption metric undefined</strong></td>
+              <td class="req-id">ANL-004</td>
+              <td>New — identified in Sprint Kick-Off</td>
+              <td class="text-red"><strong>High.</strong> The entire commercial model is "drive adoption so it's consumed" — but "adoption" has no formal definition. Blocks: dashboard design (ANL-003), consumption metering (ANL-001), and sales ability to articulate success metrics to prospects.</td>
+              <td>Chris + Grant define adoption metrics by Gate 1 (Mar 7). Use September 2025 usage data as baseline. Even a working definition is better than none — can iterate post-GA.</td>
+            </tr>
+            <tr style="background: rgba(239, 68, 68, 0.05);">
+              <td><strong>Historic security documentation gaps</strong></td>
+              <td class="req-id">LEG-004</td>
+              <td>Flagged in Security Planning</td>
+              <td class="text-yellow"><strong>Medium.</strong> Nick (Security Ideals) noted that some historic security documentation may be missing or incomplete. Infrastructure ticketing is also flagged — security-related infra requests may not have a clear intake path.</td>
+              <td>Nick has Linear access and is inventorying gaps. Prioritize items that directly impact Security FAQ (LEG-004) and SOC 2 narrative. Infrastructure ticketing gap to be addressed in sprint planning.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout info" style="margin-top: var(--spectrum-spacing-300);">
+        <p><strong>ISO 27001:</strong> In progress, target Q3 2026. May block specific enterprise deals (e.g., GSK) but is not a V1 GA blocker. Tracked separately.</p>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 7: OWNER MATRIX
+         ==================================================================== -->
+    <section class="section" id="owners">
+      <div class="section-header">
+        <div class="section-number green"><i data-lucide="users" style="width:18px;height:18px;"></i></div>
+        <h2>Owner Matrix</h2>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th class="green">Owner</th>
+              <th class="green">Blocker Reqs</th>
+              <th class="green">Must-Have</th>
+              <th class="green">Should-Have</th>
+              <th class="green">Key Deliverables</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Varun</strong></td>
+              <td class="font-mono text-red">3</td>
+              <td class="font-mono">0</td>
+              <td class="font-mono">0</td>
+              <td>Knapsack, Storybook, MDX ingestion (ENG-001/002/003)</td>
+            </tr>
+            <tr>
+              <td><strong>Sam</strong></td>
+              <td class="font-mono text-red">2</td>
+              <td class="font-mono">0</td>
+              <td class="font-mono">0</td>
+              <td>PCIF schema (ENG-004), MCP distribution pipeline (ENG-006)</td>
+            </tr>
+            <tr>
+              <td><strong>Rizchel</strong></td>
+              <td class="font-mono text-red">1</td>
+              <td class="font-mono">0</td>
+              <td class="font-mono">0</td>
+              <td>Conflict enrichment service (ENG-005)</td>
+            </tr>
+            <tr>
+              <td><strong>Grant</strong></td>
+              <td class="font-mono text-red">2</td>
+              <td class="font-mono">0</td>
+              <td class="font-mono">0</td>
+              <td>Data capture (ANL-001), operation costing (COM-001), Tier 0 quota (COM-002)</td>
+            </tr>
+            <tr>
+              <td><strong>Carly</strong></td>
+              <td class="font-mono text-red">2</td>
+              <td class="font-mono">2</td>
+              <td class="font-mono">0</td>
+              <td>Source mgmt UI (ENG-007), analytics platform (ANL-002), dashboard (ANL-003), admin workflow (UX-002)</td>
+            </tr>
+            <tr>
+              <td><strong>Robin</strong></td>
+              <td class="font-mono text-red">2</td>
+              <td class="font-mono">2</td>
+              <td class="font-mono">0</td>
+              <td>User permissions (ENG-008), conflict UI (ENG-009), "what's next" UX (UX-001), enterprise testing (QA-001), Go/No-Go (QA-003)</td>
+            </tr>
+            <tr>
+              <td><strong>Chris</strong></td>
+              <td class="font-mono text-red">1</td>
+              <td class="font-mono">0</td>
+              <td class="font-mono">0</td>
+              <td>Tier boundaries (COM-003), Go/No-Go (QA-003)</td>
+            </tr>
+            <tr>
+              <td><strong>Legal + Robin</strong></td>
+              <td class="font-mono text-red">4</td>
+              <td class="font-mono">0</td>
+              <td class="font-mono">0</td>
+              <td>ToS (LEG-001), DPA (LEG-002), MSA (LEG-003), acceptance tracking (LEG-005)</td>
+            </tr>
+            <tr>
+              <td><strong>Security (Nick)</strong></td>
+              <td class="font-mono text-red">1</td>
+              <td class="font-mono">0</td>
+              <td class="font-mono">0</td>
+              <td>Security FAQ (LEG-004)</td>
+            </tr>
+            <tr>
+              <td><strong>Amber</strong></td>
+              <td class="font-mono text-red">0</td>
+              <td class="font-mono text-yellow">3</td>
+              <td class="font-mono text-blue">3</td>
+              <td>Sales readiness lead (SAL-001 through SAL-007), doc consistency (DOC-001/002), sprint coordination</td>
+            </tr>
+            <tr>
+              <td><strong>Product + Marketing</strong></td>
+              <td class="font-mono text-red">1</td>
+              <td class="font-mono text-yellow">1</td>
+              <td class="font-mono text-blue">2</td>
+              <td>Demo assets (DEM-001), CX knowledge transfer (QA-002), email templates (SAL-005), overview deck (SAL-007)</td>
+            </tr>
+            <tr>
+              <td><strong>Rev Ops</strong></td>
+              <td class="font-mono">0</td>
+              <td class="font-mono text-yellow">1</td>
+              <td class="font-mono">0</td>
+              <td>CRM configuration (COM-004)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         RELATED DOCUMENTS
+         ==================================================================== -->
+    <section class="section" id="links">
+      <div class="section-header">
+        <div class="section-number blue"><i data-lucide="link" style="width:18px;height:18px;"></i></div>
+        <h2>Related Documents</h2>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--spectrum-spacing-300);">
+        <a href="../gtm/ipe_launch_checklist.html" style="text-decoration: none; display: block; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: var(--spectrum-radius-md); padding: var(--spectrum-spacing-300); text-align: center;">
+          <div style="color: var(--spectrum-red-400); font-weight: 600;">Launch Checklist</div>
+          <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);">Sprint Execution Tracker</div>
+        </a>
+        <a href="../gtm/ipe_offering_kit.html" style="text-decoration: none; display: block; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: var(--spectrum-radius-md); padding: var(--spectrum-spacing-300); text-align: center;">
+          <div style="color: var(--spectrum-green-400); font-weight: 600;">Offering Kit</div>
+          <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);">GTM, Solutioning, Delivery</div>
+        </a>
+        <a href="../gtm/gtm_playbook.html" style="text-decoration: none; display: block; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: var(--spectrum-radius-md); padding: var(--spectrum-spacing-300); text-align: center;">
+          <div style="color: var(--spectrum-purple-400); font-weight: 600;">GTM Playbook</div>
+          <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);">PCRI, Roles, Pipeline</div>
+        </a>
+        <a href="../gtm/roi_calculator.html" style="text-decoration: none; display: block; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: var(--spectrum-radius-md); padding: var(--spectrum-spacing-300); text-align: center;">
+          <div style="color: var(--spectrum-blue-400); font-weight: 600;">ROI Calculator</div>
+          <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);">Business Case Builder</div>
+        </a>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spectrum-spacing-300); margin-top: var(--spectrum-spacing-300);">
+        <a href="https://linear.app/knapsack/initiative/the-intelligent-product-engine-ipe-3778914864ee" style="text-decoration: none; display: block; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: var(--spectrum-radius-md); padding: var(--spectrum-spacing-300); text-align: center;">
+          <div style="color: var(--spectrum-yellow-400); font-weight: 600;">Linear: IPE Initiative</div>
+          <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);">Engineering Execution</div>
+        </a>
+        <a href="../gtm/onboarding_kit.html" style="text-decoration: none; display: block; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: var(--spectrum-radius-md); padding: var(--spectrum-spacing-300); text-align: center;">
+          <div style="color: var(--spectrum-cyan-400); font-weight: 600;">Onboarding Kit</div>
+          <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);">Customer Onboarding</div>
+        </a>
+        <a href="../index.html" style="text-decoration: none; display: block; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--spectrum-border-default); border-radius: var(--spectrum-radius-md); padding: var(--spectrum-spacing-300); text-align: center;">
+          <div style="color: var(--spectrum-text-primary); font-weight: 600;">IPE Hub</div>
+          <div style="font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);">All Documentation</div>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-meta">
+        <span><strong>Document Owner:</strong> Robin Cannon</span>
+        <span><strong>Sprint Lead:</strong> Amber Atkins</span>
+        <span><strong>Created:</strong> February 27, 2026</span>
+        <span><strong>Updated:</strong> February 27, 2026 (v1.1)</span>
+        <span><strong>GA Target:</strong> March 31, 2026</span>
+      </div>
+      <p class="footer-text">IPE V1 Launch Readiness PRD — Single source of truth for V1 readiness</p>
+      <p class="footer-text" style="margin-top: 8px; font-size: var(--spectrum-font-size-75);">Sources: Robin Cannon's IPE V1 Launch Strategy (Feb 23), IPE Pricing Jam (Feb 26), Linear Product Projects export (Feb 27), Sprint Kick-Off transcript (Feb 27), Security Project Planning transcript (Feb 26), IPE Launch Checklist, IPE Offering Kit</p>
+    </footer>
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
