@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Southwest Airlines — Knapsack IPE Pitch Deck</title>
+  <meta name="description" content="Building a platform for accelerated delivery. Knapsack IPE for Southwest Airlines, leveraging One North diagnostic findings.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple-900: #42247f;
+      --purple-700: #6436bf;
+      --purple-500: #8b5cf6;
+      --purple-400: #a78bfa;
+      --purple-300: #c4b5fd;
+      --purple-100: #ede9fe;
+      --green-500: #10b981;
+      --green-400: #34d399;
+      --green-300: #6ee7b7;
+      --blue-500: #3b82f6;
+      --blue-400: #60a5fa;
+      --blue-300: #93c5fd;
+      --amber-500: #f59e0b;
+      --amber-400: #fbbf24;
+      --amber-300: #fcd34d;
+      --red-500: #ef4444;
+      --red-400: #f87171;
+      --red-300: #fca5a5;
+      --cyan-500: #0ea5e9;
+      --cyan-400: #22d3ee;
+      --cyan-300: #67e8f9;
+      --orange-500: #f97316;
+      --bg-base: #0f0f1a;
+      --bg-layer: #16213e;
+      --bg-elevated: rgba(255,255,255,0.05);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255,255,255,0.85);
+      --text-muted: rgba(255,255,255,0.6);
+      --border-default: rgba(100, 54, 191, 0.3);
+      --border-subtle: rgba(255,255,255,0.08);
+      --sw-blue: #304CB2;
+      --sw-red: #C8102E;
+      --sw-yellow: #FFBF27;
+      --sw-blue-light: #5b78d4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      background: #111;
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    .deck {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .slide {
+      background: linear-gradient(170deg, var(--bg-base) 0%, #0d0d1f 100%);
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      padding: 56px 64px;
+      min-height: 640px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border-default);
+    }
+
+    .slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 40% at 50% -10%, rgba(100, 54, 191, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 30% at 100% 100%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      border-radius: 16px;
+    }
+
+    .slide-content { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; }
+
+    .slide-number {
+      position: absolute;
+      bottom: 24px;
+      right: 32px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      z-index: 2;
+    }
+
+    .slide-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 15, 26, 0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-default);
+      padding: 0 24px;
+    }
+
+    .slide-nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .slide-nav-inner::-webkit-scrollbar { display: none; }
+
+    .nav-brand {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--purple-300);
+      padding: 14px 16px 14px 0;
+      border-right: 1px solid var(--border-subtle);
+      margin-right: 8px;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-500); }
+
+    .nav-link {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 14px 10px;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover { color: var(--purple-300); border-bottom-color: var(--purple-500); }
+
+    .slide-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--purple-400);
+      margin-bottom: 12px;
+    }
+
+    .slide-title {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #fff 0%, var(--purple-300) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .slide-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 750px;
+      margin-bottom: 32px;
+    }
+
+    h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+
+    .card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px 24px;
+    }
+
+    .card-accent {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.9), rgba(26, 26, 46, 0.8));
+      border: 1px solid var(--border-default);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .card-hero {
+      background: linear-gradient(135deg, var(--purple-900) 0%, var(--bg-layer) 100%);
+      border: 1px solid var(--purple-700);
+      border-radius: 12px;
+      padding: 28px 32px;
+    }
+
+    .grid { display: grid; gap: 16px; }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .grid-5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr; }
+
+    @media (max-width: 800px) {
+      .slide { padding: 32px 28px; min-height: auto; }
+      .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+      .slide-title { font-size: 1.5rem; }
+    }
+
+    .stat-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.35;
+    }
+
+    .finding-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 20px;
+      border-left: 3px solid var(--red-400);
+    }
+
+    .finding-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--red-300);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+
+    .finding-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .finding-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    .maturity-track { display: flex; gap: 4px; margin: 20px 0; }
+
+    .maturity-step {
+      flex: 1;
+      padding: 14px 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .maturity-step.inactive { background: rgba(255,255,255,0.02); color: var(--text-muted); }
+
+    .maturity-step.current {
+      background: rgba(200, 16, 46, 0.15);
+      border-color: var(--sw-red);
+      color: var(--red-300);
+      position: relative;
+    }
+
+    .maturity-step.current::after {
+      content: 'TODAY';
+      position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
+      background: var(--sw-red); color: white; padding: 2px 8px; border-radius: 4px;
+      letter-spacing: 0.08em;
+    }
+
+    .maturity-step.target {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: var(--green-500);
+      color: var(--green-300);
+      position: relative;
+    }
+
+    .maturity-step.target::after {
+      content: 'TARGET';
+      position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
+      background: var(--green-500); color: white; padding: 2px 8px; border-radius: 4px;
+      letter-spacing: 0.08em;
+    }
+
+    .maturity-label { font-size: 11px; display: block; margin-top: 4px; font-weight: 400; color: inherit; opacity: 0.7; }
+
+    .phase-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phase-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .phase-card.p1::before { background: var(--amber-400); }
+    .phase-card.p2::before { background: var(--blue-400); }
+    .phase-card.p3::before { background: var(--green-400); }
+
+    .phase-tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px;
+      border-radius: 4px; display: inline-block; margin-bottom: 8px;
+    }
+
+    .phase-tag.p1 { background: rgba(251, 191, 36, 0.15); color: var(--amber-300); }
+    .phase-tag.p2 { background: rgba(96, 165, 250, 0.15); color: var(--blue-300); }
+    .phase-tag.p3 { background: rgba(52, 211, 153, 0.15); color: var(--green-300); }
+
+    /* Need cards */
+    .need-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .need-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+
+    .need-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+
+    .need-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+
+    .need-pain {
+      font-size: 12px; color: var(--red-300); font-style: italic;
+      margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .need-answer {
+      font-size: 13px; color: var(--text-secondary); line-height: 1.5; flex: 1;
+    }
+
+    .need-answer strong { color: var(--green-300); }
+
+    .need-feature {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 600; color: var(--purple-300);
+      background: rgba(139, 92, 246, 0.12); padding: 4px 10px;
+      border-radius: 4px; display: inline-block; margin-top: 12px;
+    }
+
+    /* Workflow lane */
+    .workflow-lane {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .workflow-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+    }
+
+    .workflow-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+
+    .workflow-title { font-size: 16px; font-weight: 700; }
+    .workflow-tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px;
+      border-radius: 4px; margin-left: auto;
+    }
+
+    .workflow-steps {
+      display: flex; align-items: center; gap: 0;
+    }
+
+    .wf-step {
+      flex: 1; text-align: center; padding: 12px 8px;
+      background: rgba(255,255,255,0.03); border-radius: 8px;
+      font-size: 12px; color: var(--text-secondary); line-height: 1.4;
+      position: relative;
+    }
+
+    .wf-step + .wf-step { margin-left: 24px; }
+
+    .wf-step + .wf-step::before {
+      content: '→'; position: absolute; left: -17px; top: 50%;
+      transform: translateY(-50%); font-size: 14px; color: var(--purple-400);
+    }
+
+    .wf-step strong { display: block; font-size: 13px; color: var(--text-primary); margin-bottom: 2px; }
+
+    /* Metric cards */
+    .metric-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .metric-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .metric-title { font-size: 13px; font-weight: 700; }
+
+    .metric-badge {
+      font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600;
+      padding: 2px 8px; border-radius: 4px; text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .metric-bar-group { margin-bottom: 8px; }
+
+    .metric-bar-label {
+      font-size: 11px; color: var(--text-muted); margin-bottom: 4px;
+      display: flex; justify-content: space-between;
+    }
+
+    .metric-bar-track {
+      height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .metric-bar-fill { height: 100%; border-radius: 4px; }
+
+    .metric-kpi {
+      display: flex; justify-content: space-between; padding-top: 8px;
+      border-top: 1px solid var(--border-subtle); margin-top: 8px;
+    }
+
+    .metric-kpi-item { text-align: center; }
+
+    .metric-kpi-value {
+      font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 700;
+    }
+
+    .metric-kpi-label { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+
+    /* Mapping table */
+    .map-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+    .map-table th {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted);
+      text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border-default);
+      background: rgba(139, 92, 246, 0.06);
+    }
+
+    .map-table td {
+      padding: 10px 14px; border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-secondary); vertical-align: top;
+    }
+
+    .map-table tr:last-child td { border-bottom: none; }
+    .map-table tr:hover td { background: rgba(139, 92, 246, 0.04); }
+    .map-table td:first-child { color: var(--red-300); font-weight: 600; }
+    .map-table td:last-child { color: var(--green-300); font-weight: 600; }
+
+    /* Timeline */
+    .timeline-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 12px 0; }
+
+    .timeline-col { border-radius: 12px; padding: 20px; }
+    .timeline-col.without { background: rgba(239, 68, 68, 0.06); border: 1px solid rgba(239, 68, 68, 0.2); }
+    .timeline-col.with { background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.3); }
+
+    .timeline-header { font-size: 13px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+
+    .timeline-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .timeline-bar-label { font-size: 10px; font-weight: 600; width: 60px; flex-shrink: 0; }
+
+    .timeline-bar-track {
+      flex: 1; height: 20px; background: rgba(255,255,255,0.04);
+      border-radius: 6px; overflow: hidden; position: relative;
+    }
+
+    .timeline-bar-fill {
+      height: 100%; border-radius: 6px; display: flex; align-items: center;
+      justify-content: center; font-size: 9px; font-weight: 600; color: white;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Comparison table */
+    .comp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+    .comp-table th {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted);
+      text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border-default);
+      background: rgba(139, 92, 246, 0.06);
+    }
+
+    .comp-table td { padding: 9px 12px; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    .comp-table tr:hover td { background: rgba(139, 92, 246, 0.04); }
+    .yes { color: var(--green-300) !important; font-weight: 600; }
+    .no { color: var(--red-300) !important; }
+    .partial { color: var(--amber-300) !important; }
+
+    .step-row { display: flex; gap: 20px; margin: 16px 0; }
+
+    .step-item {
+      flex: 1; background: var(--bg-elevated); border: 1px solid var(--border-subtle);
+      border-radius: 12px; padding: 28px 24px; text-align: center;
+    }
+
+    .step-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 12px; font-family: 'JetBrains Mono', monospace;
+      font-size: 14px; font-weight: 700; color: white;
+    }
+
+    .step-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .step-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    .quote-callout {
+      background: rgba(200, 16, 46, 0.06); border-left: 3px solid var(--sw-red);
+      border-radius: 0 10px 10px 0; padding: 20px 24px; margin: 16px 0;
+      font-size: 15px; font-style: italic; color: var(--text-secondary); line-height: 1.6;
+    }
+
+    .quote-source { font-style: normal; font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(100, 54, 191, 0.15), rgba(16, 185, 129, 0.08));
+      border: 1px solid var(--purple-500); border-radius: 12px; padding: 32px;
+      text-align: center; margin-top: auto;
+    }
+
+    .cta-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; }
+    .cta-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+
+    .cta-badge {
+      display: inline-block; font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; font-weight: 600;
+      background: linear-gradient(135deg, var(--purple-700), var(--green-500));
+      color: white; padding: 12px 28px; border-radius: 8px;
+    }
+
+    .logo-row { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; }
+    .logo-mark { font-weight: 700; font-size: 18px; }
+    .logo-divider { width: 1px; height: 28px; background: var(--border-default); }
+
+    .conf-bar {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted);
+      letter-spacing: 0.06em; text-transform: uppercase; margin-top: auto; padding-top: 24px;
+    }
+
+    @media print {
+      body { background: white; }
+      .slide-nav { display: none; }
+      .slide { break-after: page; box-shadow: none; border: 1px solid #ddd; min-height: auto; }
+      .deck { gap: 0; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="slide-nav">
+    <div class="slide-nav-inner">
+      <span class="nav-brand"><span class="nav-dot"></span> SWA Pitch Deck</span>
+      <a href="#slide-1" class="nav-link">Title</a>
+      <a href="#slide-2" class="nav-link">Diagnostic</a>
+      <a href="#slide-3" class="nav-link">Cost</a>
+      <a href="#slide-4" class="nav-link">Roadmap</a>
+      <a href="#slide-5" class="nav-link">SWA Needs</a>
+      <a href="#slide-6" class="nav-link">Workflows</a>
+      <a href="#slide-7" class="nav-link">Metrics</a>
+      <a href="#slide-8" class="nav-link">Alignment</a>
+      <a href="#slide-9" class="nav-link">ROI</a>
+      <a href="#slide-10" class="nav-link">Next Steps</a>
+    </div>
+  </nav>
+
+  <div class="deck">
+
+    <!-- ================================================================
+         SLIDE 1: TITLE
+         ================================================================ -->
+    <div class="slide" id="slide-1" style="justify-content: center; text-align: center;">
+      <div class="slide-content" style="justify-content: center; align-items: center;">
+        <div class="logo-row" style="justify-content: center;">
+          <span class="logo-mark" style="color: var(--purple-300);">Knapsack</span>
+          <span class="logo-divider"></span>
+          <span class="logo-mark" style="color: var(--sw-blue-light);">Southwest Airlines</span>
+        </div>
+
+        <h1 class="slide-title" style="font-size: 2.5rem; max-width: 800px; margin-bottom: 20px;">
+          Building a Platform for Accelerated Delivery
+        </h1>
+
+        <p style="font-size: 1.15rem; color: var(--text-secondary); max-width: 650px; margin-bottom: 40px;">
+          Operationalizing Heart Design System with the Knapsack Intelligent Product Engine — faster workflows, AI governance, design-to-code, and measurable outcomes.
+        </p>
+
+        <div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <div class="font-mono" style="font-size: 11px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase;">Prepared For</div>
+            <div style="font-weight: 600; margin-top: 4px;">Southwest Airlines — Design System Team</div>
+          </div>
+          <div style="width: 1px; background: var(--border-subtle);"></div>
+          <div style="text-align: center;">
+            <div class="font-mono" style="font-size: 11px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase;">Date</div>
+            <div style="font-weight: 600; margin-top: 4px;">March 2026</div>
+          </div>
+        </div>
+
+        <div class="conf-bar" style="text-align: center; margin-top: 48px;">Confidential — Prepared for Southwest Airlines internal use</div>
+      </div>
+      <span class="slide-number">1 / 10</span>
+    </div>
+
+    <!-- ================================================================
+         SLIDE 2: DIAGNOSTIC SUMMARY
+         ================================================================ -->
+    <div class="slide" id="slide-2">
+      <div class="slide-content">
+        <div class="slide-label">One North Diagnostic — February 2026</div>
+        <h2 class="slide-title">We Heard You: Heart Has Breadth, but Lacks Depth</h2>
+        <p class="slide-subtitle">One North's diagnostic identified five systemic gaps in the Heart Design System — the natural consequence of a system that grew faster than the governance around it.</p>
+
+        <div class="grid grid-5" style="gap: 12px; margin-bottom: 24px;">
+          <div class="finding-card">
+            <div class="finding-num">Finding 01</div>
+            <div class="finding-title">Documentation</div>
+            <div class="finding-desc">Guidance without outcomes. Docs don't connect design &rarr; build &rarr; validation. Teams don't know what's "ready."</div>
+          </div>
+          <div class="finding-card">
+            <div class="finding-num">Finding 02</div>
+            <div class="finding-title">Dev Parity</div>
+            <div class="finding-desc">No core alignment patterns between design and dev. Siloed pods build net-new components outside Heart.</div>
+          </div>
+          <div class="finding-card">
+            <div class="finding-num">Finding 03</div>
+            <div class="finding-title">System Inventory</div>
+            <div class="finding-desc">More inventory than system. The library is "heavy" — harder to apply than avoid. Decision burden slows delivery.</div>
+          </div>
+          <div class="finding-card">
+            <div class="finding-num">Finding 04</div>
+            <div class="finding-title">Quality Control</div>
+            <div class="finding-desc">No variant usage docs. Governance models exist but aren't surfaced. Processes don't always get utilized.</div>
+          </div>
+          <div class="finding-card">
+            <div class="finding-num">Finding 05</div>
+            <div class="finding-title">Structure &amp; Naming</div>
+            <div class="finding-desc">Inconsistent tokens, ~100+ Figma pages, mismatched naming across components and primitives.</div>
+          </div>
+        </div>
+
+        <div class="slide-label" style="margin-top: 8px;">One North Design System Maturity Spectrum</div>
+        <div class="maturity-track">
+          <div class="maturity-step inactive">0<span class="maturity-label">No System</span></div>
+          <div class="maturity-step inactive">1<span class="maturity-label">Style Guide</span></div>
+          <div class="maturity-step current">2<span class="maturity-label">UI Kit</span></div>
+          <div class="maturity-step inactive">3<span class="maturity-label">Design System</span></div>
+          <div class="maturity-step inactive">4<span class="maturity-label">Advanced DS</span></div>
+          <div class="maturity-step target">5<span class="maturity-label">Integrated DS</span></div>
+        </div>
+
+        <div class="quote-callout">
+          "Southwest Airlines' Heart DS has great breadth, but minimal depth, creating processes and artifacts with low usage and adoption. Lack of parity with development compounds existing issues further."
+          <div class="quote-source">— One North Design System Diagnostic, Feb 2026</div>
+        </div>
+      </div>
+      <span class="slide-number">2 / 10</span>
+    </div>
+
+    <!-- ================================================================
+         SLIDE 3: COST OF STATUS QUO
+         ================================================================ -->
+    <div class="slide" id="slide-3">
+      <div class="slide-content">
+        <div class="slide-label">The Business Impact</div>
+        <h2 class="slide-title">The Cost of an Ungoverned Design System</h2>
+        <p class="slide-subtitle">Heart exists — but your teams can't confidently use it. Every sprint ships inconsistency debt that compounds across products, platforms, and AI-generated output.</p>
+
+        <div class="grid grid-4" style="margin-bottom: 28px;">
+          <div class="stat-box">
+            <div class="stat-value" style="color: var(--red-300);">15–18%</div>
+            <div class="stat-label">More vulnerabilities in ungoverned AI-generated code</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" style="color: var(--amber-300);">4.6x</div>
+            <div class="stat-label">Longer PR review cycles without AI governance</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" style="color: var(--blue-300);">45%</div>
+            <div class="stat-label">Of enterprises have formal AI usage policies today</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" style="color: var(--purple-300);">52%</div>
+            <div class="stat-label">Avg rework reduction with governed design systems</div>
+          </div>
+        </div>
+
+        <div class="grid grid-2" style="gap: 20px;">
+          <div class="card" style="border-left: 3px solid var(--red-400);">
+            <h3 style="color: var(--red-300); margin-bottom: 12px;">What One North Found at Southwest</h3>
+            <ul style="list-style: none; padding: 0; font-size: 14px;">
+              <li style="padding: 6px 0; color: var(--text-secondary);">&#x26A0; Designers rebuild patterns from scratch — don't know what's "ready"</li>
+              <li style="padding: 6px 0; color: var(--text-secondary);">&#x26A0; Non-platform pods build components outside Heart entirely</li>
+              <li style="padding: 6px 0; color: var(--text-secondary);">&#x26A0; Heart is treated as a suggestion, not a requirement</li>
+              <li style="padding: 6px 0; color: var(--text-secondary);">&#x26A0; Growth is outpacing rigor — partial coverage erodes trust</li>
+              <li style="padding: 6px 0; color: var(--text-secondary);">&#x26A0; Manual handoffs with unclear expectations across teams</li>
+            </ul>
+          </div>
+
+          <div class="card" style="border-left: 3px solid var(--amber-400);">
+            <h3 style="color: var(--amber-300); margin-bottom: 12px;">The Compounding Effect</h3>
+            <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px;">These aren't isolated issues. They compound across every product and platform:</p>
+            <ul style="list-style: none; padding: 0; font-size: 14px;">
+              <li style="padding: 6px 0; color: var(--text-secondary);"><strong style="color: var(--amber-300);">Responsive Web</strong> — Token sync via scripts, but semantic naming inconsistent</li>
+              <li style="padding: 6px 0; color: var(--text-secondary);"><strong style="color: var(--amber-300);">Mobile (iOS/Android)</strong> — Manual updates to maintain alignment</li>
+              <li style="padding: 6px 0; color: var(--text-secondary);"><strong style="color: var(--amber-300);">AI Code Generation</strong> — No organizational context means off-brand output</li>
+              <li style="padding: 6px 0; color: var(--text-secondary);"><strong style="color: var(--amber-300);">New Hire Onboarding</strong> — Steep ramp with heavy, hard-to-navigate system</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <span class="slide-number">3 / 10</span>
+    </div>
+
+    <!-- ================================================================
+         SLIDE 4: ONE NORTH'S ROADMAP
+         ================================================================ -->
+    <div class="slide" id="slide-4">
+      <div class="slide-content">
+        <div class="slide-label">One North's Phased Approach</div>
+        <h2 class="slide-title">Where One North Says You Need to Go</h2>
+        <p class="slide-subtitle">A three-phase roadmap to evolve Heart from UI Kit to Integrated Design System. The destination includes MCP integration and AI-assisted generation.</p>
+
+        <div class="grid grid-3" style="margin-bottom: 24px;">
+          <div class="phase-card p1">
+            <span class="phase-tag p1">Phase 1 — Stabilize the Core</span>
+            <h3>Define &amp; Prove Standards</h3>
+            <ul style="list-style: none; padding: 0; font-size: 13px; color: var(--text-secondary);">
+              <li style="padding: 4px 0;">Define "system-ready" acceptance criteria</li>
+              <li style="padding: 4px 0;">Token naming alignment workshop</li>
+              <li style="padding: 4px 0;">Prioritize top 10–15 most-used components</li>
+              <li style="padding: 4px 0;">Establish Stable vs Experimental lifecycle</li>
+              <li style="padding: 4px 0;">Token contract alignment: design ↔ dev</li>
+            </ul>
+          </div>
+          <div class="phase-card p2">
+            <span class="phase-tag p2">Phase 2 — Strengthen &amp; Standardize</span>
+            <h3>Operationalize Governance</h3>
+            <ul style="list-style: none; padding: 0; font-size: 13px; color: var(--text-secondary);">
+              <li style="padding: 4px 0;">Apply criteria to next tier of components</li>
+              <li style="padding: 4px 0;">Formalize contribution models</li>
+              <li style="padding: 4px 0;">Reorganize Figma libraries by maturity</li>
+              <li style="padding: 4px 0;">Lifecycle guardrails &amp; visibility mechanisms</li>
+              <li style="padding: 4px 0;">Component-level structured changelogs</li>
+            </ul>
+          </div>
+          <div class="phase-card p3">
+            <span class="phase-tag p3">Phase 3 — Automate &amp; Innovate</span>
+            <h3>AI &amp; MCP Integration</h3>
+            <ul style="list-style: none; padding: 0; font-size: 13px; color: var(--text-secondary);">
+              <li style="padding: 4px 0;"><strong style="color: var(--green-300);">Explore MCP integration points</strong></li>
+              <li style="padding: 4px 0;"><strong style="color: var(--green-300);">Pilot AI-assisted component generation</strong></li>
+              <li style="padding: 4px 0;">Automated changelog generation</li>
+              <li style="padding: 4px 0;">CI-based token drift detection</li>
+              <li style="padding: 4px 0;">Component usage &amp; parity health metrics</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card-hero">
+          <p style="font-size: 13px; color: var(--green-300); font-weight: 600; margin-bottom: 6px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase;">Key Insight</p>
+          <p style="font-size: 16px; line-height: 1.6; color: var(--text-secondary);">
+            One North's Phase 3 explicitly recommends <strong style="color: white;">"Explore MCP integration points"</strong> and <strong style="color: white;">"Pilot AI-assisted component generation."</strong> These are aspirational goals 12–18 months away in a manual approach.
+            <br><br>
+            <strong style="color: var(--green-300);">What if the platform for Phase 3 was available today — and could accelerate Phases 1 and 2 in the process?</strong>
+          </p>
+        </div>
+      </div>
+      <span class="slide-number">4 / 10</span>
+    </div>
+
+    <!-- ================================================================
+         SLIDE 5: SOUTHWEST'S 5 NEEDS → KNAPSACK'S ANSWERS
+         ================================================================ -->
+    <div class="slide" id="slide-5">
+      <div class="slide-content">
+        <div class="slide-label">What Southwest Needs &rarr; What Knapsack Delivers</div>
+        <h2 class="slide-title">Five Needs. One Platform.</h2>
+        <p class="slide-subtitle">Southwest identified five priorities for accelerating digital delivery. Each one maps directly to a Knapsack Intelligent Product Engine capability.</p>
+
+        <div class="grid grid-5" style="gap: 14px;">
+          <div class="need-card" style="border-top: 3px solid var(--amber-400);">
+            <div class="need-num" style="color: var(--amber-300);">Need 01</div>
+            <div class="need-title">Faster, Less Manual Workflows</div>
+            <div class="need-pain">"We waste time recreating work that already exists."</div>
+            <div class="need-answer"><strong>Prototyping &amp; Composition</strong> — build with live, production-ready Heart components. Skip mockups. Eliminate manual handoffs between design and dev.</div>
+            <span class="need-feature">Prototyping &amp; Composition</span>
+          </div>
+
+          <div class="need-card" style="border-top: 3px solid var(--cyan-400);">
+            <div class="need-num" style="color: var(--cyan-300);">Need 02</div>
+            <div class="need-title">AI Workflows + Heart DS</div>
+            <div class="need-pain">"AI tools don't know about Heart. Output is off-brand."</div>
+            <div class="need-answer"><strong>MCP Context Delivery</strong> — Heart's tokens, patterns, and guidelines are delivered to Cursor, Copilot, and Claude via Model Context Protocol. AI output respects Heart automatically.</div>
+            <span class="need-feature">Cloud-Native MCP</span>
+          </div>
+
+          <div class="need-card" style="border-top: 3px solid var(--green-400);">
+            <div class="need-num" style="color: var(--green-300);">Need 03</div>
+            <div class="need-title">Design to Code Workflows</div>
+            <div class="need-pain">"Figma comps don't translate cleanly to production code."</div>
+            <div class="need-answer"><strong>Dynamic Documentation</strong> — live code previews alongside design specs. Components are production-ready in Knapsack, not just design artifacts. Designers build with real code.</div>
+            <span class="need-feature">Dynamic Documentation</span>
+          </div>
+
+          <div class="need-card" style="border-top: 3px solid var(--purple-400);">
+            <div class="need-num" style="color: var(--purple-300);">Need 04</div>
+            <div class="need-title">Guardrails</div>
+            <div class="need-pain">"Heart is treated as a suggestion, not a requirement."</div>
+            <div class="need-answer"><strong>Permissions &amp; Controls</strong> — brand compliance, accessibility standards (WCAG), token enforcement, and pattern governance. Audit trails for every change. AI output is governed.</div>
+            <span class="need-feature">Permissions &amp; Controls</span>
+          </div>
+
+          <div class="need-card" style="border-top: 3px solid var(--blue-400);">
+            <div class="need-num" style="color: var(--blue-300);">Need 05</div>
+            <div class="need-title">Metrics Dashboard</div>
+            <div class="need-pain">"We can't prove Heart's ROI to leadership."</div>
+            <div class="need-answer"><strong>PCRI Assessment &amp; Analytics</strong> — component adoption rates, usage analytics, parity scoring, and executive-ready reporting. Continuous benchmarking against 158 enterprises.</div>
+            <span class="need-feature">PCRI + Analytics</span>
+          </div>
+        </div>
+      </div>
+      <span class="slide-number">5 / 10</span>
+    </div>
+
+    <!-- ================================================================
+         SLIDE 6: WORKFLOWS IN ACTION
+         ================================================================ -->
+    <div class="slide" id="slide-6">
+      <div class="slide-content">
+        <div class="slide-label">Practitioner Workflows</div>
+        <h2 class="slide-title">Workflows in Action: What Changes Day-to-Day</h2>
+        <p class="slide-subtitle">Three concrete workflows showing how Knapsack transforms how Southwest designers, developers, and teams actually work.</p>
+
+        <!-- Workflow 1: Design to Code -->
+        <div class="workflow-lane" style="border-left: 3px solid var(--green-400);">
+          <div class="workflow-header">
+            <div class="workflow-icon" style="background: rgba(52, 211, 153, 0.15);">&#x1F3A8;</div>
+            <div>
+              <div class="workflow-title" style="color: var(--green-300);">Design to Code</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Designers build with production-ready components, not static mockups</div>
+            </div>
+            <span class="workflow-tag" style="background: rgba(52, 211, 153, 0.15); color: var(--green-300);">Eliminates Handoff</span>
+          </div>
+          <div class="workflow-steps">
+            <div class="wf-step"><strong>Designer opens Knapsack</strong>Browses Heart components with live code previews</div>
+            <div class="wf-step"><strong>Compose with real code</strong>Drag production components into prototypes — not Figma approximations</div>
+            <div class="wf-step"><strong>Developer gets production-ready spec</strong>Code, tokens, and variants are already defined — no interpretation needed</div>
+            <div class="wf-step"><strong>Ship with confidence</strong>What was designed is what gets built. Parity is guaranteed by the platform.</div>
+          </div>
+        </div>
+
+        <!-- Workflow 2: AI + Heart DS -->
+        <div class="workflow-lane" style="border-left: 3px solid var(--cyan-400);">
+          <div class="workflow-header">
+            <div class="workflow-icon" style="background: rgba(34, 211, 238, 0.15);">&#x1F916;</div>
+            <div>
+              <div class="workflow-title" style="color: var(--cyan-300);">AI-Governed Development</div>
+              <div style="font-size: 12px; color: var(--text-muted);">AI tools produce Heart-compliant code on the first try</div>
+            </div>
+            <span class="workflow-tag" style="background: rgba(34, 211, 238, 0.15); color: var(--cyan-300);">MCP-Powered</span>
+          </div>
+          <div class="workflow-steps">
+            <div class="wf-step"><strong>Developer opens Cursor/Copilot</strong>Requests: "Build a booking card using Heart DS"</div>
+            <div class="wf-step"><strong>MCP delivers Heart context</strong>Tokens, component specs, usage guidelines, and do/don't rules</div>
+            <div class="wf-step"><strong>AI generates governed code</strong>Output uses correct Heart tokens, variants, and naming conventions</div>
+            <div class="wf-step"><strong>PR passes first review</strong>No rework for off-brand output. Audit trail shows governed source.</div>
+          </div>
+        </div>
+
+        <!-- Workflow 3: Automated Guardrails -->
+        <div class="workflow-lane" style="border-left: 3px solid var(--purple-400);">
+          <div class="workflow-header">
+            <div class="workflow-icon" style="background: rgba(167, 139, 250, 0.15);">&#x1F6E1;</div>
+            <div>
+              <div class="workflow-title" style="color: var(--purple-300);">Automated Guardrails</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Governance that works without slowing teams down</div>
+            </div>
+            <span class="workflow-tag" style="background: rgba(167, 139, 250, 0.15); color: var(--purple-300);">Always-On</span>
+          </div>
+          <div class="workflow-steps">
+            <div class="wf-step"><strong>Brand guardrails</strong>Colors, typography, spacing enforced via structured tokens — not PDF guidelines</div>
+            <div class="wf-step"><strong>Accessibility guardrails</strong>WCAG compliance checks built into component specs and usage rules</div>
+            <div class="wf-step"><strong>Pattern guardrails</strong>Approved variants surfaced; deprecated patterns flagged automatically</div>
+            <div class="wf-step"><strong>Drift detection</strong>Conflicts between Knapsack, Storybook, and code surfaced in real-time</div>
+          </div>
+        </div>
+      </div>
+      <span class="slide-number">6 / 10</span>
+    </div>
+
+    <!-- ================================================================
+         SLIDE 7: METRICS & VISIBILITY DASHBOARD
+         ================================================================ -->
+    <div class="slide" id="slide-7">
+      <div class="slide-content">
+        <div class="slide-label">Metrics &amp; Visibility</div>
+        <h2 class="slide-title">The Dashboard Southwest Has Been Missing</h2>
+        <p class="slide-subtitle">Heart's value has been invisible to leadership. Knapsack provides continuous, executive-ready measurement across four dimensions.</p>
+
+        <div class="grid grid-2" style="gap: 16px; margin-bottom: 20px;">
+          <!-- Component Adoption -->
+          <div class="metric-card" style="border-top: 3px solid var(--green-400);">
+            <div class="metric-header">
+              <div class="metric-title" style="color: var(--green-300);">Component Adoption</div>
+              <span class="metric-badge" style="background: rgba(52, 211, 153, 0.15); color: var(--green-300);">Live Tracking</span>
+            </div>
+            <div class="metric-bar-group">
+              <div class="metric-bar-label"><span>Button (all variants)</span><span style="color: var(--green-300);">94%</span></div>
+              <div class="metric-bar-track"><div class="metric-bar-fill" style="width: 94%; background: var(--green-400);"></div></div>
+            </div>
+            <div class="metric-bar-group">
+              <div class="metric-bar-label"><span>Card</span><span style="color: var(--green-300);">87%</span></div>
+              <div class="metric-bar-track"><div class="metric-bar-fill" style="width: 87%; background: var(--green-400);"></div></div>
+            </div>
+            <div class="metric-bar-group">
+              <div class="metric-bar-label"><span>Navigation</span><span style="color: var(--amber-300);">62%</span></div>
+              <div class="metric-bar-track"><div class="metric-bar-fill" style="width: 62%; background: var(--amber-400);"></div></div>
+            </div>
+            <div class="metric-bar-group">
+              <div class="metric-bar-label"><span>Form inputs</span><span style="color: var(--amber-300);">51%</span></div>
+              <div class="metric-bar-track"><div class="metric-bar-fill" style="width: 51%; background: var(--amber-400);"></div></div>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">Track which Heart components are actually used vs. recreated by teams</p>
+          </div>
+
+          <!-- PCRI Health Score -->
+          <div class="metric-card" style="border-top: 3px solid var(--purple-400);">
+            <div class="metric-header">
+              <div class="metric-title" style="color: var(--purple-300);">PCRI Health Score</div>
+              <span class="metric-badge" style="background: rgba(167, 139, 250, 0.15); color: var(--purple-300);">Benchmarked</span>
+            </div>
+            <div style="text-align: center; padding: 12px 0;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 3rem; font-weight: 700; color: var(--purple-300);">—</div>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Score pending PCRI Assessment</div>
+            </div>
+            <div class="metric-kpi">
+              <div class="metric-kpi-item">
+                <div class="metric-kpi-value" style="color: var(--text-muted);">72.6</div>
+                <div class="metric-kpi-label">Industry Avg</div>
+              </div>
+              <div class="metric-kpi-item">
+                <div class="metric-kpi-value" style="color: var(--text-muted);">158</div>
+                <div class="metric-kpi-label">Benchmarks</div>
+              </div>
+              <div class="metric-kpi-item">
+                <div class="metric-kpi-value" style="color: var(--text-muted);">5</div>
+                <div class="metric-kpi-label">Pillars</div>
+              </div>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">Continuous scoring across coverage, governance, tokens, adoption, and parity</p>
+          </div>
+
+          <!-- Design-Dev Parity -->
+          <div class="metric-card" style="border-top: 3px solid var(--cyan-400);">
+            <div class="metric-header">
+              <div class="metric-title" style="color: var(--cyan-300);">Design ↔ Dev Parity</div>
+              <span class="metric-badge" style="background: rgba(34, 211, 238, 0.15); color: var(--cyan-300);">Conflict Detection</span>
+            </div>
+            <div class="metric-kpi" style="border: none; margin: 0; padding: 8px 0;">
+              <div class="metric-kpi-item">
+                <div class="metric-kpi-value" style="color: var(--cyan-300);">&#x2714;</div>
+                <div class="metric-kpi-label">Token Sync</div>
+              </div>
+              <div class="metric-kpi-item">
+                <div class="metric-kpi-value" style="color: var(--cyan-300);">&#x2714;</div>
+                <div class="metric-kpi-label">Variant Parity</div>
+              </div>
+              <div class="metric-kpi-item">
+                <div class="metric-kpi-value" style="color: var(--amber-300);">&#x26A0;</div>
+                <div class="metric-kpi-label">Naming Drift</div>
+              </div>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">Automated conflict surfacing between Knapsack, Storybook, and code sources</p>
+          </div>
+
+          <!-- Executive ROI -->
+          <div class="metric-card" style="border-top: 3px solid var(--amber-400);">
+            <div class="metric-header">
+              <div class="metric-title" style="color: var(--amber-300);">Executive ROI Reporting</div>
+              <span class="metric-badge" style="background: rgba(251, 191, 36, 0.15); color: var(--amber-300);">Leadership-Ready</span>
+            </div>
+            <div class="metric-kpi" style="border: none; margin: 0; padding: 8px 0;">
+              <div class="metric-kpi-item">
+                <div class="metric-kpi-value" style="color: var(--green-300);">$</div>
+                <div class="metric-kpi-label">Time Savings</div>
+              </div>
+              <div class="metric-kpi-item">
+                <div class="metric-kpi-value" style="color: var(--green-300);">&#x2191;</div>
+                <div class="metric-kpi-label">Velocity Gain</div>
+              </div>
+              <div class="metric-kpi-item">
+                <div class="metric-kpi-value" style="color: var(--green-300);">&#x2193;</div>
+                <div class="metric-kpi-label">Rework Rate</div>
+              </div>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">Quantified value: adoption metrics, time savings, consistency scores — ready for VP/CTO review</p>
+          </div>
+        </div>
+
+        <div class="card-hero" style="padding: 18px 24px;">
+          <p style="font-size: 14px; line-height: 1.6; color: var(--text-secondary);">
+            <strong style="color: white;">These aren't one-time reports.</strong> Knapsack provides continuous, live dashboards — not point-in-time audits. Heart's health, adoption, and ROI are always visible to the teams and leaders who need them.
+          </p>
+        </div>
+      </div>
+      <span class="slide-number">7 / 10</span>
+    </div>
+
+    <!-- ================================================================
+         SLIDE 8: ALIGNMENT + TIMELINE (CONSOLIDATED)
+         ================================================================ -->
+    <div class="slide" id="slide-8">
+      <div class="slide-content">
+        <div class="slide-label">Alignment &amp; Acceleration</div>
+        <h2 class="slide-title">One North's Findings → Knapsack's Platform → Compressed Timeline</h2>
+        <p class="slide-subtitle">Every diagnostic finding maps to a platform capability — and IPE compresses One North's 12–18 month roadmap into 6–9 months.</p>
+
+        <div style="background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden; margin-bottom: 20px;">
+          <table class="map-table">
+            <thead>
+              <tr>
+                <th style="width: 25%;">One North Finding</th>
+                <th style="width: 40%;">Knapsack IPE Capability</th>
+                <th style="width: 35%;">Southwest Impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Documentation gaps</td>
+                <td style="color: var(--text-secondary) !important;">Dynamic Documentation — living, synced docs with code previews</td>
+                <td>Docs become operational, not just informational</td>
+              </tr>
+              <tr>
+                <td>Design ↔ Dev parity</td>
+                <td style="color: var(--text-secondary) !important;">Multi-source conflict surfacing + MCP context delivery</td>
+                <td>Automated drift detection ends siloed development</td>
+              </tr>
+              <tr>
+                <td>Heavy system inventory</td>
+                <td style="color: var(--text-secondary) !important;">Component Management — readiness statuses, maturity tiers</td>
+                <td>Fewer, stronger components teams trust and use</td>
+              </tr>
+              <tr>
+                <td>Governance gaps</td>
+                <td style="color: var(--text-secondary) !important;">Permissions &amp; Controls + PCRI benchmarking</td>
+                <td>Measurable guardrails, not just checklists</td>
+              </tr>
+              <tr>
+                <td>Naming &amp; token friction</td>
+                <td style="color: var(--text-secondary) !important;">Design Tokens &amp; Theming — machine-readable contracts</td>
+                <td>Tokens that machines and humans understand</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="timeline-compare">
+          <div class="timeline-col without">
+            <div class="timeline-header" style="color: var(--red-300);">&#x26A0; Without IPE — 12–18 Months</div>
+            <div class="timeline-bar">
+              <span class="timeline-bar-label" style="color: var(--amber-300);">Phase 1</span>
+              <div class="timeline-bar-track"><div class="timeline-bar-fill" style="width: 35%; background: rgba(251, 191, 36, 0.3);">Q1–Q2</div></div>
+            </div>
+            <div class="timeline-bar">
+              <span class="timeline-bar-label" style="color: var(--blue-300);">Phase 2</span>
+              <div class="timeline-bar-track"><div class="timeline-bar-fill" style="width: 35%; margin-left: 35%; background: rgba(96, 165, 250, 0.3);">Q3–Q4</div></div>
+            </div>
+            <div class="timeline-bar">
+              <span class="timeline-bar-label" style="color: var(--green-300);">Phase 3</span>
+              <div class="timeline-bar-track"><div class="timeline-bar-fill" style="width: 30%; margin-left: 70%; background: rgba(52, 211, 153, 0.3);">Q5–Q6</div></div>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">Sequential phases. MCP integration is a Phase 3 aspiration.</p>
+          </div>
+          <div class="timeline-col with">
+            <div class="timeline-header" style="color: var(--green-300);">&#x2714; With IPE — 6–9 Months</div>
+            <div class="timeline-bar">
+              <span class="timeline-bar-label" style="color: var(--amber-300);">Phase 1</span>
+              <div class="timeline-bar-track"><div class="timeline-bar-fill" style="width: 30%; background: rgba(251, 191, 36, 0.4);">Q1</div></div>
+            </div>
+            <div class="timeline-bar">
+              <span class="timeline-bar-label" style="color: var(--blue-300);">Phase 2</span>
+              <div class="timeline-bar-track"><div class="timeline-bar-fill" style="width: 25%; margin-left: 25%; background: rgba(96, 165, 250, 0.4);">Q2</div></div>
+            </div>
+            <div class="timeline-bar">
+              <span class="timeline-bar-label" style="color: var(--green-300);">Phase 3</span>
+              <div class="timeline-bar-track"><div class="timeline-bar-fill" style="width: 75%; background: linear-gradient(90deg, rgba(52, 211, 153, 0.4), rgba(52, 211, 153, 0.2));">Available from Day 1 →</div></div>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">MCP, AI governance, and metrics available from Phase 1.</p>
+          </div>
+        </div>
+      </div>
+      <span class="slide-number">8 / 10</span>
+    </div>
+
+    <!-- ================================================================
+         SLIDE 9: ROI & WHY KNAPSACK (CONSOLIDATED)
+         ================================================================ -->
+    <div class="slide" id="slide-9">
+      <div class="slide-content">
+        <div class="slide-label">Measured Outcomes &amp; Differentiation</div>
+        <h2 class="slide-title">The Business Case — and Why Only Knapsack Delivers It</h2>
+        <p class="slide-subtitle">Projected outcomes based on 158 enterprise PCRI benchmarks and published customer results.</p>
+
+        <div class="grid grid-4" style="margin-bottom: 24px;">
+          <div class="stat-box" style="border-top: 3px solid var(--green-400);">
+            <div class="stat-value" style="color: var(--green-300);">40–60%</div>
+            <div class="stat-label">Fewer AI revision cycles through governed context</div>
+          </div>
+          <div class="stat-box" style="border-top: 3px solid var(--blue-400);">
+            <div class="stat-value" style="color: var(--blue-300);">25–35%</div>
+            <div class="stat-label">Better design system adoption with enforcement</div>
+          </div>
+          <div class="stat-box" style="border-top: 3px solid var(--purple-400);">
+            <div class="stat-value" style="color: var(--purple-300);">50%</div>
+            <div class="stat-label">Faster new-hire ramp with context-aware onboarding</div>
+          </div>
+          <div class="stat-box" style="border-top: 3px solid var(--cyan-400);">
+            <div class="stat-value" style="color: var(--cyan-300);">~8 mo</div>
+            <div class="stat-label">Average payback period, 3-year ROI ~280%</div>
+          </div>
+        </div>
+
+        <div class="grid grid-2" style="gap: 16px;">
+          <div class="card-accent">
+            <h3 style="margin-bottom: 12px;">Enterprise Proof Points</h3>
+            <div style="padding: 10px 0; border-bottom: 1px solid var(--border-subtle);">
+              <div style="font-size: 14px; font-weight: 600;">Top 5 U.S. Retailer</div>
+              <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">20% efficiency increase, <strong style="color: var(--green-300);">$3M saved in engineering hours annually</strong></div>
+            </div>
+            <div style="padding: 10px 0; border-bottom: 1px solid var(--border-subtle);">
+              <div style="font-size: 14px; font-weight: 600;">National Retailer</div>
+              <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Speed-to-market accelerated by <strong style="color: var(--green-300);">15%</strong></div>
+            </div>
+            <div style="padding: 10px 0;">
+              <div style="font-size: 14px; font-weight: 600;">Global Pharmaceutical</div>
+              <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">QA time reduced <strong style="color: var(--green-300);">30%</strong>, projected <strong style="color: var(--green-300);">$10M+ annual savings</strong></div>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden;">
+            <table class="comp-table">
+              <thead>
+                <tr>
+                  <th>Capability</th>
+                  <th>Knapsack IPE</th>
+                  <th>DIY / Storybook</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong style="color: var(--text-primary);">MCP + AI governance</strong></td>
+                  <td class="yes">Day one, included</td>
+                  <td class="no">6–12 mo to build</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--text-primary);">Design-to-code</strong></td>
+                  <td class="yes">Live prototyping</td>
+                  <td class="no">Static only</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--text-primary);">Multi-source context</strong></td>
+                  <td class="yes">3 sources at launch</td>
+                  <td class="no">Single source</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--text-primary);">Conflict detection</strong></td>
+                  <td class="yes">Automated</td>
+                  <td class="no">Manual</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--text-primary);">Metrics dashboard</strong></td>
+                  <td class="yes">PCRI + analytics</td>
+                  <td class="no">None</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--text-primary);">Enterprise audit</strong></td>
+                  <td class="yes">SOC 2 Type II</td>
+                  <td class="no">Build yourself</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--text-primary);">Time to value</strong></td>
+                  <td class="yes">Weeks</td>
+                  <td class="no">12–18 months</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <span class="slide-number">9 / 10</span>
+    </div>
+
+    <!-- ================================================================
+         SLIDE 10: NEXT STEPS
+         ================================================================ -->
+    <div class="slide" id="slide-10">
+      <div class="slide-content">
+        <div class="slide-label">Getting Started</div>
+        <h2 class="slide-title">Next Steps: Start with a PCRI Assessment</h2>
+        <p class="slide-subtitle">A 10-minute diagnostic, not a procurement decision. Benchmark Heart against 158 enterprise design systems and get a concrete acceleration plan.</p>
+
+        <div class="step-row" style="margin-bottom: 32px;">
+          <div class="step-item">
+            <div class="step-num" style="background: var(--purple-500);">1</div>
+            <div class="step-title">PCRI Assessment</div>
+            <div class="step-desc">Benchmark Heart Design System against 158 enterprise accounts. Get Southwest's readiness score, industry comparison, maturity archetype, and projected ROI.</div>
+            <div class="font-mono" style="font-size: 11px; color: var(--purple-300); margin-top: 12px;">10 minutes &middot; No commitment</div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-num" style="background: var(--blue-500);">2</div>
+            <div class="step-title">Joint Roadmap Session</div>
+            <div class="step-desc">Map PCRI results to One North's phased plan. Identify quick wins where IPE accelerates Phase 1 goals. Align stakeholders on priorities.</div>
+            <div class="font-mono" style="font-size: 11px; color: var(--blue-300); margin-top: 12px;">60 minutes &middot; Southwest + Knapsack</div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-num" style="background: var(--green-500);">3</div>
+            <div class="step-title">Pilot Activation</div>
+            <div class="step-desc">Connect Heart to IPE in a controlled scope. Measure before/after on adoption, consistency, and developer velocity. Build the internal business case.</div>
+            <div class="font-mono" style="font-size: 11px; color: var(--green-300); margin-top: 12px;">2–4 weeks &middot; Scoped team</div>
+          </div>
+        </div>
+
+        <div class="cta-card">
+          <div class="cta-title">One North diagnosed the problem. Let's operationalize the solution.</div>
+          <p class="cta-sub">Every finding in the diagnostic has a platform answer. Every workflow Southwest needs is built. Start with the PCRI Assessment to see exactly where Heart stands.</p>
+          <div class="cta-badge">Book Your PCRI Assessment &rarr;</div>
+        </div>
+
+        <div class="conf-bar" style="text-align: center; margin-top: 32px;">
+          Knapsack &middot; knapsack.cloud &middot; Confidential — Prepared for Southwest Airlines
+        </div>
+      </div>
+      <span class="slide-number">10 / 10</span>
+    </div>
+
+  </div>
+
+</body>
+</html>

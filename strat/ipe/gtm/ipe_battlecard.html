@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPE Sales Battlecard | Knapsack</title>
+  <meta name="description" content="Knapsack IPE Sales Battlecard — competitive positioning, industry verticals, persona messaging, objection handling, and commercial reference.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --purple-900: #42247f;
+      --purple-700: #6436bf;
+      --purple-500: #8b5cf6;
+      --purple-400: #a78bfa;
+      --purple-300: #c4b5fd;
+      --purple-100: #ede9fe;
+      --green-500: #10b981;
+      --green-400: #34d399;
+      --green-300: #6ee7b7;
+      --blue-500: #3b82f6;
+      --blue-400: #60a5fa;
+      --blue-300: #93c5fd;
+      --amber-500: #f59e0b;
+      --amber-400: #fbbf24;
+      --amber-300: #fcd34d;
+      --red-500: #ef4444;
+      --red-400: #f87171;
+      --red-300: #fca5a5;
+      --cyan-500: #0ea5e9;
+      --cyan-400: #22d3ee;
+      --cyan-300: #67e8f9;
+      --orange-500: #f97316;
+      --pink-500: #ec4899;
+      --bg-base: #0f0f1a;
+      --bg-layer: #16213e;
+      --bg-elevated: rgba(255,255,255,0.05);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255,255,255,0.85);
+      --text-muted: rgba(255,255,255,0.6);
+      --border-default: rgba(100, 54, 191, 0.3);
+      --border-subtle: rgba(255,255,255,0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(100, 54, 191, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 32px 24px; position: relative; z-index: 1; }
+
+    /* Nav */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 15, 26, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-default);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 14px 12px;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--purple-300); border-bottom-color: var(--purple-500); }
+    .nav-title {
+      font-weight: 700;
+      color: var(--purple-300);
+      font-size: 14px;
+      padding: 14px 16px 14px 0;
+      border-right: 1px solid var(--border-subtle);
+      margin-right: 8px;
+      white-space: nowrap;
+    }
+
+    /* Header */
+    header { padding: 40px 0 32px; border-bottom: 1px solid var(--border-default); margin-bottom: 32px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--purple-300); background: rgba(139, 92, 246, 0.15);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      padding: 6px 14px; border-radius: 100px; margin-bottom: 16px;
+    }
+    header h1 {
+      font-size: 2rem; font-weight: 700; line-height: 1.2; margin-bottom: 8px;
+      background: linear-gradient(135deg, #fff 0%, var(--purple-300) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .header-sub { font-size: 1rem; color: var(--text-muted); max-width: 700px; }
+
+    /* Sections */
+    section { padding: 36px 0; }
+    section + section { border-top: 1px solid var(--border-subtle); }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple-400); margin-bottom: 8px;
+    }
+    .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 6px; }
+    .section-desc { font-size: 14px; color: var(--text-muted); max-width: 700px; margin-bottom: 20px; }
+
+    /* Cards */
+    .card {
+      background: linear-gradient(145deg, rgba(22, 33, 62, 0.9) 0%, rgba(26, 26, 46, 0.8) 100%);
+      border: 1px solid var(--border-default); border-radius: 12px; padding: 24px; margin-bottom: 16px;
+    }
+    .card.hero {
+      background: linear-gradient(135deg, var(--purple-900) 0%, var(--bg-layer) 100%);
+      border-color: var(--purple-700);
+    }
+    .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .card p { color: var(--text-secondary); font-size: 14px; margin-bottom: 8px; }
+
+    /* Grid */
+    .grid { display: grid; gap: 16px; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+    @media (max-width: 768px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+    /* Table */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .data-table th {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted);
+      text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border-default);
+      background: rgba(139, 92, 246, 0.08);
+    }
+    .data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); vertical-align: top; }
+    .data-table tr:hover td { background: rgba(139, 92, 246, 0.04); }
+    .yes { color: var(--green-300) !important; font-weight: 600; }
+    .no { color: var(--red-300) !important; }
+    .partial { color: var(--amber-300) !important; }
+    .muted { color: var(--text-muted) !important; }
+
+    /* Industry cards */
+    .industry-card {
+      background: var(--bg-elevated); border: 1px solid var(--border-subtle);
+      border-radius: 12px; overflow: hidden; transition: all 0.2s;
+    }
+    .industry-card:hover { border-color: var(--border-default); }
+    .industry-header {
+      padding: 16px 20px; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .industry-name { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .industry-name i { width: 18px; height: 18px; }
+    .industry-body { padding: 16px 20px; }
+    .industry-row { display: flex; gap: 12px; margin-bottom: 10px; }
+    .industry-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);
+      width: 85px; flex-shrink: 0; padding-top: 2px;
+    }
+    .industry-value { font-size: 13px; color: var(--text-secondary); flex: 1; }
+    .industry-value strong { color: var(--text-primary); }
+    .industry-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+    .tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600;
+      padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.03em;
+    }
+    .tag-compliance { background: rgba(239, 68, 68, 0.15); color: var(--red-300); }
+    .tag-tier { background: rgba(59, 130, 246, 0.15); color: var(--blue-300); }
+    .tag-path { background: rgba(16, 185, 129, 0.15); color: var(--green-300); }
+
+    /* Benchmark bar */
+    .benchmark-bar { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+    .benchmark-track { flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; position: relative; }
+    .benchmark-fill { height: 100%; border-radius: 3px; }
+    .benchmark-marker {
+      position: absolute; top: -3px; width: 2px; height: 12px;
+      background: rgba(255,255,255,0.4); border-radius: 1px;
+    }
+    .benchmark-score { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; width: 30px; text-align: right; }
+
+    /* Persona cards */
+    .persona-card {
+      background: var(--bg-elevated); border: 1px solid var(--border-subtle);
+      border-radius: 10px; padding: 20px; position: relative; overflow: hidden;
+    }
+    .persona-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .persona-card.champion::before { background: var(--green-400); }
+    .persona-card.technical::before { background: var(--blue-400); }
+    .persona-card.economic::before { background: var(--purple-400); }
+    .persona-role { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+    .persona-title { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; }
+    .persona-section-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 4px;
+    }
+    .persona-pain { font-size: 12px; color: var(--red-300); font-style: italic; margin-bottom: 10px; }
+    .persona-value { font-size: 12px; color: var(--green-300); margin-bottom: 10px; }
+    .persona-pitch { font-size: 12px; color: var(--text-secondary); background: rgba(139, 92, 246, 0.08); padding: 8px 10px; border-radius: 6px; font-style: italic; }
+
+    /* Objection cards */
+    .objection {
+      background: var(--bg-elevated); border: 1px solid var(--border-subtle);
+      border-radius: 10px; padding: 16px 20px; margin-bottom: 12px;
+    }
+    .objection-q {
+      font-size: 14px; font-weight: 600; color: var(--red-300); margin-bottom: 8px;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .objection-q i { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; }
+    .objection-a { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+    .objection-a em { color: var(--green-300); font-style: italic; }
+
+    /* Callout */
+    .callout { border-radius: 10px; padding: 16px 20px; margin: 16px 0; }
+    .callout.success { background: rgba(16, 185, 129, 0.1); border-left: 3px solid var(--green-500); }
+    .callout.info { background: rgba(139, 92, 246, 0.1); border-left: 3px solid var(--purple-500); }
+    .callout.warning { background: rgba(245, 158, 11, 0.1); border-left: 3px solid var(--amber-500); }
+    .callout p { margin: 0; font-size: 14px; }
+
+    /* Commercial */
+    .price-row {
+      display: flex; align-items: center; padding: 10px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .price-row:last-child { border-bottom: none; }
+    .price-path {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+      width: 100px; flex-shrink: 0;
+    }
+    .price-pcri { font-size: 12px; color: var(--text-muted); width: 80px; flex-shrink: 0; }
+    .price-services { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; width: 110px; flex-shrink: 0; }
+    .price-total { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: var(--green-300); flex: 1; text-align: right; }
+
+    /* Footer */
+    footer { text-align: center; padding: 32px 0; border-top: 1px solid var(--border-subtle); margin-top: 24px; }
+    .footer-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin: 12px 0; }
+    .footer-links a { color: var(--purple-400); text-decoration: none; font-size: 13px; }
+    .footer-text { font-size: 11px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-title">IPE Battlecard</span>
+      <a href="#positioning" class="nav-link active">Positioning</a>
+      <a href="#competitive" class="nav-link">Competitive</a>
+      <a href="#verticals" class="nav-link">Industry Verticals</a>
+      <a href="#personas" class="nav-link">Personas</a>
+      <a href="#objections" class="nav-link">Objections</a>
+      <a href="#commercial" class="nav-link">Commercial</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <header>
+      <div class="badge">Sales Battlecard — V1 GA March 31, 2026</div>
+      <h1>Intelligent Product Engine</h1>
+      <p class="header-sub">Quick-reference battlecard for positioning, competing, and closing IPE across industry verticals. Keep this open during discovery calls and demos.</p>
+    </header>
+
+    <!-- ================================================================
+         SECTION 1: POSITIONING
+         ================================================================ -->
+    <section id="positioning">
+      <p class="section-label">Category Positioning</p>
+      <h2 class="section-title">We Own: Governed AI Control Plane</h2>
+      <p class="section-desc">No competitor occupies this category. Lead every conversation with the category problem — not a feature comparison.</p>
+
+      <div class="card hero" style="margin-bottom: 20px;">
+        <p style="font-size: 13px; color: var(--purple-300); font-weight: 600; margin-bottom: 6px;">THE ELEVATOR PITCH</p>
+        <p style="font-size: 15px; line-height: 1.6;">"Your AI tools generate code, UI, and documentation — but without organizational context, they produce <strong>inconsistent, off-brand output</strong> that creates costly rework. Knapsack's Intelligent Product Engine is the <strong>governed AI control plane</strong> that makes every AI tool — Cursor, Copilot, Claude — <strong>organization-aware</strong>. It's included for every paying customer at launch. Competitors force you to build your own."</p>
+      </div>
+
+      <div class="grid grid-2" style="margin-bottom: 16px;">
+        <div class="card" style="border-color: var(--green-500);">
+          <p style="font-size: 12px; font-weight: 700; color: var(--green-300); margin-bottom: 8px;">SAY THIS</p>
+          <ul style="list-style: none; padding: 0; font-size: 13px; color: var(--text-secondary);">
+            <li style="padding: 4px 0;">&#x2714; "Governed AI control plane for product delivery"</li>
+            <li style="padding: 4px 0;">&#x2714; "We connect your entire stack on day one"</li>
+            <li style="padding: 4px 0;">&#x2714; "Any AI tool becomes organization-aware"</li>
+            <li style="padding: 4px 0;">&#x2714; "Aggregated intelligence, not just another MCP server"</li>
+            <li style="padding: 4px 0;">&#x2714; "15 integrations vs competitors' 3"</li>
+            <li style="padding: 4px 0;">&#x2714; "Governed AI execution at enterprise scale"</li>
+          </ul>
+        </div>
+        <div class="card" style="border-color: var(--red-500);">
+          <p style="font-size: 12px; font-weight: 700; color: var(--red-300); margin-bottom: 8px;">NEVER SAY THIS</p>
+          <ul style="list-style: none; padding: 0; font-size: 13px; color: var(--text-secondary);">
+            <li style="padding: 4px 0;">&#x2718; "Design system management"</li>
+            <li style="padding: 4px 0;">&#x2718; "Component library"</li>
+            <li style="padding: 4px 0;">&#x2718; "Just a docs platform"</li>
+            <li style="padding: 4px 0;">&#x2718; "Figma plugin"</li>
+            <li style="padding: 4px 0;">&#x2718; "Engagement model"</li>
+            <li style="padding: 4px 0;">&#x2718; "Meet you where you are"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout success">
+        <p><strong>Reframe Script:</strong> When asked <em>"How are you different from Zeroheight?"</em> — respond: <em>"That's a docs tool. We're the governed AI control plane. Think of it as the difference between a file server and Salesforce. They store things; we operate things."</em></p>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 2: COMPETITIVE LANDSCAPE
+         ================================================================ -->
+    <section id="competitive">
+      <p class="section-label">Competitive Landscape</p>
+      <h2 class="section-title">Feature Comparison (Use as Supporting Evidence)</h2>
+      <p class="section-desc">Lead with category, not features. Only pull this table out after establishing the category framing.</p>
+
+      <div style="overflow-x: auto; background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: 12px;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 20%;">Capability</th>
+              <th style="width: 20%;">Knapsack IPE</th>
+              <th style="width: 20%;">Zeroheight</th>
+              <th style="width: 20%;">Supernova</th>
+              <th style="width: 20%;">Custom Build</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Category</strong></td>
+              <td class="yes">Governed AI Control Plane</td>
+              <td class="muted">Design system docs</td>
+              <td class="muted">Design system mgmt</td>
+              <td class="muted">No category</td>
+            </tr>
+            <tr>
+              <td><strong>MCP included</strong></td>
+              <td class="yes">Day one, Tier 0</td>
+              <td class="no">Build your own</td>
+              <td class="no">Build your own</td>
+              <td class="partial">6-12 months</td>
+            </tr>
+            <tr>
+              <td><strong>Multi-source context</strong></td>
+              <td class="yes">3 sources at launch</td>
+              <td class="no">Single source</td>
+              <td class="no">Single source</td>
+              <td class="partial">Custom per source</td>
+            </tr>
+            <tr>
+              <td><strong>Conflict surfacing</strong></td>
+              <td class="yes">Automated</td>
+              <td class="no">None</td>
+              <td class="no">None</td>
+              <td class="partial">Manual</td>
+            </tr>
+            <tr>
+              <td><strong>Governance & audit</strong></td>
+              <td class="yes">SOC 2 Type II</td>
+              <td class="partial">Limited</td>
+              <td class="partial">Limited</td>
+              <td class="no">Build yourself</td>
+            </tr>
+            <tr>
+              <td><strong>Readiness assessment</strong></td>
+              <td class="yes">PCRI (158 benchmarks)</td>
+              <td class="no">None</td>
+              <td class="no">None</td>
+              <td class="no">None</td>
+            </tr>
+            <tr>
+              <td><strong>2027 integrations</strong></td>
+              <td class="yes">15-20</td>
+              <td class="muted">0-5</td>
+              <td class="muted">0-5</td>
+              <td class="no">Custom each</td>
+            </tr>
+            <tr>
+              <td><strong>Switching cost</strong></td>
+              <td class="yes">Low — day 1 value</td>
+              <td class="muted">Moderate</td>
+              <td class="muted">Moderate</td>
+              <td class="no">$500K+ to rebuild</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warning" style="margin-top: 16px;">
+        <p><strong>Competitive intel:</strong> If the account has evaluated Supernova or Zeroheight, ask what they found lacking. Common answers: no AI governance, no multi-source ingestion, no measurable ROI framework. These map directly to IPE's strengths.</p>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 3: INDUSTRY VERTICALS
+         ================================================================ -->
+    <section id="verticals">
+      <p class="section-label">Industry Verticals</p>
+      <h2 class="section-title">Vertical Playbook</h2>
+      <p class="section-desc">Each vertical has a specific lead hook, compliance angle, and benchmark context. PCRI score always makes the final decision — but industry context sets expectations and opens doors.</p>
+
+      <!-- Financial Services -->
+      <div class="industry-card" style="margin-bottom: 16px; border-left: 3px solid var(--green-400);">
+        <div class="industry-header">
+          <div class="industry-name" style="color: var(--green-300);">
+            <i data-lucide="landmark"></i>
+            Financial Services
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <span class="tag tag-tier">D3 Private Cloud</span>
+            <span class="tag tag-path">J3 Primary</span>
+          </div>
+        </div>
+        <div class="industry-body">
+          <div class="industry-row">
+            <span class="industry-label">Lead Hook</span>
+            <span class="industry-value"><strong>Model Risk Management.</strong> AI without governance is a regulatory finding waiting to happen.</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Value Prop</span>
+            <span class="industry-value">Auditable AI governance for product delivery. Every AI-generated component is traceable to approved standards.</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Compliance</span>
+            <span class="industry-value">
+              <div class="industry-tags">
+                <span class="tag tag-compliance">OCC Guidelines</span>
+                <span class="tag tag-compliance">SR 11-7</span>
+                <span class="tag tag-compliance">SOX</span>
+                <span class="tag tag-compliance">BCBS 239</span>
+              </div>
+            </span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Pitch</span>
+            <span class="industry-value" style="font-style: italic; color: var(--purple-300);">"Your model risk management team already governs AI in trading. Shouldn't the AI generating your customer-facing products be governed too?"</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">PCRI</span>
+            <span class="industry-value">
+              <div class="benchmark-bar">
+                <div class="benchmark-track">
+                  <div class="benchmark-fill" style="width: 83.4%; background: var(--green-400);"></div>
+                  <div class="benchmark-marker" style="left: 72.6%;"></div>
+                </div>
+                <span class="benchmark-score" style="color: var(--green-300);">83.4</span>
+              </div>
+              <span style="font-size: 11px; color: var(--text-muted);">Avg 83.4 · Top quartile 88.0 · 19 accounts · Marker = overall avg (72.6)</span>
+            </span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Pipeline</span>
+            <span class="industry-value">19 accounts in pipeline. Typical deal: $744K-$1.5M TCV. <strong>Highest-value vertical.</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Healthcare -->
+      <div class="industry-card" style="margin-bottom: 16px; border-left: 3px solid var(--blue-400);">
+        <div class="industry-header">
+          <div class="industry-name" style="color: var(--blue-300);">
+            <i data-lucide="heart-pulse"></i>
+            Healthcare
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <span class="tag tag-tier">D3 Private Cloud</span>
+            <span class="tag tag-path">J3 Primary</span>
+          </div>
+        </div>
+        <div class="industry-body">
+          <div class="industry-row">
+            <span class="industry-label">Lead Hook</span>
+            <span class="industry-value"><strong>Operational Resilience.</strong> Patient-facing digital tools can't ship ungoverned AI output.</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Value Prop</span>
+            <span class="industry-value">Consistent, compliant digital experiences at scale. PHI protection with full audit trails for every AI-generated artifact.</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Compliance</span>
+            <span class="industry-value">
+              <div class="industry-tags">
+                <span class="tag tag-compliance">HIPAA</span>
+                <span class="tag tag-compliance">HITRUST</span>
+                <span class="tag tag-compliance">FDA 21 CFR Part 11</span>
+              </div>
+            </span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Pitch</span>
+            <span class="industry-value" style="font-style: italic; color: var(--purple-300);">"Your EHR system is governed end-to-end. Shouldn't the AI building your patient portal follow the same rigor?"</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">PCRI</span>
+            <span class="industry-value">
+              <div class="benchmark-bar">
+                <div class="benchmark-track">
+                  <div class="benchmark-fill" style="width: 81.4%; background: var(--blue-400);"></div>
+                  <div class="benchmark-marker" style="left: 72.6%;"></div>
+                </div>
+                <span class="benchmark-score" style="color: var(--blue-300);">81.4</span>
+              </div>
+              <span style="font-size: 11px; color: var(--text-muted);">Avg 81.4 · Top quartile 81.0 · 12 accounts</span>
+            </span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Require</span>
+            <span class="industry-value"><strong>Regulated deployment required</strong> — D3+ deployment path under development for PHI handling. Contact sales for healthcare requirements.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enterprise Software -->
+      <div class="industry-card" style="margin-bottom: 16px; border-left: 3px solid var(--purple-400);">
+        <div class="industry-header">
+          <div class="industry-name" style="color: var(--purple-300);">
+            <i data-lucide="layers"></i>
+            Enterprise Software
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <span class="tag tag-tier">D1-D2</span>
+            <span class="tag tag-path">J2-J3</span>
+          </div>
+        </div>
+        <div class="industry-body">
+          <div class="industry-row">
+            <span class="industry-label">Lead Hook</span>
+            <span class="industry-value"><strong>Multi-Product Consistency.</strong> 5+ products, one design system — AI makes drift exponential.</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Value Prop</span>
+            <span class="industry-value">Platform-wide governance. One control plane that ensures every AI tool respects the same standards across all product lines.</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Compliance</span>
+            <span class="industry-value">
+              <div class="industry-tags">
+                <span class="tag tag-compliance">SOC 2</span>
+                <span class="tag tag-compliance">ISO 27001</span>
+                <span class="tag tag-compliance">GDPR</span>
+              </div>
+            </span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Pitch</span>
+            <span class="industry-value" style="font-style: italic; color: var(--purple-300);">"You invested 3 years in a design system. Now AI is generating code that ignores it. How much is that costing you per sprint?"</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">PCRI</span>
+            <span class="industry-value">
+              <div class="benchmark-bar">
+                <div class="benchmark-track">
+                  <div class="benchmark-fill" style="width: 86.7%; background: var(--purple-400);"></div>
+                  <div class="benchmark-marker" style="left: 72.6%;"></div>
+                </div>
+                <span class="benchmark-score" style="color: var(--purple-300);">86.7</span>
+              </div>
+              <span style="font-size: 11px; color: var(--text-muted);">Avg 86.7 · Top quartile 99.0 · 16 accounts · <strong>Highest maturity vertical</strong></span>
+            </span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Pipeline</span>
+            <span class="industry-value">16 accounts. Often have existing Knapsack — J3 activation from current base. Fastest close cycle.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technology / Media -->
+      <div class="industry-card" style="margin-bottom: 16px; border-left: 3px solid var(--cyan-400);">
+        <div class="industry-header">
+          <div class="industry-name" style="color: var(--cyan-300);">
+            <i data-lucide="cpu"></i>
+            Technology / Media
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <span class="tag tag-tier">D1 Cloud</span>
+            <span class="tag tag-path">J2 Fast-Path</span>
+          </div>
+        </div>
+        <div class="industry-body">
+          <div class="industry-row">
+            <span class="industry-label">Lead Hook</span>
+            <span class="industry-value"><strong>AI Velocity.</strong> Ship faster with governed AI — don't let governance be the bottleneck.</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Value Prop</span>
+            <span class="industry-value">Speed to AI-first. Governed AI execution that accelerates rather than constrains the development cycle.</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Compliance</span>
+            <span class="industry-value">
+              <div class="industry-tags">
+                <span class="tag tag-compliance">SOC 2</span>
+                <span class="tag tag-compliance">GDPR</span>
+              </div>
+            </span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Pitch</span>
+            <span class="industry-value" style="font-style: italic; color: var(--purple-300);">"Your competitors are shipping weekly with AI. But are they governing what ships? The first one to govern AI execution wins the trust moat."</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">PCRI</span>
+            <span class="industry-value">
+              <div class="benchmark-bar">
+                <div class="benchmark-track">
+                  <div class="benchmark-fill" style="width: 85%; background: var(--cyan-400);"></div>
+                  <div class="benchmark-marker" style="left: 72.6%;"></div>
+                </div>
+                <span class="benchmark-score" style="color: var(--cyan-300);">85.0</span>
+              </div>
+              <span style="font-size: 11px; color: var(--text-muted);">Avg 85.0 · Top quartile 99.0 · 15 accounts</span>
+            </span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Motion</span>
+            <span class="industry-value">Product-led. Often self-serve exploration before sales contact. J2 fast-activation is typical path.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Retail / E-commerce -->
+      <div class="industry-card" style="margin-bottom: 16px; border-left: 3px solid var(--amber-400);">
+        <div class="industry-header">
+          <div class="industry-name" style="color: var(--amber-300);">
+            <i data-lucide="shopping-cart"></i>
+            Retail / E-commerce
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <span class="tag tag-tier">D1-D2</span>
+            <span class="tag tag-path">J3 Primary</span>
+          </div>
+        </div>
+        <div class="industry-body">
+          <div class="industry-row">
+            <span class="industry-label">Lead Hook</span>
+            <span class="industry-value"><strong>Brand Consistency at Scale.</strong> Multi-brand, multi-region — AI drift breaks the customer experience.</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Value Prop</span>
+            <span class="industry-value">Cross-brand governance. One control plane governing AI output across multiple brands, regions, and teams.</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Compliance</span>
+            <span class="industry-value">
+              <div class="industry-tags">
+                <span class="tag tag-compliance">PCI DSS</span>
+                <span class="tag tag-compliance">GDPR</span>
+                <span class="tag tag-compliance">WCAG 2.1 AA</span>
+              </div>
+            </span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Pitch</span>
+            <span class="industry-value" style="font-style: italic; color: var(--purple-300);">"You manage 4 brands across 12 regions. If AI generates a checkout flow that breaks PCI compliance in one market, how fast do you catch it?"</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">PCRI</span>
+            <span class="industry-value">
+              <div class="benchmark-bar">
+                <div class="benchmark-track">
+                  <div class="benchmark-fill" style="width: 82.6%; background: var(--amber-400);"></div>
+                  <div class="benchmark-marker" style="left: 72.6%;"></div>
+                </div>
+                <span class="benchmark-score" style="color: var(--amber-300);">82.6</span>
+              </div>
+              <span style="font-size: 11px; color: var(--text-muted);">Avg 82.6 · Top quartile 81.0 · 11 accounts</span>
+            </span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Pipeline</span>
+            <span class="industry-value">11 accounts. Multi-brand orgs are highest-value targets — PCRI Multi-System add-on applies.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aerospace / Defense + Government -->
+      <div class="industry-card" style="margin-bottom: 16px; border-left: 3px solid var(--red-400);">
+        <div class="industry-header">
+          <div class="industry-name" style="color: var(--red-300);">
+            <i data-lucide="shield"></i>
+            Aerospace / Defense & Government
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <span class="tag tag-tier">D4 Self-Hosted</span>
+            <span class="tag tag-path">J3-J4</span>
+          </div>
+        </div>
+        <div class="industry-body">
+          <div class="industry-row">
+            <span class="industry-label">Lead Hook</span>
+            <span class="industry-value"><strong>Mission-Critical Safety / Citizen Accessibility.</strong> Traceability from requirement to production artifact.</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Value Prop</span>
+            <span class="industry-value">Complete traceability and audit trails. Every AI-generated artifact linked to approved sources with full provenance chain.</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Compliance</span>
+            <span class="industry-value">
+              <div class="industry-tags">
+                <span class="tag tag-compliance">DO-178C</span>
+                <span class="tag tag-compliance">ITAR</span>
+                <span class="tag tag-compliance">Section 508</span>
+                <span class="tag tag-compliance">FedRAMP</span>
+              </div>
+            </span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Pitch</span>
+            <span class="industry-value" style="font-style: italic; color: var(--purple-300);">"If your AI generates a UI component for a safety-critical system, can you trace it back to the approved specification? That's what a control plane does."</span>
+          </div>
+          <div class="industry-row">
+            <span class="industry-label">Require</span>
+            <span class="industry-value"><strong>D4 self-hosted mandatory.</strong> FedRAMP on roadmap (2027). ITAR-cleared personnel may be required for delivery.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <p><strong>Remember:</strong> Industry context sets expectations, but <strong>PCRI score makes the decision</strong>. A Financial Services company with a mature system might be J4-ready. A Tech company with no system of record needs J1. Always assess before assuming.</p>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 4: PERSONAS
+         ================================================================ -->
+    <section id="personas">
+      <p class="section-label">Buyer Personas</p>
+      <h2 class="section-title">Messaging by Audience</h2>
+      <p class="section-desc">Tailor your pitch to the person across the table. Each persona has a different pain point and value driver.</p>
+
+      <div class="grid grid-3">
+        <div class="persona-card champion">
+          <p class="persona-role">Design System Lead</p>
+          <p class="persona-title">Primary Champion</p>
+          <p class="persona-section-label">Pain</p>
+          <p class="persona-pain">"I can't prove the ROI of our design system to leadership."</p>
+          <p class="persona-section-label">Value</p>
+          <p class="persona-value">Quantified adoption metrics, AI consistency scoring, executive-ready reports</p>
+          <p class="persona-section-label">Pitch</p>
+          <p class="persona-pitch">"IPE transforms your team from a cost center into the AI enablement function. You become the team that makes AI affordable and predictable."</p>
+        </div>
+
+        <div class="persona-card technical">
+          <p class="persona-role">AI / Platform Engineering</p>
+          <p class="persona-title">Technical Buyer</p>
+          <p class="persona-section-label">Pain</p>
+          <p class="persona-pain">"AI tools generate inconsistent, off-brand code that we have to fix."</p>
+          <p class="persona-section-label">Value</p>
+          <p class="persona-value">Context-aware AI via MCP, governed output, conflict detection, reduced rework</p>
+          <p class="persona-section-label">Pitch</p>
+          <p class="persona-pitch">"You need AI to move fast without breaking policy. IPE enforces standards, provides audit trails, and reduces compliance risk."</p>
+        </div>
+
+        <div class="persona-card economic">
+          <p class="persona-role">VP / CTO</p>
+          <p class="persona-title">Economic Buyer</p>
+          <p class="persona-section-label">Pain</p>
+          <p class="persona-pain">"We're paying for AI tools but not seeing productivity gains."</p>
+          <p class="persona-section-label">Value</p>
+          <p class="persona-value">Maximize AI ROI, reduce token waste, measurable velocity gains, tool consolidation</p>
+          <p class="persona-section-label">Pitch</p>
+          <p class="persona-pitch">"AI without governance increases operational exposure. IPE makes execution auditable and compliant — reduced risk, faster delivery, measurable ROI."</p>
+        </div>
+      </div>
+
+      <div class="callout warning" style="margin-top: 16px;">
+        <p><strong>Champion enablement tip:</strong> The Design System Lead can't currently prove ROI. Give them the <a href="roi_calculator.html" style="color: var(--amber-300);">Business Case Builder</a> and the <a href="ipe_j3_case_study.html" style="color: var(--amber-300);">J3 Case Study</a> — these become their weapons for internal budget conversations.</p>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 5: OBJECTION HANDLING
+         ================================================================ -->
+    <section id="objections">
+      <p class="section-label">Objection Handling</p>
+      <h2 class="section-title">Common Objections & Reframes</h2>
+      <p class="section-desc">Use these scripts during discovery, demos, and procurement conversations.</p>
+
+      <div class="objection">
+        <div class="objection-q"><i data-lucide="message-circle"></i> "We're not using AI coding tools yet."</div>
+        <p class="objection-a"><em>"That's actually a great position to be in — you can set up governance before chaos."</em> 78% of enterprise organizations already use AI coding tools daily (Developer Survey 2026), and adoption is accelerating. Getting your design system AI-ready now means you'll be prepared when it hits your teams.</p>
+      </div>
+
+      <div class="objection">
+        <div class="objection-q"><i data-lucide="message-circle"></i> "We can build our own MCP server."</div>
+        <p class="objection-a"><em>"You absolutely can — and it'll take 6-12 months and $500K+ to get to where we are on day one."</em> Custom builds cover one source. IPE aggregates across Knapsack, Storybook, and Markdown with conflict surfacing, governance, and audit trails. By 2027, we'll have 15-20 integrations. That's the difference between a project and a platform.</p>
+      </div>
+
+      <div class="objection">
+        <div class="objection-q"><i data-lucide="message-circle"></i> "We already use Zeroheight / Supernova."</div>
+        <p class="objection-a"><em>"Those are docs tools. We're the governed AI control plane."</em> Think file server vs. Salesforce. They store things; we operate things. They don't include MCP, don't do multi-source ingestion, don't surface conflicts, and can't measure design system ROI. Different category.</p>
+      </div>
+
+      <div class="objection">
+        <div class="objection-q"><i data-lucide="message-circle"></i> "The pricing is too high for J3."</div>
+        <p class="objection-a"><em>"The question isn't cost — it's what the alternative costs."</em> J3 is phased. Phase 1 Foundation ($400K, 16 weeks) proves value before committing to Phases 2-3. Average payback is ~8 months. Without IPE, you're spending more on AI rework than the entire engagement costs. Use the <a href="roi_calculator.html" style="color: var(--green-300);">Business Case Builder</a> to make it tangible.</p>
+      </div>
+
+      <div class="objection">
+        <div class="objection-q"><i data-lucide="message-circle"></i> "We don't want to do the PCRI assessment."</div>
+        <p class="objection-a"><em>"This 10-minute diagnostic ensures we don't waste your time with a generic pitch."</em> It benchmarks you against 158 enterprises in your industry, identifies gaps, and prescribes the right path. Serious buyers engage with readiness conversations. If 10 minutes is too much, the deal isn't real.</p>
+      </div>
+
+      <div class="objection">
+        <div class="objection-q"><i data-lucide="message-circle"></i> "We need to see this work with our specific AI tools."</div>
+        <p class="objection-a"><em>"IPE delivers via Model Context Protocol — which is the open standard that Claude, Cursor, Copilot, and every major AI tool supports."</em> We don't pick your AI toolchain; we make whatever tools you choose organization-aware. That's the control plane value.</p>
+      </div>
+
+      <div class="objection">
+        <div class="objection-q"><i data-lucide="message-circle"></i> "Our compliance team will slow this down."</div>
+        <p class="objection-a"><em>"Actually, compliance teams love us."</em> SOC 2 Type II certified with ISO 27001 in progress (target Q3 2026). We have a procurement FAQ, DPA, and security questionnaire pre-built. Most compliance reviews take &lt;2 weeks. See the <a href="ipe_offering_kit.html" style="color: var(--green-300);">Offering Kit</a> compliance section.</p>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 6: COMMERCIAL QUICK REF
+         ================================================================ -->
+    <section id="commercial">
+      <p class="section-label">Commercial Quick Reference</p>
+      <h2 class="section-title">Pricing at a Glance</h2>
+      <p class="section-desc">Three revenue streams: Platform (seats) + Services (PCRI-driven) + IPE Consumption (operations). Always quote together.</p>
+
+      <div class="grid grid-2" style="gap: 20px; margin-bottom: 20px;">
+        <div class="card">
+          <p style="font-size: 12px; font-weight: 700; color: var(--purple-300); margin-bottom: 12px;">INVESTMENT PATHS (SERVICES)</p>
+          <div class="price-row">
+            <span class="price-path" style="color: var(--blue-300);">J1 Foundation</span>
+            <span class="price-pcri">PCRI &lt;45</span>
+            <span class="price-services">$50K+</span>
+            <span class="price-total">$98-146K yr 1</span>
+          </div>
+          <div class="price-row">
+            <span class="price-path" style="color: var(--cyan-300);">J2 Acceleration</span>
+            <span class="price-pcri">PCRI 45-54</span>
+            <span class="price-services">$50K+ sprint</span>
+            <span class="price-total">$146K+ yr 1</span>
+          </div>
+          <div class="price-row">
+            <span class="price-path" style="color: var(--purple-300);">J3 Activation</span>
+            <span class="price-pcri">PCRI 55-74</span>
+            <span class="price-services">$740K+ phased</span>
+            <span class="price-total">$920K+ yr 1</span>
+          </div>
+          <div class="price-row">
+            <span class="price-path" style="color: var(--green-300);">J4 Intelligence</span>
+            <span class="price-pcri">PCRI 75+</span>
+            <span class="price-services">$165K+</span>
+            <span class="price-total">$345-465K+</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <p style="font-size: 12px; font-weight: 700; color: var(--purple-300); margin-bottom: 12px;">IPE CONSUMPTION TIERS</p>
+          <div class="price-row">
+            <span class="price-path" style="color: var(--text-muted);">Tier 0</span>
+            <span class="price-pcri">Knapsack only</span>
+            <span class="price-services" style="color: var(--green-300);">Included</span>
+            <span class="price-total" style="color: var(--text-muted);">$0 add-on</span>
+          </div>
+          <div class="price-row">
+            <span class="price-path" style="color: var(--blue-300);">Tier 1</span>
+            <span class="price-pcri">Single team</span>
+            <span class="price-services">Starter</span>
+            <span class="price-total">$24-48K/yr</span>
+          </div>
+          <div class="price-row">
+            <span class="price-path" style="color: var(--purple-300);">Tier 2</span>
+            <span class="price-pcri">Multi-team</span>
+            <span class="price-services">Growth</span>
+            <span class="price-total">$60-96K/yr</span>
+          </div>
+          <div class="price-row">
+            <span class="price-path" style="color: var(--green-300);">Tier 3</span>
+            <span class="price-pcri">Org-wide</span>
+            <span class="price-services">Enterprise</span>
+            <span class="price-total">$120-180K/yr</span>
+          </div>
+          <p style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">Operations-based, not token-based. Sources don't cost extra — they drive consumption.</p>
+        </div>
+      </div>
+
+      <div class="card" style="border-color: var(--green-500);">
+        <p style="font-size: 12px; font-weight: 700; color: var(--green-300); margin-bottom: 12px;">COMPLIANCE & DEPLOYMENT TIERS</p>
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Tier</th>
+                <th>Timeline</th>
+                <th>Customer Requirement</th>
+                <th>Premium</th>
+                <th>Best For</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>D1</strong> Cloud Standard</td>
+                <td class="font-mono">2-4 wks</td>
+                <td>SOC 2 Type II ✓</td>
+                <td class="font-mono">Base</td>
+                <td>Enterprise SaaS, Tech/Media</td>
+              </tr>
+              <tr>
+                <td><strong>D2</strong> Cloud Dedicated</td>
+                <td class="font-mono">4-8 wks</td>
+                <td>Data isolation</td>
+                <td class="font-mono">+25-40%</td>
+                <td>Multi-tenant enterprises, EU data</td>
+              </tr>
+              <tr>
+                <td><strong>D3</strong> Private Cloud</td>
+                <td class="font-mono">8-16 wks</td>
+                <td>Regulated industries</td>
+                <td class="font-mono">+$175-275K</td>
+                <td>Financial Services, Healthcare</td>
+              </tr>
+              <tr>
+                <td><strong>D4</strong> Self-Hosted</td>
+                <td class="font-mono">16-24+ wks</td>
+                <td>Gov / Defense</td>
+                <td class="font-mono">+$350-550K</td>
+                <td>Government, Aerospace/Defense</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="callout info" style="margin-top: 16px;">
+        <p><strong>Bundling guidance:</strong> Always quote services + software together. Multi-year software deals (2-3 years) unlock 10-15% discounts. Deployment tier premiums apply to software license, not services. Check with Chris/Amber before quoting consumption tiers — boundaries pending.</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-links">
+        <a href="ipe_offering_kit.html">Offering Kit</a>
+        <a href="ipe_one_pager.html">1-Pager</a>
+        <a href="ipe_j3_case_study.html">J3 Case Study</a>
+        <a href="roi_calculator.html">Business Case Builder</a>
+        <a href="gtm_playbook.html">GTM Playbook</a>
+        <a href="../index.html">IPE Hub</a>
+      </div>
+      <p class="footer-text">Knapsack IPE Sales Battlecard — V1 GA March 31, 2026<br>The Governed AI Control Plane for Product Delivery</p>
+    </footer>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    function updateActiveNav() {
+      let current = '';
+      sections.forEach(s => { if (scrollY >= s.offsetTop - 100) current = s.getAttribute('id'); });
+      navLinks.forEach(l => {
+        l.classList.remove('active');
+        if (l.getAttribute('href') === `#${current}`) l.classList.add('active');
+      });
+    }
+    window.addEventListener('scroll', updateActiveNav);
+    navLinks.forEach(l => l.addEventListener('click', function(e) {
+      const id = this.getAttribute('href');
+      if (id.startsWith('#')) { e.preventDefault(); document.getElementById(id.substring(1))?.scrollIntoView({ behavior: 'smooth' }); }
+    }));
+  </script>
+</body>
+</html>

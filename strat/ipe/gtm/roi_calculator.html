@@ -1403,14 +1403,471 @@
     }
     
     /* ==========================================================================
+       ACCOUNT INTELLIGENCE STYLES
+       ========================================================================== */
+    .account-selector {
+      background: var(--spectrum-bg-surface);
+      border: 2px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-xl);
+      padding: var(--spectrum-spacing-400);
+      margin-bottom: var(--spectrum-spacing-400);
+    }
+    .account-selector h2 {
+      font-size: var(--spectrum-font-size-400);
+      font-weight: 600;
+      margin: 0 0 var(--spectrum-spacing-300);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .account-selector h2 i { color: var(--spectrum-purple-400); }
+    .search-container { position: relative; margin-bottom: var(--spectrum-spacing-300); }
+    .search-input {
+      width: 100%;
+      padding: 14px 16px 14px 48px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--spectrum-font-size-200);
+      color: var(--spectrum-text-primary);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      outline: none;
+      transition: all 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--spectrum-purple-400);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+    .search-input::placeholder { color: var(--spectrum-text-muted); }
+    .search-icon {
+      position: absolute; left: 16px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--spectrum-text-muted); pointer-events: none;
+    }
+    .search-icon i { width: 20px; height: 20px; }
+    .filter-row {
+      display: flex; gap: 12px;
+      margin-bottom: var(--spectrum-spacing-300); flex-wrap: wrap;
+    }
+    .filter-select {
+      padding: 10px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-primary);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--spectrum-border-subtle);
+      border-radius: var(--spectrum-radius-md);
+      outline: none; cursor: pointer; min-width: 160px;
+    }
+    .filter-select:focus { border-color: var(--spectrum-purple-400); }
+    .account-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--spectrum-spacing-200);
+      max-height: 400px; overflow-y: auto; padding-right: 8px;
+    }
+    .account-card {
+      background: rgba(0, 0, 0, 0.2);
+      border: 2px solid var(--spectrum-border-subtle);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-300);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .account-card:hover {
+      border-color: var(--spectrum-border-default);
+      background: rgba(139, 92, 246, 0.05);
+    }
+    .account-card.selected {
+      border-color: var(--spectrum-purple-400);
+      background: rgba(139, 92, 246, 0.1);
+    }
+    .account-card-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; margin-bottom: 8px;
+    }
+    .account-name {
+      font-weight: 600; font-size: var(--spectrum-font-size-200);
+      color: var(--spectrum-text-primary);
+    }
+    .account-tier {
+      font-size: var(--spectrum-font-size-75); font-weight: 600;
+      padding: 2px 8px; border-radius: var(--spectrum-radius-full);
+    }
+    .account-tier.tier-1 { background: rgba(16, 185, 129, 0.2); color: var(--spectrum-green-400); }
+    .account-tier.tier-2 { background: rgba(59, 130, 246, 0.2); color: var(--spectrum-blue-400); }
+    .account-tier.tier-3 { background: rgba(139, 92, 246, 0.2); color: var(--spectrum-purple-400); }
+    .account-meta {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;
+    }
+    .account-tag {
+      font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);
+      background: rgba(255, 255, 255, 0.05); padding: 2px 8px;
+      border-radius: var(--spectrum-radius-sm);
+    }
+    .account-signals { display: flex; gap: 6px; margin-top: 8px; }
+    .signal-badge {
+      font-size: 10px; font-weight: 600; padding: 2px 6px;
+      border-radius: var(--spectrum-radius-sm);
+    }
+    .signal-badge.j1 { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; }
+    .signal-badge.j2 { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+    .signal-badge.j3 { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+    .signal-badge.j4 { background: rgba(6, 182, 212, 0.2); color: #67e8f9; }
+    .signal-badge.readiness-a { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+    .signal-badge.readiness-b { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+    .signal-badge.readiness-c { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+    .account-count {
+      font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);
+      margin-bottom: var(--spectrum-spacing-200);
+    }
+    .no-accounts {
+      text-align: center; padding: var(--spectrum-spacing-500);
+      color: var(--spectrum-text-muted);
+    }
+    .no-accounts i { width: 48px; height: 48px; margin-bottom: 16px; opacity: 0.5; }
+
+    .acct-case-container { display: none; }
+    .acct-case-container.visible { display: block; }
+    .acct-case-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: var(--spectrum-spacing-400); flex-wrap: wrap; gap: 16px;
+    }
+    .selected-account-name {
+      font-size: var(--spectrum-font-size-600); font-weight: 700;
+      background: linear-gradient(135deg, #fff, var(--spectrum-purple-300));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .preliminary-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: var(--spectrum-font-size-75); font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--spectrum-yellow-400);
+      background: rgba(245, 158, 11, 0.15);
+      padding: 6px 14px; border-radius: var(--spectrum-radius-full);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .preliminary-badge i { width: 14px; height: 14px; }
+    .estimated-pcri-section {
+      background: linear-gradient(145deg, rgba(245, 158, 11, 0.1), rgba(22, 33, 62, 0.9));
+      border: 2px dashed rgba(245, 158, 11, 0.4);
+      border-radius: var(--spectrum-radius-xl);
+      padding: var(--spectrum-spacing-400); margin-bottom: var(--spectrum-spacing-400);
+    }
+    .estimated-pcri-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    .estimated-pcri-header h3 {
+      font-size: var(--spectrum-font-size-300); font-weight: 600; margin: 0;
+      display: flex; align-items: center; gap: 10px;
+      color: var(--spectrum-yellow-400);
+    }
+    .estimated-pcri-header h3 i { width: 20px; height: 20px; }
+    .estimated-disclaimer {
+      font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);
+      background: rgba(0, 0, 0, 0.3); padding: 4px 10px;
+      border-radius: var(--spectrum-radius-full);
+    }
+    .estimated-pcri-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 12px; margin-bottom: var(--spectrum-spacing-300);
+    }
+    @media (max-width: 800px) {
+      .estimated-pcri-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .pcri-pillar-card {
+      background: rgba(0, 0, 0, 0.2); border-radius: var(--spectrum-radius-md);
+      padding: 12px; text-align: center;
+    }
+    .pillar-score {
+      font-family: 'JetBrains Mono', monospace; font-size: var(--spectrum-font-size-500);
+      font-weight: 700;
+    }
+    .pillar-score.foundation { color: var(--spectrum-purple-400); }
+    .pillar-score.ai { color: var(--spectrum-blue-400); }
+    .pillar-score.governance { color: var(--spectrum-green-400); }
+    .pillar-score.delivery { color: var(--spectrum-yellow-400); }
+    .pillar-score.culture { color: var(--spectrum-cyan-400); }
+    .pillar-bar {
+      height: 4px; background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px; margin-top: 8px; overflow: hidden;
+    }
+    .pillar-fill {
+      height: 100%; border-radius: 2px; transition: width 0.5s ease;
+    }
+    .pillar-fill.foundation { background: var(--spectrum-purple-400); }
+    .pillar-fill.ai { background: var(--spectrum-blue-400); }
+    .pillar-fill.governance { background: var(--spectrum-green-400); }
+    .pillar-fill.delivery { background: var(--spectrum-yellow-400); }
+    .pillar-fill.culture { background: var(--spectrum-cyan-400); }
+    .pcri-composite-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 24px; padding: 16px; background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--spectrum-radius-md);
+    }
+    .composite-item { text-align: center; }
+    .composite-label {
+      font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);
+      margin-bottom: 4px;
+    }
+    .composite-value {
+      font-family: 'JetBrains Mono', monospace; font-size: var(--spectrum-font-size-500);
+      font-weight: 700; color: var(--spectrum-yellow-400);
+    }
+    .journey-badge {
+      padding: 6px 14px; border-radius: var(--spectrum-radius-full);
+      font-size: var(--spectrum-font-size-200); font-weight: 600;
+    }
+    .journey-badge.j1 { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; }
+    .journey-badge.j2 { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+    .journey-badge.j3 { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+    .journey-badge.j4 { background: rgba(6, 182, 212, 0.2); color: #67e8f9; }
+    .validate-cta {
+      margin-top: var(--spectrum-spacing-300); padding: 16px;
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), rgba(22, 33, 62, 0.8));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: var(--spectrum-radius-md);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .validate-cta-text {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .validate-cta-text i { width: 24px; height: 24px; color: var(--spectrum-green-400); }
+    .validate-cta-text p { margin: 0; font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary); }
+    .validate-cta-text strong { color: var(--spectrum-green-400); }
+
+    .acct-results-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: var(--spectrum-spacing-300); margin-bottom: var(--spectrum-spacing-400);
+    }
+    @media (max-width: 900px) {
+      .acct-results-grid { grid-template-columns: 1fr; }
+    }
+    .acct-result-card {
+      background: var(--spectrum-bg-surface);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-400); text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .acct-result-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .acct-result-card.roi::before { background: linear-gradient(90deg, var(--spectrum-green-400), var(--spectrum-green-500)); }
+    .acct-result-card.tcv::before { background: linear-gradient(90deg, var(--spectrum-blue-400), var(--spectrum-blue-500)); }
+    .acct-result-card.ttv::before { background: linear-gradient(90deg, var(--spectrum-cyan-400), var(--spectrum-cyan-500)); }
+    .acct-result-icon {
+      width: 48px; height: 48px; margin: 0 auto 16px;
+      border-radius: 50%; display: flex; align-items: center;
+      justify-content: center;
+    }
+    .acct-result-card.roi .acct-result-icon { background: rgba(16, 185, 129, 0.15); }
+    .acct-result-card.tcv .acct-result-icon { background: rgba(59, 130, 246, 0.15); }
+    .acct-result-card.ttv .acct-result-icon { background: rgba(6, 182, 212, 0.15); }
+    .acct-result-icon i { width: 24px; height: 24px; }
+    .acct-result-card.roi .acct-result-icon i { color: var(--spectrum-green-400); }
+    .acct-result-card.tcv .acct-result-icon i { color: var(--spectrum-blue-400); }
+    .acct-result-card.ttv .acct-result-icon i { color: var(--spectrum-cyan-400); }
+    .acct-result-title {
+      font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-muted);
+      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;
+    }
+    .acct-result-value {
+      font-family: 'JetBrains Mono', monospace; font-size: var(--spectrum-font-size-700);
+      font-weight: 700;
+    }
+    .acct-result-card.roi .acct-result-value { color: var(--spectrum-green-400); }
+    .acct-result-card.tcv .acct-result-value { color: var(--spectrum-blue-400); }
+    .acct-result-card.ttv .acct-result-value { color: var(--spectrum-cyan-400); }
+    .acct-result-detail {
+      font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary);
+      margin-top: 8px;
+    }
+
+    .account-profile-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: var(--spectrum-spacing-200); margin-bottom: var(--spectrum-spacing-300);
+    }
+    @media (max-width: 800px) {
+      .account-profile-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .profile-item {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--spectrum-radius-md); padding: 12px;
+    }
+    .profile-label {
+      font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);
+      margin-bottom: 4px;
+    }
+    .profile-value {
+      font-size: var(--spectrum-font-size-100); font-weight: 600;
+      color: var(--spectrum-text-primary);
+    }
+    .journey-message-card {
+      background: linear-gradient(145deg, rgba(139, 92, 246, 0.1), rgba(22, 33, 62, 0.9));
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: var(--spectrum-radius-lg);
+      padding: var(--spectrum-spacing-400); margin-bottom: var(--spectrum-spacing-400);
+    }
+    .journey-message-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: var(--spectrum-spacing-200);
+    }
+    .journey-message-header i { width: 20px; height: 20px; color: var(--spectrum-purple-400); }
+    .journey-message-header h4 {
+      margin: 0; font-size: var(--spectrum-font-size-200);
+      color: var(--spectrum-purple-400);
+    }
+    .journey-message-content {
+      font-size: var(--spectrum-font-size-200); color: var(--spectrum-text-secondary);
+      line-height: 1.7; margin-bottom: var(--spectrum-spacing-200);
+    }
+    .journey-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .journey-tag {
+      font-size: var(--spectrum-font-size-75); padding: 4px 10px;
+      background: rgba(0, 0, 0, 0.2); border-radius: var(--spectrum-radius-sm);
+      color: var(--spectrum-text-muted);
+    }
+    .value-breakdown-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--spectrum-spacing-300);
+    }
+    @media (max-width: 900px) {
+      .value-breakdown-grid { grid-template-columns: 1fr; }
+    }
+    .executive-summary {
+      background: rgba(0, 0, 0, 0.2); border-radius: var(--spectrum-radius-md);
+      padding: var(--spectrum-spacing-400); font-size: var(--spectrum-font-size-100);
+      line-height: 1.7;
+    }
+    .executive-summary p { margin: 0 0 12px; }
+    .executive-summary p:last-child { margin-bottom: 0; }
+    .executive-summary strong { color: var(--spectrum-green-400); }
+    .executive-summary .highlight-value {
+      font-family: 'JetBrains Mono', monospace; font-weight: 600;
+    }
+    .competitive-grid-acct {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: var(--spectrum-spacing-200);
+    }
+    @media (max-width: 700px) {
+      .competitive-grid-acct { grid-template-columns: 1fr; }
+    }
+
+    /* Email Modal */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px);
+      z-index: 1000; display: none;
+      align-items: center; justify-content: center;
+      padding: var(--spectrum-spacing-400);
+    }
+    .modal-overlay.visible { display: flex; }
+    .modal-content {
+      background: var(--spectrum-bg-layer-1);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-xl);
+      max-width: 800px; width: 100%; max-height: 90vh;
+      overflow: hidden; display: flex; flex-direction: column;
+    }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--spectrum-spacing-300) var(--spectrum-spacing-400);
+      border-bottom: 1px solid var(--spectrum-border-subtle);
+    }
+    .modal-header h3 {
+      margin: 0; font-size: var(--spectrum-font-size-400);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .modal-header h3 i { color: var(--spectrum-purple-400); }
+    .modal-close {
+      background: transparent; border: none; color: var(--spectrum-text-muted);
+      cursor: pointer; padding: 8px; border-radius: var(--spectrum-radius-md);
+      transition: all 0.2s;
+    }
+    .modal-close:hover { background: var(--spectrum-bg-elevated); color: var(--spectrum-text-primary); }
+    .modal-close i { width: 20px; height: 20px; }
+    .modal-body {
+      padding: var(--spectrum-spacing-400); overflow-y: auto; flex: 1;
+    }
+    .email-template-tabs {
+      display: flex; gap: 4px; background: rgba(0, 0, 0, 0.3);
+      padding: 4px; border-radius: var(--spectrum-radius-lg);
+      margin-bottom: var(--spectrum-spacing-300);
+    }
+    .email-tab {
+      flex: 1; padding: 10px 16px; font-size: var(--spectrum-font-size-100);
+      font-weight: 600; color: var(--spectrum-text-muted);
+      background: transparent; border: none;
+      border-radius: var(--spectrum-radius-md); cursor: pointer; transition: all 0.2s;
+    }
+    .email-tab:hover { color: var(--spectrum-text-secondary); background: rgba(255, 255, 255, 0.05); }
+    .email-tab.active { color: var(--spectrum-text-primary); background: var(--spectrum-purple-700); }
+    .email-field { margin-bottom: var(--spectrum-spacing-300); }
+    .email-field-label {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .email-field-label span {
+      font-size: var(--spectrum-font-size-100); font-weight: 600;
+      color: var(--spectrum-text-secondary);
+    }
+    .email-field-label button {
+      font-size: var(--spectrum-font-size-75); color: var(--spectrum-purple-400);
+      background: rgba(139, 92, 246, 0.15); border: none;
+      padding: 4px 10px; border-radius: var(--spectrum-radius-sm);
+      cursor: pointer; display: flex; align-items: center; gap: 4px;
+      transition: all 0.2s;
+    }
+    .email-field-label button:hover { background: rgba(139, 92, 246, 0.25); }
+    .email-field-label button i { width: 12px; height: 12px; }
+    .email-input {
+      width: 100%; padding: 12px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--spectrum-font-size-100);
+      color: var(--spectrum-text-primary);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-md); outline: none;
+    }
+    .email-input:focus { border-color: var(--spectrum-purple-400); }
+    .email-textarea {
+      width: 100%; min-height: 300px; padding: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--spectrum-font-size-100); line-height: 1.6;
+      color: var(--spectrum-text-primary);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--spectrum-border-default);
+      border-radius: var(--spectrum-radius-md); outline: none; resize: vertical;
+    }
+    .email-textarea:focus { border-color: var(--spectrum-purple-400); }
+    .modal-footer {
+      display: flex; justify-content: flex-end; gap: 12px;
+      padding: var(--spectrum-spacing-300) var(--spectrum-spacing-400);
+      border-top: 1px solid var(--spectrum-border-subtle);
+    }
+    .email-hint {
+      font-size: var(--spectrum-font-size-75); color: var(--spectrum-text-muted);
+      margin-top: 8px;
+    }
+
+    .main-tab.active.accounts {
+      background: linear-gradient(135deg, var(--spectrum-purple-500), var(--spectrum-purple-700));
+    }
+
+    /* ==========================================================================
        PRINT STYLES
        ========================================================================== */
     @media print {
       body { background: white; color: black; }
       nav { display: none; }
-      .btn { display: none; }
+      .btn { display: none !important; }
       .main-tabs { display: none; }
       .section-card { break-inside: avoid; }
+      .account-selector { display: none; }
+      .modal-overlay { display: none !important; }
     }
     
     /* ==========================================================================
@@ -1505,6 +1962,7 @@
     .main-tab.active.ttv { background: linear-gradient(135deg, var(--spectrum-cyan-500), #0891b2); }
     .main-tab.active.summary { background: linear-gradient(135deg, var(--spectrum-purple-500), var(--spectrum-purple-700)); }
     
+    .main-tab > * { pointer-events: none; }
     .main-tab i { width: 18px; height: 18px; }
     
     .main-tab .tab-badge {
@@ -2072,9 +2530,13 @@
           <i data-lucide="briefcase"></i>
         </div>
         <span class="nav-title">IPE Business Case Builder</span>
-        <span class="nav-badge">v3.0 • ROI + TCO + TTV</span>
+        <span class="nav-badge">v4.0 • Accounts + ROI + TCO + TTV</span>
       </div>
       <div class="nav-links">
+        <button class="nav-link" onclick="showEmailModal()" id="navEmailBtn" style="background: none; border: none; cursor: pointer; font-family: inherit; display: none;">
+          <i data-lucide="mail"></i>
+          Email
+        </button>
         <a href="../assess/alpha/ipe_assessment_ab.html" class="nav-link">
           <i data-lucide="clipboard-check"></i>
           PCRI Assessment
@@ -2100,6 +2562,10 @@
     
     <!-- Main Calculator Tabs -->
     <div class="main-tabs">
+      <button class="main-tab accounts" onclick="switchMainTab('accounts')">
+        <i data-lucide="building-2"></i>
+        <span>Account Intel</span>
+      </button>
       <button class="main-tab roi active" onclick="switchMainTab('roi')">
         <i data-lucide="trending-up"></i>
         <span>ROI Calculator</span>
@@ -2259,6 +2725,182 @@
       </div>
     </div>
     
+    <!-- ==================== ACCOUNT INTELLIGENCE TAB ==================== -->
+    <div class="tab-content" id="tab-accounts">
+      
+      <div class="section-card" style="margin-bottom: var(--spectrum-spacing-400); background: linear-gradient(145deg, rgba(139, 92, 246, 0.1), rgba(22, 33, 62, 0.9)); border-color: rgba(139, 92, 246, 0.3);">
+        <h3 style="color: var(--spectrum-purple-400);"><i data-lucide="building-2"></i> Account Intelligence</h3>
+        <p style="font-size: var(--spectrum-font-size-100); color: var(--spectrum-text-secondary); margin-bottom: 0;">
+          Select a target account to generate a preliminary business case from existing intelligence. Click <strong>"Use in Calculator"</strong> to auto-fill the ROI, TCO, and TTV tabs with account data.
+        </p>
+      </div>
+
+      <div class="account-selector">
+        <h2><i data-lucide="search"></i> Select Target Account</h2>
+        <div class="search-container">
+          <div class="search-icon"><i data-lucide="search"></i></div>
+          <input type="text" class="search-input" id="accountSearch" placeholder="Search accounts by name, industry, or segment...">
+        </div>
+        <div class="filter-row">
+          <select class="filter-select" id="filterTier" onchange="filterAccounts()">
+            <option value="">All Tiers</option>
+            <option value="Tier 1">Tier 1</option>
+            <option value="Tier 2">Tier 2</option>
+            <option value="Tier 3">Tier 3</option>
+          </select>
+          <select class="filter-select" id="filterJourney" onchange="filterAccounts()">
+            <option value="">All Journeys</option>
+            <option value="J1">J1 - Foundation</option>
+            <option value="J2">J2 - Fast Activation</option>
+            <option value="J3">J3 - Control Plane</option>
+            <option value="J4">J4 - Trigger Ready</option>
+          </select>
+          <select class="filter-select" id="filterIndustry" onchange="filterAccounts()">
+            <option value="">All Industries</option>
+          </select>
+          <select class="filter-select" id="filterReadiness" onchange="filterAccounts()">
+            <option value="">All Readiness</option>
+            <option value="A">A - Fast-path</option>
+            <option value="B">B - Ready with sequencing</option>
+            <option value="C">C - Foundation needed</option>
+          </select>
+        </div>
+        <div class="account-count" id="accountCount">Loading accounts...</div>
+        <div class="account-grid" id="accountGrid">
+          <div class="no-accounts">
+            <i data-lucide="loader"></i>
+            <p>Loading target accounts...</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="acct-case-container" id="acctCaseContainer">
+        <div class="acct-case-header">
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <span class="selected-account-name" id="selectedAccountName">Account Name</span>
+            <span class="preliminary-badge"><i data-lucide="alert-circle"></i> Preliminary Estimate</span>
+          </div>
+          <div class="btn-group">
+            <button class="btn" onclick="useInCalculator()">
+              <i data-lucide="calculator"></i>
+              Use in Calculator
+            </button>
+            <button class="btn btn-secondary" onclick="copyAcctSummary()">
+              <i data-lucide="copy"></i>
+              Copy Summary
+            </button>
+            <button class="btn btn-secondary" onclick="showEmailModal()">
+              <i data-lucide="mail"></i>
+              Generate Email
+            </button>
+            <button class="btn btn-secondary" onclick="window.print()">
+              <i data-lucide="printer"></i>
+              Print / PDF
+            </button>
+          </div>
+        </div>
+
+        <div class="estimated-pcri-section">
+          <div class="estimated-pcri-header">
+            <h3><i data-lucide="gauge"></i> Estimated PCRI Scores</h3>
+            <span class="estimated-disclaimer">Based on available account intelligence</span>
+          </div>
+          <div class="estimated-pcri-grid">
+            <div class="pcri-pillar-card"><div class="pillar-label">Foundation</div><div class="pillar-score foundation" id="estFoundation">65</div><div class="pillar-bar"><div class="pillar-fill foundation" id="estFoundationBar" style="width: 65%;"></div></div></div>
+            <div class="pcri-pillar-card"><div class="pillar-label">AI Ready</div><div class="pillar-score ai" id="estAI">55</div><div class="pillar-bar"><div class="pillar-fill ai" id="estAIBar" style="width: 55%;"></div></div></div>
+            <div class="pcri-pillar-card"><div class="pillar-label">Governance</div><div class="pillar-score governance" id="estGovernance">60</div><div class="pillar-bar"><div class="pillar-fill governance" id="estGovernanceBar" style="width: 60%;"></div></div></div>
+            <div class="pcri-pillar-card"><div class="pillar-label">Delivery</div><div class="pillar-score delivery" id="estDelivery">50</div><div class="pillar-bar"><div class="pillar-fill delivery" id="estDeliveryBar" style="width: 50%;"></div></div></div>
+            <div class="pcri-pillar-card"><div class="pillar-label">Culture</div><div class="pillar-score culture" id="estCulture">70</div><div class="pillar-bar"><div class="pillar-fill culture" id="estCultureBar" style="width: 70%;"></div></div></div>
+          </div>
+          <div class="pcri-composite-row">
+            <div class="composite-item"><div class="composite-label">Estimated Composite</div><div class="composite-value" id="estComposite">61</div></div>
+            <div class="composite-item"><div class="composite-label">Recommended Path</div><div class="journey-badge j3" id="estJourney">J3</div></div>
+            <div class="composite-item"><div class="composite-label">Readiness Band</div><div class="composite-value" style="font-size: var(--spectrum-font-size-300);" id="estReadiness">B</div></div>
+          </div>
+          <div class="validate-cta">
+            <div class="validate-cta-text">
+              <i data-lucide="sparkles"></i>
+              <p><strong>Want accurate projections?</strong> These estimates are based on public signals and account intelligence. A 15-minute PCRI assessment will provide validated scores and a precise business case.</p>
+            </div>
+            <a href="../assess/alpha/ipe_assessment_ab.html" class="btn" style="background: linear-gradient(135deg, var(--spectrum-green-500), var(--spectrum-cyan-500)); text-decoration: none;">
+              <i data-lucide="clipboard-check"></i>
+              Take PCRI Assessment
+            </a>
+          </div>
+        </div>
+
+        <div class="acct-results-grid">
+          <div class="acct-result-card roi"><div class="acct-result-icon"><i data-lucide="trending-up"></i></div><div class="acct-result-title">Estimated 3-Year ROI</div><div class="acct-result-value" id="acctResultROI">285%</div><div class="acct-result-detail">Payback in <span id="acctResultPayback">8</span> months</div></div>
+          <div class="acct-result-card tcv"><div class="acct-result-icon"><i data-lucide="wallet"></i></div><div class="acct-result-title">Forecast TCV (Year 1)</div><div class="acct-result-value" id="acctResultTCV">$716K</div><div class="acct-result-detail">Based on <span id="acctResultPath">J3</span> investment</div></div>
+          <div class="acct-result-card ttv"><div class="acct-result-icon"><i data-lucide="clock"></i></div><div class="acct-result-title">Time to Value</div><div class="acct-result-value" id="acctResultTTV">12 wks</div><div class="acct-result-detail">Full team activation</div></div>
+        </div>
+
+        <div class="section-card">
+          <h3><i data-lucide="building"></i> Account Profile</h3>
+          <div class="account-profile-grid">
+            <div class="profile-item"><div class="profile-label">Industry</div><div class="profile-value" id="profileIndustry">Enterprise Software</div></div>
+            <div class="profile-item"><div class="profile-label">Company Size</div><div class="profile-value" id="profileSize">1k-9.9k employees</div></div>
+            <div class="profile-item"><div class="profile-label">Developer Scale</div><div class="profile-value" id="profileDevs">100+ devs</div></div>
+            <div class="profile-item"><div class="profile-label">Design System</div><div class="profile-value" id="profileDS">Public</div></div>
+            <div class="profile-item"><div class="profile-label">AI Signal</div><div class="profile-value" id="profileAI">Strong</div></div>
+            <div class="profile-item"><div class="profile-label">Deployment Model</div><div class="profile-value" id="profileDeployment">SaaS</div></div>
+            <div class="profile-item"><div class="profile-label">Design Maturity</div><div class="profile-value" id="profileMaturity">L4</div></div>
+            <div class="profile-item"><div class="profile-label">Campaign Motion</div><div class="profile-value" id="profileCampaign">Fast Activation</div></div>
+          </div>
+          <div class="callout info" id="whyTargetCallout" style="display: none;">
+            <strong>Why This Account:</strong> <span id="whyTargetText"></span>
+          </div>
+        </div>
+
+        <div class="journey-message-card">
+          <div class="journey-message-header"><i data-lucide="message-square"></i><h4 id="acctJourneyTitle">J3 Value Frame</h4></div>
+          <div class="journey-message-content" id="acctJourneyContent">Your AI is scaling faster than product governance—activate the control plane first.</div>
+          <div class="journey-tags" id="acctJourneyTags"><span class="journey-tag">AI Governance</span><span class="journey-tag">Control Plane</span><span class="journey-tag">Risk Reduction</span></div>
+        </div>
+
+        <div class="section-card">
+          <h3><i data-lucide="bar-chart-2"></i> Estimated Value Breakdown</h3>
+          <div class="value-breakdown-grid">
+            <div>
+              <table class="breakdown-table"><thead><tr><th>Value Driver</th><th style="text-align: right;">Annual Est.</th></tr></thead>
+              <tbody>
+                <tr><td>Developer productivity gains</td><td class="value-cell" id="acctValueDevProd">$324,000</td></tr>
+                <tr><td>Designer efficiency</td><td class="value-cell" id="acctValueDesigner">$90,000</td></tr>
+                <tr><td>AI token optimization</td><td class="value-cell" id="acctValueAI">$28,800</td></tr>
+                <tr><td>Tool consolidation</td><td class="value-cell" id="acctValueTools">$38,500</td></tr>
+                <tr class="total-row"><td><strong>Est. Annual Value</strong></td><td class="value-cell"><strong id="acctValueTotal">$481,300</strong></td></tr>
+              </tbody></table>
+            </div>
+            <div>
+              <table class="breakdown-table"><thead><tr><th>Investment</th><th style="text-align: right;">Amount</th></tr></thead>
+              <tbody>
+                <tr><td>Year 1 Services</td><td class="value-cell" id="acctInvestServices">$175,000</td></tr>
+                <tr><td>Year 1 Software</td><td class="value-cell" id="acctInvestSoftware">$180,000</td></tr>
+                <tr class="total-row"><td><strong>Year 1 Total</strong></td><td class="value-cell"><strong id="acctInvestTotal">$355,000</strong></td></tr>
+                <tr><td>Forecast ARR Potential</td><td class="value-cell" id="acctInvestARR">$374,000</td></tr>
+                <tr><td>Forecast ACV Potential</td><td class="value-cell" id="acctInvestACV">$621,000</td></tr>
+              </tbody></table>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card" id="acctComparisonSection" style="display: none; border-color: rgba(59, 130, 246, 0.3); background: linear-gradient(145deg, rgba(59, 130, 246, 0.08), var(--spectrum-bg-surface));">
+          <h3><i data-lucide="scale"></i> Investment Alternatives (3-Year TCO)</h3>
+          <div id="acctComparisonContainer" class="competitive-grid-acct"></div>
+        </div>
+
+        <div class="section-card">
+          <h3><i data-lucide="file-text"></i> Preliminary Executive Summary</h3>
+          <div class="executive-summary" id="acctExecutiveSummary"></div>
+        </div>
+
+        <div class="callout warning">
+          <strong>Preliminary Estimates:</strong> This business case is based on available account intelligence and industry benchmarks. For validated projections, schedule a PCRI Assessment with the prospect.
+        </div>
+      </div>
+    </div>
+    <!-- END ACCOUNT INTELLIGENCE TAB -->
+
     <!-- ==================== ROI CALCULATOR TAB ==================== -->
     <div class="tab-content active" id="tab-roi">
     
@@ -3416,10 +4058,46 @@
     
     <!-- Footer -->
     <footer>
-      <p class="footer-text">IPE Business Case Builder v3.0 • ROI + TCO + Time to Value • Sales Enablement Tool • For Internal Use Only</p>
+      <p class="footer-text">IPE Business Case Builder v4.0 • Account Intelligence + ROI + TCO + Time to Value • Sales Enablement Tool • For Internal Use Only</p>
     </footer>
   </div>
   
+  <!-- Email Template Modal -->
+  <div class="modal-overlay" id="emailModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i data-lucide="mail"></i> Email Template Generator</h3>
+        <button class="modal-close" onclick="closeEmailModal()"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="email-template-tabs">
+          <button class="email-tab active" onclick="switchEmailTemplate('initial')">Initial Outreach</button>
+          <button class="email-tab" onclick="switchEmailTemplate('followup')">Follow-up</button>
+          <button class="email-tab" onclick="switchEmailTemplate('executive')">Executive Brief</button>
+        </div>
+        <div class="email-field">
+          <div class="email-field-label">
+            <span>Subject Line</span>
+            <button onclick="copyField('emailSubject')"><i data-lucide="copy"></i> Copy</button>
+          </div>
+          <input type="text" class="email-input" id="emailSubject" readonly>
+        </div>
+        <div class="email-field">
+          <div class="email-field-label">
+            <span>Email Body</span>
+            <button onclick="copyField('emailBody')"><i data-lucide="copy"></i> Copy</button>
+          </div>
+          <textarea class="email-textarea" id="emailBody" readonly></textarea>
+          <p class="email-hint">Tip: Personalize the opening line and add any recent news or triggers you've observed about the account.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="copyFullEmail()"><i data-lucide="copy"></i> Copy Full Email</button>
+        <button class="btn" onclick="openInMailClient()"><i data-lucide="send"></i> Open in Mail Client</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Initialize Lucide icons
     lucide.createIcons();
@@ -3441,6 +4119,12 @@
       // Update tab content
       document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
       document.getElementById(`tab-${tabId}`).classList.add('active');
+      
+      // Show/hide email nav button (only when account is selected)
+      const emailBtn = document.getElementById('navEmailBtn');
+      if (emailBtn) {
+        emailBtn.style.display = (tabId === 'accounts' && selectedAccount) ? 'flex' : 'none';
+      }
       
       // Recalculate for the active tab
       if (tabId === 'tco') {
@@ -4743,8 +5427,587 @@
     `;
     document.head.appendChild(style);
     
+    // ==========================================================================
+    // ACCOUNT INTELLIGENCE MODULE
+    // ==========================================================================
+    
+    const acctJourneyMessaging = {
+      J1: { title: 'J1 Value Frame: Foundation Building', content: 'AI execution fails without operational product intent. IPE helps establish the governance basics needed to control AI costs before they scale uncontrollably.', tags: ['Education', 'Cost Foundation', 'Governance Basics'], offer: 'Maturity POV + readiness checklist' },
+      J2: { title: 'J2 Value Frame: Fast Activation', content: 'Activate IPE fast—governed AI usage + measurable cost control in ~90 days. Transform your design system team into an AI cost governance function.', tags: ['90-Day ROI', 'Cost Control', 'Quick Win'], offer: 'IPE Activation Sprint' },
+      J3: { title: 'J3 Value Frame: AI Cost Control', content: 'Your AI spend is scaling faster than governance—activate the cost control plane first. IPE transforms your team from cost center to value driver by controlling AI token waste and tool sprawl.', tags: ['Cost Governance', 'Value Driver', 'Token Optimization'], offer: 'Activation Assessment → Context & Control Foundation' },
+      J4: { title: 'J4 Value Frame: Enterprise AI Governance', content: 'Control AI costs at enterprise scale. IPE provides the governance layer to manage tokenized commercial models across business units, transforming distributed cost centers into a unified value creation engine.', tags: ['Enterprise Scale', 'Token Governance', 'Value Center'], offer: 'Executive Activation Readiness Brief' }
+    };
+    
+    const acctPathPricing = {
+      J1: { services: 50000, software: 48000, name: 'J1 Foundation' },
+      J2: { services: 100000, software: 96000, name: 'J2 Acceleration' },
+      J3: { services: 175000, software: 180000, name: 'J3 Transformation' },
+      J4: { services: 300000, software: 300000, name: 'J4 Enterprise' }
+    };
+    
+    const devScaleMap = {
+      '<100 devs': { devs: 30, designers: 8 },
+      '100+ devs': { devs: 75, designers: 20 },
+      '500+ devs': { devs: 200, designers: 50 },
+      '1000+ devs': { devs: 400, designers: 100 }
+    };
+    
+    let accounts = [];
+    let filteredAccounts = [];
+    let selectedAccount = null;
+    
+    async function loadAccounts() {
+      try {
+        const response = await fetch('target_accounts.json');
+        accounts = await response.json();
+        accounts = accounts.filter(a => a.journey && a.journey !== '');
+        const industries = [...new Set(accounts.map(a => a.industryGroup).filter(i => i))];
+        const industrySelect = document.getElementById('filterIndustry');
+        if (industrySelect) {
+          industries.forEach(ind => {
+            const option = document.createElement('option');
+            option.value = ind;
+            option.textContent = ind;
+            industrySelect.appendChild(option);
+          });
+        }
+        filterAccounts();
+      } catch (error) {
+        console.error('Error loading accounts:', error);
+        const grid = document.getElementById('accountGrid');
+        if (grid) {
+          grid.innerHTML = '<div class="no-accounts"><i data-lucide="alert-circle"></i><p>Error loading accounts. Make sure target_accounts.json exists.</p></div>';
+          lucide.createIcons();
+        }
+      }
+    }
+    
+    function filterAccounts() {
+      const searchEl = document.getElementById('accountSearch');
+      const searchTerm = searchEl ? searchEl.value.toLowerCase() : '';
+      const tierFilter = document.getElementById('filterTier')?.value || '';
+      const journeyFilter = document.getElementById('filterJourney')?.value || '';
+      const industryFilter = document.getElementById('filterIndustry')?.value || '';
+      const readinessFilter = document.getElementById('filterReadiness')?.value || '';
+      
+      filteredAccounts = accounts.filter(account => {
+        const searchMatch = !searchTerm || account.company.toLowerCase().includes(searchTerm) || (account.industry || '').toLowerCase().includes(searchTerm) || (account.segment || '').toLowerCase().includes(searchTerm);
+        const tierMatch = !tierFilter || account.tier === tierFilter;
+        const journeyMatch = !journeyFilter || account.journey === journeyFilter;
+        const industryMatch = !industryFilter || account.industryGroup === industryFilter;
+        const readinessMatch = !readinessFilter || (account.readinessBand && account.readinessBand.startsWith(readinessFilter));
+        return searchMatch && tierMatch && journeyMatch && industryMatch && readinessMatch;
+      });
+      renderAccounts();
+    }
+    
+    function renderAccounts() {
+      const grid = document.getElementById('accountGrid');
+      const countEl = document.getElementById('accountCount');
+      if (!grid || !countEl) return;
+      
+      countEl.textContent = `Showing ${filteredAccounts.length} of ${accounts.length} accounts`;
+      
+      if (filteredAccounts.length === 0) {
+        grid.innerHTML = '<div class="no-accounts"><i data-lucide="search-x"></i><p>No accounts match your filters</p></div>';
+        lucide.createIcons();
+        return;
+      }
+      
+      grid.innerHTML = filteredAccounts.map(account => `
+        <div class="account-card ${selectedAccount?.company === account.company ? 'selected' : ''}"
+             role="button" tabindex="0" aria-label="${account.company}"
+             onclick="selectAccount('${account.company.replace(/'/g, "\\'")}')">
+          <div class="account-card-header">
+            <span class="account-name">${account.company}</span>
+            <span class="account-tier ${account.tier === 'Tier 1' ? 'tier-1' : account.tier === 'Tier 2' ? 'tier-2' : 'tier-3'}">${account.tier}</span>
+          </div>
+          <div class="account-meta">
+            <span class="account-tag">${account.industryGroup || account.industry || 'Unknown'}</span>
+            <span class="account-tag">${account.companySize || 'Unknown size'}</span>
+          </div>
+          <div class="account-signals">
+            <span class="signal-badge ${(account.journey || 'J3').toLowerCase()}">${account.journey || 'J3'}</span>
+            <span class="signal-badge readiness-${(account.readinessBand || 'C').charAt(0).toLowerCase()}">${(account.readinessBand || 'C').charAt(0)}</span>
+            ${account.publicDS === 'Yes' ? '<span class="signal-badge" style="background: rgba(139, 92, 246, 0.2); color: #c4b5fd;">Public DS</span>' : ''}
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+    
+    function selectAccount(companyName) {
+      selectedAccount = accounts.find(a => a.company === companyName);
+      if (!selectedAccount) return;
+      
+      document.querySelectorAll('.account-card').forEach(card => {
+        card.classList.remove('selected');
+        if (card.querySelector('.account-name')?.textContent === companyName) card.classList.add('selected');
+      });
+      
+      document.getElementById('acctCaseContainer')?.classList.add('visible');
+      const emailBtn = document.getElementById('navEmailBtn');
+      if (emailBtn) emailBtn.style.display = 'flex';
+      
+      generateAcctBusinessCase();
+      document.getElementById('acctCaseContainer')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    function estimatePCRI(account) {
+      let foundation = 50;
+      if (account.designMaturity >= 4) foundation = 75;
+      else if (account.designMaturity >= 3) foundation = 65;
+      else if (account.designMaturity >= 2) foundation = 55;
+      if (account.publicDS === 'Yes') foundation += 10;
+      foundation = Math.min(100, foundation);
+      
+      let ai = 50;
+      if (account.aiSignal && account.aiSignal.toLowerCase().includes('ai')) ai = 70;
+      if (account.aiSignal && account.aiSignal.toLowerCase().includes('strong')) ai = 80;
+      if (account.aiSignal && account.aiSignal.toLowerCase().includes('feature')) ai = 75;
+      
+      let governance = 55;
+      if (['Financial Services', 'Healthcare / Life Sciences'].includes(account.industryGroup)) governance = 70;
+      if (account.deploymentModel && account.deploymentModel.includes('On-prem')) governance += 10;
+      governance = Math.min(100, governance);
+      
+      let delivery = 50;
+      if (account.developerScale === '100+ devs') delivery = 60;
+      if (account.developerScale === '500+ devs') delivery = 70;
+      if (account.developerScale === '1000+ devs') delivery = 75;
+      
+      let culture = 55;
+      if (account.readinessBand && account.readinessBand.startsWith('A')) culture = 80;
+      else if (account.readinessBand && account.readinessBand.startsWith('B')) culture = 65;
+      if (account.campaignMotion && account.campaignMotion.includes('Fast')) culture += 10;
+      culture = Math.min(100, culture);
+      
+      if (account.readinessScore > 0) {
+        const avgEstimate = (foundation + ai + governance + delivery + culture) / 5;
+        const factor = ((avgEstimate * 0.4) + (account.readinessScore * 0.6)) / avgEstimate;
+        foundation = Math.min(100, Math.round(foundation * factor));
+        ai = Math.min(100, Math.round(ai * factor));
+        governance = Math.min(100, Math.round(governance * factor));
+        delivery = Math.min(100, Math.round(delivery * factor));
+        culture = Math.min(100, Math.round(culture * factor));
+      }
+      
+      const composite = Math.round((foundation * 0.20) + (ai * 0.20) + (governance * 0.20) + (delivery * 0.15) + (culture * 0.25));
+      return { foundation, ai, governance, delivery, culture, composite };
+    }
+    
+    function generateAcctBusinessCase() {
+      if (!selectedAccount) return;
+      const account = selectedAccount;
+      const journey = account.journey || 'J3';
+      const pricing = acctPathPricing[journey];
+      
+      document.getElementById('selectedAccountName').textContent = account.company;
+      
+      const pcri = estimatePCRI(account);
+      
+      // Update PCRI display
+      ['Foundation', 'AI', 'Governance', 'Delivery', 'Culture'].forEach((p, i) => {
+        const key = ['foundation', 'ai', 'governance', 'delivery', 'culture'][i];
+        const el = document.getElementById('est' + p);
+        if (el) el.textContent = pcri[key];
+        const bar = document.getElementById('est' + p + 'Bar');
+        if (bar) bar.style.width = pcri[key] + '%';
+      });
+      document.getElementById('estComposite').textContent = pcri.composite;
+      const journeyBadge = document.getElementById('estJourney');
+      if (journeyBadge) { journeyBadge.textContent = journey; journeyBadge.className = 'journey-badge ' + journey.toLowerCase(); }
+      document.getElementById('estReadiness').textContent = pcri.composite >= 80 ? 'A' : (pcri.composite >= 55 ? 'B' : 'C');
+      
+      // Profile
+      document.getElementById('profileIndustry').textContent = account.industryGroup || account.industry || 'Unknown';
+      document.getElementById('profileSize').textContent = account.companySize || 'Unknown';
+      document.getElementById('profileDevs').textContent = account.developerScale || 'Unknown';
+      document.getElementById('profileDS').textContent = account.publicDS === 'Yes' ? 'Public' : 'Internal';
+      document.getElementById('profileAI').textContent = account.aiSignal || 'Unknown';
+      document.getElementById('profileDeployment').textContent = account.deploymentModel || 'SaaS';
+      document.getElementById('profileMaturity').textContent = 'L' + (account.designMaturity || 3);
+      document.getElementById('profileCampaign').textContent = account.campaignMotion || 'Standard';
+      
+      const whyEl = document.getElementById('whyTargetCallout');
+      const whyText = document.getElementById('whyTargetText');
+      if (account.whyTarget || account.journeyRationale) {
+        whyEl.style.display = 'block';
+        whyText.textContent = account.whyTarget || account.journeyRationale;
+      } else { whyEl.style.display = 'none'; }
+      
+      // Journey messaging
+      const msg = acctJourneyMessaging[journey] || acctJourneyMessaging.J3;
+      document.getElementById('acctJourneyTitle').textContent = msg.title;
+      document.getElementById('acctJourneyContent').textContent = msg.content;
+      document.getElementById('acctJourneyTags').innerHTML = msg.tags.map(t => `<span class="journey-tag">${t}</span>`).join('');
+      
+      // Value calculation
+      const devScale = devScaleMap[account.developerScale] || devScaleMap['100+ devs'];
+      const numDevs = devScale.devs;
+      const numDesigners = devScale.designers;
+      const devCost = 180000;
+      const designerCost = 150000;
+      
+      let adjustedPricing = { services: pricing.services, platform: pricing.software };
+      let competitiveComparison = null;
+      
+      if (typeof IPEPricingEngine !== 'undefined') {
+        const deploymentKey = IPEPricingEngine.mapDeployment(account.deploymentModel);
+        const devScaleKey = IPEPricingEngine.mapDeveloperScale(account.developerScale);
+        const regulatory = IPEPricingEngine.INDUSTRY_TO_REGULATORY[account.industryGroup] || 'standard';
+        const pricingResult = IPEPricingEngine.calculatePricing({ pcriScore: pcri.composite, developerScale: devScaleKey, deployment: deploymentKey, regulatory: regulatory, commitment: '1-year', useTypical: true });
+        adjustedPricing.services = pricingResult.services.amount;
+        adjustedPricing.platform = pricingResult.platform.annual;
+        adjustedPricing.pathName = pricingResult.pathName;
+        competitiveComparison = IPEPricingEngine.calculateCompetitiveComparison({ numDevs, numDesigners, currentToolSpend: numDevs * 500, ipePricing: pricingResult });
+      }
+      
+      const productivityRate = 0.25 + (pcri.composite / 500);
+      const devProdValue = numDevs * devCost * productivityRate * 0.5;
+      const designerProdValue = numDesigners * designerCost * 0.15;
+      const aiAnnualSavings = numDevs * 200 * 12 * 0.25;
+      const toolSavings = numDevs * 500;
+      const totalAnnualValue = devProdValue + designerProdValue + aiAnnualSavings + toolSavings;
+      
+      const yearOneInvestment = adjustedPricing.services + adjustedPricing.platform;
+      const threeYearValue = totalAnnualValue * 3;
+      const threeYearCost = yearOneInvestment + (adjustedPricing.platform * 2);
+      const threeYearROI = Math.round(((threeYearValue - threeYearCost) / threeYearCost) * 100);
+      const paybackMonths = Math.ceil(yearOneInvestment / (totalAnnualValue / 12));
+      
+      let ttvWeeks = 14;
+      if (pcri.composite >= 80) ttvWeeks = 10;
+      else if (pcri.composite >= 65) ttvWeeks = 12;
+      else if (pcri.composite < 50) ttvWeeks = 18;
+      
+      // Update display
+      document.getElementById('acctResultROI').textContent = threeYearROI + '%';
+      document.getElementById('acctResultPayback').textContent = paybackMonths;
+      document.getElementById('acctResultTCV').textContent = formatCurrency(account.forecastTCV || yearOneInvestment);
+      document.getElementById('acctResultPath').textContent = adjustedPricing.pathName || pricing.name;
+      document.getElementById('acctResultTTV').textContent = ttvWeeks + ' wks';
+      
+      document.getElementById('acctValueDevProd').textContent = formatCurrencyFull(devProdValue);
+      document.getElementById('acctValueDesigner').textContent = formatCurrencyFull(designerProdValue);
+      document.getElementById('acctValueAI').textContent = formatCurrencyFull(aiAnnualSavings);
+      document.getElementById('acctValueTools').textContent = formatCurrencyFull(toolSavings);
+      document.getElementById('acctValueTotal').textContent = formatCurrencyFull(totalAnnualValue);
+      
+      document.getElementById('acctInvestServices').textContent = formatCurrencyFull(adjustedPricing.services);
+      document.getElementById('acctInvestSoftware').textContent = formatCurrencyFull(adjustedPricing.platform);
+      document.getElementById('acctInvestTotal').textContent = formatCurrencyFull(yearOneInvestment);
+      document.getElementById('acctInvestARR').textContent = formatCurrencyFull(account.forecastARR || adjustedPricing.platform);
+      document.getElementById('acctInvestACV').textContent = formatCurrencyFull(account.forecastACV || yearOneInvestment);
+      
+      // Competitive comparison
+      if (competitiveComparison) {
+        const compContainer = document.getElementById('acctComparisonContainer');
+        const threeYearNet = threeYearValue - competitiveComparison.options.ipe.threeYear;
+        compContainer.innerHTML = `
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+            <div style="padding: 16px; background: rgba(0,0,0,0.2); border-radius: 8px; text-align: center; border: 2px solid rgba(239, 68, 68, 0.3);">
+              <div style="font-size: 11px; color: var(--spectrum-text-muted); text-transform: uppercase; margin-bottom: 4px;">Internal Build</div>
+              <div style="font-family: 'JetBrains Mono'; font-size: 18px; color: var(--spectrum-red-400); margin-bottom: 4px;">${formatCurrency(competitiveComparison.options.internalBuild.threeYear)}</div>
+              <div style="font-size: 10px; color: var(--spectrum-text-muted);">18-24 months</div>
+            </div>
+            <div style="padding: 16px; background: rgba(0,0,0,0.2); border-radius: 8px; text-align: center; border: 2px solid rgba(245, 158, 11, 0.3);">
+              <div style="font-size: 11px; color: var(--spectrum-text-muted); text-transform: uppercase; margin-bottom: 4px;">Point Solutions</div>
+              <div style="font-family: 'JetBrains Mono'; font-size: 18px; color: var(--spectrum-yellow-400); margin-bottom: 4px;">${formatCurrency(competitiveComparison.options.pointSolutions.threeYear)}</div>
+              <div style="font-size: 10px; color: var(--spectrum-text-muted);">Ongoing debt</div>
+            </div>
+            <div style="padding: 16px; background: linear-gradient(145deg, rgba(16, 185, 129, 0.12), rgba(0, 0, 0, 0.2)); border-radius: 8px; text-align: center; border: 2px solid rgba(16, 185, 129, 0.5);">
+              <div style="font-size: 11px; color: var(--spectrum-text-muted); text-transform: uppercase; margin-bottom: 4px;">IPE Platform</div>
+              <div style="font-family: 'JetBrains Mono'; font-size: 18px; color: var(--spectrum-green-400); margin-bottom: 4px;">${formatCurrency(competitiveComparison.options.ipe.threeYear)}</div>
+              <div style="font-size: 10px; color: var(--spectrum-green-400);">+${formatCurrency(threeYearNet)} net value</div>
+            </div>
+          </div>`;
+        document.getElementById('acctComparisonSection').style.display = 'block';
+      } else {
+        document.getElementById('acctComparisonSection').style.display = 'none';
+      }
+      
+      // Executive summary
+      const summaryHtml = `
+        <p><strong>Preliminary Business Case for ${account.company}</strong></p>
+        <p>Based on available account intelligence, ${account.company} is a strong candidate for IPE with an estimated PCRI composite score of <span class="highlight-value">${pcri.composite}</span>, placing them in the <strong>${pricing.name}</strong> investment path.</p>
+        <p><strong>Key Account Signals:</strong></p>
+        <ul style="margin: 8px 0; padding-left: 20px;">
+          <li>Industry: ${account.industryGroup || account.industry}</li>
+          <li>Design Maturity: Level ${account.designMaturity || 3} ${account.publicDS === 'Yes' ? '(Public Design System)' : ''}</li>
+          <li>Developer Scale: ${account.developerScale || 'Unknown'}</li>
+          ${account.aiSignal ? '<li>AI Signal: ' + account.aiSignal + '</li>' : ''}
+          <li>Deployment Model: ${account.deploymentModel || 'SaaS'}</li>
+        </ul>
+        <p><strong>Estimated Value Creation:</strong></p>
+        <ul style="margin: 8px 0; padding-left: 20px;">
+          <li>Annual Value: <span class="highlight-value">${formatCurrencyFull(totalAnnualValue)}</span></li>
+          <li>3-Year ROI: <span class="highlight-value">${threeYearROI}%</span></li>
+          <li>Payback Period: <span class="highlight-value">${paybackMonths} months</span></li>
+          <li>Time to Value: <span class="highlight-value">${ttvWeeks} weeks</span></li>
+        </ul>
+        <p><strong>Recommended Approach (${journey}):</strong> ${msg.content}</p>
+        <p><strong>Suggested Offer:</strong> ${msg.offer}</p>
+        <p style="background: rgba(245, 158, 11, 0.1); padding: 12px; border-radius: 8px; margin-top: 16px;">
+          <strong>Next Step:</strong> These are preliminary estimates. Schedule a 15-minute PCRI Assessment for validated projections.
+        </p>`;
+      document.getElementById('acctExecutiveSummary').innerHTML = summaryHtml;
+      
+      // Store calculated values for email templates
+      account._calculated = { devProdValue, designerProdValue, aiAnnualSavings, toolSavings, totalAnnualValue, threeYearROI, paybackMonths, ttvWeeks, yearOneInvestment, competitiveComparison };
+      
+      lucide.createIcons();
+    }
+    
+    // Use account data in the calculator tabs (the key integration point)
+    function useInCalculator() {
+      if (!selectedAccount) return;
+      const account = selectedAccount;
+      const pcri = estimatePCRI(account);
+      const journey = account.journey || 'J3';
+      const devScale = devScaleMap[account.developerScale] || devScaleMap['100+ devs'];
+      
+      // Map industry to preset
+      let preset = 'custom';
+      if (account.industryGroup === 'Financial Services') preset = 'fss';
+      else if (account.industryGroup === 'Enterprise Software') preset = 'tech';
+      else if (account.industryGroup === 'Healthcare / Life Sciences') preset = 'healthcare';
+      else if (account.industryGroup === 'Retail / E-commerce') preset = 'retail';
+      else if (account.industryGroup === 'Media & Entertainment') preset = 'media';
+      
+      // Fill shared inputs
+      document.getElementById('companyName').value = account.company;
+      document.getElementById('numEngineers').value = devScale.devs;
+      document.getElementById('numDesigners').value = devScale.designers;
+      document.getElementById('industryPreset').value = preset;
+      document.getElementById('investmentPath').value = journey.toLowerCase();
+      
+      // Apply preset costs if available
+      if (preset !== 'custom' && industryPresets[preset]) {
+        const p = industryPresets[preset];
+        document.getElementById('engineerCost').value = p.engineerCost;
+        document.getElementById('designerCost').value = p.designerCost;
+        document.getElementById('currentToolSpend').value = p.currentToolSpend;
+        document.getElementById('integrationHours').value = p.integrationHours;
+        document.getElementById('toolsToConsolidate').value = p.toolsToConsolidate;
+        document.getElementById('aiApiSpend').value = p.aiApiSpend;
+        document.getElementById('tokenWaste').value = p.tokenWaste;
+        document.getElementById('tokenWasteValue').textContent = p.tokenWaste + '%';
+        document.getElementById('aiToolCount').value = p.aiToolCount;
+        document.getElementById('devProductivity').value = p.devProductivity;
+        document.getElementById('devProductivityValue').textContent = p.devProductivity + '%';
+        document.getElementById('regenReduction').value = p.regenReduction;
+        document.getElementById('regenReductionValue').textContent = p.regenReduction + '%';
+        document.getElementById('dsAdoption').value = p.dsAdoption;
+        document.getElementById('dsAdoptionValue').textContent = (p.dsAdoption / 100).toFixed(1) + 'x';
+      }
+      
+      // Apply PCRI scores
+      document.getElementById('pcriFoundation').value = pcri.foundation;
+      document.getElementById('pcriAI').value = pcri.ai;
+      document.getElementById('pcriGovernance').value = pcri.governance;
+      document.getElementById('pcriDelivery').value = pcri.delivery;
+      document.getElementById('pcriCulture').value = pcri.culture;
+      
+      // Expand shared inputs panel
+      const body = document.getElementById('sharedInputsBody');
+      const chevron = document.getElementById('sharedInputsChevron');
+      const toggleText = document.getElementById('sharedInputsToggleText');
+      if (body) body.classList.remove('collapsed');
+      if (chevron) chevron.style.transform = 'rotate(180deg)';
+      if (toggleText) toggleText.textContent = 'Click to collapse';
+      
+      // Switch to ROI tab and recalculate
+      switchMainTab('roi');
+      updatePCRI();
+      calculate();
+      
+      // Show notification
+      showProactiveNotification(account.company);
+    }
+    
+    function copyAcctSummary() {
+      const summary = document.getElementById('acctExecutiveSummary')?.innerText;
+      if (summary) {
+        navigator.clipboard.writeText(summary).then(() => alert('Business case summary copied to clipboard!'));
+      }
+    }
+    
+    // ==========================================================================
+    // EMAIL TEMPLATE MODULE
+    // ==========================================================================
+    
+    let currentEmailTemplate = 'initial';
+    
+    const emailTemplates = {
+      initial: {
+        getSubject: (account) => `${account.company}: Estimated ${formatCurrency(account._calculated?.totalAnnualValue || 500000)}/year value from AI-ready design operations`,
+        getBody: (account) => {
+          const calc = account._calculated || {};
+          const journey = account.journey || 'J3';
+          const msg = acctJourneyMessaging[journey];
+          return `Hi [First Name],
+
+I've been researching ${account.company}'s design and development operations, and I wanted to share some insights that might be valuable as you scale your AI initiatives.
+
+Based on public signals about your organization—including your ${account.publicDS === 'Yes' ? 'public design system' : 'design system maturity'}, ${account.developerScale || 'development scale'}, and ${account.aiSignal || 'technology investments'}—I ran a preliminary analysis using our PCRI framework (Product & Code Readiness Index).
+
+**Estimated Annual Value: ${formatCurrencyFull(calc.totalAnnualValue || 500000)}**
+
+Here's what we're seeing:
+• Developer productivity gains: ${formatCurrencyFull(calc.devProdValue || 300000)}
+• Designer efficiency improvements: ${formatCurrencyFull(calc.designerProdValue || 80000)}
+• AI token optimization savings: ${formatCurrencyFull(calc.aiAnnualSavings || 30000)}
+• Tool consolidation savings: ${formatCurrencyFull(calc.toolSavings || 40000)}
+
+This translates to an estimated **${calc.threeYearROI || 280}% 3-year ROI** with payback in approximately **${calc.paybackMonths || 8} months**.
+
+${msg.content}
+
+Of course, these are preliminary estimates. To provide validated projections specific to ${account.company}'s context, I'd love to schedule a 15-minute PCRI Assessment.
+
+Would you have 15 minutes this week or next?
+
+Best,
+[Your Name]`;
+        }
+      },
+      followup: {
+        getSubject: (account) => `Re: ${account.company} - Quick PCRI Assessment follow-up`,
+        getBody: (account) => {
+          const calc = account._calculated || {};
+          return `Hi [First Name],
+
+Following up on my previous note about the potential value we've identified for ${account.company}.
+
+I wanted to highlight one specific insight: based on your ${account.developerScale || 'development team size'}, we estimate you could be losing approximately **${formatCurrencyFull((calc.aiAnnualSavings || 30000) * 1.5)}** annually to AI token waste and regeneration cycles.
+
+This happens when AI coding assistants lack proper context about your design system, leading to:
+• Code that doesn't match your component patterns
+• Multiple regeneration attempts to get it right
+• Manual cleanup of AI-generated output
+
+Our PCRI Assessment specifically identifies these gaps and quantifies the opportunity.
+
+Here's a quick scheduling link: [INSERT CALENDLY LINK]
+
+Thanks,
+[Your Name]
+
+P.S. The assessment only takes 15 minutes and you'll walk away with actionable insights regardless of whether we work together.`;
+        }
+      },
+      executive: {
+        getSubject: (account) => `${account.company}: Executive Brief - ${formatCurrency(account._calculated?.threeYearROI || 280)}% ROI opportunity in design operations`,
+        getBody: (account) => {
+          const calc = account._calculated || {};
+          const journey = account.journey || 'J3';
+          const msg = acctJourneyMessaging[journey];
+          const pricing = acctPathPricing[journey];
+          return `Dear [Executive Name],
+
+I'm reaching out regarding a strategic opportunity we've identified for ${account.company} in the intersection of design systems and AI-assisted development.
+
+**EXECUTIVE SUMMARY**
+
+Based on preliminary analysis, we've identified potential value creation of **${formatCurrencyFull(calc.totalAnnualValue || 500000)} annually** through our Intelligent Product Engine (IPE) platform.
+
+**KEY METRICS**
+• Estimated 3-Year ROI: ${calc.threeYearROI || 280}%
+• Payback Period: ${calc.paybackMonths || 8} months
+• Time to Value: ${calc.ttvWeeks || 12} weeks
+
+**THE OPPORTUNITY**
+
+${msg.content}
+
+**RECOMMENDED INVESTMENT PATH: ${pricing.name}**
+• Year 1 Services: ${formatCurrencyFull(pricing.services)}
+• Annual Software: ${formatCurrencyFull(pricing.software)}
+• Total Year 1: ${formatCurrencyFull(pricing.services + pricing.software)}
+
+**NEXT STEP**
+
+I would welcome the opportunity to present a validated business case. Our PCRI Assessment takes approximately 15 minutes.
+
+Respectfully,
+[Your Name]
+[Title]
+
+CONFIDENTIAL: This analysis is based on publicly available information and industry benchmarks.`;
+        }
+      }
+    };
+    
+    function showEmailModal() {
+      if (!selectedAccount) { alert('Please select an account first from the Account Intelligence tab.'); return; }
+      document.getElementById('emailModal')?.classList.add('visible');
+      generateEmailContent('initial');
+      lucide.createIcons();
+    }
+    
+    function closeEmailModal() {
+      document.getElementById('emailModal')?.classList.remove('visible');
+    }
+    
+    function switchEmailTemplate(template) {
+      currentEmailTemplate = template;
+      document.querySelectorAll('.email-tab').forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+      generateEmailContent(template);
+    }
+    
+    function generateEmailContent(template) {
+      if (!selectedAccount) return;
+      const tmpl = emailTemplates[template];
+      const subjectEl = document.getElementById('emailSubject');
+      const bodyEl = document.getElementById('emailBody');
+      if (subjectEl) subjectEl.value = tmpl.getSubject(selectedAccount);
+      if (bodyEl) bodyEl.value = tmpl.getBody(selectedAccount);
+    }
+    
+    function copyField(fieldId) {
+      const field = document.getElementById(fieldId);
+      if (!field) return;
+      navigator.clipboard.writeText(field.value).then(() => {
+        const btn = event.target.closest('button');
+        if (btn) {
+          const orig = btn.innerHTML;
+          btn.innerHTML = '<i data-lucide="check"></i> Copied!';
+          lucide.createIcons();
+          setTimeout(() => { btn.innerHTML = orig; lucide.createIcons(); }, 2000);
+        }
+      });
+    }
+    
+    function copyFullEmail() {
+      const subject = document.getElementById('emailSubject')?.value || '';
+      const body = document.getElementById('emailBody')?.value || '';
+      navigator.clipboard.writeText(`Subject: ${subject}\n\n${body}`).then(() => alert('Full email copied to clipboard!'));
+    }
+    
+    function openInMailClient() {
+      const subject = encodeURIComponent(document.getElementById('emailSubject')?.value || '');
+      const body = encodeURIComponent(document.getElementById('emailBody')?.value || '');
+      window.open(`mailto:?subject=${subject}&body=${body}`);
+    }
+
     // Initialize on load
     document.addEventListener('DOMContentLoaded', function() {
+      // Load account data for Account Intelligence tab
+      loadAccounts();
+      
+      // Account search handler
+      const searchInput = document.getElementById('accountSearch');
+      if (searchInput) searchInput.addEventListener('input', filterAccounts);
+      
+      // Email modal close handlers
+      const emailModal = document.getElementById('emailModal');
+      if (emailModal) {
+        emailModal.addEventListener('click', function(e) { if (e.target === this) closeEmailModal(); });
+      }
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeEmailModal(); });
+      
       // Check for query parameters first
       const params = parseQueryParams();
       const hasParams = applyQueryParams(params);
