@@ -83,6 +83,15 @@
       transform: translateX(-40px);
     }
 
+    .slide.exit-right {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+
+    .slide.enter-left {
+      transform: translateX(-40px);
+    }
+
     /* ---- Progress bar ---- */
     .progress-bar {
       position: fixed;
@@ -190,8 +199,8 @@
     .metric-card.accent-action { border-top-color: var(--action); }
 
     .metric-value { font-size: 34px; font-weight: 800; color: var(--neutral-800); line-height: 1; margin-bottom: 6px; letter-spacing: -0.02em; }
-    .metric-label { font-size: 11px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; }
-    .metric-sub { font-size: 12px; color: var(--neutral-600); margin-top: 6px; }
+    .metric-label { font-size: 13px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; }
+    .metric-sub { font-size: 13px; color: var(--neutral-600); margin-top: 6px; }
 
     /* ---- Sections ---- */
     .section { margin-bottom: 28px; }
@@ -308,7 +317,7 @@
       margin-top: 1px;
     }
     .question-text {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 500;
       color: var(--neutral-800);
       line-height: 1.6;
@@ -334,11 +343,11 @@
       border-radius: 8px;
       padding: 20px;
     }
-    .pillar-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .pillar-label { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
     .pillar-title { font-size: 17px; font-weight: 700; color: var(--neutral-800); margin-bottom: 8px; letter-spacing: -0.01em; }
-    .pillar-desc { font-size: 13px; color: var(--neutral-600); line-height: 1.6; margin-bottom: 12px; }
+    .pillar-desc { font-size: 14px; color: var(--neutral-600); line-height: 1.6; margin-bottom: 12px; }
     .pillar-items { display: flex; flex-wrap: wrap; gap: 6px; }
-    .pillar-tag { font-size: 12px; padding: 5px 12px; border-radius: 4px; font-weight: 600; }
+    .pillar-tag { font-size: 13px; padding: 5px 12px; border-radius: 4px; font-weight: 600; }
 
     /* ---- Footer ---- */
     .page-footer {
@@ -453,23 +462,17 @@
           <h2 class="section-title" id="section-usage">Last Quarter's Knapsack Usage</h2>
         </div>
 
-        <div style="background: var(--success-light); border: 1px solid #b8d4c8; border-radius: 8px; padding: 14px 20px; margin-bottom: 16px;">
-          <div style="font-size: 11px; font-weight: 700; color: var(--success); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">Q1 Partnership Highlights</div>
-          <div style="display: flex; gap: 16px;">
-            <div style="flex: 1; font-size: 13px; color: var(--neutral-700); line-height: 1.5; padding-right: 16px; border-right: 1px solid #b8d4c8;">Continuum adopted as the single source of truth across <strong>111+ web properties</strong> — replacing a fragmented mix of Confluence, Zeroheight, and Storybook</div>
-            <div style="flex: 1; font-size: 13px; color: var(--neutral-700); line-height: 1.5; padding-right: 16px; border-right: 1px solid #b8d4c8;"><strong>210 active users</strong> spanning design, engineering, marketing, and agency teams — cross-functional engagement from day one</div>
-            <div style="flex: 1; font-size: 13px; color: var(--neutral-700); line-height: 1.5;">Leadership mandate in place: <strong>80%+ system adoption</strong> target driving organizational alignment behind Knapsack</div>
+        <div style="background: var(--neutral-900); color: white; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; display: flex; gap: 20px; align-items: stretch;">
+          <div style="flex: 1; padding-right: 20px; border-right: 1px solid rgba(255,255,255,0.12);">
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 6px;">Why we're starting here</div>
+            <div style="font-size: 14px; color: rgba(255,255,255,0.95); line-height: 1.6;">This is our first QBR together. The numbers below establish <strong style="color: white;">baselines</strong> — not yet trends. With 210 active users and the 80% system mandate in place, the question shifts from adoption to depth.</div>
           </div>
-          <div style="font-size: 11px; color: var(--neutral-500); margin-top: 8px; font-style: italic;">These highlights establish baselines — in Q2, we'll review progress against the goals we set today.</div>
+          <div style="flex: 1;">
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 6px;">What this sets up for Q2</div>
+            <div style="font-size: 14px; color: rgba(255,255,255,0.95); line-height: 1.6;">The metrics we agree on today become the scorecard we measure against next quarter. In Q2, this slide becomes a <strong style="color: white;">goals vs. actuals</strong> view — showing movement, not just activity.</div>
+          </div>
         </div>
 
-        <div style="background: var(--neutral-800); color: white; border-radius: 8px; padding: 12px 20px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
-          <div style="font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.5;"><strong>Context:</strong> Leadership mandate requires 80%+ of every website to use Continuum. Agencies are the primary consumers of the design system; DXMs and the internal UX team (Indegene) manage content and governance.</div>
-          <div style="flex-shrink: 0; text-align: center; padding-left: 20px;">
-            <div style="font-size: 24px; font-weight: 800; color: var(--primary);">111+</div>
-            <div style="font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 600;">Web Properties</div>
-          </div>
-        </div>
 
         <div class="metrics-row" role="region" aria-label="Key usage metrics">
           <div class="grid-4">
@@ -534,7 +537,7 @@
           </div>
         </div>
 
-        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin: 16px 0 10px;">Let's discuss</div>
+        <div style="font-size: 13px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin: 16px 0 10px;">Let's discuss</div>
 
         <div class="question-card">
           <div class="question-num-badge" aria-hidden="true">1</div>
@@ -549,9 +552,9 @@
           <div class="question-text">If you could see any usage or adoption data in Knapsack that would help you report against the 80% mandate or accelerate agency onboarding — what would that look like?</div>
         </div>
 
-        <div style="background: var(--neutral-100); border-radius: 6px; padding: 10px 16px; margin-top: 16px; display: flex; align-items: center; gap: 10px;">
-          <div style="font-size: 11px; font-weight: 600; color: var(--neutral-500); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap;">Carries forward →</div>
-          <div style="font-size: 12px; color: var(--neutral-600);">This usage data feeds directly into your readiness scores and quarterly business case — alongside feedback, maturity benchmarks, and roadmap alignment.</div>
+        <div style="background: var(--neutral-100); border-radius: 6px; padding: 12px 18px; margin-top: 16px; display: flex; align-items: center; gap: 12px;">
+          <div style="font-size: 12px; font-weight: 600; color: var(--neutral-500); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap;">Carries forward →</div>
+          <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.5;">This usage data feeds directly into your readiness scores and quarterly business case — alongside feedback, maturity benchmarks, and roadmap alignment.</div>
         </div>
       </section>
     </div>
@@ -594,35 +597,46 @@
           <h2 class="section-title" id="section-feedback">What We've Heard</h2>
         </div>
 
+        <div style="background: var(--neutral-900); color: white; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; display: flex; gap: 20px; align-items: stretch;">
+          <div style="flex: 1; padding-right: 20px; border-right: 1px solid rgba(255,255,255,0.12);">
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 6px;">Why this matters now</div>
+            <div style="font-size: 14px; color: rgba(255,255,255,0.95); line-height: 1.6;">In January, your leadership described their biggest challenges. We're bringing those themes back to <strong style="color: white;">confirm, correct, or update</strong> — because everything we build next is grounded in what you told us.</div>
+          </div>
+          <div style="flex: 1;">
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 6px;">What this sets up for Q2</div>
+            <div style="font-size: 14px; color: rgba(255,255,255,0.95); line-height: 1.6;">Validated themes become the foundation for the roadmap and business case. In Q2, we'll track whether our investments are <strong style="color: white;">moving the needle</strong> on the priorities you confirm today.</div>
+          </div>
+        </div>
+
         <!-- Support activity block -->
         <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px; padding: 14px 18px; margin-bottom: 16px; display: flex; gap: 16px; align-items: flex-start;">
           <div style="flex-shrink: 0; text-align: center; padding: 8px 12px; background: white; border: 1px solid var(--neutral-150); border-radius: 8px;">
             <div style="font-size: 24px; font-weight: 800; color: var(--primary);">5</div>
-            <div style="font-size: 10px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em;">Open Tickets</div>
-            <div style="font-size: 10px; color: var(--neutral-500);">Past 30 days</div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em;">Open Tickets</div>
+            <div style="font-size: 11px; color: var(--neutral-500);">Past 30 days</div>
           </div>
           <div style="flex: 1;">
-            <div style="font-size: 12px; font-weight: 700; color: var(--neutral-700); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">Recent Support Activity</div>
+            <div style="font-size: 13px; font-weight: 700; color: var(--neutral-700); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">Recent Support Activity</div>
             <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-              <span style="font-size: 11px; background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; border-radius: 4px; padding: 2px 8px; font-weight: 600;">Figma Integration (403 errors)</span>
-              <span style="font-size: 11px; background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; border-radius: 4px; padding: 2px 8px; font-weight: 600;">Page Data Loss</span>
+              <span style="font-size: 12px; background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; border-radius: 4px; padding: 3px 10px; font-weight: 600;">Figma Integration (403 errors)</span>
+              <span style="font-size: 12px; background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; border-radius: 4px; padding: 3px 10px; font-weight: 600;">Page Data Loss</span>
             </div>
-            <div style="font-size: 12px; color: var(--neutral-600); line-height: 1.5;">Before we get into the broader themes, we want to make sure we're addressing what's in front of you right now.</div>
+            <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.5;">Before we get into the broader themes, we want to make sure we're addressing what's in front of you right now.</div>
           </div>
         </div>
 
-        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;">What we heard in January — did we get this right?</div>
+        <div style="font-size: 13px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;">What we heard in January — did we get this right?</div>
 
         <div class="grid-2" style="margin-bottom: 12px;">
           <div style="background: var(--primary-light); border: 1px solid #f0cdc0; border-radius: 8px; padding: 14px 18px;">
             <div style="font-size: 14px; font-weight: 700; color: var(--primary-dark); margin-bottom: 6px;">Agency Enablement</div>
             <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin-bottom: 6px;">We heard that agency onboarding is a constant cycle — 111+ sites, a revolving door of designers, and DXMs spending significant time on reviews. The 80% system mandate adds urgency.</div>
-            <div style="font-size: 12px; color: var(--neutral-600); font-style: italic; line-height: 1.5; border-top: 1px solid #f0cdc0; padding-top: 6px;">"We're in constant training mode. As soon as we get one agency designer really understanding the system, they move to a different account." — Melissa Butler</div>
+            <div style="font-size: 13px; color: var(--neutral-600); font-style: italic; line-height: 1.5; border-top: 1px solid #f0cdc0; padding-top: 6px;">"We're in constant training mode. As soon as we get one agency designer really understanding the system, they move to a different account." — Melissa Butler</div>
           </div>
           <div style="background: var(--action-light); border: 1px solid #c4ddef; border-radius: 8px; padding: 14px 18px;">
             <div style="font-size: 14px; font-weight: 700; color: var(--action); margin-bottom: 6px;">Brief to Implementable UI</div>
             <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin-bottom: 6px;">The vision that surfaced most strongly: going from a brand brief to a governed, implementable page built with Continuum components — reducing the Figma back-and-forth.</div>
-            <div style="font-size: 12px; color: var(--neutral-600); font-style: italic; line-height: 1.5; border-top: 1px solid #c4ddef; padding-top: 6px;">"Why can't somebody say, here's the brief — and using Continuum components, build a page that meets the brand's needs while making sure it adheres to standards?" — Pallavi Paranjape</div>
+            <div style="font-size: 13px; color: var(--neutral-600); font-style: italic; line-height: 1.5; border-top: 1px solid #c4ddef; padding-top: 6px;">"Why can't somebody say, here's the brief — and using Continuum components, build a page that meets the brand's needs while making sure it adheres to standards?" — Pallavi Paranjape</div>
           </div>
         </div>
 
@@ -630,21 +644,21 @@
           <div style="background: var(--secondary-light); border: 1px solid #b8d4d2; border-radius: 8px; padding: 14px 18px;">
             <div style="font-size: 14px; font-weight: 700; color: var(--secondary-dark); margin-bottom: 6px;">Tooling Consolidation</div>
             <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin-bottom: 6px;">We heard interest in reducing Figma dependency and bringing design and code into the same space. Has anything shifted on this timeline since January?</div>
-            <div style="font-size: 12px; color: var(--neutral-600); font-style: italic; line-height: 1.5; border-top: 1px solid #b8d4d2; padding-top: 6px;">"I want to reduce our dependency on Figma as much as possible." — Melissa Butler</div>
+            <div style="font-size: 13px; color: var(--neutral-600); font-style: italic; line-height: 1.5; border-top: 1px solid #b8d4d2; padding-top: 6px;">"I want to reduce our dependency on Figma as much as possible." — Melissa Butler</div>
           </div>
           <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px; padding: 14px 18px;">
             <div style="font-size: 14px; font-weight: 700; color: var(--neutral-800); margin-bottom: 6px;">AI Governance Landscape</div>
             <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin-bottom: 6px;">AI adoption is a top priority, but each tool requires use-case-specific approval. Agencies can't access GG or Copilot. How should we be thinking about this as we plan together?</div>
-            <div style="font-size: 12px; color: var(--neutral-600); font-style: italic; line-height: 1.5; border-top: 1px solid var(--neutral-150); padding-top: 6px;">"When the use case is approved, they're very specific around what that AI technology is approved for." — Melissa Butler</div>
+            <div style="font-size: 13px; color: var(--neutral-600); font-style: italic; line-height: 1.5; border-top: 1px solid var(--neutral-150); padding-top: 6px;">"When the use case is approved, they're very specific around what that AI technology is approved for." — Melissa Butler</div>
           </div>
         </div>
 
-        <div style="background: var(--neutral-800); color: white; border-radius: 6px; padding: 10px 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
-          <div style="font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap;">Carries forward →</div>
-          <div style="font-size: 12px; color: rgba(255,255,255,0.85);">These four themes inform what we'll measure in your readiness assessment, what we're building on the roadmap, and where we invest together in Q2.</div>
+        <div style="background: var(--neutral-800); color: white; border-radius: 6px; padding: 12px 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+          <div style="font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap;">Carries forward →</div>
+          <div style="font-size: 14px; color: rgba(255,255,255,0.92); line-height: 1.5;">These four themes inform what we'll measure in your readiness assessment, what we're building on the roadmap, and where we invest together in Q2.</div>
         </div>
 
-        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 10px;">Let's discuss</div>
+        <div style="font-size: 13px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 10px;">Let's discuss</div>
 
         <div class="question-card">
           <div class="question-num-badge" aria-hidden="true">1</div>
@@ -695,85 +709,130 @@
           <h2 class="section-title" id="section-maturity">Maturity Assessment — PCRI</h2>
         </div>
 
-        <!-- Hero block -->
-        <div style="background: var(--secondary-light); border: 1px solid #b8d4d2; border-radius: 8px; padding: 20px 24px; margin-bottom: 16px;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
-            <div style="flex: 1;">
-              <div style="font-size: 12px; font-weight: 700; color: var(--secondary-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">Presented by Amber Atkins</div>
-              <div style="font-size: 17px; font-weight: 700; color: var(--neutral-800); margin-bottom: 8px; letter-spacing: -0.01em;">How we'll measure progress together</div>
-              <div style="font-size: 14px; color: var(--neutral-700); line-height: 1.6;">The Product Context Readiness Index is a new benchmarking tool Knapsack developed to give every customer partnership a shared language, a quarterly measurement point, and a direct input to the business case. It measures readiness across five pillars — many of which directly touch the themes your team raised around governance, AI adoption, agency enablement, and delivery. Benchmarks draw from 158 enterprises navigating the same challenges.</div>
+        <div style="background: var(--neutral-900); color: white; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; display: flex; gap: 20px; align-items: stretch;">
+          <div style="flex: 1; padding-right: 20px; border-right: 1px solid rgba(255,255,255,0.12);">
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 6px;">Why we're introducing this</div>
+            <div style="font-size: 14px; color: rgba(255,255,255,0.95); line-height: 1.6;">Usage shows activity. Feedback shows intent. But neither tells us whether your organization is <strong style="color: white;">ready</strong> to take the next step. The PCRI gives our partnership a shared measurement framework — grounded in what your team told us matters.</div>
+          </div>
+          <div style="flex: 1;">
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 6px;">What this sets up for Q2</div>
+            <div style="font-size: 14px; color: rgba(255,255,255,0.95); line-height: 1.6;">Your baseline scores define Q2 focus areas and feed directly into the business case. In <strong style="color: white;">Q2 we re-measure</strong> — pillar-level deltas show where investment is paying off and where to adjust.</div>
+          </div>
+        </div>
+
+        <!-- What makes PCRI different -->
+        <div style="display: flex; gap: 16px; margin-bottom: 16px; align-items: stretch;">
+          <div style="flex: 1; background: var(--neutral-900); color: white; border-radius: 8px; padding: 20px; display: flex; flex-direction: column;">
+            <div style="font-size: 18px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.01em; line-height: 1.3;">This isn't a survey.<br>It's a <span style="color: var(--primary);">measurement system.</span></div>
+            <div style="font-size: 14px; color: rgba(255,255,255,0.9); line-height: 1.6; flex: 1;">Most assessments tell you where you are. The PCRI tells you <strong style="color: white;">what to do next</strong> — and gives you evidence to take to leadership every quarter.</div>
+            <div style="display: flex; gap: 12px; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.1);">
+              <div style="text-align: center;">
+                <div style="font-size: 22px; font-weight: 800; color: var(--primary);">15</div>
+                <div style="font-size: 12px; color: rgba(255,255,255,0.6);">minutes</div>
+              </div>
+              <div style="width: 1px; background: rgba(255,255,255,0.1);"></div>
+              <div style="text-align: center;">
+                <div style="font-size: 22px; font-weight: 800; color: var(--primary);">27</div>
+                <div style="font-size: 12px; color: rgba(255,255,255,0.6);">questions</div>
+              </div>
+              <div style="width: 1px; background: rgba(255,255,255,0.1);"></div>
+              <div style="text-align: center;">
+                <div style="font-size: 22px; font-weight: 800; color: var(--primary);">3–5</div>
+                <div style="font-size: 12px; color: rgba(255,255,255,0.6);">participants</div>
+              </div>
             </div>
-            <div style="text-align: center; flex-shrink: 0; background: white; border-radius: 8px; padding: 14px 18px; border: 1px solid var(--neutral-150);">
-              <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em;">Takes approx.</div>
-              <div style="font-size: 24px; font-weight: 800; color: var(--secondary-dark); margin: 2px 0;">15 min</div>
-              <div style="font-size: 12px; color: var(--neutral-600);">per participant</div>
-              <div style="font-size: 11px; color: var(--neutral-500); margin-top: 4px;">27 scored questions</div>
+          </div>
+          <div style="flex: 1.2; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div style="background: var(--secondary-light); border: 1px solid #b8d4d2; border-radius: 8px; padding: 14px 16px;">
+              <div style="font-size: 15px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 4px;">Impact-Weighted</div>
+              <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.5;">Not all pillars are equal. Culture carries 25%, Delivery 15% — because organizational readiness matters more than deployment speed.</div>
+            </div>
+            <div style="background: var(--action-light); border: 1px solid #c4ddef; border-radius: 8px; padding: 14px 16px;">
+              <div style="font-size: 15px; font-weight: 800; color: var(--action); margin-bottom: 4px;">Benchmarked</div>
+              <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.5;">Your scores compared against 158 enterprises — so you see where GSK stands relative to peers, not just in isolation.</div>
+            </div>
+            <div style="background: var(--primary-light); border: 1px solid #f0cdc0; border-radius: 8px; padding: 14px 16px;">
+              <div style="font-size: 15px; font-weight: 800; color: var(--primary-dark); margin-bottom: 4px;">Research-Grounded</div>
+              <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.5;">Built on DORA, Google Project Aristotle, and NIST AI RMF — not opinions. Every question maps to a validated framework.</div>
+            </div>
+            <div style="background: var(--success-light); border: 1px solid #b8d4c8; border-radius: 8px; padding: 14px 16px;">
+              <div style="font-size: 15px; font-weight: 800; color: var(--success); margin-bottom: 4px;">Actionable</div>
+              <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.5;">Produces a personalized archetype and priority roadmap — not a score you file away. It feeds directly into your business case.</div>
             </div>
           </div>
         </div>
 
-        <!-- Partnership lifecycle — centerpiece -->
-        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">The PCRI in your QBR lifecycle</div>
+        <!-- Five Pillars connected to GSK's themes -->
+        <div style="font-size: 13px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">Five Pillars — and how they connect to what you told us</div>
 
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-bottom: 16px;">
-          <div style="background: var(--secondary-light); border: 1px solid #b8d4d2; border-radius: 8px 0 0 8px; padding: 16px 18px; position: relative;">
-            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--secondary-dark); margin-bottom: 6px;">Q1 · Baseline</div>
-            <div style="font-size: 14px; font-weight: 700; color: var(--neutral-800); margin-bottom: 6px;">Take the Assessment</div>
-            <div style="font-size: 12px; color: var(--neutral-600); line-height: 1.5;">3–5 participants complete the PCRI. Your scores establish where GSK stands today and identify your partnership archetype.</div>
-            <div style="position: absolute; right: -7px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; background: var(--secondary-light); border-right: 1px solid #b8d4d2; border-top: 1px solid #b8d4d2; transform: translateY(-50%) rotate(45deg); z-index: 1;"></div>
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 16px;">
+          <div style="border-left: 3px solid #e87da0; background: white; border-radius: 6px; padding: 12px 14px; border: 1px solid var(--neutral-150); border-left: 3px solid #e87da0;">
+            <div style="font-size: 14px; font-weight: 800; color: #c2517a; margin-bottom: 2px;">Culture</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--neutral-800);">25%</div>
+            <div style="font-size: 12px; color: var(--neutral-500); line-height: 1.4; margin-top: 4px;">Agency onboarding, contribution models, team dynamics</div>
           </div>
-          <div style="background: var(--primary-light); border: 1px solid #f0cdc0; padding: 16px 18px; position: relative;">
-            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary-dark); margin-bottom: 6px;">Q2 · Focus</div>
-            <div style="font-size: 14px; font-weight: 700; color: var(--neutral-800); margin-bottom: 6px;">Define Priorities</div>
-            <div style="font-size: 12px; color: var(--neutral-600); line-height: 1.5;">PCRI results combined with today's feedback — agency enablement, governance, tooling, AI readiness — define your Q2 focus areas.</div>
-            <div style="position: absolute; right: -7px; top: 50%; width: 14px; height: 14px; background: var(--primary-light); border-right: 1px solid #f0cdc0; border-top: 1px solid #f0cdc0; transform: translateY(-50%) rotate(45deg); z-index: 1;"></div>
+          <div style="background: white; border: 1px solid var(--neutral-150); border-left: 3px solid var(--secondary); border-radius: 6px; padding: 12px 14px;">
+            <div style="font-size: 14px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 2px;">Foundation</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--neutral-800);">20%</div>
+            <div style="font-size: 12px; color: var(--neutral-500); line-height: 1.4; margin-top: 4px;">Tokens, components, APIs — Continuum's core</div>
           </div>
-          <div style="background: var(--action-light); border: 1px solid #c4ddef; padding: 16px 18px; position: relative;">
-            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--action); margin-bottom: 6px;">Q3+ · Track</div>
-            <div style="font-size: 14px; font-weight: 700; color: var(--neutral-800); margin-bottom: 6px;">Measure Movement</div>
-            <div style="font-size: 12px; color: var(--neutral-600); line-height: 1.5;">Each future QBR re-measures the PCRI. Pillar-level deltas show where investment is paying off and where to adjust.</div>
-            <div style="position: absolute; right: -7px; top: 50%; width: 14px; height: 14px; background: var(--action-light); border-right: 1px solid #c4ddef; border-top: 1px solid #c4ddef; transform: translateY(-50%) rotate(45deg); z-index: 1;"></div>
+          <div style="background: white; border: 1px solid var(--neutral-150); border-left: 3px solid var(--action); border-radius: 6px; padding: 12px 14px;">
+            <div style="font-size: 14px; font-weight: 800; color: var(--action); margin-bottom: 2px;">AI Readiness</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--neutral-800);">20%</div>
+            <div style="font-size: 12px; color: var(--neutral-500); line-height: 1.4; margin-top: 4px;">Can you adopt AI safely? Touches your governance landscape directly</div>
           </div>
-          <div style="background: var(--neutral-900); border: 1px solid var(--neutral-700); border-radius: 0 8px 8px 0; padding: 16px 18px; color: white;">
-            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.6); margin-bottom: 6px;">Ongoing · Build</div>
-            <div style="font-size: 14px; font-weight: 700; margin-bottom: 6px;">Business Case</div>
-            <div style="font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.5;">PCRI scores, usage data, and feedback feed directly into the business case — evidence you can take to leadership each quarter.</div>
+          <div style="background: white; border: 1px solid var(--neutral-150); border-left: 3px solid #6366f1; border-radius: 6px; padding: 12px 14px;">
+            <div style="font-size: 14px; font-weight: 800; color: #4f46e5; margin-bottom: 2px;">Governance</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--neutral-800);">20%</div>
+            <div style="font-size: 12px; color: var(--neutral-500); line-height: 1.4; margin-top: 4px;">Decision rights, sponsorship — the 80% mandate lives here</div>
+          </div>
+          <div style="background: white; border: 1px solid var(--neutral-150); border-left: 3px solid #eab308; border-radius: 6px; padding: 12px 14px;">
+            <div style="font-size: 14px; font-weight: 800; color: #ca8a04; margin-bottom: 2px;">Delivery</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--neutral-800);">15%</div>
+            <div style="font-size: 12px; color: var(--neutral-500); line-height: 1.4; margin-top: 4px;">Deployment frequency, workflow consistency across 111+ properties</div>
           </div>
         </div>
 
-        <!-- Compact pillar reference -->
-        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">Five Pillars · Weighted Scoring</div>
+        <!-- Where you'll land + lifecycle compact strip -->
+        <div style="display: flex; gap: 16px; margin-bottom: 16px; align-items: stretch;">
+          <div style="flex: 1; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px; padding: 16px 18px;">
+            <div style="font-size: 13px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">Your scores produce an archetype</div>
+            <div style="display: flex; height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 8px;">
+              <div style="width: 44%; background: linear-gradient(90deg, #ef4444, #fbbf24);"></div>
+              <div style="width: 10%; background: #fbbf24;"></div>
+              <div style="width: 20%; background: linear-gradient(90deg, #fbbf24, #3b82f6);"></div>
+              <div style="width: 26%; background: linear-gradient(90deg, #3b82f6, #10b981);"></div>
+            </div>
+            <div style="display: flex;">
+              <div style="width: 44%; font-size: 13px; color: var(--neutral-500);"><strong style="color: #b91c1c;">Builder</strong> 0–44</div>
+              <div style="width: 10%; font-size: 13px; color: var(--neutral-500);"><strong style="color: #92400e;">Adopter</strong></div>
+              <div style="width: 20%; font-size: 13px; color: var(--neutral-500);"><strong style="color: #1e40af;">Optimizer</strong></div>
+              <div style="width: 26%; font-size: 13px; color: var(--neutral-500);"><strong style="color: #166534;">Transformer</strong> 75+</div>
+            </div>
+            <div style="font-size: 13px; color: var(--neutral-600); margin-top: 10px; line-height: 1.5;">Your archetype determines which partnership path fits — and where to focus investment. 30% of enterprises are Builders, 35% Adopters, 25% Optimizers, 10% Transformers.</div>
+          </div>
+          <div style="flex: 1; background: var(--neutral-900); border-radius: 8px; padding: 16px 18px; color: white;">
+            <div style="font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">How it works in practice</div>
+            <div style="display: flex; gap: 8px; margin-bottom: 8px; align-items: center;">
+              <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--secondary); color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">1</div>
+              <div style="font-size: 14px; color: rgba(255,255,255,0.92);"><strong style="color: white;">Today:</strong> Agree on 3–5 participants and timing</div>
+            </div>
+            <div style="display: flex; gap: 8px; margin-bottom: 8px; align-items: center;">
+              <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">2</div>
+              <div style="font-size: 14px; color: rgba(255,255,255,0.92);"><strong style="color: white;">This month:</strong> 15-minute assessment per person</div>
+            </div>
+            <div style="display: flex; gap: 8px; margin-bottom: 8px; align-items: center;">
+              <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--action); color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">3</div>
+              <div style="font-size: 14px; color: rgba(255,255,255,0.92);"><strong style="color: white;">2 weeks later:</strong> Readiness report + archetype + priorities</div>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <div style="width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">4</div>
+              <div style="font-size: 14px; color: rgba(255,255,255,0.92);"><strong style="color: white;">Every QBR:</strong> Re-measure → track movement → update business case</div>
+            </div>
+          </div>
+        </div>
 
-        <div style="display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 8px;">
-          <div style="width: 25%; background: #e87da0;" title="Culture 25%"></div>
-          <div style="width: 20%; background: var(--secondary);" title="Foundation 20%"></div>
-          <div style="width: 20%; background: var(--action);" title="AI Readiness 20%"></div>
-          <div style="width: 20%; background: #6366f1;" title="Governance 20%"></div>
-          <div style="width: 15%; background: #eab308;" title="Delivery 15%"></div>
-        </div>
-        <div style="display: flex; gap: 0; margin-bottom: 6px;">
-          <div style="width: 25%; font-size: 11px; font-weight: 600; color: #c2517a;">Culture <span style="color: var(--neutral-500);">25%</span></div>
-          <div style="width: 20%; font-size: 11px; font-weight: 600; color: var(--secondary-dark);">Foundation <span style="color: var(--neutral-500);">20%</span></div>
-          <div style="width: 20%; font-size: 11px; font-weight: 600; color: var(--action);">AI Readiness <span style="color: var(--neutral-500);">20%</span></div>
-          <div style="width: 20%; font-size: 11px; font-weight: 600; color: #4f46e5;">Governance <span style="color: var(--neutral-500);">20%</span></div>
-          <div style="width: 15%; font-size: 11px; font-weight: 600; color: #ca8a04;">Delivery <span style="color: var(--neutral-500);">15%</span></div>
-        </div>
-
-        <!-- Archetype spectrum -->
-        <div style="display: flex; height: 6px; border-radius: 3px; overflow: hidden; margin: 12px 0 4px;">
-          <div style="width: 44%; background: linear-gradient(90deg, #ef4444, #fbbf24);"></div>
-          <div style="width: 10%; background: #fbbf24;"></div>
-          <div style="width: 20%; background: linear-gradient(90deg, #fbbf24, #3b82f6);"></div>
-          <div style="width: 26%; background: linear-gradient(90deg, #3b82f6, #10b981);"></div>
-        </div>
-        <div style="display: flex; margin-bottom: 16px;">
-          <div style="width: 44%; font-size: 10px; color: var(--neutral-500);"><strong style="color: #b91c1c;">Builder</strong> 0–44</div>
-          <div style="width: 10%; font-size: 10px; color: var(--neutral-500);"><strong style="color: #92400e;">Adopter</strong> 45–54</div>
-          <div style="width: 20%; font-size: 10px; color: var(--neutral-500);"><strong style="color: #1e40af;">Optimizer</strong> 55–74</div>
-          <div style="width: 26%; font-size: 10px; color: var(--neutral-500);"><strong style="color: #166534;">Transformer</strong> 75–100</div>
-        </div>
-
-        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 10px;">Let's discuss</div>
+        <div style="font-size: 13px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 10px;">Let's discuss</div>
 
         <div class="question-card">
           <div class="question-num-badge" aria-hidden="true">1</div>
@@ -824,6 +883,18 @@
           <div class="section-num" style="background: var(--success);" aria-hidden="true">4</div>
           <h2 class="section-title" id="section-roadmap">Knapsack Roadmap</h2>
         </div>
+
+        <div style="background: var(--neutral-900); color: white; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; display: flex; gap: 20px; align-items: stretch;">
+          <div style="flex: 1; padding-right: 20px; border-right: 1px solid rgba(255,255,255,0.12);">
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 6px;">Why this sequence matters</div>
+            <div style="font-size: 14px; color: rgba(255,255,255,0.95); line-height: 1.6;">The roadmap is sequenced around the <strong style="color: white;">feedback themes you just validated</strong>. What's shipping now addresses agency enablement directly; what follows builds the governed context layer that makes brief-to-UI and Figma reduction possible.</div>
+          </div>
+          <div style="flex: 1;">
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 6px;">What this sets up for Q2</div>
+            <div style="font-size: 14px; color: rgba(255,255,255,0.95); line-height: 1.6;">Your PCRI scores help prioritize which phases to accelerate. The Q2 QBR will track <strong style="color: white;">shipping progress against this plan</strong> — with usage data showing whether what we shipped is landing.</div>
+          </div>
+        </div>
+
         <div class="grid-2">
           <div class="roadmap-pillar" style="border-left: 4px solid var(--secondary);">
             <div class="pillar-label" style="color: var(--secondary-dark);">Shipping This Quarter</div>
@@ -852,35 +923,35 @@
           </div>
         </div>
 
-        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin: 16px 0 10px;">Your needs mapped to the platform trajectory</div>
+        <div style="font-size: 13px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin: 16px 0 10px;">Your needs mapped to the platform trajectory</div>
 
         <div style="display: flex; gap: 0; margin-bottom: 16px;">
           <div style="flex: 1; background: var(--secondary-light); border: 1px solid #b8d4d2; border-radius: 8px 0 0 8px; padding: 14px 16px; position: relative;">
-            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--secondary-dark); margin-bottom: 6px;">Phase 1 · Intelligence</div>
-            <div style="font-size: 13px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">Agency Enablement</div>
-            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">Agencies query Continuum directly via MCP — no GSK credentials needed.</div>
-            <div style="font-size: 10px; font-weight: 600; color: var(--secondary-dark); background: white; border-radius: 4px; padding: 2px 8px; display: inline-block;">Shipping now</div>
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--secondary-dark); margin-bottom: 6px;">Phase 1 · Intelligence</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">Agency Enablement</div>
+            <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.5; margin-bottom: 6px;">Agencies query Continuum directly via MCP — no GSK credentials needed.</div>
+            <div style="font-size: 12px; font-weight: 600; color: var(--secondary-dark); background: white; border-radius: 4px; padding: 3px 10px; display: inline-block;">Shipping now</div>
           </div>
           <div style="flex: 0 0 2px; background: var(--neutral-200);"></div>
           <div style="flex: 1; background: var(--primary-light); border: 1px solid #f0cdc0; padding: 14px 16px;">
-            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary-dark); margin-bottom: 6px;">Phase 2 · Control Plane</div>
-            <div style="font-size: 13px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">Governed AI Context</div>
-            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">DAC standards, component constraints, and accessibility rules enforced before generation.</div>
-            <div style="font-size: 10px; font-weight: 600; color: var(--primary-dark); background: white; border-radius: 4px; padding: 2px 8px; display: inline-block;">Intelligence enables this</div>
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary-dark); margin-bottom: 6px;">Phase 2 · Control Plane</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">Governed AI Context</div>
+            <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.5; margin-bottom: 6px;">DAC standards, component constraints, and accessibility rules enforced before generation.</div>
+            <div style="font-size: 12px; font-weight: 600; color: var(--primary-dark); background: white; border-radius: 4px; padding: 3px 10px; display: inline-block;">Intelligence enables this</div>
           </div>
           <div style="flex: 0 0 2px; background: var(--neutral-200);"></div>
           <div style="flex: 1; background: var(--action-light); border: 1px solid #c4ddef; padding: 14px 16px;">
-            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--action); margin-bottom: 6px;">Phase 3 · Governed Execution</div>
-            <div style="font-size: 13px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">Brief to Implementable UI</div>
-            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">Governed intent becomes implementable output built with Continuum components.</div>
-            <div style="font-size: 10px; font-weight: 600; color: var(--action); background: white; border-radius: 4px; padding: 2px 8px; display: inline-block;">Governance enables this</div>
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--action); margin-bottom: 6px;">Phase 3 · Governed Execution</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">Brief to Implementable UI</div>
+            <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.5; margin-bottom: 6px;">Governed intent becomes implementable output built with Continuum components.</div>
+            <div style="font-size: 12px; font-weight: 600; color: var(--action); background: white; border-radius: 4px; padding: 3px 10px; display: inline-block;">Governance enables this</div>
           </div>
           <div style="flex: 0 0 2px; background: var(--neutral-200);"></div>
           <div style="flex: 1; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 0 8px 8px 0; padding: 14px 16px;">
-            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--neutral-500); margin-bottom: 6px;">Outcome</div>
-            <div style="font-size: 13px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">Figma Dependency Reduced</div>
-            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">Design and code in the same space. Governance built in. Delivery accelerated.</div>
-            <div style="font-size: 10px; font-weight: 600; color: var(--neutral-500); background: white; border-radius: 4px; padding: 2px 8px; display: inline-block;">All three enable this</div>
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--neutral-500); margin-bottom: 6px;">Outcome</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">Figma Dependency Reduced</div>
+            <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.5; margin-bottom: 6px;">Design and code in the same space. Governance built in. Delivery accelerated.</div>
+            <div style="font-size: 12px; font-weight: 600; color: var(--neutral-500); background: white; border-radius: 4px; padding: 3px 10px; display: inline-block;">All three enable this</div>
           </div>
         </div>
 
@@ -890,7 +961,7 @@
           <div style="font-size: 14px; color: rgba(255,255,255,0.92); line-height: 1.6;">Ingest context from Knapsack content, Storybook, and MDX — surfaced wherever your teams work via MCP. Included in your platform; multi-source capabilities extend that foundation. Your PCRI scores will help us prioritize which phases to accelerate together.</div>
         </div>
 
-        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin: 16px 0 10px;">Let's discuss</div>
+        <div style="font-size: 13px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin: 16px 0 10px;">Let's discuss</div>
 
         <div class="question-card">
           <div class="question-num-badge" aria-hidden="true">1</div>
@@ -942,40 +1013,51 @@
           <h2 class="section-title" id="section-business-case">Building a Business Case</h2>
         </div>
 
+        <div style="background: var(--neutral-900); color: white; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; display: flex; gap: 20px; align-items: stretch;">
+          <div style="flex: 1; padding-right: 20px; border-right: 1px solid rgba(255,255,255,0.12);">
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 6px;">Why we're closing with this</div>
+            <div style="font-size: 14px; color: rgba(255,255,255,0.95); line-height: 1.6;">Everything today — usage, feedback, readiness, and roadmap — maps to <strong style="color: white;">four value drivers</strong>. This is where the conversation becomes something you can take to leadership with evidence behind it.</div>
+          </div>
+          <div style="flex: 1;">
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 6px;">What this sets up for Q2</div>
+            <div style="font-size: 14px; color: rgba(255,255,255,0.95); line-height: 1.6;">Once the PCRI is complete, Amber delivers a readiness report mapping scores to these value drivers. That becomes your <strong style="color: white;">Q2 plan</strong> — and each QBR refreshes the cycle with updated evidence.</div>
+          </div>
+        </div>
+
         <div style="background: var(--primary-light); border: 1px solid var(--primary); border-radius: 8px; padding: 20px 24px; margin-bottom: 16px;">
           <div style="font-size: 18px; font-weight: 700; color: var(--primary-dark); margin-bottom: 8px; letter-spacing: -0.01em;">Where value creation starts</div>
           <div style="font-size: 14px; color: var(--neutral-700); line-height: 1.7;">Everything we've covered today — usage, feedback, readiness, and roadmap — maps to four value drivers Knapsack uses to build a defensible business case. Your PCRI scores will help quantify each one. The question is which of these matters most to GSK US right now.</div>
         </div>
 
-        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">Four value drivers — informed by today's conversation</div>
+        <div style="font-size: 13px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">Four value drivers — informed by today's conversation</div>
 
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px;">
           <div style="background: var(--action-light); border: 1px solid #c4ddef; border-radius: 8px; padding: 14px 16px;">
             <div style="font-size: 14px; font-weight: 800; color: var(--action); margin-bottom: 4px;">Developer Productivity</div>
-            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">210 users, 789 component views. MCP shipping now — agencies query Continuum directly, reducing onboarding cycles.</div>
-            <div style="font-size: 10px; color: var(--action); font-weight: 600;">From: Usage · Roadmap · Agency Enablement</div>
+            <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.5; margin-bottom: 6px;">210 users, 789 component views. MCP shipping now — agencies query Continuum directly, reducing onboarding cycles.</div>
+            <div style="font-size: 12px; color: var(--action); font-weight: 600;">From: Usage · Roadmap · Agency Enablement</div>
           </div>
           <div style="background: var(--primary-light); border: 1px solid #f0cdc0; border-radius: 8px; padding: 14px 16px;">
             <div style="font-size: 14px; font-weight: 800; color: var(--primary-dark); margin-bottom: 4px;">Designer Efficiency</div>
-            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">65 designers active. Brief-to-UI workflow could reduce Figma back-and-forth and move design closer to governed output.</div>
-            <div style="font-size: 10px; color: var(--primary-dark); font-weight: 600;">From: Usage · Brief-to-UI · Prototyping Pilot</div>
+            <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.5; margin-bottom: 6px;">65 designers active. Brief-to-UI workflow could reduce Figma back-and-forth and move design closer to governed output.</div>
+            <div style="font-size: 12px; color: var(--primary-dark); font-weight: 600;">From: Usage · Brief-to-UI · Prototyping Pilot</div>
           </div>
           <div style="background: var(--secondary-light); border: 1px solid #b8d4d2; border-radius: 8px; padding: 14px 16px;">
             <div style="font-size: 14px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 4px;">AI Governance</div>
-            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">Use-case-specific AI approval in place. Control plane ingests DAC standards and component constraints — governance before generation.</div>
-            <div style="font-size: 10px; color: var(--secondary-dark); font-weight: 600;">From: Feedback · Roadmap Phase 2 · PCRI</div>
+            <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.5; margin-bottom: 6px;">Use-case-specific AI approval in place. Control plane ingests DAC standards and component constraints — governance before generation.</div>
+            <div style="font-size: 12px; color: var(--secondary-dark); font-weight: 600;">From: Feedback · Roadmap Phase 2 · PCRI</div>
           </div>
           <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px; padding: 14px 16px;">
             <div style="font-size: 14px; font-weight: 800; color: var(--neutral-800); margin-bottom: 4px;">Tool Consolidation</div>
-            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">Figma dependency reduction is a stated goal. Design and code in the same space — reducing tool sprawl and license overhead.</div>
-            <div style="font-size: 10px; color: var(--neutral-500); font-weight: 600;">From: Feedback · Tooling Consolidation · Outcome</div>
+            <div style="font-size: 13px; color: var(--neutral-600); line-height: 1.5; margin-bottom: 6px;">Figma dependency reduction is a stated goal. Design and code in the same space — reducing tool sprawl and license overhead.</div>
+            <div style="font-size: 12px; color: var(--neutral-500); font-weight: 600;">From: Feedback · Tooling Consolidation · Outcome</div>
           </div>
         </div>
 
-        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">Proposed Q2 focus areas — what would you prioritize?</div>
+        <div style="font-size: 13px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">Proposed Q2 focus areas — what would you prioritize?</div>
 
         <div class="section-content" style="margin-bottom: 16px; padding: 0; overflow: hidden;">
-          <table class="data-table" style="font-size: 12px;">
+          <table class="data-table" style="font-size: 13px;">
             <thead>
               <tr>
                 <th scope="col" style="width: 22%;">Action</th>
@@ -1030,16 +1112,16 @@
           <div style="font-size: 14px; color: rgba(255,255,255,0.92); line-height: 1.7; margin-bottom: 16px;">Once the PCRI is complete, Amber will share a readiness report that maps your pillar scores to the four value drivers above — quantifying where the partnership is already creating returns and where to invest next. That becomes your Q2 plan — and it refreshes every quarter. Each QBR re-measures the PCRI, reviews usage trends, validates priorities, and updates the business case. A continuous cycle you can take to leadership with confidence.</div>
           <div style="display: flex; gap: 12px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px;">
             <div style="flex: 1; background: rgba(255,255,255,0.08); border-radius: 6px; padding: 12px 16px;">
-              <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Within 48 hours</div>
-              <div style="font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.5;">Amber delivers a <strong>Q2 Partnership Plan</strong> — the action table above finalized with GSK owners, plus a summary you can share with leadership.</div>
+              <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.6); margin-bottom: 4px;">Within 48 hours</div>
+              <div style="font-size: 14px; color: rgba(255,255,255,0.92); line-height: 1.6;">Amber delivers a <strong>Q2 Partnership Plan</strong> — the action table above finalized with GSK owners, plus a summary you can share with leadership.</div>
             </div>
             <div style="flex: 1; background: rgba(255,255,255,0.08); border-radius: 6px; padding: 12px 16px;">
-              <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Mid-Quarter Check-in</div>
-              <div style="font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.5;">30-minute sync in <strong>mid-April</strong> to review progress on the action table, address blockers, and adjust priorities before the Q2 QBR.</div>
+              <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.6); margin-bottom: 4px;">Mid-Quarter Check-in</div>
+              <div style="font-size: 14px; color: rgba(255,255,255,0.92); line-height: 1.6;">30-minute sync in <strong>mid-April</strong> to review progress on the action table, address blockers, and adjust priorities before the Q2 QBR.</div>
             </div>
             <div style="flex: 1; background: rgba(255,255,255,0.08); border-radius: 6px; padding: 12px 16px;">
-              <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Q2 QBR</div>
-              <div style="font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.5;">Full review in <strong>June</strong> — including Goals vs. Actuals, updated PCRI scores, usage trends, and a refreshed business case.</div>
+              <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.6); margin-bottom: 4px;">Q2 QBR</div>
+              <div style="font-size: 14px; color: rgba(255,255,255,0.92); line-height: 1.6;">Full review in <strong>June</strong> — including Goals vs. Actuals, updated PCRI scores, usage trends, and a refreshed business case.</div>
             </div>
           </div>
         </div>
@@ -1079,12 +1161,20 @@
 
       function goTo(index) {
         if (index < 0 || index >= total || index === current) return;
+        const forward = index > current;
         const leaving = slides[current];
         const entering = slides[index];
+        const exitClass = forward ? 'exit-left' : 'exit-right';
 
         leaving.classList.remove('active');
-        leaving.classList.add(index > current ? 'exit-left' : '');
-        setTimeout(() => leaving.classList.remove('exit-left'), 450);
+        leaving.classList.add(exitClass);
+        setTimeout(() => leaving.classList.remove(exitClass), 450);
+
+        if (!forward) {
+          entering.classList.add('enter-left');
+          void entering.offsetWidth;
+          entering.classList.remove('enter-left');
+        }
 
         entering.scrollTop = 0;
         entering.classList.add('active');
