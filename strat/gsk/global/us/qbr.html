@@ -3,373 +3,661 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quarterly Business Review — Q1 2026</title>
+  <title>GSK US × Knapsack — Q1 2026 QBR</title>
   <style>
     :root {
-      --primary: #6366f1;
-      --primary-dark: #4338ca;
-      --primary-light: #eef2ff;
-      --secondary: #10b981;
-      --secondary-light: #d1fae5;
-      --action: #0ea5e9;
-      --action-light: #e0f2fe;
-      --success: #10b981;
-      --success-light: #ecfdf5;
-      --warning: #f59e0b;
-      --warning-light: #fef3c7;
-      --danger: #dc2626;
-      --danger-light: #fef2f2;
+      --primary: #f36633;
+      --primary-dark: #d14d1f;
+      --primary-light: #fef4f0;
+      --secondary: #00857c;
+      --secondary-dark: #006b63;
+      --secondary-light: #e6f5f4;
+      --action: #0077b6;
+      --action-light: #e8f4fa;
+      --success: #2a7d5f;
+      --success-light: #eef7f3;
       --neutral-50: #fafafa;
       --neutral-100: #f5f5f5;
       --neutral-150: #e5e5e5;
       --neutral-200: #d4d4d4;
+      --neutral-400: #a3a3a3;
       --neutral-500: #737373;
       --neutral-600: #525252;
       --neutral-700: #404040;
       --neutral-800: #262626;
       --neutral-900: #171717;
     }
-    
+
     @media print {
-      body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-      .page { box-shadow: none; margin: 0; max-width: 100%; }
+      body { print-color-adjust: exact; -webkit-print-color-adjust: exact; padding: 0; background: white; }
+      .page { box-shadow: none; margin: 0; max-width: 100%; border-radius: 0; page-break-after: always; }
     }
-    
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: var(--neutral-100);
       color: var(--neutral-700);
-      line-height: 1.5;
+      line-height: 1.6;
       padding: 24px;
+      -webkit-font-smoothing: antialiased;
     }
-    
+
     .page {
       max-width: 1100px;
-      margin: 0 auto;
+      margin: 0 auto 40px;
       background: white;
       border-radius: 12px;
       box-shadow: 0 4px 24px rgba(0,0,0,0.08);
       overflow: hidden;
     }
-    
-    /* Header */
-    .header {
+
+    /* ---- Header ---- */
+    .page-header {
       background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       color: white;
-      padding: 28px 32px;
+      padding: 32px 40px;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: flex-end;
       gap: 24px;
     }
-    
     .header-left { flex: 1; }
-    .header-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.85; margin-bottom: 6px; }
-    .header h1 { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
-    .header-sub { font-size: 14px; opacity: 0.9; }
-    
+    .header-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.92); margin-bottom: 8px; }
+    .page-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.01em; color: white; }
+    .header-sub { font-size: 14px; color: rgba(255,255,255,0.92); margin-top: 4px; }
     .header-right { text-align: right; }
-    .header-date { font-size: 13px; opacity: 0.85; margin-bottom: 4px; }
-    .header-period { font-size: 20px; font-weight: 700; }
-    
-    /* Health Score Badge */
-    .health-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255,255,255,0.2);
-      padding: 8px 16px;
-      border-radius: 6px;
-      margin-top: 12px;
-    }
-    .health-dot { width: 12px; height: 12px; border-radius: 50%; }
-    .health-dot.green { background: #4ade80; box-shadow: 0 0 8px #4ade80; }
-    .health-dot.yellow { background: #facc15; box-shadow: 0 0 8px #facc15; }
-    .health-dot.red { background: #f87171; box-shadow: 0 0 8px #f87171; }
-    .health-label { font-size: 13px; font-weight: 600; }
-    
-    /* Main Content */
-    .content { padding: 24px 32px 32px; }
-    
-    /* Section Grid */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    
-    /* Metrics Row */
-    .metrics-row { margin-bottom: 24px; }
-    
-    .metric-card {
-      background: var(--neutral-50);
-      border: 1px solid var(--neutral-150);
-      border-radius: 8px;
-      padding: 16px;
-      text-align: center;
-    }
-    .metric-value { font-size: 28px; font-weight: 800; color: var(--primary); line-height: 1; margin-bottom: 6px; }
-    .metric-value.success { color: var(--success); }
-    .metric-value.warning { color: var(--warning); }
-    .metric-value.danger { color: var(--danger); }
-    .metric-label { font-size: 11px; font-weight: 600; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.04em; }
-    .metric-change { font-size: 11px; color: var(--neutral-500); margin-top: 4px; }
-    .metric-change.up { color: var(--success); }
-    .metric-change.down { color: var(--danger); }
-    
-    /* Section Cards */
-    .section { margin-bottom: 20px; }
-    .section:last-child { margin-bottom: 0; }
-    
-    .section-header {
+    .header-date { font-size: 13px; color: rgba(255,255,255,0.92); margin-bottom: 4px; }
+    .header-period { font-size: 22px; font-weight: 700; }
+
+    /* ---- Agenda ---- */
+    .agenda-bar {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
+      background: var(--neutral-800);
     }
-    .section-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
+    .agenda-item {
+      flex: 1;
+      padding: 12px 8px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.65);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
+      gap: 8px;
+      position: relative;
+    }
+    .agenda-item.active { color: white; }
+    .agenda-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 16px;
+      right: 16px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px 3px 0 0;
+    }
+    .agenda-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.7);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
       font-weight: 700;
       flex-shrink: 0;
     }
-    .section-icon.wins { background: var(--success-light); color: var(--success); }
-    .section-icon.challenges { background: var(--warning-light); color: var(--warning); }
-    .section-icon.priorities { background: var(--action-light); color: var(--action); }
-    .section-icon.risks { background: var(--danger-light); color: var(--danger); }
-    
-    .section-title { font-size: 14px; font-weight: 700; color: var(--neutral-800); text-transform: uppercase; letter-spacing: 0.04em; }
-    
+    .agenda-item.active .agenda-num { background: var(--primary); color: white; }
+
+    /* ---- Content ---- */
+    .content { padding: 32px 40px 40px; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+    /* ---- Metrics ---- */
+    .metrics-row { margin-bottom: 28px; }
+
+    .metric-card {
+      background: white;
+      border: 1px solid var(--neutral-150);
+      border-top: 3px solid var(--neutral-200);
+      border-radius: 8px;
+      padding: 20px 16px 16px;
+      text-align: center;
+    }
+    .metric-card.accent-primary { border-top-color: var(--primary); }
+    .metric-card.accent-secondary { border-top-color: var(--secondary); }
+    .metric-card.accent-action { border-top-color: var(--action); }
+
+    .metric-value { font-size: 36px; font-weight: 800; color: var(--neutral-800); line-height: 1; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .metric-label { font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; }
+    .metric-sub { font-size: 12px; color: var(--neutral-600); margin-top: 6px; }
+
+    /* ---- Sections ---- */
+    .section { margin-bottom: 32px; }
+    .section:last-child { margin-bottom: 0; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--neutral-150);
+    }
+    .section-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+      color: white;
+    }
+    .section-title { font-size: 16px; font-weight: 700; color: var(--neutral-800); text-transform: uppercase; letter-spacing: 0.04em; margin: 0; }
+
     .section-content {
+      background: var(--neutral-50);
+      border: 1px solid var(--neutral-150);
+      border-radius: 8px;
+      padding: 16px 20px;
+    }
+
+    /* ---- Lists ---- */
+    .list-item {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      font-size: 14px;
+      color: var(--neutral-700);
+      align-items: flex-start;
+      line-height: 1.5;
+    }
+    .list-item:not(:last-child) { border-bottom: 1px solid var(--neutral-150); }
+    .list-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--action-light);
+      color: var(--action);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ---- Tables ---- */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .data-table th {
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--neutral-600);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 2px solid var(--neutral-200);
+    }
+    .data-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--neutral-150);
+      color: var(--neutral-700);
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table .num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+    .data-table .highlight { color: var(--primary-dark); font-weight: 700; }
+    .data-table .dim { color: var(--neutral-600); }
+
+    .bar-container { display: flex; align-items: center; gap: 8px; }
+    .bar { height: 6px; border-radius: 3px; background: var(--primary); }
+
+    /* ---- Questions ---- */
+    .question-card {
+      background: white;
+      border: 1px solid var(--neutral-150);
+      border-left: 4px solid var(--primary);
+      border-radius: 8px;
+      padding: 14px 20px;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .question-card:last-child { margin-bottom: 0; }
+    .question-num-badge {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .question-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--neutral-800);
+      line-height: 1.6;
+    }
+
+    /* ---- Maturity ---- */
+    .maturity-item {
       background: var(--neutral-50);
       border: 1px solid var(--neutral-150);
       border-radius: 8px;
       padding: 14px 16px;
     }
-    
-    /* List Items */
-    .list-item {
-      display: flex;
-      gap: 10px;
-      padding: 6px 0;
+    .maturity-dimension {
       font-size: 13px;
-      color: var(--neutral-700);
-      align-items: flex-start;
+      font-weight: 700;
+      color: var(--neutral-800);
     }
-    .list-item:not(:last-child) { border-bottom: 1px solid var(--neutral-150); }
-    .list-icon { flex-shrink: 0; font-weight: 700; width: 16px; }
-    .list-icon.success { color: var(--success); }
-    .list-icon.warning { color: var(--warning); }
-    .list-icon.action { color: var(--action); }
-    .list-icon.danger { color: var(--danger); }
-    
-    /* Timeline / Milestones */
-    .milestone {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 8px 0;
-      font-size: 13px;
-    }
-    .milestone:not(:last-child) { border-bottom: 1px solid var(--neutral-150); }
-    .milestone-date {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--neutral-500);
-      text-transform: uppercase;
-      width: 60px;
-      flex-shrink: 0;
-    }
-    .milestone-status {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .milestone-status.complete { background: var(--success); }
-    .milestone-status.in-progress { background: var(--action); }
-    .milestone-status.upcoming { background: var(--neutral-300); }
-    .milestone-text { flex: 1; color: var(--neutral-700); }
-    
-    /* Summary Banner */
-    .summary-banner {
-      background: var(--primary-light);
-      border: 1px solid var(--primary);
+
+    /* ---- Roadmap ---- */
+    .roadmap-pillar {
+      background: white;
+      border: 1px solid var(--neutral-150);
       border-radius: 8px;
-      padding: 16px 20px;
-      margin-bottom: 20px;
+      padding: 20px;
     }
-    .summary-label { font-size: 11px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-    .summary-text { font-size: 14px; color: var(--neutral-700); line-height: 1.6; }
-    
-    /* Footer */
-    .footer {
+    .pillar-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .pillar-title { font-size: 17px; font-weight: 700; color: var(--neutral-800); margin-bottom: 8px; letter-spacing: -0.01em; }
+    .pillar-desc { font-size: 13px; color: var(--neutral-600); line-height: 1.6; margin-bottom: 12px; }
+    .pillar-items { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pillar-tag { font-size: 12px; padding: 5px 12px; border-radius: 4px; font-weight: 600; }
+
+    /* ---- Footer ---- */
+    .page-footer {
       background: var(--neutral-50);
       border-top: 1px solid var(--neutral-150);
-      padding: 16px 32px;
+      padding: 16px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-size: 12px;
-      color: var(--neutral-500);
+      color: var(--neutral-600);
     }
     .footer-contact { display: flex; gap: 24px; }
-    .footer-item { display: flex; align-items: center; gap: 6px; }
-    
-    /* Responsive */
+    .footer-item { display: flex; align-items: center; gap: 6px; color: var(--neutral-600); }
+
+    /* ---- Screen-reader only ---- */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ---- Skip Link ---- */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      background: var(--neutral-800);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 100;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 16px;
+    }
+
+    /* ---- Responsive ---- */
     @media (max-width: 800px) {
       body { padding: 12px; }
-      .header { flex-direction: column; padding: 20px; }
+      .page-header { flex-direction: column; padding: 24px; }
       .header-right { text-align: left; }
       .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-      .content { padding: 20px; }
+      .content { padding: 24px; }
+      .agenda-bar { flex-wrap: wrap; }
+      .agenda-item { flex: none; width: 50%; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <!-- Header -->
-    <div class="header">
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <main id="main-content">
+
+  <!-- ===== PAGE 1 ===== -->
+  <article class="page" aria-label="QBR Page 1: Usage, Feedback, and Maturity">
+    <header class="page-header">
       <div class="header-left">
         <div class="header-label">Quarterly Business Review</div>
-        <h1>[Customer Name] × Knapsack</h1>
+        <h1>GSK US × Knapsack</h1>
         <div class="header-sub">Design System Partnership</div>
-        <div class="health-badge">
-          <span class="health-dot green"></span>
-          <span class="health-label">Account Health: Strong</span>
-        </div>
       </div>
       <div class="header-right">
-        <div class="header-date">Review Date: [Month Day, Year]</div>
+        <div class="header-date"><time datetime="2026-03-04">March 4, 2026</time></div>
         <div class="header-period">Q1 2026</div>
       </div>
-    </div>
-    
-    <!-- Content -->
+    </header>
+
+    <nav class="agenda-bar" aria-label="QBR agenda">
+      <div class="agenda-item active" aria-current="true"><span class="agenda-num" aria-hidden="true">1</span> Usage</div>
+      <div class="agenda-item active" aria-current="true"><span class="agenda-num" aria-hidden="true">2</span> Feedback</div>
+      <div class="agenda-item active" aria-current="true"><span class="agenda-num" aria-hidden="true">3</span> Maturity</div>
+      <div class="agenda-item"><span class="agenda-num" aria-hidden="true">4</span> Roadmap</div>
+      <div class="agenda-item"><span class="agenda-num" aria-hidden="true">5</span> Business Case</div>
+    </nav>
+
     <div class="content">
-      <!-- Executive Summary -->
-      <div class="summary-banner">
-        <div class="summary-label">Executive Summary</div>
-        <div class="summary-text">[Brief 2-3 sentence summary of the quarter. Highlight the most important outcome, any major milestone achieved, and overall trajectory of the partnership.]</div>
-      </div>
-      
-      <!-- Key Metrics -->
-      <div class="metrics-row">
-        <div class="grid-4">
-          <div class="metric-card">
-            <div class="metric-value success">[XX]%</div>
-            <div class="metric-label">Adoption Rate</div>
-            <div class="metric-change up">↑ [X]% vs last quarter</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-value">[XXX]</div>
-            <div class="metric-label">Monthly Active Users</div>
-            <div class="metric-change up">↑ [X]% vs last quarter</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-value success">[XX]%</div>
-            <div class="metric-label">Component Reuse</div>
-            <div class="metric-change up">↑ [X]% vs last quarter</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-value">[X.X]</div>
-            <div class="metric-label">NPS Score</div>
-            <div class="metric-change">— No change</div>
-          </div>
+
+      <!-- ① USAGE -->
+      <section class="section" aria-labelledby="section-usage">
+        <div class="section-header">
+          <div class="section-num" style="background: var(--action);" aria-hidden="true">1</div>
+          <h2 class="section-title" id="section-usage">Last Quarter's Knapsack Usage</h2>
         </div>
-      </div>
-      
-      <!-- Two Column Layout -->
-      <div class="grid-2">
-        <!-- Left Column -->
-        <div>
-          <!-- Wins -->
-          <div class="section">
-            <div class="section-header">
-              <div class="section-icon wins">✓</div>
-              <div class="section-title">Q1 Wins & Accomplishments</div>
+
+        <div class="metrics-row" role="region" aria-label="Key usage metrics">
+          <div class="grid-4">
+            <div class="metric-card accent-secondary">
+              <div class="metric-value">210</div>
+              <div class="metric-label">Active Users (60d)</div>
+              <div class="metric-sub">166 in 30d · 91 past week</div>
             </div>
-            <div class="section-content">
-              <div class="list-item"><span class="list-icon success">✓</span> [Major accomplishment or milestone achieved]</div>
-              <div class="list-item"><span class="list-icon success">✓</span> [Second key win for the quarter]</div>
-              <div class="list-item"><span class="list-icon success">✓</span> [Third significant achievement]</div>
-              <div class="list-item"><span class="list-icon success">✓</span> [Additional win or positive outcome]</div>
+            <div class="metric-card accent-primary">
+              <div class="metric-value">65</div>
+              <div class="metric-label">Designers Active</div>
+              <div class="metric-sub">31% of user base</div>
             </div>
-          </div>
-          
-          <!-- Challenges -->
-          <div class="section">
-            <div class="section-header">
-              <div class="section-icon challenges">!</div>
-              <div class="section-title">Challenges & Blockers</div>
+            <div class="metric-card accent-action">
+              <div class="metric-value">789</div>
+              <div class="metric-label">Component Page Views</div>
+              <div class="metric-sub">Top destination for viewers</div>
             </div>
-            <div class="section-content">
-              <div class="list-item"><span class="list-icon warning">!</span> [Current challenge and brief context]</div>
-              <div class="list-item"><span class="list-icon warning">!</span> [Second challenge or blocker]</div>
-              <div class="list-item"><span class="list-icon warning">!</span> [Additional challenge if applicable]</div>
+            <div class="metric-card">
+              <div class="metric-value">5</div>
+              <div class="metric-label">Roles Represented</div>
+              <div class="metric-sub">Design · Eng · Mktg · Product · Other</div>
             </div>
           </div>
         </div>
-        
-        <!-- Right Column -->
-        <div>
-          <!-- Q2 Priorities -->
-          <div class="section">
-            <div class="section-header">
-              <div class="section-icon priorities">→</div>
-              <div class="section-title">Q2 Priorities & Goals</div>
-            </div>
-            <div class="section-content">
-              <div class="list-item"><span class="list-icon action">1</span> [Top priority for next quarter]</div>
-              <div class="list-item"><span class="list-icon action">2</span> [Second priority area]</div>
-              <div class="list-item"><span class="list-icon action">3</span> [Third priority or goal]</div>
-              <div class="list-item"><span class="list-icon action">4</span> [Additional focus area]</div>
-            </div>
+
+        <div class="grid-2">
+          <div class="section-content">
+            <table class="data-table">
+              <caption class="sr-only">Active users by responsibility across three time periods</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Responsibility</th>
+                  <th scope="col" style="text-align:right">Week</th>
+                  <th scope="col" style="text-align:right">30d</th>
+                  <th scope="col" style="text-align:right">60d</th>
+                  <th scope="col" style="width:22%">Share</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Designer</strong></td><td class="num">31</td><td class="num">52</td><td class="num highlight">65</td><td><div class="bar-container"><div class="bar" style="width:100%" role="img" aria-label="31% share"></div><span class="dim">31%</span></div></td></tr>
+                <tr><td>Other</td><td class="num">20</td><td class="num">34</td><td class="num">45</td><td><div class="bar-container"><div class="bar" style="width:69%; background: var(--secondary);" role="img" aria-label="21% share"></div><span class="dim">21%</span></div></td></tr>
+                <tr><td>Engineer</td><td class="num">15</td><td class="num">22</td><td class="num">27</td><td><div class="bar-container"><div class="bar" style="width:42%; background: var(--action);" role="img" aria-label="13% share"></div><span class="dim">13%</span></div></td></tr>
+                <tr><td>Marketing</td><td class="num">6</td><td class="num">17</td><td class="num">24</td><td><div class="bar-container"><div class="bar" style="width:37%; background: var(--neutral-600);" role="img" aria-label="11% share"></div><span class="dim">11%</span></div></td></tr>
+                <tr><td>Product</td><td class="num">4</td><td class="num">8</td><td class="num">9</td><td><div class="bar-container"><div class="bar" style="width:14%; background: var(--neutral-500);" role="img" aria-label="4% share"></div><span class="dim">4%</span></div></td></tr>
+                <tr><td class="dim">Uncategorized</td><td class="num dim">15</td><td class="num dim">33</td><td class="num dim">40</td><td><div class="bar-container"><div class="bar" style="width:62%; background: var(--neutral-400);" role="img" aria-label="19% share"></div><span class="dim">19%</span></div></td></tr>
+              </tbody>
+            </table>
           </div>
-          
-          <!-- Key Milestones -->
-          <div class="section">
-            <div class="section-header">
-              <div class="section-icon risks">◆</div>
-              <div class="section-title">Upcoming Milestones</div>
+          <div class="section-content">
+            <table class="data-table">
+              <caption class="sr-only">Top pages viewed in the last 60 days by editors and viewers</caption>
+              <thead><tr><th scope="col">Top Pages (60d)</th><th scope="col" style="text-align:right">Editors</th><th scope="col" style="text-align:right">Viewers</th></tr></thead>
+              <tbody>
+                <tr><td><strong>homepage</strong></td><td class="num highlight">1,158</td><td class="num">684</td></tr>
+                <tr><td>components</td><td class="num">635</td><td class="num highlight">789</td></tr>
+                <tr><td>welcome-to-usxf</td><td class="num">204</td><td class="num">354</td></tr>
+                <tr><td>theming-via-tokens</td><td class="num">70</td><td class="num">312</td></tr>
+                <tr><td>website-delivery</td><td class="num">74</td><td class="num">238</td></tr>
+                <tr><td>build-kits-and-handoff</td><td class="num">24</td><td class="num">170</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ② FEEDBACK -->
+      <section class="section" aria-labelledby="section-feedback">
+        <div class="section-header">
+          <div class="section-num" style="background: var(--primary);" aria-hidden="true">2</div>
+          <h2 class="section-title" id="section-feedback">User Feedback</h2>
+        </div>
+        <div class="question-card">
+          <div class="question-num-badge" aria-hidden="true">1</div>
+          <div class="question-text">Content-box saw heavy activity earlier this quarter but dropped off recently. What drove that spike — was it project-related?</div>
+        </div>
+        <div class="question-card">
+          <div class="question-num-badge" aria-hidden="true">2</div>
+          <div class="question-text">With 210 active users across 5 roles, what adoption benchmarks would you consider healthy? Are there teams you'd expect to see here that aren't yet?</div>
+        </div>
+        <div class="question-card">
+          <div class="question-num-badge" aria-hidden="true">3</div>
+          <div class="question-text">Where do your teams lose the most time to manual handoffs, re-entry, or context-switching between the design system and production delivery?</div>
+        </div>
+        <div class="question-card">
+          <div class="question-num-badge" aria-hidden="true">4</div>
+          <div class="question-text">What metrics would be most valuable for leadership reporting? Are there KPIs like time-to-production or component reuse you'd want to track?</div>
+        </div>
+      </section>
+
+      <!-- ③ MATURITY -->
+      <section class="section" aria-labelledby="section-maturity">
+        <div class="section-header">
+          <div class="section-num" style="background: var(--secondary);" aria-hidden="true">3</div>
+          <h2 class="section-title" id="section-maturity">Maturity Assessment — PCRI</h2>
+        </div>
+
+        <div style="background: var(--secondary-light); border: 1px solid #b8d4d2; border-radius: 8px; padding: 20px 24px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
+            <div style="flex: 1;">
+              <div style="font-size: 12px; font-weight: 700; color: var(--secondary-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">Presented by Amber Atkins</div>
+              <div style="font-size: 17px; font-weight: 700; color: var(--neutral-800); margin-bottom: 8px; letter-spacing: -0.01em;">Product Context Readiness Index</div>
+              <div style="font-size: 14px; color: var(--neutral-700); line-height: 1.6;">AI doesn't consume components — it consumes context. The PCRI measures your readiness to deliver governed product context for AI-enabled delivery, benchmarked against 158 enterprises.</div>
             </div>
-            <div class="section-content">
-              <div class="milestone">
-                <span class="milestone-date">Apr</span>
-                <span class="milestone-status in-progress"></span>
-                <span class="milestone-text">[Milestone description]</span>
-              </div>
-              <div class="milestone">
-                <span class="milestone-date">May</span>
-                <span class="milestone-status upcoming"></span>
-                <span class="milestone-text">[Milestone description]</span>
-              </div>
-              <div class="milestone">
-                <span class="milestone-date">Jun</span>
-                <span class="milestone-status upcoming"></span>
-                <span class="milestone-text">[Milestone description]</span>
-              </div>
+            <div style="text-align: center; flex-shrink: 0; background: white; border-radius: 8px; padding: 14px 18px; border: 1px solid var(--neutral-150);">
+              <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em;">Takes approx.</div>
+              <div style="font-size: 24px; font-weight: 800; color: var(--secondary-dark); margin: 2px 0;">15 min</div>
+              <div style="font-size: 12px; color: var(--neutral-600);">per participant</div>
             </div>
           </div>
         </div>
-      </div>
+
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;" role="list" aria-label="PCRI assessment pillars">
+          <div class="maturity-item" style="text-align: center;" role="listitem">
+            <div style="font-size: 22px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 4px;">25%</div>
+            <div class="maturity-dimension">Culture</div>
+            <div style="font-size: 12px; color: var(--neutral-600); margin-top: 4px;">Contribution & safety</div>
+          </div>
+          <div class="maturity-item" style="text-align: center;" role="listitem">
+            <div style="font-size: 22px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 4px;">20%</div>
+            <div class="maturity-dimension">Foundation</div>
+            <div style="font-size: 12px; color: var(--neutral-600); margin-top: 4px;">Tokens, components, APIs</div>
+          </div>
+          <div class="maturity-item" style="text-align: center;" role="listitem">
+            <div style="font-size: 22px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 4px;">20%</div>
+            <div class="maturity-dimension">AI Readiness</div>
+            <div style="font-size: 12px; color: var(--neutral-600); margin-top: 4px;">Context governance</div>
+          </div>
+          <div class="maturity-item" style="text-align: center;" role="listitem">
+            <div style="font-size: 22px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 4px;">20%</div>
+            <div class="maturity-dimension">Governance</div>
+            <div style="font-size: 12px; color: var(--neutral-600); margin-top: 4px;">Authority & decisions</div>
+          </div>
+          <div class="maturity-item" style="text-align: center;" role="listitem">
+            <div style="font-size: 22px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 4px;">15%</div>
+            <div class="maturity-dimension">Delivery</div>
+            <div style="font-size: 12px; color: var(--neutral-600); margin-top: 4px;">Workflows & frequency</div>
+          </div>
+        </div>
+      </section>
     </div>
-    
-    <!-- Footer -->
-    <div class="footer">
+
+    <footer class="page-footer">
       <div class="footer-contact">
-        <div class="footer-item"><strong>CSM:</strong> [Name]</div>
-        <div class="footer-item"><strong>Account Lead:</strong> [Name]</div>
-        <div class="footer-item"><strong>Next Review:</strong> [Date]</div>
+        <div class="footer-item"><strong>CX:</strong> Amber Atkins</div>
+        <div class="footer-item"><strong>AE:</strong> Jon Boush</div>
       </div>
-      <div>Knapsack — Intelligent Product Engine</div>
+      <div>Confidential · Knapsack · Q1 2026 QBR · Page 1 of 2</div>
+    </footer>
+  </article>
+
+  <!-- ===== PAGE 2 ===== -->
+  <article class="page" aria-label="QBR Page 2: Roadmap and Business Case">
+    <header class="page-header">
+      <div class="header-left">
+        <div class="header-label">Quarterly Business Review</div>
+        <h1>GSK US × Knapsack</h1>
+        <div class="header-sub">Roadmap & Business Case</div>
+      </div>
+      <div class="header-right">
+        <div class="header-date"><time datetime="2026-03-04">March 4, 2026</time></div>
+        <div class="header-period">Q1 2026</div>
+      </div>
+    </header>
+
+    <nav class="agenda-bar" aria-label="QBR agenda">
+      <div class="agenda-item"><span class="agenda-num" aria-hidden="true">1</span> Usage</div>
+      <div class="agenda-item"><span class="agenda-num" aria-hidden="true">2</span> Feedback</div>
+      <div class="agenda-item"><span class="agenda-num" aria-hidden="true">3</span> Maturity</div>
+      <div class="agenda-item active" aria-current="true"><span class="agenda-num" aria-hidden="true">4</span> Roadmap</div>
+      <div class="agenda-item active" aria-current="true"><span class="agenda-num" aria-hidden="true">5</span> Business Case</div>
+    </nav>
+
+    <div class="content">
+
+      <!-- ④ ROADMAP -->
+      <section class="section" aria-labelledby="section-roadmap">
+        <div class="section-header">
+          <div class="section-num" style="background: var(--success);" aria-hidden="true">4</div>
+          <h2 class="section-title" id="section-roadmap">Knapsack Roadmap</h2>
+        </div>
+        <div class="grid-2">
+          <div class="roadmap-pillar" style="border-left: 4px solid var(--secondary);">
+            <div class="pillar-label" style="color: var(--secondary-dark);">Shipping This Quarter</div>
+            <h3 class="pillar-title">Aggregated Intelligence</h3>
+            <div class="pillar-desc">Knapsack ingests, weighs, and surfaces context from multiple sources so AI tools produce better, more governed output.</div>
+            <div class="pillar-items" role="list" aria-label="Features shipping this quarter">
+              <span class="pillar-tag" style="background: var(--secondary-light); color: var(--secondary-dark);" role="listitem">Knapsack MCP (included)</span>
+              <span class="pillar-tag" style="background: var(--secondary-light); color: var(--secondary-dark);" role="listitem">Storybook ingestion</span>
+              <span class="pillar-tag" style="background: var(--secondary-light); color: var(--secondary-dark);" role="listitem">MDX ingestion</span>
+              <span class="pillar-tag" style="background: var(--secondary-light); color: var(--secondary-dark);" role="listitem">Conflict surfacing</span>
+              <span class="pillar-tag" style="background: var(--secondary-light); color: var(--secondary-dark);" role="listitem">Source admin UI</span>
+            </div>
+          </div>
+          <div class="roadmap-pillar" style="border-left: 4px solid var(--primary);">
+            <div class="pillar-label" style="color: var(--primary-dark);">Q2 and Beyond</div>
+            <h3 class="pillar-title">Platform Experience & Ecosystem</h3>
+            <div class="pillar-desc">UX improvements, persistent analytics, and the foundation for a broader integration ecosystem.</div>
+            <div class="pillar-items" role="list" aria-label="Features planned for Q2 and beyond">
+              <span class="pillar-tag" style="background: var(--primary-light); color: var(--primary-dark);" role="listitem">Redesigned navigation</span>
+              <span class="pillar-tag" style="background: var(--primary-light); color: var(--primary-dark);" role="listitem">Improved editor UX</span>
+              <span class="pillar-tag" style="background: var(--primary-light); color: var(--primary-dark);" role="listitem">Token performance</span>
+              <span class="pillar-tag" style="background: var(--primary-light); color: var(--primary-dark);" role="listitem">Figma sync</span>
+              <span class="pillar-tag" style="background: var(--primary-light); color: var(--primary-dark);" role="listitem">Analytics dashboard</span>
+              <span class="pillar-tag" style="background: var(--primary-light); color: var(--primary-dark);" role="listitem">WCAG compliance</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: var(--secondary); color: white; border-radius: 8px; padding: 20px 24px; margin-top: 16px;">
+          <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.92); margin-bottom: 6px;">Shipping End of March</div>
+          <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em;">Aggregated Intelligence Across Your Sources</div>
+          <div style="font-size: 14px; color: rgba(255,255,255,0.92); line-height: 1.6;">Knapsack becomes the intelligence layer that makes every AI tool smarter. By ingesting context from Knapsack content, Storybook, and MDX files, your design system knowledge is aggregated and surfaced wherever your teams work — through any MCP-compatible tool. Knapsack MCP is included in your platform; multi-source capabilities extend that foundation.</div>
+        </div>
+      </section>
+
+      <!-- ⑤ BUSINESS CASE -->
+      <section class="section" aria-labelledby="section-business-case">
+        <div class="section-header">
+          <div class="section-num" style="background: var(--primary);" aria-hidden="true">5</div>
+          <h2 class="section-title" id="section-business-case">Building a Business Case</h2>
+        </div>
+
+        <div style="background: var(--primary-light); border: 1px solid var(--primary); border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+          <div style="font-size: 18px; font-weight: 700; color: var(--primary-dark); margin-bottom: 8px; letter-spacing: -0.01em;">The next evolution of the GSK design system</div>
+          <div style="font-size: 14px; color: var(--neutral-700); line-height: 1.7;">Everything we've covered today — usage patterns, readiness assessment, team feedback, and the intelligence layer shipping this month — are the building blocks for a business case. The question isn't whether the design system has value; the data shows it does. The question is: what does the next chapter look like, and how do we make a compelling case for it?</div>
+        </div>
+
+        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;">The inputs we're assembling together</div>
+
+        <div class="grid-3" style="margin-bottom: 24px;">
+          <div style="background: var(--action-light); border: 1px solid #c4ddef; border-radius: 8px; padding: 18px 20px;">
+            <div style="font-size: 22px; font-weight: 800; color: var(--action); margin-bottom: 6px;">Usage</div>
+            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6;">210 active users and cross-functional engagement that shows where the design system is essential — and where there's room to grow.</div>
+          </div>
+          <div style="background: var(--secondary-light); border: 1px solid #b8d4d2; border-radius: 8px; padding: 18px 20px;">
+            <div style="font-size: 22px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 6px;">Readiness</div>
+            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6;">Your PCRI score will benchmark GSK across foundation, AI readiness, governance, delivery, and culture — identifying exactly where to invest.</div>
+          </div>
+          <div style="background: var(--primary-light); border: 1px solid #f0cdc0; border-radius: 8px; padding: 18px 20px;">
+            <div style="font-size: 22px; font-weight: 800; color: var(--primary-dark); margin-bottom: 6px;">Feedback</div>
+            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6;">Your team's perspective on what's working, where time is lost, and what success looks like — captured today and synthesized into priorities.</div>
+          </div>
+        </div>
+
+        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;">Next steps</div>
+
+        <div class="section-content" style="margin-bottom: 20px;">
+          <div class="list-item"><span class="list-num" aria-hidden="true">1</span> Complete the PCRI assessment (3–5 participants across design, engineering, and product)</div>
+          <div class="list-item"><span class="list-num" aria-hidden="true">2</span> Activate Knapsack MCP (included) and evaluate multi-source upgrade path</div>
+          <div class="list-item"><span class="list-num" aria-hidden="true">3</span> Pilot multi-source intelligence with Storybook + MDX once V1 ships end of March</div>
+          <div class="list-item"><span class="list-num" aria-hidden="true">4</span> Identify your Storybook and MDX sources to connect as context for AI workflows</div>
+          <div class="list-item"><span class="list-num" aria-hidden="true">5</span> Define adoption benchmarks and success metrics aligned to leadership goals</div>
+          <div class="list-item"><span class="list-num" aria-hidden="true">6</span> Validate access for globally distributed teams to ensure full participation</div>
+        </div>
+
+        <div style="background: var(--neutral-900); color: white; border-radius: 10px; padding: 24px 28px;">
+          <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em;">We'll bring the business case to you</div>
+          <div style="font-size: 14px; color: rgba(255,255,255,0.92); line-height: 1.7;">Once PCRI results are in and your sources are connected, Amber will deliver a readiness report that combines your usage data, maturity score, team feedback, and the intelligence capabilities now available — packaged as a business case you can take to leadership.</div>
+        </div>
+      </section>
     </div>
-  </div>
+
+    <footer class="page-footer">
+      <div class="footer-contact">
+        <div class="footer-item"><strong>Presenter:</strong> Chris Strahl, CEO</div>
+        <div class="footer-item"><strong>CX:</strong> Amber Atkins</div>
+        <div class="footer-item"><strong>AE:</strong> Jon Boush</div>
+        <div class="footer-item"><strong>Next Review:</strong> Q2 2026</div>
+      </div>
+      <div>Confidential · Knapsack · Q1 2026 QBR · Page 2 of 2</div>
+    </footer>
+  </article>
+
+  </main>
+
 </body>
 </html>
-

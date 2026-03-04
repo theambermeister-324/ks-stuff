@@ -327,7 +327,8 @@
             <div class="grid-3">
               ${[
                 { title: 'New GP Leader', desc: 'Experience Brand + Marketing focus, wants design at decision-making table as growth driver' },
-                { title: 'Sal (Tools Lead)', desc: 'Connects with business needs, manages Design Ops staffing and culture, leading consolidation' },
+                { title: 'Sal (Design Ops Lead)', desc: 'Connects with business needs, manages Design Ops staffing and culture, leading consolidation. Primary Knapsack champion.' },
+                { title: 'Jeff Humphrey (Engineering)', desc: 'Owns Core Engineering & Frameworks, managing reusable services and component infrastructure. Engineering counterpart to Sal through reorg.' },
                 { title: 'Organization-Wide', desc: 'Shift from behavior-based to accountability-based operations, offshore expansion strategy' },
               ].map(p => `<div class="check-item"><span class="check-icon">→</span><div><div class="check-title">${p.title}</div><div class="check-desc">${p.desc}</div></div></div>`).join('')}
             </div>
@@ -609,7 +610,8 @@
               <h3 style="font-size: 16px; font-weight: 600; color: var(--primary); margin-bottom: 12px;">Design System Leadership</h3>
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                 ${[
-                  { role: 'Design System Lead (Sal)', resp: 'Overall strategy, stakeholder management, tools and systems team leadership, business connection, staffing and culture' },
+                  { role: 'Design System Lead — Design Ops (Sal)', resp: 'Overall strategy, stakeholder management, design side leadership in EBM (Experience Brand & Marketing), business connection, staffing and culture. Primary Knapsack champion.' },
+                  { role: 'Core Engineering & Frameworks Lead (Jeff Humphrey)', resp: 'Reusable services, components, and infrastructure across front-end stacks. Engineering counterpart to Sal through reorg. His team creates React and Angular components. Based in Tech division.' },
                   { role: 'Design Ops Manager', resp: 'Day-to-day operations, governance enforcement, contribution workflow management, offshore team coordination' },
                   { role: 'Technical Lead', resp: 'Architecture decisions, Knapsack operations, MCP enablement, AI workflow planning' },
                   { role: 'Documentation Lead', resp: 'Content strategy, knowledge management, onboarding materials, training programs for offshore teams' },
@@ -646,9 +648,11 @@
               <div>
                 <div class="summary-label" style="margin-bottom: 12px;">Ed Jones Roles</div>
                 ${[
+                  { member: 'Sal / Primo (Design Ops Lead, EBM)', role: 'Design System Team Lead — Design Ops side. Primary champion driving Knapsack adoption. Manages design side of the split org, connects with business needs, staffing and culture. Partners with Jeff Humphrey on engineering side.' },
+                  { member: 'Jeff Humphrey (Core Engineering & Frameworks)', role: 'Owns reusable services, components, and infrastructure across front-end, Java, and Python stacks. Engineering counterpart to Sal through ~6-month reorg. His team will create the React and Angular components. Engaged Mar 3, 2026 — open but needs to see complex component developer workflow value.' },
+                  { member: 'Elizabeth (Design System Lead)', role: 'Design system vision and governance, works alongside Sal.' },
                   { member: 'Wendi Moseley (Accessibility)', role: 'Accessibility gatekeeper for component releases, annual audit lead (~30 components), WCAG compliance champion, role-based testing advocate. Note: Uses captions for meetings—ensure accessible communication.' },
-                  { member: 'Matt Marino (Experience Ops)', role: 'Operational enablement, onboarding coordination, feedback loop' },
-                  { member: 'Elizabeth + Sal (Design System)', role: 'Design system vision, governance, and tool strategy' },
+                  { member: 'Matt Marino (Experience Ops)', role: 'Operational enablement, onboarding coordination, toolchain knowledge. Toolchain mapping session scheduled for Mar 6, 2026.' },
                 ].map(m => `<div class="check-item"><span class="check-icon">✓</span><div><div class="check-title">${m.member}</div><div class="check-desc">${m.role}</div></div></div>`).join('')}
               </div>
               <div>
@@ -1331,6 +1335,11 @@
               <div>Knapsack</div>
               <div>Added PI coordination strategy for release alignment, framework consolidation considerations (React/web components), mobile strategy gap documentation, developer onboarding for index completion, service design workshop planning.</div>
               <div><span class="badge" style="background: var(--success-light); color: var(--success); border: 1px solid #c3ddd2;">Logged</span></div>
+
+              <div>Mar 3, 2026</div>
+              <div>Knapsack</div>
+              <div>Integrated demo call outcomes: Added Jeff Humphrey (Core Engineering & Frameworks) to stakeholder map as engineering counterpart to Sal. Updated champion development with two-sided design/engineering structure. Confirmed not on-prem. Identified two developer user groups (design system developers vs product developers). Documented Jeff's open questions about complex component workflows. Follow-up developer deep dive scheduled for Mar 10, toolchain mapping with Matt scheduled for Mar 6.</div>
+              <div><span class="badge" style="background: var(--success-light); color: var(--success); border: 1px solid #c3ddd2;">Logged</span></div>
             </div>
           </div>
 
@@ -1363,6 +1372,14 @@
                 { decision: 'Cultural readiness priority', detail: 'Psychological safety acknowledged as critical for AI adoption; maturity index will surface cultural risks for change management' },
                 { decision: 'IPE demo scheduling', detail: 'Demo to be scheduled with Wendy after index calibration; will showcase data ingestion beyond design system components' },
                 { decision: 'Workshop investment', detail: 'Service design and AI governance workshops planned to unify UX, product, and delivery teams despite commercial considerations' },
+                { decision: 'Not on-prem confirmed', detail: 'Sal confirmed Edward Jones is not on-prem, removing primary infrastructure blocker for Knapsack implementation' },
+                { decision: 'Engineering champion engagement', detail: 'Jeff Humphrey (Core Engineering & Frameworks) engaged Mar 3; owns reusable services/components/infrastructure across front-end, Java, and Python stacks' },
+                { decision: 'Two developer user groups', detail: 'Design system developers (Jeff\'s team, creates components) vs product developers (use components in applications) — need distinct value propositions and workflows for each' },
+                { decision: 'Angular-first framework strategy', detail: 'Likely to start with Angular integration since those developer resources will be available sooner than React' },
+                { decision: 'Developer deep dive scheduled', detail: 'Follow-up session with Jeff Humphrey scheduled for Mar 10, 2-3 PM CT; focus on complex component workflows and developer value proposition' },
+                { decision: 'Toolchain mapping scheduled', detail: 'Amber + Matt Marino session scheduled for Mar 6 (Thursday) to map design-side toolchain and task-by-role workflows' },
+                { decision: 'Repo structure compliance review', detail: 'Sal raised legal/compliance concerns about same-repo vs separate-repo architecture for Knapsack; needs resolution before implementation' },
+                { decision: 'Workflow workshops included', detail: 'Confirmed that workflow mapping workshops are included in Knapsack engagement, not an additional budget item' },
               ].map(d => `<div style="font-weight: 600; color: var(--neutral-800);">${d.decision}</div><div style="color: var(--neutral-600);">${d.detail}</div>`).join('')}
             </div>
           </div>
@@ -1494,7 +1511,7 @@
           <div class="card" style="background: var(--success-light); border: 1px solid var(--success);">
             <h2 class="heading">Ready to Partner</h2>
             <p style="font-size: 15px; color: var(--neutral-700); line-height: 1.7; margin-bottom: 16px;">Edward Jones has strong design system strategy work already in progress. Knapsack provides the platform infrastructure and partnership approach to bring that vision to life—complementing your existing tools (Figma), supporting your offshore expansion, and preparing your organization for AI-enabled workflows on your timeline.</p>
-            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6;">We will reconvene in February to align on readiness assessment, training schedule, and the onsite plan targeted for early March.</p>
+            <p style="font-size: 14px; color: var(--neutral-600); line-height: 1.6;">Developer deep dive with Jeff Humphrey scheduled for March 10. Toolchain mapping with Matt Marino on March 6. Engineering buy-in is the critical next milestone — converting Jeff from skeptic to champion unlocks the full partnership.</p>
           </div>
         `,
       };
