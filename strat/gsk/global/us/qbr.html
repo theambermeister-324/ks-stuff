@@ -30,42 +30,84 @@
 
     @media print {
       body { print-color-adjust: exact; -webkit-print-color-adjust: exact; padding: 0; background: white; }
-      .page { box-shadow: none; margin: 0; max-width: 100%; border-radius: 0; page-break-after: always; }
+      .slide { box-shadow: none; margin: 0; max-width: 100%; border-radius: 0; page-break-after: always;
+        position: relative !important; display: block !important; opacity: 1 !important;
+        transform: none !important; height: auto !important; min-height: 0 !important;
+        overflow: visible !important;
+      }
+      .slide-nav { display: none !important; }
+      .progress-bar { display: none !important; }
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--neutral-100);
+      background: var(--neutral-900);
       color: var(--neutral-700);
       line-height: 1.6;
-      padding: 24px;
       -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+      height: 100vh;
     }
 
-    .page {
-      max-width: 1100px;
-      margin: 0 auto 40px;
+    /* ---- Slide container ---- */
+    .deck {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
       background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-      overflow: hidden;
+      opacity: 0;
+      transform: translateX(40px);
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .slide.exit-left {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+
+    /* ---- Progress bar ---- */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--primary);
+      transition: width 0.4s ease;
+      z-index: 100;
     }
 
     /* ---- Header ---- */
     .page-header {
       background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       color: white;
-      padding: 32px 40px;
+      padding: 28px 40px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
       gap: 24px;
+      flex-shrink: 0;
     }
     .header-left { flex: 1; }
-    .header-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.92); margin-bottom: 8px; }
-    .page-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.01em; color: white; }
+    .header-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.92); margin-bottom: 6px; }
+    .page-header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.01em; color: white; }
     .header-sub { font-size: 14px; color: rgba(255,255,255,0.92); margin-top: 4px; }
     .header-right { text-align: right; }
     .header-date { font-size: 13px; color: rgba(255,255,255,0.92); margin-bottom: 4px; }
@@ -75,6 +117,7 @@
     .agenda-bar {
       display: flex;
       background: var(--neutral-800);
+      flex-shrink: 0;
     }
     .agenda-item {
       flex: 1;
@@ -82,7 +125,7 @@
       text-align: center;
       font-size: 12px;
       font-weight: 600;
-      color: rgba(255,255,255,0.65);
+      color: rgba(255,255,255,0.45);
       text-transform: uppercase;
       letter-spacing: 0.06em;
       display: flex;
@@ -90,7 +133,12 @@
       justify-content: center;
       gap: 8px;
       position: relative;
+      cursor: pointer;
+      transition: color 0.3s;
+      user-select: none;
     }
+    .agenda-item:hover { color: rgba(255,255,255,0.7); }
+    .agenda-item.visited { color: rgba(255,255,255,0.6); }
     .agenda-item.active { color: white; }
     .agenda-item.active::after {
       content: '';
@@ -106,45 +154,47 @@
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.2);
-      color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.5);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-size: 12px;
       font-weight: 700;
       flex-shrink: 0;
+      transition: background 0.3s, color 0.3s;
     }
     .agenda-item.active .agenda-num { background: var(--primary); color: white; }
+    .agenda-item.visited .agenda-num { background: rgba(255,255,255,0.25); color: rgba(255,255,255,0.7); }
 
     /* ---- Content ---- */
-    .content { padding: 32px 40px 40px; }
+    .content { padding: 28px 40px 32px; flex: 1; }
 
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
     .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 
     /* ---- Metrics ---- */
-    .metrics-row { margin-bottom: 28px; }
+    .metrics-row { margin-bottom: 24px; }
 
     .metric-card {
       background: white;
       border: 1px solid var(--neutral-150);
       border-top: 3px solid var(--neutral-200);
       border-radius: 8px;
-      padding: 20px 16px 16px;
+      padding: 18px 14px 14px;
       text-align: center;
     }
     .metric-card.accent-primary { border-top-color: var(--primary); }
     .metric-card.accent-secondary { border-top-color: var(--secondary); }
     .metric-card.accent-action { border-top-color: var(--action); }
 
-    .metric-value { font-size: 36px; font-weight: 800; color: var(--neutral-800); line-height: 1; margin-bottom: 8px; letter-spacing: -0.02em; }
-    .metric-label { font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; }
+    .metric-value { font-size: 34px; font-weight: 800; color: var(--neutral-800); line-height: 1; margin-bottom: 6px; letter-spacing: -0.02em; }
+    .metric-label { font-size: 11px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; }
     .metric-sub { font-size: 12px; color: var(--neutral-600); margin-top: 6px; }
 
     /* ---- Sections ---- */
-    .section { margin-bottom: 32px; }
+    .section { margin-bottom: 28px; }
     .section:last-child { margin-bottom: 0; }
 
     .section-header {
@@ -294,15 +344,54 @@
     .page-footer {
       background: var(--neutral-50);
       border-top: 1px solid var(--neutral-150);
-      padding: 16px 40px;
+      padding: 14px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-size: 12px;
       color: var(--neutral-600);
+      flex-shrink: 0;
     }
     .footer-contact { display: flex; gap: 24px; }
     .footer-item { display: flex; align-items: center; gap: 6px; color: var(--neutral-600); }
+
+    /* ---- Slide navigation ---- */
+    .slide-nav {
+      position: fixed;
+      bottom: 24px;
+      right: 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 50;
+    }
+    .slide-nav button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: var(--neutral-800);
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .slide-nav button:hover { background: var(--primary); transform: scale(1.08); }
+    .slide-nav button:disabled { opacity: 0.3; cursor: default; transform: none; background: var(--neutral-800); }
+    .slide-counter {
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+      background: var(--neutral-800);
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      font-variant-numeric: tabular-nums;
+    }
 
     /* ---- Screen-reader only ---- */
     .sr-only {
@@ -317,44 +406,26 @@
       border: 0;
     }
 
-    /* ---- Skip Link ---- */
-    .skip-link {
-      position: absolute;
-      top: -100%;
-      left: 16px;
-      background: var(--neutral-800);
-      color: white;
-      padding: 8px 16px;
-      border-radius: 4px;
-      font-size: 14px;
-      font-weight: 600;
-      z-index: 100;
-      text-decoration: none;
-    }
-    .skip-link:focus {
-      top: 16px;
-    }
-
     /* ---- Responsive ---- */
     @media (max-width: 800px) {
-      body { padding: 12px; }
-      .page-header { flex-direction: column; padding: 24px; }
+      .page-header { flex-direction: column; padding: 20px 24px; }
       .header-right { text-align: left; }
       .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-      .content { padding: 24px; }
+      .content { padding: 20px 24px; }
       .agenda-bar { flex-wrap: wrap; }
       .agenda-item { flex: none; width: 50%; }
+      .slide-nav { bottom: 12px; right: 16px; }
     }
   </style>
 </head>
 <body>
 
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="progress-bar" id="progress" style="width: 20%;" aria-hidden="true"></div>
 
-  <main id="main-content">
+  <main class="deck" id="deck" aria-live="polite">
 
-  <!-- ===== PAGE 1 ===== -->
-  <article class="page" aria-label="QBR Page 1: Usage, Feedback, and Maturity">
+  <!-- ===== SLIDE 1: USAGE ===== -->
+  <article class="slide active" data-slide="0" aria-label="Slide 1: Usage">
     <header class="page-header">
       <div class="header-left">
         <div class="header-label">Quarterly Business Review</div>
@@ -368,20 +439,36 @@
     </header>
 
     <nav class="agenda-bar" aria-label="QBR agenda">
-      <div class="agenda-item active" aria-current="true"><span class="agenda-num" aria-hidden="true">1</span> Usage</div>
-      <div class="agenda-item active" aria-current="true"><span class="agenda-num" aria-hidden="true">2</span> Feedback</div>
-      <div class="agenda-item active" aria-current="true"><span class="agenda-num" aria-hidden="true">3</span> Maturity</div>
-      <div class="agenda-item"><span class="agenda-num" aria-hidden="true">4</span> Roadmap</div>
-      <div class="agenda-item"><span class="agenda-num" aria-hidden="true">5</span> Business Case</div>
+      <div class="agenda-item active" data-target="0"><span class="agenda-num" aria-hidden="true">1</span> Usage</div>
+      <div class="agenda-item" data-target="1"><span class="agenda-num" aria-hidden="true">2</span> Feedback</div>
+      <div class="agenda-item" data-target="2"><span class="agenda-num" aria-hidden="true">3</span> Maturity</div>
+      <div class="agenda-item" data-target="3"><span class="agenda-num" aria-hidden="true">4</span> Roadmap</div>
+      <div class="agenda-item" data-target="4"><span class="agenda-num" aria-hidden="true">5</span> Business Case</div>
     </nav>
 
     <div class="content">
-
-      <!-- ① USAGE -->
       <section class="section" aria-labelledby="section-usage">
         <div class="section-header">
           <div class="section-num" style="background: var(--action);" aria-hidden="true">1</div>
           <h2 class="section-title" id="section-usage">Last Quarter's Knapsack Usage</h2>
+        </div>
+
+        <div style="background: var(--success-light); border: 1px solid #b8d4c8; border-radius: 8px; padding: 14px 20px; margin-bottom: 16px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--success); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">Q1 Partnership Highlights</div>
+          <div style="display: flex; gap: 16px;">
+            <div style="flex: 1; font-size: 13px; color: var(--neutral-700); line-height: 1.5; padding-right: 16px; border-right: 1px solid #b8d4c8;">Continuum adopted as the single source of truth across <strong>111+ web properties</strong> — replacing a fragmented mix of Confluence, Zeroheight, and Storybook</div>
+            <div style="flex: 1; font-size: 13px; color: var(--neutral-700); line-height: 1.5; padding-right: 16px; border-right: 1px solid #b8d4c8;"><strong>210 active users</strong> spanning design, engineering, marketing, and agency teams — cross-functional engagement from day one</div>
+            <div style="flex: 1; font-size: 13px; color: var(--neutral-700); line-height: 1.5;">Leadership mandate in place: <strong>80%+ system adoption</strong> target driving organizational alignment behind Knapsack</div>
+          </div>
+          <div style="font-size: 11px; color: var(--neutral-500); margin-top: 8px; font-style: italic;">These highlights establish baselines — in Q2, we'll review progress against the goals we set today.</div>
+        </div>
+
+        <div style="background: var(--neutral-800); color: white; border-radius: 8px; padding: 12px 20px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+          <div style="font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.5;"><strong>Context:</strong> Leadership mandate requires 80%+ of every website to use Continuum. Agencies are the primary consumers of the design system; DXMs and the internal UX team (Indegene) manage content and governance.</div>
+          <div style="flex-shrink: 0; text-align: center; padding-left: 20px;">
+            <div style="font-size: 24px; font-weight: 800; color: var(--primary);">111+</div>
+            <div style="font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 600;">Web Properties</div>
+          </div>
         </div>
 
         <div class="metrics-row" role="region" aria-label="Key usage metrics">
@@ -402,9 +489,9 @@
               <div class="metric-sub">Top destination for viewers</div>
             </div>
             <div class="metric-card">
-              <div class="metric-value">5</div>
-              <div class="metric-label">Roles Represented</div>
-              <div class="metric-sub">Design · Eng · Mktg · Product · Other</div>
+              <div class="metric-value">91%</div>
+              <div class="metric-label">Viewers (60d)</div>
+              <div class="metric-sub">191 viewers · 14 contributors · 5 admins</div>
             </div>
           </div>
         </div>
@@ -427,8 +514,7 @@
                 <tr><td>Other</td><td class="num">20</td><td class="num">34</td><td class="num">45</td><td><div class="bar-container"><div class="bar" style="width:69%; background: var(--secondary);" role="img" aria-label="21% share"></div><span class="dim">21%</span></div></td></tr>
                 <tr><td>Engineer</td><td class="num">15</td><td class="num">22</td><td class="num">27</td><td><div class="bar-container"><div class="bar" style="width:42%; background: var(--action);" role="img" aria-label="13% share"></div><span class="dim">13%</span></div></td></tr>
                 <tr><td>Marketing</td><td class="num">6</td><td class="num">17</td><td class="num">24</td><td><div class="bar-container"><div class="bar" style="width:37%; background: var(--neutral-600);" role="img" aria-label="11% share"></div><span class="dim">11%</span></div></td></tr>
-                <tr><td>Product</td><td class="num">4</td><td class="num">8</td><td class="num">9</td><td><div class="bar-container"><div class="bar" style="width:14%; background: var(--neutral-500);" role="img" aria-label="4% share"></div><span class="dim">4%</span></div></td></tr>
-                <tr><td class="dim">Uncategorized</td><td class="num dim">15</td><td class="num dim">33</td><td class="num dim">40</td><td><div class="bar-container"><div class="bar" style="width:62%; background: var(--neutral-400);" role="img" aria-label="19% share"></div><span class="dim">19%</span></div></td></tr>
+                <tr><td class="dim">Other / Uncategorized</td><td class="num dim">19</td><td class="num dim">41</td><td class="num dim">49</td><td><div class="bar-container"><div class="bar" style="width:75%; background: var(--neutral-400);" role="img" aria-label="23% share"></div><span class="dim">23%</span></div></td></tr>
               </tbody>
             </table>
           </div>
@@ -447,80 +533,25 @@
             </table>
           </div>
         </div>
-      </section>
 
-      <!-- ② FEEDBACK -->
-      <section class="section" aria-labelledby="section-feedback">
-        <div class="section-header">
-          <div class="section-num" style="background: var(--primary);" aria-hidden="true">2</div>
-          <h2 class="section-title" id="section-feedback">User Feedback</h2>
-        </div>
+        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin: 16px 0 10px;">Let's discuss</div>
+
         <div class="question-card">
           <div class="question-num-badge" aria-hidden="true">1</div>
-          <div class="question-text">Content-box saw heavy activity earlier this quarter but dropped off recently. What drove that spike — was it project-related?</div>
+          <div class="question-text">Content-box had 257 editor views and 312 viewer views over 60 days, but dropped sharply in the past week. What's driving the activity patterns you're seeing across your teams?</div>
         </div>
         <div class="question-card">
           <div class="question-num-badge" aria-hidden="true">2</div>
-          <div class="question-text">With 210 active users across 5 roles, what adoption benchmarks would you consider healthy? Are there teams you'd expect to see here that aren't yet?</div>
+          <div class="question-text">91% of your active users are viewers. What does healthy adoption look like to you — and where would you most want to see deeper engagement?</div>
         </div>
         <div class="question-card">
           <div class="question-num-badge" aria-hidden="true">3</div>
-          <div class="question-text">Where do your teams lose the most time to manual handoffs, re-entry, or context-switching between the design system and production delivery?</div>
-        </div>
-        <div class="question-card">
-          <div class="question-num-badge" aria-hidden="true">4</div>
-          <div class="question-text">What metrics would be most valuable for leadership reporting? Are there KPIs like time-to-production or component reuse you'd want to track?</div>
-        </div>
-      </section>
-
-      <!-- ③ MATURITY -->
-      <section class="section" aria-labelledby="section-maturity">
-        <div class="section-header">
-          <div class="section-num" style="background: var(--secondary);" aria-hidden="true">3</div>
-          <h2 class="section-title" id="section-maturity">Maturity Assessment — PCRI</h2>
+          <div class="question-text">If you could see any usage or adoption data in Knapsack that would help you report against the 80% mandate or accelerate agency onboarding — what would that look like?</div>
         </div>
 
-        <div style="background: var(--secondary-light); border: 1px solid #b8d4d2; border-radius: 8px; padding: 20px 24px; margin-bottom: 16px;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
-            <div style="flex: 1;">
-              <div style="font-size: 12px; font-weight: 700; color: var(--secondary-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">Presented by Amber Atkins</div>
-              <div style="font-size: 17px; font-weight: 700; color: var(--neutral-800); margin-bottom: 8px; letter-spacing: -0.01em;">Product Context Readiness Index</div>
-              <div style="font-size: 14px; color: var(--neutral-700); line-height: 1.6;">AI doesn't consume components — it consumes context. The PCRI measures your readiness to deliver governed product context for AI-enabled delivery, benchmarked against 158 enterprises.</div>
-            </div>
-            <div style="text-align: center; flex-shrink: 0; background: white; border-radius: 8px; padding: 14px 18px; border: 1px solid var(--neutral-150);">
-              <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em;">Takes approx.</div>
-              <div style="font-size: 24px; font-weight: 800; color: var(--secondary-dark); margin: 2px 0;">15 min</div>
-              <div style="font-size: 12px; color: var(--neutral-600);">per participant</div>
-            </div>
-          </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;" role="list" aria-label="PCRI assessment pillars">
-          <div class="maturity-item" style="text-align: center;" role="listitem">
-            <div style="font-size: 22px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 4px;">25%</div>
-            <div class="maturity-dimension">Culture</div>
-            <div style="font-size: 12px; color: var(--neutral-600); margin-top: 4px;">Contribution & safety</div>
-          </div>
-          <div class="maturity-item" style="text-align: center;" role="listitem">
-            <div style="font-size: 22px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 4px;">20%</div>
-            <div class="maturity-dimension">Foundation</div>
-            <div style="font-size: 12px; color: var(--neutral-600); margin-top: 4px;">Tokens, components, APIs</div>
-          </div>
-          <div class="maturity-item" style="text-align: center;" role="listitem">
-            <div style="font-size: 22px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 4px;">20%</div>
-            <div class="maturity-dimension">AI Readiness</div>
-            <div style="font-size: 12px; color: var(--neutral-600); margin-top: 4px;">Context governance</div>
-          </div>
-          <div class="maturity-item" style="text-align: center;" role="listitem">
-            <div style="font-size: 22px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 4px;">20%</div>
-            <div class="maturity-dimension">Governance</div>
-            <div style="font-size: 12px; color: var(--neutral-600); margin-top: 4px;">Authority & decisions</div>
-          </div>
-          <div class="maturity-item" style="text-align: center;" role="listitem">
-            <div style="font-size: 22px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 4px;">15%</div>
-            <div class="maturity-dimension">Delivery</div>
-            <div style="font-size: 12px; color: var(--neutral-600); margin-top: 4px;">Workflows & frequency</div>
-          </div>
+        <div style="background: var(--neutral-100); border-radius: 6px; padding: 10px 16px; margin-top: 16px; display: flex; align-items: center; gap: 10px;">
+          <div style="font-size: 11px; font-weight: 600; color: var(--neutral-500); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap;">Carries forward →</div>
+          <div style="font-size: 12px; color: var(--neutral-600);">This usage data feeds directly into your readiness scores and quarterly business case — alongside feedback, maturity benchmarks, and roadmap alignment.</div>
         </div>
       </section>
     </div>
@@ -530,12 +561,243 @@
         <div class="footer-item"><strong>CX:</strong> Amber Atkins</div>
         <div class="footer-item"><strong>AE:</strong> Jon Boush</div>
       </div>
-      <div>Confidential · Knapsack · Q1 2026 QBR · Page 1 of 2</div>
+      <div>Confidential · Knapsack · Q1 2026 QBR</div>
     </footer>
   </article>
 
-  <!-- ===== PAGE 2 ===== -->
-  <article class="page" aria-label="QBR Page 2: Roadmap and Business Case">
+  <!-- ===== SLIDE 2: FEEDBACK ===== -->
+  <article class="slide" data-slide="1" aria-label="Slide 2: Feedback">
+    <header class="page-header">
+      <div class="header-left">
+        <div class="header-label">Quarterly Business Review</div>
+        <h1>GSK US × Knapsack</h1>
+        <div class="header-sub">Design System Partnership</div>
+      </div>
+      <div class="header-right">
+        <div class="header-date"><time datetime="2026-03-04">March 4, 2026</time></div>
+        <div class="header-period">Q1 2026</div>
+      </div>
+    </header>
+
+    <nav class="agenda-bar" aria-label="QBR agenda">
+      <div class="agenda-item visited" data-target="0"><span class="agenda-num" aria-hidden="true">1</span> Usage</div>
+      <div class="agenda-item active" data-target="1"><span class="agenda-num" aria-hidden="true">2</span> Feedback</div>
+      <div class="agenda-item" data-target="2"><span class="agenda-num" aria-hidden="true">3</span> Maturity</div>
+      <div class="agenda-item" data-target="3"><span class="agenda-num" aria-hidden="true">4</span> Roadmap</div>
+      <div class="agenda-item" data-target="4"><span class="agenda-num" aria-hidden="true">5</span> Business Case</div>
+    </nav>
+
+    <div class="content">
+      <section class="section" aria-labelledby="section-feedback">
+        <div class="section-header">
+          <div class="section-num" style="background: var(--primary);" aria-hidden="true">2</div>
+          <h2 class="section-title" id="section-feedback">What We've Heard</h2>
+        </div>
+
+        <!-- Support activity block -->
+        <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px; padding: 14px 18px; margin-bottom: 16px; display: flex; gap: 16px; align-items: flex-start;">
+          <div style="flex-shrink: 0; text-align: center; padding: 8px 12px; background: white; border: 1px solid var(--neutral-150); border-radius: 8px;">
+            <div style="font-size: 24px; font-weight: 800; color: var(--primary);">5</div>
+            <div style="font-size: 10px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em;">Open Tickets</div>
+            <div style="font-size: 10px; color: var(--neutral-500);">Past 30 days</div>
+          </div>
+          <div style="flex: 1;">
+            <div style="font-size: 12px; font-weight: 700; color: var(--neutral-700); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">Recent Support Activity</div>
+            <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+              <span style="font-size: 11px; background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; border-radius: 4px; padding: 2px 8px; font-weight: 600;">Figma Integration (403 errors)</span>
+              <span style="font-size: 11px; background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; border-radius: 4px; padding: 2px 8px; font-weight: 600;">Page Data Loss</span>
+            </div>
+            <div style="font-size: 12px; color: var(--neutral-600); line-height: 1.5;">Before we get into the broader themes, we want to make sure we're addressing what's in front of you right now.</div>
+          </div>
+        </div>
+
+        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;">What we heard in January — did we get this right?</div>
+
+        <div class="grid-2" style="margin-bottom: 12px;">
+          <div style="background: var(--primary-light); border: 1px solid #f0cdc0; border-radius: 8px; padding: 14px 18px;">
+            <div style="font-size: 14px; font-weight: 700; color: var(--primary-dark); margin-bottom: 6px;">Agency Enablement</div>
+            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin-bottom: 6px;">We heard that agency onboarding is a constant cycle — 111+ sites, a revolving door of designers, and DXMs spending significant time on reviews. The 80% system mandate adds urgency.</div>
+            <div style="font-size: 12px; color: var(--neutral-600); font-style: italic; line-height: 1.5; border-top: 1px solid #f0cdc0; padding-top: 6px;">"We're in constant training mode. As soon as we get one agency designer really understanding the system, they move to a different account." — Melissa Butler</div>
+          </div>
+          <div style="background: var(--action-light); border: 1px solid #c4ddef; border-radius: 8px; padding: 14px 18px;">
+            <div style="font-size: 14px; font-weight: 700; color: var(--action); margin-bottom: 6px;">Brief to Implementable UI</div>
+            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin-bottom: 6px;">The vision that surfaced most strongly: going from a brand brief to a governed, implementable page built with Continuum components — reducing the Figma back-and-forth.</div>
+            <div style="font-size: 12px; color: var(--neutral-600); font-style: italic; line-height: 1.5; border-top: 1px solid #c4ddef; padding-top: 6px;">"Why can't somebody say, here's the brief — and using Continuum components, build a page that meets the brand's needs while making sure it adheres to standards?" — Pallavi Paranjape</div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom: 16px;">
+          <div style="background: var(--secondary-light); border: 1px solid #b8d4d2; border-radius: 8px; padding: 14px 18px;">
+            <div style="font-size: 14px; font-weight: 700; color: var(--secondary-dark); margin-bottom: 6px;">Tooling Consolidation</div>
+            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin-bottom: 6px;">We heard interest in reducing Figma dependency and bringing design and code into the same space. Has anything shifted on this timeline since January?</div>
+            <div style="font-size: 12px; color: var(--neutral-600); font-style: italic; line-height: 1.5; border-top: 1px solid #b8d4d2; padding-top: 6px;">"I want to reduce our dependency on Figma as much as possible." — Melissa Butler</div>
+          </div>
+          <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px; padding: 14px 18px;">
+            <div style="font-size: 14px; font-weight: 700; color: var(--neutral-800); margin-bottom: 6px;">AI Governance Landscape</div>
+            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6; margin-bottom: 6px;">AI adoption is a top priority, but each tool requires use-case-specific approval. Agencies can't access GG or Copilot. How should we be thinking about this as we plan together?</div>
+            <div style="font-size: 12px; color: var(--neutral-600); font-style: italic; line-height: 1.5; border-top: 1px solid var(--neutral-150); padding-top: 6px;">"When the use case is approved, they're very specific around what that AI technology is approved for." — Melissa Butler</div>
+          </div>
+        </div>
+
+        <div style="background: var(--neutral-800); color: white; border-radius: 6px; padding: 10px 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+          <div style="font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap;">Carries forward →</div>
+          <div style="font-size: 12px; color: rgba(255,255,255,0.85);">These four themes inform what we'll measure in your readiness assessment, what we're building on the roadmap, and where we invest together in Q2.</div>
+        </div>
+
+        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 10px;">Let's discuss</div>
+
+        <div class="question-card">
+          <div class="question-num-badge" aria-hidden="true">1</div>
+          <div class="question-text">Did we capture these themes accurately? What's shifted since January — and what are we missing?</div>
+        </div>
+        <div class="question-card">
+          <div class="question-num-badge" aria-hidden="true">2</div>
+          <div class="question-text">Are there pain points your agencies or DXMs are feeling today that aren't reflected here?</div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="page-footer">
+      <div class="footer-contact">
+        <div class="footer-item"><strong>CX:</strong> Amber Atkins</div>
+        <div class="footer-item"><strong>AE:</strong> Jon Boush</div>
+      </div>
+      <div>Confidential · Knapsack · Q1 2026 QBR</div>
+    </footer>
+  </article>
+
+  <!-- ===== SLIDE 3: MATURITY ===== -->
+  <article class="slide" data-slide="2" aria-label="Slide 3: Maturity">
+    <header class="page-header">
+      <div class="header-left">
+        <div class="header-label">Quarterly Business Review</div>
+        <h1>GSK US × Knapsack</h1>
+        <div class="header-sub">Design System Partnership</div>
+      </div>
+      <div class="header-right">
+        <div class="header-date"><time datetime="2026-03-04">March 4, 2026</time></div>
+        <div class="header-period">Q1 2026</div>
+      </div>
+    </header>
+
+    <nav class="agenda-bar" aria-label="QBR agenda">
+      <div class="agenda-item visited" data-target="0"><span class="agenda-num" aria-hidden="true">1</span> Usage</div>
+      <div class="agenda-item visited" data-target="1"><span class="agenda-num" aria-hidden="true">2</span> Feedback</div>
+      <div class="agenda-item active" data-target="2"><span class="agenda-num" aria-hidden="true">3</span> Maturity</div>
+      <div class="agenda-item" data-target="3"><span class="agenda-num" aria-hidden="true">4</span> Roadmap</div>
+      <div class="agenda-item" data-target="4"><span class="agenda-num" aria-hidden="true">5</span> Business Case</div>
+    </nav>
+
+    <div class="content">
+      <section class="section" aria-labelledby="section-maturity">
+        <div class="section-header">
+          <div class="section-num" style="background: var(--secondary);" aria-hidden="true">3</div>
+          <h2 class="section-title" id="section-maturity">Maturity Assessment — PCRI</h2>
+        </div>
+
+        <!-- Hero block -->
+        <div style="background: var(--secondary-light); border: 1px solid #b8d4d2; border-radius: 8px; padding: 20px 24px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
+            <div style="flex: 1;">
+              <div style="font-size: 12px; font-weight: 700; color: var(--secondary-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">Presented by Amber Atkins</div>
+              <div style="font-size: 17px; font-weight: 700; color: var(--neutral-800); margin-bottom: 8px; letter-spacing: -0.01em;">How we'll measure progress together</div>
+              <div style="font-size: 14px; color: var(--neutral-700); line-height: 1.6;">The Product Context Readiness Index is a new benchmarking tool Knapsack developed to give every customer partnership a shared language, a quarterly measurement point, and a direct input to the business case. It measures readiness across five pillars — many of which directly touch the themes your team raised around governance, AI adoption, agency enablement, and delivery. Benchmarks draw from 158 enterprises navigating the same challenges.</div>
+            </div>
+            <div style="text-align: center; flex-shrink: 0; background: white; border-radius: 8px; padding: 14px 18px; border: 1px solid var(--neutral-150);">
+              <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em;">Takes approx.</div>
+              <div style="font-size: 24px; font-weight: 800; color: var(--secondary-dark); margin: 2px 0;">15 min</div>
+              <div style="font-size: 12px; color: var(--neutral-600);">per participant</div>
+              <div style="font-size: 11px; color: var(--neutral-500); margin-top: 4px;">27 scored questions</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partnership lifecycle — centerpiece -->
+        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">The PCRI in your QBR lifecycle</div>
+
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-bottom: 16px;">
+          <div style="background: var(--secondary-light); border: 1px solid #b8d4d2; border-radius: 8px 0 0 8px; padding: 16px 18px; position: relative;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--secondary-dark); margin-bottom: 6px;">Q1 · Baseline</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--neutral-800); margin-bottom: 6px;">Take the Assessment</div>
+            <div style="font-size: 12px; color: var(--neutral-600); line-height: 1.5;">3–5 participants complete the PCRI. Your scores establish where GSK stands today and identify your partnership archetype.</div>
+            <div style="position: absolute; right: -7px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; background: var(--secondary-light); border-right: 1px solid #b8d4d2; border-top: 1px solid #b8d4d2; transform: translateY(-50%) rotate(45deg); z-index: 1;"></div>
+          </div>
+          <div style="background: var(--primary-light); border: 1px solid #f0cdc0; padding: 16px 18px; position: relative;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary-dark); margin-bottom: 6px;">Q2 · Focus</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--neutral-800); margin-bottom: 6px;">Define Priorities</div>
+            <div style="font-size: 12px; color: var(--neutral-600); line-height: 1.5;">PCRI results combined with today's feedback — agency enablement, governance, tooling, AI readiness — define your Q2 focus areas.</div>
+            <div style="position: absolute; right: -7px; top: 50%; width: 14px; height: 14px; background: var(--primary-light); border-right: 1px solid #f0cdc0; border-top: 1px solid #f0cdc0; transform: translateY(-50%) rotate(45deg); z-index: 1;"></div>
+          </div>
+          <div style="background: var(--action-light); border: 1px solid #c4ddef; padding: 16px 18px; position: relative;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--action); margin-bottom: 6px;">Q3+ · Track</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--neutral-800); margin-bottom: 6px;">Measure Movement</div>
+            <div style="font-size: 12px; color: var(--neutral-600); line-height: 1.5;">Each future QBR re-measures the PCRI. Pillar-level deltas show where investment is paying off and where to adjust.</div>
+            <div style="position: absolute; right: -7px; top: 50%; width: 14px; height: 14px; background: var(--action-light); border-right: 1px solid #c4ddef; border-top: 1px solid #c4ddef; transform: translateY(-50%) rotate(45deg); z-index: 1;"></div>
+          </div>
+          <div style="background: var(--neutral-900); border: 1px solid var(--neutral-700); border-radius: 0 8px 8px 0; padding: 16px 18px; color: white;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.6); margin-bottom: 6px;">Ongoing · Build</div>
+            <div style="font-size: 14px; font-weight: 700; margin-bottom: 6px;">Business Case</div>
+            <div style="font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.5;">PCRI scores, usage data, and feedback feed directly into the business case — evidence you can take to leadership each quarter.</div>
+          </div>
+        </div>
+
+        <!-- Compact pillar reference -->
+        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">Five Pillars · Weighted Scoring</div>
+
+        <div style="display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 8px;">
+          <div style="width: 25%; background: #e87da0;" title="Culture 25%"></div>
+          <div style="width: 20%; background: var(--secondary);" title="Foundation 20%"></div>
+          <div style="width: 20%; background: var(--action);" title="AI Readiness 20%"></div>
+          <div style="width: 20%; background: #6366f1;" title="Governance 20%"></div>
+          <div style="width: 15%; background: #eab308;" title="Delivery 15%"></div>
+        </div>
+        <div style="display: flex; gap: 0; margin-bottom: 6px;">
+          <div style="width: 25%; font-size: 11px; font-weight: 600; color: #c2517a;">Culture <span style="color: var(--neutral-500);">25%</span></div>
+          <div style="width: 20%; font-size: 11px; font-weight: 600; color: var(--secondary-dark);">Foundation <span style="color: var(--neutral-500);">20%</span></div>
+          <div style="width: 20%; font-size: 11px; font-weight: 600; color: var(--action);">AI Readiness <span style="color: var(--neutral-500);">20%</span></div>
+          <div style="width: 20%; font-size: 11px; font-weight: 600; color: #4f46e5;">Governance <span style="color: var(--neutral-500);">20%</span></div>
+          <div style="width: 15%; font-size: 11px; font-weight: 600; color: #ca8a04;">Delivery <span style="color: var(--neutral-500);">15%</span></div>
+        </div>
+
+        <!-- Archetype spectrum -->
+        <div style="display: flex; height: 6px; border-radius: 3px; overflow: hidden; margin: 12px 0 4px;">
+          <div style="width: 44%; background: linear-gradient(90deg, #ef4444, #fbbf24);"></div>
+          <div style="width: 10%; background: #fbbf24;"></div>
+          <div style="width: 20%; background: linear-gradient(90deg, #fbbf24, #3b82f6);"></div>
+          <div style="width: 26%; background: linear-gradient(90deg, #3b82f6, #10b981);"></div>
+        </div>
+        <div style="display: flex; margin-bottom: 16px;">
+          <div style="width: 44%; font-size: 10px; color: var(--neutral-500);"><strong style="color: #b91c1c;">Builder</strong> 0–44</div>
+          <div style="width: 10%; font-size: 10px; color: var(--neutral-500);"><strong style="color: #92400e;">Adopter</strong> 45–54</div>
+          <div style="width: 20%; font-size: 10px; color: var(--neutral-500);"><strong style="color: #1e40af;">Optimizer</strong> 55–74</div>
+          <div style="width: 26%; font-size: 10px; color: var(--neutral-500);"><strong style="color: #166534;">Transformer</strong> 75–100</div>
+        </div>
+
+        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 10px;">Let's discuss</div>
+
+        <div class="question-card">
+          <div class="question-num-badge" aria-hidden="true">1</div>
+          <div class="question-text">Looking at the five pillars — Culture, Foundation, AI Readiness, Governance, Delivery — which feel most relevant to where GSK is right now?</div>
+        </div>
+        <div class="question-card">
+          <div class="question-num-badge" aria-hidden="true">2</div>
+          <div class="question-text">Who on your team would be the right 3–5 participants to take the assessment, and what timeframe works?</div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="page-footer">
+      <div class="footer-contact">
+        <div class="footer-item"><strong>CX:</strong> Amber Atkins</div>
+        <div class="footer-item"><strong>AE:</strong> Jon Boush</div>
+      </div>
+      <div>Confidential · Knapsack · Q1 2026 QBR</div>
+    </footer>
+  </article>
+
+  <!-- ===== SLIDE 4: ROADMAP ===== -->
+  <article class="slide" data-slide="3" aria-label="Slide 4: Roadmap">
     <header class="page-header">
       <div class="header-left">
         <div class="header-label">Quarterly Business Review</div>
@@ -549,16 +811,14 @@
     </header>
 
     <nav class="agenda-bar" aria-label="QBR agenda">
-      <div class="agenda-item"><span class="agenda-num" aria-hidden="true">1</span> Usage</div>
-      <div class="agenda-item"><span class="agenda-num" aria-hidden="true">2</span> Feedback</div>
-      <div class="agenda-item"><span class="agenda-num" aria-hidden="true">3</span> Maturity</div>
-      <div class="agenda-item active" aria-current="true"><span class="agenda-num" aria-hidden="true">4</span> Roadmap</div>
-      <div class="agenda-item active" aria-current="true"><span class="agenda-num" aria-hidden="true">5</span> Business Case</div>
+      <div class="agenda-item visited" data-target="0"><span class="agenda-num" aria-hidden="true">1</span> Usage</div>
+      <div class="agenda-item visited" data-target="1"><span class="agenda-num" aria-hidden="true">2</span> Feedback</div>
+      <div class="agenda-item visited" data-target="2"><span class="agenda-num" aria-hidden="true">3</span> Maturity</div>
+      <div class="agenda-item active" data-target="3"><span class="agenda-num" aria-hidden="true">4</span> Roadmap</div>
+      <div class="agenda-item" data-target="4"><span class="agenda-num" aria-hidden="true">5</span> Business Case</div>
     </nav>
 
     <div class="content">
-
-      <!-- ④ ROADMAP -->
       <section class="section" aria-labelledby="section-roadmap">
         <div class="section-header">
           <div class="section-num" style="background: var(--success);" aria-hidden="true">4</div>
@@ -568,7 +828,7 @@
           <div class="roadmap-pillar" style="border-left: 4px solid var(--secondary);">
             <div class="pillar-label" style="color: var(--secondary-dark);">Shipping This Quarter</div>
             <h3 class="pillar-title">Aggregated Intelligence</h3>
-            <div class="pillar-desc">Knapsack ingests, weighs, and surfaces context from multiple sources so AI tools produce better, more governed output.</div>
+            <div class="pillar-desc">The ability to ingest, weigh, and surface context from multiple sources — so AI tools your team uses can produce more governed output.</div>
             <div class="pillar-items" role="list" aria-label="Features shipping this quarter">
               <span class="pillar-tag" style="background: var(--secondary-light); color: var(--secondary-dark);" role="listitem">Knapsack MCP (included)</span>
               <span class="pillar-tag" style="background: var(--secondary-light); color: var(--secondary-dark);" role="listitem">Storybook ingestion</span>
@@ -580,7 +840,7 @@
           <div class="roadmap-pillar" style="border-left: 4px solid var(--primary);">
             <div class="pillar-label" style="color: var(--primary-dark);">Q2 and Beyond</div>
             <h3 class="pillar-title">Platform Experience & Ecosystem</h3>
-            <div class="pillar-desc">UX improvements, persistent analytics, and the foundation for a broader integration ecosystem.</div>
+            <div class="pillar-desc">UX improvements, persistent analytics, and the foundation for deeper integrations with your existing ecosystem.</div>
             <div class="pillar-items" role="list" aria-label="Features planned for Q2 and beyond">
               <span class="pillar-tag" style="background: var(--primary-light); color: var(--primary-dark);" role="listitem">Redesigned navigation</span>
               <span class="pillar-tag" style="background: var(--primary-light); color: var(--primary-dark);" role="listitem">Improved editor UX</span>
@@ -592,56 +852,53 @@
           </div>
         </div>
 
-        <div style="background: var(--secondary); color: white; border-radius: 8px; padding: 20px 24px; margin-top: 16px;">
-          <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.92); margin-bottom: 6px;">Shipping End of March</div>
+        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin: 16px 0 10px;">Your needs mapped to the platform trajectory</div>
+
+        <div style="display: flex; gap: 0; margin-bottom: 16px;">
+          <div style="flex: 1; background: var(--secondary-light); border: 1px solid #b8d4d2; border-radius: 8px 0 0 8px; padding: 14px 16px; position: relative;">
+            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--secondary-dark); margin-bottom: 6px;">Phase 1 · Intelligence</div>
+            <div style="font-size: 13px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">Agency Enablement</div>
+            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">Agencies query Continuum directly via MCP — no GSK credentials needed.</div>
+            <div style="font-size: 10px; font-weight: 600; color: var(--secondary-dark); background: white; border-radius: 4px; padding: 2px 8px; display: inline-block;">Shipping now</div>
+          </div>
+          <div style="flex: 0 0 2px; background: var(--neutral-200);"></div>
+          <div style="flex: 1; background: var(--primary-light); border: 1px solid #f0cdc0; padding: 14px 16px;">
+            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary-dark); margin-bottom: 6px;">Phase 2 · Control Plane</div>
+            <div style="font-size: 13px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">Governed AI Context</div>
+            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">DAC standards, component constraints, and accessibility rules enforced before generation.</div>
+            <div style="font-size: 10px; font-weight: 600; color: var(--primary-dark); background: white; border-radius: 4px; padding: 2px 8px; display: inline-block;">Intelligence enables this</div>
+          </div>
+          <div style="flex: 0 0 2px; background: var(--neutral-200);"></div>
+          <div style="flex: 1; background: var(--action-light); border: 1px solid #c4ddef; padding: 14px 16px;">
+            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--action); margin-bottom: 6px;">Phase 3 · Governed Execution</div>
+            <div style="font-size: 13px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">Brief to Implementable UI</div>
+            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">Governed intent becomes implementable output built with Continuum components.</div>
+            <div style="font-size: 10px; font-weight: 600; color: var(--action); background: white; border-radius: 4px; padding: 2px 8px; display: inline-block;">Governance enables this</div>
+          </div>
+          <div style="flex: 0 0 2px; background: var(--neutral-200);"></div>
+          <div style="flex: 1; background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 0 8px 8px 0; padding: 14px 16px;">
+            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--neutral-500); margin-bottom: 6px;">Outcome</div>
+            <div style="font-size: 13px; font-weight: 700; color: var(--neutral-800); margin-bottom: 4px;">Figma Dependency Reduced</div>
+            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">Design and code in the same space. Governance built in. Delivery accelerated.</div>
+            <div style="font-size: 10px; font-weight: 600; color: var(--neutral-500); background: white; border-radius: 4px; padding: 2px 8px; display: inline-block;">All three enable this</div>
+          </div>
+        </div>
+
+        <div style="background: var(--secondary); color: white; border-radius: 8px; padding: 20px 24px;">
+          <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.92); margin-bottom: 6px;">Shipping End of March — Phase 1 Begins</div>
           <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em;">Aggregated Intelligence Across Your Sources</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.92); line-height: 1.6;">Knapsack becomes the intelligence layer that makes every AI tool smarter. By ingesting context from Knapsack content, Storybook, and MDX files, your design system knowledge is aggregated and surfaced wherever your teams work — through any MCP-compatible tool. Knapsack MCP is included in your platform; multi-source capabilities extend that foundation.</div>
-        </div>
-      </section>
-
-      <!-- ⑤ BUSINESS CASE -->
-      <section class="section" aria-labelledby="section-business-case">
-        <div class="section-header">
-          <div class="section-num" style="background: var(--primary);" aria-hidden="true">5</div>
-          <h2 class="section-title" id="section-business-case">Building a Business Case</h2>
+          <div style="font-size: 14px; color: rgba(255,255,255,0.92); line-height: 1.6;">Ingest context from Knapsack content, Storybook, and MDX — surfaced wherever your teams work via MCP. Included in your platform; multi-source capabilities extend that foundation. Your PCRI scores will help us prioritize which phases to accelerate together.</div>
         </div>
 
-        <div style="background: var(--primary-light); border: 1px solid var(--primary); border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
-          <div style="font-size: 18px; font-weight: 700; color: var(--primary-dark); margin-bottom: 8px; letter-spacing: -0.01em;">The next evolution of the GSK design system</div>
-          <div style="font-size: 14px; color: var(--neutral-700); line-height: 1.7;">Everything we've covered today — usage patterns, readiness assessment, team feedback, and the intelligence layer shipping this month — are the building blocks for a business case. The question isn't whether the design system has value; the data shows it does. The question is: what does the next chapter look like, and how do we make a compelling case for it?</div>
+        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.06em; margin: 16px 0 10px;">Let's discuss</div>
+
+        <div class="question-card">
+          <div class="question-num-badge" aria-hidden="true">1</div>
+          <div class="question-text">Melissa mentioned the DAC website standard as a potential source for ingestion. What other governance inputs or context sources would be most valuable for your team and your agencies?</div>
         </div>
-
-        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;">The inputs we're assembling together</div>
-
-        <div class="grid-3" style="margin-bottom: 24px;">
-          <div style="background: var(--action-light); border: 1px solid #c4ddef; border-radius: 8px; padding: 18px 20px;">
-            <div style="font-size: 22px; font-weight: 800; color: var(--action); margin-bottom: 6px;">Usage</div>
-            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6;">210 active users and cross-functional engagement that shows where the design system is essential — and where there's room to grow.</div>
-          </div>
-          <div style="background: var(--secondary-light); border: 1px solid #b8d4d2; border-radius: 8px; padding: 18px 20px;">
-            <div style="font-size: 22px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 6px;">Readiness</div>
-            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6;">Your PCRI score will benchmark GSK across foundation, AI readiness, governance, delivery, and culture — identifying exactly where to invest.</div>
-          </div>
-          <div style="background: var(--primary-light); border: 1px solid #f0cdc0; border-radius: 8px; padding: 18px 20px;">
-            <div style="font-size: 22px; font-weight: 800; color: var(--primary-dark); margin-bottom: 6px;">Feedback</div>
-            <div style="font-size: 13px; color: var(--neutral-700); line-height: 1.6;">Your team's perspective on what's working, where time is lost, and what success looks like — captured today and synthesized into priorities.</div>
-          </div>
-        </div>
-
-        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;">Next steps</div>
-
-        <div class="section-content" style="margin-bottom: 20px;">
-          <div class="list-item"><span class="list-num" aria-hidden="true">1</span> Complete the PCRI assessment (3–5 participants across design, engineering, and product)</div>
-          <div class="list-item"><span class="list-num" aria-hidden="true">2</span> Activate Knapsack MCP (included) and evaluate multi-source upgrade path</div>
-          <div class="list-item"><span class="list-num" aria-hidden="true">3</span> Pilot multi-source intelligence with Storybook + MDX once V1 ships end of March</div>
-          <div class="list-item"><span class="list-num" aria-hidden="true">4</span> Identify your Storybook and MDX sources to connect as context for AI workflows</div>
-          <div class="list-item"><span class="list-num" aria-hidden="true">5</span> Define adoption benchmarks and success metrics aligned to leadership goals</div>
-          <div class="list-item"><span class="list-num" aria-hidden="true">6</span> Validate access for globally distributed teams to ensure full participation</div>
-        </div>
-
-        <div style="background: var(--neutral-900); color: white; border-radius: 10px; padding: 24px 28px;">
-          <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em;">We'll bring the business case to you</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.92); line-height: 1.7;">Once PCRI results are in and your sources are connected, Amber will deliver a readiness report that combines your usage data, maturity score, team feedback, and the intelligence capabilities now available — packaged as a business case you can take to leadership.</div>
+        <div class="question-card">
+          <div class="question-num-badge" aria-hidden="true">2</div>
+          <div class="question-text">Does this phased approach — intelligence first, then governance, then execution — match how you'd want to sequence it? What would you move up?</div>
         </div>
       </section>
     </div>
@@ -651,13 +908,231 @@
         <div class="footer-item"><strong>Presenter:</strong> Chris Strahl, CEO</div>
         <div class="footer-item"><strong>CX:</strong> Amber Atkins</div>
         <div class="footer-item"><strong>AE:</strong> Jon Boush</div>
-        <div class="footer-item"><strong>Next Review:</strong> Q2 2026</div>
       </div>
-      <div>Confidential · Knapsack · Q1 2026 QBR · Page 2 of 2</div>
+      <div>Confidential · Knapsack · Q1 2026 QBR</div>
+    </footer>
+  </article>
+
+  <!-- ===== SLIDE 5: BUSINESS CASE ===== -->
+  <article class="slide" data-slide="4" aria-label="Slide 5: Business Case">
+    <header class="page-header">
+      <div class="header-left">
+        <div class="header-label">Quarterly Business Review</div>
+        <h1>GSK US × Knapsack</h1>
+        <div class="header-sub">Roadmap & Business Case</div>
+      </div>
+      <div class="header-right">
+        <div class="header-date"><time datetime="2026-03-04">March 4, 2026</time></div>
+        <div class="header-period">Q1 2026</div>
+      </div>
+    </header>
+
+    <nav class="agenda-bar" aria-label="QBR agenda">
+      <div class="agenda-item visited" data-target="0"><span class="agenda-num" aria-hidden="true">1</span> Usage</div>
+      <div class="agenda-item visited" data-target="1"><span class="agenda-num" aria-hidden="true">2</span> Feedback</div>
+      <div class="agenda-item visited" data-target="2"><span class="agenda-num" aria-hidden="true">3</span> Maturity</div>
+      <div class="agenda-item visited" data-target="3"><span class="agenda-num" aria-hidden="true">4</span> Roadmap</div>
+      <div class="agenda-item active" data-target="4"><span class="agenda-num" aria-hidden="true">5</span> Business Case</div>
+    </nav>
+
+    <div class="content">
+      <section class="section" aria-labelledby="section-business-case">
+        <div class="section-header">
+          <div class="section-num" style="background: var(--primary);" aria-hidden="true">5</div>
+          <h2 class="section-title" id="section-business-case">Building a Business Case</h2>
+        </div>
+
+        <div style="background: var(--primary-light); border: 1px solid var(--primary); border-radius: 8px; padding: 20px 24px; margin-bottom: 16px;">
+          <div style="font-size: 18px; font-weight: 700; color: var(--primary-dark); margin-bottom: 8px; letter-spacing: -0.01em;">Where value creation starts</div>
+          <div style="font-size: 14px; color: var(--neutral-700); line-height: 1.7;">Everything we've covered today — usage, feedback, readiness, and roadmap — maps to four value drivers Knapsack uses to build a defensible business case. Your PCRI scores will help quantify each one. The question is which of these matters most to GSK US right now.</div>
+        </div>
+
+        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">Four value drivers — informed by today's conversation</div>
+
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px;">
+          <div style="background: var(--action-light); border: 1px solid #c4ddef; border-radius: 8px; padding: 14px 16px;">
+            <div style="font-size: 14px; font-weight: 800; color: var(--action); margin-bottom: 4px;">Developer Productivity</div>
+            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">210 users, 789 component views. MCP shipping now — agencies query Continuum directly, reducing onboarding cycles.</div>
+            <div style="font-size: 10px; color: var(--action); font-weight: 600;">From: Usage · Roadmap · Agency Enablement</div>
+          </div>
+          <div style="background: var(--primary-light); border: 1px solid #f0cdc0; border-radius: 8px; padding: 14px 16px;">
+            <div style="font-size: 14px; font-weight: 800; color: var(--primary-dark); margin-bottom: 4px;">Designer Efficiency</div>
+            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">65 designers active. Brief-to-UI workflow could reduce Figma back-and-forth and move design closer to governed output.</div>
+            <div style="font-size: 10px; color: var(--primary-dark); font-weight: 600;">From: Usage · Brief-to-UI · Prototyping Pilot</div>
+          </div>
+          <div style="background: var(--secondary-light); border: 1px solid #b8d4d2; border-radius: 8px; padding: 14px 16px;">
+            <div style="font-size: 14px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 4px;">AI Governance</div>
+            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">Use-case-specific AI approval in place. Control plane ingests DAC standards and component constraints — governance before generation.</div>
+            <div style="font-size: 10px; color: var(--secondary-dark); font-weight: 600;">From: Feedback · Roadmap Phase 2 · PCRI</div>
+          </div>
+          <div style="background: var(--neutral-50); border: 1px solid var(--neutral-150); border-radius: 8px; padding: 14px 16px;">
+            <div style="font-size: 14px; font-weight: 800; color: var(--neutral-800); margin-bottom: 4px;">Tool Consolidation</div>
+            <div style="font-size: 11px; color: var(--neutral-600); line-height: 1.4; margin-bottom: 6px;">Figma dependency reduction is a stated goal. Design and code in the same space — reducing tool sprawl and license overhead.</div>
+            <div style="font-size: 10px; color: var(--neutral-500); font-weight: 600;">From: Feedback · Tooling Consolidation · Outcome</div>
+          </div>
+        </div>
+
+        <div style="font-size: 12px; font-weight: 700; color: var(--neutral-600); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">Proposed Q2 focus areas — what would you prioritize?</div>
+
+        <div class="section-content" style="margin-bottom: 16px; padding: 0; overflow: hidden;">
+          <table class="data-table" style="font-size: 12px;">
+            <thead>
+              <tr>
+                <th scope="col" style="width: 22%;">Action</th>
+                <th scope="col" style="width: 15%;">Knapsack</th>
+                <th scope="col" style="width: 15%;">GSK</th>
+                <th scope="col" style="width: 16%;">Target</th>
+                <th scope="col" style="width: 32%;">How We'll Know</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>PCRI baseline</strong></td>
+                <td style="color: var(--neutral-600);">Amber Atkins</td>
+                <td style="color: var(--neutral-500); font-style: italic;">TBD today</td>
+                <td>End of March</td>
+                <td style="color: var(--neutral-600);">3–5 participants scored; archetype identified; readiness report delivered</td>
+              </tr>
+              <tr>
+                <td><strong>Activate MCP</strong></td>
+                <td style="color: var(--neutral-600);">Chris Bloom</td>
+                <td style="color: var(--neutral-500); font-style: italic;">TBD today</td>
+                <td>April</td>
+                <td style="color: var(--neutral-600);">MCP live with Knapsack content; evaluate DAC + Storybook ingestion</td>
+              </tr>
+              <tr>
+                <td><strong>Prototyping pilot</strong></td>
+                <td style="color: var(--neutral-600);">Chris Bloom</td>
+                <td style="color: var(--neutral-500); font-style: italic;">TBD today</td>
+                <td>May</td>
+                <td style="color: var(--neutral-600);">One brand project tested brief-to-UI workflow; results documented</td>
+              </tr>
+              <tr>
+                <td><strong>Governance prep</strong></td>
+                <td style="color: var(--neutral-600);">Amber Atkins</td>
+                <td style="color: var(--neutral-500); font-style: italic;">TBD today</td>
+                <td>April</td>
+                <td style="color: var(--neutral-600);">DTMS requirements identified; submission timeline agreed</td>
+              </tr>
+              <tr>
+                <td><strong>Success metrics</strong></td>
+                <td style="color: var(--neutral-600);">Amber Atkins</td>
+                <td style="color: var(--neutral-500); font-style: italic;">TBD today</td>
+                <td>Mid-April</td>
+                <td style="color: var(--neutral-600);">3–5 KPIs defined in GSK's words; tracked in Q2 QBR</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="background: var(--neutral-900); color: white; border-radius: 10px; padding: 24px 28px;">
+          <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em;">Let's decide together what Q2 looks like</div>
+          <div style="font-size: 14px; color: rgba(255,255,255,0.92); line-height: 1.7; margin-bottom: 16px;">Once the PCRI is complete, Amber will share a readiness report that maps your pillar scores to the four value drivers above — quantifying where the partnership is already creating returns and where to invest next. That becomes your Q2 plan — and it refreshes every quarter. Each QBR re-measures the PCRI, reviews usage trends, validates priorities, and updates the business case. A continuous cycle you can take to leadership with confidence.</div>
+          <div style="display: flex; gap: 12px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px;">
+            <div style="flex: 1; background: rgba(255,255,255,0.08); border-radius: 6px; padding: 12px 16px;">
+              <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Within 48 hours</div>
+              <div style="font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.5;">Amber delivers a <strong>Q2 Partnership Plan</strong> — the action table above finalized with GSK owners, plus a summary you can share with leadership.</div>
+            </div>
+            <div style="flex: 1; background: rgba(255,255,255,0.08); border-radius: 6px; padding: 12px 16px;">
+              <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Mid-Quarter Check-in</div>
+              <div style="font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.5;">30-minute sync in <strong>mid-April</strong> to review progress on the action table, address blockers, and adjust priorities before the Q2 QBR.</div>
+            </div>
+            <div style="flex: 1; background: rgba(255,255,255,0.08); border-radius: 6px; padding: 12px 16px;">
+              <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Q2 QBR</div>
+              <div style="font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.5;">Full review in <strong>June</strong> — including Goals vs. Actuals, updated PCRI scores, usage trends, and a refreshed business case.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="page-footer">
+      <div class="footer-contact">
+        <div class="footer-item"><strong>Presenter:</strong> Chris Strahl, CEO</div>
+        <div class="footer-item"><strong>CX:</strong> Amber Atkins</div>
+        <div class="footer-item"><strong>AE:</strong> Jon Boush</div>
+        <div class="footer-item"><strong>Mid-Quarter:</strong> April 2026</div>
+        <div class="footer-item"><strong>Next QBR:</strong> June 2026</div>
+      </div>
+      <div>Confidential · Knapsack · Q1 2026 QBR</div>
     </footer>
   </article>
 
   </main>
+
+  <!-- Navigation controls -->
+  <div class="slide-nav" aria-label="Slide navigation">
+    <button id="prev-btn" aria-label="Previous slide" disabled>&#8592;</button>
+    <span class="slide-counter" id="counter" aria-live="polite">1 / 5</span>
+    <button id="next-btn" aria-label="Next slide">&#8594;</button>
+  </div>
+
+  <script>
+    (function () {
+      const slides = document.querySelectorAll('.slide');
+      const total = slides.length;
+      const counter = document.getElementById('counter');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const progress = document.getElementById('progress');
+      let current = 0;
+
+      function goTo(index) {
+        if (index < 0 || index >= total || index === current) return;
+        const leaving = slides[current];
+        const entering = slides[index];
+
+        leaving.classList.remove('active');
+        leaving.classList.add(index > current ? 'exit-left' : '');
+        setTimeout(() => leaving.classList.remove('exit-left'), 450);
+
+        entering.scrollTop = 0;
+        entering.classList.add('active');
+
+        current = index;
+        counter.textContent = (current + 1) + ' / ' + total;
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === total - 1;
+        progress.style.width = ((current + 1) / total * 100) + '%';
+
+        updateAgendaBars();
+      }
+
+      function updateAgendaBars() {
+        slides.forEach((slide) => {
+          const items = slide.querySelectorAll('.agenda-item');
+          items.forEach((item) => {
+            const target = parseInt(item.getAttribute('data-target'));
+            item.classList.remove('active', 'visited');
+            if (target === current) item.classList.add('active');
+            else if (target < current) item.classList.add('visited');
+          });
+        });
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+          e.preventDefault();
+          goTo(current + 1);
+        }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          goTo(current - 1);
+        }
+        if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+        if (e.key === 'End') { e.preventDefault(); goTo(total - 1); }
+      });
+
+      prevBtn.addEventListener('click', () => goTo(current - 1));
+      nextBtn.addEventListener('click', () => goTo(current + 1));
+
+      document.querySelectorAll('.agenda-item[data-target]').forEach((item) => {
+        item.addEventListener('click', () => {
+          goTo(parseInt(item.getAttribute('data-target')));
+        });
+      });
+    })();
+  </script>
 
 </body>
 </html>
